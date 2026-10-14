@@ -1,0 +1,3266 @@
+[
+    {
+        "id": 1000,
+        "name": "Paracetamol Tablets 500mg",
+        "kn_name": "Paracetamol Tablets 500mg",
+        "price": 25,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "10 tablets",
+                "price": 25
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Paracetamol Tablets 500mg.jpg",
+        "image": "../images/Personal Care/tablet/Paracetamol Tablets 500mg.jpg"
+    },
+    {
+        "id": 1001,
+        "name": "Vitamin C Tablets",
+        "kn_name": "Vitamin C Tablets",
+        "price": 120,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "20 tablets",
+                "price": 120
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Vitamin C Tablets.jpg",
+        "image": "../images/Personal Care/tablet/Vitamin C Tablets.jpg"
+    },
+    {
+        "id": 1002,
+        "name": "Digital Thermometer",
+        "kn_name": "Digital Thermometer",
+        "price": 250,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 250
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Digital Thermometer.jpg",
+        "image": "../images/Personal Care/tablet/Digital Thermometer.jpg"
+    },
+    {
+        "id": 1003,
+        "name": "Hand Sanitizer (Alcohol-Based)",
+        "kn_name": "Hand Sanitizer (Alcohol-Based)",
+        "price": 160,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "200 ml",
+                "price": 160
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Hand Sanitizer (Alcohol-Based) 1.jpg",
+        "image": "../images/Personal Care/tablet/Hand Sanitizer (Alcohol-Based) 1.jpg"
+    },
+    {
+        "id": 1004,
+        "name": "Hand Sanitizer (Alcohol-Based)",
+        "kn_name": "Hand Sanitizer (Alcohol-Based)",
+        "price": 200,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "200 ml",
+                "price": 200
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Hand Sanitizer (Alcohol-Based)2.jpg",
+        "image": "../images/Personal Care/tablet/Hand Sanitizer (Alcohol-Based)2.jpg"
+    },
+    {
+        "id": 1005,
+        "name": "Dettol Antiseptic Liquid",
+        "kn_name": "Dettol Antiseptic Liquid",
+        "price": 180,
+        "category": "firstaid",
+        "variants": [
+            {
+                "label": "500 ml",
+                "price": 180
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Dettol Antiseptic Liquid 1.jpg",
+        "image": "../images/Personal Care/tablet/Dettol Antiseptic Liquid 1.jpg"
+    },
+    {
+        "id": 1006,
+        "name": "Dettol Antiseptic Liquid",
+        "kn_name": "Dettol Antiseptic Liquid",
+        "price": 320,
+        "category": "firstaid",
+        "variants": [
+            {
+                "label": "500 ml",
+                "price": 320
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Dettol Antiseptic Liquid 315.jpg",
+        "image": "../images/Personal Care/tablet/Dettol Antiseptic Liquid 315.jpg"
+    },
+    {
+        "id": 1007,
+        "name": "Pain Relief Balm",
+        "kn_name": "Pain Relief Balm",
+        "price": 85,
+        "category": "pain",
+        "variants": [
+            {
+                "label": "25 g",
+                "price": 85
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Pain Relief Balm.jpg",
+        "image": "../images/Personal Care/tablet/Pain Relief Balm.jpg"
+    },
+    {
+        "id": 1008,
+        "name": "Glucose Powder",
+        "kn_name": "Glucose Powder",
+        "price": 140,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "500 g",
+                "price": 140
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Glucose Powder.jpg",
+        "image": "../images/Personal Care/tablet/Glucose Powder.jpg"
+    },
+    {
+        "id": 1009,
+        "name": "ORS Sachets",
+        "kn_name": "ORS Sachets",
+        "price": 75,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "Pack of 5",
+                "price": 75
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/ORS Sachets.jpg",
+        "image": "../images/Personal Care/tablet/ORS Sachets.jpg"
+    },
+    {
+        "id": 1010,
+        "name": "Face Mask (Surgical)",
+        "kn_name": "Face Mask (Surgical)",
+        "price": 300,
+        "category": "firstaid",
+        "variants": [
+            {
+                "label": "Pack of 50",
+                "price": 300
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Face Mask (Surgical).jpg",
+        "image": "../images/Personal Care/tablet/Face Mask (Surgical).jpg"
+    },
+    {
+        "id": 1011,
+        "name": "Face Mask (Surgical)",
+        "kn_name": "Face Mask (Surgical)",
+        "price": 80,
+        "category": "firstaid",
+        "variants": [
+            {
+                "label": "1",
+                "price": 80
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Face Mask (Surgical) 50.jpg",
+        "image": "../images/Personal Care/tablet/Face Mask (Surgical) 50.jpg"
+    },
+    {
+        "id": 1012,
+        "name": "Blood Pressure Monitor",
+        "kn_name": "Blood Pressure Monitor",
+        "price": 1500,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 1500
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Blood Pressure Monitor.jpg",
+        "image": "../images/Personal Care/tablet/Blood Pressure Monitor.jpg"
+    },
+    {
+        "id": 1013,
+        "name": "Multivitamin Capsules",
+        "kn_name": "Multivitamin Capsules",
+        "price": 220,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "30 capsules",
+                "price": 220
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Multivitamin Capsules.jpg",
+        "image": "../images/Personal Care/tablet/Multivitamin Capsules.jpg"
+    },
+    {
+        "id": 1014,
+        "name": "Protein Powder",
+        "kn_name": "Protein Powder",
+        "price": 1200,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "1 kg",
+                "price": 1200
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Protein Powder.jpg",
+        "image": "../images/Personal Care/tablet/Protein Powder.jpg"
+    },
+    {
+        "id": 1015,
+        "name": "First Aid Kit",
+        "kn_name": "First Aid Kit",
+        "price": 450,
+        "category": "firstaid",
+        "variants": [
+            {
+                "label": "1 kit",
+                "price": 450
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/First Aid Kit.jpg",
+        "image": "../images/Personal Care/tablet/First Aid Kit.jpg"
+    },
+    {
+        "id": 1016,
+        "name": "Cough Syrup",
+        "kn_name": "Cough Syrup",
+        "price": 95,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 95
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Cough Syrup.jpg",
+        "image": "../images/Personal Care/tablet/Cough Syrup.jpg"
+    },
+    {
+        "id": 1017,
+        "name": "Antacid Liquid",
+        "kn_name": "Antacid Liquid",
+        "price": 110,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "170 ml",
+                "price": 110
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Antacid Liquid.jpg",
+        "image": "../images/Personal Care/tablet/Antacid Liquid.jpg"
+    },
+    {
+        "id": 1018,
+        "name": "Ibuprofen Tablets",
+        "kn_name": "Ibuprofen Tablets",
+        "price": 35,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "10 tablets",
+                "price": 35
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Ibuprofen Tablets.jpg",
+        "image": "../images/Personal Care/tablet/Ibuprofen Tablets.jpg"
+    },
+    {
+        "id": 1019,
+        "name": "Zinc Tablets",
+        "kn_name": "Zinc Tablets",
+        "price": 150,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "20 tablets",
+                "price": 150
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Zinc Tablets.jpg",
+        "image": "../images/Personal Care/tablet/Zinc Tablets.jpg"
+    },
+    {
+        "id": 1020,
+        "name": "Calcium Supplements",
+        "kn_name": "Calcium Supplements",
+        "price": 210,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "30 tablets",
+                "price": 210
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Calcium Supplements.jpg",
+        "image": "../images/Personal Care/tablet/Calcium Supplements.jpg"
+    },
+    {
+        "id": 1021,
+        "name": "Ayurvedic Chyawanprash",
+        "kn_name": "Ayurvedic Chyawanprash",
+        "price": 320,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "500 g",
+                "price": 320
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Ayurvedic Chyawanprash 180.jpg",
+        "image": "../images/Personal Care/tablet/Ayurvedic Chyawanprash 180.jpg"
+    },
+    {
+        "id": 1022,
+        "name": "Ayurvedic Chyawanprash",
+        "kn_name": "Ayurvedic Chyawanprash",
+        "price": 420,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "500 g",
+                "price": 420
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Ayurvedic Chyawanprash 415.jpg",
+        "image": "../images/Personal Care/tablet/Ayurvedic Chyawanprash 415.jpg"
+    },
+    {
+        "id": 1023,
+        "name": "Ayurvedic Chyawanprash",
+        "kn_name": "Ayurvedic Chyawanprash",
+        "price": 1260,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "500 g",
+                "price": 1260
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Ayurvedic Chyawanprash 1260.jpg",
+        "image": "../images/Personal Care/tablet/Ayurvedic Chyawanprash 1260.jpg"
+    },
+    {
+        "id": 1024,
+        "name": "Aloe Vera Gel",
+        "kn_name": "Aloe Vera Gel",
+        "price": 130,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "150 ml",
+                "price": 130
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Aloe Vera Gel.jpg",
+        "image": "../images/Personal Care/tablet/Aloe Vera Gel.jpg"
+    },
+    {
+        "id": 1025,
+        "name": "Betadine Antiseptic Solution",
+        "kn_name": "Betadine Antiseptic Solution",
+        "price": 160,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 160
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Betadine Antiseptic Solution 1.jpg",
+        "image": "../images/Personal Care/tablet/Betadine Antiseptic Solution 1.jpg"
+    },
+    {
+        "id": 1026,
+        "name": "Cotton Roll",
+        "kn_name": "Cotton Roll",
+        "price": 60,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "100 g",
+                "price": 60
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Cotton Roll.jpg",
+        "image": "../images/Personal Care/tablet/Cotton Roll.jpg"
+    },
+    {
+        "id": 1027,
+        "name": "Band-Aid Strips",
+        "kn_name": "Band-Aid Strips",
+        "price": 55,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "Pack of 20",
+                "price": 55
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Band-Aid Strips.jpg",
+        "image": "../images/Personal Care/tablet/Band-Aid Strips.jpg"
+    },
+    {
+        "id": 1028,
+        "name": "Pregnancy Test Kit",
+        "kn_name": "Pregnancy Test Kit",
+        "price": 90,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 90
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Pregnancy Test Kit.jpg",
+        "image": "../images/Personal Care/tablet/Pregnancy Test Kit.jpg"
+    },
+    {
+        "id": 1029,
+        "name": "Steam Inhaler",
+        "kn_name": "Steam Inhaler",
+        "price": 350,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 350
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Steam Inhaler.jpg",
+        "image": "../images/Personal Care/tablet/Steam Inhaler.jpg"
+    },
+    {
+        "id": 1030,
+        "name": "Nebulizer Machine",
+        "kn_name": "Nebulizer Machine",
+        "price": 2200,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 2200
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Nebulizer Machine.jpg",
+        "image": "../images/Personal Care/tablet/Nebulizer Machine.jpg"
+    },
+    {
+        "id": 1031,
+        "name": "Insulin Syringe",
+        "kn_name": "Insulin Syringe",
+        "price": 180,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "Pack of 10",
+                "price": 180
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Insulin Syringe.jpg",
+        "image": "../images/Personal Care/tablet/Insulin Syringe.jpg"
+    },
+    {
+        "id": 1032,
+        "name": "Thermometer Strips",
+        "kn_name": "Thermometer Strips",
+        "price": 70,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "Pack of 5",
+                "price": 70
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Thermometer Strips.jpg",
+        "image": "../images/Personal Care/tablet/Thermometer Strips.jpg"
+    },
+    {
+        "id": 1033,
+        "name": "Electrolyte Drink Powder",
+        "kn_name": "Electrolyte Drink Powder",
+        "price": 280,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "1 kg",
+                "price": 280
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Electrolyte Drink Powder.jpg",
+        "image": "../images/Personal Care/tablet/Electrolyte Drink Powder.jpg"
+    },
+    {
+        "id": 1034,
+        "name": "Digestive Enzyme Syrup",
+        "kn_name": "Digestive Enzyme Syrup",
+        "price": 170,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "200 ml",
+                "price": 170
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Digestive Enzyme Syrup 170.jpg",
+        "image": "../images/Personal Care/tablet/Digestive Enzyme Syrup 170.jpg"
+    },
+    {
+        "id": 1035,
+        "name": "Digestive Enzyme Syrup",
+        "kn_name": "Digestive Enzyme Syrup",
+        "price": 200,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "200 ml",
+                "price": 200
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Digestive Enzyme Syrup 200.jpg",
+        "image": "../images/Personal Care/tablet/Digestive Enzyme Syrup 200.jpg"
+    },
+    {
+        "id": 1036,
+        "name": "Digestive Enzyme Syrup",
+        "kn_name": "Digestive Enzyme Syrup",
+        "price": 230,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "200 ml",
+                "price": 230
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Digestive Enzyme Syrup 230.jpg",
+        "image": "../images/Personal Care/tablet/Digestive Enzyme Syrup 230.jpg"
+    },
+    {
+        "id": 1037,
+        "name": "Hair Growth Serum",
+        "kn_name": "Hair Growth Serum",
+        "price": 400,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "60 ml",
+                "price": 400
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Hair Growth Serum 400.jpg",
+        "image": "../images/Personal Care/tablet/Hair Growth Serum 400.jpg"
+    },
+    {
+        "id": 1038,
+        "name": "Hair Growth Serum",
+        "kn_name": "Hair Growth Serum",
+        "price": 1550,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "60 ml",
+                "price": 1550
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Hair Growth Serum 1550.jpg",
+        "image": "../images/Personal Care/tablet/Hair Growth Serum 1550.jpg"
+    },
+    {
+        "id": 1039,
+        "name": "Hair Growth Serum",
+        "kn_name": "Hair Growth Serum",
+        "price": 780,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "60 ml",
+                "price": 780
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Hair Growth Serum 780.jpg",
+        "image": "../images/Personal Care/tablet/Hair Growth Serum 780.jpg"
+    },
+    {
+        "id": 1040,
+        "name": "Anti-Dandruff Shampoo",
+        "kn_name": "Anti-Dandruff Shampoo",
+        "price": 250,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "180 ml",
+                "price": 250
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Anti-Dandruff Shampoo 250.jpg",
+        "image": "../images/Personal Care/tablet/Anti-Dandruff Shampoo 250.jpg"
+    },
+    {
+        "id": 1041,
+        "name": "Anti-Dandruff Shampoo",
+        "kn_name": "Anti-Dandruff Shampoo",
+        "price": 360,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "180 ml",
+                "price": 360
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Anti-Dandruff Shampoo 360.jpg",
+        "image": "../images/Personal Care/tablet/Anti-Dandruff Shampoo 360.jpg"
+    },
+    {
+        "id": 1042,
+        "name": "Anti-Dandruff Shampoo",
+        "kn_name": "Anti-Dandruff Shampoo",
+        "price": 420,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "180 ml",
+                "price": 420
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Anti-Dandruff Shampoo 420.jpg",
+        "image": "../images/Personal Care/tablet/Anti-Dandruff Shampoo 420.jpg"
+    },
+    {
+        "id": 1043,
+        "name": "Medicated Soap",
+        "kn_name": "Medicated Soap",
+        "price": 75,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "100 g",
+                "price": 75
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Medicated Soap.jpg",
+        "image": "../images/Personal Care/tablet/Medicated Soap.jpg"
+    },
+    {
+        "id": 1044,
+        "name": "Eye Drops",
+        "kn_name": "Eye Drops",
+        "price": 85,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "10 ml",
+                "price": 85
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Eye Drops.jpg",
+        "image": "../images/Personal Care/tablet/Eye Drops.jpg"
+    },
+    {
+        "id": 1045,
+        "name": "Nasal Spray",
+        "kn_name": "Nasal Spray",
+        "price": 140,
+        "category": "pain",
+        "variants": [
+            {
+                "label": "20 ml",
+                "price": 140
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Nasal Spray.jpg",
+        "image": "../images/Personal Care/tablet/Nasal Spray.jpg"
+    },
+    {
+        "id": 1046,
+        "name": "Hot Water Bag",
+        "kn_name": "Hot Water Bag",
+        "price": 240,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 240
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Hot Water Bag 200.jpg",
+        "image": "../images/Personal Care/tablet/Hot Water Bag 200.jpg"
+    },
+    {
+        "id": 1047,
+        "name": "Hot Water Bag min",
+        "kn_name": "Hot Water Bag min",
+        "price": 130,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 130
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Hot Water Bag min 130.jpg",
+        "image": "../images/Personal Care/tablet/Hot Water Bag min 130.jpg"
+    },
+    {
+        "id": 1048,
+        "name": "Digital Weighing Scale",
+        "kn_name": "Digital Weighing Scale",
+        "price": 900,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 900
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Digital Weighing Scale 800.jpg",
+        "image": "../images/Personal Care/tablet/Digital Weighing Scale 800.jpg"
+    },
+    {
+        "id": 1049,
+        "name": "Digital Weighing Scale",
+        "kn_name": "Digital Weighing Scale",
+        "price": 650,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 650
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Digital Weighing Scale 570.jpg",
+        "image": "../images/Personal Care/tablet/Digital Weighing Scale 570.jpg"
+    },
+    {
+        "id": 1050,
+        "name": "Pulse Oximeter",
+        "kn_name": "Pulse Oximeter",
+        "price": 620,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 620
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Pulse Oximeter 500.jpg",
+        "image": "../images/Personal Care/tablet/Pulse Oximeter 500.jpg"
+    },
+    {
+        "id": 1051,
+        "name": "Pulse Oximeter",
+        "kn_name": "Pulse Oximeter",
+        "price": 1350,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 1350
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Pulse Oximeter 1350.jpg",
+        "image": "../images/Personal Care/tablet/Pulse Oximeter 1350.jpg"
+    },
+    {
+        "id": 1052,
+        "name": "Pulse Oximeter",
+        "kn_name": "Pulse Oximeter",
+        "price": 1600,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 1600
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Pulse Oximeter 1600.jpg",
+        "image": "../images/Personal Care/tablet/Pulse Oximeter 1600.jpg"
+    },
+    {
+        "id": 1053,
+        "name": "Knee Support Belt",
+        "kn_name": "Knee Support Belt",
+        "price": 450,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 450
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Knee Support Belt 400.jpg",
+        "image": "../images/Personal Care/tablet/Knee Support Belt 400.jpg"
+    },
+    {
+        "id": 1054,
+        "name": "Knee Support Belt",
+        "kn_name": "Knee Support Belt",
+        "price": 600,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 600
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Knee Support Belt 600.jpg",
+        "image": "../images/Personal Care/tablet/Knee Support Belt 600.jpg"
+    },
+    {
+        "id": 1055,
+        "name": "Knee Support Belt",
+        "kn_name": "Knee Support Belt",
+        "price": 700,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 700
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Knee Support Belt 690.jpg",
+        "image": "../images/Personal Care/tablet/Knee Support Belt 690.jpg"
+    },
+    {
+        "id": 1056,
+        "name": "Knee Support Belt",
+        "kn_name": "Knee Support Belt",
+        "price": 820,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 820
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Knee Support Belt 800.jpg",
+        "image": "../images/Personal Care/tablet/Knee Support Belt 800.jpg"
+    },
+    {
+        "id": 1057,
+        "name": "Back Pain Relief Spray",
+        "kn_name": "Back Pain Relief Spray",
+        "price": 220,
+        "category": "pain",
+        "variants": [
+            {
+                "label": "50 ml",
+                "price": 220
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Back Pain Relief Spray 220.jpg",
+        "image": "../images/Personal Care/tablet/Back Pain Relief Spray 220.jpg"
+    },
+    {
+        "id": 1058,
+        "name": "Back Pain Relief Spray",
+        "kn_name": "Back Pain Relief Spray",
+        "price": 180,
+        "category": "pain",
+        "variants": [
+            {
+                "label": "50 ml",
+                "price": 180
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Back Pain Relief Spray 151.jpg",
+        "image": "../images/Personal Care/tablet/Back Pain Relief Spray 151.jpg"
+    },
+    {
+        "id": 1059,
+        "name": "Back Pain Relief Spray",
+        "kn_name": "Back Pain Relief Spray",
+        "price": 180,
+        "category": "pain",
+        "variants": [
+            {
+                "label": "50 ml",
+                "price": 180
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Back Pain Relief Spray 145.jpg",
+        "image": "../images/Personal Care/tablet/Back Pain Relief Spray 145.jpg"
+    },
+    {
+        "id": 1060,
+        "name": "Back Pain Relief Spray",
+        "kn_name": "Back Pain Relief Spray",
+        "price": 180,
+        "category": "pain",
+        "variants": [
+            {
+                "label": "50 ml",
+                "price": 180
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Back Pain Relief Spray 65.jpg",
+        "image": "../images/Personal Care/tablet/Back Pain Relief Spray 65.jpg"
+    },
+    {
+        "id": 1061,
+        "name": "Back Pain Relief Spray relispray",
+        "kn_name": "Back Pain Relief Spray relispray",
+        "price": 380,
+        "category": "pain",
+        "variants": [
+            {
+                "label": "50 ml",
+                "price": 380
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Back Pain Relief Spray relispray 173-380.jpg",
+        "image": "../images/Personal Care/tablet/Back Pain Relief Spray relispray 173-380.jpg"
+    },
+    {
+        "id": 1062,
+        "name": "Back Pain Relief Spray moov",
+        "kn_name": "Back Pain Relief Spray moov",
+        "price": 180,
+        "category": "pain",
+        "variants": [
+            {
+                "label": "50 ml",
+                "price": 180
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Back Pain Relief Spray moov 180.jpg",
+        "image": "../images/Personal Care/tablet/Back Pain Relief Spray moov 180.jpg"
+    },
+    {
+        "id": 1063,
+        "name": "Vitamin D3 Capsules",
+        "kn_name": "Vitamin D3 Capsules",
+        "price": 180,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "30 capsules",
+                "price": 180
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Vitamin D3 Capsules 40.jpg",
+        "image": "../images/Personal Care/tablet/Vitamin D3 Capsules 40.jpg"
+    },
+    {
+        "id": 1064,
+        "name": "Iron Supplements",
+        "kn_name": "Iron Supplements",
+        "price": 350,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "30 tablets",
+                "price": 350
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Iron Supplements 325.jpg",
+        "image": "../images/Personal Care/tablet/Iron Supplements 325.jpg"
+    },
+    {
+        "id": 1065,
+        "name": "OZiva Plant Based Iron Supplements",
+        "kn_name": "OZiva Plant Based Iron Supplements",
+        "price": 850,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "30 tablets",
+                "price": 850
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/OZiva Plant Based Iron Supplements 800.jpg",
+        "image": "../images/Personal Care/tablet/OZiva Plant Based Iron Supplements 800.jpg"
+    },
+    {
+        "id": 1066,
+        "name": "Iron, Omega for Control Hair Fall, Hair Growth Supplements",
+        "kn_name": "Iron, Omega for Control Hair Fall, Hair Growth Supplements",
+        "price": 160,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "30 tablets",
+                "price": 160
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Iron, Omega for Control Hair Fall, Hair Growth Supplements  150.jpg",
+        "image": "../images/Personal Care/tablet/Iron, Omega for Control Hair Fall, Hair Growth Supplements  150.jpg"
+    },
+    {
+        "id": 1067,
+        "name": "Probiotic Capsules",
+        "kn_name": "Probiotic Capsules",
+        "price": 350,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "20 capsules",
+                "price": 350
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Probiotic Capsules 325.jpg",
+        "image": "../images/Personal Care/tablet/Probiotic Capsules 325.jpg"
+    },
+    {
+        "id": 1068,
+        "name": "Probiotic Capsules",
+        "kn_name": "Probiotic Capsules",
+        "price": 750,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "20 capsules",
+                "price": 750
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Probiotic Capsules 720.jpg",
+        "image": "../images/Personal Care/tablet/Probiotic Capsules 720.jpg"
+    },
+    {
+        "id": 1069,
+        "name": "Diarrhea For Kids & Adults Strip Of 4 Capsules",
+        "kn_name": "Diarrhea For Kids & Adults Strip Of 4 Capsules",
+        "price": 350,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "20 capsules",
+                "price": 350
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Diarrhea For Kids & Adults Strip Of 4 Capsules 165.jpg",
+        "image": "../images/Personal Care/tablet/Diarrhea For Kids & Adults Strip Of 4 Capsules 165.jpg"
+    },
+    {
+        "id": 1070,
+        "name": "Tata Probiotics 30 Billion CFUs+ 60 Capsules",
+        "kn_name": "Tata Probiotics 30 Billion CFUs+ 60 Capsules",
+        "price": 250,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "20 capsules",
+                "price": 250
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Tata Probiotics 30 Billion CFUs+ 60 Capsules 260.jpg",
+        "image": "../images/Personal Care/tablet/Tata Probiotics 30 Billion CFUs+ 60 Capsules 260.jpg"
+    },
+    {
+        "id": 1071,
+        "name": "Antiseptic Cream",
+        "kn_name": "Antiseptic Cream",
+        "price": 95,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "30 g",
+                "price": 95
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Antiseptic Cream 40.jpg",
+        "image": "../images/Personal Care/tablet/Antiseptic Cream 40.jpg"
+    },
+    {
+        "id": 1072,
+        "name": "Himalaya Antiseptic Cream",
+        "kn_name": "Himalaya Antiseptic Cream",
+        "price": 65,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "20 g",
+                "price": 65
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Himalaya Antiseptic Cream 20g 55.jpg",
+        "image": "../images/Personal Care/tablet/Himalaya Antiseptic Cream 20g 55.jpg"
+    },
+    {
+        "id": 1073,
+        "name": "Himalaya Antiseptic Cream",
+        "kn_name": "Himalaya Antiseptic Cream",
+        "price": 75,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "30 g",
+                "price": 75
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Himalaya Antiseptic Cream 50.jpg",
+        "image": "../images/Personal Care/tablet/Himalaya Antiseptic Cream 50.jpg"
+    },
+    {
+        "id": 1074,
+        "name": "BoroPlus Antiseptic Cream",
+        "kn_name": "BoroPlus Antiseptic Cream",
+        "price": 95,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "30 g",
+                "price": 95
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/BoroPlus Antiseptic Cream 95.jpg",
+        "image": "../images/Personal Care/tablet/BoroPlus Antiseptic Cream 95.jpg"
+    },
+    {
+        "id": 1075,
+        "name": "Burn Relief Gel",
+        "kn_name": "Burn Relief Gel",
+        "price": 90,
+        "category": "pain",
+        "variants": [
+            {
+                "label": "40 g",
+                "price": 90
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Burn Relief Gel 68.jpg",
+        "image": "../images/Personal Care/tablet/Burn Relief Gel 68.jpg"
+    },
+    {
+        "id": 1076,
+        "name": "Mosquito Repellent Cream",
+        "kn_name": "Mosquito Repellent Cream",
+        "price": 65,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "50 ml",
+                "price": 65
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Mosquito Repellent Cream 48.jpg",
+        "image": "../images/Personal Care/tablet/Mosquito Repellent Cream 48.jpg"
+    },
+    {
+        "id": 1077,
+        "name": "Mosquito Repellent Cream",
+        "kn_name": "Mosquito Repellent Cream",
+        "price": 110,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "50 ml",
+                "price": 110
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Mosquito Repellent Cream 110.jpg",
+        "image": "../images/Personal Care/tablet/Mosquito Repellent Cream 110.jpg"
+    },
+    {
+        "id": 1078,
+        "name": "Odomos Naturals Mosquito Repellent Cream wellness forever",
+        "kn_name": "Odomos Naturals Mosquito Repellent Cream wellness forever",
+        "price": 85,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "50 ml",
+                "price": 85
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Odomos Naturals Mosquito Repellent Cream wellness forever 58.jpg",
+        "image": "../images/Personal Care/tablet/Odomos Naturals Mosquito Repellent Cream wellness forever 58.jpg"
+    },
+    {
+        "id": 1079,
+        "name": "Liquid Hand Wash (Medicinal)",
+        "kn_name": "Liquid Hand Wash (Medicinal)",
+        "price": 180,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "250 ml",
+                "price": 180
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Liquid Hand Wash (Medicinal) 180.jpg",
+        "image": "../images/Personal Care/tablet/Liquid Hand Wash (Medicinal) 180.jpg"
+    },
+    {
+        "id": 1080,
+        "name": "Medical Gloves",
+        "kn_name": "Medical Gloves",
+        "price": 400,
+        "category": "firstaid",
+        "variants": [
+            {
+                "label": "Pack of 100",
+                "price": 400
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Medical Gloves.jpg",
+        "image": "../images/Personal Care/tablet/Medical Gloves.jpg"
+    },
+    {
+        "id": 1081,
+        "name": "Face Shield",
+        "kn_name": "Face Shield",
+        "price": 380,
+        "category": "firstaid",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 380
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Face Shield.jpg",
+        "image": "../images/Personal Care/tablet/Face Shield.jpg"
+    },
+    {
+        "id": 1082,
+        "name": "Surgical Tape",
+        "kn_name": "Surgical Tape",
+        "price": 128,
+        "category": "firstaid",
+        "variants": [
+            {
+                "label": "1 roll",
+                "price": 128
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Surgical Tape 128.jpg",
+        "image": "../images/Personal Care/tablet/Surgical Tape 128.jpg"
+    },
+    {
+        "id": 1083,
+        "name": "Romsons Kenpore Surgical Tape",
+        "kn_name": "Romsons Kenpore Surgical Tape",
+        "price": 360,
+        "category": "firstaid",
+        "variants": [
+            {
+                "label": "1 roll",
+                "price": 360
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Romsons Kenpore Surgical Tape 350.jpg",
+        "image": "../images/Personal Care/tablet/Romsons Kenpore Surgical Tape 350.jpg"
+    },
+    {
+        "id": 1084,
+        "name": "Doctor s Choice Micropore Surgical Tape",
+        "kn_name": "Doctor s Choice Micropore Surgical Tape",
+        "price": 128,
+        "category": "firstaid",
+        "variants": [
+            {
+                "label": "1 roll",
+                "price": 128
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Doctor's Choice Micropore Surgical Tape 20.jpg",
+        "image": "../images/Personal Care/tablet/Doctor's Choice Micropore Surgical Tape 20.jpg"
+    },
+    {
+        "id": 1085,
+        "name": "Crepe Bandage",
+        "kn_name": "Crepe Bandage",
+        "price": 90,
+        "category": "firstaid",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 90
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Crepe Bandage 75.jpg",
+        "image": "../images/Personal Care/tablet/Crepe Bandage 75.jpg"
+    },
+    {
+        "id": 1086,
+        "name": "Hansaplast Cotton Crepe Bandage",
+        "kn_name": "Hansaplast Cotton Crepe Bandage",
+        "price": 150,
+        "category": "firstaid",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 150
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Hansaplast Cotton Crepe Bandage 150.jpg",
+        "image": "../images/Personal Care/tablet/Hansaplast Cotton Crepe Bandage 150.jpg"
+    },
+    {
+        "id": 1087,
+        "name": "Digital Glucometer",
+        "kn_name": "Digital Glucometer",
+        "price": 700,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 700
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Digital Glucometer 620.jpg",
+        "image": "../images/Personal Care/tablet/Digital Glucometer 620.jpg"
+    },
+    {
+        "id": 1088,
+        "name": "Glucometer Test Strips",
+        "kn_name": "Glucometer Test Strips",
+        "price": 800,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "Pack of 50",
+                "price": 800
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Glucometer Test Strips.jpg",
+        "image": "../images/Personal Care/tablet/Glucometer Test Strips.jpg"
+    },
+    {
+        "id": 1089,
+        "name": "Lancets for Glucometer",
+        "kn_name": "Lancets for Glucometer",
+        "price": 250,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "Pack of 100",
+                "price": 250
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/lancets/Lancets for Glucometer 130.jpg",
+        "image": "../images/lancets/Lancets for Glucometer 130.jpg"
+    },
+    {
+        "id": 1090,
+        "name": "Liver Tonic Syrup",
+        "kn_name": "Liver Tonic Syrup",
+        "price": 140,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "200 ml",
+                "price": 140
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Liver Tonic Syrup 120.jpg",
+        "image": "../images/Personal Care/tablet/Liver Tonic Syrup 120.jpg"
+    },
+    {
+        "id": 1091,
+        "name": "Torque\u2019s Torliv Ayurvedic Healthy Liver Tonic Syrup",
+        "kn_name": "Torque\u2019s Torliv Ayurvedic Healthy Liver Tonic Syrup",
+        "price": 140,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "200 ml",
+                "price": 140
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Torque\u2019s Torliv Ayurvedic Healthy Liver Tonic Syrup \u2013 200m 130.jpg",
+        "image": "../images/Personal Care/tablet/Torque\u2019s Torliv Ayurvedic Healthy Liver Tonic Syrup \u2013 200m 130.jpg"
+    },
+    {
+        "id": 1092,
+        "name": "Herbal Immunity Booster",
+        "kn_name": "Herbal Immunity Booster",
+        "price": 260,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "250 ml",
+                "price": 260
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Herbal Immunity Booster 230.jpg",
+        "image": "../images/Personal Care/tablet/Herbal Immunity Booster 230.jpg"
+    },
+    {
+        "id": 1093,
+        "name": "Herbal Booster Original Tablets For Immunity Booster",
+        "kn_name": "Herbal Booster Original Tablets For Immunity Booster",
+        "price": 960,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "30 capsules",
+                "price": 960
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Herbal Booster Original Tablets For Immunity Booster (30 Tablets) 960.jpg",
+        "image": "../images/Personal Care/tablet/Herbal Booster Original Tablets For Immunity Booster (30 Tablets) 960.jpg"
+    },
+    {
+        "id": 1094,
+        "name": "Attar Ayurveda Herbalvilla Immunity Booster capsules",
+        "kn_name": "Attar Ayurveda Herbalvilla Immunity Booster capsules",
+        "price": 300,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "60 capsules",
+                "price": 300
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Attar Ayurveda Herbalvilla Immunity Booster capsules 60 capsules 300.jpg",
+        "image": "../images/Personal Care/tablet/Attar Ayurveda Herbalvilla Immunity Booster capsules 60 capsules 300.jpg"
+    },
+    {
+        "id": 1095,
+        "name": "Ambrosial Herbal Immunity Booster",
+        "kn_name": "Ambrosial Herbal Immunity Booster",
+        "price": 700,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "60 tablets",
+                "price": 700
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Ambrosial Herbal Immunity Booster 60 Tablets 630-700.jpg",
+        "image": "../images/Personal Care/tablet/Ambrosial Herbal Immunity Booster 60 Tablets 630-700.jpg"
+    },
+    {
+        "id": 1096,
+        "name": "Spice Sip Natural Immunity Booster Herbal Tea",
+        "kn_name": "Spice Sip Natural Immunity Booster Herbal Tea",
+        "price": 300,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "capsules",
+                "price": 300
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Spice Sip Natural Immunity Booster Herbal Tea165.jpg",
+        "image": "../images/Personal Care/tablet/Spice Sip Natural Immunity Booster Herbal Tea165.jpg"
+    },
+    {
+        "id": 1097,
+        "name": "Tulsi Drops",
+        "kn_name": "Tulsi Drops",
+        "price": 120,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "30 ml",
+                "price": 120
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Tulsi Drops 160.jpg",
+        "image": "../images/Personal Care/tablet/Tulsi Drops 160.jpg"
+    },
+    {
+        "id": 1098,
+        "name": "Dabur Tulsi Drops",
+        "kn_name": "Dabur Tulsi Drops",
+        "price": 190,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "30 ml",
+                "price": 190
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Dabur Tulsi Drops 120-190.jpg",
+        "image": "../images/Personal Care/tablet/Dabur Tulsi Drops 120-190.jpg"
+    },
+    {
+        "id": 1099,
+        "name": "Apollo Pharmacy Panch Tulsi Drops",
+        "kn_name": "Apollo Pharmacy Panch Tulsi Drops",
+        "price": 180,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "30 ml",
+                "price": 180
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Apollo Pharmacy Panch Tulsi Drops 175.jpg",
+        "image": "../images/Personal Care/tablet/Apollo Pharmacy Panch Tulsi Drops 175.jpg"
+    },
+    {
+        "id": 1100,
+        "name": "MyUpchar Tulsi Drops",
+        "kn_name": "MyUpchar Tulsi Drops",
+        "price": 260,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "30 ml",
+                "price": 260
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/MyUpchar Tulsi Drops 260.jpg",
+        "image": "../images/Personal Care/tablet/MyUpchar Tulsi Drops 260.jpg"
+    },
+    {
+        "id": 1101,
+        "name": "mrit Tulsi Drops",
+        "kn_name": "mrit Tulsi Drops",
+        "price": 330,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "30 ml",
+                "price": 330
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/mrit Tulsi Drops 330.jpg",
+        "image": "../images/Personal Care/tablet/mrit Tulsi Drops 330.jpg"
+    },
+    {
+        "id": 1102,
+        "name": "Ashwagandha Capsules",
+        "kn_name": "Ashwagandha Capsules",
+        "price": 810,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "60 capsules",
+                "price": 810
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Ashwagandha Capsules 810.jpg",
+        "image": "../images/Personal Care/tablet/Ashwagandha Capsules 810.jpg"
+    },
+    {
+        "id": 1103,
+        "name": "ORGANIC INDIA Ashwagandha Capsules",
+        "kn_name": "ORGANIC INDIA Ashwagandha Capsules",
+        "price": 380,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "60 capsules",
+                "price": 380
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/ORGANIC INDIA Ashwagandha Capsules 380.jpg",
+        "image": "../images/Personal Care/tablet/ORGANIC INDIA Ashwagandha Capsules 380.jpg"
+    },
+    {
+        "id": 1104,
+        "name": "Himalaya Pain Relief Oil",
+        "kn_name": "Himalaya Pain Relief Oil",
+        "price": 170,
+        "category": "pain",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 170
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Himalaya Pain Relief Oil 100-150.jpg",
+        "image": "../images/Personal Care/tablet/Himalaya Pain Relief Oil 100-150.jpg"
+    },
+    {
+        "id": 1105,
+        "name": "Hiran Pain Relief Oil",
+        "kn_name": "Hiran Pain Relief Oil",
+        "price": 150,
+        "category": "pain",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 150
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Hiran Pain Relief Oil 480.jpg",
+        "image": "../images/Personal Care/tablet/Hiran Pain Relief Oil 480.jpg"
+    },
+    {
+        "id": 1106,
+        "name": "Pain Relief Oil 50 ml Pack of 1 Krishna s Herbal & Ayurveda",
+        "kn_name": "Pain Relief Oil 50 ml Pack of 1 Krishna s Herbal & Ayurveda",
+        "price": 150,
+        "category": "pain",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 150
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Pain Relief Oil 50 ml Pack of 1 Krishna's Herbal & Ayurveda 140.jpg",
+        "image": "../images/Personal Care/tablet/Pain Relief Oil 50 ml Pack of 1 Krishna's Herbal & Ayurveda 140.jpg"
+    },
+    {
+        "id": 1107,
+        "name": "Apollo Pharmacy Pain Relief Oil",
+        "kn_name": "Apollo Pharmacy Pain Relief Oil",
+        "price": 120,
+        "category": "pain",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 120
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Apollo Pharmacy Pain Relief Oil 120.jpg",
+        "image": "../images/Personal Care/tablet/Apollo Pharmacy Pain Relief Oil 120.jpg"
+    },
+    {
+        "id": 1108,
+        "name": "Cold Relief Balm",
+        "kn_name": "Cold Relief Balm",
+        "price": 60,
+        "category": "pain",
+        "variants": [
+            {
+                "label": "20 g",
+                "price": 60
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Cold Relief Balm 45.jpg",
+        "image": "../images/Personal Care/tablet/Cold Relief Balm 45.jpg"
+    },
+    {
+        "id": 1109,
+        "name": "Cold Relief Balm",
+        "kn_name": "Cold Relief Balm",
+        "price": 120,
+        "category": "pain",
+        "variants": [
+            {
+                "label": "20 g",
+                "price": 120
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Cold Relief Balm 46-120.jpg",
+        "image": "../images/Personal Care/tablet/Cold Relief Balm 46-120.jpg"
+    },
+    {
+        "id": 1110,
+        "name": "Anti-Allergy Tablets",
+        "kn_name": "Anti-Allergy Tablets",
+        "price": 320,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "10 tablets",
+                "price": 320
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Anti-Allergy Tablets 320.jpg",
+        "image": "../images/Personal Care/tablet/Anti-Allergy Tablets 320.jpg"
+    },
+    {
+        "id": 1111,
+        "name": "Throat Lozenges",
+        "kn_name": "Throat Lozenges",
+        "price": 65,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "Pack of 20",
+                "price": 65
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Throat Lozenges 47.jpg",
+        "image": "../images/Personal Care/tablet/Throat Lozenges 47.jpg"
+    },
+    {
+        "id": 1112,
+        "name": "Strepsils Sore Throat Lozenges - Ginger & Lemon",
+        "kn_name": "Strepsils Sore Throat Lozenges - Ginger & Lemon",
+        "price": 65,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "Pack of 20",
+                "price": 65
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Strepsils Sore Throat Lozenges - Ginger & Lemon 35.jpg",
+        "image": "../images/Personal Care/tablet/Strepsils Sore Throat Lozenges - Ginger & Lemon 35.jpg"
+    },
+    {
+        "id": 1113,
+        "name": "Oral Rehydration Drink",
+        "kn_name": "Oral Rehydration Drink",
+        "price": 40,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "250 ml",
+                "price": 40
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Oral Rehydration Drink 32.jpg",
+        "image": "../images/Personal Care/tablet/Oral Rehydration Drink 32.jpg"
+    },
+    {
+        "id": 1114,
+        "name": "Foot Care Cream",
+        "kn_name": "Foot Care Cream",
+        "price": 100,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "50 g",
+                "price": 100
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Foot Care Cream 95.jpg",
+        "image": "../images/Personal Care/tablet/Foot Care Cream 95.jpg"
+    },
+    {
+        "id": 1115,
+        "name": "Himalaya Foot Care Cream",
+        "kn_name": "Himalaya Foot Care Cream",
+        "price": 140,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "50 g",
+                "price": 140
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Himalaya Foot Care Cream 135.jpg",
+        "image": "../images/Personal Care/tablet/Himalaya Foot Care Cream 135.jpg"
+    },
+    {
+        "id": 1116,
+        "name": "Moha Foot Care Cream",
+        "kn_name": "Moha Foot Care Cream",
+        "price": 320,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "50 g",
+                "price": 320
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Moha Foot Care Cream 318.jpg",
+        "image": "../images/Personal Care/tablet/Moha Foot Care Cream 318.jpg"
+    },
+    {
+        "id": 1117,
+        "name": "Crack Heel Repair Cream",
+        "kn_name": "Crack Heel Repair Cream",
+        "price": 90,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "60 g",
+                "price": 90
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Crack Heel Repair Cream 88.jpg",
+        "image": "../images/Personal Care/tablet/Crack Heel Repair Cream 88.jpg"
+    },
+    {
+        "id": 1118,
+        "name": "Heelmate Cracked Heel Repair Cream",
+        "kn_name": "Heelmate Cracked Heel Repair Cream",
+        "price": 140,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "60 g",
+                "price": 140
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Heelmate Cracked Heel Repair Cream 136.jpg",
+        "image": "../images/Personal Care/tablet/Heelmate Cracked Heel Repair Cream 136.jpg"
+    },
+    {
+        "id": 1119,
+        "name": "Sunscreen Lotion SPF 50",
+        "kn_name": "Sunscreen Lotion SPF 50",
+        "price": 350,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 350
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/lotion/Sunscreen Lotion SPF 50.jpg",
+        "image": "../images/lotion/Sunscreen Lotion SPF 50.jpg"
+    },
+    {
+        "id": 1120,
+        "name": "Lip Balm Medicated",
+        "kn_name": "Lip Balm Medicated",
+        "price": 75,
+        "category": "pain",
+        "variants": [
+            {
+                "label": "10 g",
+                "price": 75
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Lip Balm Medicated.jpg",
+        "image": "../images/Personal Care/tablet/Lip Balm Medicated.jpg"
+    },
+    {
+        "id": 1121,
+        "name": "Antifungal Powder",
+        "kn_name": "Antifungal Powder",
+        "price": 90,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "100 g",
+                "price": 90
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Antifungal Powder 80.jpg",
+        "image": "../images/Personal Care/tablet/Antifungal Powder 80.jpg"
+    },
+    {
+        "id": 1122,
+        "name": "Toilet Seat Sanitizer Spray",
+        "kn_name": "Toilet Seat Sanitizer Spray",
+        "price": 80,
+        "category": "pain",
+        "variants": [
+            {
+                "label": "75 ml",
+                "price": 80
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Toilet Seat Sanitizer Spray 72.jpg",
+        "image": "../images/Personal Care/tablet/Toilet Seat Sanitizer Spray 72.jpg"
+    },
+    {
+        "id": 1123,
+        "name": "Toilet Seat Sanitizer Spray",
+        "kn_name": "Toilet Seat Sanitizer Spray",
+        "price": 200,
+        "category": "pain",
+        "variants": [
+            {
+                "label": "75 ml",
+                "price": 200
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Toilet Seat Sanitizer Spray  200.jpg",
+        "image": "../images/Personal Care/tablet/Toilet Seat Sanitizer Spray  200.jpg"
+    },
+    {
+        "id": 1124,
+        "name": "Evereve Pee Secure Toilet Seat Sanitizer Spray Combo",
+        "kn_name": "Evereve Pee Secure Toilet Seat Sanitizer Spray Combo",
+        "price": 200,
+        "category": "pain",
+        "variants": [
+            {
+                "label": "75 ml",
+                "price": 200
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Evereve Pee Secure Toilet Seat Sanitizer Spray Combo 190.jpg",
+        "image": "../images/Personal Care/tablet/Evereve Pee Secure Toilet Seat Sanitizer Spray Combo 190.jpg"
+    },
+    {
+        "id": 1125,
+        "name": "Harpic Toilet Seat Sanitizer & Disinfectant Spray",
+        "kn_name": "Harpic Toilet Seat Sanitizer & Disinfectant Spray",
+        "price": 220,
+        "category": "pain",
+        "variants": [
+            {
+                "label": "75 ml",
+                "price": 220
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Harpic Toilet Seat Sanitizer & Disinfectant Spray 210.jpg",
+        "image": "../images/Personal Care/tablet/Harpic Toilet Seat Sanitizer & Disinfectant Spray 210.jpg"
+    },
+    {
+        "id": 1126,
+        "name": "Disinfectant Surface Spray",
+        "kn_name": "Disinfectant Surface Spray",
+        "price": 220,
+        "category": "pain",
+        "variants": [
+            {
+                "label": "200 ml",
+                "price": 220
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Disinfectant Surface Spray 169.jpg",
+        "image": "../images/Personal Care/tablet/Disinfectant Surface Spray 169.jpg"
+    },
+    {
+        "id": 1127,
+        "name": "Vitamin B-Complex Tablets",
+        "kn_name": "Vitamin B-Complex Tablets",
+        "price": 170,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "30 tablets",
+                "price": 170
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Vitamin B-Complex Tablets.jpg",
+        "image": "../images/Personal Care/tablet/Vitamin B-Complex Tablets.jpg"
+    },
+    {
+        "id": 1128,
+        "name": "Omega 3 Fish Oil Capsules",
+        "kn_name": "Omega 3 Fish Oil Capsules",
+        "price": 450,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "60 capsules",
+                "price": 450
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Omega 3 Fish Oil Capsules.jpg",
+        "image": "../images/Personal Care/tablet/Omega 3 Fish Oil Capsules.jpg"
+    },
+    {
+        "id": 1129,
+        "name": "Collagen Powder",
+        "kn_name": "Collagen Powder",
+        "price": 900,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "250 g",
+                "price": 900
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Collagen Powder.jpg",
+        "image": "../images/Personal Care/tablet/Collagen Powder.jpg"
+    },
+    {
+        "id": 1130,
+        "name": "Protein Bars",
+        "kn_name": "Protein Bars",
+        "price": 420,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "Pack of 6",
+                "price": 420
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Protein Bars 420.jpg",
+        "image": "../images/Personal Care/tablet/Protein Bars 420.jpg"
+    },
+    {
+        "id": 1131,
+        "name": "Energy Drink Powder",
+        "kn_name": "Energy Drink Powder",
+        "price": 360,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "500 g",
+                "price": 360
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Energy Drink Powder.jpg",
+        "image": "../images/Personal Care/tablet/Energy Drink Powder.jpg"
+    },
+    {
+        "id": 1132,
+        "name": "Anti-Itch Cream",
+        "kn_name": "Anti-Itch Cream",
+        "price": 295,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "30 g",
+                "price": 295
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Anti-Itch Cream 290.jpg",
+        "image": "../images/Personal Care/tablet/Anti-Itch Cream 290.jpg"
+    },
+    {
+        "id": 1133,
+        "name": "Skin Rash Ointment",
+        "kn_name": "Skin Rash Ointment",
+        "price": 110,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "25 g",
+                "price": 110
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Skin Rash Ointment.jpg",
+        "image": "../images/Personal Care/tablet/Skin Rash Ointment.jpg"
+    },
+    {
+        "id": 1134,
+        "name": "Acne Treatment Gel",
+        "kn_name": "Acne Treatment Gel",
+        "price": 250,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "20 g",
+                "price": 250
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Acne Treatment Gel 230.jpg",
+        "image": "../images/Personal Care/tablet/Acne Treatment Gel 230.jpg"
+    },
+    {
+        "id": 1135,
+        "name": "Benzoyl Peroxide Acne Treatment Gel",
+        "kn_name": "Benzoyl Peroxide Acne Treatment Gel",
+        "price": 250,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "20 g",
+                "price": 250
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Benzoyl Peroxide Acne Treatment Gel 79.jpg",
+        "image": "../images/Personal Care/tablet/Benzoyl Peroxide Acne Treatment Gel 79.jpg"
+    },
+    {
+        "id": 1136,
+        "name": "Scar Removal Gel",
+        "kn_name": "Scar Removal Gel",
+        "price": 520,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "20 g",
+                "price": 520
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Scar Removal Gel 500.jpg",
+        "image": "../images/Personal Care/tablet/Scar Removal Gel 500.jpg"
+    },
+    {
+        "id": 1137,
+        "name": "Hair Loss Tablets",
+        "kn_name": "Hair Loss Tablets",
+        "price": 170,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "tablets",
+                "price": 170
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Hair Loss Tablets refollium biotin 169.jpg",
+        "image": "../images/Personal Care/tablet/Hair Loss Tablets refollium biotin 169.jpg"
+    },
+    {
+        "id": 1138,
+        "name": "Beard Growth Oil",
+        "kn_name": "Beard Growth Oil",
+        "price": 600,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "50 ml",
+                "price": 600
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Beard Growth Oil 419-600.jpg",
+        "image": "../images/Personal Care/tablet/Beard Growth Oil 419-600.jpg"
+    },
+    {
+        "id": 1139,
+        "name": "Bombay Shaving Company Beard Growth Oil",
+        "kn_name": "Bombay Shaving Company Beard Growth Oil",
+        "price": 600,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "50 ml",
+                "price": 600
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Bombay Shaving Company Beard Growth Oil 250-400.jpg",
+        "image": "../images/Personal Care/tablet/Bombay Shaving Company Beard Growth Oil 250-400.jpg"
+    },
+    {
+        "id": 1140,
+        "name": "Urban Gabru Beard Booster Growth Oil",
+        "kn_name": "Urban Gabru Beard Booster Growth Oil",
+        "price": 390,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "50 ml",
+                "price": 390
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Urban Gabru Beard Booster Growth Oil 380.jpg",
+        "image": "../images/Personal Care/tablet/Urban Gabru Beard Booster Growth Oil 380.jpg"
+    },
+    {
+        "id": 1141,
+        "name": "Ustraa Beard Growth Oil",
+        "kn_name": "Ustraa Beard Growth Oil",
+        "price": 350,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "50 ml",
+                "price": 350
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Ustraa Beard Growth Oil 330.jpg",
+        "image": "../images/Personal Care/tablet/Ustraa Beard Growth Oil 330.jpg"
+    },
+    {
+        "id": 1142,
+        "name": "Nourish Mantra Advanced Beard Growth Oil Serum",
+        "kn_name": "Nourish Mantra Advanced Beard Growth Oil Serum",
+        "price": 360,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "50 ml",
+                "price": 360
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Nourish Mantra Advanced Beard Growth Oil Serum 360.jpg",
+        "image": "../images/Personal Care/tablet/Nourish Mantra Advanced Beard Growth Oil Serum 360.jpg"
+    },
+    {
+        "id": 1143,
+        "name": "MAX-G Hefty Beard Growth Oil 50 ml Bottle",
+        "kn_name": "MAX-G Hefty Beard Growth Oil 50 ml Bottle",
+        "price": 550,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "50 ml",
+                "price": 550
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/MAX-G Hefty Beard Growth Oil 50 ml Bottle 550.jpg",
+        "image": "../images/Personal Care/tablet/MAX-G Hefty Beard Growth Oil 50 ml Bottle 550.jpg"
+    },
+    {
+        "id": 1144,
+        "name": "Baby Diaper Rash Cream",
+        "kn_name": "Baby Diaper Rash Cream",
+        "price": 180,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "50 g",
+                "price": 180
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Baby Diaper Rash Cream.jpg",
+        "image": "../images/Personal Care/tablet/Baby Diaper Rash Cream.jpg"
+    },
+    {
+        "id": 1145,
+        "name": "Thermometer (Infrared)",
+        "kn_name": "Thermometer (Infrared)",
+        "price": 900,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 900
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Thermometer (Infrared) 870.jpg",
+        "image": "../images/Personal Care/tablet/Thermometer (Infrared) 870.jpg"
+    },
+    {
+        "id": 1146,
+        "name": "Dr Trust USA Forehead Digital Infrared Thermometer",
+        "kn_name": "Dr Trust USA Forehead Digital Infrared Thermometer",
+        "price": 1400,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 1400
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Dr Trust USA Forehead Digital Infrared Thermometer 1400.jpg",
+        "image": "../images/Personal Care/tablet/Dr Trust USA Forehead Digital Infrared Thermometer 1400.jpg"
+    },
+    {
+        "id": 1147,
+        "name": "Ice Gel Pack",
+        "kn_name": "Ice Gel Pack",
+        "price": 120,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 120
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Ice Gel Pack.jpg",
+        "image": "../images/Personal Care/tablet/Ice Gel Pack.jpg"
+    },
+    {
+        "id": 1148,
+        "name": "Dr. Odin Electric Heating Pad",
+        "kn_name": "Dr. Odin Electric Heating Pad",
+        "price": 1000,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 1000
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Dr. Odin Electric Heating Pad 1000.jpg",
+        "image": "../images/Personal Care/tablet/Dr. Odin Electric Heating Pad 1000.jpg"
+    },
+    {
+        "id": 1149,
+        "name": "electric heating pad multicolour",
+        "kn_name": "electric heating pad multicolour",
+        "price": 190,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 190
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/electric heating pad multicolour 160.jpg",
+        "image": "../images/Personal Care/tablet/electric heating pad multicolour 160.jpg"
+    },
+    {
+        "id": 1150,
+        "name": "Wheelchair Manual",
+        "kn_name": "Wheelchair Manual",
+        "price": 9000,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 9000
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Wheelchair Manual 9000.jpg",
+        "image": "../images/Personal Care/tablet/Wheelchair Manual 9000.jpg"
+    },
+    {
+        "id": 1151,
+        "name": "Walking Stick",
+        "kn_name": "Walking Stick",
+        "price": 400,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 400
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Walking Stick 400.jpg",
+        "image": "../images/Personal Care/tablet/Walking Stick 400.jpg"
+    },
+    {
+        "id": 1152,
+        "name": "Walking Stick",
+        "kn_name": "Walking Stick",
+        "price": 500,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 500
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Walking Stick 475.jpg",
+        "image": "../images/Personal Care/tablet/Walking Stick 475.jpg"
+    },
+    {
+        "id": 1153,
+        "name": "Dr Trust USA Orthopedic King Size Cervical Pillow",
+        "kn_name": "Dr Trust USA Orthopedic King Size Cervical Pillow",
+        "price": 1200,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 1200
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Dr Trust USA Orthopedic King Size Cervical Pillow 1200.jpg",
+        "image": "../images/Personal Care/tablet/Dr Trust USA Orthopedic King Size Cervical Pillow 1200.jpg"
+    },
+    {
+        "id": 1154,
+        "name": "Dr Trust USA Orthopedic King Size Cervical Pillow",
+        "kn_name": "Dr Trust USA Orthopedic King Size Cervical Pillow",
+        "price": 1200,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 1200
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Dr Trust USA Orthopedic King Size Cervical Pillow 700.jpg",
+        "image": "../images/Personal Care/tablet/Dr Trust USA Orthopedic King Size Cervical Pillow 700.jpg"
+    },
+    {
+        "id": 1155,
+        "name": "Cervical Collar",
+        "kn_name": "Cervical Collar",
+        "price": 350,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 350
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Cervical Collar 300.jpg",
+        "image": "../images/Personal Care/tablet/Cervical Collar 300.jpg"
+    },
+    {
+        "id": 1156,
+        "name": "Dyna Soft Cervical Collar",
+        "kn_name": "Dyna Soft Cervical Collar",
+        "price": 350,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 350
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Dyna Soft Cervical Collar 420.jpg",
+        "image": "../images/Personal Care/tablet/Dyna Soft Cervical Collar 420.jpg"
+    },
+    {
+        "id": 1157,
+        "name": "Nivia Orthopedic Basic Elbow Support",
+        "kn_name": "Nivia Orthopedic Basic Elbow Support",
+        "price": 250,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 250
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Nivia Orthopedic Basic Elbow Support 180.jpg",
+        "image": "../images/Personal Care/tablet/Nivia Orthopedic Basic Elbow Support 180.jpg"
+    },
+    {
+        "id": 1158,
+        "name": "Fovera Elbow Support Brace with Strap",
+        "kn_name": "Fovera Elbow Support Brace with Strap",
+        "price": 290,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 290
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Fovera Elbow Support Brace with Strap 280.jpg",
+        "image": "../images/Personal Care/tablet/Fovera Elbow Support Brace with Strap 280.jpg"
+    },
+    {
+        "id": 1159,
+        "name": "Lite Feel Hand And Wrist Support Band",
+        "kn_name": "Lite Feel Hand And Wrist Support Band",
+        "price": 200,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 200
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Lite Feel Hand And Wrist Support Band 200.jpg",
+        "image": "../images/Personal Care/tablet/Lite Feel Hand And Wrist Support Band 200.jpg"
+    },
+    {
+        "id": 1160,
+        "name": "Lite Feel Hand And Wrist Support Band",
+        "kn_name": "Lite Feel Hand And Wrist Support Band",
+        "price": 200,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 200
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Lite Feel Hand And Wrist Support Band 360.jpg",
+        "image": "../images/Personal Care/tablet/Lite Feel Hand And Wrist Support Band 360.jpg"
+    },
+    {
+        "id": 1161,
+        "name": "Compression Stockings",
+        "kn_name": "Compression Stockings",
+        "price": 790,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "Pair",
+                "price": 790
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Compression Stockings 790.jpg",
+        "image": "../images/Personal Care/tablet/Compression Stockings 790.jpg"
+    },
+    {
+        "id": 1162,
+        "name": "Diabetes Care Powder",
+        "kn_name": "Diabetes Care Powder",
+        "price": 650,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "400 g",
+                "price": 650
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Diabetes Care Powder 625.jpg",
+        "image": "../images/Personal Care/tablet/Diabetes Care Powder 625.jpg"
+    },
+    {
+        "id": 1163,
+        "name": "Sugar-Free Tablets",
+        "kn_name": "Sugar-Free Tablets",
+        "price": 260,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "100 tablets",
+                "price": 260
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Sugar-Free Tablets 260.jpg",
+        "image": "../images/Personal Care/tablet/Sugar-Free Tablets 260.jpg"
+    },
+    {
+        "id": 1164,
+        "name": "Herbal Tea (Immunity)",
+        "kn_name": "Herbal Tea (Immunity)",
+        "price": 380,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "100 g",
+                "price": 380
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Herbal Tea (Immunity) 380.jpg",
+        "image": "../images/Personal Care/tablet/Herbal Tea (Immunity) 380.jpg"
+    },
+    {
+        "id": 1165,
+        "name": "Immunity Herbal Tea",
+        "kn_name": "Immunity Herbal Tea",
+        "price": 800,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "100 g",
+                "price": 800
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Immunity Herbal Tea 800.jpg",
+        "image": "../images/Personal Care/tablet/Immunity Herbal Tea 800.jpg"
+    },
+    {
+        "id": 1166,
+        "name": "Spice Sip Natural Immunity Booster Herbal Tea",
+        "kn_name": "Spice Sip Natural Immunity Booster Herbal Tea",
+        "price": 170,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "100 g",
+                "price": 170
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Spice Sip Natural Immunity Booster Herbal Tea165.jpg",
+        "image": "../images/Personal Care/tablet/Spice Sip Natural Immunity Booster Herbal Tea165.jpg"
+    },
+    {
+        "id": 1167,
+        "name": "Detox Juice",
+        "kn_name": "Detox Juice",
+        "price": 300,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "L",
+                "price": 300
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Detox Juice 300.webp",
+        "image": "../images/Personal Care/tablet/Detox Juice 300.webp"
+    },
+    {
+        "id": 1168,
+        "name": "Ayurvedic Detox Juice 1000 ml Pack of 1 Krishna s Herbal & Ayurveda",
+        "kn_name": "Ayurvedic Detox Juice 1000 ml Pack of 1 Krishna s Herbal & Ayurveda",
+        "price": 420,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "L",
+                "price": 420
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Ayurvedic Detox Juice 1000 ml Pack of 1 Krishna's Herbal & Ayurveda 420.jpg",
+        "image": "../images/Personal Care/tablet/Ayurvedic Detox Juice 1000 ml Pack of 1 Krishna's Herbal & Ayurveda 420.jpg"
+    },
+    {
+        "id": 1169,
+        "name": "Detox Juice with Wheatgrass & Amla",
+        "kn_name": "Detox Juice with Wheatgrass & Amla",
+        "price": 300,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "L",
+                "price": 300
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Detox Juice with Wheatgrass & Amla 300.jpg",
+        "image": "../images/Personal Care/tablet/Detox Juice with Wheatgrass & Amla 300.jpg"
+    },
+    {
+        "id": 1170,
+        "name": "Detox Juice with Wheatgrass & Amla",
+        "kn_name": "Detox Juice with Wheatgrass & Amla",
+        "price": 450,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "L",
+                "price": 450
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Detox Juice with Wheatgrass & Amla 450.jpg",
+        "image": "../images/Personal Care/tablet/Detox Juice with Wheatgrass & Amla 450.jpg"
+    },
+    {
+        "id": 1171,
+        "name": "Multigrain Health Mix",
+        "kn_name": "Multigrain Health Mix",
+        "price": 320,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "500 g",
+                "price": 320
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Multigrain Health Mix 300.jpg",
+        "image": "../images/Personal Care/tablet/Multigrain Health Mix 300.jpg"
+    },
+    {
+        "id": 1172,
+        "name": "Lion Health Mix Multigrain",
+        "kn_name": "Lion Health Mix Multigrain",
+        "price": 160,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "500 g",
+                "price": 160
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Lion Health Mix Multigrain  160.jpg",
+        "image": "../images/Personal Care/tablet/Lion Health Mix Multigrain  160.jpg"
+    },
+    {
+        "id": 1173,
+        "name": "Manna Health Multigrain Mix",
+        "kn_name": "Manna Health Multigrain Mix",
+        "price": 180,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "500 g",
+                "price": 180
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Manna Health Multigrain Mix 165.jpg",
+        "image": "../images/Personal Care/tablet/Manna Health Multigrain Mix 165.jpg"
+    },
+    {
+        "id": 1174,
+        "name": "Adult Diapers",
+        "kn_name": "Adult Diapers",
+        "price": 220,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "Pack",
+                "price": 220
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Adult Diapers 210.jpg",
+        "image": "../images/Personal Care/tablet/Adult Diapers 210.jpg"
+    },
+    {
+        "id": 1175,
+        "name": "Dignity Premium Adult Diapers",
+        "kn_name": "Dignity Premium Adult Diapers",
+        "price": 500,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "Pack",
+                "price": 500
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Dignity Premium Adult Diapers 500.jpg",
+        "image": "../images/Personal Care/tablet/Dignity Premium Adult Diapers 500.jpg"
+    },
+    {
+        "id": 1176,
+        "name": "Himalaya Adult Diapers Pants",
+        "kn_name": "Himalaya Adult Diapers Pants",
+        "price": 410,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "Pack",
+                "price": 410
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Himalaya Adult Diapers Pants 10'S 410.jpg",
+        "image": "../images/Personal Care/tablet/Himalaya Adult Diapers Pants 10'S 410.jpg"
+    },
+    {
+        "id": 1177,
+        "name": "Folic Acid Tablets",
+        "kn_name": "Folic Acid Tablets",
+        "price": 140,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "30 tablets",
+                "price": 140
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Folic Acid Tablets 60.jpg",
+        "image": "../images/Personal Care/tablet/Folic Acid Tablets 60.jpg"
+    },
+    {
+        "id": 1178,
+        "name": "INLIFE Iron Folic Acid Supplement 60 Tablets",
+        "kn_name": "INLIFE Iron Folic Acid Supplement 60 Tablets",
+        "price": 370,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "30 tablets",
+                "price": 370
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/INLIFE Iron Folic Acid Supplement 60 Tablets 352.jpg",
+        "image": "../images/Personal Care/tablet/INLIFE Iron Folic Acid Supplement 60 Tablets 352.jpg"
+    },
+    {
+        "id": 1179,
+        "name": "Intas Folitas 5mg Folic Acid Tablets",
+        "kn_name": "Intas Folitas 5mg Folic Acid Tablets",
+        "price": 40,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "30 tablets",
+                "price": 40
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Intas Folitas 5mg Folic Acid Tablets 30.jpg",
+        "image": "../images/Personal Care/tablet/Intas Folitas 5mg Folic Acid Tablets 30.jpg"
+    },
+    {
+        "id": 1180,
+        "name": "Magnesium Supplements",
+        "kn_name": "Magnesium Supplements",
+        "price": 790,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "30 tablets",
+                "price": 790
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Magnesium Supplements.jpg",
+        "image": "../images/Personal Care/tablet/Magnesium Supplements.jpg"
+    },
+    {
+        "id": 1181,
+        "name": "Electrolyte Tablets",
+        "kn_name": "Electrolyte Tablets",
+        "price": 260,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "20 tablets",
+                "price": 260
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Electrolyte Tablets 250.jpg",
+        "image": "../images/Personal Care/tablet/Electrolyte Tablets 250.jpg"
+    },
+    {
+        "id": 1182,
+        "name": "Anti-Diarrheal Tablets",
+        "kn_name": "Anti-Diarrheal Tablets",
+        "price": 120,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "10 tablets",
+                "price": 120
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Anti-Diarrheal Tablets 120.jpg",
+        "image": "../images/Personal Care/tablet/Anti-Diarrheal Tablets 120.jpg"
+    },
+    {
+        "id": 1183,
+        "name": "Laxative Syrup",
+        "kn_name": "Laxative Syrup",
+        "price": 190,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "200 ml",
+                "price": 190
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Laxative Syrup 185.jpg",
+        "image": "../images/Personal Care/tablet/Laxative Syrup 185.jpg"
+    },
+    {
+        "id": 1184,
+        "name": "Gas Relief Tablets",
+        "kn_name": "Gas Relief Tablets",
+        "price": 85,
+        "category": "pain",
+        "variants": [
+            {
+                "label": "15 tablets",
+                "price": 85
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Gas Relief Tablets.jpg",
+        "image": "../images/Personal Care/tablet/Gas Relief Tablets.jpg"
+    },
+    {
+        "id": 1185,
+        "name": "Motion Sickness Tablets",
+        "kn_name": "Motion Sickness Tablets",
+        "price": 75,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "10 tablets",
+                "price": 75
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Motion Sickness Tablets.jpg",
+        "image": "../images/Personal Care/tablet/Motion Sickness Tablets.jpg"
+    },
+    {
+        "id": 1186,
+        "name": "Sleep Aid Tablets",
+        "kn_name": "Sleep Aid Tablets",
+        "price": 110,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "10 tablets",
+                "price": 110
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Sleep Aid Tablets.jpg",
+        "image": "../images/Personal Care/tablet/Sleep Aid Tablets.jpg"
+    },
+    {
+        "id": 1187,
+        "name": "Stress Relief Capsules",
+        "kn_name": "Stress Relief Capsules",
+        "price": 2200,
+        "category": "pain",
+        "variants": [
+            {
+                "label": "30 capsules",
+                "price": 2200
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Stress Relief Capsules.jpg",
+        "image": "../images/Personal Care/tablet/Stress Relief Capsules.jpg"
+    },
+    {
+        "id": 1188,
+        "name": "Memory Booster Syrup",
+        "kn_name": "Memory Booster Syrup",
+        "price": 590,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "200 ml",
+                "price": 590
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Memory Booster Syrup.jpg",
+        "image": "../images/Personal Care/tablet/Memory Booster Syrup.jpg"
+    },
+    {
+        "id": 1189,
+        "name": "Joint Support Capsules",
+        "kn_name": "Joint Support Capsules",
+        "price": 1200,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "60 capsules",
+                "price": 1200
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Joint Support Capsules 800-1200.jpg",
+        "image": "../images/Personal Care/tablet/Joint Support Capsules 800-1200.jpg"
+    },
+    {
+        "id": 1190,
+        "name": "Bone Health Powder",
+        "kn_name": "Bone Health Powder",
+        "price": 630,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "500 g",
+                "price": 630
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Bone Health Powder 630.jpg",
+        "image": "../images/Personal Care/tablet/Bone Health Powder 630.jpg"
+    },
+    {
+        "id": 1191,
+        "name": "Kids Multivitamin Gummies",
+        "kn_name": "Kids Multivitamin Gummies",
+        "price": 350,
+        "category": "vitamins",
+        "variants": [
+            {
+                "label": "60 gummies",
+                "price": 350
+            }
+        ],
+        "emoji": "\ud83d\udc8a",
+        "description_en": "Trusted quality health product",
+        "image_url": "../images/Personal Care/tablet/Kids Multivitamin Gummies.jpg",
+        "image": "../images/Personal Care/tablet/Kids Multivitamin Gummies.jpg"
+    }
+]

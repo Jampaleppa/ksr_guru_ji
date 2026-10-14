@@ -1,0 +1,65 @@
+|  1 | Paracetamol         | Used to reduce fever and relieve mild-to-moderate pain.                       |
+|  2 | Cetirizine          | An antihistamine used to relieve common allergy symptoms.                     |
+|  3 | Levocetirizine      | An antihistamine used for allergic symptoms such as sneezing and itching.     |
+|  4 | Loratadine          | An antihistamine used for allergic rhinitis and related allergy symptoms.     |
+|  5 | Fexofenadine        | An antihistamine used to relieve allergy symptoms and hives.                  |
+|  6 | Chlorpheniramine    | An antihistamine used for certain allergy and cold symptoms.                  |
+|  7 | Phenylephrine       | A decongestant used to relieve nasal congestion in appropriate formulations.  |
+|  8 | ORS                 | Replaces water and electrolytes lost during dehydration.                      |
+|  9 | Ondansetron         | Helps control nausea and vomiting in appropriate clinical situations.         |
+| 10 | Domperidone         | Helps manage nausea and certain gastrointestinal motility problems.           |
+| 11 | Pantoprazole        | Reduces stomach-acid production and is used for acid-related conditions.      |
+| 12 | Omeprazole          | Reduces stomach acid and is used for several acid-related conditions.         |
+| 13 | Famotidine          | Reduces stomach-acid production.                                              |
+| 14 | Sucralfate          | Forms a protective barrier over damaged areas of the stomach or intestine.    |
+| 15 | Aluminium hydroxide | An antacid used to neutralize stomach acid.                                   |
+| 16 | Magnesium hydroxide | An antacid and, in suitable doses, a laxative.                                |
+| 17 | Simethicone         | Helps relieve discomfort caused by excess intestinal gas.                     |
+| 18 | Lactulose           | A laxative used to soften stools and treat constipation.                      |
+| 19 | Bisacodyl           | A stimulant laxative used for short-term constipation treatment.              |
+| 20 | Senna               | A stimulant laxative used to relieve constipation.                            |
+| 21 | Zinc                | Provides zinc supplementation when supplementation is medically appropriate.  |
+| 22 | Folic acid          | Provides folate needed for red-blood-cell formation and other body functions. |
+| 23 | Ferrous sulfate     | An iron supplement used to prevent or treat iron deficiency.                  |
+| 24 | Ferrous fumarate    | An iron supplement used for iron deficiency.                                  |
+| 25 | Vitamin B-complex   | Provides several B vitamins involved in normal metabolism and nerve function. |
+| 26 | Vitamin C           | Provides vitamin C supplementation when needed.                               |
+| 27 | Vitamin D3          | Provides vitamin D for maintaining bone and calcium health.                   |
+| 28 | Calcium carbonate   | Provides calcium supplementation and is also used as an antacid.              |
+| 29 | Povidone-iodine     | An antiseptic used to reduce microorganisms on skin or suitable surfaces.     |
+| 30 | Chlorhexidine       | An antiseptic used in appropriate skin or oral-care preparations.             |
+| 31 | Diclofenac          | An NSAID used to relieve pain and inflammation.                               |
+| 32 | Ibuprofen           | An NSAID used for pain, inflammation and fever in appropriate patients.       |
+| 33 | Naproxen            | An NSAID used to relieve pain and inflammation.                               |
+| 34 | Aceclofenac         | An NSAID used for pain and inflammatory conditions.                           |
+| 35 | Mefenamic acid      | An NSAID used for certain pain conditions.                                    |
+| 36 | Tramadol            | A prescription opioid analgesic used for certain moderate-to-severe pain.     |
+| 37 | Amoxicillin         | An antibiotic used for susceptible bacterial infections when prescribed.      |
+| 38 | Azithromycin        | An antibiotic used for selected susceptible bacterial infections.             |
+| 39 | Cefixime            | A cephalosporin antibiotic used for certain bacterial infections.             |
+| 40 | Albendazole         | An antiparasitic medicine used for certain worm infections.                   |
+41	Amlodipine	A calcium-channel blocker commonly used to control high blood pressure.
+42	Telmisartan	An ARB used to manage high blood pressure and certain cardiovascular risks.
+43	Losartan	An ARB used for high blood pressure and certain heart or kidney conditions.
+44	Olmesartan	An ARB used to control high blood pressure.
+45	Valsartan	An ARB used for hypertension and certain heart conditions.
+46	Ramipril	An ACE inhibitor used for hypertension and selected cardiovascular conditions.
+47	Enalapril	An ACE inhibitor used for hypertension and certain heart conditions.
+48	Metoprolol	A beta-blocker used for selected heart and blood-pressure conditions.
+49	Atenolol	A beta-blocker used for hypertension and certain heart conditions.
+50	Bisoprolol	A beta-blocker used for hypertension and selected cardiac conditions.
+51	Carvedilol	A beta-blocker used in certain heart-failure and cardiovascular conditions.
+52	Furosemide	A diuretic used to remove excess fluid in selected conditions.
+53	Spironolactone	A potassium-sparing diuretic used in certain heart and fluid-retention conditions.
+54	Hydrochlorothiazide	A diuretic commonly used to treat hypertension and fluid retention.
+55	Atorvastatin	A statin used to lower cholesterol and reduce cardiovascular risk.
+56	Rosuvastatin	A statin used to reduce cholesterol and cardiovascular risk.
+57	Clopidogrel	An antiplatelet medicine used to reduce formation of harmful blood clots.
+58	Aspirin	At selected low doses, an antiplatelet medicine used to reduce cardiovascular clotting risk.
+59	Isosorbide mononitrate	A nitrate used to help prevent angina in appropriate patients.
+60	Nitroglycerin	A nitrate used for rapid relief or management of angina in appropriate forms.
+61	Diltiazem	A calcium-channel blocker used for selected heart-rate, blood-pressure and angina conditions.
+62	Verapamil	A calcium-channel blocker used for selected cardiovascular conditions.
+63	Digoxin	A cardiac medicine used in selected heart-failure and rhythm conditions.
+64	Warfarin	An anticoagulant used to prevent and treat certain blood clots under monitoring.
+65	Apixaban	An anticoagulant used to prevent or treat certain blood clots.

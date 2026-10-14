@@ -1,0 +1,7 @@
+Patients: 1
+Doctors: 5
+Appointments: 0
+Consultations: 1
+Prescriptions: 1
+Orders: 1
+Total Payments: 1787.47

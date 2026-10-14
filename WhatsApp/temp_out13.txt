@@ -1,0 +1,29 @@
+Array
+(
+    [0] => Array
+        (
+            [id] => 1
+            [order_number] => KSR-2026-0001
+            [user_id] => 
+            [name] => Jampaleppa Rathod
+            [email] => 
+            [phone] => 8088584421
+            [address] => Valook, Vilangad, Vadakara, Kozhikode, Kerala, India
+            [city] => Gajendragad
+            [state] => Karnataka
+            [pincode] => 582114
+            [total] => 1787.47
+            [payment_method] => cod
+            [transaction_id] => COD20260910105602554
+            [payment_status] => pending
+            [notes] => 
+            [status] => pending
+            [driver_id] => 
+            [delivery_boy_id] => 
+            [placed_at] => 2026-09-10 16:26:02
+            [created_at] => 2026-09-10 16:26:02
+            [delivered_at] => 
+            [prescription_id] => 
+        )
+
+)

@@ -1,0 +1,10 @@
+# Disable directory browsing
+Options -Indexes
+
+# Prevent direct web access to sensitive operational files
+<FilesMatch "\.(php|sql|log|txt)$">
+    Require all denied
+</FilesMatch>
+
+# Only allow specific media types securely if explicitly required, else deny all
+Require all denied

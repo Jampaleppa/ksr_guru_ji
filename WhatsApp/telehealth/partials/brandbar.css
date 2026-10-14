@@ -1,0 +1,258 @@
+/* =====================================================================
+   telehealth/partials/brandbar.css
+   Branded top bar shared by every Doctor Assist page.
+   Loaded on EVERY page in the module, so a change here restyles the
+   whole platform at once. Accents sit inside the existing navy/teal
+   brand so it flows into assist-style.css without clashing.
+   ===================================================================== */
+
+.ksr-brandbar {
+  --kb-navy: #0b1f3a;
+  --kb-navy-2: #123a63;
+  --kb-teal: #00897b;
+  --kb-teal-lite: #7fe3d8;
+  --kb-line: rgba(255, 255, 255, 0.14);
+  --kb-chip: rgba(255, 255, 255, 0.09);
+  --kb-chip-hover: rgba(255, 255, 255, 0.17);
+  --kb-focus: #7fe3d8;
+
+  background: linear-gradient(
+    120deg,
+    var(--kb-navy) 0%,
+    var(--kb-navy-2) 52%,
+    #0b5c55 100%
+  );
+  color: #fff;
+  border-bottom: 1px solid var(--kb-line);
+  box-shadow: 0 1px 3px rgba(4, 15, 30, 0.28);
+  position: relative;
+  z-index: 1001;
+  /* Promote to its own layer: avoids repaint on scroll on every page. */
+  will-change: transform;
+}
+
+.ksr-brandbar__inner {
+  max-width: 1380px;
+  margin: 0 auto;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+/* ---------- logo + wordmark ---------- */
+.ksr-brandbar__brand {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  text-decoration: none;
+  color: inherit;
+  flex: 0 0 auto;
+  border-radius: 10px;
+  padding: 2px;
+  transition: opacity 0.18s;
+}
+
+.ksr-brandbar__brand:hover {
+  opacity: 0.86;
+}
+
+/* Visible keyboard focus everywhere — these are real navigation links. */
+.ksr-brandbar a:focus-visible {
+  outline: 2px solid var(--kb-focus);
+  outline-offset: 2px;
+}
+
+.ksr-brandbar__logo {
+  width: 42px;
+  height: 42px;
+  flex: 0 0 42px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  position: relative;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14);
+}
+
+.ksr-brandbar__logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 11px;
+  display: block;
+}
+
+/* fallback initials — hidden while the real logo loads */
+.ksr-brandbar__logo-fallback {
+  font-weight: 800;
+  font-size: 0.92rem;
+  letter-spacing: 0.5px;
+  color: #fff;
+  display: none;
+}
+
+.ksr-brandbar__logo.is-fallback .ksr-brandbar__logo-fallback {
+  display: block;
+}
+
+.ksr-brandbar__text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.22;
+  min-width: 0;
+}
+
+.ksr-brandbar__text strong {
+  font-size: 1.02rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+.ksr-brandbar__text small {
+  font-size: 0.67rem;
+  opacity: 0.78;
+  letter-spacing: 0.15px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ksr-brandbar__text em {
+  font-style: normal;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 700;
+  color: var(--kb-teal-lite);
+  margin-top: 2px;
+}
+
+/* ---------- quick links ---------- */
+.ksr-brandbar__links {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  margin-left: auto;
+  flex-wrap: wrap;
+}
+
+.ksr-brandbar__links a {
+  padding: 7px 12px;
+  border-radius: 8px;
+  font-size: 0.79rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.82);
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    background 0.18s,
+    color 0.18s;
+}
+
+.ksr-brandbar__links a:hover {
+  background: var(--kb-chip-hover);
+  color: #fff;
+}
+
+.ksr-brandbar__links a.is-active {
+  background: rgba(255, 255, 255, 0.94);
+  color: var(--kb-navy);
+  font-weight: 700;
+}
+
+/* ---------- call button ---------- */
+.ksr-brandbar__call {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 14px;
+  border-radius: 8px;
+  background: var(--kb-chip);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.79rem;
+  white-space: nowrap;
+  transition:
+    background 0.18s,
+    border-color 0.18s;
+}
+
+.ksr-brandbar__call:hover {
+  background: var(--kb-chip-hover);
+  border-color: rgba(255, 255, 255, 0.34);
+}
+
+/* ---------- responsive ---------- */
+@media (max-width: 900px) {
+  .ksr-brandbar__inner {
+    padding: 10px 14px;
+    gap: 12px;
+  }
+
+  /* Links drop to their own scrollable row rather than wrapping raggedly. */
+  .ksr-brandbar__links {
+    order: 3;
+    width: 100%;
+    margin-left: 0;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .ksr-brandbar__links::-webkit-scrollbar {
+    display: none;
+  }
+
+  .ksr-brandbar__links a {
+    flex: 0 0 auto;
+  }
+
+  .ksr-brandbar__call {
+    margin-left: auto;
+  }
+}
+
+@media (max-width: 560px) {
+  .ksr-brandbar__logo {
+    width: 38px;
+    height: 38px;
+    flex-basis: 38px;
+    border-radius: 10px;
+  }
+
+  .ksr-brandbar__text small {
+    display: none;
+  }
+
+  /* Keep the tap target; drop the number, the icon still dials. */
+  .ksr-brandbar__call span {
+    display: none;
+  }
+
+  .ksr-brandbar__call {
+    padding: 8px 11px;
+  }
+}
+
+/* ---------- print: keep the brand, lose the chrome ---------- */
+@media print {
+  .ksr-brandbar {
+    background: none;
+    color: #000;
+    border-bottom: 1px solid #999;
+    box-shadow: none;
+  }
+
+  .ksr-brandbar__links,
+  .ksr-brandbar__call {
+    display: none;
+  }
+}

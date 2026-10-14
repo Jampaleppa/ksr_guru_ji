@@ -1,0 +1,110 @@
+--- USERS ROW DATA ---
+Array
+(
+    [0] => Array
+        (
+            [id] => 1
+            [name] => Admin
+            [email] => admin@ksrguruji.com
+        )
+
+    [1] => Array
+        (
+            [id] => 2
+            [name] => Dr. D C Rathod
+            [email] => DCRathod
+        )
+
+    [2] => Array
+        (
+            [id] => 3
+            [name] => Dr. Shivukumar Rathod
+            [email] => Rashi@9597
+        )
+
+    [3] => Array
+        (
+            [id] => 5
+            [name] => Vinay (Courier)
+            [email] => vinay@ksr.com
+        )
+
+    [4] => Array
+        (
+            [id] => 10
+            [name] => Dr. D C Rathod
+            [email] => dcrathod.gen@ksr.com
+        )
+
+    [5] => Array
+        (
+            [id] => 11
+            [name] => Dr. D C Rathod
+            [email] => dcrathod@ksr.com
+        )
+
+    [6] => Array
+        (
+            [id] => 12
+            [name] => dr.shivakumar Rathod
+            [email] => shivakumar.gen@ksr.com
+        )
+
+    [7] => Array
+        (
+            [id] => 14
+            [name] => Dr. shivukumar Rathod
+            [email] => shivukumar@ksr.com
+        )
+
+    [8] => Array
+        (
+            [id] => 19
+            [name] => QA Integrator
+            [email] => qa_integrator@ksrguruji.com
+        )
+
+    [9] => Array
+        (
+            [id] => 20
+            [name] => Super Admin
+            [email] => superadmin@ksrguru.com
+        )
+
+)
+--- DOCTORS ROW DATA ---
+Array
+(
+    [0] => Array
+        (
+            [id] => 16
+            [user_id] => 10
+            [doctor_name] => Dr. D C Rathod
+            [registration_number] => MC-99999-GEN
+        )
+
+    [1] => Array
+        (
+            [id] => 17
+            [user_id] => 11
+            [doctor_name] => Dr. D C Rathod
+            [registration_number] => MC-99999
+        )
+
+    [2] => Array
+        (
+            [id] => 18
+            [user_id] => 12
+            [doctor_name] => dr.shivakumar Rathod
+            [registration_number] => MC-12345-GEN
+        )
+
+    [3] => Array
+        (
+            [id] => 19
+            [user_id] => 2
+            [doctor_name] => Dr. D C Rathod
+            [registration_number] => REG-1234
+        )
+
+)

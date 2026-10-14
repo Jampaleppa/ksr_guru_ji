@@ -1,0 +1,48 @@
+Array
+(
+    [Table] => consultations
+    [Create Table] => CREATE TABLE `consultations` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `patient_id` int NOT NULL,
+  `doctor_id` int NOT NULL,
+  `symptoms` text NOT NULL,
+  `doctor_assessment` text,
+  `diagnosis` text,
+  `is_emergency` tinyint(1) DEFAULT '0',
+  `consultation_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `patient_id` (`patient_id`),
+  KEY `doctor_id` (`doctor_id`),
+  CONSTRAINT `consultations_ibfk_1` FOREIGN KEY (`patient_id`) REFERENCES `patients` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `consultations_ibfk_2` FOREIGN KEY (`doctor_id`) REFERENCES `doctors` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+)
+Array
+(
+    [Table] => prescriptions
+    [Create Table] => CREATE TABLE `prescriptions` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `consultation_id` int DEFAULT NULL,
+  `patient_id` int NOT NULL,
+  `doctor_id` int DEFAULT NULL,
+  `prescription_date` date NOT NULL,
+  `status` enum('ACTIVE','REISSUED','EXPIRED') DEFAULT 'ACTIVE',
+  `parent_prescription_id` int DEFAULT NULL,
+  `doctor_authentication_signature` varchar(255) DEFAULT NULL,
+  `uploaded_file_path` varchar(255) DEFAULT NULL,
+  `verification_status` enum('PENDING','APPROVED','REJECTED','MANUAL_REVIEW') DEFAULT 'PENDING',
+  `verified_by_user_id` int DEFAULT NULL,
+  `verified_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `consultation_id` (`consultation_id`),
+  KEY `patient_id` (`patient_id`),
+  KEY `doctor_id` (`doctor_id`),
+  KEY `parent_prescription_id` (`parent_prescription_id`),
+  KEY `verified_by_user_id` (`verified_by_user_id`),
+  CONSTRAINT `prescriptions_ibfk_1` FOREIGN KEY (`consultation_id`) REFERENCES `consultations` (`id`) ON DELETE SET NULL,
+  CONSTRAINT `prescriptions_ibfk_2` FOREIGN KEY (`patient_id`) REFERENCES `patients` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `prescriptions_ibfk_3` FOREIGN KEY (`doctor_id`) REFERENCES `doctors` (`id`) ON DELETE SET NULL,
+  CONSTRAINT `prescriptions_ibfk_4` FOREIGN KEY (`parent_prescription_id`) REFERENCES `prescriptions` (`id`) ON DELETE SET NULL,
+  CONSTRAINT `prescriptions_ibfk_5` FOREIGN KEY (`verified_by_user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+)

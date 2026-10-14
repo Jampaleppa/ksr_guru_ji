@@ -1,0 +1,2802 @@
+[
+    {
+        "id": 1,
+        "name": "Disano Extra Virgin Olive Oil",
+        "kn_name": "\u0ca1\u0cbf\u0cb8\u0cbe\u0ca8\u0cca \u0c8e\u0c95\u0ccd\u0cb8\u0ccd\u0c9f\u0ccd\u0cb0\u0cbe \u0cb5\u0cb0\u0ccd\u0c9c\u0cbf\u0ca8\u0ccd \u0c86\u0cb2\u0cbf\u0cb5\u0ccd \u0c86\u0caf\u0cbf\u0cb2\u0ccd",
+        "price": 279,
+        "category": "olive",
+        "variants": [
+            {
+                "label": "250 ml",
+                "price": 279
+            },
+            {
+                "label": "500 ml",
+                "price": 549
+            },
+            {
+                "label": "1 L",
+                "price": 1049
+            },
+            {
+                "label": "5 L",
+                "price": 4699
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "Premium extra virgin olive oil for cooking and dressings.",
+        "image": "../images/oil/Disano Extra Virgin Olive Oil 250ml.jpg"
+    },
+    {
+        "id": 2,
+        "name": "Figaro Olive Oil",
+        "kn_name": "\u0cab\u0cbf\u0c97\u0cbe\u0cb0\u0cca \u0c86\u0cb2\u0cbf\u0cb5\u0ccd \u0c86\u0caf\u0cbf\u0cb2\u0ccd",
+        "price": 42,
+        "category": "olive",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 42
+            },
+            {
+                "label": "200 ml",
+                "price": 80
+            },
+            {
+                "label": "300 ml",
+                "price": 185
+            },
+            {
+                "label": "500 ml",
+                "price": 203
+            },
+            {
+                "label": "600 ml",
+                "price": 315
+            },
+            {
+                "label": "1 L",
+                "price": 395
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "Premium extra virgin olive oil for cooking and dressings.",
+        "image": "../images/oil/Figaro Olive Oil.jpg"
+    },
+    {
+        "id": 3,
+        "name": "Borges Extra Virgin Olive Oil",
+        "kn_name": "\u0cac\u0ccb\u0cb0\u0ccd\u0c97\u0cc6\u0cb8\u0ccd \u0c8e\u0c95\u0ccd\u0cb8\u0ccd\u0c9f\u0ccd\u0cb0\u0cbe \u0cb5\u0cb0\u0ccd\u0c9c\u0cbf\u0ca8\u0ccd \u0c86\u0cb2\u0cbf\u0cb5\u0ccd \u0c86\u0caf\u0cbf\u0cb2\u0ccd",
+        "price": 44,
+        "category": "olive",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 44
+            },
+            {
+                "label": "200 ml",
+                "price": 85
+            },
+            {
+                "label": "300 ml",
+                "price": 190
+            },
+            {
+                "label": "500 ml",
+                "price": 380
+            },
+            {
+                "label": "600 ml",
+                "price": 500
+            },
+            {
+                "label": "1 L",
+                "price": 1050
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "Premium extra virgin olive oil for cooking and dressings.",
+        "image": "../images/oil/Borges Extra Virgin Olive Oil 530.jpg"
+    },
+    {
+        "id": 4,
+        "name": "Leonardo Olive Pomace Oil",
+        "kn_name": "\u0cb2\u0cbf\u0caf\u0cca\u0ca8\u0cbe\u0cb0\u0ccd\u0ca1\u0cca \u0c86\u0cb2\u0cbf\u0cb5\u0ccd \u0caa\u0cca\u0cae\u0cbe\u0cb8\u0ccd \u0c86\u0caf\u0cbf\u0cb2\u0ccd",
+        "price": 39,
+        "category": "olive",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 39
+            },
+            {
+                "label": "200 ml",
+                "price": 75
+            },
+            {
+                "label": "300 ml",
+                "price": 175
+            },
+            {
+                "label": "500 ml",
+                "price": 190
+            },
+            {
+                "label": "600 ml",
+                "price": 285
+            },
+            {
+                "label": "1 L",
+                "price": 365
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "Premium extra virgin olive oil for cooking and dressings.",
+        "image": "../images/oil/Leonardo Olive Pomace Oil 2400.jpg"
+    },
+    {
+        "id": 5,
+        "name": "Del Monte Extra Virgin Olive Oil",
+        "kn_name": "\u0ca1\u0cc6\u0cb2\u0ccd \u0cae\u0cbe\u0c82\u0c9f\u0cc6 \u0c8e\u0c95\u0ccd\u0cb8\u0ccd\u0c9f\u0ccd\u0cb0\u0cbe \u0cb5\u0cb0\u0ccd\u0c9c\u0cbf\u0ca8\u0ccd \u0c86\u0cb2\u0cbf\u0cb5\u0ccd \u0c86\u0caf\u0cbf\u0cb2\u0ccd",
+        "price": 42,
+        "category": "olive",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 42
+            },
+            {
+                "label": "200 ml",
+                "price": 82
+            },
+            {
+                "label": "300 ml",
+                "price": 184
+            },
+            {
+                "label": "500 ml",
+                "price": 205
+            },
+            {
+                "label": "600 ml",
+                "price": 313
+            },
+            {
+                "label": "1 L",
+                "price": 393
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "Premium extra virgin olive oil for cooking and dressings.",
+        "image": "../images/oil/Del Monte Extra Virgin Olive Oil 650.jpg"
+    },
+    {
+        "id": 6,
+        "name": "Oleev Active Olive Oil",
+        "kn_name": "\u0c92\u0cb2\u0cc0\u0cb5\u0ccd \u0c86\u0c95\u0ccd\u0c9f\u0cbf\u0cb5\u0ccd \u0c86\u0cb2\u0cbf\u0cb5\u0ccd \u0c86\u0caf\u0cbf\u0cb2\u0ccd",
+        "price": 37,
+        "category": "olive",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 37
+            },
+            {
+                "label": "200 ml",
+                "price": 74
+            },
+            {
+                "label": "300 ml",
+                "price": 172
+            },
+            {
+                "label": "500 ml",
+                "price": 190
+            },
+            {
+                "label": "600 ml",
+                "price": 288
+            },
+            {
+                "label": "1 L",
+                "price": 363
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "Premium extra virgin olive oil for cooking and dressings.",
+        "image": "../images/oil/Oleev Active Olive Oil 350.jpg"
+    },
+    {
+        "id": 8,
+        "name": "Borges Classic Olive Oil",
+        "kn_name": "\u0cac\u0ccb\u0cb0\u0ccd\u0c97\u0cc6\u0cb8\u0ccd \u0c95\u0ccd\u0cb2\u0cbe\u0cb8\u0cbf\u0c95\u0ccd \u0c86\u0cb2\u0cbf\u0cb5\u0ccd \u0c86\u0caf\u0cbf\u0cb2\u0ccd",
+        "price": 44,
+        "category": "olive",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 44
+            },
+            {
+                "label": "200 ml",
+                "price": 85
+            },
+            {
+                "label": "300 ml",
+                "price": 190
+            },
+            {
+                "label": "500 ml",
+                "price": 210
+            },
+            {
+                "label": "600 ml",
+                "price": 325
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "Premium extra virgin olive oil for cooking and dressings.",
+        "image": "../images/oil/Borges Classic Olive Oil 300.jpg"
+    },
+    {
+        "id": 12,
+        "name": "Colavita Extra Virgin Olive Oil",
+        "kn_name": "\u0c95\u0cca\u0cb2\u0cbe\u0cb5\u0cbf\u0c9f\u0cbe \u0c8e\u0c95\u0ccd\u0cb8\u0ccd\u0c9f\u0ccd\u0cb0\u0cbe \u0cb5\u0cb0\u0ccd\u0c9c\u0cbf\u0ca8\u0ccd \u0c86\u0cb2\u0cbf\u0cb5\u0ccd \u0c86\u0caf\u0cbf\u0cb2\u0ccd",
+        "price": 2300,
+        "category": "olive",
+        "variants": [
+            {
+                "label": "500 ml",
+                "price": 2300
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "Premium extra virgin olive oil for cooking and dressings.",
+        "image": "../images/oil/Colavita Extra Virgin Olive Oil 2300.jpg"
+    },
+    {
+        "id": 28,
+        "name": "Parachute Coconut Oil",
+        "kn_name": "\u0caa\u0ccd\u0caf\u0cbe\u0cb0\u0cbe\u0cb6\u0cc2\u0c9f\u0ccd \u0c95\u0cca\u0cac\u0ccd\u0cac\u0cb0\u0cbf \u0c8e\u0ca3\u0ccd\u0ca3\u0cc6",
+        "price": 51,
+        "category": "coconut",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 51
+            },
+            {
+                "label": "200 ml",
+                "price": 99
+            },
+            {
+                "label": "300 ml",
+                "price": 142
+            },
+            {
+                "label": "500 ml",
+                "price": 200
+            },
+            {
+                "label": "600 ml",
+                "price": 269
+            },
+            {
+                "label": "1 L",
+                "price": 375
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "Pure coconut oil for cooking, hair and skin care.",
+        "image": "../images/oil/Parachute Coconut Oil.jpg"
+    },
+    {
+        "id": 29,
+        "name": "KLF Nirmal Coconut Oil",
+        "kn_name": "\u0c95\u0cc6\u0c8e\u0cb2\u0ccd\u0c8e\u0cab\u0ccd \u0ca8\u0cbf\u0cb0\u0ccd\u0cae\u0cb2\u0ccd \u0c95\u0cca\u0cac\u0ccd\u0cac\u0cb0\u0cbf \u0c8e\u0ca3\u0ccd\u0ca3\u0cc6",
+        "price": 31,
+        "category": "coconut",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 31
+            },
+            {
+                "label": "250 ml",
+                "price": 130
+            },
+            {
+                "label": "500 ml",
+                "price": 320
+            },
+            {
+                "label": "1 L",
+                "price": 522
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "Pure coconut oil for cooking, hair and skin care.",
+        "image": "../images/oil/KLF Nirmal Coconut Oil.jpg"
+    },
+    {
+        "id": 30,
+        "name": "Coco Soul Virgin Coconut Oil",
+        "kn_name": "\u0c95\u0ccb\u0c95\u0ccb \u0cb8\u0ccb\u0cb2\u0ccd \u0cb5\u0cb0\u0ccd\u0c9c\u0cbf\u0ca8\u0ccd \u0c95\u0cca\u0cac\u0ccd\u0cac\u0cb0\u0cbf \u0c8e\u0ca3\u0ccd\u0ca3\u0cc6",
+        "price": 253,
+        "category": "coconut",
+        "variants": [
+            {
+                "label": "250 ml",
+                "price": 253
+            },
+            {
+                "label": "500 ml",
+                "price": 460
+            },
+            {
+                "label": "1 L",
+                "price": 874
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "Pure coconut oil for cooking, hair and skin care.",
+        "image": "../images/oil/Coco Soul Virgin Coconut Oil.jpg"
+    },
+    {
+        "id": 31,
+        "name": "Max Care Virgin Coconut Oil",
+        "kn_name": "\u0cae\u0ccd\u0caf\u0cbe\u0c95\u0ccd\u0cb8\u0ccd \u0c95\u0cc7\u0cb0\u0ccd \u0cb5\u0cb0\u0ccd\u0c9c\u0cbf\u0ca8\u0ccd \u0c95\u0cca\u0cac\u0ccd\u0cac\u0cb0\u0cbf \u0c8e\u0ca3\u0ccd\u0ca3\u0cc6",
+        "price": 46,
+        "category": "coconut",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 46
+            },
+            {
+                "label": "200 ml",
+                "price": 90
+            },
+            {
+                "label": "300 ml",
+                "price": 135
+            },
+            {
+                "label": "500 ml",
+                "price": 210
+            },
+            {
+                "label": "600 ml",
+                "price": 250
+            },
+            {
+                "label": "1 L",
+                "price": 400
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "Pure coconut oil for cooking, hair and skin care.",
+        "image": "../images/oil/Max Care Virgin Coconut Oil.jpg"
+    },
+    {
+        "id": 32,
+        "name": "Kerala Ayurveda Coconut Oil",
+        "kn_name": "\u0c95\u0cc7\u0cb0\u0cb3 \u0c86\u0caf\u0cc1\u0cb0\u0ccd\u0cb5\u0cc7\u0ca6 \u0c95\u0cca\u0cac\u0ccd\u0cac\u0cb0\u0cbf \u0c8e\u0ca3\u0ccd\u0ca3\u0cc6",
+        "price": 39,
+        "category": "coconut",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 39
+            },
+            {
+                "label": "200 ml",
+                "price": 70
+            },
+            {
+                "label": "300 ml",
+                "price": 105
+            },
+            {
+                "label": "500 ml",
+                "price": 165
+            },
+            {
+                "label": "600 ml",
+                "price": 200
+            },
+            {
+                "label": "1 L",
+                "price": 350
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "Pure coconut oil for cooking, hair and skin care.",
+        "image": "../images/oil/Kerala Ayurveda Coconut Oil.jpg"
+    },
+    {
+        "id": 33,
+        "name": "Dabur Anmol Coconut Oil",
+        "kn_name": "\u0ca1\u0cbe\u0cac\u0cb0\u0ccd \u0c85\u0ca8\u0ccd\u0cae\u0ccb\u0cb2\u0ccd \u0c95\u0cca\u0cac\u0ccd\u0cac\u0cb0\u0cbf \u0c8e\u0ca3\u0ccd\u0ca3\u0cc6",
+        "price": 40,
+        "category": "coconut",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 40
+            },
+            {
+                "label": "200 ml",
+                "price": 62
+            },
+            {
+                "label": "300 ml",
+                "price": 95
+            },
+            {
+                "label": "500 ml",
+                "price": 172
+            },
+            {
+                "label": "600 ml",
+                "price": 275
+            },
+            {
+                "label": "1 L",
+                "price": 520
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "Pure coconut oil for cooking, hair and skin care.",
+        "image": "../images/oil/Dabur Anmol Coconut Oil.jpg"
+    },
+    {
+        "id": 34,
+        "name": "Patanjali Coconut Oil",
+        "kn_name": "\u0caa\u0ca4\u0c82\u0c9c\u0cb2\u0cbf \u0c95\u0cca\u0cac\u0ccd\u0cac\u0cb0\u0cbf \u0c8e\u0ca3\u0ccd\u0ca3\u0cc6",
+        "price": 47,
+        "category": "coconut",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 47
+            },
+            {
+                "label": "200 ml",
+                "price": 102
+            },
+            {
+                "label": "300 ml",
+                "price": 176
+            },
+            {
+                "label": "500 ml",
+                "price": 278
+            },
+            {
+                "label": "600 ml",
+                "price": 300
+            },
+            {
+                "label": "1 L",
+                "price": 584
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "Pure coconut oil for cooking, hair and skin care.",
+        "image": "../images/oil/Patanjali Coconut Oil.jpg"
+    },
+    {
+        "id": 35,
+        "name": "Marico Hair & Care Coconut Oil",
+        "kn_name": "\u0cae\u0cbe\u0cb0\u0cbf\u0c95\u0cca \u0cb9\u0cc7\u0cb0\u0ccd & \u0c95\u0cc7\u0cb0\u0ccd \u0c95\u0cca\u0cac\u0ccd\u0cac\u0cb0\u0cbf \u0c8e\u0ca3\u0ccd\u0ca3\u0cc6",
+        "price": 62,
+        "category": "coconut",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 62
+            },
+            {
+                "label": "200 ml",
+                "price": 111
+            },
+            {
+                "label": "300 ml",
+                "price": 173
+            },
+            {
+                "label": "500 ml",
+                "price": 272
+            },
+            {
+                "label": "600 ml",
+                "price": 300
+            },
+            {
+                "label": "1 L",
+                "price": 449
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "Pure coconut oil for cooking, hair and skin care.",
+        "image": "../images/oil/Marico Hair & Care Coconut Oil.jpg"
+    },
+    {
+        "id": 36,
+        "name": "Parachute Coconut Oil Jar",
+        "kn_name": "\u0caa\u0ccd\u0caf\u0cbe\u0cb0\u0cbe\u0cb6\u0cc2\u0c9f\u0ccd \u0c95\u0cca\u0cac\u0ccd\u0cac\u0cb0\u0cbf \u0c8e\u0ca3\u0ccd\u0ca3\u0cc6 \u0c9c\u0cbe\u0cb0\u0ccd",
+        "price": 58,
+        "category": "coconut",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 58
+            },
+            {
+                "label": "200 ml",
+                "price": 75
+            },
+            {
+                "label": "300 ml",
+                "price": 175
+            },
+            {
+                "label": "500 ml",
+                "price": 262
+            },
+            {
+                "label": "1 L",
+                "price": 535
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "Pure coconut oil for cooking, hair and skin care.",
+        "image": "../images/oil/Parachute Coconut Oil Jar.jpg"
+    },
+    {
+        "id": 37,
+        "name": "KLF Nirmal Coconut Oil Jar",
+        "kn_name": "\u0c95\u0cc6\u0c8e\u0cb2\u0ccd\u0c8e\u0cab\u0ccd \u0ca8\u0cbf\u0cb0\u0ccd\u0cae\u0cb2\u0ccd \u0c95\u0cca\u0cac\u0ccd\u0cac\u0cb0\u0cbf \u0c8e\u0ca3\u0ccd\u0ca3\u0cc6 \u0c9c\u0cbe\u0cb0\u0ccd",
+        "price": 33,
+        "category": "coconut",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 33
+            },
+            {
+                "label": "200 ml",
+                "price": 62
+            },
+            {
+                "label": "300 ml",
+                "price": 95
+            },
+            {
+                "label": "500 ml",
+                "price": 155
+            },
+            {
+                "label": "600 ml",
+                "price": 190
+            },
+            {
+                "label": "1 L",
+                "price": 320
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "Pure coconut oil for cooking, hair and skin care.",
+        "image": "../images/oil/KLF Nirmal Coconut Oil Jar.jpg"
+    },
+    {
+        "id": 38,
+        "name": "Coco Soul Cold Pressed Coconut Oil",
+        "kn_name": "\u0c95\u0ccb\u0c95\u0ccb \u0cb8\u0ccb\u0cb2\u0ccd \u0c95\u0ccb\u0cb2\u0ccd\u0ca1\u0ccd \u0caa\u0ccd\u0cb0\u0cc6\u0cb8\u0ccd\u0ca1\u0ccd \u0c95\u0cca\u0cac\u0ccd\u0cac\u0cb0\u0cbf \u0c8e\u0ca3\u0ccd\u0ca3\u0cc6",
+        "price": 55,
+        "category": "coconut",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 55
+            },
+            {
+                "label": "200 ml",
+                "price": 105
+            },
+            {
+                "label": "300 ml",
+                "price": 155
+            },
+            {
+                "label": "500 ml",
+                "price": 240
+            },
+            {
+                "label": "600 ml",
+                "price": 290
+            },
+            {
+                "label": "1 L",
+                "price": 465
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "Pure coconut oil for cooking, hair and skin care.",
+        "image": "../images/oil/Coco Soul Cold Pressed Coconut Oil.jpg"
+    },
+    {
+        "id": 39,
+        "name": "Max Care Coconut Oil Jar",
+        "kn_name": "\u0cae\u0ccd\u0caf\u0cbe\u0c95\u0ccd\u0cb8\u0ccd \u0c95\u0cc7\u0cb0\u0ccd \u0c95\u0cca\u0cac\u0ccd\u0cac\u0cb0\u0cbf \u0c8e\u0ca3\u0ccd\u0ca3\u0cc6 \u0c9c\u0cbe\u0cb0\u0ccd",
+        "price": 33,
+        "category": "coconut",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 33
+            },
+            {
+                "label": "200 ml",
+                "price": 60
+            },
+            {
+                "label": "300 ml",
+                "price": 95
+            },
+            {
+                "label": "500 ml",
+                "price": 150
+            },
+            {
+                "label": "600 ml",
+                "price": 185
+            },
+            {
+                "label": "1 L",
+                "price": 310
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "Pure coconut oil for cooking, hair and skin care.",
+        "image": "../images/oil/Max Care Coconut Oil Jar.jpg"
+    },
+    {
+        "id": 40,
+        "name": "Kerala Ayurveda Virgin Coconut Oil",
+        "kn_name": "\u0c95\u0cc7\u0cb0\u0cb3 \u0c86\u0caf\u0cc1\u0cb0\u0ccd\u0cb5\u0cc7\u0ca6 \u0cb5\u0cb0\u0ccd\u0c9c\u0cbf\u0ca8\u0ccd \u0c95\u0cca\u0cac\u0ccd\u0cac\u0cb0\u0cbf \u0c8e\u0ca3\u0ccd\u0ca3\u0cc6",
+        "price": 50,
+        "category": "coconut",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 50
+            },
+            {
+                "label": "200 ml",
+                "price": 95
+            },
+            {
+                "label": "300 ml",
+                "price": 140
+            },
+            {
+                "label": "500 ml",
+                "price": 215
+            },
+            {
+                "label": "600 ml",
+                "price": 260
+            },
+            {
+                "label": "1 L",
+                "price": 410
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "Pure coconut oil for cooking, hair and skin care.",
+        "image": "../images/oil/Kerala Ayurveda Virgin Coconut Oil.jpg"
+    },
+    {
+        "id": 41,
+        "name": "Dabur Coconut Oil Jar",
+        "kn_name": "\u0ca1\u0cbe\u0cac\u0cb0\u0ccd \u0c95\u0cca\u0cac\u0ccd\u0cac\u0cb0\u0cbf \u0c8e\u0ca3\u0ccd\u0ca3\u0cc6 \u0c9c\u0cbe\u0cb0\u0ccd",
+        "price": 33,
+        "category": "coconut",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 33
+            },
+            {
+                "label": "200 ml",
+                "price": 62
+            },
+            {
+                "label": "300 ml",
+                "price": 95
+            },
+            {
+                "label": "500 ml",
+                "price": 155
+            },
+            {
+                "label": "600 ml",
+                "price": 190
+            },
+            {
+                "label": "1 L",
+                "price": 320
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "Pure coconut oil for cooking, hair and skin care.",
+        "image": "../images/oil/Dabur Coconut Oil Jar.jpg"
+    },
+    {
+        "id": 42,
+        "name": "Patanjali Coconut Oil Jar",
+        "kn_name": "\u0caa\u0ca4\u0c82\u0c9c\u0cb2\u0cbf \u0c95\u0cca\u0cac\u0ccd\u0cac\u0cb0\u0cbf \u0c8e\u0ca3\u0ccd\u0ca3\u0cc6 \u0c9c\u0cbe\u0cb0\u0ccd",
+        "price": 31,
+        "category": "coconut",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 31
+            },
+            {
+                "label": "200 ml",
+                "price": 60
+            },
+            {
+                "label": "300 ml",
+                "price": 90
+            },
+            {
+                "label": "500 ml",
+                "price": 150
+            },
+            {
+                "label": "600 ml",
+                "price": 180
+            },
+            {
+                "label": "1 L",
+                "price": 310
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "Pure coconut oil for cooking, hair and skin care.",
+        "image": "../images/oil/Patanjali Coconut Oil Jar.jpg"
+    },
+    {
+        "id": 43,
+        "name": "Indus Valley Virgin Coconut Oil",
+        "kn_name": "\u0c87\u0c82\u0ca1\u0cb8\u0ccd \u0cb5\u0ccd\u0caf\u0cbe\u0cb2\u0cbf \u0cb5\u0cb0\u0ccd\u0c9c\u0cbf\u0ca8\u0ccd \u0c95\u0cca\u0cac\u0ccd\u0cac\u0cb0\u0cbf \u0c8e\u0ca3\u0ccd\u0ca3\u0cc6",
+        "price": 53,
+        "category": "coconut",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 53
+            },
+            {
+                "label": "200 ml",
+                "price": 100
+            },
+            {
+                "label": "300 ml",
+                "price": 150
+            },
+            {
+                "label": "500 ml",
+                "price": 230
+            },
+            {
+                "label": "600 ml",
+                "price": 280
+            },
+            {
+                "label": "1 L",
+                "price": 435
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "Pure coconut oil for cooking, hair and skin care.",
+        "image": "../images/oil/Indus Valley Virgin Coconut Oil.jpg"
+    },
+    {
+        "id": 44,
+        "name": "Ayurvedic Anti-Hair Fall Oil",
+        "kn_name": "\u0c86\u0caf\u0cc1\u0cb0\u0ccd\u0cb5\u0cc7\u0ca6\u0cbf\u0c95\u0ccd \u0c86\u0c82\u0c9f\u0cbf-\u0cb9\u0cc7\u0cb0\u0ccd \u0cab\u0cbe\u0cb2\u0ccd \u0c86\u0caf\u0cbf\u0cb2\u0ccd",
+        "price": 51,
+        "category": "coconut",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 51
+            },
+            {
+                "label": "200 ml",
+                "price": 99
+            },
+            {
+                "label": "300 ml",
+                "price": 142
+            },
+            {
+                "label": "500 ml",
+                "price": 200
+            },
+            {
+                "label": "600 ml",
+                "price": 269
+            },
+            {
+                "label": "1 L",
+                "price": 375
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "Pure coconut oil for cooking, hair and skin care.",
+        "image": "../images/oil/Ayurvedic Anti-Hair Fall Oil 220.jpg"
+    },
+    {
+        "id": 45,
+        "name": "Ayurvedic Hair Oil",
+        "kn_name": "\u0c86\u0caf\u0cc1\u0cb0\u0ccd\u0cb5\u0cc7\u0ca6\u0cbf\u0c95\u0ccd \u0cb9\u0cc7\u0cb0\u0ccd \u0c86\u0caf\u0cbf\u0cb2\u0ccd",
+        "price": 51,
+        "category": "coconut",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 51
+            },
+            {
+                "label": "200 ml",
+                "price": 99
+            },
+            {
+                "label": "300 ml",
+                "price": 142
+            },
+            {
+                "label": "500 ml",
+                "price": 200
+            },
+            {
+                "label": "600 ml",
+                "price": 269
+            },
+            {
+                "label": "1 L",
+                "price": 375
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "Pure coconut oil for cooking, hair and skin care.",
+        "image": "../images/oil/Ayurvedic Hair Oil 190.jpg"
+    },
+    {
+        "id": 46,
+        "name": "Bajaj 100% Pure Castor Oil",
+        "kn_name": "\u0cac\u0c9c\u0cbe\u0c9c\u0ccd 100% \u0cb6\u0cc1\u0ca6\u0ccd\u0ca7 \u0c95\u0ccd\u0caf\u0cbe\u0cb8\u0ccd\u0c9f\u0cb0\u0ccd \u0c86\u0caf\u0cbf\u0cb2\u0ccd",
+        "price": 51,
+        "category": "coconut",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 51
+            },
+            {
+                "label": "200 ml",
+                "price": 99
+            },
+            {
+                "label": "300 ml",
+                "price": 142
+            },
+            {
+                "label": "500 ml",
+                "price": 200
+            },
+            {
+                "label": "600 ml",
+                "price": 269
+            },
+            {
+                "label": "1 L",
+                "price": 375
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "Pure coconut oil for cooking, hair and skin care.",
+        "image": "../images/oil/Bajaj 100% Pure Castor Oil 162-190.jpg"
+    },
+    {
+        "id": 47,
+        "name": "Bhringraj Hair Oil kama",
+        "kn_name": "\u0cad\u0cc3\u0c82\u0c97\u0cb0\u0cbe\u0c9c\u0ccd \u0cb9\u0cc7\u0cb0\u0ccd \u0c86\u0caf\u0cbf\u0cb2\u0ccd \u0c95\u0cbe\u0cae",
+        "price": 51,
+        "category": "coconut",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 51
+            },
+            {
+                "label": "200 ml",
+                "price": 99
+            },
+            {
+                "label": "300 ml",
+                "price": 142
+            },
+            {
+                "label": "500 ml",
+                "price": 200
+            },
+            {
+                "label": "600 ml",
+                "price": 269
+            },
+            {
+                "label": "1 L",
+                "price": 375
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "Pure coconut oil for cooking, hair and skin care.",
+        "image": "../images/oil/Bhringraj Hair Oil kama.jpg"
+    },
+    {
+        "id": 48,
+        "name": "Brahmi Hair Oil",
+        "kn_name": "\u0cac\u0ccd\u0cb0\u0cbe\u0cb9\u0ccd\u0cae\u0cbf \u0cb9\u0cc7\u0cb0\u0ccd \u0c86\u0caf\u0cbf\u0cb2\u0ccd",
+        "price": 240,
+        "category": "coconut",
+        "variants": [
+            {
+                "label": "200 ml",
+                "price": 240
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "Pure coconut oil for cooking, hair and skin care.",
+        "image": "../images/oil/Brahmi Hair Oil 200ml 232.jpg"
+    },
+    {
+        "id": 50,
+        "name": "Brillare Tea Tree Hair Oil",
+        "kn_name": "\u0cac\u0ccd\u0cb0\u0cbf\u0cb2\u0ccd\u0cb2\u0cbe\u0cb0\u0cc6 \u0c9f\u0cc0 \u0c9f\u0ccd\u0cb0\u0cc0 \u0cb9\u0cc7\u0cb0\u0ccd \u0c86\u0caf\u0cbf\u0cb2\u0ccd",
+        "price": 81,
+        "category": "coconut",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 81
+            },
+            {
+                "label": "200 ml",
+                "price": 190
+            },
+            {
+                "label": "300 ml",
+                "price": 224
+            },
+            {
+                "label": "500 ml",
+                "price": 390
+            },
+            {
+                "label": "600 ml",
+                "price": 269
+            },
+            {
+                "label": "1 L",
+                "price": 375
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "Pure coconut oil for cooking, hair and skin care.",
+        "image": "../images/oil/Brillare Tea Tree Hair Oil 224-350.jpg"
+    },
+    {
+        "id": 51,
+        "name": "Cooling Brahmi Amla Oil",
+        "kn_name": "\u0c95\u0cc2\u0cb2\u0cbf\u0c82\u0c97\u0ccd \u0cac\u0ccd\u0cb0\u0cbe\u0cb9\u0ccd\u0cae\u0cbf \u0c86\u0cae\u0ccd\u0cb2\u0cbe \u0c86\u0caf\u0cbf\u0cb2\u0ccd",
+        "price": 400,
+        "category": "coconut",
+        "variants": [
+            {
+                "label": "500 ml",
+                "price": 400
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "Pure coconut oil for cooking, hair and skin care.",
+        "image": "../images/oil/Cooling Brahmi Amla Oil 396.jpg"
+    },
+    {
+        "id": 52,
+        "name": "Dabur Castor Oil",
+        "kn_name": "\u0ca1\u0cbe\u0cac\u0cb0\u0ccd \u0c95\u0ccd\u0caf\u0cbe\u0cb8\u0ccd\u0c9f\u0cb0\u0ccd \u0c86\u0caf\u0cbf\u0cb2\u0ccd",
+        "price": 40,
+        "category": "coconut",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 40
+            },
+            {
+                "label": "200 ml",
+                "price": 62
+            },
+            {
+                "label": "300 ml",
+                "price": 95
+            },
+            {
+                "label": "500 ml",
+                "price": 172
+            },
+            {
+                "label": "600 ml",
+                "price": 275
+            },
+            {
+                "label": "1 L",
+                "price": 520
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "Pure coconut oil for cooking, hair and skin care.",
+        "image": "../images/oil/Dabur Castor Oil 215-270.jpg"
+    },
+    {
+        "id": 54,
+        "name": "dabur Cool King Thanda Tel Hair Oil",
+        "kn_name": "\u0ca1\u0cbe\u0cac\u0cb0\u0ccd \u0c95\u0cc2\u0cb2\u0ccd \u0c95\u0cbf\u0c82\u0c97\u0ccd \u0ca5\u0c82\u0ca1\u0cbe \u0ca4\u0cc7\u0cb2\u0ccd \u0cb9\u0cc7\u0cb0\u0ccd \u0c86\u0caf\u0cbf\u0cb2\u0ccd",
+        "price": 40,
+        "category": "other",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 40
+            },
+            {
+                "label": "200 ml",
+                "price": 62
+            },
+            {
+                "label": "300 ml",
+                "price": 95
+            },
+            {
+                "label": "500 ml",
+                "price": 172
+            },
+            {
+                "label": "600 ml",
+                "price": 275
+            },
+            {
+                "label": "1 L",
+                "price": 520
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "Pure coconut oil for cooking, hair and skin care.",
+        "image": "../images/oil/dabur Cool King Thanda Tel Hair Oil 266-146.jpg"
+    },
+    {
+        "id": 55,
+        "name": "Dabur Vatika Imported Garlic Enriched Hair Oil",
+        "kn_name": "\u0ca1\u0cbe\u0cac\u0cb0\u0ccd \u0cb5\u0cbe\u0c9f\u0cbf\u0c95\u0cbe \u0c87\u0c82\u0caa\u0ccb\u0cb0\u0ccd\u0c9f\u0cc6\u0ca1\u0ccd \u0c97\u0cbe\u0cb0\u0ccd\u0cb2\u0cbf\u0c95\u0ccd \u0c8e\u0ca8\u0ccd\u0cb0\u0cbf\u0c9a\u0ccd\u0ca1\u0ccd \u0cb9\u0cc7\u0cb0\u0ccd \u0c86\u0caf\u0cbf\u0cb2\u0ccd",
+        "price": 40,
+        "category": "other",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 40
+            },
+            {
+                "label": "200 ml",
+                "price": 62
+            },
+            {
+                "label": "300 ml",
+                "price": 95
+            },
+            {
+                "label": "500 ml",
+                "price": 172
+            },
+            {
+                "label": "600 ml",
+                "price": 275
+            },
+            {
+                "label": "1 L",
+                "price": 520
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "Pure coconut oil for cooking, hair and skin care.",
+        "image": "../images/oil/Dabur Vatika Imported Garlic Enriched Hair Oil 254.jpg"
+    },
+    {
+        "id": 115,
+        "name": "Dabur Amla Hair Oil",
+        "kn_name": "\u0ca1\u0cbe\u0cac\u0cb0\u0ccd \u0cb5\u0cbe\u0c9f\u0cbf\u0c95\u0cbe \u0c87\u0c82\u0caa\u0ccb\u0cb0\u0ccd\u0c9f\u0cc6\u0ca1\u0ccd \u0c97\u0cbe\u0cb0\u0ccd\u0cb2\u0cbf\u0c95\u0ccd \u0c8e\u0ca8\u0ccd\u0cb0\u0cbf\u0c9a\u0ccd\u0ca1\u0ccd \u0cb9\u0cc7\u0cb0\u0ccd \u0c86\u0caf\u0cbf\u0cb2\u0ccd",
+        "price": 40,
+        "category": "other",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 40
+            },
+            {
+                "label": "200 ml",
+                "price": 62
+            },
+            {
+                "label": "300 ml",
+                "price": 95
+            },
+            {
+                "label": "500 ml",
+                "price": 172
+            },
+            {
+                "label": "600 ml",
+                "price": 275
+            },
+            {
+                "label": "1 L",
+                "price": 520
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "Pure coconut oil for cooking, hair and skin care.",
+        "image": "../images/oil/Dabur Amla Hair Oil 102.jpg"
+    },
+    {
+        "id": 56,
+        "name": "DR. Rashel Onion Black Seed Hair Oil",
+        "kn_name": "\u0ca1\u0cbe. \u0cb0\u0cbe\u0cb6\u0cc6\u0cb2\u0ccd \u0c88\u0cb0\u0cc1\u0cb3\u0ccd\u0cb3\u0cbf \u0cac\u0ccd\u0cb2\u0ccd\u0caf\u0cbe\u0c95\u0ccd \u0cb8\u0cc0\u0ca1\u0ccd \u0cb9\u0cc7\u0cb0\u0ccd \u0c86\u0caf\u0cbf\u0cb2\u0ccd",
+        "price": 40,
+        "category": "other",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 40
+            },
+            {
+                "label": "200 ml",
+                "price": 62
+            },
+            {
+                "label": "300 ml",
+                "price": 95
+            },
+            {
+                "label": "500 ml",
+                "price": 172
+            },
+            {
+                "label": "600 ml",
+                "price": 275
+            },
+            {
+                "label": "1 L",
+                "price": 520
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "Pure coconut oil for cooking, hair and skin care.",
+        "image": "../images/oil/DR. Rashel Onion Black Seed Hair Oil 160.jpg"
+    },
+    {
+        "id": 57,
+        "name": "Emami Kesh King Ayurvedic Hair Oil",
+        "kn_name": "\u0c8e\u0cae\u0cbe\u0cae\u0cbf \u0c95\u0cc7\u0cb6\u0ccd \u0c95\u0cbf\u0c82\u0c97\u0ccd \u0c86\u0caf\u0cc1\u0cb0\u0ccd\u0cb5\u0cc7\u0ca6\u0cbf\u0c95\u0ccd \u0cb9\u0cc7\u0cb0\u0ccd \u0c86\u0caf\u0cbf\u0cb2\u0ccd",
+        "price": 19,
+        "category": "mustard",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 19
+            },
+            {
+                "label": "200 ml",
+                "price": 32
+            },
+            {
+                "label": "300 ml",
+                "price": 48
+            },
+            {
+                "label": "500 ml",
+                "price": 80
+            },
+            {
+                "label": "600 ml",
+                "price": 95
+            },
+            {
+                "label": "1 L",
+                "price": 165
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "Kachi Ghani mustard oil, rich in flavor.",
+        "image": "../images/oil/Emami Kesh King Ayurvedic Hair Oil 100 ml 170.jpg"
+    },
+    {
+        "id": 58,
+        "name": "Fortune Vegetable Oil",
+        "kn_name": "\u0cab\u0cbe\u0cb0\u0ccd\u0c9a\u0cc2\u0ca8\u0ccd \u0cb5\u0cc6\u0c9c\u0cbf\u0c9f\u0cc7\u0cac\u0cb2\u0ccd \u0c86\u0caf\u0cbf\u0cb2\u0ccd",
+        "price": 16,
+        "category": "sunflower",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 16
+            },
+            {
+                "label": "200 ml",
+                "price": 28
+            },
+            {
+                "label": "300 ml",
+                "price": 42
+            },
+            {
+                "label": "500 ml",
+                "price": 70
+            },
+            {
+                "label": "600 ml",
+                "price": 85
+            },
+            {
+                "label": "1 L",
+                "price": 145
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "Refined vegetable oil for everyday cooking.",
+        "image": "../images/oil/Fortune Vegetable Oil.jpg"
+    },
+    {
+        "id": 59,
+        "name": "Dhara Vegetable Oil",
+        "kn_name": "\u0ca7\u0cbe\u0cb0\u0cbe \u0cb5\u0cc6\u0c9c\u0cbf\u0c9f\u0cc7\u0cac\u0cb2\u0ccd \u0c86\u0caf\u0cbf\u0cb2\u0ccd",
+        "price": 15,
+        "category": "sunflower",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 15
+            },
+            {
+                "label": "200 ml",
+                "price": 26
+            },
+            {
+                "label": "300 ml",
+                "price": 40
+            },
+            {
+                "label": "500 ml",
+                "price": 68
+            },
+            {
+                "label": "600 ml",
+                "price": 82
+            },
+            {
+                "label": "1 L",
+                "price": 140
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "Refined vegetable oil for everyday cooking.",
+        "image": "../images/oil/Dhara Vegetable Oil.jpg"
+    },
+    {
+        "id": 60,
+        "name": "Ruchi Gold Vegetable Oil",
+        "kn_name": "\u0cb0\u0cc1\u0c9a\u0cbf \u0c97\u0ccb\u0cb2\u0ccd\u0ca1\u0ccd \u0cb5\u0cc6\u0c9c\u0cbf\u0c9f\u0cc7\u0cac\u0cb2\u0ccd \u0c86\u0caf\u0cbf\u0cb2\u0ccd",
+        "price": 14,
+        "category": "sunflower",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 14
+            },
+            {
+                "label": "200 ml",
+                "price": 25
+            },
+            {
+                "label": "300 ml",
+                "price": 38
+            },
+            {
+                "label": "500 ml",
+                "price": 65
+            },
+            {
+                "label": "600 ml",
+                "price": 78
+            },
+            {
+                "label": "1 L",
+                "price": 130
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "Refined vegetable oil for everyday cooking.",
+        "image": "../images/oil/Ruchi Gold Vegetable Oil.jpg"
+    },
+    {
+        "id": 61,
+        "name": "Gemini Vegetable Oil",
+        "kn_name": "\u0c9c\u0cc6\u0cae\u0cbf\u0ca8\u0cbf \u0cb5\u0cc6\u0c9c\u0cbf\u0c9f\u0cc7\u0cac\u0cb2\u0ccd \u0c86\u0caf\u0cbf\u0cb2\u0ccd",
+        "price": 15,
+        "category": "sunflower",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 15
+            },
+            {
+                "label": "200 ml",
+                "price": 27
+            },
+            {
+                "label": "300 ml",
+                "price": 40
+            },
+            {
+                "label": "500 ml",
+                "price": 68
+            },
+            {
+                "label": "600 ml",
+                "price": 80
+            },
+            {
+                "label": "1 L",
+                "price": 135
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "Refined vegetable oil for everyday cooking.",
+        "image": "../images/oil/Gemini Vegetable Oil.jpg"
+    },
+    {
+        "id": 62,
+        "name": "Sundrop Vegetable Oil",
+        "kn_name": "\u0cb8\u0ca8\u0ccd\u0ca1\u0ccd\u0cb0\u0cbe\u0caa\u0ccd \u0cb5\u0cc6\u0c9c\u0cbf\u0c9f\u0cc7\u0cac\u0cb2\u0ccd \u0c86\u0caf\u0cbf\u0cb2\u0ccd",
+        "price": 17,
+        "category": "sunflower",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 17
+            },
+            {
+                "label": "200 ml",
+                "price": 30
+            },
+            {
+                "label": "300 ml",
+                "price": 45
+            },
+            {
+                "label": "500 ml",
+                "price": 75
+            },
+            {
+                "label": "600 ml",
+                "price": 90
+            },
+            {
+                "label": "1 L",
+                "price": 155
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "Refined vegetable oil for everyday cooking.",
+        "image": "../images/oil/Sundrop Vegetable Oil.jpg"
+    },
+    {
+        "id": 63,
+        "name": "Nature Fresh Vegetable Oil",
+        "kn_name": "\u0ca8\u0cc7\u0c9a\u0cb0\u0ccd \u0cab\u0ccd\u0cb0\u0cc6\u0cb6\u0ccd \u0cb5\u0cc6\u0c9c\u0cbf\u0c9f\u0cc7\u0cac\u0cb2\u0ccd \u0c86\u0caf\u0cbf\u0cb2\u0ccd",
+        "price": 16,
+        "category": "sunflower",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 16
+            },
+            {
+                "label": "200 ml",
+                "price": 29
+            },
+            {
+                "label": "300 ml",
+                "price": 44
+            },
+            {
+                "label": "500 ml",
+                "price": 72
+            },
+            {
+                "label": "600 ml",
+                "price": 88
+            },
+            {
+                "label": "1 L",
+                "price": 150
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "Refined vegetable oil for everyday cooking.",
+        "image": "../images/oil/Nature Fresh Vegetable Oil.jpg"
+    },
+    {
+        "id": 64,
+        "name": "Gold Winner Vegetable Oil",
+        "kn_name": "\u0c97\u0ccb\u0cb2\u0ccd\u0ca1\u0ccd \u0cb5\u0cbf\u0ca8\u0ccd\u0ca8\u0cb0\u0ccd \u0cb5\u0cc6\u0c9c\u0cbf\u0c9f\u0cc7\u0cac\u0cb2\u0ccd \u0c86\u0caf\u0cbf\u0cb2\u0ccd",
+        "price": 15,
+        "category": "sunflower",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 15
+            },
+            {
+                "label": "200 ml",
+                "price": 28
+            },
+            {
+                "label": "300 ml",
+                "price": 42
+            },
+            {
+                "label": "500 ml",
+                "price": 70
+            },
+            {
+                "label": "600 ml",
+                "price": 85
+            },
+            {
+                "label": "1 L",
+                "price": 143
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "Refined vegetable oil for everyday cooking.",
+        "image": "../images/oil/Gold Winner Vegetable Oil.jpg"
+    },
+    {
+        "id": 65,
+        "name": "Freedom Vegetable Oil",
+        "kn_name": "\u0cab\u0ccd\u0cb0\u0cc0\u0ca1\u0cae\u0ccd \u0cb5\u0cc6\u0c9c\u0cbf\u0c9f\u0cc7\u0cac\u0cb2\u0ccd \u0c86\u0caf\u0cbf\u0cb2\u0ccd",
+        "price": 16,
+        "category": "sunflower",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 16
+            },
+            {
+                "label": "200 ml",
+                "price": 29
+            },
+            {
+                "label": "300 ml",
+                "price": 43
+            },
+            {
+                "label": "500 ml",
+                "price": 74
+            },
+            {
+                "label": "600 ml",
+                "price": 86
+            },
+            {
+                "label": "1 L",
+                "price": 151
+            },
+            {
+                "label": "Litre (Bottle)",
+                "price": 179
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "Refined vegetable oil for everyday cooking.",
+        "image": "../images/oil/Freedom Vegetable Oil.jpg"
+    },
+    {
+        "id": 66,
+        "name": "Fortune Kachi Ghani Mustard Oil",
+        "kn_name": "\u0cab\u0cbe\u0cb0\u0ccd\u0c9a\u0cc2\u0ca8\u0ccd \u0c95\u0c9a\u0ccd\u0c9a\u0cbf \u0c98\u0cbe\u0ca8\u0cbf \u0cb8\u0cbe\u0cb8\u0cbf\u0cb5\u0cc6 \u0c8e\u0ca3\u0ccd\u0ca3\u0cc6",
+        "price": 40,
+        "category": "mustard",
+        "variants": [
+            {
+                "label": "200 ml",
+                "price": 40
+            },
+            {
+                "label": "500 ml",
+                "price": 92
+            },
+            {
+                "label": "1 L",
+                "price": 193
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "Kachi Ghani mustard oil, rich in flavor.",
+        "image": "../images/oil/Fortune Kachi Ghani Mustard Oil.jpg"
+    },
+    {
+        "id": 67,
+        "name": "Fortunate Fenugreek Hair Oil",
+        "kn_name": "\u0cab\u0cbe\u0cb0\u0ccd\u0c9a\u0cc1\u0ca8\u0cc7\u0c9f\u0ccd \u0cae\u0cc6\u0c82\u0ca4\u0ccd\u0caf \u0cb9\u0cc7\u0cb0\u0ccd \u0c86\u0caf\u0cbf\u0cb2\u0ccd",
+        "price": 40,
+        "category": "mustard",
+        "variants": [
+            {
+                "label": "200 ml",
+                "price": 40
+            },
+            {
+                "label": "500 ml",
+                "price": 92
+            },
+            {
+                "label": "1 L",
+                "price": 193
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "Kachi Ghani mustard oil, rich in flavor.",
+        "image": "../images/oil/Fortunate Fenugreek Hair Oil  130.jpg"
+    },
+    {
+        "id": 68,
+        "name": "Dhara Kachi Ghani Mustard Oil",
+        "kn_name": "\u0ca7\u0cbe\u0cb0\u0cbe \u0c95\u0c9a\u0ccd\u0c9a\u0cbf \u0c98\u0cbe\u0ca8\u0cbf \u0cb8\u0cbe\u0cb8\u0cbf\u0cb5\u0cc6 \u0c8e\u0ca3\u0ccd\u0ca3\u0cc6",
+        "price": 16,
+        "category": "mustard",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 16
+            },
+            {
+                "label": "200 ml",
+                "price": 28
+            },
+            {
+                "label": "300 ml",
+                "price": 42
+            },
+            {
+                "label": "500 ml",
+                "price": 70
+            },
+            {
+                "label": "600 ml",
+                "price": 85
+            },
+            {
+                "label": "1 L",
+                "price": 140
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "Kachi Ghani mustard oil, rich in flavor.",
+        "image": "../images/oil/Dhara Kachi Ghani Mustard Oil.jpg"
+    },
+    {
+        "id": 69,
+        "name": "Patanjali Mustard Oil",
+        "kn_name": "\u0caa\u0ca4\u0c82\u0c9c\u0cb2\u0cbf \u0cb8\u0cbe\u0cb8\u0cbf\u0cb5\u0cc6 \u0c8e\u0ca3\u0ccd\u0ca3\u0cc6",
+        "price": 20,
+        "category": "mustard",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 20
+            },
+            {
+                "label": "200 ml",
+                "price": 36
+            },
+            {
+                "label": "300 ml",
+                "price": 55
+            },
+            {
+                "label": "500 ml",
+                "price": 90
+            },
+            {
+                "label": "600 ml",
+                "price": 110
+            },
+            {
+                "label": "1 L",
+                "price": 195
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "Kachi Ghani mustard oil, rich in flavor.",
+        "image": "../images/oil/Patanjali Mustard Oil.jpg"
+    },
+    {
+        "id": 70,
+        "name": "Emami Healthy & Tasty Mustard Oil",
+        "kn_name": "\u0c8e\u0cae\u0cbe\u0cae\u0cbf \u0cb9\u0cc6\u0cb2\u0ccd\u0ca4\u0cbf & \u0c9f\u0cc7\u0cb8\u0ccd\u0c9f\u0cbf \u0cb8\u0cbe\u0cb8\u0cbf\u0cb5\u0cc6 \u0c8e\u0ca3\u0ccd\u0ca3\u0cc6",
+        "price": 19,
+        "category": "mustard",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 19
+            },
+            {
+                "label": "200 ml",
+                "price": 32
+            },
+            {
+                "label": "300 ml",
+                "price": 48
+            },
+            {
+                "label": "500 ml",
+                "price": 80
+            },
+            {
+                "label": "600 ml",
+                "price": 95
+            },
+            {
+                "label": "1 L",
+                "price": 165
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "Kachi Ghani mustard oil, rich in flavor.",
+        "image": "../images/oil/Emami Healthy & Tasty Mustard Oil.jpg"
+    },
+    {
+        "id": 72,
+        "name": "Nature Fresh Mustard Oil",
+        "kn_name": "\u0ca8\u0cc7\u0c9a\u0cb0\u0ccd \u0cab\u0ccd\u0cb0\u0cc6\u0cb6\u0ccd \u0cb8\u0cbe\u0cb8\u0cbf\u0cb5\u0cc6 \u0c8e\u0ca3\u0ccd\u0ca3\u0cc6",
+        "price": 16,
+        "category": "mustard",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 16
+            },
+            {
+                "label": "200 ml",
+                "price": 28
+            },
+            {
+                "label": "300 ml",
+                "price": 42
+            },
+            {
+                "label": "500 ml",
+                "price": 70
+            },
+            {
+                "label": "600 ml",
+                "price": 85
+            },
+            {
+                "label": "1 L",
+                "price": 145
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "Kachi Ghani mustard oil, rich in flavor.",
+        "image": "../images/oil/Nature Fresh Mustard Oil.jpg"
+    },
+    {
+        "id": 73,
+        "name": "24 Mantra Organic Mustard Oil",
+        "kn_name": "24 \u0cae\u0c82\u0ca4\u0ccd\u0cb0 \u0c86\u0cb0\u0ccd\u0c97\u0cbe\u0ca8\u0cbf\u0c95\u0ccd \u0cb8\u0cbe\u0cb8\u0cbf\u0cb5\u0cc6 \u0c8e\u0ca3\u0ccd\u0ca3\u0cc6",
+        "price": 25,
+        "category": "mustard",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 25
+            },
+            {
+                "label": "200 ml",
+                "price": 45
+            },
+            {
+                "label": "300 ml",
+                "price": 65
+            },
+            {
+                "label": "500 ml",
+                "price": 110
+            },
+            {
+                "label": "600 ml",
+                "price": 130
+            },
+            {
+                "label": "1 L",
+                "price": 240
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "Kachi Ghani mustard oil, rich in flavor.",
+        "image": "../images/oil/24 Mantra Organic Mustard Oil.jpg"
+    },
+    {
+        "id": 75,
+        "name": "Haironic Hair Science Garlic Hair Oil",
+        "kn_name": "\u0cb9\u0cc7\u0cb0\u0ccb\u0ca8\u0cbf\u0c95\u0ccd \u0cb9\u0cc7\u0cb0\u0ccd \u0cb8\u0cc8\u0ca8\u0ccd\u0cb8\u0ccd \u0c97\u0cbe\u0cb0\u0ccd\u0cb2\u0cbf\u0c95\u0ccd \u0cb9\u0cc7\u0cb0\u0ccd \u0c86\u0caf\u0cbf\u0cb2\u0ccd",
+        "price": 19,
+        "category": "mustard",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 19
+            },
+            {
+                "label": "200 ml",
+                "price": 32
+            },
+            {
+                "label": "300 ml",
+                "price": 48
+            },
+            {
+                "label": "500 ml",
+                "price": 80
+            },
+            {
+                "label": "600 ml",
+                "price": 95
+            },
+            {
+                "label": "1 L",
+                "price": 165
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "Kachi Ghani mustard oil, rich in flavor.",
+        "image": "../images/oil/Haironic Hair Science Garlic Hair Oil 130-400.jpg"
+    },
+    {
+        "id": 76,
+        "name": "Hibiscus Hair Oil",
+        "kn_name": "\u0cb9\u0cbf\u0cac\u0cbf\u0cb8\u0ccd\u0c95\u0cb8\u0ccd \u0cb9\u0cc7\u0cb0\u0ccd \u0c86\u0caf\u0cbf\u0cb2\u0ccd",
+        "price": 19,
+        "category": "mustard",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 19
+            },
+            {
+                "label": "200 ml",
+                "price": 32
+            },
+            {
+                "label": "300 ml",
+                "price": 48
+            },
+            {
+                "label": "500 ml",
+                "price": 80
+            },
+            {
+                "label": "600 ml",
+                "price": 95
+            },
+            {
+                "label": "1 L",
+                "price": 165
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "Kachi Ghani mustard oil, rich in flavor.",
+        "image": "../images/oil/Hibiscus Hair Oil 25-499.jpg"
+    },
+    {
+        "id": 77,
+        "name": "Keo Karpin Hair Oil",
+        "kn_name": "\u0c95\u0cc6\u0caf\u0ccb \u0c95\u0cbe\u0cb0\u0ccd\u0caa\u0cbf\u0ca8\u0ccd \u0cb9\u0cc7\u0cb0\u0ccd \u0c86\u0caf\u0cbf\u0cb2\u0ccd",
+        "price": 19,
+        "category": "mustard",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 19
+            },
+            {
+                "label": "200 ml",
+                "price": 32
+            },
+            {
+                "label": "300 ml",
+                "price": 48
+            },
+            {
+                "label": "500 ml",
+                "price": 80
+            },
+            {
+                "label": "600 ml",
+                "price": 95
+            },
+            {
+                "label": "1 L",
+                "price": 165
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "Kachi Ghani mustard oil, rich in flavor.",
+        "image": "../images/oil/Keo Karpin Hair Oil 49-55.jpg"
+    },
+    {
+        "id": 78,
+        "name": "Kesh King Ayurvedic And Hair Oil",
+        "kn_name": "\u0c95\u0cc7\u0cb6\u0ccd \u0c95\u0cbf\u0c82\u0c97\u0ccd \u0c86\u0caf\u0cc1\u0cb0\u0ccd\u0cb5\u0cc7\u0ca6\u0cbf\u0c95\u0ccd \u0c86\u0c82\u0ca1\u0ccd \u0cb9\u0cc7\u0cb0\u0ccd \u0c86\u0caf\u0cbf\u0cb2\u0ccd",
+        "price": 19,
+        "category": "mustard",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 19
+            },
+            {
+                "label": "200 ml",
+                "price": 32
+            },
+            {
+                "label": "300 ml",
+                "price": 48
+            },
+            {
+                "label": "500 ml",
+                "price": 80
+            },
+            {
+                "label": "600 ml",
+                "price": 95
+            },
+            {
+                "label": "1 L",
+                "price": 165
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "Kachi Ghani mustard oil, rich in flavor.",
+        "image": "../images/oil/Kesh King Ayurvedic And Hair Oil 330.jpg"
+    },
+    {
+        "id": 79,
+        "name": "Kesh King Herbal Ayurvedic Hair Oil For Hair Growth",
+        "kn_name": "\u0c95\u0cc7\u0cb6\u0ccd \u0c95\u0cbf\u0c82\u0c97\u0ccd \u0cb9\u0cb0\u0ccd\u0cac\u0cb2\u0ccd \u0c86\u0caf\u0cc1\u0cb0\u0ccd\u0cb5\u0cc7\u0ca6\u0cbf\u0c95\u0ccd \u0cb9\u0cc7\u0cb0\u0ccd \u0c86\u0caf\u0cbf\u0cb2\u0ccd \u0cab\u0cbe\u0cb0\u0ccd \u0cb9\u0cc7\u0cb0\u0ccd \u0c97\u0ccd\u0cb0\u0ccb\u0ca4\u0ccd",
+        "price": 19,
+        "category": "mustard",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 19
+            },
+            {
+                "label": "200 ml",
+                "price": 32
+            },
+            {
+                "label": "300 ml",
+                "price": 48
+            },
+            {
+                "label": "500 ml",
+                "price": 80
+            },
+            {
+                "label": "600 ml",
+                "price": 95
+            },
+            {
+                "label": "1 L",
+                "price": 165
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "Kachi Ghani mustard oil, rich in flavor.",
+        "image": "../images/oil/Kesh King Herbal Ayurvedic Hair Oil For Hair Growth 100 Ml 200.jpg"
+    },
+    {
+        "id": 80,
+        "name": "Mamaearth Rosemary Hair Growth Oil",
+        "kn_name": "\u0cae\u0cbe\u0cae\u0cbe\u0c85\u0cb0\u0ccd\u0ca5\u0ccd \u0cb0\u0ccb\u0cb8\u0ccd\u0cae\u0cc7\u0cb0\u0cbf \u0cb9\u0cc7\u0cb0\u0ccd \u0c97\u0ccd\u0cb0\u0ccb\u0ca4\u0ccd \u0c86\u0caf\u0cbf\u0cb2\u0ccd",
+        "price": 19,
+        "category": "mustard",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 19
+            },
+            {
+                "label": "200 ml",
+                "price": 32
+            },
+            {
+                "label": "300 ml",
+                "price": 48
+            },
+            {
+                "label": "500 ml",
+                "price": 80
+            },
+            {
+                "label": "600 ml",
+                "price": 95
+            },
+            {
+                "label": "1 L",
+                "price": 165
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "Kachi Ghani mustard oil, rich in flavor.",
+        "image": "../images/oil/Mamaearth Rosemary Hair Growth Oil 236.jpg"
+    },
+    {
+        "id": 81,
+        "name": "La Pink Methi Dana 8-in-1 Hair Oil",
+        "kn_name": "\u0cb2\u0cbe \u0caa\u0cbf\u0c82\u0c95\u0ccd \u0cae\u0cc6\u0c82\u0ca4\u0ccd\u0caf \u0ca6\u0cbe\u0ca8\u0cbe 8-\u0c87\u0ca8\u0ccd-1 \u0cb9\u0cc7\u0cb0\u0ccd \u0c86\u0caf\u0cbf\u0cb2\u0ccd",
+        "price": 19,
+        "category": "mustard",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 19
+            },
+            {
+                "label": "200 ml",
+                "price": 32
+            },
+            {
+                "label": "300 ml",
+                "price": 48
+            },
+            {
+                "label": "500 ml",
+                "price": 80
+            },
+            {
+                "label": "600 ml",
+                "price": 95
+            },
+            {
+                "label": "1 L",
+                "price": 165
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "Kachi Ghani mustard oil, rich in flavor.",
+        "image": "../images/oil/La Pink Methi Dana 8-in-1 Hair Oil 315-450.jpg"
+    },
+    {
+        "id": 82,
+        "name": "Moroccanoil Pure Argan Oil",
+        "kn_name": "\u0cae\u0cca\u0cb0\u0cbe\u0c95\u0ca8\u0cbe\u0caf\u0cbf\u0cb2\u0ccd \u0caa\u0ccd\u0caf\u0cc2\u0cb0\u0ccd \u0c86\u0cb0\u0ccd\u0c97\u0ca8\u0ccd \u0c86\u0caf\u0cbf\u0cb2\u0ccd",
+        "price": 1900,
+        "category": "mustard",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 1900
+            },
+            {
+                "label": "200 ml",
+                "price": 4890
+            },
+            {
+                "label": "300 ml",
+                "price": 6666
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "Kachi Ghani mustard oil, rich in flavor.",
+        "image": "../images/oil/Moroccanoil Pure Argan Oil 6660.jpg"
+    },
+    {
+        "id": 83,
+        "name": "Moroccanoil Treatment",
+        "kn_name": "\u0cae\u0cca\u0cb0\u0cbe\u0c95\u0ca8\u0cbe\u0caf\u0cbf\u0cb2\u0ccd \u0c9f\u0ccd\u0cb0\u0cc0\u0c9f\u0ccd\u0cae\u0cc6\u0c82\u0c9f\u0ccd",
+        "price": 1900,
+        "category": "mustard",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 1900
+            },
+            {
+                "label": "200 ml",
+                "price": 4890
+            },
+            {
+                "label": "300 ml",
+                "price": 6666
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "Kachi Ghani mustard oil, rich in flavor.",
+        "image": "../images/oil/Moroccanoil Treatment 1650.jpg"
+    },
+    {
+        "id": 84,
+        "name": "Navratna Ayurvedic Cool Oil",
+        "kn_name": "\u0ca8\u0cb5\u0cb0\u0ca4\u0ccd\u0ca8 \u0c86\u0caf\u0cc1\u0cb0\u0ccd\u0cb5\u0cc7\u0ca6\u0cbf\u0c95\u0ccd \u0c95\u0cc2\u0cb2\u0ccd \u0c86\u0caf\u0cbf\u0cb2\u0ccd",
+        "price": 1900,
+        "category": "mustard",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 1900
+            },
+            {
+                "label": "200 ml",
+                "price": 4890
+            },
+            {
+                "label": "300 ml",
+                "price": 6666
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "Kachi Ghani mustard oil, rich in flavor.",
+        "image": "../images/oil/Navratna Ayurvedic Cool Oil 330.jpg"
+    },
+    {
+        "id": 85,
+        "name": "Olvedic Garlic Essential Oil Pure & Organic Therapeutic Grade Undiluted For Hair",
+        "kn_name": "\u0c92\u0cb2\u0ccd\u0cb5\u0cc6\u0ca1\u0cbf\u0c95\u0ccd \u0c97\u0cbe\u0cb0\u0ccd\u0cb2\u0cbf\u0c95\u0ccd \u0c8e\u0cb8\u0cc6\u0ca8\u0ccd\u0cb7\u0cbf\u0caf\u0cb2\u0ccd \u0c86\u0caf\u0cbf\u0cb2\u0ccd \u0caa\u0ccd\u0caf\u0cc2\u0cb0\u0ccd & \u0c86\u0cb0\u0ccd\u0c97\u0cbe\u0ca8\u0cbf\u0c95\u0ccd \u0ca5\u0cc6\u0cb0\u0caa\u0ccd\u0caf\u0cc2\u0c9f\u0cbf\u0c95\u0ccd \u0c97\u0ccd\u0cb0\u0cc7\u0ca1\u0ccd \u0c85\u0ca8\u0ccd\u0ca1\u0cc8\u0cb2\u0ccd\u0caf\u0cc2\u0c9f\u0cc6\u0ca1\u0ccd \u0cab\u0cbe\u0cb0\u0ccd \u0cb9\u0cc7\u0cb0\u0ccd",
+        "price": 1900,
+        "category": "mustard",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 1900
+            },
+            {
+                "label": "200 ml",
+                "price": 4890
+            },
+            {
+                "label": "300 ml",
+                "price": 6666
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "Kachi Ghani mustard oil, rich in flavor.",
+        "image": "../images/oil/Olvedic Garlic Essential Oil Pure & Organic Therapeutic Grade Undiluted For Hair 100.jpg"
+    },
+    {
+        "id": 86,
+        "name": "Onion Hair Oil",
+        "kn_name": "\u0c88\u0cb0\u0cc1\u0cb3\u0ccd\u0cb3\u0cbf \u0cb9\u0cc7\u0cb0\u0ccd \u0c86\u0caf\u0cbf\u0cb2\u0ccd",
+        "price": 190,
+        "category": "mustard",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 190
+            },
+            {
+                "label": "200 ml",
+                "price": 140
+            },
+            {
+                "label": "300 ml",
+                "price": 260
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "Kachi Ghani mustard oil, rich in flavor.",
+        "image": "../images/oil/Onion Hair Oil 200.jpg"
+    },
+    {
+        "id": 89,
+        "name": "Parachute Advansed Gold Vitamin E Coconut Hair Oil",
+        "kn_name": "\u0caa\u0ccd\u0caf\u0cbe\u0cb0\u0cbe\u0cb6\u0cc2\u0c9f\u0ccd \u0c85\u0ca1\u0ccd\u0cb5\u0cbe\u0ca8\u0ccd\u0cb8\u0ccd\u0ca1\u0ccd \u0c97\u0ccb\u0cb2\u0ccd\u0ca1\u0ccd \u0cb5\u0cbf\u0c9f\u0cae\u0cbf\u0ca8\u0ccd \u0c87 \u0c95\u0cca\u0cac\u0ccd\u0cac\u0cb0\u0cbf \u0cb9\u0cc7\u0cb0\u0ccd \u0c86\u0caf\u0cbf\u0cb2\u0ccd",
+        "price": 190,
+        "category": "mustard",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 190
+            },
+            {
+                "label": "200 ml",
+                "price": 140
+            },
+            {
+                "label": "300 ml",
+                "price": 260
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "Kachi Ghani mustard oil, rich in flavor.",
+        "image": "../images/oil/Parachute Advansed Gold Vitamin E Coconut Hair Oil 160.jpg"
+    },
+    {
+        "id": 90,
+        "name": "WOW Skin Science Onion Black Seed Hair Oil",
+        "kn_name": "\u0cb5\u0cbe\u0cb5\u0ccd \u0cb8\u0ccd\u0c95\u0cbf\u0ca8\u0ccd \u0cb8\u0cc8\u0ca8\u0ccd\u0cb8\u0ccd \u0c88\u0cb0\u0cc1\u0cb3\u0ccd\u0cb3\u0cbf \u0cac\u0ccd\u0cb2\u0ccd\u0caf\u0cbe\u0c95\u0ccd \u0cb8\u0cc0\u0ca1\u0ccd \u0cb9\u0cc7\u0cb0\u0ccd \u0c86\u0caf\u0cbf\u0cb2\u0ccd",
+        "price": 190,
+        "category": "mustard",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 190
+            },
+            {
+                "label": "200 ml",
+                "price": 4890
+            },
+            {
+                "label": "300 ml",
+                "price": 6666
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "Kachi Ghani mustard oil, rich in flavor.",
+        "image": "../images/oil/WOW Skin Science Onion Black Seed Hair Oil 300-400.jpg"
+    },
+    {
+        "id": 91,
+        "name": "Vatika Multivitamin Garlic Hair Oil",
+        "kn_name": "\u0cb5\u0cbe\u0c9f\u0cbf\u0c95\u0cbe \u0cae\u0cb2\u0ccd\u0c9f\u0cbf\u0cb5\u0cbf\u0c9f\u0cae\u0cbf\u0ca8\u0ccd \u0c97\u0cbe\u0cb0\u0ccd\u0cb2\u0cbf\u0c95\u0ccd \u0cb9\u0cc7\u0cb0\u0ccd \u0c86\u0caf\u0cbf\u0cb2\u0ccd",
+        "price": 1900,
+        "category": "mustard",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 1900
+            },
+            {
+                "label": "200 ml",
+                "price": 4890
+            },
+            {
+                "label": "300 ml",
+                "price": 6666
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "Kachi Ghani mustard oil, rich in flavor.",
+        "image": "../images/oil/Vatika Multivitamin Garlic Hair Oil 330.jpg"
+    },
+    {
+        "id": 92,
+        "name": "TNW The Natural Wash Neem Oil",
+        "kn_name": "\u0c9f\u0cbf\u0c8e\u0ca8\u0ccd\u0ca1\u0cac\u0ccd\u0cb2\u0ccd\u0caf\u0cc2 \u0ca6 \u0ca8\u0ccd\u0caf\u0cbe\u0c9a\u0cc1\u0cb0\u0cb2\u0ccd \u0cb5\u0cbe\u0cb6\u0ccd \u0ca8\u0cc0\u0cae\u0ccd \u0c86\u0caf\u0cbf\u0cb2\u0ccd",
+        "price": 190,
+        "category": "mustard",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 190
+            },
+            {
+                "label": "200 ml",
+                "price": 4890
+            },
+            {
+                "label": "300 ml",
+                "price": 6666
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "Kachi Ghani mustard oil, rich in flavor.",
+        "image": "../images/oil/TNW The Natural Wash Neem Oil 130-230.jpg"
+    },
+    {
+        "id": 93,
+        "name": "Soulflower Olive Oil for Nourished Hair and Skin",
+        "kn_name": "\u0cb8\u0ccb\u0cb2\u0ccd\u0cab\u0ccd\u0cb2\u0cb5\u0cb0\u0ccd \u0c86\u0cb2\u0cbf\u0cb5\u0ccd \u0c86\u0caf\u0cbf\u0cb2\u0ccd \u0cab\u0cbe\u0cb0\u0ccd \u0ca8\u0ccc\u0cb0\u0cbf\u0cb6\u0ccd\u0ca1\u0ccd \u0cb9\u0cc7\u0cb0\u0ccd \u0c85\u0c82\u0ca1\u0ccd \u0cb8\u0ccd\u0c95\u0cbf\u0ca8\u0ccd",
+        "price": 1900,
+        "category": "mustard",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 1900
+            },
+            {
+                "label": "200 ml",
+                "price": 4890
+            },
+            {
+                "label": "300 ml",
+                "price": 6666
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "Kachi Ghani mustard oil, rich in flavor.",
+        "image": "../images/oil/Soulflower Olive Oil for Nourished Hair and Skin 227-245.jpg"
+    },
+    {
+        "id": 94,
+        "name": "Rey Naturals Cold Pressed Neem Oil",
+        "kn_name": "\u0cb0\u0cc7 \u0ca8\u0ccd\u0caf\u0cbe\u0c9a\u0cc1\u0cb0\u0cb2\u0ccd\u0cb8\u0ccd \u0c95\u0ccb\u0cb2\u0ccd\u0ca1\u0ccd \u0caa\u0ccd\u0cb0\u0cc6\u0cb8\u0ccd\u0ca1\u0ccd \u0ca8\u0cc0\u0cae\u0ccd \u0c86\u0caf\u0cbf\u0cb2\u0ccd",
+        "price": 190,
+        "category": "mustard",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 190
+            },
+            {
+                "label": "200 ml",
+                "price": 140
+            },
+            {
+                "label": "300 ml",
+                "price": 260
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "Kachi Ghani mustard oil, rich in flavor.",
+        "image": "../images/oil/Rey Naturals Cold Pressed Neem Oil 230-300.jpg"
+    },
+    {
+        "id": 95,
+        "name": "Pilgrim Spanish Rosemary & Biotin Hair Growth Oil",
+        "kn_name": "\u0caa\u0cbf\u0cb2\u0ccd\u0c97\u0ccd\u0cb0\u0cbf\u0cae\u0ccd \u0cb8\u0ccd\u0caa\u0ccd\u0caf\u0cbe\u0ca8\u0cbf\u0cb6\u0ccd \u0cb0\u0ccb\u0cb8\u0ccd\u0cae\u0cc7\u0cb0\u0cbf & \u0cac\u0caf\u0ccb\u0c9f\u0cbf\u0ca8\u0ccd \u0cb9\u0cc7\u0cb0\u0ccd \u0c97\u0ccd\u0cb0\u0ccb\u0ca4\u0ccd \u0c86\u0caf\u0cbf\u0cb2\u0ccd",
+        "price": 190,
+        "category": "mustard",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 190
+            },
+            {
+                "label": "200 ml",
+                "price": 4890
+            },
+            {
+                "label": "300 ml",
+                "price": 6666
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "Kachi Ghani mustard oil, rich in flavor.",
+        "image": "../images/oil/Pilgrim Spanish Rosemary & Biotin Hair Growth Oil 222-400.jpg"
+    },
+    {
+        "id": 96,
+        "name": "Phillauri Onion Blackseed Herbal Hair Oil",
+        "kn_name": "\u0cab\u0cbf\u0cb2\u0ccc\u0cb0\u0cbf \u0c88\u0cb0\u0cc1\u0cb3\u0ccd\u0cb3\u0cbf \u0cac\u0ccd\u0cb2\u0ccd\u0caf\u0cbe\u0c95\u0ccd\u0cb8\u0cc0\u0ca1\u0ccd \u0cb9\u0cb0\u0ccd\u0cac\u0cb2\u0ccd \u0cb9\u0cc7\u0cb0\u0ccd \u0c86\u0caf\u0cbf\u0cb2\u0ccd",
+        "price": 1900,
+        "category": "mustard",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 1900
+            },
+            {
+                "label": "200 ml",
+                "price": 4890
+            },
+            {
+                "label": "300 ml",
+                "price": 6666
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "Kachi Ghani mustard oil, rich in flavor.",
+        "image": "../images/oil/Phillauri Onion Blackseed Herbal Hair Oil 180.jpg"
+    },
+    {
+        "id": 97,
+        "name": "Parachute Advansed Tea Tree Essential Oil",
+        "kn_name": "\u0caa\u0ccd\u0caf\u0cbe\u0cb0\u0cbe\u0cb6\u0cc2\u0c9f\u0ccd \u0c85\u0ca1\u0ccd\u0cb5\u0cbe\u0ca8\u0ccd\u0cb8\u0ccd\u0ca1\u0ccd \u0c9f\u0cc0 \u0c9f\u0ccd\u0cb0\u0cc0 \u0c8e\u0cb8\u0cc6\u0ca8\u0ccd\u0cb7\u0cbf\u0caf\u0cb2\u0ccd \u0c86\u0caf\u0cbf\u0cb2\u0ccd",
+        "price": 190,
+        "category": "mustard",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 190
+            },
+            {
+                "label": "200 ml",
+                "price": 4890
+            },
+            {
+                "label": "300 ml",
+                "price": 6666
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "Kachi Ghani mustard oil, rich in flavor.",
+        "image": "../images/oil/Parachute Advansed Tea Tree Essential Oil 220-310.jpg"
+    },
+    {
+        "id": 98,
+        "name": "Parachute Advansed Olive Enriched Coconut Hair Oil",
+        "kn_name": "\u0caa\u0ccd\u0caf\u0cbe\u0cb0\u0cbe\u0cb6\u0cc2\u0c9f\u0ccd \u0c85\u0ca1\u0ccd\u0cb5\u0cbe\u0ca8\u0ccd\u0cb8\u0ccd\u0ca1\u0ccd \u0c86\u0cb2\u0cbf\u0cb5\u0ccd \u0c8e\u0ca8\u0ccd\u0cb0\u0cbf\u0c9a\u0ccd\u0ca1\u0ccd \u0c95\u0cca\u0cac\u0ccd\u0cac\u0cb0\u0cbf \u0cb9\u0cc7\u0cb0\u0ccd \u0c86\u0caf\u0cbf\u0cb2\u0ccd",
+        "price": 1900,
+        "category": "mustard",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 1900
+            },
+            {
+                "label": "200 ml",
+                "price": 4890
+            },
+            {
+                "label": "300 ml",
+                "price": 6666
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "Kachi Ghani mustard oil, rich in flavor.",
+        "image": "../images/oil/Parachute Advansed Olive Enriched Coconut Hair Oil 213-298.jpg"
+    },
+    {
+        "id": 100,
+        "name": "Saffola Gold Pro Healthy Lifestyle Oil",
+        "kn_name": "\u0cb8\u0ccd\u0caf\u0cbe\u0cab\u0ccb\u0cb2\u0cbe \u0c97\u0ccb\u0cb2\u0ccd\u0ca1\u0ccd \u0caa\u0ccd\u0cb0\u0ccb \u0cb9\u0cc6\u0cb2\u0ccd\u0ca4\u0cbf \u0cb2\u0cc8\u0cab\u0ccd \u0cb8\u0ccd\u0c9f\u0cc8\u0cb2\u0ccd \u0c86\u0caf\u0cbf\u0cb2\u0ccd",
+        "price": 23,
+        "category": "other",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 23
+            },
+            {
+                "label": "200 ml",
+                "price": 40
+            },
+            {
+                "label": "300 ml",
+                "price": 60
+            },
+            {
+                "label": "500 ml",
+                "price": 100
+            },
+            {
+                "label": "600 ml",
+                "price": 120
+            },
+            {
+                "label": "1 L",
+                "price": 210
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "High\u2011quality cooking oil for specific health benefits.",
+        "image": "../images/oil/Saffola Gold Pro Healthy Lifestyle Oil.jpg"
+    },
+    {
+        "id": 101,
+        "name": "Sundrop Nutrilite Oil",
+        "kn_name": "\u0cb8\u0ca8\u0ccd\u0ca1\u0ccd\u0cb0\u0cbe\u0caa\u0ccd \u0ca8\u0ccd\u0caf\u0cc2\u0c9f\u0ccd\u0cb0\u0cbf\u0cb2\u0cc8\u0c9f\u0ccd \u0c86\u0caf\u0cbf\u0cb2\u0ccd",
+        "price": 21,
+        "category": "other",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 21
+            },
+            {
+                "label": "200 ml",
+                "price": 38
+            },
+            {
+                "label": "300 ml",
+                "price": 58
+            },
+            {
+                "label": "500 ml",
+                "price": 95
+            },
+            {
+                "label": "600 ml",
+                "price": 115
+            },
+            {
+                "label": "1 L",
+                "price": 200
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "High\u2011quality cooking oil for specific health benefits.",
+        "image": "../images/oil/Sundrop Nutrilite Oil.jpg"
+    },
+    {
+        "id": 102,
+        "name": "Fortune Xpert Total Balance Oil",
+        "kn_name": "\u0cab\u0cbe\u0cb0\u0ccd\u0c9a\u0cc2\u0ca8\u0ccd \u0c8e\u0c95\u0ccd\u0cb8\u0ccd\u0caa\u0cb0\u0ccd\u0c9f\u0ccd \u0c9f\u0ccb\u0c9f\u0cb2\u0ccd \u0cac\u0ccd\u0caf\u0cbe\u0cb2\u0cc6\u0ca8\u0ccd\u0cb8\u0ccd \u0c86\u0caf\u0cbf\u0cb2\u0ccd",
+        "price": 20,
+        "category": "other",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 20
+            },
+            {
+                "label": "200 ml",
+                "price": 36
+            },
+            {
+                "label": "300 ml",
+                "price": 55
+            },
+            {
+                "label": "500 ml",
+                "price": 92
+            },
+            {
+                "label": "600 ml",
+                "price": 110
+            },
+            {
+                "label": "1 L",
+                "price": 193
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "High\u2011quality cooking oil for specific health benefits.",
+        "image": "../images/oil/Fortune Xpert Total Balance Oil.jpg"
+    },
+    {
+        "id": 103,
+        "name": "Gemini Multi Source Oil",
+        "kn_name": "\u0c9c\u0cc6\u0cae\u0cbf\u0ca8\u0cbf \u0cae\u0cb2\u0ccd\u0c9f\u0cbf \u0cb8\u0ccb\u0cb0\u0ccd\u0cb8\u0ccd \u0c86\u0caf\u0cbf\u0cb2\u0ccd",
+        "price": 19,
+        "category": "other",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 19
+            },
+            {
+                "label": "200 ml",
+                "price": 34
+            },
+            {
+                "label": "300 ml",
+                "price": 52
+            },
+            {
+                "label": "500 ml",
+                "price": 88
+            },
+            {
+                "label": "600 ml",
+                "price": 105
+            },
+            {
+                "label": "1 L",
+                "price": 183
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "High\u2011quality cooking oil for specific health benefits.",
+        "image": "../images/oil/Gemini Multi Source Oil.jpg"
+    },
+    {
+        "id": 104,
+        "name": "Nature Fresh Smart Balance Oil",
+        "kn_name": "\u0ca8\u0cc7\u0c9a\u0cb0\u0ccd \u0cab\u0ccd\u0cb0\u0cc6\u0cb6\u0ccd \u0cb8\u0ccd\u0cae\u0cbe\u0cb0\u0ccd\u0c9f\u0ccd \u0cac\u0ccd\u0caf\u0cbe\u0cb2\u0cc6\u0ca8\u0ccd\u0cb8\u0ccd \u0c86\u0caf\u0cbf\u0cb2\u0ccd",
+        "price": 20,
+        "category": "other",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 20
+            },
+            {
+                "label": "200 ml",
+                "price": 35
+            },
+            {
+                "label": "300 ml",
+                "price": 54
+            },
+            {
+                "label": "500 ml",
+                "price": 90
+            },
+            {
+                "label": "600 ml",
+                "price": 108
+            },
+            {
+                "label": "1 L",
+                "price": 188
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "High\u2011quality cooking oil for specific health benefits.",
+        "image": "../images/oil/Nature Fresh Smart Balance Oil.jpg"
+    },
+    {
+        "id": 105,
+        "name": "Saffola Tasty Oil",
+        "kn_name": "\u0cb8\u0ccd\u0caf\u0cbe\u0cab\u0ccb\u0cb2\u0cbe \u0c9f\u0cc7\u0cb8\u0ccd\u0c9f\u0cbf \u0c86\u0caf\u0cbf\u0cb2\u0ccd",
+        "price": 21,
+        "category": "other",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 21
+            },
+            {
+                "label": "200 ml",
+                "price": 38
+            },
+            {
+                "label": "300 ml",
+                "price": 58
+            },
+            {
+                "label": "500 ml",
+                "price": 95
+            },
+            {
+                "label": "600 ml",
+                "price": 115
+            },
+            {
+                "label": "1 L",
+                "price": 198
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "High\u2011quality cooking oil for specific health benefits.",
+        "image": "../images/oil/Saffola Tasty Oil.jpg"
+    },
+    {
+        "id": 106,
+        "name": "Sundrop Active Oil",
+        "kn_name": "\u0cb8\u0ca8\u0ccd\u0ca1\u0ccd\u0cb0\u0cbe\u0caa\u0ccd \u0c86\u0c95\u0ccd\u0c9f\u0cbf\u0cb5\u0ccd \u0c86\u0caf\u0cbf\u0cb2\u0ccd",
+        "price": 19,
+        "category": "other",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 19
+            },
+            {
+                "label": "200 ml",
+                "price": 34
+            },
+            {
+                "label": "300 ml",
+                "price": 52
+            },
+            {
+                "label": "500 ml",
+                "price": 88
+            },
+            {
+                "label": "600 ml",
+                "price": 105
+            },
+            {
+                "label": "1 L",
+                "price": 178
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "High\u2011quality cooking oil for specific health benefits.",
+        "image": "../images/oil/Sundrop Active Oil.jpg"
+    },
+    {
+        "id": 107,
+        "name": "Fortune Blended Cooking Oil",
+        "kn_name": "\u0cab\u0cbe\u0cb0\u0ccd\u0c9a\u0cc2\u0ca8\u0ccd \u0cac\u0ccd\u0cb2\u0cc6\u0c82\u0ca1\u0cc6\u0ca1\u0ccd \u0c95\u0cc1\u0c95\u0cbf\u0c82\u0c97\u0ccd \u0c86\u0caf\u0cbf\u0cb2\u0ccd",
+        "price": 18,
+        "category": "other",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 18
+            },
+            {
+                "label": "200 ml",
+                "price": 30
+            },
+            {
+                "label": "300 ml",
+                "price": 48
+            },
+            {
+                "label": "500 ml",
+                "price": 80
+            },
+            {
+                "label": "600 ml",
+                "price": 95
+            },
+            {
+                "label": "1 L",
+                "price": 168
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "High\u2011quality cooking oil for specific health benefits.",
+        "image": "../images/oil/Fortune Blended Cooking Oil.jpg"
+    },
+    {
+        "id": 108,
+        "name": "Dhara Balance Oil",
+        "kn_name": "\u0ca7\u0cbe\u0cb0\u0cbe \u0cac\u0ccd\u0caf\u0cbe\u0cb2\u0cc6\u0ca8\u0ccd\u0cb8\u0ccd \u0c86\u0caf\u0cbf\u0cb2\u0ccd",
+        "price": 18,
+        "category": "other",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 18
+            },
+            {
+                "label": "200 ml",
+                "price": 30
+            },
+            {
+                "label": "300 ml",
+                "price": 48
+            },
+            {
+                "label": "500 ml",
+                "price": 80
+            },
+            {
+                "label": "600 ml",
+                "price": 95
+            },
+            {
+                "label": "1 L",
+                "price": 163
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "High\u2011quality cooking oil for specific health benefits.",
+        "image": "../images/oil/Dhara Balance Oil.jpg"
+    },
+    {
+        "id": 111,
+        "name": "Anjali Groundnut Oil Tin",
+        "kn_name": "\u0c85\u0c82\u0c9c\u0cb2\u0cbf \u0c95\u0ca1\u0cb2\u0cc6\u0c95\u0cbe\u0caf\u0cbf \u0c8e\u0ca3\u0ccd\u0ca3\u0cc6 \u0c9f\u0cbf\u0ca8\u0ccd",
+        "price": 30,
+        "category": "other",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 30
+            },
+            {
+                "label": "200 ml",
+                "price": 55
+            },
+            {
+                "label": "300 ml",
+                "price": 85
+            },
+            {
+                "label": "500 ml",
+                "price": 150
+            },
+            {
+                "label": "600 ml",
+                "price": 180
+            },
+            {
+                "label": "1 L",
+                "price": 290
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "High\u2011quality cooking oil for specific health benefits.",
+        "image": "../images/oil/Anjali Groundnut Oil Tin.jpg"
+    },
+    {
+        "id": 112,
+        "name": "Engine Brand Groundnut Oil Drum",
+        "kn_name": "\u0c8e\u0c82\u0c9c\u0cbf\u0ca8\u0ccd \u0cac\u0ccd\u0cb0\u0cbe\u0c82\u0ca1\u0ccd \u0c95\u0ca1\u0cb2\u0cc6\u0c95\u0cbe\u0caf\u0cbf \u0c8e\u0ca3\u0ccd\u0ca3\u0cc6 \u0ca1\u0ccd\u0cb0\u0cae\u0ccd",
+        "price": 31,
+        "category": "other",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 31
+            },
+            {
+                "label": "200 ml",
+                "price": 58
+            },
+            {
+                "label": "300 ml",
+                "price": 88
+            },
+            {
+                "label": "500 ml",
+                "price": 155
+            },
+            {
+                "label": "600 ml",
+                "price": 185
+            },
+            {
+                "label": "1 L",
+                "price": 300
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "High\u2011quality cooking oil for specific health benefits.",
+        "image": "../images/oil/Engine Brand Groundnut Oil Drum.jpg"
+    },
+    {
+        "id": 114,
+        "name": "Organic Cold Pressed Sesame Oil",
+        "kn_name": "\u0c86\u0cb0\u0ccd\u0c97\u0cbe\u0ca8\u0cbf\u0c95\u0ccd \u0c95\u0ccb\u0cb2\u0ccd\u0ca1\u0ccd \u0caa\u0ccd\u0cb0\u0cc6\u0cb8\u0ccd\u0ca1\u0ccd \u0c8e\u0cb3\u0ccd\u0cb3\u0cc1 \u0c8e\u0ca3\u0ccd\u0ca3\u0cc6",
+        "price": 48,
+        "category": "other",
+        "variants": [
+            {
+                "label": "100 ml",
+                "price": 48
+            },
+            {
+                "label": "200 ml",
+                "price": 85
+            },
+            {
+                "label": "300 ml",
+                "price": 130
+            },
+            {
+                "label": "500 ml",
+                "price": 220
+            },
+            {
+                "label": "600 ml",
+                "price": 260
+            },
+            {
+                "label": "1 L",
+                "price": 410
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description": "High\u2011quality cooking oil for specific health benefits.",
+        "image": "../images/oil/Organic Cold Pressed Sesame Oil.jpg"
+    }
+]
