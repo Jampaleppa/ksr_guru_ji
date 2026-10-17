@@ -1,0 +1,40 @@
+Options -Indexes
+<FilesMatch ^[.]>
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
+</FilesMatch>
+
+<FilesMatch "(?i)\.(?:sql|log|err|sqlite|phar|dist|yaml|yml)$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
+</FilesMatch>
+
+<FilesMatch "(?i)^(?:_.*|tmp[-_].*|test.*|debug.*|check_db|check_abs_paths|show_(?:cols|order_delivery|tables)|schema_print2?|spider_test|lint_all|create_admins|create_db_tables|import_db|migrate(?:_db)?|run_(?:migration_audit_logs|patient_portal_migration)|seed_doctors|seed-telehealth-data|sanitize_db|fix_.*|inject_sorting|merge_doctor_assist|patch_session|standardize_.*|update_(?:all_headers|company_logo)|test_whatsapp_sql|run_tests|lint)\.php$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
+</FilesMatch>
+
+<FilesMatch "(?i)^(?:database|db_categories_dump|schema(?:_order_delivery)?|simulation_run_output|validation_output|enhancement_log|logo_log)\.txt$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
+</FilesMatch>

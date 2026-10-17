@@ -1,0 +1,930 @@
+[
+    {
+        "id": 1,
+        "name": "Vim Dishwash Liquid Gel Lemon",
+        "kn_name": "Vim \u0ca1\u0cbf\u0cb6\u0ccd\u0cb5\u0cbe\u0cb6\u0ccd \u0cb2\u0cbf\u0c95\u0ccd\u0cb5\u0cbf\u0ca1\u0ccd \u0c9c\u0cc6\u0cb2\u0ccd \u0cb2\u0cbf\u0c82\u0cac\u0cc6",
+        "price": 930,
+        "category": "liquid",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 930
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description_en": "Lemon fresh gel, cuts grease effectively.",
+        "image": "../images/Dishwash/Vim Dishwash Liquid Gel Lemon 930.jpg"
+    },
+    {
+        "id": 2,
+        "name": "Pril Dishwash Liquid Lime",
+        "kn_name": "Pril \u0ca1\u0cbf\u0cb6\u0ccd\u0cb5\u0cbe\u0cb6\u0ccd \u0cb2\u0cbf\u0c95\u0ccd\u0cb5\u0cbf\u0ca1\u0ccd \u0cb2\u0cc8\u0cae\u0ccd",
+        "price": 190,
+        "category": "liquid",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 190
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description_en": "Lime scented, gentle on hands.",
+        "image": "../images/Dishwash/Pril Dishwash Liquid Lime 190.jpg"
+    },
+    {
+        "id": 3,
+        "name": "Exo Dishwash Liquid",
+        "kn_name": "Exo \u0ca1\u0cbf\u0cb6\u0ccd\u0cb5\u0cbe\u0cb6\u0ccd \u0cb2\u0cbf\u0c95\u0ccd\u0cb5\u0cbf\u0ca1\u0ccd",
+        "price": 110,
+        "category": "liquid",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 110
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description_en": "Powerful degreaser, economical.",
+        "image": "../images/Dishwash/Exo Dishwash Liquid 200.jpg"
+    },
+    {
+        "id": 4,
+        "name": "Genteel Dishwash Liquid",
+        "kn_name": "Genteel \u0ca1\u0cbf\u0cb6\u0ccd\u0cb5\u0cbe\u0cb6\u0ccd \u0cb2\u0cbf\u0c95\u0ccd\u0cb5\u0cbf\u0ca1\u0ccd",
+        "price": 105,
+        "category": "liquid",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 105
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description_en": "Mild on skin, tough on stains.",
+        "image": "../images/Dishwash/Genteel Dishwash Liquid 101.jpg"
+    },
+    {
+        "id": 5,
+        "name": "Fortune Dishwash Liquid",
+        "kn_name": "Fortune \u0ca1\u0cbf\u0cb6\u0ccd\u0cb5\u0cbe\u0cb6\u0ccd \u0cb2\u0cbf\u0c95\u0ccd\u0cb5\u0cbf\u0ca1\u0ccd",
+        "price": 260,
+        "category": "liquid",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 260
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description_en": "Budget-friendly, removes oil quickly.",
+        "image": "../images/Dishwash/Fortune Dishwash Liquid 260.jpg"
+    },
+    {
+        "id": 6,
+        "name": "Godrej Ezee Dishwash Liquid",
+        "kn_name": "Godrej Ezee \u0ca1\u0cbf\u0cb6\u0ccd\u0cb5\u0cbe\u0cb6\u0ccd \u0cb2\u0cbf\u0c95\u0ccd\u0cb5\u0cbf\u0ca1\u0ccd",
+        "price": 130,
+        "category": "liquid",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 130
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description_en": "Powerful formula, safe for utensils.",
+        "image": "../images/Dishwash/Godrej Ezee Dishwash Liquid 250.jpg"
+    },
+    {
+        "id": 7,
+        "name": "Amazon Brand Presto Dishwash Liquid",
+        "kn_name": "Amazon Presto \u0ca1\u0cbf\u0cb6\u0ccd\u0cb5\u0cbe\u0cb6\u0ccd \u0cb2\u0cbf\u0c95\u0ccd\u0cb5\u0cbf\u0ca1\u0ccd",
+        "price": 99,
+        "category": "liquid",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 99
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description_en": "Value pack, long-lasting.",
+        "image": "../images/Dishwash/Amazon Brand Presto Dishwash Liquid 450.jpg"
+    },
+    {
+        "id": 8,
+        "name": "Herbal Strategi Dishwash Liquid",
+        "kn_name": "Herbal Strategi \u0ca1\u0cbf\u0cb6\u0ccd\u0cb5\u0cbe\u0cb6\u0ccd \u0cb2\u0cbf\u0c95\u0ccd\u0cb5\u0cbf\u0ca1\u0ccd",
+        "price": 320,
+        "category": "liquid",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 320
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description_en": "Natural ingredients, eco-friendly.",
+        "image": "../images/Dishwash/Herbal Strategi Dishwash Liquid 320.jpg"
+    },
+    {
+        "id": 9,
+        "name": "Safewash Dishwash Liquid",
+        "kn_name": "Safewash \u0ca1\u0cbf\u0cb6\u0ccd\u0cb5\u0cbe\u0cb6\u0ccd \u0cb2\u0cbf\u0c95\u0ccd\u0cb5\u0cbf\u0ca1\u0ccd",
+        "price": 230,
+        "category": "liquid",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 230
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description_en": "Antibacterial, fresh fragrance.",
+        "image": "../images/Dishwash/Safewash Dishwash Liquid 225.jpg"
+    },
+    {
+        "id": 10,
+        "name": "Clean Mate Dishwash Liquid",
+        "kn_name": "Clean Mate \u0ca1\u0cbf\u0cb6\u0ccd\u0cb5\u0cbe\u0cb6\u0ccd \u0cb2\u0cbf\u0c95\u0ccd\u0cb5\u0cbf\u0ca1\u0ccd",
+        "price": 140,
+        "category": "liquid",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 140
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description_en": "Daily use, effective on grease.",
+        "image": "../images/Dishwash/Clean Mate Dishwash Liquid 132.jpg"
+    },
+    {
+        "id": 41,
+        "name": "Vim Dishwash Liquid Refill",
+        "kn_name": "Vim \u0cb0\u0cc0\u0cab\u0cbf\u0cb2\u0ccd",
+        "price": 300,
+        "category": "liquid",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 300
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description_en": "Economy refill pack, same formula.",
+        "image": "../images/Dishwash/Vim Dishwash Liquid Refill Pack 300.jpg"
+    },
+    {
+        "id": 42,
+        "name": "Exo Dishwash Liquid Refill",
+        "kn_name": "Exo \u0cb0\u0cc0\u0cab\u0cbf\u0cb2\u0ccd",
+        "price": 280,
+        "category": "liquid",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 280
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description_en": "Bulk refill, saves plastic.",
+        "image": "../images/Dishwash/Exo Dishwash Liquid Refill 280.jpg"
+    },
+    {
+        "id": 43,
+        "name": "Genteel Dishwash Liquid Refill",
+        "kn_name": "Genteel \u0cb0\u0cc0\u0cab\u0cbf\u0cb2\u0ccd",
+        "price": 270,
+        "category": "liquid",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 270
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description_en": "Large pouch, easy pour.",
+        "image": "../images/Dishwash/Genteel Dishwash Liquid Refill 270.jpg"
+    },
+    {
+        "id": 11,
+        "name": "Vim Dishwash Powder",
+        "kn_name": "Vim \u0ca1\u0cbf\u0cb6\u0ccd\u0cb5\u0cbe\u0cb6\u0ccd \u0caa\u0cc1\u0ca1\u0cbf",
+        "price": 95,
+        "category": "powder",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 95
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description_en": "Powder formula, deep cleaning.",
+        "image": "../images/Dishwash/Vim Dishwash Powder 85.jpg"
+    },
+    {
+        "id": 13,
+        "name": "Exo Dishwash Powder",
+        "kn_name": "Exo \u0ca1\u0cbf\u0cb6\u0ccd\u0cb5\u0cbe\u0cb6\u0ccd \u0caa\u0cc1\u0ca1\u0cbf",
+        "price": 85,
+        "category": "powder",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 85
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description_en": "Scrubs away burnt food.",
+        "image": "../images/Dishwash/Exo Dishwash Powder 50.jpg"
+    },
+    {
+        "id": 14,
+        "name": "Genteel Dishwash Powder",
+        "kn_name": "Genteel \u0ca1\u0cbf\u0cb6\u0ccd\u0cb5\u0cbe\u0cb6\u0ccd \u0caa\u0cc1\u0ca1\u0cbf",
+        "price": 450,
+        "category": "powder",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 450
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description_en": "Gentle on utensils, tough on dirt.",
+        "image": "../images/Dishwash/Genteel Dishwash Powder 450.jpg"
+    },
+    {
+        "id": 15,
+        "name": "Fortune Dishwash Powder",
+        "kn_name": "Fortune \u0ca1\u0cbf\u0cb6\u0ccd\u0cb5\u0cbe\u0cb6\u0ccd \u0caa\u0cc1\u0ca1\u0cbf",
+        "price": 660,
+        "category": "powder",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 660
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description_en": "Best value for daily use.",
+        "image": "../images/Dishwash/Fortune Dishwash Powder 660.jpg"
+    },
+    {
+        "id": 16,
+        "name": "Amazon Presto Dishwash Powder",
+        "kn_name": "Amazon Presto \u0caa\u0cc1\u0ca1\u0cbf",
+        "price": 70,
+        "category": "powder",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 70
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description_en": "Fragrance-free, high efficiency.",
+        "image": "../images/Dishwash/Amazon Presto Dishwash Powder 590.jpg"
+    },
+    {
+        "id": 17,
+        "name": "Herbal Strategi Dishwash Powder",
+        "kn_name": "Herbal Strategi \u0caa\u0cc1\u0ca1\u0cbf",
+        "price": 150,
+        "category": "powder",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 150
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description_en": "Natural ingredients, plant-based.",
+        "image": "../images/Dishwash/Herbal Strategi Dishwash Powder 150.jpg"
+    },
+    {
+        "id": 18,
+        "name": "Safewash Dishwash Powder",
+        "kn_name": "Safewash \u0caa\u0cc1\u0ca1\u0cbf",
+        "price": 65,
+        "category": "powder",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 65
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description_en": "Antibacterial, safe for families.",
+        "image": "../images/Dishwash/Safewash Dishwash Powder.jpg"
+    },
+    {
+        "id": 19,
+        "name": "Clean Mate Dishwash Powder",
+        "kn_name": "Clean Mate \u0caa\u0cc1\u0ca1\u0cbf",
+        "price": 780,
+        "category": "powder",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 780
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description_en": "Small pack, travel friendly.",
+        "image": "../images/Dishwash/Clean Mate Dishwash Powder 760.jpg"
+    },
+    {
+        "id": 20,
+        "name": "Eco Friendly Dishwash Powder",
+        "kn_name": "Eco Friendly \u0caa\u0cc1\u0ca1\u0cbf",
+        "price": 200,
+        "category": "powder",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 200
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description_en": "Biodegradable, zero chemicals.",
+        "image": "../images/Dishwash/Eco Friendly Dishwash Powder 200.jpg"
+    },
+    {
+        "id": 51,
+        "name": "Vim Dishwash Powder Economy Pack",
+        "kn_name": "Vim \u0c8e\u0c95\u0cbe\u0ca8\u0cae\u0cbf \u0caa\u0ccd\u0caf\u0cbe\u0c95\u0ccd",
+        "price": 440,
+        "category": "powder",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 440
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description_en": "Family pack, 2x quantity.",
+        "image": "../images/Dishwash/Vim Dishwash Powder Economy Pack 430.jpg"
+    },
+    {
+        "id": 21,
+        "name": "Finish Dishwasher 110 Tablets Classic",
+        "kn_name": "Finish \u0c95\u0ccd\u0cb2\u0cbe\u0cb8\u0cbf\u0c95\u0ccd \u0c9f\u0ccd\u0caf\u0cbe\u0cac\u0ccd\u0cb2\u0cc6\u0c9f\u0ccd",
+        "price": 1350,
+        "category": "accessories",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 1350
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description_en": "All-in-one, machine safe.",
+        "image": "../images/Dishwash/Finish Dishwasher 110 Tablets Classic 1350.jpg"
+    },
+    {
+        "id": 22,
+        "name": "Finish Quantum Tablets",
+        "kn_name": "Finish \u0c95\u0ccd\u0cb5\u0cbe\u0c82\u0c9f\u0cae\u0ccd",
+        "price": 1500,
+        "category": "accessories",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 1500
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description_en": "Premium power, glass protection.",
+        "image": "../images/Dishwash/Finish Quantum Dishwasher Tablets 1500.jpg"
+    },
+    {
+        "id": 23,
+        "name": "Bosch Dishwasher Tablets",
+        "kn_name": "Bosch \u0c9f\u0ccd\u0caf\u0cbe\u0cac\u0ccd\u0cb2\u0cc6\u0c9f\u0ccd",
+        "price": 320,
+        "category": "accessories",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 320
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description_en": "Designed for Bosch machines.",
+        "image": "../images/Dishwash/Bosch Dishwasher Tablets 500.jpg"
+    },
+    {
+        "id": 24,
+        "name": "IFB Dishwasher Tablets",
+        "kn_name": "IFB \u0c9f\u0ccd\u0caf\u0cbe\u0cac\u0ccd\u0cb2\u0cc6\u0c9f\u0ccd",
+        "price": 280,
+        "category": "accessories",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 280
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description_en": "Anti-limescale, rinse aid.",
+        "image": "../images/Dishwash/IFB Dishwasher Tablets 700.jpg"
+    },
+    {
+        "id": 25,
+        "name": "Fortune Dishwasher Tablets",
+        "kn_name": "Fortune \u0c9f\u0ccd\u0caf\u0cbe\u0cac\u0ccd\u0cb2\u0cc6\u0c9f\u0ccd",
+        "price": 700,
+        "category": "accessories",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 700
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description_en": "Budget tablets, good for daily.",
+        "image": "../images/Dishwash/Fortune Dishwasher Tablets 700.jpg"
+    },
+    {
+        "id": 26,
+        "name": "Genteel Dishwasher Tablets",
+        "kn_name": "Genteel \u0c9f\u0ccd\u0caf\u0cbe\u0cac\u0ccd\u0cb2\u0cc6\u0c9f\u0ccd",
+        "price": 2700,
+        "category": "accessories",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 2700
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description_en": "Gentle on dishes, effective.",
+        "image": "../images/Dishwash/Genteel Dishwasher Tablets 2650.jpg"
+    },
+    {
+        "id": 27,
+        "name": "Pril Dishwasher Tablets Large Pack",
+        "kn_name": "Pril \u0ca6\u0cca\u0ca1\u0ccd\u0ca1 \u0caa\u0ccd\u0caf\u0cbe\u0c95\u0ccd",
+        "price": 600,
+        "category": "accessories",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 600
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description_en": "30 tablets, great value.",
+        "image": "../images/Dishwash/Pril Dishwasher Tablets Large Pack 400.jpg"
+    },
+    {
+        "id": 28,
+        "name": "All-in-One Dishwasher Tablets",
+        "kn_name": "\u0c86\u0cb2\u0ccd \u0c87\u0ca8\u0ccd \u0cb5\u0ca8\u0ccd",
+        "price": 650,
+        "category": "accessories",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 650
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description_en": "Complete care with salt function.",
+        "image": "../images/Dishwash/All-in-One Dishwasher Tablets 750.jpg"
+    },
+    {
+        "id": 31,
+        "name": "Scotch Brite Scrub Sponge",
+        "kn_name": "Scotch Brite \u0cb8\u0ccd\u0c95\u0ccd\u0cb0\u0cac\u0ccd \u0cb8\u0ccd\u0caa\u0c82\u0c9c\u0ccd",
+        "price": 70,
+        "category": "accessories",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 70
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description_en": "Non-scratch, dual side sponge.",
+        "image": "../images/Dishwash/Scotch Brite Scrub Sponge 70.jpg"
+    },
+    {
+        "id": 32,
+        "name": "Scotch Brite Steel Scrubber",
+        "kn_name": "Scotch Brite \u0cb8\u0ccd\u0c9f\u0cc0\u0cb2\u0ccd \u0cb8\u0ccd\u0c95\u0ccd\u0cb0\u0cac\u0ccd\u0cac\u0cb0\u0ccd",
+        "price": 25,
+        "category": "accessories",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 25
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description_en": "For tough stains, rust resistant.",
+        "image": "../images/Dishwash/Scotch Brite Steel Scrubber 25.jpg"
+    },
+    {
+        "id": 33,
+        "name": "Gala Scrub Pad",
+        "kn_name": "Gala \u0cb8\u0ccd\u0c95\u0ccd\u0cb0\u0cac\u0ccd \u0caa\u0ccd\u0caf\u0cbe\u0ca1\u0ccd",
+        "price": 70,
+        "category": "accessories",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 70
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description_en": "Economical scrub pad.",
+        "image": "../images/Dishwash/Gala Scrub Pad 70.jpg"
+    },
+    {
+        "id": 34,
+        "name": "Vim Scrubber Pad",
+        "kn_name": "Vim \u0cb8\u0ccd\u0c95\u0ccd\u0cb0\u0cac\u0ccd\u0cac\u0cb0\u0ccd \u0caa\u0ccd\u0caf\u0cbe\u0ca1\u0ccd",
+        "price": 15,
+        "category": "accessories",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 15
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description_en": "Durable, good grip.",
+        "image": "../images/Dishwash/Vim Scrubber Pad 10.jpg"
+    },
+    {
+        "id": 35,
+        "name": "Plastic Dish Brush",
+        "kn_name": "\u0caa\u0ccd\u0cb2\u0cbe\u0cb8\u0ccd\u0c9f\u0cbf\u0c95\u0ccd \u0ca1\u0cbf\u0cb6\u0ccd \u0cac\u0ccd\u0cb0\u0cb7\u0ccd",
+        "price": 600,
+        "category": "accessories",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 600
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description_en": "Ergonomic handle, nylon bristles.",
+        "image": "../images/Dishwash/Plastic Dish Brush 600.jpg"
+    },
+    {
+        "id": 36,
+        "name": "Steel Dish Cleaning Brush",
+        "kn_name": "\u0cb8\u0ccd\u0c9f\u0cc0\u0cb2\u0ccd \u0ca1\u0cbf\u0cb6\u0ccd \u0c95\u0ccd\u0cb2\u0cc0\u0ca8\u0cbf\u0c82\u0c97\u0ccd \u0cac\u0ccd\u0cb0\u0cb7\u0ccd",
+        "price": 70,
+        "category": "accessories",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 70
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description_en": "Stainless steel, long lasting.",
+        "image": "../images/Dishwash/Steel Dish Cleaning Brush.jpg"
+    },
+    {
+        "id": 37,
+        "name": "Microfiber Cleaning Cloth",
+        "kn_name": "\u0cae\u0cc8\u0c95\u0ccd\u0cb0\u0ccb\u0cab\u0cc8\u0cac\u0cb0\u0ccd \u0c95\u0ccd\u0cb2\u0cc0\u0ca8\u0cbf\u0c82\u0c97\u0ccd \u0c95\u0ccd\u0cb2\u0cbe\u0ca4\u0ccd",
+        "price": 100,
+        "category": "accessories",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 100
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description_en": "Lint-free, absorbent.",
+        "image": "../images/Dishwash/Microfiber Cleaning Cloth 100.jpg"
+    },
+    {
+        "id": 38,
+        "name": "Dishwashing Gloves Rubber",
+        "kn_name": "\u0ca1\u0cbf\u0cb6\u0ccd\u0cb5\u0cbe\u0cb6\u0cbf\u0c82\u0c97\u0ccd \u0c97\u0ccd\u0cb2\u0ccc\u0cb8\u0ccd",
+        "price": 700,
+        "category": "accessories",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 700
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description_en": "Protects hands, non-slip.",
+        "image": "../images/Dishwash/Dishwashing Gloves Rubber 700.jpg"
+    },
+    {
+        "id": 39,
+        "name": "Sink Cleaning Brush",
+        "kn_name": "\u0cb8\u0cbf\u0c82\u0c95\u0ccd \u0c95\u0ccd\u0cb2\u0cc0\u0ca8\u0cbf\u0c82\u0c97\u0ccd \u0cac\u0ccd\u0cb0\u0cb7\u0ccd",
+        "price": 80,
+        "category": "accessories",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 80
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description_en": "Angled head, for corners.",
+        "image": "../images/Dishwash/Sink Cleaning Brush 50.jpg"
+    },
+    {
+        "id": 40,
+        "name": "Soap Holder for Dishwash",
+        "kn_name": "\u0cb8\u0ccb\u0caa\u0cc1 \u0cb9\u0ccb\u0cb2\u0ccd\u0ca1\u0cb0\u0ccd",
+        "price": 150,
+        "category": "accessories",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 150
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description_en": "Draining tray, keeps soap dry.",
+        "image": "../images/Dishwash/Soap Holder for Dishwash 150.jpg"
+    },
+    {
+        "id": 71,
+        "name": "Scotch Brite Heavy Duty Scrubber",
+        "kn_name": "Scotch Brite \u0cb9\u0cc6\u0cb5\u0cbf \u0ca1\u0ccd\u0caf\u0cc2\u0c9f\u0cbf",
+        "price": 30,
+        "category": "accessories",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 30
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description_en": "For burnt pans, extra strong.",
+        "image": "../images/Dishwash/Scotch Brite Heavy Duty Scrubber 30.jpg"
+    },
+    {
+        "id": 73,
+        "name": "Gala Scrubber Combo Pack",
+        "kn_name": "Gala \u0c95\u0cbe\u0c82\u0cac\u0cca",
+        "price": 60,
+        "category": "accessories",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 60
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description_en": "Value pack of 5 scrub pads.",
+        "image": "../images/Dishwash/Gala Scrubber Combo Pack 180.jpg"
+    },
+    {
+        "id": 74,
+        "name": "Long Handle Dish Brush",
+        "kn_name": "\u0cb2\u0cbe\u0c82\u0c97\u0ccd \u0cb9\u0ccd\u0caf\u0cbe\u0c82\u0ca1\u0cb2\u0ccd \u0cac\u0ccd\u0cb0\u0cb7\u0ccd",
+        "price": 120,
+        "category": "accessories",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 120
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description_en": "Reaches deep utensils.",
+        "image": "../images/Dishwash/Long Handle Dish Brush.jpg"
+    },
+    {
+        "id": 75,
+        "name": "Bottle Cleaning Brush Set",
+        "kn_name": "\u0cac\u0cbe\u0c9f\u0cb2\u0ccd \u0cac\u0ccd\u0cb0\u0cb7\u0ccd \u0cb8\u0cc6\u0c9f\u0ccd",
+        "price": 1000,
+        "category": "accessories",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 1000
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description_en": "2 sizes, for narrow necks.",
+        "image": "../images/Dishwash/Bottle Cleaning Brush Set 1000.jpg"
+    },
+    {
+        "id": 76,
+        "name": "Dishwashing Gloves Premium",
+        "kn_name": "\u0caa\u0ccd\u0cb0\u0cc0\u0cae\u0cbf\u0caf\u0c82 \u0c97\u0ccd\u0cb2\u0ccc\u0cb8\u0ccd",
+        "price": 200,
+        "category": "accessories",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 200
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description_en": "Cotton lined, extra comfort.",
+        "image": "../images/Dishwash/Dishwashing Gloves Premium 200.jpg"
+    },
+    {
+        "id": 77,
+        "name": "Sink Drain Cleaning Brush",
+        "kn_name": "\u0cb8\u0cbf\u0c82\u0c95\u0ccd \u0ca1\u0ccd\u0cb0\u0cc8\u0ca8\u0ccd \u0cac\u0ccd\u0cb0\u0cb7\u0ccd",
+        "price": 400,
+        "category": "accessories",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 400
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description_en": "Flexible, removes debris.",
+        "image": "../images/Dishwash/Sink Drain Cleaning Brush 400.jpg"
+    },
+    {
+        "id": 78,
+        "name": "Dish Drying Mat",
+        "kn_name": "\u0ca1\u0cbf\u0cb6\u0ccd \u0ca1\u0ccd\u0cb0\u0cc8\u0caf\u0cbf\u0c82\u0c97\u0ccd \u0cae\u0cbe\u0c9f\u0ccd",
+        "price": 550,
+        "category": "accessories",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 550
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description_en": "Quick dry, non-slip.",
+        "image": "../images/Dishwash/Dish Drying Mat 550.jpg"
+    },
+    {
+        "id": 79,
+        "name": "Soap Dispenser for Kitchen",
+        "kn_name": "\u0cb8\u0ccb\u0caa\u0cc1 \u0ca1\u0cbf\u0cb8\u0ccd\u0caa\u0cc6\u0ca8\u0ccd\u0cb8\u0cb0\u0ccd",
+        "price": 300,
+        "category": "accessories",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 300
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description_en": "Stainless steel, pump action.",
+        "image": "../images/Dishwash/Soap Dispenser for Kitchen 180.jpg"
+    },
+    {
+        "id": 80,
+        "name": "Scrubber Holder Stand",
+        "kn_name": "\u0cb8\u0ccd\u0c95\u0ccd\u0cb0\u0cac\u0ccd\u0cac\u0cb0\u0ccd \u0cb9\u0ccb\u0cb2\u0ccd\u0ca1\u0cb0\u0ccd",
+        "price": 80,
+        "category": "accessories",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 80
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description_en": "Keeps sink organized.",
+        "image": "../images/Dishwash/Scrubber Holder Stand 250.jpg"
+    },
+    {
+        "id": 81,
+        "name": "Dish Rack Steel",
+        "kn_name": "\u0ca1\u0cbf\u0cb6\u0ccd \u0cb0\u0ccd\u0caf\u0cbe\u0c95\u0ccd \u0cb8\u0ccd\u0c9f\u0cc0\u0cb2\u0ccd",
+        "price": 900,
+        "category": "accessories",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 900
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description_en": "Rust-proof, large capacity.",
+        "image": "../images/Dishwash/Dish Rack Steel.jpg"
+    },
+    {
+        "id": 82,
+        "name": "Dishwash Bar Holder",
+        "kn_name": "\u0cac\u0cbe\u0cb0\u0ccd \u0cb9\u0ccb\u0cb2\u0ccd\u0ca1\u0cb0\u0ccd",
+        "price": 50,
+        "category": "accessories",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 50
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description_en": "Simple plastic holder.",
+        "image": "../images/Dishwash/Dishwash Bar Holder 140.jpg"
+    },
+    {
+        "id": 83,
+        "name": "Sink Organizer Basket",
+        "kn_name": "\u0cb8\u0cbf\u0c82\u0c95\u0ccd \u0c86\u0cb0\u0ccd\u0c97\u0ca8\u0cc8\u0c9c\u0cb0\u0ccd",
+        "price": 200,
+        "category": "accessories",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 200
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description_en": "Holds sponges and brushes.",
+        "image": "../images/Dishwash/Sink Organizer Basket 200.jpg"
+    },
+    {
+        "id": 84,
+        "name": "Sponge with Handle",
+        "kn_name": "\u0cb9\u0ccd\u0caf\u0cbe\u0c82\u0ca1\u0cb2\u0ccd \u0cb8\u0ccd\u0caa\u0c82\u0c9c\u0ccd",
+        "price": 660,
+        "category": "accessories",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 660
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description_en": "Prevents hand contact with water.",
+        "image": "../images/Dishwash/Sponge with Handle 660.jpg"
+    },
+    {
+        "id": 85,
+        "name": "Dish Cleaning Brush Rotating",
+        "kn_name": "\u0cb0\u0cca\u0c9f\u0cc7\u0c9f\u0cbf\u0c82\u0c97\u0ccd \u0cac\u0ccd\u0cb0\u0cb7\u0ccd",
+        "price": 360,
+        "category": "accessories",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 360
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description_en": "360\u00b0 rotation, fills with soap.",
+        "image": "../images/Dishwash/Dish Cleaning Brush Rotating 360.jpg"
+    },
+    {
+        "id": 86,
+        "name": "Dish Cleaning Kit Combo",
+        "kn_name": "\u0c95\u0ccd\u0cb2\u0cc0\u0ca8\u0cbf\u0c82\u0c97\u0ccd \u0c95\u0cbf\u0c9f\u0ccd \u0c95\u0cbe\u0c82\u0cac\u0cca",
+        "price": 550,
+        "category": "accessories",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 550
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description_en": "Sponge, brush, gloves, cloth.",
+        "image": "../images/Dishwash/Dish Cleaning Kit Combo 550.jpg"
+    },
+    {
+        "id": 87,
+        "name": "Premium Sink Cleaning Kit",
+        "kn_name": "\u0caa\u0ccd\u0cb0\u0cc0\u0cae\u0cbf\u0caf\u0c82 \u0cb8\u0cbf\u0c82\u0c95\u0ccd \u0c95\u0cbf\u0c9f\u0ccd",
+        "price": 500,
+        "category": "accessories",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 500
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description_en": "Complete set with caddy.",
+        "image": "../images/Dishwash/Premium Sink Cleaning Kit 500.jpg"
+    },
+    {
+        "id": 88,
+        "name": "Complete Kitchen Cleaning Set",
+        "kn_name": "\u0c95\u0c82\u0caa\u0ccd\u0cb2\u0cc0\u0c9f\u0ccd \u0c95\u0cbf\u0c9a\u0ca8\u0ccd \u0cb8\u0cc6\u0c9f\u0ccd",
+        "price": 390,
+        "category": "accessories",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 390
+            }
+        ],
+        "emoji": "\ud83e\uddf4",
+        "description_en": "Everything for daily cleaning.",
+        "image": "../images/Dishwash/Complete Kitchen Cleaning Set 390.jpg"
+    }
+]

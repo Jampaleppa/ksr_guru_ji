@@ -1,0 +1,7 @@
+*, *::before, *::after { box-sizing: border-box; }
+body, h1, h2, h3, h4, p, ul, ol, figure { margin: 0; padding: 0; }
+ul, ol { list-style: none; }
+a { text-decoration: none; color: inherit; }
+button { border: none; background: transparent; cursor: pointer; font: inherit; }
+img { max-width: 100%; display: block; }
+

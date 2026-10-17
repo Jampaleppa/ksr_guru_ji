@@ -1,0 +1,3942 @@
+[
+    {
+        "id": 1,
+        "name": "Almonds",
+        "kn_name": "Almonds",
+        "price": 2300,
+        "category": "nuts",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 23
+            },
+            {
+                "label": "50g",
+                "price": 115
+            },
+            {
+                "label": "100g",
+                "price": 230
+            },
+            {
+                "label": "200g",
+                "price": 460
+            },
+            {
+                "label": "250g",
+                "price": 575
+            },
+            {
+                "label": "500g",
+                "price": 1150
+            },
+            {
+                "label": "1kg",
+                "price": 2300
+            }
+        ],
+        "emoji": "\ud83c\udf30",
+        "description_en": "Premium quality almonds, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Almonds.jpg"
+    },
+    {
+        "id": 4,
+        "name": "Cashews",
+        "kn_name": "Cashews",
+        "price": 2900,
+        "category": "nuts",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 29
+            },
+            {
+                "label": "50g",
+                "price": 145
+            },
+            {
+                "label": "100g",
+                "price": 290
+            },
+            {
+                "label": "200g",
+                "price": 580
+            },
+            {
+                "label": "250g",
+                "price": 725
+            },
+            {
+                "label": "500g",
+                "price": 1450
+            },
+            {
+                "label": "1kg",
+                "price": 2900
+            }
+        ],
+        "emoji": "\ud83c\udf30",
+        "description_en": "Premium quality cashews, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Cashews.jpg"
+    },
+    {
+        "id": 6,
+        "name": "Walnuts",
+        "kn_name": "Walnuts",
+        "price": 2700,
+        "category": "nuts",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 27
+            },
+            {
+                "label": "50g",
+                "price": 135
+            },
+            {
+                "label": "100g",
+                "price": 270
+            },
+            {
+                "label": "200g",
+                "price": 540
+            },
+            {
+                "label": "250g",
+                "price": 675
+            },
+            {
+                "label": "500g",
+                "price": 1350
+            },
+            {
+                "label": "1kg",
+                "price": 2700
+            }
+        ],
+        "emoji": "\ud83c\udf30",
+        "description_en": "Premium quality walnuts, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Walnuts 2400.jpg"
+    },
+    {
+        "id": 8,
+        "name": "Pistachios",
+        "kn_name": "Pistachios",
+        "price": 3100,
+        "category": "nuts",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 31
+            },
+            {
+                "label": "50g",
+                "price": 155
+            },
+            {
+                "label": "100g",
+                "price": 310
+            },
+            {
+                "label": "200g",
+                "price": 620
+            },
+            {
+                "label": "250g",
+                "price": 775
+            },
+            {
+                "label": "500g",
+                "price": 1550
+            },
+            {
+                "label": "1kg",
+                "price": 3100
+            }
+        ],
+        "emoji": "\ud83c\udf30",
+        "description_en": "Premium quality pistachios, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Pistachios 700.jpg"
+    },
+    {
+        "id": 10,
+        "name": "Hazelnuts",
+        "kn_name": "Hazelnuts",
+        "price": 2900,
+        "category": "nuts",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 29
+            },
+            {
+                "label": "50g",
+                "price": 145
+            },
+            {
+                "label": "100g",
+                "price": 290
+            },
+            {
+                "label": "200g",
+                "price": 580
+            },
+            {
+                "label": "250g",
+                "price": 725
+            },
+            {
+                "label": "500g",
+                "price": 1450
+            },
+            {
+                "label": "1kg",
+                "price": 2900
+            }
+        ],
+        "emoji": "\ud83c\udf30",
+        "description_en": "Premium quality hazelnuts, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Hazelnuts.jpg"
+    },
+    {
+        "id": 12,
+        "name": "Macadamia Nuts",
+        "kn_name": "Macadamia Nuts",
+        "price": 4800,
+        "category": "nuts",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 48
+            },
+            {
+                "label": "50g",
+                "price": 240
+            },
+            {
+                "label": "100g",
+                "price": 480
+            },
+            {
+                "label": "200g",
+                "price": 960
+            },
+            {
+                "label": "250g",
+                "price": 1200
+            },
+            {
+                "label": "500g",
+                "price": 2400
+            },
+            {
+                "label": "1kg",
+                "price": 4800
+            }
+        ],
+        "emoji": "\ud83c\udf30",
+        "description_en": "Premium quality macadamia nuts, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Macadamia Nuts.jpg"
+    },
+    {
+        "id": 14,
+        "name": "Peanuts",
+        "kn_name": "Peanuts",
+        "price": 950,
+        "category": "nuts",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 9.5
+            },
+            {
+                "label": "50g",
+                "price": 47.5
+            },
+            {
+                "label": "100g",
+                "price": 95
+            },
+            {
+                "label": "200g",
+                "price": 190
+            },
+            {
+                "label": "250g",
+                "price": 237.5
+            },
+            {
+                "label": "500g",
+                "price": 475
+            },
+            {
+                "label": "1kg",
+                "price": 950
+            }
+        ],
+        "emoji": "\ud83c\udf30",
+        "description_en": "Premium quality peanuts, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Peanuts.jpg"
+    },
+    {
+        "id": 16,
+        "name": "Brazil Nuts",
+        "kn_name": "Brazil Nuts",
+        "price": 4200,
+        "category": "nuts",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 42
+            },
+            {
+                "label": "50g",
+                "price": 210
+            },
+            {
+                "label": "100g",
+                "price": 420
+            },
+            {
+                "label": "200g",
+                "price": 840
+            },
+            {
+                "label": "250g",
+                "price": 1050
+            },
+            {
+                "label": "500g",
+                "price": 2100
+            },
+            {
+                "label": "1kg",
+                "price": 4200
+            }
+        ],
+        "emoji": "\ud83c\udf30",
+        "description_en": "Premium quality brazil nuts, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Brazil Nuts Roasted.jpg"
+    },
+    {
+        "id": 18,
+        "name": "Almonds Blanched",
+        "kn_name": "Almonds Blanched",
+        "price": 2500,
+        "category": "nuts",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 25
+            },
+            {
+                "label": "50g",
+                "price": 125
+            },
+            {
+                "label": "100g",
+                "price": 250
+            },
+            {
+                "label": "200g",
+                "price": 500
+            },
+            {
+                "label": "250g",
+                "price": 625
+            },
+            {
+                "label": "500g",
+                "price": 1250
+            },
+            {
+                "label": "1kg",
+                "price": 2500
+            }
+        ],
+        "emoji": "\ud83c\udf30",
+        "description_en": "Premium quality almonds blanched, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Almonds Blanched.jpg"
+    },
+    {
+        "id": 20,
+        "name": "Cashew Kernels",
+        "kn_name": "Cashew Kernels",
+        "price": 3100,
+        "category": "nuts",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 31
+            },
+            {
+                "label": "50g",
+                "price": 155
+            },
+            {
+                "label": "100g",
+                "price": 310
+            },
+            {
+                "label": "200g",
+                "price": 620
+            },
+            {
+                "label": "250g",
+                "price": 775
+            },
+            {
+                "label": "500g",
+                "price": 1550
+            },
+            {
+                "label": "1kg",
+                "price": 3100
+            }
+        ],
+        "emoji": "\ud83c\udf30",
+        "description_en": "Premium quality cashew kernels, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Cashew Kernels.jpg"
+    },
+    {
+        "id": 22,
+        "name": "Raisins Black",
+        "kn_name": "Raisins Black",
+        "price": 1100,
+        "category": "nuts",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 11
+            },
+            {
+                "label": "50g",
+                "price": 55
+            },
+            {
+                "label": "100g",
+                "price": 110
+            },
+            {
+                "label": "200g",
+                "price": 220
+            },
+            {
+                "label": "250g",
+                "price": 275
+            },
+            {
+                "label": "500g",
+                "price": 550
+            },
+            {
+                "label": "1kg",
+                "price": 1100
+            }
+        ],
+        "emoji": "\ud83c\udf30",
+        "description_en": "Premium quality raisins black, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Raisins Black.jpg"
+    },
+    {
+        "id": 24,
+        "name": "Raisins Green",
+        "kn_name": "Raisins Green",
+        "price": 1200,
+        "category": "nuts",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 12
+            },
+            {
+                "label": "50g",
+                "price": 60
+            },
+            {
+                "label": "100g",
+                "price": 120
+            },
+            {
+                "label": "200g",
+                "price": 240
+            },
+            {
+                "label": "250g",
+                "price": 300
+            },
+            {
+                "label": "500g",
+                "price": 600
+            },
+            {
+                "label": "1kg",
+                "price": 1200
+            }
+        ],
+        "emoji": "\ud83c\udf30",
+        "description_en": "Premium quality raisins green, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Raisins Green.jpg"
+    },
+    {
+        "id": 26,
+        "name": "Dates Medjool",
+        "kn_name": "Dates Medjool",
+        "price": 1700,
+        "category": "nuts",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 17
+            },
+            {
+                "label": "50g",
+                "price": 85
+            },
+            {
+                "label": "100g",
+                "price": 170
+            },
+            {
+                "label": "200g",
+                "price": 340
+            },
+            {
+                "label": "250g",
+                "price": 425
+            },
+            {
+                "label": "500g",
+                "price": 850
+            },
+            {
+                "label": "1kg",
+                "price": 1700
+            }
+        ],
+        "emoji": "\ud83c\udf30",
+        "description_en": "Premium quality dates medjool, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Dates Medjool.jpg"
+    },
+    {
+        "id": 28,
+        "name": "Figs Dry",
+        "kn_name": "Figs Dry",
+        "price": 2300,
+        "category": "nuts",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 23
+            },
+            {
+                "label": "50g",
+                "price": 115
+            },
+            {
+                "label": "100g",
+                "price": 230
+            },
+            {
+                "label": "200g",
+                "price": 460
+            },
+            {
+                "label": "250g",
+                "price": 575
+            },
+            {
+                "label": "500g",
+                "price": 1150
+            },
+            {
+                "label": "1kg",
+                "price": 2300
+            }
+        ],
+        "emoji": "\ud83c\udf30",
+        "description_en": "Premium quality figs dry, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Figs Dry.jpg"
+    },
+    {
+        "id": 30,
+        "name": "Apricots Dried",
+        "kn_name": "Apricots Dried",
+        "price": 2300,
+        "category": "nuts",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 23
+            },
+            {
+                "label": "50g",
+                "price": 115
+            },
+            {
+                "label": "100g",
+                "price": 230
+            },
+            {
+                "label": "200g",
+                "price": 460
+            },
+            {
+                "label": "250g",
+                "price": 575
+            },
+            {
+                "label": "500g",
+                "price": 1150
+            },
+            {
+                "label": "1kg",
+                "price": 2300
+            }
+        ],
+        "emoji": "\ud83c\udf30",
+        "description_en": "Premium quality apricots dried, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Apricots Dried.jpg"
+    },
+    {
+        "id": 32,
+        "name": "Prunes Dried",
+        "kn_name": "Prunes Dried",
+        "price": 2100,
+        "category": "nuts",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 21
+            },
+            {
+                "label": "50g",
+                "price": 105
+            },
+            {
+                "label": "100g",
+                "price": 210
+            },
+            {
+                "label": "200g",
+                "price": 420
+            },
+            {
+                "label": "250g",
+                "price": 525
+            },
+            {
+                "label": "500g",
+                "price": 1050
+            },
+            {
+                "label": "1kg",
+                "price": 2100
+            }
+        ],
+        "emoji": "\ud83c\udf30",
+        "description_en": "Premium quality prunes dried, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Prunes Dried.jpg"
+    },
+    {
+        "id": 34,
+        "name": "Mulberries White",
+        "kn_name": "Mulberries White",
+        "price": 1700,
+        "category": "nuts",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 17
+            },
+            {
+                "label": "50g",
+                "price": 85
+            },
+            {
+                "label": "100g",
+                "price": 170
+            },
+            {
+                "label": "200g",
+                "price": 340
+            },
+            {
+                "label": "250g",
+                "price": 425
+            },
+            {
+                "label": "500g",
+                "price": 850
+            },
+            {
+                "label": "1kg",
+                "price": 1700
+            }
+        ],
+        "emoji": "\ud83c\udf30",
+        "description_en": "Premium quality mulberries white, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Mulberries White.jpg"
+    },
+    {
+        "id": 36,
+        "name": "Mulberries Black",
+        "kn_name": "Mulberries Black",
+        "price": 1800,
+        "category": "nuts",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 18
+            },
+            {
+                "label": "50g",
+                "price": 90
+            },
+            {
+                "label": "100g",
+                "price": 180
+            },
+            {
+                "label": "200g",
+                "price": 360
+            },
+            {
+                "label": "250g",
+                "price": 450
+            },
+            {
+                "label": "500g",
+                "price": 900
+            },
+            {
+                "label": "1kg",
+                "price": 1800
+            }
+        ],
+        "emoji": "\ud83c\udf30",
+        "description_en": "Premium quality mulberries black, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Mulberries Black.jpg"
+    },
+    {
+        "id": 38,
+        "name": "Mango Slices Dry",
+        "kn_name": "Mango Slices Dry",
+        "price": 1300,
+        "category": "nuts",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 13
+            },
+            {
+                "label": "50g",
+                "price": 65
+            },
+            {
+                "label": "100g",
+                "price": 130
+            },
+            {
+                "label": "200g",
+                "price": 260
+            },
+            {
+                "label": "250g",
+                "price": 325
+            },
+            {
+                "label": "500g",
+                "price": 650
+            },
+            {
+                "label": "1kg",
+                "price": 1300
+            }
+        ],
+        "emoji": "\ud83c\udf30",
+        "description_en": "Premium quality mango slices dry, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Mango Slices Dry.jpg"
+    },
+    {
+        "id": 40,
+        "name": "Pineapple Dried",
+        "kn_name": "Pineapple Dried",
+        "price": 1500,
+        "category": "nuts",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 15
+            },
+            {
+                "label": "50g",
+                "price": 75
+            },
+            {
+                "label": "100g",
+                "price": 150
+            },
+            {
+                "label": "200g",
+                "price": 300
+            },
+            {
+                "label": "250g",
+                "price": 375
+            },
+            {
+                "label": "500g",
+                "price": 750
+            },
+            {
+                "label": "1kg",
+                "price": 1500
+            }
+        ],
+        "emoji": "\ud83c\udf30",
+        "description_en": "Premium quality pineapple dried, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Pineapple Dried.jpg"
+    },
+    {
+        "id": 42,
+        "name": "Banana Chips",
+        "kn_name": "Banana Chips",
+        "price": 750,
+        "category": "nuts",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 7.5
+            },
+            {
+                "label": "50g",
+                "price": 37.5
+            },
+            {
+                "label": "100g",
+                "price": 75
+            },
+            {
+                "label": "200g",
+                "price": 150
+            },
+            {
+                "label": "250g",
+                "price": 187.5
+            },
+            {
+                "label": "500g",
+                "price": 375
+            },
+            {
+                "label": "1kg",
+                "price": 750
+            }
+        ],
+        "emoji": "\ud83c\udf30",
+        "description_en": "Premium quality banana chips, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Banana Chips.jpg"
+    },
+    {
+        "id": 44,
+        "name": "Coconut Pieces Dry",
+        "kn_name": "Coconut Pieces Dry",
+        "price": 950,
+        "category": "nuts",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 9.5
+            },
+            {
+                "label": "50g",
+                "price": 47.5
+            },
+            {
+                "label": "100g",
+                "price": 95
+            },
+            {
+                "label": "200g",
+                "price": 190
+            },
+            {
+                "label": "250g",
+                "price": 237.5
+            },
+            {
+                "label": "500g",
+                "price": 475
+            },
+            {
+                "label": "1kg",
+                "price": 950
+            }
+        ],
+        "emoji": "\ud83c\udf30",
+        "description_en": "Premium quality coconut pieces dry, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Coconut Pieces Dry.jpg"
+    },
+    {
+        "id": 46,
+        "name": "Papaya Dried",
+        "kn_name": "Papaya Dried",
+        "price": 1300,
+        "category": "nuts",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 13
+            },
+            {
+                "label": "50g",
+                "price": 65
+            },
+            {
+                "label": "100g",
+                "price": 130
+            },
+            {
+                "label": "200g",
+                "price": 260
+            },
+            {
+                "label": "250g",
+                "price": 325
+            },
+            {
+                "label": "500g",
+                "price": 650
+            },
+            {
+                "label": "1kg",
+                "price": 1300
+            }
+        ],
+        "emoji": "\ud83c\udf30",
+        "description_en": "Premium quality papaya dried, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Papaya Dried.jpg"
+    },
+    {
+        "id": 48,
+        "name": "Pine Nuts",
+        "kn_name": "Pine Nuts",
+        "price": 3900,
+        "category": "nuts",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 39
+            },
+            {
+                "label": "50g",
+                "price": 195
+            },
+            {
+                "label": "100g",
+                "price": 390
+            },
+            {
+                "label": "200g",
+                "price": 780
+            },
+            {
+                "label": "250g",
+                "price": 975
+            },
+            {
+                "label": "500g",
+                "price": 1950
+            },
+            {
+                "label": "1kg",
+                "price": 3900
+            }
+        ],
+        "emoji": "\ud83c\udf30",
+        "description_en": "Premium quality pine nuts, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Pine Nuts.jpg"
+    },
+    {
+        "id": 50,
+        "name": "Dried Cherries",
+        "kn_name": "Dried Cherries",
+        "price": 2900,
+        "category": "nuts",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 29
+            },
+            {
+                "label": "50g",
+                "price": 145
+            },
+            {
+                "label": "100g",
+                "price": 290
+            },
+            {
+                "label": "200g",
+                "price": 580
+            },
+            {
+                "label": "250g",
+                "price": 725
+            },
+            {
+                "label": "500g",
+                "price": 1450
+            },
+            {
+                "label": "1kg",
+                "price": 2900
+            }
+        ],
+        "emoji": "\ud83c\udf30",
+        "description_en": "Premium quality dried cherries, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Dried Cherries.jpg"
+    },
+    {
+        "id": 52,
+        "name": "Chia Seeds",
+        "kn_name": "Chia Seeds",
+        "price": 2300,
+        "category": "seeds",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 23
+            },
+            {
+                "label": "50g",
+                "price": 115
+            },
+            {
+                "label": "100g",
+                "price": 230
+            },
+            {
+                "label": "200g",
+                "price": 460
+            },
+            {
+                "label": "250g",
+                "price": 575
+            },
+            {
+                "label": "500g",
+                "price": 1150
+            },
+            {
+                "label": "1kg",
+                "price": 2300
+            }
+        ],
+        "emoji": "\ud83c\udf31",
+        "description_en": "Premium quality chia seeds, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Chia Seeds.jpg"
+    },
+    {
+        "id": 54,
+        "name": "Flax Seeds",
+        "kn_name": "Flax Seeds",
+        "price": 1700,
+        "category": "seeds",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 17
+            },
+            {
+                "label": "50g",
+                "price": 85
+            },
+            {
+                "label": "100g",
+                "price": 170
+            },
+            {
+                "label": "200g",
+                "price": 340
+            },
+            {
+                "label": "250g",
+                "price": 425
+            },
+            {
+                "label": "500g",
+                "price": 850
+            },
+            {
+                "label": "1kg",
+                "price": 1700
+            }
+        ],
+        "emoji": "\ud83c\udf31",
+        "description_en": "Premium quality flax seeds, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Flax Seeds.jpg"
+    },
+    {
+        "id": 56,
+        "name": "Pumpkin Seeds",
+        "kn_name": "Pumpkin Seeds",
+        "price": 2300,
+        "category": "seeds",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 23
+            },
+            {
+                "label": "50g",
+                "price": 115
+            },
+            {
+                "label": "100g",
+                "price": 230
+            },
+            {
+                "label": "200g",
+                "price": 460
+            },
+            {
+                "label": "250g",
+                "price": 575
+            },
+            {
+                "label": "500g",
+                "price": 1150
+            },
+            {
+                "label": "1kg",
+                "price": 2300
+            }
+        ],
+        "emoji": "\ud83c\udf31",
+        "description_en": "Premium quality pumpkin seeds, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Pumpkin Seeds.jpg"
+    },
+    {
+        "id": 58,
+        "name": "Sunflower Seeds",
+        "kn_name": "Sunflower Seeds",
+        "price": 1500,
+        "category": "seeds",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 15
+            },
+            {
+                "label": "50g",
+                "price": 75
+            },
+            {
+                "label": "100g",
+                "price": 150
+            },
+            {
+                "label": "200g",
+                "price": 300
+            },
+            {
+                "label": "250g",
+                "price": 375
+            },
+            {
+                "label": "500g",
+                "price": 750
+            },
+            {
+                "label": "1kg",
+                "price": 1500
+            }
+        ],
+        "emoji": "\ud83c\udf31",
+        "description_en": "Premium quality sunflower seeds, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Sunflower Seeds.jpg"
+    },
+    {
+        "id": 60,
+        "name": "Sesame Seeds",
+        "kn_name": "Sesame Seeds",
+        "price": 1100,
+        "category": "seeds",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 11
+            },
+            {
+                "label": "50g",
+                "price": 55
+            },
+            {
+                "label": "100g",
+                "price": 110
+            },
+            {
+                "label": "200g",
+                "price": 220
+            },
+            {
+                "label": "250g",
+                "price": 275
+            },
+            {
+                "label": "500g",
+                "price": 550
+            },
+            {
+                "label": "1kg",
+                "price": 1100
+            }
+        ],
+        "emoji": "\ud83c\udf31",
+        "description_en": "Premium quality sesame seeds, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Sesame Seeds.jpg"
+    },
+    {
+        "id": 62,
+        "name": "Mixed Nuts",
+        "kn_name": "Mixed Nuts",
+        "price": 2700,
+        "category": "mixed",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 27
+            },
+            {
+                "label": "50g",
+                "price": 135
+            },
+            {
+                "label": "100g",
+                "price": 270
+            },
+            {
+                "label": "200g",
+                "price": 540
+            },
+            {
+                "label": "250g",
+                "price": 675
+            },
+            {
+                "label": "500g",
+                "price": 1350
+            },
+            {
+                "label": "1kg",
+                "price": 2700
+            }
+        ],
+        "emoji": "\ud83e\udd5c",
+        "description_en": "Premium quality mixed nuts, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Mixed Nuts.jpg"
+    },
+    {
+        "id": 64,
+        "name": "Mixed Dry Fruits",
+        "kn_name": "Mixed Dry Fruits",
+        "price": 2300,
+        "category": "mixed",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 23
+            },
+            {
+                "label": "50g",
+                "price": 115
+            },
+            {
+                "label": "100g",
+                "price": 230
+            },
+            {
+                "label": "200g",
+                "price": 460
+            },
+            {
+                "label": "250g",
+                "price": 575
+            },
+            {
+                "label": "500g",
+                "price": 1150
+            },
+            {
+                "label": "1kg",
+                "price": 2300
+            }
+        ],
+        "emoji": "\ud83e\udd5c",
+        "description_en": "Premium quality mixed dry fruits, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Mixed Dry Fruits.jpg"
+    },
+    {
+        "id": 66,
+        "name": "Trail Mix",
+        "kn_name": "Trail Mix",
+        "price": 1700,
+        "category": "mixed",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 17
+            },
+            {
+                "label": "50g",
+                "price": 85
+            },
+            {
+                "label": "100g",
+                "price": 170
+            },
+            {
+                "label": "200g",
+                "price": 340
+            },
+            {
+                "label": "250g",
+                "price": 425
+            },
+            {
+                "label": "500g",
+                "price": 850
+            },
+            {
+                "label": "1kg",
+                "price": 1700
+            }
+        ],
+        "emoji": "\ud83e\udd5c",
+        "description_en": "Premium quality trail mix, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Trail Mix.jpg"
+    },
+    {
+        "id": 68,
+        "name": "Nut & Seed Mix",
+        "kn_name": "Nut & Seed Mix",
+        "price": 1900,
+        "category": "mixed",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 19
+            },
+            {
+                "label": "50g",
+                "price": 95
+            },
+            {
+                "label": "100g",
+                "price": 190
+            },
+            {
+                "label": "200g",
+                "price": 380
+            },
+            {
+                "label": "250g",
+                "price": 475
+            },
+            {
+                "label": "500g",
+                "price": 950
+            },
+            {
+                "label": "1kg",
+                "price": 1900
+            }
+        ],
+        "emoji": "\ud83e\udd5c",
+        "description_en": "Premium quality nut & seed mix, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Nut & Seed Mix.jpg"
+    },
+    {
+        "id": 70,
+        "name": "Premium Fruit & Nut Mix",
+        "kn_name": "Premium Fruit & Nut Mix",
+        "price": 2800,
+        "category": "mixed",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 28
+            },
+            {
+                "label": "50g",
+                "price": 140
+            },
+            {
+                "label": "100g",
+                "price": 280
+            },
+            {
+                "label": "200g",
+                "price": 560
+            },
+            {
+                "label": "250g",
+                "price": 700
+            },
+            {
+                "label": "500g",
+                "price": 1400
+            },
+            {
+                "label": "1kg",
+                "price": 2800
+            }
+        ],
+        "emoji": "\ud83e\udd5c",
+        "description_en": "Premium quality premium fruit & nut mix, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Premium Fruit & Nut Mix.jpg"
+    },
+    {
+        "id": 72,
+        "name": "Dry Fruit Mix with Almonds",
+        "kn_name": "Dry Fruit Mix with Almonds",
+        "price": 2500,
+        "category": "mixed",
+        "variants": [
+            {
+                "label": "1kg",
+                "price": 2500
+            }
+        ],
+        "emoji": "\ud83e\udd5c",
+        "description_en": "Premium quality dry fruit mix with almonds, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Dry Fruit Mix with Almonds.jpg"
+    },
+    {
+        "id": 74,
+        "name": "Dry Fruit Mix with Cashews",
+        "kn_name": "Dry Fruit Mix with Cashews",
+        "price": 2700,
+        "category": "mixed",
+        "variants": [
+            {
+                "label": "1kg",
+                "price": 2700
+            }
+        ],
+        "emoji": "\ud83e\udd5c",
+        "description_en": "Premium quality dry fruit mix with cashews, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Dry Fruit Mix with Cashews.jpg"
+    },
+    {
+        "id": 76,
+        "name": "Dry Fruit Mix with Walnuts",
+        "kn_name": "Dry Fruit Mix with Walnuts",
+        "price": 2800,
+        "category": "mixed",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 28
+            },
+            {
+                "label": "50g",
+                "price": 140
+            },
+            {
+                "label": "100g",
+                "price": 280
+            },
+            {
+                "label": "200g",
+                "price": 560
+            },
+            {
+                "label": "250g",
+                "price": 700
+            },
+            {
+                "label": "500g",
+                "price": 1400
+            },
+            {
+                "label": "1kg",
+                "price": 2800
+            }
+        ],
+        "emoji": "\ud83e\udd5c",
+        "description_en": "Premium quality dry fruit mix with walnuts, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Dry Fruit Mix with Walnuts.jpg"
+    },
+    {
+        "id": 78,
+        "name": "Energy Mix",
+        "kn_name": "Energy Mix",
+        "price": 2300,
+        "category": "mixed",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 23
+            },
+            {
+                "label": "50g",
+                "price": 115
+            },
+            {
+                "label": "100g",
+                "price": 230
+            },
+            {
+                "label": "200g",
+                "price": 460
+            },
+            {
+                "label": "250g",
+                "price": 575
+            },
+            {
+                "label": "500g",
+                "price": 1150
+            },
+            {
+                "label": "1kg",
+                "price": 2300
+            }
+        ],
+        "emoji": "\ud83e\udd5c",
+        "description_en": "Premium quality energy mix, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Energy Mix.jpg"
+    },
+    {
+        "id": 80,
+        "name": "Superfood Mix",
+        "kn_name": "Superfood Mix",
+        "price": 3000,
+        "category": "mixed",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 30
+            },
+            {
+                "label": "50g",
+                "price": 150
+            },
+            {
+                "label": "100g",
+                "price": 300
+            },
+            {
+                "label": "200g",
+                "price": 600
+            },
+            {
+                "label": "250g",
+                "price": 750
+            },
+            {
+                "label": "500g",
+                "price": 1500
+            },
+            {
+                "label": "1kg",
+                "price": 3000
+            }
+        ],
+        "emoji": "\ud83e\udd5c",
+        "description_en": "Premium quality superfood mix, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Superfood Mix.jpg"
+    },
+    {
+        "id": 82,
+        "name": "Protein Nut Mix",
+        "kn_name": "Protein Nut Mix",
+        "price": 2800,
+        "category": "mixed",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 28
+            },
+            {
+                "label": "50g",
+                "price": 140
+            },
+            {
+                "label": "100g",
+                "price": 280
+            },
+            {
+                "label": "200g",
+                "price": 560
+            },
+            {
+                "label": "250g",
+                "price": 700
+            },
+            {
+                "label": "500g",
+                "price": 1400
+            },
+            {
+                "label": "1kg",
+                "price": 2800
+            }
+        ],
+        "emoji": "\ud83e\udd5c",
+        "description_en": "Premium quality protein nut mix, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Protein Nut Mix.jpg"
+    },
+    {
+        "id": 83,
+        "name": "Gourmet Dry Fruits",
+        "kn_name": "Gourmet Dry Fruits",
+        "price": 1800,
+        "category": "mixed",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 18
+            },
+            {
+                "label": "50g",
+                "price": 90
+            },
+            {
+                "label": "100g",
+                "price": 180
+            },
+            {
+                "label": "200g",
+                "price": 360
+            },
+            {
+                "label": "250g",
+                "price": 450
+            },
+            {
+                "label": "500g",
+                "price": 900
+            }
+        ],
+        "emoji": "\ud83e\udd5c",
+        "description_en": "Premium quality gourmet dry fruits, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Gourmet Dry Fruits.jpg"
+    },
+    {
+        "id": 84,
+        "name": "Gourmet Dry Fruits",
+        "kn_name": "Gourmet Dry Fruits",
+        "price": 3500,
+        "category": "mixed",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 35
+            },
+            {
+                "label": "50g",
+                "price": 175
+            },
+            {
+                "label": "100g",
+                "price": 350
+            },
+            {
+                "label": "200g",
+                "price": 700
+            },
+            {
+                "label": "250g",
+                "price": 875
+            },
+            {
+                "label": "1kg",
+                "price": 3500
+            }
+        ],
+        "emoji": "\ud83e\udd5c",
+        "description_en": "Premium quality gourmet dry fruits, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Gourmet Dry Fruits.jpg"
+    },
+    {
+        "id": 85,
+        "name": "Healthy Snack Mix",
+        "kn_name": "Healthy Snack Mix",
+        "price": 1300,
+        "category": "mixed",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 13
+            },
+            {
+                "label": "50g",
+                "price": 65
+            },
+            {
+                "label": "100g",
+                "price": 130
+            },
+            {
+                "label": "200g",
+                "price": 260
+            },
+            {
+                "label": "250g",
+                "price": 325
+            },
+            {
+                "label": "500g",
+                "price": 650
+            }
+        ],
+        "emoji": "\ud83e\udd5c",
+        "description_en": "Premium quality healthy snack mix, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Healthy Snack Mix.jpg"
+    },
+    {
+        "id": 86,
+        "name": "Healthy Snack Mix",
+        "kn_name": "Healthy Snack Mix",
+        "price": 2500,
+        "category": "mixed",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 25
+            },
+            {
+                "label": "50g",
+                "price": 125
+            },
+            {
+                "label": "100g",
+                "price": 250
+            },
+            {
+                "label": "200g",
+                "price": 500
+            },
+            {
+                "label": "250g",
+                "price": 625
+            },
+            {
+                "label": "1kg",
+                "price": 2500
+            }
+        ],
+        "emoji": "\ud83e\udd5c",
+        "description_en": "Premium quality healthy snack mix, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Healthy Snack Mix.jpg"
+    },
+    {
+        "id": 87,
+        "name": "Nutty Delight Mix",
+        "kn_name": "Nutty Delight Mix",
+        "price": 1400,
+        "category": "mixed",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 14
+            },
+            {
+                "label": "50g",
+                "price": 70
+            },
+            {
+                "label": "100g",
+                "price": 140
+            },
+            {
+                "label": "200g",
+                "price": 280
+            },
+            {
+                "label": "250g",
+                "price": 350
+            },
+            {
+                "label": "500g",
+                "price": 700
+            }
+        ],
+        "emoji": "\ud83e\udd5c",
+        "description_en": "Premium quality nutty delight mix, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Nutty Delight Mix.jpg"
+    },
+    {
+        "id": 88,
+        "name": "Nutty Delight Mix",
+        "kn_name": "Nutty Delight Mix",
+        "price": 2700,
+        "category": "mixed",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 27
+            },
+            {
+                "label": "50g",
+                "price": 135
+            },
+            {
+                "label": "100g",
+                "price": 270
+            },
+            {
+                "label": "200g",
+                "price": 540
+            },
+            {
+                "label": "250g",
+                "price": 675
+            },
+            {
+                "label": "1kg",
+                "price": 2700
+            }
+        ],
+        "emoji": "\ud83e\udd5c",
+        "description_en": "Premium quality nutty delight mix, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Nutty Delight Mix.jpg"
+    },
+    {
+        "id": 90,
+        "name": "Fruit & Nut Premium Mix",
+        "kn_name": "Fruit & Nut Premium Mix",
+        "price": 2800,
+        "category": "mixed",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 28
+            },
+            {
+                "label": "50g",
+                "price": 140
+            },
+            {
+                "label": "100g",
+                "price": 280
+            },
+            {
+                "label": "200g",
+                "price": 560
+            },
+            {
+                "label": "250g",
+                "price": 700
+            },
+            {
+                "label": "1kg",
+                "price": 2800
+            }
+        ],
+        "emoji": "\ud83e\udd5c",
+        "description_en": "Premium quality fruit & nut premium mix, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Fruit & Nut Premium Mix.jpg"
+    },
+    {
+        "id": 92,
+        "name": "Choco Nut Mix",
+        "kn_name": "Choco Nut Mix",
+        "price": 2300,
+        "category": "mixed",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 23
+            },
+            {
+                "label": "50g",
+                "price": 115
+            },
+            {
+                "label": "100g",
+                "price": 230
+            },
+            {
+                "label": "200g",
+                "price": 460
+            },
+            {
+                "label": "250g",
+                "price": 575
+            },
+            {
+                "label": "500g",
+                "price": 1150
+            },
+            {
+                "label": "1kg",
+                "price": 2300
+            }
+        ],
+        "emoji": "\ud83e\udd5c",
+        "description_en": "Premium quality choco nut mix, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Choco Nut Mix.jpg"
+    },
+    {
+        "id": 94,
+        "name": "Exotic Nut Mix",
+        "kn_name": "Exotic Nut Mix",
+        "price": 3000,
+        "category": "mixed",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 30
+            },
+            {
+                "label": "50g",
+                "price": 150
+            },
+            {
+                "label": "100g",
+                "price": 300
+            },
+            {
+                "label": "200g",
+                "price": 600
+            },
+            {
+                "label": "250g",
+                "price": 750
+            },
+            {
+                "label": "500g",
+                "price": 1500
+            },
+            {
+                "label": "1kg",
+                "price": 3000
+            }
+        ],
+        "emoji": "\ud83e\udd5c",
+        "description_en": "Premium quality exotic nut mix, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Exotic Nut Mix.jpg"
+    },
+    {
+        "id": 96,
+        "name": "Premium Trail Mix",
+        "kn_name": "Premium Trail Mix",
+        "price": 2700,
+        "category": "mixed",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 27
+            },
+            {
+                "label": "50g",
+                "price": 135
+            },
+            {
+                "label": "100g",
+                "price": 270
+            },
+            {
+                "label": "200g",
+                "price": 540
+            },
+            {
+                "label": "250g",
+                "price": 675
+            },
+            {
+                "label": "500g",
+                "price": 1350
+            },
+            {
+                "label": "1kg",
+                "price": 2700
+            }
+        ],
+        "emoji": "\ud83e\udd5c",
+        "description_en": "Premium quality premium trail mix, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Premium Trail Mix.jpg"
+    },
+    {
+        "id": 98,
+        "name": "Super Nut Mix",
+        "kn_name": "Super Nut Mix",
+        "price": 2800,
+        "category": "mixed",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 28
+            },
+            {
+                "label": "50g",
+                "price": 140
+            },
+            {
+                "label": "100g",
+                "price": 280
+            },
+            {
+                "label": "200g",
+                "price": 560
+            },
+            {
+                "label": "250g",
+                "price": 700
+            },
+            {
+                "label": "500g",
+                "price": 1400
+            },
+            {
+                "label": "1kg",
+                "price": 2800
+            }
+        ],
+        "emoji": "\ud83e\udd5c",
+        "description_en": "Premium quality super nut mix, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Super Nut Mix.jpg"
+    },
+    {
+        "id": 100,
+        "name": "Deluxe Dry Fruit Mix",
+        "kn_name": "Deluxe Dry Fruit Mix",
+        "price": 3500,
+        "category": "mixed",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 35
+            },
+            {
+                "label": "50g",
+                "price": 175
+            },
+            {
+                "label": "100g",
+                "price": 350
+            },
+            {
+                "label": "200g",
+                "price": 700
+            },
+            {
+                "label": "250g",
+                "price": 875
+            },
+            {
+                "label": "500g",
+                "price": 1750
+            },
+            {
+                "label": "1kg",
+                "price": 3500
+            }
+        ],
+        "emoji": "\ud83e\udd5c",
+        "description_en": "Premium quality deluxe dry fruit mix, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Deluxe Dry Fruit Mix.jpg"
+    },
+    {
+        "id": 101,
+        "name": "Almonds Roasted",
+        "kn_name": "Almonds Roasted",
+        "price": 1300,
+        "category": "nuts",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 13
+            },
+            {
+                "label": "50g",
+                "price": 65
+            },
+            {
+                "label": "100g",
+                "price": 130
+            },
+            {
+                "label": "200g",
+                "price": 260
+            },
+            {
+                "label": "250g",
+                "price": 325
+            },
+            {
+                "label": "500g",
+                "price": 650
+            }
+        ],
+        "emoji": "\ud83c\udf30",
+        "description_en": "Premium quality almonds roasted, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Almonds Roasted.jpg"
+    },
+    {
+        "id": 104,
+        "name": "Cashews Roasted",
+        "kn_name": "Cashews Roasted",
+        "price": 3100,
+        "category": "nuts",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 31
+            },
+            {
+                "label": "50g",
+                "price": 155
+            },
+            {
+                "label": "100g",
+                "price": 310
+            },
+            {
+                "label": "200g",
+                "price": 620
+            },
+            {
+                "label": "250g",
+                "price": 775
+            },
+            {
+                "label": "500g",
+                "price": 1550
+            },
+            {
+                "label": "1kg",
+                "price": 3100
+            }
+        ],
+        "emoji": "\ud83c\udf30",
+        "description_en": "Premium quality cashews roasted, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Cashews Roasted.jpg"
+    },
+    {
+        "id": 106,
+        "name": "Walnuts Roasted",
+        "kn_name": "Walnuts Roasted",
+        "price": 2800,
+        "category": "nuts",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 28
+            },
+            {
+                "label": "50g",
+                "price": 140
+            },
+            {
+                "label": "100g",
+                "price": 280
+            },
+            {
+                "label": "200g",
+                "price": 560
+            },
+            {
+                "label": "250g",
+                "price": 700
+            },
+            {
+                "label": "500g",
+                "price": 1400
+            },
+            {
+                "label": "1kg",
+                "price": 2800
+            }
+        ],
+        "emoji": "\ud83c\udf30",
+        "description_en": "Premium quality walnuts roasted, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Walnuts Roasted.jpg"
+    },
+    {
+        "id": 108,
+        "name": "Pistachios Roasted",
+        "kn_name": "Pistachios Roasted",
+        "price": 3200,
+        "category": "nuts",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 32
+            },
+            {
+                "label": "50g",
+                "price": 160
+            },
+            {
+                "label": "100g",
+                "price": 320
+            },
+            {
+                "label": "200g",
+                "price": 640
+            },
+            {
+                "label": "250g",
+                "price": 800
+            },
+            {
+                "label": "500g",
+                "price": 1600
+            },
+            {
+                "label": "1kg",
+                "price": 3200
+            }
+        ],
+        "emoji": "\ud83c\udf30",
+        "description_en": "Premium quality pistachios roasted, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Pistachios Roasted.jpg"
+    },
+    {
+        "id": 110,
+        "name": "Hazelnuts Roasted",
+        "kn_name": "Hazelnuts Roasted",
+        "price": 3000,
+        "category": "nuts",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 30
+            },
+            {
+                "label": "50g",
+                "price": 150
+            },
+            {
+                "label": "100g",
+                "price": 300
+            },
+            {
+                "label": "200g",
+                "price": 600
+            },
+            {
+                "label": "250g",
+                "price": 750
+            },
+            {
+                "label": "500g",
+                "price": 1500
+            },
+            {
+                "label": "1kg",
+                "price": 3000
+            }
+        ],
+        "emoji": "\ud83c\udf30",
+        "description_en": "Premium quality hazelnuts roasted, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Hazelnuts Roasted.jpg"
+    },
+    {
+        "id": 112,
+        "name": "Macadamia Roasted",
+        "kn_name": "Macadamia Roasted",
+        "price": 5000,
+        "category": "nuts",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 50
+            },
+            {
+                "label": "50g",
+                "price": 250
+            },
+            {
+                "label": "100g",
+                "price": 500
+            },
+            {
+                "label": "200g",
+                "price": 1000
+            },
+            {
+                "label": "250g",
+                "price": 1250
+            },
+            {
+                "label": "500g",
+                "price": 2500
+            },
+            {
+                "label": "1kg",
+                "price": 5000
+            }
+        ],
+        "emoji": "\ud83c\udf30",
+        "description_en": "Premium quality macadamia roasted, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Macadamia Roasted.jpg"
+    },
+    {
+        "id": 114,
+        "name": "Peanuts Roasted",
+        "kn_name": "Peanuts Roasted",
+        "price": 1000,
+        "category": "nuts",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 10
+            },
+            {
+                "label": "50g",
+                "price": 50
+            },
+            {
+                "label": "100g",
+                "price": 100
+            },
+            {
+                "label": "200g",
+                "price": 200
+            },
+            {
+                "label": "250g",
+                "price": 250
+            },
+            {
+                "label": "500g",
+                "price": 500
+            },
+            {
+                "label": "1kg",
+                "price": 1000
+            }
+        ],
+        "emoji": "\ud83c\udf30",
+        "description_en": "Premium quality peanuts roasted, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Peanuts Roasted.jpg"
+    },
+    {
+        "id": 116,
+        "name": "Brazil Nuts Roasted",
+        "kn_name": "Brazil Nuts Roasted",
+        "price": 4400,
+        "category": "nuts",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 44
+            },
+            {
+                "label": "50g",
+                "price": 220
+            },
+            {
+                "label": "100g",
+                "price": 440
+            },
+            {
+                "label": "200g",
+                "price": 880
+            },
+            {
+                "label": "250g",
+                "price": 1100
+            },
+            {
+                "label": "500g",
+                "price": 2200
+            },
+            {
+                "label": "1kg",
+                "price": 4400
+            }
+        ],
+        "emoji": "\ud83c\udf30",
+        "description_en": "Premium quality brazil nuts roasted, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Brazil Nuts Roasted.jpg"
+    },
+    {
+        "id": 118,
+        "name": "Almonds Sliced",
+        "kn_name": "Almonds Sliced",
+        "price": 2600,
+        "category": "nuts",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 26
+            },
+            {
+                "label": "50g",
+                "price": 130
+            },
+            {
+                "label": "100g",
+                "price": 260
+            },
+            {
+                "label": "200g",
+                "price": 520
+            },
+            {
+                "label": "250g",
+                "price": 650
+            },
+            {
+                "label": "500g",
+                "price": 1300
+            },
+            {
+                "label": "1kg",
+                "price": 2600
+            }
+        ],
+        "emoji": "\ud83c\udf30",
+        "description_en": "Premium quality almonds sliced, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Almonds Sliced.jpg"
+    },
+    {
+        "id": 120,
+        "name": "Cashew Pieces",
+        "kn_name": "Cashew Pieces",
+        "price": 3100,
+        "category": "nuts",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 31
+            },
+            {
+                "label": "50g",
+                "price": 155
+            },
+            {
+                "label": "100g",
+                "price": 310
+            },
+            {
+                "label": "200g",
+                "price": 620
+            },
+            {
+                "label": "250g",
+                "price": 775
+            },
+            {
+                "label": "500g",
+                "price": 1550
+            },
+            {
+                "label": "1kg",
+                "price": 3100
+            }
+        ],
+        "emoji": "\ud83c\udf30",
+        "description_en": "Premium quality cashew pieces, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Cashew Pieces.jpg"
+    },
+    {
+        "id": 121,
+        "name": "Golden Raisins",
+        "kn_name": "Golden Raisins",
+        "price": 650,
+        "category": "dryfruits",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 6.5
+            },
+            {
+                "label": "50g",
+                "price": 32.5
+            },
+            {
+                "label": "100g",
+                "price": 65
+            },
+            {
+                "label": "200g",
+                "price": 130
+            },
+            {
+                "label": "250g",
+                "price": 162.5
+            },
+            {
+                "label": "500g",
+                "price": 325
+            }
+        ],
+        "emoji": "\ud83c\udf47",
+        "description_en": "Premium quality golden raisins, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Golden Raisins.jpg"
+    },
+    {
+        "id": 124,
+        "name": "Cranberries Dried",
+        "kn_name": "Cranberries Dried",
+        "price": 2800,
+        "category": "dryfruits",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 28
+            },
+            {
+                "label": "50g",
+                "price": 140
+            },
+            {
+                "label": "100g",
+                "price": 280
+            },
+            {
+                "label": "200g",
+                "price": 560
+            },
+            {
+                "label": "250g",
+                "price": 700
+            },
+            {
+                "label": "500g",
+                "price": 1400
+            },
+            {
+                "label": "1kg",
+                "price": 2800
+            }
+        ],
+        "emoji": "\ud83c\udf47",
+        "description_en": "Premium quality cranberries dried, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Cranberries Dried.jpg"
+    },
+    {
+        "id": 126,
+        "name": "Dried Blueberries",
+        "kn_name": "Dried Blueberries",
+        "price": 3000,
+        "category": "dryfruits",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 30
+            },
+            {
+                "label": "50g",
+                "price": 150
+            },
+            {
+                "label": "100g",
+                "price": 300
+            },
+            {
+                "label": "200g",
+                "price": 600
+            },
+            {
+                "label": "250g",
+                "price": 750
+            },
+            {
+                "label": "500g",
+                "price": 1500
+            },
+            {
+                "label": "1kg",
+                "price": 3000
+            }
+        ],
+        "emoji": "\ud83c\udf47",
+        "description_en": "Premium quality dried blueberries, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Dried Blueberries.jpg"
+    },
+    {
+        "id": 128,
+        "name": "Dried Strawberries",
+        "kn_name": "Dried Strawberries",
+        "price": 2800,
+        "category": "dryfruits",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 28
+            },
+            {
+                "label": "50g",
+                "price": 140
+            },
+            {
+                "label": "100g",
+                "price": 280
+            },
+            {
+                "label": "200g",
+                "price": 560
+            },
+            {
+                "label": "250g",
+                "price": 700
+            },
+            {
+                "label": "500g",
+                "price": 1400
+            },
+            {
+                "label": "1kg",
+                "price": 2800
+            }
+        ],
+        "emoji": "\ud83c\udf47",
+        "description_en": "Premium quality dried strawberries, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Dried Strawberries.jpg"
+    },
+    {
+        "id": 130,
+        "name": "Dried Black Currants",
+        "kn_name": "Dried Black Currants",
+        "price": 3000,
+        "category": "dryfruits",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 30
+            },
+            {
+                "label": "50g",
+                "price": 150
+            },
+            {
+                "label": "100g",
+                "price": 300
+            },
+            {
+                "label": "200g",
+                "price": 600
+            },
+            {
+                "label": "250g",
+                "price": 750
+            },
+            {
+                "label": "500g",
+                "price": 1500
+            },
+            {
+                "label": "1kg",
+                "price": 3000
+            }
+        ],
+        "emoji": "\ud83c\udf47",
+        "description_en": "Premium quality dried black currants, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Dried Black Currants.jpg"
+    },
+    {
+        "id": 132,
+        "name": "Dried Mulberries Red",
+        "kn_name": "Dried Mulberries Red",
+        "price": 1800,
+        "category": "dryfruits",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 18
+            },
+            {
+                "label": "50g",
+                "price": 90
+            },
+            {
+                "label": "100g",
+                "price": 180
+            },
+            {
+                "label": "200g",
+                "price": 360
+            },
+            {
+                "label": "250g",
+                "price": 450
+            },
+            {
+                "label": "500g",
+                "price": 900
+            },
+            {
+                "label": "1kg",
+                "price": 1800
+            }
+        ],
+        "emoji": "\ud83c\udf47",
+        "description_en": "Premium quality dried mulberries red, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Dried Mulberries Red.jpg"
+    },
+    {
+        "id": 134,
+        "name": "Dried Mango Cubes",
+        "kn_name": "Dried Mango Cubes",
+        "price": 1500,
+        "category": "dryfruits",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 15
+            },
+            {
+                "label": "50g",
+                "price": 75
+            },
+            {
+                "label": "100g",
+                "price": 150
+            },
+            {
+                "label": "200g",
+                "price": 300
+            },
+            {
+                "label": "250g",
+                "price": 375
+            },
+            {
+                "label": "500g",
+                "price": 750
+            },
+            {
+                "label": "1kg",
+                "price": 1500
+            }
+        ],
+        "emoji": "\ud83c\udf47",
+        "description_en": "Premium quality dried mango cubes, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Dried Mango Cubes.jpg"
+    },
+    {
+        "id": 136,
+        "name": "Dried Papaya Cubes",
+        "kn_name": "Dried Papaya Cubes",
+        "price": 1300,
+        "category": "dryfruits",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 13
+            },
+            {
+                "label": "50g",
+                "price": 65
+            },
+            {
+                "label": "100g",
+                "price": 130
+            },
+            {
+                "label": "200g",
+                "price": 260
+            },
+            {
+                "label": "250g",
+                "price": 325
+            },
+            {
+                "label": "500g",
+                "price": 650
+            },
+            {
+                "label": "1kg",
+                "price": 1300
+            }
+        ],
+        "emoji": "\ud83c\udf47",
+        "description_en": "Premium quality dried papaya cubes, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Dried Papaya Cubes.jpg"
+    },
+    {
+        "id": 138,
+        "name": "Dried Pineapple Cubes",
+        "kn_name": "Dried Pineapple Cubes",
+        "price": 1500,
+        "category": "dryfruits",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 15
+            },
+            {
+                "label": "50g",
+                "price": 75
+            },
+            {
+                "label": "100g",
+                "price": 150
+            },
+            {
+                "label": "200g",
+                "price": 300
+            },
+            {
+                "label": "250g",
+                "price": 375
+            },
+            {
+                "label": "500g",
+                "price": 750
+            },
+            {
+                "label": "1kg",
+                "price": 1500
+            }
+        ],
+        "emoji": "\ud83c\udf47",
+        "description_en": "Premium quality dried pineapple cubes, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Dried Pineapple Cubes.jpg"
+    },
+    {
+        "id": 140,
+        "name": "Dried Apple Rings",
+        "kn_name": "Dried Apple Rings",
+        "price": 1300,
+        "category": "dryfruits",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 13
+            },
+            {
+                "label": "50g",
+                "price": 65
+            },
+            {
+                "label": "100g",
+                "price": 130
+            },
+            {
+                "label": "200g",
+                "price": 260
+            },
+            {
+                "label": "250g",
+                "price": 325
+            },
+            {
+                "label": "500g",
+                "price": 650
+            },
+            {
+                "label": "1kg",
+                "price": 1300
+            }
+        ],
+        "emoji": "\ud83c\udf47",
+        "description_en": "Premium quality dried apple rings, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Dried Apple Rings.jpg"
+    },
+    {
+        "id": 142,
+        "name": "Quinoa Seeds",
+        "kn_name": "Quinoa Seeds",
+        "price": 2300,
+        "category": "seeds",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 23
+            },
+            {
+                "label": "50g",
+                "price": 115
+            },
+            {
+                "label": "100g",
+                "price": 230
+            },
+            {
+                "label": "200g",
+                "price": 460
+            },
+            {
+                "label": "250g",
+                "price": 575
+            },
+            {
+                "label": "500g",
+                "price": 1150
+            },
+            {
+                "label": "1kg",
+                "price": 2300
+            }
+        ],
+        "emoji": "\ud83c\udf31",
+        "description_en": "Premium quality quinoa seeds, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Quinoa Seeds.jpg"
+    },
+    {
+        "id": 144,
+        "name": "Hemp Seeds",
+        "kn_name": "Hemp Seeds",
+        "price": 2800,
+        "category": "seeds",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 28
+            },
+            {
+                "label": "50g",
+                "price": 140
+            },
+            {
+                "label": "100g",
+                "price": 280
+            },
+            {
+                "label": "200g",
+                "price": 560
+            },
+            {
+                "label": "250g",
+                "price": 700
+            },
+            {
+                "label": "500g",
+                "price": 1400
+            },
+            {
+                "label": "1kg",
+                "price": 2800
+            }
+        ],
+        "emoji": "\ud83c\udf31",
+        "description_en": "Premium quality hemp seeds, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Hemp Seeds.jpg"
+    },
+    {
+        "id": 146,
+        "name": "Poppy Seeds",
+        "kn_name": "Poppy Seeds",
+        "price": 1700,
+        "category": "seeds",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 17
+            },
+            {
+                "label": "50g",
+                "price": 85
+            },
+            {
+                "label": "100g",
+                "price": 170
+            },
+            {
+                "label": "200g",
+                "price": 340
+            },
+            {
+                "label": "250g",
+                "price": 425
+            },
+            {
+                "label": "500g",
+                "price": 850
+            },
+            {
+                "label": "1kg",
+                "price": 1700
+            }
+        ],
+        "emoji": "\ud83c\udf31",
+        "description_en": "Premium quality poppy seeds, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Poppy Seeds.jpg"
+    },
+    {
+        "id": 148,
+        "name": "Caraway Seeds",
+        "kn_name": "Caraway Seeds",
+        "price": 1500,
+        "category": "seeds",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 15
+            },
+            {
+                "label": "50g",
+                "price": 75
+            },
+            {
+                "label": "100g",
+                "price": 150
+            },
+            {
+                "label": "200g",
+                "price": 300
+            },
+            {
+                "label": "250g",
+                "price": 375
+            },
+            {
+                "label": "500g",
+                "price": 750
+            },
+            {
+                "label": "1kg",
+                "price": 1500
+            }
+        ],
+        "emoji": "\ud83c\udf31",
+        "description_en": "Premium quality caraway seeds, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Caraway Seeds.jpg"
+    },
+    {
+        "id": 150,
+        "name": "Nigella Seeds",
+        "kn_name": "Nigella Seeds",
+        "price": 1700,
+        "category": "seeds",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 17
+            },
+            {
+                "label": "50g",
+                "price": 85
+            },
+            {
+                "label": "100g",
+                "price": 170
+            },
+            {
+                "label": "200g",
+                "price": 340
+            },
+            {
+                "label": "250g",
+                "price": 425
+            },
+            {
+                "label": "500g",
+                "price": 850
+            },
+            {
+                "label": "1kg",
+                "price": 1700
+            }
+        ],
+        "emoji": "\ud83c\udf31",
+        "description_en": "Premium quality nigella seeds, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Nigella Seeds.jpg"
+    },
+    {
+        "id": 152,
+        "name": "Fruit & Nut Mix Roasted",
+        "kn_name": "Fruit & Nut Mix Roasted",
+        "price": 3000,
+        "category": "mixed",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 30
+            },
+            {
+                "label": "50g",
+                "price": 150
+            },
+            {
+                "label": "100g",
+                "price": 300
+            },
+            {
+                "label": "200g",
+                "price": 600
+            },
+            {
+                "label": "250g",
+                "price": 750
+            },
+            {
+                "label": "1kg",
+                "price": 3000
+            }
+        ],
+        "emoji": "\ud83e\udd5c",
+        "description_en": "Premium quality fruit & nut mix roasted, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Fruit & Nut Mix Roasted.jpg"
+    },
+    {
+        "id": 154,
+        "name": "Super Nut & Seed Mix",
+        "kn_name": "Super Nut & Seed Mix",
+        "price": 2800,
+        "category": "mixed",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 28
+            },
+            {
+                "label": "50g",
+                "price": 140
+            },
+            {
+                "label": "100g",
+                "price": 280
+            },
+            {
+                "label": "200g",
+                "price": 560
+            },
+            {
+                "label": "250g",
+                "price": 700
+            },
+            {
+                "label": "1kg",
+                "price": 2800
+            }
+        ],
+        "emoji": "\ud83e\udd5c",
+        "description_en": "Premium quality super nut & seed mix, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Super Nut & Seed Mix.jpg"
+    },
+    {
+        "id": 156,
+        "name": "Gourmet Trail Mix",
+        "kn_name": "Gourmet Trail Mix",
+        "price": 3000,
+        "category": "mixed",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 30
+            },
+            {
+                "label": "50g",
+                "price": 150
+            },
+            {
+                "label": "100g",
+                "price": 300
+            },
+            {
+                "label": "200g",
+                "price": 600
+            },
+            {
+                "label": "250g",
+                "price": 750
+            },
+            {
+                "label": "1kg",
+                "price": 3000
+            }
+        ],
+        "emoji": "\ud83e\udd5c",
+        "description_en": "Premium quality gourmet trail mix, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Gourmet Trail Mix.jpg"
+    },
+    {
+        "id": 158,
+        "name": "Premium Nutty Delight",
+        "kn_name": "Premium Nutty Delight",
+        "price": 3200,
+        "category": "mixed",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 32
+            },
+            {
+                "label": "50g",
+                "price": 160
+            },
+            {
+                "label": "100g",
+                "price": 320
+            },
+            {
+                "label": "200g",
+                "price": 640
+            },
+            {
+                "label": "250g",
+                "price": 800
+            },
+            {
+                "label": "1kg",
+                "price": 3200
+            }
+        ],
+        "emoji": "\ud83e\udd5c",
+        "description_en": "Premium quality premium nutty delight, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Premium Nutty Delight.jpg"
+    },
+    {
+        "id": 160,
+        "name": "Fruit & Seed Premium Mix",
+        "kn_name": "Fruit & Seed Premium Mix",
+        "price": 2800,
+        "category": "mixed",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 28
+            },
+            {
+                "label": "50g",
+                "price": 140
+            },
+            {
+                "label": "100g",
+                "price": 280
+            },
+            {
+                "label": "200g",
+                "price": 560
+            },
+            {
+                "label": "250g",
+                "price": 700
+            },
+            {
+                "label": "1kg",
+                "price": 2800
+            }
+        ],
+        "emoji": "\ud83e\udd5c",
+        "description_en": "Premium quality fruit & seed premium mix, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Fruit & Seed Premium Mix.jpg"
+    },
+    {
+        "id": 162,
+        "name": "Energy Nut Mix",
+        "kn_name": "Energy Nut Mix",
+        "price": 2700,
+        "category": "mixed",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 27
+            },
+            {
+                "label": "50g",
+                "price": 135
+            },
+            {
+                "label": "100g",
+                "price": 270
+            },
+            {
+                "label": "200g",
+                "price": 540
+            },
+            {
+                "label": "250g",
+                "price": 675
+            },
+            {
+                "label": "1kg",
+                "price": 2700
+            }
+        ],
+        "emoji": "\ud83e\udd5c",
+        "description_en": "Premium quality energy nut mix, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Energy Nut Mix.jpg"
+    },
+    {
+        "id": 164,
+        "name": "Superfood Nut Mix",
+        "kn_name": "Superfood Nut Mix",
+        "price": 3000,
+        "category": "mixed",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 30
+            },
+            {
+                "label": "50g",
+                "price": 150
+            },
+            {
+                "label": "100g",
+                "price": 300
+            },
+            {
+                "label": "200g",
+                "price": 600
+            },
+            {
+                "label": "250g",
+                "price": 750
+            },
+            {
+                "label": "1kg",
+                "price": 3000
+            }
+        ],
+        "emoji": "\ud83e\udd5c",
+        "description_en": "Premium quality superfood nut mix, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Superfood Nut Mix.jpg"
+    },
+    {
+        "id": 166,
+        "name": "Nut & Fruit Gourmet Mix",
+        "kn_name": "Nut & Fruit Gourmet Mix",
+        "price": 3200,
+        "category": "mixed",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 32
+            },
+            {
+                "label": "50g",
+                "price": 160
+            },
+            {
+                "label": "100g",
+                "price": 320
+            },
+            {
+                "label": "200g",
+                "price": 640
+            },
+            {
+                "label": "250g",
+                "price": 800
+            },
+            {
+                "label": "1kg",
+                "price": 3200
+            }
+        ],
+        "emoji": "\ud83e\udd5c",
+        "description_en": "Premium quality nut & fruit gourmet mix, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Nut & Fruit Gourmet Mix.jpg"
+    },
+    {
+        "id": 168,
+        "name": "Protein Trail Mix",
+        "kn_name": "Protein Trail Mix",
+        "price": 2800,
+        "category": "mixed",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 28
+            },
+            {
+                "label": "50g",
+                "price": 140
+            },
+            {
+                "label": "100g",
+                "price": 280
+            },
+            {
+                "label": "200g",
+                "price": 560
+            },
+            {
+                "label": "250g",
+                "price": 700
+            },
+            {
+                "label": "1kg",
+                "price": 2800
+            }
+        ],
+        "emoji": "\ud83e\udd5c",
+        "description_en": "Premium quality protein trail mix, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Protein Trail Mix.jpg"
+    },
+    {
+        "id": 170,
+        "name": "Deluxe Nut & Fruit Mix",
+        "kn_name": "Deluxe Nut & Fruit Mix",
+        "price": 3500,
+        "category": "mixed",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 35
+            },
+            {
+                "label": "50g",
+                "price": 175
+            },
+            {
+                "label": "100g",
+                "price": 350
+            },
+            {
+                "label": "200g",
+                "price": 700
+            },
+            {
+                "label": "250g",
+                "price": 875
+            },
+            {
+                "label": "1kg",
+                "price": 3500
+            }
+        ],
+        "emoji": "\ud83e\udd5c",
+        "description_en": "Premium quality deluxe nut & fruit mix, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Deluxe Nut & Fruit Mix.jpg"
+    },
+    {
+        "id": 172,
+        "name": "Choco Nut Gourmet Mix",
+        "kn_name": "Choco Nut Gourmet Mix",
+        "price": 3000,
+        "category": "mixed",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 30
+            },
+            {
+                "label": "50g",
+                "price": 150
+            },
+            {
+                "label": "100g",
+                "price": 300
+            },
+            {
+                "label": "200g",
+                "price": 600
+            },
+            {
+                "label": "250g",
+                "price": 750
+            },
+            {
+                "label": "1kg",
+                "price": 3000
+            }
+        ],
+        "emoji": "\ud83e\udd5c",
+        "description_en": "Premium quality choco nut gourmet mix, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Choco Nut Gourmet Mix.jpg"
+    },
+    {
+        "id": 174,
+        "name": "Exotic Dry Fruit Mix",
+        "kn_name": "Exotic Dry Fruit Mix",
+        "price": 3500,
+        "category": "mixed",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 35
+            },
+            {
+                "label": "50g",
+                "price": 175
+            },
+            {
+                "label": "100g",
+                "price": 350
+            },
+            {
+                "label": "200g",
+                "price": 700
+            },
+            {
+                "label": "250g",
+                "price": 875
+            },
+            {
+                "label": "1kg",
+                "price": 3500
+            }
+        ],
+        "emoji": "\ud83e\udd5c",
+        "description_en": "Premium quality exotic dry fruit mix, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Exotic Dry Fruit Mix.jpg"
+    },
+    {
+        "id": 176,
+        "name": "Premium Nutty Trail Mix",
+        "kn_name": "Premium Nutty Trail Mix",
+        "price": 3200,
+        "category": "mixed",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 32
+            },
+            {
+                "label": "50g",
+                "price": 160
+            },
+            {
+                "label": "100g",
+                "price": 320
+            },
+            {
+                "label": "200g",
+                "price": 640
+            },
+            {
+                "label": "250g",
+                "price": 800
+            },
+            {
+                "label": "1kg",
+                "price": 3200
+            }
+        ],
+        "emoji": "\ud83e\udd5c",
+        "description_en": "Premium quality premium nutty trail mix, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Premium Nutty Trail Mix.jpg"
+    },
+    {
+        "id": 178,
+        "name": "Gourmet Nut & Fruit Delight",
+        "kn_name": "Gourmet Nut & Fruit Delight",
+        "price": 3500,
+        "category": "mixed",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 35
+            },
+            {
+                "label": "50g",
+                "price": 175
+            },
+            {
+                "label": "100g",
+                "price": 350
+            },
+            {
+                "label": "200g",
+                "price": 700
+            },
+            {
+                "label": "250g",
+                "price": 875
+            },
+            {
+                "label": "1kg",
+                "price": 3500
+            }
+        ],
+        "emoji": "\ud83e\udd5c",
+        "description_en": "Premium quality gourmet nut & fruit delight, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Gourmet Nut & Fruit Delight.jpg"
+    },
+    {
+        "id": 180,
+        "name": "Super Deluxe Mix",
+        "kn_name": "Super Deluxe Mix",
+        "price": 3700,
+        "category": "mixed",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 37
+            },
+            {
+                "label": "50g",
+                "price": 185
+            },
+            {
+                "label": "100g",
+                "price": 370
+            },
+            {
+                "label": "200g",
+                "price": 740
+            },
+            {
+                "label": "250g",
+                "price": 925
+            },
+            {
+                "label": "1kg",
+                "price": 3700
+            }
+        ],
+        "emoji": "\ud83e\udd5c",
+        "description_en": "Premium quality super deluxe mix, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Super Deluxe Mix.jpg"
+    },
+    {
+        "id": 182,
+        "name": "Protein Nut Delight",
+        "kn_name": "Protein Nut Delight",
+        "price": 3500,
+        "category": "mixed",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 35
+            },
+            {
+                "label": "50g",
+                "price": 175
+            },
+            {
+                "label": "100g",
+                "price": 350
+            },
+            {
+                "label": "200g",
+                "price": 700
+            },
+            {
+                "label": "250g",
+                "price": 875
+            },
+            {
+                "label": "1kg",
+                "price": 3500
+            }
+        ],
+        "emoji": "\ud83e\udd5c",
+        "description_en": "Premium quality protein nut delight, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Protein Nut Delight.jpg"
+    },
+    {
+        "id": 184,
+        "name": "Healthy Gourmet Mix",
+        "kn_name": "Healthy Gourmet Mix",
+        "price": 3200,
+        "category": "mixed",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 32
+            },
+            {
+                "label": "50g",
+                "price": 160
+            },
+            {
+                "label": "100g",
+                "price": 320
+            },
+            {
+                "label": "200g",
+                "price": 640
+            },
+            {
+                "label": "250g",
+                "price": 800
+            },
+            {
+                "label": "1kg",
+                "price": 3200
+            }
+        ],
+        "emoji": "\ud83e\udd5c",
+        "description_en": "Premium quality healthy gourmet mix, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Healthy Gourmet Mix.jpg"
+    },
+    {
+        "id": 186,
+        "name": "Deluxe Trail Mix",
+        "kn_name": "Deluxe Trail Mix",
+        "price": 3500,
+        "category": "mixed",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 35
+            },
+            {
+                "label": "50g",
+                "price": 175
+            },
+            {
+                "label": "100g",
+                "price": 350
+            },
+            {
+                "label": "200g",
+                "price": 700
+            },
+            {
+                "label": "250g",
+                "price": 875
+            },
+            {
+                "label": "1kg",
+                "price": 3500
+            }
+        ],
+        "emoji": "\ud83e\udd5c",
+        "description_en": "Premium quality deluxe trail mix, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Deluxe Trail Mix.jpg"
+    },
+    {
+        "id": 188,
+        "name": "Super Nut Delight Mix",
+        "kn_name": "Super Nut Delight Mix",
+        "price": 3700,
+        "category": "mixed",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 37
+            },
+            {
+                "label": "50g",
+                "price": 185
+            },
+            {
+                "label": "100g",
+                "price": 370
+            },
+            {
+                "label": "200g",
+                "price": 740
+            },
+            {
+                "label": "250g",
+                "price": 925
+            },
+            {
+                "label": "1kg",
+                "price": 3700
+            }
+        ],
+        "emoji": "\ud83e\udd5c",
+        "description_en": "Premium quality super nut delight mix, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Super Nut Delight Mix.jpg"
+    },
+    {
+        "id": 190,
+        "name": "Exotic Fruit & Nut Mix",
+        "kn_name": "Exotic Fruit & Nut Mix",
+        "price": 3900,
+        "category": "mixed",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 39
+            },
+            {
+                "label": "50g",
+                "price": 195
+            },
+            {
+                "label": "100g",
+                "price": 390
+            },
+            {
+                "label": "200g",
+                "price": 780
+            },
+            {
+                "label": "250g",
+                "price": 975
+            },
+            {
+                "label": "1kg",
+                "price": 3900
+            }
+        ],
+        "emoji": "\ud83e\udd5c",
+        "description_en": "Premium quality exotic fruit & nut mix, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Exotic Fruit & Nut Mix.jpg"
+    },
+    {
+        "id": 192,
+        "name": "Premium Trail Gourmet",
+        "kn_name": "Premium Trail Gourmet",
+        "price": 3500,
+        "category": "mixed",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 35
+            },
+            {
+                "label": "50g",
+                "price": 175
+            },
+            {
+                "label": "100g",
+                "price": 350
+            },
+            {
+                "label": "200g",
+                "price": 700
+            },
+            {
+                "label": "250g",
+                "price": 875
+            },
+            {
+                "label": "1kg",
+                "price": 3500
+            }
+        ],
+        "emoji": "\ud83e\udd5c",
+        "description_en": "Premium quality premium trail gourmet, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Premium Trail Gourmet.jpg"
+    },
+    {
+        "id": 194,
+        "name": "Deluxe Nut Mix",
+        "kn_name": "Deluxe Nut Mix",
+        "price": 3500,
+        "category": "mixed",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 35
+            },
+            {
+                "label": "50g",
+                "price": 175
+            },
+            {
+                "label": "100g",
+                "price": 350
+            },
+            {
+                "label": "200g",
+                "price": 700
+            },
+            {
+                "label": "250g",
+                "price": 875
+            },
+            {
+                "label": "500g",
+                "price": 1750
+            },
+            {
+                "label": "1kg",
+                "price": 3500
+            }
+        ],
+        "emoji": "\ud83e\udd5c",
+        "description_en": "Premium quality deluxe nut mix, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Deluxe Nut Mix.jpg"
+    },
+    {
+        "id": 196,
+        "name": "Nut & Seed Gourmet Mix",
+        "kn_name": "Nut & Seed Gourmet Mix",
+        "price": 3700,
+        "category": "mixed",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 37
+            },
+            {
+                "label": "50g",
+                "price": 185
+            },
+            {
+                "label": "100g",
+                "price": 370
+            },
+            {
+                "label": "200g",
+                "price": 740
+            },
+            {
+                "label": "250g",
+                "price": 925
+            },
+            {
+                "label": "1kg",
+                "price": 3700
+            }
+        ],
+        "emoji": "\ud83e\udd5c",
+        "description_en": "Premium quality nut & seed gourmet mix, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Nut & Seed Gourmet Mix.jpg"
+    },
+    {
+        "id": 198,
+        "name": "Choco Fruit Nut Mix",
+        "kn_name": "Choco Fruit Nut Mix",
+        "price": 3000,
+        "category": "mixed",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 30
+            },
+            {
+                "label": "50g",
+                "price": 150
+            },
+            {
+                "label": "100g",
+                "price": 300
+            },
+            {
+                "label": "200g",
+                "price": 600
+            },
+            {
+                "label": "250g",
+                "price": 750
+            },
+            {
+                "label": "1kg",
+                "price": 3000
+            }
+        ],
+        "emoji": "\ud83e\udd5c",
+        "description_en": "Premium quality choco fruit nut mix, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Choco Fruit Nut Mix.jpg"
+    },
+    {
+        "id": 200,
+        "name": "Super Premium Nut Mix",
+        "kn_name": "Super Premium Nut Mix",
+        "price": 3900,
+        "category": "mixed",
+        "variants": [
+            {
+                "label": "10g",
+                "price": 39
+            },
+            {
+                "label": "50g",
+                "price": 195
+            },
+            {
+                "label": "100g",
+                "price": 390
+            },
+            {
+                "label": "200g",
+                "price": 780
+            },
+            {
+                "label": "250g",
+                "price": 975
+            },
+            {
+                "label": "1kg",
+                "price": 3900
+            }
+        ],
+        "emoji": "\ud83e\udd5c",
+        "description_en": "Premium quality super premium nut mix, naturally sourced.",
+        "imageUrl": "../images/Dry Fruits & Snacks/Super Premium Nut Mix.jpg"
+    }
+]

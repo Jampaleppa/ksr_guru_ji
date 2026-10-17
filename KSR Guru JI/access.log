@@ -1,0 +1,231 @@
+[2026-10-14 05:03:50] [::1] [Guest] [PAGE] GET / - Status: 200 - Referrer: - - UA: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36
+[2026-10-14 05:04:04] [::1] [Guest] [AJAX] GET /index.php?ajax=cart - Status: 200 - Referrer: http://localhost:8000/ - UA: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36
+[2026-10-14 05:04:36] [::1] [Guest] [PAGE] GET /categories/cleaning.php - Status: 200 - Referrer: http://localhost:8000/ - UA: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36
+[2026-10-14 05:04:38] [::1] [Guest] [AJAX] GET /index.php?ajax=cart - Status: 200 - Referrer: http://localhost:8000/categories/cleaning.php - UA: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36
+[2026-10-14 05:05:05] [::1] [Guest] [PAGE] GET / - Status: 200 - Referrer: - - UA: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36
+[2026-10-14 05:05:08] [::1] [Guest] [AJAX] GET /index.php?ajax=cart - Status: 200 - Referrer: http://localhost:8000/ - UA: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36
+[2026-10-14 05:05:10] [::1] [Guest] [PAGE] GET /categories/pules-lentils.php - Status: 200 - Referrer: http://localhost:8000/ - UA: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36
+[2026-10-14 05:05:13] [::1] [Guest] [AJAX] GET /index.php?ajax=cart - Status: 200 - Referrer: http://localhost:8000/categories/pules-lentils.php - UA: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36
+[2026-10-14 05:05:14] [::1] [Guest] [AJAX] GET /index.php?ajax=cart - Status: 200 - Referrer: http://localhost:8000/categories/pules-lentils.php - UA: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36
+[2026-10-14 05:05:25] [::1] [Guest] [PAGE] GET / - Status: 200 - Referrer: - - UA: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36
+[2026-10-14 05:05:32] [::1] [Guest] [AJAX] GET /index.php?ajax=cart - Status: 200 - Referrer: http://localhost:8000/ - UA: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36
+[2026-10-15 19:44:53] [::1] [Guest] [PAGE] GET / - Status: 200 - Referrer: - - UA: Mozilla/5.0 (Windows NT 10.0; Microsoft Windows 10.0.22621; en-US) PowerShell/7.6.7
+[2026-10-15 19:48:43] [127.0.0.1] [Guest] [PAGE] GET - - Status: 0 - Referrer: - - UA: -
+[2026-10-15 19:49:51] [::1] [Guest] [PAGE] GET /login.php - Status: 200 - Referrer: - - UA: Mozilla/5.0 (Windows NT 10.0; Microsoft Windows 10.0.22621; en-US) PowerShell/7.6.7
+[2026-10-15 19:51:09] [::1] [Guest] [PAGE] GET / - Status: 200 - Referrer: - - UA: Mozilla/5.0 (Windows NT 10.0; Microsoft Windows 10.0.22621; en-US) PowerShell/7.6.7
+[2026-10-15 19:51:10] [::1] [Guest] [PAGE] GET /login.php - Status: 200 - Referrer: - - UA: Mozilla/5.0 (Windows NT 10.0; Microsoft Windows 10.0.22621; en-US) PowerShell/7.6.7
+[2026-10-15 19:51:11] [::1] [Guest] [PAGE] GET /register.php - Status: 200 - Referrer: - - UA: Mozilla/5.0 (Windows NT 10.0; Microsoft Windows 10.0.22621; en-US) PowerShell/7.6.7
+[2026-10-15 19:51:12] [::1] [Guest] [PAGE] GET /cart.php - Status: 200 - Referrer: - - UA: Mozilla/5.0 (Windows NT 10.0; Microsoft Windows 10.0.22621; en-US) PowerShell/7.6.7
+[2026-10-15 19:51:14] [::1] [Guest] [PAGE] GET /checkout.php - Status: 200 - Referrer: - - UA: Mozilla/5.0 (Windows NT 10.0; Microsoft Windows 10.0.22621; en-US) PowerShell/7.6.7
+[2026-10-15 19:51:16] [::1] [Guest] [PAGE] GET /profile.php - Status: 302 - Referrer: - - UA: Mozilla/5.0 (Windows NT 10.0; Microsoft Windows 10.0.22621; en-US) PowerShell/7.6.7
+[2026-10-15 19:51:17] [::1] [Guest] [PAGE] GET /login.php?redirect=%2Fprofile.php - Status: 200 - Referrer: - - UA: Mozilla/5.0 (Windows NT 10.0; Microsoft Windows 10.0.22621; en-US) PowerShell/7.6.7
+[2026-10-15 19:51:18] [::1] [Guest] [PAGE] GET /admin/login.php - Status: 200 - Referrer: - - UA: Mozilla/5.0 (Windows NT 10.0; Microsoft Windows 10.0.22621; en-US) PowerShell/7.6.7
+[2026-10-15 19:52:51] [::1] [Guest] [PAGE] GET /categories/cleaning.php - Status: 200 - Referrer: - - UA: Mozilla/5.0 (Windows NT 10.0; Microsoft Windows 10.0.22621; en-US) PowerShell/7.6.7
+[2026-10-15 19:56:18] [::1] [Guest] [PAGE] GET / - Status: 200 - Referrer: - - UA: Mozilla/5.0 (Windows NT 10.0; Microsoft Windows 10.0.22621; en-US) PowerShell/7.6.7
+[2026-10-16 05:11:20] [::1] [Guest] [PAGE] GET /index.php - Status: 200 - Referrer: - - UA: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36
+[2026-10-16 05:11:28] [::1] [Guest] [AJAX] GET /index.php?ajax=cart - Status: 200 - Referrer: http://localhost:9000/index.php - UA: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36
+[2026-10-16 05:11:51] [::1] [Guest] [PAGE] GET /index.php - Status: 200 - Referrer: - - UA: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36
+[2026-10-16 05:11:53] [::1] [Guest] [AJAX] GET /index.php?ajax=cart - Status: 200 - Referrer: http://localhost:9000/index.php - UA: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36
+[2026-10-16 05:57:00] [127.0.0.1] [Guest] [PAGE] GET / - Status: 200 - Referrer: - - UA: Mozilla/5.0 (Windows NT 10.0; Microsoft Windows 10.0.22621; en-US) PowerShell/7.6.7
+[2026-10-16 05:57:52] [::1] [Guest] [PAGE] GET / - Status: 200 - Referrer: - - UA: Mozilla/5.0 (Windows NT 10.0; Microsoft Windows 10.0.22621; en-US) PowerShell/7.6.7
+[2026-10-16 05:58:06] [::1] [Guest] [PAGE] GET /index.php - Status: 200 - Referrer: - - UA: Mozilla/5.0 (Windows NT 10.0; Microsoft Windows 10.0.22621; en-US) PowerShell/7.6.7
+[2026-10-16 05:58:06] [::1] [Guest] [PAGE] GET /cart.php - Status: 200 - Referrer: - - UA: Mozilla/5.0 (Windows NT 10.0; Microsoft Windows 10.0.22621; en-US) PowerShell/7.6.7
+[2026-10-16 05:58:06] [::1] [Guest] [PAGE] GET /checkout.php - Status: 200 - Referrer: - - UA: Mozilla/5.0 (Windows NT 10.0; Microsoft Windows 10.0.22621; en-US) PowerShell/7.6.7
+[2026-10-16 05:58:06] [::1] [Guest] [PAGE] GET /login.php - Status: 200 - Referrer: - - UA: Mozilla/5.0 (Windows NT 10.0; Microsoft Windows 10.0.22621; en-US) PowerShell/7.6.7
+[2026-10-16 05:58:06] [::1] [Guest] [AJAX] GET /index.php?ajax=products - Status: 200 - Referrer: - - UA: Mozilla/5.0 (Windows NT 10.0; Microsoft Windows 10.0.22621; en-US) PowerShell/7.6.7
+[2026-10-16 05:58:24] [::1] [Guest] [PAGE] GET / - Status: 200 - Referrer: - - UA: Mozilla/5.0 (Windows NT 10.0; Microsoft Windows 10.0.22621; en-US) PowerShell/7.6.7
+[2026-10-16 06:02:18] [::1] [Guest] [PAGE] GET /admin/login.php - Status: 200 - Referrer: - - UA: Mozilla/5.0 (Windows NT 10.0; Microsoft Windows 10.0.22621; en-US) PowerShell/7.6.7
+[2026-10-16 06:02:45] [::1] [Guest] [PAGE] GET /categories/bakery.php - Status: 200 - Referrer: - - UA: Mozilla/5.0 (Windows NT 10.0; Microsoft Windows 10.0.22621; en-US) PowerShell/7.6.7
+[2026-10-16 06:03:13] [::1] [Guest] [PAGE] GET / - Status: 200 - Referrer: - - UA: Mozilla/5.0 (Windows NT 10.0; Microsoft Windows 10.0.22621; en-US) PowerShell/7.6.7
+[2026-10-16 06:30:27] [::1] [Guest] [PAGE] GET / - Status: 200 - Referrer: - - UA: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36
+[2026-10-16 06:30:33] [::1] [Guest] [AJAX] GET /index.php?ajax=cart - Status: 200 - Referrer: http://localhost:8090/ - UA: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36
+[2026-10-16 06:58:12] [::1] [Guest] [PAGE] GET / - Status: 200 - Referrer: - - UA: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36
+[2026-10-16 06:58:14] [::1] [Guest] [PAGE] GET /categories/paper-products.php - Status: 200 - Referrer: http://localhost:8090/ - UA: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36
+[2026-10-16 06:58:18] [::1] [Guest] [AJAX] GET /categories/paper-products.php?ajax=cart - Status: 200 - Referrer: http://localhost:8090/categories/paper-products.php - UA: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36
+[2026-10-16 06:58:19] [::1] [Guest] [AJAX] GET /index.php?ajax=cart - Status: 200 - Referrer: http://localhost:8090/categories/paper-products.php - UA: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36
+[2026-10-16 06:58:30] [::1] [Guest] [PAGE] GET / - Status: 200 - Referrer: - - UA: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36
+[2026-10-16 06:58:33] [::1] [Guest] [AJAX] GET /index.php?ajax=cart - Status: 200 - Referrer: http://localhost:8090/ - UA: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36
+[2026-10-16 06:58:37] [::1] [Guest] [AJAX] GET /index.php?ajax=cart - Status: 200 - Referrer: http://localhost:8090/ - UA: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36
+[2026-10-16 06:59:28] [::1] [Guest] [PAGE] GET /categories/vegetables-fruits.php - Status: 200 - Referrer: http://localhost:8090/ - UA: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36
+[2026-10-16 06:59:29] [::1] [Guest] [AJAX] GET /index.php?ajax=cart - Status: 200 - Referrer: http://localhost:8090/categories/vegetables-fruits.php - UA: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36
+[2026-10-16 06:59:37] [::1] [Guest] [PAGE] GET / - Status: 200 - Referrer: - - UA: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36
+[2026-10-16 06:59:39] [::1] [Guest] [AJAX] GET /index.php?ajax=cart - Status: 200 - Referrer: http://localhost:8090/ - UA: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36
+[2026-10-17 02:56:54] [::1] [Guest] [PAGE] HEAD / - Status: 200 - Referrer: - - UA: curl/8.9.1
+[2026-10-17 02:57:37] [::1] [Guest] [PAGE] GET / - Status: 200 - Referrer: - - UA: curl/8.9.1
+[2026-10-17 03:01:40] [192.168.43.94] [Guest] [PAGE] GET / - Status: 200 - Referrer: - - UA: curl/8.9.1
+[2026-10-17 03:02:16] [::1] [Guest] [PAGE] GET / - Status: 200 - Referrer: - - UA: curl/8.9.1
+[2026-10-17 03:06:10] [::1] [Guest] [PAGE] GET / - Status: 200 - Referrer: - - UA: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36
+[2026-10-17 03:06:12] [::1] [Guest] [AJAX] GET /index.php?ajax=cart - Status: 200 - Referrer: http://localhost:8090/ - UA: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36
+[2026-10-17 03:06:16] [::1] [Guest] [PAGE] GET /final-suggestion-box.php - Status: 200 - Referrer: http://localhost:8090/ - UA: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36
+[2026-10-17 03:06:18] [::1] [Guest] [AJAX] GET /final-suggestion-box.php?ajax=medical - Status: 200 - Referrer: http://localhost:8090/final-suggestion-box.php - UA: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36
+[2026-10-17 03:06:24] [::1] [Guest] [PAGE] GET / - Status: 200 - Referrer: - - UA: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36
+[2026-10-17 03:06:25] [::1] [Guest] [AJAX] GET /index.php?ajax=cart - Status: 200 - Referrer: http://localhost:8090/ - UA: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36
+[2026-10-17 03:06:42] [::1] [Guest] [PAGE] GET / - Status: 200 - Referrer: - - UA: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36
+[2026-10-17 03:06:50] [::1] [Guest] [AJAX] GET /index.php?ajax=cart - Status: 200 - Referrer: http://localhost:9000/ - UA: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36
+[2026-10-17 03:08:11] [127.0.0.1] [Guest] [PAGE] GET - - Status: 0 - Referrer: - - UA: -
+[2026-10-17 03:14:40] [127.0.0.1] [Guest] [PAGE] GET - - Status: 0 - Referrer: - - UA: -
+[2026-10-17 03:19:37] [::1] [Guest] [PAGE] GET / - Status: 200 - Referrer: - - UA: KSR-Test-Runner/1.0
+[2026-10-17 03:19:37] [::1] [Guest] [PAGE] GET /cart.php - Status: 200 - Referrer: - - UA: KSR-Test-Runner/1.0
+[2026-10-17 03:19:37] [::1] [Guest] [PAGE] GET /checkout.php - Status: 200 - Referrer: - - UA: KSR-Test-Runner/1.0
+[2026-10-17 03:19:37] [::1] [Guest] [PAGE] GET /login.php - Status: 200 - Referrer: - - UA: KSR-Test-Runner/1.0
+[2026-10-17 03:19:37] [::1] [Guest] [PAGE] GET /register.php - Status: 200 - Referrer: - - UA: KSR-Test-Runner/1.0
+[2026-10-17 08:49:37] [::1] [Guest] [PAGE] GET /support.php - Status: 200 - Referrer: - - UA: KSR-Test-Runner/1.0
+[2026-10-17 03:19:37] [::1] [Guest] [PAGE] GET /track-order.php - Status: 200 - Referrer: - - UA: KSR-Test-Runner/1.0
+[2026-10-17 03:19:39] [::1] [Guest] [PAGE] GET /admin/login.php - Status: 200 - Referrer: - - UA: KSR-Test-Runner/1.0
+[2026-10-17 03:19:39] [::1] [Guest] [PAGE] GET /categories/bakery.php - Status: 200 - Referrer: - - UA: KSR-Test-Runner/1.0
+[2026-10-17 03:19:39] [::1] [Guest] [PAGE] GET /categories/cleaning.php - Status: 200 - Referrer: - - UA: KSR-Test-Runner/1.0
+[2026-10-17 03:19:39] [::1] [Guest] [PAGE] GET /categories/paper-products.php - Status: 200 - Referrer: - - UA: KSR-Test-Runner/1.0
+[2026-10-17 03:19:39] [::1] [Guest] [PAGE] GET /categories/vegetables-fruits.php - Status: 200 - Referrer: - - UA: KSR-Test-Runner/1.0
+[2026-10-17 03:19:40] [::1] [Guest] [AJAX] GET /index.php?ajax=cart - Status: 200 - Referrer: - - UA: KSR-Test-Runner/1.0
+[2026-10-17 03:19:40] [::1] [Guest] [AJAX] GET /index.php?ajax=products - Status: 200 - Referrer: - - UA: KSR-Test-Runner/1.0
+[2026-10-17 03:20:16] [::1] [Guest] [PAGE] GET / - Status: 200 - Referrer: - - UA: KSR-Test-Runner/1.0
+[2026-10-17 03:20:16] [::1] [Guest] [PAGE] GET /cart.php - Status: 200 - Referrer: - - UA: KSR-Test-Runner/1.0
+[2026-10-17 03:20:16] [::1] [Guest] [PAGE] GET /checkout.php - Status: 200 - Referrer: - - UA: KSR-Test-Runner/1.0
+[2026-10-17 03:20:16] [::1] [Guest] [PAGE] GET /login.php - Status: 200 - Referrer: - - UA: KSR-Test-Runner/1.0
+[2026-10-17 03:20:16] [::1] [Guest] [PAGE] GET /register.php - Status: 200 - Referrer: - - UA: KSR-Test-Runner/1.0
+[2026-10-17 08:50:16] [::1] [Guest] [PAGE] GET /support.php - Status: 200 - Referrer: - - UA: KSR-Test-Runner/1.0
+[2026-10-17 03:20:16] [::1] [Guest] [PAGE] GET /track-order.php - Status: 200 - Referrer: - - UA: KSR-Test-Runner/1.0
+[2026-10-17 03:20:16] [::1] [Guest] [PAGE] GET /admin/login.php - Status: 200 - Referrer: - - UA: KSR-Test-Runner/1.0
+[2026-10-17 03:20:16] [::1] [Guest] [PAGE] GET /categories/bakery.php - Status: 200 - Referrer: - - UA: KSR-Test-Runner/1.0
+[2026-10-17 03:20:16] [::1] [Guest] [PAGE] GET /categories/cleaning.php - Status: 200 - Referrer: - - UA: KSR-Test-Runner/1.0
+[2026-10-17 03:20:16] [::1] [Guest] [PAGE] GET /categories/paper-products.php - Status: 200 - Referrer: - - UA: KSR-Test-Runner/1.0
+[2026-10-17 03:20:16] [::1] [Guest] [PAGE] GET /categories/vegetables-fruits.php - Status: 200 - Referrer: - - UA: KSR-Test-Runner/1.0
+[2026-10-17 03:20:16] [::1] [Guest] [AJAX] GET /index.php?ajax=cart - Status: 200 - Referrer: - - UA: KSR-Test-Runner/1.0
+[2026-10-17 03:20:17] [::1] [Guest] [AJAX] GET /index.php?ajax=products - Status: 200 - Referrer: - - UA: KSR-Test-Runner/1.0
+[2026-10-17 03:21:54] [127.0.0.1] [Guest] [PAGE] GET - - Status: 0 - Referrer: - - UA: -
+[2026-10-17 03:22:15] [127.0.0.1] [Guest] [PAGE] GET - - Status: 0 - Referrer: - - UA: -
+[2026-10-17 03:22:58] [127.0.0.1] [Guest] [PAGE] GET - - Status: 0 - Referrer: - - UA: -
+[2026-10-17 03:31:20] [127.0.0.1] [Guest] [PAGE] GET - - Status: 0 - Referrer: - - UA: -
+[2026-10-17 03:31:30] [127.0.0.1] [Guest] [PAGE] GET - - Status: 0 - Referrer: - - UA: -
+[2026-10-17 03:31:42] [127.0.0.1] [Guest] [PAGE] GET - - Status: 0 - Referrer: - - UA: -
+[2026-10-17 03:31:56] [::1] [Guest] [PAGE] GET /admin/dashboard.php - Status: 302 - Referrer: - - UA: curl/8.9.1
+[2026-10-17 03:32:13] [::1] [Guest] [PAGE] HEAD /delivery/dashboard.php - Status: 302 - Referrer: - - UA: curl/8.9.1
+[2026-10-17 03:35:06] [::1] [Guest] [PAGE] GET /add_cart.php - Status: 302 - Referrer: - - UA: curl/8.9.1
+[2026-10-17 03:35:07] [::1] [Guest] [PAGE] GET /status.php - Status: 200 - Referrer: - - UA: curl/8.9.1
+[2026-10-17 03:35:07] [::1] [Guest] [PAGE] GET /payment_status.php - Status: 400 - Referrer: - - UA: curl/8.9.1
+[2026-10-17 03:35:18] [127.0.0.1] [Guest] [PAGE] GET - - Status: 0 - Referrer: - - UA: -
+[2026-10-17 03:35:29] [::1] [Guest] [PAGE] POST /add_cart.php - Status: 302 - Referrer: - - UA: curl/8.9.1
+[2026-10-17 03:35:41] [::1] [Guest] [AJAX] POST /add_cart.php - Status: 200 - Referrer: - - UA: curl/8.9.1
+[2026-10-17 03:36:11] [::1] [Guest] [PAGE] GET /cart.php - Status: 200 - Referrer: - - UA: curl/8.9.1
+[2026-10-17 03:36:56] [::1] [Guest] [PAGE] GET / - Status: 200 - Referrer: - - UA: KSR-Test-Runner/1.0
+[2026-10-17 03:36:56] [::1] [Guest] [PAGE] GET /cart.php - Status: 200 - Referrer: - - UA: KSR-Test-Runner/1.0
+[2026-10-17 03:36:56] [::1] [Guest] [PAGE] GET /checkout.php - Status: 200 - Referrer: - - UA: KSR-Test-Runner/1.0
+[2026-10-17 03:36:56] [::1] [Guest] [PAGE] GET /login.php - Status: 200 - Referrer: - - UA: KSR-Test-Runner/1.0
+[2026-10-17 03:36:56] [::1] [Guest] [PAGE] GET /register.php - Status: 200 - Referrer: - - UA: KSR-Test-Runner/1.0
+[2026-10-17 09:06:56] [::1] [Guest] [PAGE] GET /support.php - Status: 200 - Referrer: - - UA: KSR-Test-Runner/1.0
+[2026-10-17 03:36:56] [::1] [Guest] [PAGE] GET /track-order.php - Status: 200 - Referrer: - - UA: KSR-Test-Runner/1.0
+[2026-10-17 03:36:56] [::1] [Guest] [PAGE] GET /admin/login.php - Status: 200 - Referrer: - - UA: KSR-Test-Runner/1.0
+[2026-10-17 03:36:56] [::1] [Guest] [PAGE] GET /categories/bakery.php - Status: 200 - Referrer: - - UA: KSR-Test-Runner/1.0
+[2026-10-17 03:36:56] [::1] [Guest] [PAGE] GET /categories/cleaning.php - Status: 200 - Referrer: - - UA: KSR-Test-Runner/1.0
+[2026-10-17 03:36:56] [::1] [Guest] [PAGE] GET /categories/paper-products.php - Status: 200 - Referrer: - - UA: KSR-Test-Runner/1.0
+[2026-10-17 03:36:56] [::1] [Guest] [PAGE] GET /categories/vegetables-fruits.php - Status: 200 - Referrer: - - UA: KSR-Test-Runner/1.0
+[2026-10-17 03:36:56] [::1] [Guest] [AJAX] GET /index.php?ajax=cart - Status: 200 - Referrer: - - UA: KSR-Test-Runner/1.0
+[2026-10-17 03:36:56] [::1] [Guest] [AJAX] GET /index.php?ajax=products - Status: 200 - Referrer: - - UA: KSR-Test-Runner/1.0
+[2026-10-17 03:38:11] [::1] [Guest] [PAGE] GET / - Status: 200 - Referrer: - - UA: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36
+[2026-10-17 03:38:13] [::1] [Guest] [AJAX] GET /index.php?ajax=cart - Status: 200 - Referrer: http://localhost:8090/ - UA: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36
+[2026-10-17 03:38:39] [::1] [Guest] [PAGE] GET /categories/air-freshner.php - Status: 200 - Referrer: - - UA: -
+[2026-10-17 03:38:39] [::1] [Guest] [PAGE] GET /categories/bakery.php - Status: 200 - Referrer: - - UA: -
+[2026-10-17 03:38:39] [::1] [Guest] [PAGE] GET /categories/bath-body.php - Status: 200 - Referrer: - - UA: -
+[2026-10-17 03:38:39] [::1] [Guest] [PAGE] GET /categories/breakfast.php - Status: 200 - Referrer: - - UA: -
+[2026-10-17 03:38:39] [::1] [Guest] [PAGE] GET /categories/cleaning.php - Status: 200 - Referrer: - - UA: -
+[2026-10-17 03:38:39] [::1] [Guest] [PAGE] GET /categories/cold-drinks.php - Status: 200 - Referrer: - - UA: -
+[2026-10-17 03:38:39] [::1] [Guest] [PAGE] GET /categories/cooking-oil.php - Status: 200 - Referrer: - - UA: -
+[2026-10-17 03:38:39] [::1] [Guest] [PAGE] GET /categories/dairy.php - Status: 200 - Referrer: - - UA: -
+[2026-10-17 03:38:39] [::1] [Guest] [PAGE] GET /categories/dishwash.php - Status: 200 - Referrer: - - UA: -
+[2026-10-17 03:38:39] [::1] [Guest] [PAGE] GET /categories/dry-fruits.php - Status: 200 - Referrer: - - UA: -
+[2026-10-17 03:38:39] [::1] [Guest] [PAGE] GET /categories/grains.php - Status: 200 - Referrer: - - UA: -
+[2026-10-17 03:38:39] [::1] [Guest] [PAGE] GET /categories/hair-care.php - Status: 200 - Referrer: - - UA: -
+[2026-10-17 03:38:39] [::1] [Guest] [PAGE] GET /categories/health-pharmacy.php - Status: 200 - Referrer: - - UA: -
+[2026-10-17 03:38:39] [::1] [Guest] [PAGE] GET /categories/home-care.php - Status: 200 - Referrer: - - UA: -
+[2026-10-17 03:38:39] [::1] [Guest] [PAGE] GET /categories/kitchen.php - Status: 200 - Referrer: - - UA: -
+[2026-10-17 03:38:39] [::1] [Guest] [PAGE] GET /categories/laundry.php - Status: 200 - Referrer: - - UA: -
+[2026-10-17 03:38:39] [::1] [Guest] [PAGE] GET /categories/paper-products.php - Status: 200 - Referrer: - - UA: -
+[2026-10-17 03:38:42] [::1] [Guest] [PAGE] GET /categories/personal-care.php - Status: 200 - Referrer: - - UA: -
+[2026-10-17 03:38:42] [::1] [Guest] [PAGE] GET /categories/pet-supplies.php - Status: 200 - Referrer: - - UA: -
+[2026-10-17 03:38:42] [::1] [Guest] [PAGE] GET /categories/pickles.php - Status: 200 - Referrer: - - UA: -
+[2026-10-17 03:38:42] [::1] [Guest] [PAGE] GET /categories/plastic-household.php - Status: 200 - Referrer: - - UA: -
+[2026-10-17 03:38:42] [::1] [Guest] [PAGE] GET /categories/pooja.php - Status: 200 - Referrer: - - UA: -
+[2026-10-17 03:38:42] [::1] [Guest] [PAGE] GET /categories/pules-lentils.php - Status: 200 - Referrer: - - UA: -
+[2026-10-17 03:38:42] [::1] [Guest] [PAGE] GET /categories/ready-to-eat.php - Status: 200 - Referrer: - - UA: -
+[2026-10-17 03:38:42] [::1] [Guest] [PAGE] GET /categories/seasonal.php - Status: 200 - Referrer: - - UA: -
+[2026-10-17 03:38:42] [::1] [Guest] [PAGE] GET /categories/snacks.php - Status: 200 - Referrer: - - UA: -
+[2026-10-17 03:38:42] [::1] [Guest] [PAGE] GET /categories/spices.php - Status: 200 - Referrer: - - UA: -
+[2026-10-17 03:38:42] [::1] [Guest] [PAGE] GET /categories/stationery.php - Status: 200 - Referrer: - - UA: -
+[2026-10-17 03:38:42] [::1] [Guest] [PAGE] GET /categories/vegetables-fruits.php - Status: 200 - Referrer: - - UA: -
+[2026-10-17 03:38:54] [::1] [Guest] [PAGE] GET /categories/bath-body.php - Status: 200 - Referrer: - - UA: -
+[2026-10-17 03:38:54] [::1] [Guest] [PAGE] GET /categories/breakfast.php - Status: 200 - Referrer: - - UA: -
+[2026-10-17 03:38:54] [::1] [Guest] [PAGE] GET /categories/dairy.php - Status: 200 - Referrer: - - UA: -
+[2026-10-17 03:40:43] [::1] [Guest] [PAGE] HEAD /categories/parcels.php - Status: 200 - Referrer: - - UA: curl/8.9.1
+[2026-10-17 03:41:00] [::1] [Guest] [PAGE] GET /categories/air-freshner.php - Status: 200 - Referrer: - - UA: -
+[2026-10-17 03:41:00] [::1] [Guest] [PAGE] GET /categories/bakery.php - Status: 200 - Referrer: - - UA: -
+[2026-10-17 03:41:00] [::1] [Guest] [PAGE] GET /categories/bath-body.php - Status: 200 - Referrer: - - UA: -
+[2026-10-17 03:41:00] [::1] [Guest] [PAGE] GET /categories/breakfast.php - Status: 200 - Referrer: - - UA: -
+[2026-10-17 03:41:00] [::1] [Guest] [PAGE] GET /categories/cleaning.php - Status: 200 - Referrer: - - UA: -
+[2026-10-17 03:41:00] [::1] [Guest] [PAGE] GET /categories/cold-drinks.php - Status: 200 - Referrer: - - UA: -
+[2026-10-17 03:41:00] [::1] [Guest] [PAGE] GET /categories/cooking-oil.php - Status: 200 - Referrer: - - UA: -
+[2026-10-17 03:41:00] [::1] [Guest] [PAGE] GET /categories/dairy.php - Status: 200 - Referrer: - - UA: -
+[2026-10-17 03:41:00] [::1] [Guest] [PAGE] GET /categories/dishwash.php - Status: 200 - Referrer: - - UA: -
+[2026-10-17 03:41:01] [::1] [Guest] [PAGE] GET /categories/dry-fruits.php - Status: 200 - Referrer: - - UA: -
+[2026-10-17 03:41:01] [::1] [Guest] [PAGE] GET /categories/grains.php - Status: 200 - Referrer: - - UA: -
+[2026-10-17 03:41:01] [::1] [Guest] [PAGE] GET /categories/hair-care.php - Status: 200 - Referrer: - - UA: -
+[2026-10-17 03:41:01] [::1] [Guest] [PAGE] GET /categories/health-pharmacy.php - Status: 200 - Referrer: - - UA: -
+[2026-10-17 03:41:01] [::1] [Guest] [PAGE] GET /categories/home-care.php - Status: 200 - Referrer: - - UA: -
+[2026-10-17 03:41:01] [::1] [Guest] [PAGE] GET /categories/kitchen.php - Status: 200 - Referrer: - - UA: -
+[2026-10-17 03:41:01] [::1] [Guest] [PAGE] GET /categories/laundry.php - Status: 200 - Referrer: - - UA: -
+[2026-10-17 03:41:01] [::1] [Guest] [PAGE] GET /categories/paper-products.php - Status: 200 - Referrer: - - UA: -
+[2026-10-17 03:41:01] [::1] [Guest] [PAGE] GET /categories/parcels.php - Status: 200 - Referrer: - - UA: -
+[2026-10-17 03:41:01] [::1] [Guest] [PAGE] GET /categories/personal-care.php - Status: 200 - Referrer: - - UA: -
+[2026-10-17 03:41:01] [::1] [Guest] [PAGE] GET /categories/pet-supplies.php - Status: 200 - Referrer: - - UA: -
+[2026-10-17 03:41:01] [::1] [Guest] [PAGE] GET /categories/pickles.php - Status: 200 - Referrer: - - UA: -
+[2026-10-17 03:41:01] [::1] [Guest] [PAGE] GET /categories/plastic-household.php - Status: 200 - Referrer: - - UA: -
+[2026-10-17 03:41:01] [::1] [Guest] [PAGE] GET /categories/pooja.php - Status: 200 - Referrer: - - UA: -
+[2026-10-17 03:41:01] [::1] [Guest] [PAGE] GET /categories/pules-lentils.php - Status: 200 - Referrer: - - UA: -
+[2026-10-17 03:41:01] [::1] [Guest] [PAGE] GET /categories/ready-to-eat.php - Status: 200 - Referrer: - - UA: -
+[2026-10-17 03:41:01] [::1] [Guest] [PAGE] GET /categories/seasonal.php - Status: 200 - Referrer: - - UA: -
+[2026-10-17 03:41:01] [::1] [Guest] [PAGE] GET /categories/snacks.php - Status: 200 - Referrer: - - UA: -
+[2026-10-17 03:41:01] [::1] [Guest] [PAGE] GET /categories/spices.php - Status: 200 - Referrer: - - UA: -
+[2026-10-17 03:41:01] [::1] [Guest] [PAGE] GET /categories/stationery.php - Status: 200 - Referrer: - - UA: -
+[2026-10-17 03:41:01] [::1] [Guest] [PAGE] GET /categories/vegetables-fruits.php - Status: 200 - Referrer: - - UA: -
+[2026-10-17 03:41:16] [::1] [Guest] [PAGE] GET /categories/bath-body.php - Status: 200 - Referrer: - - UA: -
+[2026-10-17 03:41:16] [::1] [Guest] [PAGE] GET /categories/breakfast.php - Status: 200 - Referrer: - - UA: -
+[2026-10-17 03:41:16] [::1] [Guest] [PAGE] GET /categories/dairy.php - Status: 200 - Referrer: - - UA: -
+[2026-10-17 03:42:11] [::1] [Guest] [PAGE] GET /admin/admins.php - Status: 302 - Referrer: - - UA: -
+[2026-10-17 03:42:11] [::1] [Guest] [PAGE] GET /admin/audit_logs.php - Status: 302 - Referrer: - - UA: -
+[2026-10-17 03:42:11] [::1] [Guest] [PAGE] GET /admin/categories.php - Status: 302 - Referrer: - - UA: -
+[2026-10-17 03:42:11] [::1] [Guest] [PAGE] GET /admin/customers.php - Status: 302 - Referrer: - - UA: -
+[2026-10-17 03:42:11] [::1] [Guest] [PAGE] GET /admin/dashboard.php - Status: 302 - Referrer: - - UA: -
+[2026-10-17 03:42:11] [::1] [Guest] [PAGE] GET /admin/delivery.php - Status: 302 - Referrer: - - UA: -
+[2026-10-17 03:42:11] [::1] [Guest] [PAGE] GET /admin/login.php - Status: 200 - Referrer: - - UA: -
+[2026-10-17 03:42:11] [::1] [Guest] [PAGE] GET /admin/maintenance.php - Status: 302 - Referrer: - - UA: -
+[2026-10-17 03:42:11] [::1] [Guest] [PAGE] GET /admin/management.php - Status: 302 - Referrer: - - UA: -
+[2026-10-17 03:42:11] [::1] [Guest] [PAGE] GET /admin/medical_verification.php - Status: 200 - Referrer: - - UA: -
+[2026-10-17 03:42:11] [::1] [Guest] [PAGE] GET /admin/notification.php - Status: 302 - Referrer: - - UA: -
+[2026-10-17 03:42:11] [::1] [Guest] [PAGE] GET /admin/order-details.php - Status: 302 - Referrer: - - UA: -
+[2026-10-17 03:42:11] [::1] [Guest] [PAGE] GET /admin/orders.php - Status: 302 - Referrer: - - UA: -
+[2026-10-17 03:42:11] [::1] [Guest] [PAGE] GET /admin/payments.php - Status: 302 - Referrer: - - UA: -
+[2026-10-17 03:42:11] [::1] [Guest] [PAGE] GET /admin/products.php - Status: 302 - Referrer: - - UA: -
+[2026-10-17 03:42:11] [::1] [Guest] [PAGE] GET /admin/reports.php - Status: 302 - Referrer: - - UA: -
+[2026-10-17 03:42:11] [::1] [Guest] [PAGE] GET /admin/settings.php - Status: 302 - Referrer: - - UA: -
+[2026-10-17 03:42:11] [::1] [Guest] [PAGE] GET /admin/users.php - Status: 302 - Referrer: - - UA: -
+[2026-10-17 03:42:11] [::1] [Guest] [PAGE] GET /admin/whatsapp.php - Status: 302 - Referrer: - - UA: -
+[2026-10-17 03:42:26] [::1] [Guest] [PAGE] GET /delivery/api.php - Status: 401 - Referrer: - - UA: -
+[2026-10-17 03:42:26] [::1] [Guest] [PAGE] GET /delivery/bootstrap.php - Status: 200 - Referrer: - - UA: -
+[2026-10-17 03:42:26] [::1] [Guest] [PAGE] GET /delivery/dashboard.php - Status: 302 - Referrer: - - UA: -
+[2026-10-17 03:42:26] [::1] [Guest] [PAGE] GET /delivery/earnings.php - Status: 302 - Referrer: - - UA: -
+[2026-10-17 03:42:26] [::1] [Guest] [PAGE] GET /delivery/index.php - Status: 302 - Referrer: - - UA: -
+[2026-10-17 03:42:26] [::1] [Guest] [PAGE] GET /delivery/login.php - Status: 200 - Referrer: - - UA: -
+[2026-10-17 03:42:26] [::1] [Guest] [PAGE] GET /delivery/logout.php - Status: 302 - Referrer: - - UA: -
+[2026-10-17 03:42:26] [::1] [Guest] [PAGE] GET /delivery/notifications.php - Status: 302 - Referrer: - - UA: -
+[2026-10-17 03:42:26] [::1] [Guest] [PAGE] GET /delivery/order.php - Status: 302 - Referrer: - - UA: -
+[2026-10-17 03:42:26] [::1] [Guest] [PAGE] GET /delivery/orders.php - Status: 302 - Referrer: - - UA: -
+[2026-10-17 03:42:26] [::1] [Guest] [PAGE] GET /delivery/profile.php - Status: 302 - Referrer: - - UA: -
+[2026-10-17 03:42:26] [::1] [Guest] [PAGE] GET /delivery/seed_agents.php - Status: 200 - Referrer: - - UA: -
+[2026-10-17 03:42:26] [::1] [Guest] [PAGE] GET /delivery/tracking.php - Status: 200 - Referrer: - - UA: -
+[2026-10-17 03:43:12] [::1] [Guest] [PAGE] GET / - Status: 200 - Referrer: - - UA: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36
+[2026-10-17 03:43:13] [::1] [Guest] [AJAX] GET /index.php?ajax=cart - Status: 200 - Referrer: http://localhost:8090/ - UA: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36
+[2026-10-17 03:43:19] [::1] [Guest] [PAGE] GET / - Status: 200 - Referrer: - - UA: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36
+[2026-10-17 03:43:22] [::1] [Guest] [AJAX] GET /index.php?ajax=cart - Status: 200 - Referrer: http://localhost:8090/ - UA: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36
+[2026-10-17 03:46:05] [::1] [Guest] [PAGE] GET /api/login.php - Status: 405 - Referrer: - - UA: curl/8.9.1
+[2026-10-17 03:46:19] [::1] [Guest] [PAGE] POST /api/login.php - Status: 400 - Referrer: - - UA: curl/8.9.1
+[2026-10-17 06:46:30] [::1] [Guest] [PAGE] GET / - Status: 200 - Referrer: - - UA: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36
+[2026-10-17 06:46:31] [::1] [Guest] [AJAX] GET /index.php?ajax=cart - Status: 200 - Referrer: http://localhost:8090/ - UA: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36

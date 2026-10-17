@@ -1,0 +1,1554 @@
+[
+    {
+        "id": 1,
+        "name": "Stainless Steel Frying Pan 20cm",
+        "kn_name": "\u0cb8\u0ccd\u0c9f\u0cc0\u0cb2\u0ccd \u0cab\u0ccd\u0cb0\u0cc8 \u0caa\u0ccd\u0caf\u0cbe\u0ca8\u0ccd 20 \u0cb8\u0cc6\u0c82",
+        "price": 1260,
+        "category": "cookware",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 1260
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "20cm stainless steel, riveted handle.",
+        "imageUrl": "../images/Kitnware/Stainless Steel Frying Pan 20cm 1260.jpg"
+    },
+    {
+        "id": 2,
+        "name": "Stainless Steel Frying Pan 25cm",
+        "kn_name": "\u0cb8\u0ccd\u0c9f\u0cc0\u0cb2\u0ccd \u0cab\u0ccd\u0cb0\u0cc8 \u0caa\u0ccd\u0caf\u0cbe\u0ca8\u0ccd 25 \u0cb8\u0cc6\u0c82",
+        "price": 1410,
+        "category": "cookware",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 1410
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "25cm, tri\u2011ply bottom for even heat.",
+        "imageUrl": "../images/Kitnware/Stainless Steel Frying Pan 25cm 1410.jpg"
+    },
+    {
+        "id": 3,
+        "name": "Non-stick Frying Pan 22cm",
+        "kn_name": "\u0ca8\u0cbe\u0ca8\u0ccd-\u0cb8\u0ccd\u0c9f\u0cbf\u0c95\u0ccd \u0cab\u0ccd\u0cb0\u0cc8 \u0caa\u0ccd\u0caf\u0cbe\u0ca8\u0ccd 22 \u0cb8\u0cc6\u0c82",
+        "price": 720,
+        "category": "cookware",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 720
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "PFOA\u2011free non\u2011stick coating.",
+        "imageUrl": "../images/Kitnware/Non-stick Frying Pan 22cm 880.jpg"
+    },
+    {
+        "id": 4,
+        "name": "Non-stick Frying Pan 28cm",
+        "kn_name": "\u0ca8\u0cbe\u0ca8\u0ccd-\u0cb8\u0ccd\u0c9f\u0cbf\u0c95\u0ccd \u0cab\u0ccd\u0cb0\u0cc8 \u0caa\u0ccd\u0caf\u0cbe\u0ca8\u0ccd 28 \u0cb8\u0cc6\u0c82",
+        "price": 920,
+        "category": "cookware",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 920
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "Large family size, easy to clean.",
+        "imageUrl": "../images/Kitnware/Non-stick Frying Pan 28cm 600.jpg"
+    },
+    {
+        "id": 5,
+        "name": "Aluminum Sauce Pan 1 L",
+        "kn_name": "\u0c85\u0cb2\u0ccd\u0caf\u0cc2\u0cae\u0cbf\u0ca8\u0cbf\u0caf\u0c82 \u0cb8\u0cbe\u0cb8\u0ccd \u0caa\u0ccd\u0caf\u0cbe\u0ca8\u0ccd 1 \u0cb2\u0cc0",
+        "price": 420,
+        "category": "cookware",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 420
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "Lightweight aluminium, good heat conductor.",
+        "imageUrl": "../images/Kitnware/Aluminum Sauce Pan 1 L 400.jpg"
+    },
+    {
+        "id": 6,
+        "name": "Aluminum Sauce Pan 2 L",
+        "kn_name": "\u0c85\u0cb2\u0ccd\u0caf\u0cc2\u0cae\u0cbf\u0ca8\u0cbf\u0caf\u0c82 \u0cb8\u0cbe\u0cb8\u0ccd \u0caa\u0ccd\u0caf\u0cbe\u0ca8\u0ccd 2 \u0cb2\u0cc0",
+        "price": 1180,
+        "category": "cookware",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 1180
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "2 litre capacity, ideal for curries.",
+        "imageUrl": "../images/Kitnware/Aluminum Sauce Pan 2 L 1180.jpg"
+    },
+    {
+        "id": 7,
+        "name": "Stainless Steel Sauce Pan 1.5 L",
+        "kn_name": "\u0cb8\u0ccd\u0c9f\u0cc0\u0cb2\u0ccd \u0cb8\u0cbe\u0cb8\u0ccd \u0caa\u0ccd\u0caf\u0cbe\u0ca8\u0ccd 1.5 \u0cb2\u0cc0",
+        "price": 1220,
+        "category": "cookware",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 1220
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "Sturdy, corrosion resistant.",
+        "imageUrl": "../images/Kitnware/Stainless Steel Sauce Pan 1.5 L 1220.jpg"
+    },
+    {
+        "id": 8,
+        "name": "Stainless Steel Sauce Pan 3 L",
+        "kn_name": "\u0cb8\u0ccd\u0c9f\u0cc0\u0cb2\u0ccd \u0cb8\u0cbe\u0cb8\u0ccd \u0caa\u0ccd\u0caf\u0cbe\u0ca8\u0ccd 3 \u0cb2\u0cc0",
+        "price": 2500,
+        "category": "cookware",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 2500
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "3L, with glass lid.",
+        "imageUrl": "../images/Kitnware/Stainless Steel Sauce Pan 3 L 2500.jpg"
+    },
+    {
+        "id": 9,
+        "name": "Non-stick Cooking Pot 3 L",
+        "kn_name": "\u0ca8\u0cbe\u0ca8\u0ccd-\u0cb8\u0ccd\u0c9f\u0cbf\u0c95\u0ccd \u0c95\u0cc1\u0c95\u0ccd \u0caa\u0cbe\u0c9f\u0ccd 3 \u0cb2\u0cc0",
+        "price": 999,
+        "category": "cookware",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 999
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "Non\u2011stick interior, easy pour spout.",
+        "imageUrl": "../images/Kitnware/Non-stick Cooking Pot 3 L 999.jpg"
+    },
+    {
+        "id": 10,
+        "name": "Stainless Steel Cooking Pot 5 L",
+        "kn_name": "\u0cb8\u0ccd\u0c9f\u0cc0\u0cb2\u0ccd \u0c95\u0cc1\u0c95\u0ccd \u0caa\u0cbe\u0c9f\u0ccd 5 \u0cb2\u0cc0",
+        "price": 2000,
+        "category": "cookware",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 2000
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "Large capacity for soups and stocks.",
+        "imageUrl": "../images/Kitnware/Stainless Steel Cooking Pot 5 L 1995.jpg"
+    },
+    {
+        "id": 11,
+        "name": "Pressure Cooker 3 L",
+        "kn_name": "\u0caa\u0ccd\u0cb0\u0cc6\u0cb6\u0cb0\u0ccd \u0c95\u0cc1\u0c95\u0ccd\u0c95\u0cb0\u0ccd 3 \u0cb2\u0cc0",
+        "price": 1450,
+        "category": "cookware",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 1450
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "3 litre, safety valve, fast cooking.",
+        "imageUrl": "../images/Kitnware/Pressure Cooker 3 L 1450.jpg"
+    },
+    {
+        "id": 12,
+        "name": "Pressure Cooker 5 L",
+        "kn_name": "\u0caa\u0ccd\u0cb0\u0cc6\u0cb6\u0cb0\u0ccd \u0c95\u0cc1\u0c95\u0ccd\u0c95\u0cb0\u0ccd 5 \u0cb2\u0cc0",
+        "price": 2100,
+        "category": "cookware",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 2100
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "5 litre, for larger families.",
+        "imageUrl": "../images/Kitnware/Pressure Cooker 5 L 2045.jpg"
+    },
+    {
+        "id": 49,
+        "name": "Stainless Steel Casserole 2 L",
+        "kn_name": "\u0cb8\u0ccd\u0c9f\u0cc0\u0cb2\u0ccd \u0c95\u0ccd\u0caf\u0cbe\u0cb8\u0cb0\u0ccb\u0cb2\u0ccd 2\u0cb2\u0cc0",
+        "price": 900,
+        "category": "cookware",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 900
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "2L casserole, oven safe.",
+        "imageUrl": "../images/Kitnware/Stainless Steel Casserole 2 L 600.jpg"
+    },
+    {
+        "id": 50,
+        "name": "Stainless Steel Casserole 5 L",
+        "kn_name": "\u0cb8\u0ccd\u0c9f\u0cc0\u0cb2\u0ccd \u0c95\u0ccd\u0caf\u0cbe\u0cb8\u0cb0\u0ccb\u0cb2\u0ccd 5\u0cb2\u0cc0",
+        "price": 2100,
+        "category": "cookware",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 2100
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "5L, perfect for parties.",
+        "imageUrl": "../images/Kitnware/Stainless Steel Casserole 5 L 2100.jpg"
+    },
+    {
+        "id": 51,
+        "name": "Non-stick Sauce Pan 1 L",
+        "kn_name": "\u0ca8\u0cbe\u0ca8\u0ccd-\u0cb8\u0ccd\u0c9f\u0cbf\u0c95\u0ccd \u0cb8\u0cbe\u0cb8\u0ccd \u0caa\u0ccd\u0caf\u0cbe\u0ca8\u0ccd 1\u0cb2\u0cc0",
+        "price": 700,
+        "category": "cookware",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 700
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "Small saucepan, non\u2011stick.",
+        "imageUrl": "../images/Kitnware/Non-stick Sauce Pan 1 L 589.jpg"
+    },
+    {
+        "id": 52,
+        "name": "Non-stick Sauce Pan 2 L",
+        "kn_name": "\u0ca8\u0cbe\u0ca8\u0ccd-\u0cb8\u0ccd\u0c9f\u0cbf\u0c95\u0ccd \u0cb8\u0cbe\u0cb8\u0ccd \u0caa\u0ccd\u0caf\u0cbe\u0ca8\u0ccd 2\u0cb2\u0cc0",
+        "price": 1190,
+        "category": "cookware",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 1190
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "2 litre, non\u2011stick, easy clean.",
+        "imageUrl": "../images/Kitnware/Non-stick Sauce Pan 2 L 1199.jpg"
+    },
+    {
+        "id": 53,
+        "name": "Non-stick Cooking Pot 5 L",
+        "kn_name": "\u0ca8\u0cbe\u0ca8\u0ccd-\u0cb8\u0ccd\u0c9f\u0cbf\u0c95\u0ccd \u0c95\u0cc1\u0c95\u0ccd \u0caa\u0cbe\u0c9f\u0ccd 5\u0cb2\u0cc0",
+        "price": 1100,
+        "category": "cookware",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 1100
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "Large non\u2011stick pot.",
+        "imageUrl": "../images/Kitnware/Non-stick Cooking Pot 5 L 1089.jpg"
+    },
+    {
+        "id": 54,
+        "name": "Aluminum Frying Pan 22 cm",
+        "kn_name": "\u0c85\u0cb2\u0ccd\u0caf\u0cc2. \u0cab\u0ccd\u0cb0\u0cc8 \u0caa\u0ccd\u0caf\u0cbe\u0ca8\u0ccd 22 \u0cb8\u0cc6\u0c82",
+        "price": 1420,
+        "category": "cookware",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 1420
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "Lightweight aluminium pan.",
+        "imageUrl": "../images/Kitnware/Aluminum Frying Pan 22 cm 1400.jpg"
+    },
+    {
+        "id": 55,
+        "name": "Aluminum Frying Pan 28 cm",
+        "kn_name": "\u0c85\u0cb2\u0ccd\u0caf\u0cc2. \u0cab\u0ccd\u0cb0\u0cc8 \u0caa\u0ccd\u0caf\u0cbe\u0ca8\u0ccd 28 \u0cb8\u0cc6\u0c82",
+        "price": 620,
+        "category": "cookware",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 620
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "28cm, budget friendly.",
+        "imageUrl": "../images/Kitnware/Aluminum Frying Pan 28 cm 600.jpg"
+    },
+    {
+        "id": 56,
+        "name": "Stainless Steel Kadhai 2 L",
+        "kn_name": "\u0cb8\u0ccd\u0c9f\u0cc0\u0cb2\u0ccd \u0c95\u0ca1\u0cbe\u0caf\u0cbf 2\u0cb2\u0cc0",
+        "price": 720,
+        "category": "cookware",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 720
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "Traditional kadhai, stainless steel.",
+        "imageUrl": "../images/Kitnware/Stainless Steel Kadhai 2 L 600.jpg"
+    },
+    {
+        "id": 57,
+        "name": "Stainless Steel Kadhai 3 L",
+        "kn_name": "\u0cb8\u0ccd\u0c9f\u0cc0\u0cb2\u0ccd \u0c95\u0ca1\u0cbe\u0caf\u0cbf 3\u0cb2\u0cc0",
+        "price": 990,
+        "category": "cookware",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 990
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "3L, deep and wide.",
+        "imageUrl": "../images/Kitnware/Stainless Steel Kadhai 3 L 999.jpg"
+    },
+    {
+        "id": 58,
+        "name": "Non-stick Kadhai 2 L",
+        "kn_name": "\u0ca8\u0cbe\u0ca8\u0ccd-\u0cb8\u0ccd\u0c9f\u0cbf\u0c95\u0ccd \u0c95\u0ca1\u0cbe\u0caf\u0cbf 2\u0cb2\u0cc0",
+        "price": 820,
+        "category": "cookware",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 820
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "Non\u2011stick kadhai, less oil.",
+        "imageUrl": "../images/Kitnware/Non-stick Kadhai 2 L 700.jpg"
+    },
+    {
+        "id": 59,
+        "name": "Non-stick Kadhai 3 L",
+        "kn_name": "\u0ca8\u0cbe\u0ca8\u0ccd-\u0cb8\u0ccd\u0c9f\u0cbf\u0c95\u0ccd \u0c95\u0ca1\u0cbe\u0caf\u0cbf 3\u0cb2\u0cc0",
+        "price": 1120,
+        "category": "cookware",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 1120
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "3L non\u2011stick, ideal for biryani.",
+        "imageUrl": "../images/Kitnware/Non-stick Kadhai 3 L 2400.jpg"
+    },
+    {
+        "id": 60,
+        "name": "Stainless Steel Fry Pan 30 cm",
+        "kn_name": "\u0cb8\u0ccd\u0c9f\u0cc0\u0cb2\u0ccd \u0cab\u0ccd\u0cb0\u0cc8 \u0caa\u0ccd\u0caf\u0cbe\u0ca8\u0ccd 30 \u0cb8\u0cc6\u0c82",
+        "price": 920,
+        "category": "cookware",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 920
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "30cm, professional grade.",
+        "imageUrl": "../images/Kitnware/Stainless Steel Fry Pan 30 cm 1960.jpg"
+    },
+    {
+        "id": 61,
+        "name": "Non-stick Griddle / Tawa 28 cm",
+        "kn_name": "\u0ca8\u0cbe\u0ca8\u0ccd-\u0cb8\u0ccd\u0c9f\u0cbf\u0c95\u0ccd \u0ca4\u0cb5\u0cbe 28 \u0cb8\u0cc6\u0c82",
+        "price": 999,
+        "category": "cookware",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 999
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "Flat tawa for dosa, roti.",
+        "imageUrl": "../images/Kitnware/Non-stick Griddle  Tawa 28 cm 999.jpg"
+    },
+    {
+        "id": 62,
+        "name": "Aluminum Griddle / Tawa 25 cm",
+        "kn_name": "\u0c85\u0cb2\u0ccd\u0caf\u0cc2. \u0ca4\u0cb5\u0cbe 25 \u0cb8\u0cc6\u0c82",
+        "price": 730,
+        "category": "cookware",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 730
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "Aluminium tawa, lightweight.",
+        "imageUrl": "../images/Kitnware/Aluminum Griddle Tawa 25 cm 730.jpg"
+    },
+    {
+        "id": 95,
+        "name": "Casserole Aluminium 2 L",
+        "kn_name": "\u0c85\u0cb2\u0ccd\u0caf\u0cc2. \u0c95\u0ccd\u0caf\u0cbe\u0cb8\u0cb0\u0ccb\u0cb2\u0ccd 2\u0cb2\u0cc0",
+        "price": 620,
+        "category": "cookware",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 620
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "Aluminium casserole, 2L.",
+        "imageUrl": "../images/Kitnware/Casserole Aluminium 2 L 460.jpg"
+    },
+    {
+        "id": 96,
+        "name": "Casserole Aluminium 5 L",
+        "kn_name": "\u0c85\u0cb2\u0ccd\u0caf\u0cc2. \u0c95\u0ccd\u0caf\u0cbe\u0cb8\u0cb0\u0ccb\u0cb2\u0ccd 5\u0cb2\u0cc0",
+        "price": 2210,
+        "category": "cookware",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 2210
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "5L, heavy duty.",
+        "imageUrl": "../images/Kitnware/Casserole Aluminium 5 L 2210.jpg"
+    },
+    {
+        "id": 13,
+        "name": "Baking Tray Rectangular 9 inch",
+        "kn_name": "\u0cac\u0cc7\u0c95\u0cbf\u0c82\u0c97\u0ccd \u0c9f\u0ccd\u0cb0\u0cc7 9\"",
+        "price": 360,
+        "category": "tools",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 360
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "Non\u2011stick, rust resistant.",
+        "imageUrl": "../images/Kitnware/Baking Tray Rectangular 9 inch 350.jpg"
+    },
+    {
+        "id": 14,
+        "name": "Baking Tray Rectangular 12 inch",
+        "kn_name": "\u0cac\u0cc7\u0c95\u0cbf\u0c82\u0c97\u0ccd \u0c9f\u0ccd\u0cb0\u0cc7 12\"",
+        "price": 520,
+        "category": "tools",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 520
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "Large tray for cookies.",
+        "imageUrl": "../images/Kitnware/Baking Tray Rectangular 12 inch 495.jpg"
+    },
+    {
+        "id": 15,
+        "name": "Muffin Pan 6 Cup",
+        "kn_name": "\u0cae\u0cab\u0cbf\u0ca8\u0ccd \u0caa\u0ccd\u0caf\u0cbe\u0ca8\u0ccd \u0c95\u0caa\u0ccd",
+        "price": 420,
+        "category": "tools",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 420
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "6 cup muffin pan.",
+        "imageUrl": "../images/Kitnware/Muffin Pan 6 Cup 700.jpg"
+    },
+    {
+        "id": 16,
+        "name": "Baking Sheet Non-stick 20x30cm",
+        "kn_name": "\u0cac\u0cc7\u0c95\u0cbf\u0c82\u0c97\u0ccd \u0cb6\u0cc0\u0c9f\u0ccd",
+        "price": 520,
+        "category": "tools",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 520
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "20x30cm, non\u2011stick.",
+        "imageUrl": "../images/Kitnware/Baking Sheet Non-stick 20x30cm.jpg"
+    },
+    {
+        "id": 18,
+        "name": "Round Cake Pan 10 inch",
+        "kn_name": "\u0c95\u0cc7\u0c95\u0ccd \u0caa\u0ccd\u0caf\u0cbe\u0ca8\u0ccd 10\"",
+        "price": 520,
+        "category": "tools",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 520
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "Round cake pan, 10 inch.",
+        "imageUrl": "../images/Kitnware/Round Cake Pan 10 inch 500.jpg"
+    },
+    {
+        "id": 19,
+        "name": "Baking Sheet Non-stick 30x40cm",
+        "kn_name": "\u0cac\u0cc7\u0c95\u0cbf\u0c82\u0c97\u0ccd \u0cb6\u0cc0\u0c9f\u0ccd",
+        "price": 999,
+        "category": "tools",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 999
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "30x40cm, extra large.",
+        "imageUrl": "../images/Kitnware/Baking Sheet Non-stick 30x40cm 999.jpg"
+    },
+    {
+        "id": 42,
+        "name": "Measuring Cup Set 4 pcs",
+        "kn_name": "\u0c85\u0cb3\u0ca4\u0cc6 \u0c95\u0caa\u0ccd \u0cb8\u0cc6\u0c9f\u0ccd",
+        "price": 520,
+        "category": "tools",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 520
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "Nesting cups, accurate.",
+        "imageUrl": "../images/Kitnware/Measuring Cup Set 4 pcs 500.jpg"
+    },
+    {
+        "id": 43,
+        "name": "Measuring Spoon Set 4 pcs",
+        "kn_name": "\u0c85\u0cb3\u0ca4\u0cc6 \u0c9a\u0cae\u0c9a \u0cb8\u0cc6\u0c9f\u0ccd",
+        "price": 660,
+        "category": "tools",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 660
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "Stainless steel spoons.",
+        "imageUrl": "../images/Kitnware/Measuring Spoon Set 4 pcs 600.jpg"
+    },
+    {
+        "id": 63,
+        "name": "Baking Sheet 30x30 cm",
+        "kn_name": "\u0cac\u0cc7\u0c95\u0cbf\u0c82\u0c97\u0ccd \u0cb6\u0cc0\u0c9f\u0ccd 30x30",
+        "price": 520,
+        "category": "tools",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 520
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "Square baking sheet.",
+        "imageUrl": "../images/Kitnware/Baking Sheet 30x30 cm 500.jpg"
+    },
+    {
+        "id": 64,
+        "name": "Round Cake Pan 6 inch",
+        "kn_name": "\u0c95\u0cc7\u0c95\u0ccd \u0caa\u0ccd\u0caf\u0cbe\u0ca8\u0ccd 6\"",
+        "price": 600,
+        "category": "tools",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 600
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "Small cake pan.",
+        "imageUrl": "../images/Kitnware/Round Cake Pan 6 inch 600.jpg"
+    },
+    {
+        "id": 65,
+        "name": "Round Cake Pan 12 inch",
+        "kn_name": "\u0c95\u0cc7\u0c95\u0ccd \u0caa\u0ccd\u0caf\u0cbe\u0ca8\u0ccd 12\"",
+        "price": 620,
+        "category": "tools",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 620
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "Large party cake pan.",
+        "imageUrl": "../images/Kitnware/Round Cake Pan 12 inch 600.jpg"
+    },
+    {
+        "id": 67,
+        "name": "Loaf Pan 9 inch",
+        "kn_name": "\u0cb2\u0ccb\u0cab\u0ccd \u0caa\u0ccd\u0caf\u0cbe\u0ca8\u0ccd 9\"",
+        "price": 390,
+        "category": "tools",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 390
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "For banana bread, loaf cakes.",
+        "imageUrl": "../images/Kitnware/Loaf Pan 9 inch 380.jpg"
+    },
+    {
+        "id": 68,
+        "name": "Pie Dish 9 inch",
+        "kn_name": "\u0caa\u0cc8 \u0ca1\u0cbf\u0cb6\u0ccd 9\"",
+        "price": 500,
+        "category": "tools",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 500
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "Fluted edge pie dish.",
+        "imageUrl": "../images/Kitnware/Pie Dish 9 inch 490.jpg"
+    },
+    {
+        "id": 69,
+        "name": "Pizza Pan 12 inch",
+        "kn_name": "\u0caa\u0cbf\u0c9c\u0ccd\u0c9c\u0cbe \u0caa\u0ccd\u0caf\u0cbe\u0ca8\u0ccd 12\"",
+        "price": 960,
+        "category": "tools",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 960
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "Perforated for crisp crust.",
+        "imageUrl": "../images/Kitnware/Pizza Pan 12 inch 950.jpg"
+    },
+    {
+        "id": 70,
+        "name": "Silicone Baking Mat",
+        "kn_name": "\u0cb8\u0cbf\u0cb2\u0cbf\u0c95\u0ccb\u0ca8\u0ccd \u0cac\u0cc7\u0c95\u0cbf\u0c82\u0c97\u0ccd \u0cae\u0ccd\u0caf\u0cbe\u0c9f\u0ccd",
+        "price": 520,
+        "category": "tools",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 520
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "Reusable, non\u2011stick.",
+        "imageUrl": "../images/Kitnware/Silicone Baking Mat 490.jpg"
+    },
+    {
+        "id": 71,
+        "name": "Pastry Brush Silicone",
+        "kn_name": "\u0caa\u0cc7\u0cb8\u0ccd\u0c9f\u0ccd\u0cb0\u0cbf \u0cac\u0ccd\u0cb0\u0cb7\u0ccd",
+        "price": 500,
+        "category": "tools",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 500
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "Heat resistant silicone.",
+        "imageUrl": "../images/Kitnware/Pastry Brush Silicone 490.jpg"
+    },
+    {
+        "id": 97,
+        "name": "Square Baking Pan 8 inch",
+        "kn_name": "\u0c9a\u0ccc\u0c95 \u0cac\u0cc7\u0c95\u0cbf\u0c82\u0c97\u0ccd \u0caa\u0ccd\u0caf\u0cbe\u0ca8\u0ccd 8\"",
+        "price": 220,
+        "category": "tools",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 220
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "Square pan, non\u2011stick.",
+        "imageUrl": "../images/Kitnware/Square Baking Pan 8 inch 200.jpg"
+    },
+    {
+        "id": 98,
+        "name": "Square Baking Pan 10 inch",
+        "kn_name": "\u0c9a\u0ccc\u0c95 \u0cac\u0cc7\u0c95\u0cbf\u0c82\u0c97\u0ccd \u0caa\u0ccd\u0caf\u0cbe\u0ca8\u0ccd 10\"",
+        "price": 580,
+        "category": "tools",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 580
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "10 inch square.",
+        "imageUrl": "../images/Kitnware/Square Baking Pan 10 inch 524.jpg"
+    },
+    {
+        "id": 99,
+        "name": "Loaf Pan 12 inch",
+        "kn_name": "\u0cb2\u0ccb\u0cab\u0ccd \u0caa\u0ccd\u0caf\u0cbe\u0ca8\u0ccd 12\"",
+        "price": 520,
+        "category": "tools",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 520
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "Extra long loaf pan.",
+        "imageUrl": "../images/Kitnware/Loaf Pan 12 inch 480.jpg"
+    },
+    {
+        "id": 100,
+        "name": "Tart Pan 9 inch",
+        "kn_name": "\u0c9f\u0cbe\u0cb0\u0ccd\u0c9f\u0ccd \u0caa\u0ccd\u0caf\u0cbe\u0ca8\u0ccd 9\"",
+        "price": 720,
+        "category": "tools",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 720
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "Removable bottom.",
+        "imageUrl": "../images/Kitnware/Tart Pan 9 inch 700.jpg"
+    },
+    {
+        "id": 20,
+        "name": "Chef Knife 8 inch",
+        "kn_name": "\u0c9a\u0cc6\u0cab\u0ccd \u0c9a\u0cbe\u0c95\u0cc1 8\"",
+        "price": 820,
+        "category": "tools",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 820
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "High\u2011carbon stainless, ergonomic handle.",
+        "imageUrl": "../images/Kitnware/Chef Knife 8 inch 800.jpg"
+    },
+    {
+        "id": 21,
+        "name": "Utility Knife 6 inch",
+        "kn_name": "\u0caf\u0cc1\u0c9f\u0cbf\u0cb2\u0cbf\u0c9f\u0cbf \u0c9a\u0cbe\u0c95\u0cc1 6\"",
+        "price": 720,
+        "category": "tools",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 720
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "Versatile cutting knife.",
+        "imageUrl": "../images/Kitnware/Utility Knife 6 inch 700.jpg"
+    },
+    {
+        "id": 22,
+        "name": "Bread Knife 8 inch",
+        "kn_name": "\u0cac\u0ccd\u0cb0\u0cc6\u0ca1\u0ccd \u0c9a\u0cbe\u0c95\u0cc1 8\"",
+        "price": 1700,
+        "category": "tools",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 1700
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "Serrated blade for bread.",
+        "imageUrl": "../images/Kitnware/Bread Knife 8 inch 1700.jpg"
+    },
+    {
+        "id": 23,
+        "name": "Paring Knife 4 inch",
+        "kn_name": "\u0caa\u0ccd\u0caf\u0cbe\u0cb0\u0cbf\u0c82\u0c97\u0ccd \u0c9a\u0cbe\u0c95\u0cc1 4\"",
+        "price": 400,
+        "category": "tools",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 400
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "Precision peeling knife.",
+        "imageUrl": "../images/Kitnware/Paring Knife 4 inch 400.jpg"
+    },
+    {
+        "id": 24,
+        "name": "Kitchen Knife Set 3 pcs",
+        "kn_name": "\u0c9a\u0cbe\u0c95\u0cc1 \u0cb8\u0cc6\u0c9f\u0ccd 3 \u0caa\u0cbf",
+        "price": 720,
+        "category": "tools",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 720
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "Chef, utility, paring.",
+        "imageUrl": "../images/Kitnware/Kitchen Knife Set 3 pcs 600.jpg"
+    },
+    {
+        "id": 72,
+        "name": "Chef Knife 10 inch",
+        "kn_name": "\u0c9a\u0cc6\u0cab\u0ccd \u0c9a\u0cbe\u0c95\u0cc1 10\"",
+        "price": 490,
+        "category": "tools",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 490
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "Large chef knife.",
+        "imageUrl": "../images/Kitnware/Chef Knife 10 inch 490.jpg"
+    },
+    {
+        "id": 73,
+        "name": "Knife Set 5 pcs",
+        "kn_name": "\u0c9a\u0cbe\u0c95\u0cc1 \u0cb8\u0cc6\u0c9f\u0ccd 5 \u0caa\u0cbf",
+        "price": 990,
+        "category": "tools",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 990
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "Complete knife set with block.",
+        "imageUrl": "../images/Kitnware/Knife Set 5 pcs 900.jpg"
+    },
+    {
+        "id": 74,
+        "name": "Bread Knife 10 inch",
+        "kn_name": "\u0cac\u0ccd\u0cb0\u0cc6\u0ca1\u0ccd \u0c9a\u0cbe\u0c95\u0cc1 10\"",
+        "price": 520,
+        "category": "tools",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 520
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "Extra long bread knife.",
+        "imageUrl": "../images/Kitnware/Bread Knife 10 inch 500.jpg"
+    },
+    {
+        "id": 75,
+        "name": "Paring Knife 5 inch",
+        "kn_name": "\u0caa\u0ccd\u0caf\u0cbe\u0cb0\u0cbf\u0c82\u0c97\u0ccd \u0c9a\u0cbe\u0c95\u0cc1 5\"",
+        "price": 490,
+        "category": "tools",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 490
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "Slightly larger paring.",
+        "imageUrl": "../images/Kitnware/Paring Knife 5 inch 490.jpg"
+    },
+    {
+        "id": 76,
+        "name": "Utility Knife 8 inch",
+        "kn_name": "\u0caf\u0cc1\u0c9f\u0cbf\u0cb2\u0cbf\u0c9f\u0cbf \u0c9a\u0cbe\u0c95\u0cc1 8\"",
+        "price": 460,
+        "category": "tools",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 460
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "Multipurpose utility.",
+        "imageUrl": "../images/Kitnware/Utility Knife 8 inch 450.jpg"
+    },
+    {
+        "id": 77,
+        "name": "Knife Sharpener Manual",
+        "kn_name": "\u0c9a\u0cbe\u0c95\u0cc1 \u0cb6\u0cbe\u0cb0\u0ccd\u0caa\u0ca8\u0cb0\u0ccd",
+        "price": 520,
+        "category": "tools",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 520
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "Two\u2011stage sharpener.",
+        "imageUrl": "../images/Kitnware/Knife Sharpener Manual 500.jpg"
+    },
+    {
+        "id": 25,
+        "name": "Ladle Stainless Steel",
+        "kn_name": "\u0cb8\u0ccd\u0c9f\u0cc0\u0cb2\u0ccd \u0cb2\u0ccd\u0caf\u0cbe\u0ca1\u0cb2\u0ccd",
+        "price": 190,
+        "category": "tools",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 190
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "Deep bowl, long handle.",
+        "imageUrl": "../images/Kitnware/Ladle Stainless Steel 190.jpg"
+    },
+    {
+        "id": 26,
+        "name": "Slotted Spoon Stainless Steel",
+        "kn_name": "\u0cb8\u0ccd\u0cb2\u0cbe\u0c9f\u0cc6\u0ca1\u0ccd \u0cb8\u0ccd\u0caa\u0cc2\u0ca8\u0ccd",
+        "price": 180,
+        "category": "tools",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 180
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "Drains liquids easily.",
+        "imageUrl": "../images/Kitnware/Slotted Spoon Stainless Steel 180.jpg"
+    },
+    {
+        "id": 27,
+        "name": "Spatula Nylon",
+        "kn_name": "\u0ca8\u0cc8\u0cb2\u0cbe\u0ca8\u0ccd \u0cb8\u0ccd\u0caa\u0cbe\u0c9f\u0cc1\u0cb2\u0cbe",
+        "price": 150,
+        "category": "tools",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 150
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "Heat\u2011resistant, won't scratch.",
+        "imageUrl": "../images/Kitnware/Spatula Nylon 150.jpg"
+    },
+    {
+        "id": 28,
+        "name": "Soup Ladle Stainless Steel",
+        "kn_name": "\u0cb8\u0ccd\u0c9f\u0cc0\u0cb2\u0ccd \u0cb8\u0cc2\u0caa\u0ccd \u0cb2\u0ccd\u0caf\u0cbe\u0ca1\u0cb2\u0ccd",
+        "price": 350,
+        "category": "tools",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 350
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "Large capacity.",
+        "imageUrl": "../images/Kitnware/Soup Ladle Stainless Steel 350.jpg"
+    },
+    {
+        "id": 29,
+        "name": "Serving Spoon Stainless Steel",
+        "kn_name": "\u0cb8\u0ccd\u0c9f\u0cc0\u0cb2\u0ccd \u0cb8\u0cb0\u0ccd\u0cb5\u0cbf\u0c82\u0c97\u0ccd \u0cb8\u0ccd\u0caa\u0cc2\u0ca8\u0ccd",
+        "price": 1110,
+        "category": "tools",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 1110
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "Elegant serving.",
+        "imageUrl": "../images/Kitnware/Serving Spoon Stainless Steel 1110.jpg"
+    },
+    {
+        "id": 30,
+        "name": "Tongs Stainless Steel",
+        "kn_name": "\u0cb8\u0ccd\u0c9f\u0cc0\u0cb2\u0ccd \u0c9f\u0cbe\u0c82\u0c97\u0ccd\u0cb8\u0ccd",
+        "price": 1000,
+        "category": "tools",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 1000
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "Scalloped edges, locking.",
+        "imageUrl": "../images/Kitnware/Tongs Stainless Steel 1000.jpg"
+    },
+    {
+        "id": 31,
+        "name": "Kitchen Whisk Stainless Steel",
+        "kn_name": "\u0cb8\u0ccd\u0c9f\u0cc0\u0cb2\u0ccd \u0cb5\u0cbf\u0cb8\u0ccd\u0c95\u0ccd",
+        "price": 480,
+        "category": "tools",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 480
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "Balloon whisk for eggs.",
+        "imageUrl": "../images/Kitnware/Kitchen Whisk Stainless Steel 480.jpg"
+    },
+    {
+        "id": 32,
+        "name": "Rolling Pin Wooden 12 inch",
+        "kn_name": "\u0cae\u0cb0\u0ca6 \u0cb2\u0c9f\u0ccd\u0c9f\u0ca3\u0cc6 12\"",
+        "price": 260,
+        "category": "tools",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 260
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "Smooth wooden pin.",
+        "imageUrl": "../images/Kitnware/Rolling Pin Wooden 12 inch 250.jpg"
+    },
+    {
+        "id": 33,
+        "name": "Rolling Pin Wooden 18 inch",
+        "kn_name": "\u0cae\u0cb0\u0ca6 \u0cb2\u0c9f\u0ccd\u0c9f\u0ca3\u0cc6 18\"",
+        "price": 420,
+        "category": "tools",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 420
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "Long for chapatis.",
+        "imageUrl": "../images/Kitnware/Rolling Pin Wooden 18 inch 400.jpg"
+    },
+    {
+        "id": 34,
+        "name": "Pastry Brush Silicone",
+        "kn_name": "\u0caa\u0cc7\u0cb8\u0ccd\u0c9f\u0ccd\u0cb0\u0cbf \u0cac\u0ccd\u0cb0\u0cb7\u0ccd",
+        "price": 490,
+        "category": "tools",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 490
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "Silicone bristles.",
+        "imageUrl": "../images/Kitnware/Pastry Brush Silicone 490.jpg"
+    },
+    {
+        "id": 35,
+        "name": "Garlic Press Stainless Steel",
+        "kn_name": "\u0cb8\u0ccd\u0c9f\u0cc0\u0cb2\u0ccd \u0c97\u0cbe\u0cb0\u0ccd\u0cb2\u0cbf\u0c95\u0ccd \u0caa\u0ccd\u0cb0\u0cc6\u0cb8\u0ccd",
+        "price": 990,
+        "category": "tools",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 990
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "Easy squeeze, easy clean.",
+        "imageUrl": "../images/Kitnware/Garlic Press Stainless Steel.jpg"
+    },
+    {
+        "id": 36,
+        "name": "Kitchen Strainer Stainless Steel",
+        "kn_name": "\u0cb8\u0ccd\u0c9f\u0ccd\u0cb0\u0cc8\u0ca8\u0cb0\u0ccd",
+        "price": 280,
+        "category": "tools",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 280
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "Fine mesh.",
+        "imageUrl": "../images/Kitnware/Kitchen Strainer Stainless Steel 250.jpg"
+    },
+    {
+        "id": 37,
+        "name": "Colander Stainless Steel",
+        "kn_name": "\u0c95\u0ccb\u0cb2\u0cbe\u0c82\u0ca1\u0cb0\u0ccd",
+        "price": 1010,
+        "category": "tools",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 1010
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "Large holes, sturdy.",
+        "imageUrl": "../images/Kitnware/Colander Stainless Steel 999.jpg"
+    },
+    {
+        "id": 38,
+        "name": "Vegetable Chopper Manual",
+        "kn_name": "\u0ca4\u0cb0\u0c95\u0cbe\u0cb0\u0cbf \u0c95\u0c9f\u0ccd\u0c9f\u0cb0\u0ccd",
+        "price": 220,
+        "category": "tools",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 220
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "Multi\u2011blade chopper.",
+        "imageUrl": "../images/Kitnware/Vegetable Chopper Manual 160.jpg"
+    },
+    {
+        "id": 39,
+        "name": "Fruit Juicer Plastic",
+        "kn_name": "\u0cb9\u0ca3\u0ccd\u0ca3\u0cbf\u0ca8 \u0c9c\u0ccd\u0caf\u0cc2\u0cb8\u0cb0\u0ccd",
+        "price": 620,
+        "category": "tools",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 620
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "Manual citrus juicer.",
+        "imageUrl": "../images/Kitnware/Fruit Juicer Plastic 600.jpg"
+    },
+    {
+        "id": 40,
+        "name": "Citrus Squeezer Aluminum",
+        "kn_name": "\u0cb8\u0cbf\u0c9f\u0ccd\u0cb0\u0cb8\u0ccd \u0cb8\u0ccd\u0c95\u0ccd\u0cb5\u0cc0\u0c9c\u0cb0\u0ccd",
+        "price": 1500,
+        "category": "tools",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 1500
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "Heavy duty.",
+        "imageUrl": "../images/Kitnware/Citrus Squeezer Aluminum 1500.jpg"
+    },
+    {
+        "id": 41,
+        "name": "Grater Stainless Steel",
+        "kn_name": "\u0ca4\u0cc1\u0cb0\u0cbf \u0cae\u0ca3\u0cc6",
+        "price": 320,
+        "category": "tools",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 320
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "4\u2011sided box grater.",
+        "imageUrl": "../images/Kitnware/Grater Stainless Steel 300.jpg"
+    },
+    {
+        "id": 78,
+        "name": "Ladle Non-stick",
+        "kn_name": "\u0ca8\u0cbe\u0ca8\u0ccd-\u0cb8\u0ccd\u0c9f\u0cbf\u0c95\u0ccd \u0cb2\u0ccd\u0caf\u0cbe\u0ca1\u0cb2\u0ccd",
+        "price": 200,
+        "category": "tools",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 200
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "Non\u2011stick coated.",
+        "imageUrl": "../images/Kitnware/Ladle Non-stick 200.jpg"
+    },
+    {
+        "id": 79,
+        "name": "Slotted Spoon Non-stick",
+        "kn_name": "\u0ca8\u0cbe\u0ca8\u0ccd-\u0cb8\u0ccd\u0c9f\u0cbf\u0c95\u0ccd \u0cb8\u0ccd\u0cb2\u0cbe\u0c9f\u0cc6\u0ca1\u0ccd \u0cb8\u0ccd\u0caa\u0cc2\u0ca8\u0ccd",
+        "price": 380,
+        "category": "tools",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 380
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "Safe for non\u2011stick pans.",
+        "imageUrl": "../images/Kitnware/Slotted Spoon Non-stick 380.jpg"
+    },
+    {
+        "id": 80,
+        "name": "Spatula Silicone",
+        "kn_name": "\u0cb8\u0cbf\u0cb2\u0cbf\u0c95\u0ccb\u0ca8\u0ccd \u0cb8\u0ccd\u0caa\u0cbe\u0c9f\u0cc1\u0cb2\u0cbe",
+        "price": 900,
+        "category": "tools",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 900
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "Flexible, heat safe.",
+        "imageUrl": "../images/Kitnware/Spatula Silicone 900.jpg"
+    },
+    {
+        "id": 81,
+        "name": "Turner Stainless Steel",
+        "kn_name": "\u0cb8\u0ccd\u0c9f\u0cc0\u0cb2\u0ccd \u0c9f\u0cb0\u0ccd\u0ca8\u0cb0\u0ccd",
+        "price": 180,
+        "category": "tools",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 180
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "Flat for flipping.",
+        "imageUrl": "../images/Kitnware/Turner Stainless Steel 180.jpg"
+    },
+    {
+        "id": 82,
+        "name": "Whisk Stainless Steel",
+        "kn_name": "\u0cb8\u0ccd\u0c9f\u0cc0\u0cb2\u0ccd \u0cb5\u0cbf\u0cb8\u0ccd\u0c95\u0ccd",
+        "price": 220,
+        "category": "tools",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 220
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "Small whisk for sauces.",
+        "imageUrl": "../images/Kitnware/Whisk Stainless Steel 200.jpg"
+    },
+    {
+        "id": 83,
+        "name": "Tongs Non-stick",
+        "kn_name": "\u0ca8\u0cbe\u0ca8\u0ccd-\u0cb8\u0ccd\u0c9f\u0cbf\u0c95\u0ccd \u0c9f\u0cbe\u0c82\u0c97\u0ccd\u0cb8\u0ccd",
+        "price": 400,
+        "category": "tools",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 400
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "Silicone tips.",
+        "imageUrl": "../images/Kitnware/Tongs Non-stick 400.jpg"
+    },
+    {
+        "id": 84,
+        "name": "Kitchen Shears Stainless Steel",
+        "kn_name": "\u0c95\u0cbf\u0c9a\u0ca8\u0ccd \u0cb6\u0cbf\u0caf\u0cb0\u0ccd\u0cb8\u0ccd",
+        "price": 380,
+        "category": "tools",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 380
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "Multi\u2011purpose scissors.",
+        "imageUrl": "../images/Kitnware/Kitchen Shears Stainless Steel 380.jpg"
+    },
+    {
+        "id": 85,
+        "name": "Vegetable Peeler",
+        "kn_name": "\u0ca4\u0cb0\u0c95\u0cbe\u0cb0\u0cbf \u0cb8\u0cbf\u0caa\u0ccd\u0caa\u0cc6 \u0c95\u0c9f\u0ccd\u0c9f\u0cb0\u0ccd",
+        "price": 250,
+        "category": "tools",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 250
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "Stainless steel blade.",
+        "imageUrl": "../images/Kitnware/Vegetable Peeler 250.jpg"
+    },
+    {
+        "id": 86,
+        "name": "Garlic Press",
+        "kn_name": "\u0cac\u0cc6\u0cb3\u0ccd\u0cb3\u0cc1\u0cb3\u0ccd\u0cb3\u0cbf \u0caa\u0ccd\u0cb0\u0cc6\u0cb8\u0ccd",
+        "price": 480,
+        "category": "tools",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 480
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "Sturdy metal press.",
+        "imageUrl": "../images/Kitnware/Garlic Press 480.jpg"
+    },
+    {
+        "id": 87,
+        "name": "Citrus Juicer Manual",
+        "kn_name": "\u0cb8\u0cbf\u0c9f\u0ccd\u0cb0\u0cb8\u0ccd \u0c9c\u0ccd\u0caf\u0cc2\u0cb8\u0cb0\u0ccd",
+        "price": 2500,
+        "category": "tools",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 2500
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "Reamer style.",
+        "imageUrl": "../images/Kitnware/Citrus Juicer Manual 2500.jpg"
+    },
+    {
+        "id": 88,
+        "name": "Grater Box",
+        "kn_name": "\u0c97\u0ccd\u0cb0\u0cc7\u0c9f\u0cb0\u0ccd \u0cac\u0cbe\u0c95\u0ccd\u0cb8\u0ccd",
+        "price": 360,
+        "category": "tools",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 360
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "Container catches shreds.",
+        "imageUrl": "../images/Kitnware/Grater Box 350.jpg"
+    },
+    {
+        "id": 89,
+        "name": "Rolling Pin Marble 12 inch",
+        "kn_name": "\u0cae\u0cbe\u0cb0\u0ccd\u0cac\u0cb2\u0ccd \u0cb2\u0c9f\u0ccd\u0c9f\u0ca3\u0cc6 12\"",
+        "price": 999,
+        "category": "tools",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 999
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "Keeps dough cool.",
+        "imageUrl": "../images/Kitnware/Rolling Pin Marble 12 inch 999.jpg"
+    },
+    {
+        "id": 90,
+        "name": "Chakla Medium",
+        "kn_name": "\u0c9a\u0c95\u0ccd\u0cb2\u0cbe \u0cae\u0ca7\u0ccd\u0caf\u0cae",
+        "price": 2020,
+        "category": "tools",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 2020
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "Traditional rolling board.",
+        "imageUrl": "../images/Kitnware/Chakla Medium 2000.jpg"
+    },
+    {
+        "id": 44,
+        "name": "Oil Dispenser Glass 500 ml",
+        "kn_name": "\u0c8e\u0ca3\u0ccd\u0ca3\u0cc6 \u0ca1\u0cbf\u0cb8\u0ccd\u0caa\u0cc6\u0ca8\u0ccd\u0cb8\u0cb0\u0ccd \u0c97\u0cbe\u0c9c\u0cc1",
+        "price": 515,
+        "category": "storage",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 515
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "Glass bottle, drip\u2011free.",
+        "imageUrl": "../images/Kitnware/Oil Dispenser Glass 500 ml 515.jpg"
+    },
+    {
+        "id": 45,
+        "name": "Oil Dispenser Plastic 1 L",
+        "kn_name": "\u0c8e\u0ca3\u0ccd\u0ca3\u0cc6 \u0ca1\u0cbf\u0cb8\u0ccd\u0caa\u0cc6\u0ca8\u0ccd\u0cb8\u0cb0\u0ccd \u0caa\u0ccd\u0cb2\u0cbe\u0cb8\u0ccd\u0c9f\u0cbf\u0c95\u0ccd",
+        "price": 480,
+        "category": "storage",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 480
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "Plastic, 1 litre.",
+        "imageUrl": "../images/Kitnware/Oil Dispenser Plastic 1 L 480.jpg"
+    },
+    {
+        "id": 46,
+        "name": "Food Storage Container Plastic 1 L",
+        "kn_name": "\u0c86\u0cb9\u0cbe\u0cb0 \u0cb8\u0c82\u0c97\u0ccd\u0cb0\u0cb9 1\u0cb2\u0cc0",
+        "price": 460,
+        "category": "storage",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 460
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "Airtight lid.",
+        "imageUrl": "../images/Kitnware/Food Storage Container Plastic 1 L 400.jpg"
+    },
+    {
+        "id": 47,
+        "name": "Food Storage Container Plastic 2 L",
+        "kn_name": "\u0c86\u0cb9\u0cbe\u0cb0 \u0cb8\u0c82\u0c97\u0ccd\u0cb0\u0cb9 2\u0cb2\u0cc0",
+        "price": 920,
+        "category": "storage",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 920
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "2 litre capacity.",
+        "imageUrl": "../images/Kitnware/Food Storage Container Plastic 2 L 160.jpg"
+    },
+    {
+        "id": 48,
+        "name": "Food Storage Container Plastic 5 L",
+        "kn_name": "\u0c86\u0cb9\u0cbe\u0cb0 \u0cb8\u0c82\u0c97\u0ccd\u0cb0\u0cb9 5\u0cb2\u0cc0",
+        "price": 990,
+        "category": "storage",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 990
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "Large for bulk storage.",
+        "imageUrl": "../images/Kitnware/Food Storage Container Plastic 5 L 160.jpg"
+    },
+    {
+        "id": 92,
+        "name": "Food Storage Glass 2 L",
+        "kn_name": "\u0c97\u0cbe\u0c9c\u0cc1 \u0cb8\u0c82\u0c97\u0ccd\u0cb0\u0cb9 2\u0cb2\u0cc0",
+        "price": 820,
+        "category": "storage",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 820
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "Glass container, airtight.",
+        "imageUrl": "../images/Kitnware/Food Storage Glass 2 L 700.jpg"
+    },
+    {
+        "id": 93,
+        "name": "Plastic Storage 3 L",
+        "kn_name": "\u0caa\u0ccd\u0cb2\u0cbe\u0cb8\u0ccd\u0c9f\u0cbf\u0c95\u0ccd \u0cb8\u0c82\u0c97\u0ccd\u0cb0\u0cb9 3\u0cb2\u0cc0",
+        "price": 260,
+        "category": "storage",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 260
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "Rectangle, stackable.",
+        "imageUrl": "../images/Kitnware/Plastic Storage 3 L 200.jpg"
+    },
+    {
+        "id": 94,
+        "name": "Plastic Storage 7 L",
+        "kn_name": "\u0caa\u0ccd\u0cb2\u0cbe\u0cb8\u0ccd\u0c9f\u0cbf\u0c95\u0ccd \u0cb8\u0c82\u0c97\u0ccd\u0cb0\u0cb9 7\u0cb2\u0cc0",
+        "price": 420,
+        "category": "storage",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 420
+            }
+        ],
+        "emoji": "\ud83c\udf73",
+        "description_en": "Extra large storage.",
+        "imageUrl": "../images/Kitnware/Plastic Storage 7 L 1599.jpg"
+    }
+]

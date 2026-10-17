@@ -1,0 +1,33 @@
+Array
+(
+    [0] => Array
+        (
+            [id] => 16
+            [doctor_name] => Dr. D C Rathod
+        )
+
+    [1] => Array
+        (
+            [id] => 17
+            [doctor_name] => Dr. D C Rathod
+        )
+
+    [2] => Array
+        (
+            [id] => 18
+            [doctor_name] => dr.shivakumar Rathod
+        )
+
+    [3] => Array
+        (
+            [id] => 19
+            [doctor_name] => Dr. D C Rathod
+        )
+
+    [4] => Array
+        (
+            [id] => 22
+            [doctor_name] => Dr. Shivukumar Rathod
+        )
+
+)

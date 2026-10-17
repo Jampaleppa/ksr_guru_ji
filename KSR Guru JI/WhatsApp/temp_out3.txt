@@ -1,0 +1,258 @@
+Array
+(
+    [0] => Array
+        (
+            [Tables_in_ksr_guru] => ai_analytics
+        )
+
+    [1] => Array
+        (
+            [Tables_in_ksr_guru] => ai_api_logs
+        )
+
+    [2] => Array
+        (
+            [Tables_in_ksr_guru] => ai_audit_logs
+        )
+
+    [3] => Array
+        (
+            [Tables_in_ksr_guru] => ai_chat_messages
+        )
+
+    [4] => Array
+        (
+            [Tables_in_ksr_guru] => ai_chat_sessions
+        )
+
+    [5] => Array
+        (
+            [Tables_in_ksr_guru] => ai_knowledge_base
+        )
+
+    [6] => Array
+        (
+            [Tables_in_ksr_guru] => ai_notifications
+        )
+
+    [7] => Array
+        (
+            [Tables_in_ksr_guru] => ai_roles
+        )
+
+    [8] => Array
+        (
+            [Tables_in_ksr_guru] => ai_search_history
+        )
+
+    [9] => Array
+        (
+            [Tables_in_ksr_guru] => ai_search_keywords
+        )
+
+    [10] => Array
+        (
+            [Tables_in_ksr_guru] => ai_support_tickets
+        )
+
+    [11] => Array
+        (
+            [Tables_in_ksr_guru] => ai_system_settings
+        )
+
+    [12] => Array
+        (
+            [Tables_in_ksr_guru] => ai_ticket_messages
+        )
+
+    [13] => Array
+        (
+            [Tables_in_ksr_guru] => ai_uploaded_files
+        )
+
+    [14] => Array
+        (
+            [Tables_in_ksr_guru] => ai_users
+        )
+
+    [15] => Array
+        (
+            [Tables_in_ksr_guru] => appointments
+        )
+
+    [16] => Array
+        (
+            [Tables_in_ksr_guru] => audit_logs
+        )
+
+    [17] => Array
+        (
+            [Tables_in_ksr_guru] => banners
+        )
+
+    [18] => Array
+        (
+            [Tables_in_ksr_guru] => cart
+        )
+
+    [19] => Array
+        (
+            [Tables_in_ksr_guru] => categories
+        )
+
+    [20] => Array
+        (
+            [Tables_in_ksr_guru] => consultation_pricing
+        )
+
+    [21] => Array
+        (
+            [Tables_in_ksr_guru] => consultations
+        )
+
+    [22] => Array
+        (
+            [Tables_in_ksr_guru] => coupons
+        )
+
+    [23] => Array
+        (
+            [Tables_in_ksr_guru] => customers
+        )
+
+    [24] => Array
+        (
+            [Tables_in_ksr_guru] => delivery_boys
+        )
+
+    [25] => Array
+        (
+            [Tables_in_ksr_guru] => doctors
+        )
+
+    [26] => Array
+        (
+            [Tables_in_ksr_guru] => inventory
+        )
+
+    [27] => Array
+        (
+            [Tables_in_ksr_guru] => login_attempts
+        )
+
+    [28] => Array
+        (
+            [Tables_in_ksr_guru] => main_categories
+        )
+
+    [29] => Array
+        (
+            [Tables_in_ksr_guru] => medicine_formulations
+        )
+
+    [30] => Array
+        (
+            [Tables_in_ksr_guru] => medicines
+        )
+
+    [31] => Array
+        (
+            [Tables_in_ksr_guru] => messages
+        )
+
+    [32] => Array
+        (
+            [Tables_in_ksr_guru] => notifications
+        )
+
+    [33] => Array
+        (
+            [Tables_in_ksr_guru] => notifications_log
+        )
+
+    [34] => Array
+        (
+            [Tables_in_ksr_guru] => order_delivery
+        )
+
+    [35] => Array
+        (
+            [Tables_in_ksr_guru] => order_items
+        )
+
+    [36] => Array
+        (
+            [Tables_in_ksr_guru] => order_timeline
+        )
+
+    [37] => Array
+        (
+            [Tables_in_ksr_guru] => orders
+        )
+
+    [38] => Array
+        (
+            [Tables_in_ksr_guru] => patients
+        )
+
+    [39] => Array
+        (
+            [Tables_in_ksr_guru] => payments
+        )
+
+    [40] => Array
+        (
+            [Tables_in_ksr_guru] => prescription_medicines
+        )
+
+    [41] => Array
+        (
+            [Tables_in_ksr_guru] => prescriptions
+        )
+
+    [42] => Array
+        (
+            [Tables_in_ksr_guru] => product_submission_items
+        )
+
+    [43] => Array
+        (
+            [Tables_in_ksr_guru] => product_submissions
+        )
+
+    [44] => Array
+        (
+            [Tables_in_ksr_guru] => products
+        )
+
+    [45] => Array
+        (
+            [Tables_in_ksr_guru] => settings
+        )
+
+    [46] => Array
+        (
+            [Tables_in_ksr_guru] => stock_history
+        )
+
+    [47] => Array
+        (
+            [Tables_in_ksr_guru] => suggestions_medical
+        )
+
+    [48] => Array
+        (
+            [Tables_in_ksr_guru] => suggestions_products
+        )
+
+    [49] => Array
+        (
+            [Tables_in_ksr_guru] => user_profiles
+        )
+
+    [50] => Array
+        (
+            [Tables_in_ksr_guru] => users
+        )
+
+)

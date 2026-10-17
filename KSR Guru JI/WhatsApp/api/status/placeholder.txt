@@ -1,0 +1,2 @@
+<?php
+// Placeholder for api/status/placeholder.txt

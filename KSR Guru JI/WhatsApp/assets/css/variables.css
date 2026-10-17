@@ -1,0 +1,16 @@
+:root {
+  --primary: #c20000;
+  --primary-dark: #8b0000;
+  --secondary: #0f172a;
+  --bg-body: #f1f5f9;
+  --bg-card: #ffffff;
+  --text-dark: #1e293b;
+  --text-muted: #64748b;
+  --border-color: #e2e8f0;
+  --success: #10b981;
+  --danger: #ef4444;
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-rounded: 50px;
+}
+

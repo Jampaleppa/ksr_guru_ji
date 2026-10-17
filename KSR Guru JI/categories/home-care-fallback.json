@@ -1,0 +1,1617 @@
+[
+    {
+        "id": 1000,
+        "name": "White Phenyl Regular",
+        "kn_name": "\u0cac\u0cbf\u0cb3\u0cbf \u0cab\u0cbf\u0ca8\u0cc8\u0cb2\u0ccd (\u0ca8\u0cbf\u0caf\u0cae\u0cbf\u0ca4)",
+        "price": 320,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Classic floor disinfectant, fresh scent.",
+        "image_url": "../images/cleans/home care/White Phenyl Regular 319.jpg",
+        "image": "../images/cleans/home care/White Phenyl Regular 319.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 320
+            }
+        ]
+    },
+    {
+        "id": 1001,
+        "name": "White Phenyl Premium",
+        "kn_name": "\u0cac\u0cbf\u0cb3\u0cbf \u0cab\u0cbf\u0ca8\u0cc8\u0cb2\u0ccd (\u0caa\u0ccd\u0cb0\u0cc0\u0cae\u0cbf\u0caf\u0c82)",
+        "price": 800,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Stronger formula, long-lasting fragrance.",
+        "image_url": "../images/cleans/home care/White Phenyl Premium 800.jpg",
+        "image": "../images/cleans/home care/White Phenyl Premium 800.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 800
+            }
+        ]
+    },
+    {
+        "id": 1002,
+        "name": "White Phenyl Economy",
+        "kn_name": "\u0cac\u0cbf\u0cb3\u0cbf \u0cab\u0cbf\u0ca8\u0cc8\u0cb2\u0ccd (\u0c8e\u0c95\u0cbe\u0ca8\u0cae\u0cbf)",
+        "price": 300,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Budget-friendly, daily use.",
+        "image_url": "../images/cleans/home care/White Phenyl Economy 300.jpg",
+        "image": "../images/cleans/home care/White Phenyl Economy 300.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 300
+            }
+        ]
+    },
+    {
+        "id": 1003,
+        "name": "Black Phenyl Standard",
+        "kn_name": "\u0c95\u0caa\u0ccd\u0caa\u0cc1 \u0cab\u0cbf\u0ca8\u0cc8\u0cb2\u0ccd (\u0cb8\u0ccd\u0c9f\u0ccd\u0caf\u0cbe\u0c82\u0ca1\u0cb0\u0ccd\u0ca1\u0ccd)",
+        "price": 250,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Strong germicidal action.",
+        "image_url": "../images/cleans/home care/Black Phenyl Standard 240.jpg",
+        "image": "../images/cleans/home care/Black Phenyl Standard 240.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 250
+            }
+        ]
+    },
+    {
+        "id": 1004,
+        "name": "Black Phenyl Heavy Duty",
+        "kn_name": "\u0c95\u0caa\u0ccd\u0caa\u0cc1 \u0cab\u0cbf\u0ca8\u0cc8\u0cb2\u0ccd (\u0cb9\u0cc6\u0cb5\u0cbf \u0ca1\u0ccd\u0caf\u0cc2\u0c9f\u0cbf)",
+        "price": 450,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Industrial strength cleans.",
+        "image_url": "../images/cleans/home care/Black Phenyl Heavy Duty 450.jpg",
+        "image": "../images/cleans/home care/Black Phenyl Heavy Duty 450.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 450
+            }
+        ]
+    },
+    {
+        "id": 1005,
+        "name": "Floor Cleaner Lemon",
+        "kn_name": "\u0ca8\u0cc6\u0cb2 \u0c95\u0ccd\u0cb2\u0cc0\u0ca8\u0cb0\u0ccd (\u0ca8\u0cbf\u0c82\u0cac\u0cc6)",
+        "price": 220,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Citrus freshness, removes stains.",
+        "image_url": "../images/cleans/home care/Floor Cleaner Lemon.jpg",
+        "image": "../images/cleans/home care/Floor Cleaner Lemon.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 220
+            }
+        ]
+    },
+    {
+        "id": 1006,
+        "name": "Floor Cleaner Jasmine",
+        "kn_name": "\u0ca8\u0cc6\u0cb2 \u0c95\u0ccd\u0cb2\u0cc0\u0ca8\u0cb0\u0ccd (\u0cae\u0cb2\u0ccd\u0cb2\u0cbf\u0c97\u0cc6)",
+        "price": 50,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Floral fragrance, gentle on floors.",
+        "image_url": "../images/cleans/home care/Floor Cleaner Jasmine 50.jpg",
+        "image": "../images/cleans/home care/Floor Cleaner Jasmine 50.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 50
+            }
+        ]
+    },
+    {
+        "id": 1007,
+        "name": "Floor Cleaner Lavender",
+        "kn_name": "\u0ca8\u0cc6\u0cb2 \u0c95\u0ccd\u0cb2\u0cc0\u0ca8\u0cb0\u0ccd (\u0cb2\u0ccd\u0caf\u0cbe\u0cb5\u0cc6\u0c82\u0ca1\u0cb0\u0ccd)",
+        "price": 200,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Calming scent, effective cleans.",
+        "image_url": "../images/cleans/home care/Floor Cleaner Lavender 200.jpg",
+        "image": "../images/cleans/home care/Floor Cleaner Lavender 200.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 200
+            }
+        ]
+    },
+    {
+        "id": 1008,
+        "name": "Floor Cleaner Rose",
+        "kn_name": "\u0ca8\u0cc6\u0cb2 \u0c95\u0ccd\u0cb2\u0cc0\u0ca8\u0cb0\u0ccd (\u0c97\u0cc1\u0cb2\u0cbe\u0cac\u0cbf)",
+        "price": 850,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Rose aroma, shines tiles.",
+        "image_url": "../images/cleans/home care/Floor Cleaner Rose 850.jpg",
+        "image": "../images/cleans/home care/Floor Cleaner Rose 850.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 850
+            }
+        ]
+    },
+    {
+        "id": 1009,
+        "name": "Floor Cleaner Neem",
+        "kn_name": "\u0ca8\u0cc6\u0cb2 \u0c95\u0ccd\u0cb2\u0cc0\u0ca8\u0cb0\u0ccd (\u0cac\u0cc7\u0cb5\u0cc1)",
+        "price": 130,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Natural antibacterial properties.",
+        "image_url": "../images/cleans/home care/Floor Cleaner Neem 130.jpg",
+        "image": "../images/cleans/home care/Floor Cleaner Neem 130.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 130
+            }
+        ]
+    },
+    {
+        "id": 1010,
+        "name": "Floor Cleaner Organic",
+        "kn_name": "\u0cb8\u0cbe\u0cb5\u0caf\u0cb5 \u0ca8\u0cc6\u0cb2 \u0c95\u0ccd\u0cb2\u0cc0\u0ca8\u0cb0\u0ccd",
+        "price": 3900,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Eco\u2011friendly, biodegradable.",
+        "image_url": "../images/cleans/home care/Floor Cleaner Organic 3900.jpg",
+        "image": "../images/cleans/home care/Floor Cleaner Organic 3900.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 3900
+            }
+        ]
+    },
+    {
+        "id": 1011,
+        "name": "Floor Cleaner Premium 2 L",
+        "kn_name": "\u0caa\u0ccd\u0cb0\u0cc0\u0cae\u0cbf\u0caf\u0c82 \u0ca8\u0cc6\u0cb2 \u0c95\u0ccd\u0cb2\u0cc0\u0ca8\u0cb0\u0ccd 2L",
+        "price": 360,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Large pack, superior shine.",
+        "image_url": "../images/cleans/home care/Floor Cleaner Premium.jpg",
+        "image": "../images/cleans/home care/Floor Cleaner Premium.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 360
+            }
+        ]
+    },
+    {
+        "id": 1012,
+        "name": "Floor Cleaner Economy 500 ml",
+        "kn_name": "\u0c8e\u0c95\u0cbe\u0ca8\u0cae\u0cbf \u0ca8\u0cc6\u0cb2 \u0c95\u0ccd\u0cb2\u0cc0\u0ca8\u0cb0\u0ccd 500ml",
+        "price": 70,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Small bottle, perfect for trials.",
+        "image_url": "../images/cleans/home care/Floor Cleaner Economy 500 ml.jpg",
+        "image": "../images/cleans/home care/Floor Cleaner Economy 500 ml.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 70
+            }
+        ]
+    },
+    {
+        "id": 1013,
+        "name": "Floor Cleaner Bulk 5 L",
+        "kn_name": "\u0cac\u0cb2\u0ccd\u0c95\u0ccd \u0ca8\u0cc6\u0cb2 \u0c95\u0ccd\u0cb2\u0cc0\u0ca8\u0cb0\u0ccd 5L",
+        "price": 450,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Commercial size, cost effective.",
+        "image_url": "../images/cleans/home care/Floor Cleaner Bulk 5 L.jpg",
+        "image": "../images/cleans/home care/Floor Cleaner Bulk 5 L.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 450
+            }
+        ]
+    },
+    {
+        "id": 1014,
+        "name": "Pine Oil Floor Cleaner",
+        "kn_name": "\u0caa\u0cc8\u0ca8\u0ccd \u0c86\u0caf\u0cbf\u0cb2\u0ccd \u0ca8\u0cc6\u0cb2 \u0c95\u0ccd\u0cb2\u0cc0\u0ca8\u0cb0\u0ccd",
+        "price": 100,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Natural pine fragrance, degreases.",
+        "image_url": "../images/cleans/home care/Pine Oil Floor Cleaner 100.jpg",
+        "image": "../images/cleans/home care/Pine Oil Floor Cleaner 100.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 100
+            }
+        ]
+    },
+    {
+        "id": 1015,
+        "name": "Disinfectant Floor Cleaner",
+        "kn_name": "\u0cb8\u0ccb\u0c82\u0c95\u0cc1\u0ca8\u0cbf\u0cb5\u0cbe\u0cb0\u0c95 \u0ca8\u0cc6\u0cb2 \u0c95\u0ccd\u0cb2\u0cc0\u0ca8\u0cb0\u0ccd",
+        "price": 140,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Kills 99.9% germs.",
+        "image_url": "../images/cleans/home care/Disinfectant Floor Cleaner 130.jpg",
+        "image": "../images/cleans/home care/Disinfectant Floor Cleaner 130.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 140
+            }
+        ]
+    },
+    {
+        "id": 1016,
+        "name": "Multi Surface Cleaner",
+        "kn_name": "\u0cac\u0cb9\u0cc1 \u0cae\u0cc7\u0cb2\u0ccd\u0cae\u0cc8 \u0c95\u0ccd\u0cb2\u0cc0\u0ca8\u0cb0\u0ccd",
+        "price": 140,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Safe for glass, wood, tiles.",
+        "image_url": "../images/cleans/home care/Multi Surface Cleaner 130.jpg",
+        "image": "../images/cleans/home care/Multi Surface Cleaner 130.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 140
+            }
+        ]
+    },
+    {
+        "id": 1017,
+        "name": "Marble Floor Cleaner",
+        "kn_name": "\u0cae\u0cbe\u0cb0\u0ccd\u0cac\u0cb2\u0ccd \u0ca8\u0cc6\u0cb2 \u0c95\u0ccd\u0cb2\u0cc0\u0ca8\u0cb0\u0ccd",
+        "price": 770,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Special formula for marble.",
+        "image_url": "../images/cleans/home care/Marble Floor Cleaner 770.jpg",
+        "image": "../images/cleans/home care/Marble Floor Cleaner 770.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 770
+            }
+        ]
+    },
+    {
+        "id": 1018,
+        "name": "Tile Floor Cleaner",
+        "kn_name": "\u0c9f\u0cc8\u0cb2\u0ccd \u0ca8\u0cc6\u0cb2 \u0c95\u0ccd\u0cb2\u0cc0\u0ca8\u0cb0\u0ccd",
+        "price": 220,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Removes grout stains easily.",
+        "image_url": "../images/cleans/home care/Tile Floor Cleaner 2120.jpg",
+        "image": "../images/cleans/home care/Tile Floor Cleaner 2120.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 220
+            }
+        ]
+    },
+    {
+        "id": 1019,
+        "name": "Anti Bacterial Floor Cleaner",
+        "kn_name": "\u0c86\u0c82\u0c9f\u0cbf \u0cac\u0ccd\u0caf\u0cbe\u0c95\u0ccd\u0c9f\u0cc0\u0cb0\u0cbf\u0caf\u0cb2\u0ccd \u0ca8\u0cc6\u0cb2 \u0c95\u0ccd\u0cb2\u0cc0\u0ca8\u0cb0\u0ccd",
+        "price": 180,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Protects against bacteria.",
+        "image_url": "../images/cleans/home care/Anti Bacterial Floor Cleaner 170.jpg",
+        "image": "../images/cleans/home care/Anti Bacterial Floor Cleaner 170.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 180
+            }
+        ]
+    },
+    {
+        "id": 1020,
+        "name": "Bio Enzyme Floor Cleaner",
+        "kn_name": "\u0c9c\u0cc8\u0cb5\u0cbf\u0c95 \u0c95\u0cbf\u0ca3\u0ccd\u0cb5 \u0ca8\u0cc6\u0cb2 \u0c95\u0ccd\u0cb2\u0cc0\u0ca8\u0cb0\u0ccd",
+        "price": 350,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Natural enzymatic cleaning.",
+        "image_url": "../images/cleans/home care/Bio Enzyme Floor Cleaner 350.jpg",
+        "image": "../images/cleans/home care/Bio Enzyme Floor Cleaner 350.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 350
+            }
+        ]
+    },
+    {
+        "id": 1021,
+        "name": "Kids Safe Floor Cleaner",
+        "kn_name": "\u0cae\u0c95\u0ccd\u0c95\u0cb3 \u0cb8\u0cc1\u0cb0\u0c95\u0ccd\u0cb7\u0cbf\u0ca4 \u0ca8\u0cc6\u0cb2 \u0c95\u0ccd\u0cb2\u0cc0\u0ca8\u0cb0\u0ccd",
+        "price": 390,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Non\u2011toxic, child\u2011friendly.",
+        "image_url": "../images/cleans/home care/Kids Safe Floor Cleaner.jpg",
+        "image": "../images/cleans/home care/Kids Safe Floor Cleaner.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 390
+            }
+        ]
+    },
+    {
+        "id": 1022,
+        "name": "Pet Friendly Floor Cleaner",
+        "kn_name": "\u0cb8\u0cbe\u0c95\u0cc1\u0caa\u0ccd\u0cb0\u0cbe\u0ca3\u0cbf \u0cb8\u0ccd\u0ca8\u0cc7\u0cb9\u0cbf \u0ca8\u0cc6\u0cb2 \u0c95\u0ccd\u0cb2\u0cc0\u0ca8\u0cb0\u0ccd",
+        "price": 460,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Safe for paws, removes pet odors.",
+        "image_url": "../images/cleans/home care/Pet Friendly Floor Cleaner 460.jpg",
+        "image": "../images/cleans/home care/Pet Friendly Floor Cleaner 460.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 460
+            }
+        ]
+    },
+    {
+        "id": 1023,
+        "name": "Floor Cleaner Combo Pack",
+        "kn_name": "\u0ca8\u0cc6\u0cb2 \u0c95\u0ccd\u0cb2\u0cc0\u0ca8\u0cb0\u0ccd \u0c95\u0cbe\u0c82\u0cac\u0cca",
+        "price": 300,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "2 bottles of 1L each.",
+        "image_url": "../images/cleans/home care/Floor Cleaner Combo Pack 200.jpg",
+        "image": "../images/cleans/home care/Floor Cleaner Combo Pack 200.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 300
+            }
+        ]
+    },
+    {
+        "id": 1024,
+        "name": "Dishwash Liquid Lemon",
+        "kn_name": "\u0caa\u0cbe\u0ca4\u0ccd\u0cb0\u0cc6 \u0ca4\u0cca\u0cb3\u0cc6\u0caf\u0cc1\u0cb5 \u0ca6\u0ccd\u0cb0\u0cb5 (\u0ca8\u0cbf\u0c82\u0cac\u0cc6)",
+        "price": 100,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Cuts grease, fresh lemon.",
+        "image_url": "../images/cleans/home care/Dishwash Liquid Lemon 90.jpg",
+        "image": "../images/cleans/home care/Dishwash Liquid Lemon 90.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 100
+            }
+        ]
+    },
+    {
+        "id": 1025,
+        "name": "Dishwash Liquid Green",
+        "kn_name": "\u0cb9\u0cb8\u0cbf\u0cb0\u0cc1 \u0caa\u0cbe\u0ca4\u0ccd\u0cb0\u0cc6 \u0ca6\u0ccd\u0cb0\u0cb5",
+        "price": 580,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Eco\u2011friendly, mild on hands.",
+        "image_url": "../images/cleans/home care/Dishwash Liquid Green.jpg",
+        "image": "../images/cleans/home care/Dishwash Liquid Green.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 580
+            }
+        ]
+    },
+    {
+        "id": 1026,
+        "name": "Dishwash Liquid Orange",
+        "kn_name": "\u0caa\u0cbe\u0ca4\u0ccd\u0cb0\u0cc6 \u0ca6\u0ccd\u0cb0\u0cb5 (\u0c95\u0cbf\u0ca4\u0ccd\u0ca4\u0cb3\u0cc6)",
+        "price": 190,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Citrus power, removes oil.",
+        "image_url": "../images/cleans/home care/Dishwash Liquid Orange 190.jpg",
+        "image": "../images/cleans/home care/Dishwash Liquid Orange 190.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 190
+            }
+        ]
+    },
+    {
+        "id": 1027,
+        "name": "Dishwash Gel Premium",
+        "kn_name": "\u0caa\u0ccd\u0cb0\u0cc0\u0cae\u0cbf\u0caf\u0c82 \u0c9c\u0cc6\u0cb2\u0ccd",
+        "price": 310,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Thick gel, 2x cleaning action.",
+        "image_url": "../images/cleans/home care/Dishwash Gel Premium 310.jpg",
+        "image": "../images/cleans/home care/Dishwash Gel Premium 310.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 310
+            }
+        ]
+    },
+    {
+        "id": 1028,
+        "name": "Dishwash Bar Regular",
+        "kn_name": "\u0caa\u0cbe\u0ca4\u0ccd\u0cb0\u0cc6 \u0cb8\u0cbe\u0cac\u0cc2\u0ca8\u0cc1",
+        "price": 10,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Traditional bar, economical.",
+        "image_url": "../images/cleans/home care/Dishwash Bar Regular 10.jpg",
+        "image": "../images/cleans/home care/Dishwash Bar Regular 10.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 10
+            }
+        ]
+    },
+    {
+        "id": 1029,
+        "name": "Dishwash Bar Pack (4 pcs)",
+        "kn_name": "\u0cb8\u0cbe\u0cac\u0cc2\u0ca8\u0cc1 \u0caa\u0ccd\u0caf\u0cbe\u0c95\u0ccd (4)",
+        "price": 80,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Family pack, saves money.",
+        "image_url": "../images/cleans/home care/Dishwash Bar Pack (4 pcs) 80.jpg",
+        "image": "../images/cleans/home care/Dishwash Bar Pack (4 pcs) 80.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 80
+            }
+        ]
+    },
+    {
+        "id": 1030,
+        "name": "Dishwash Powder",
+        "kn_name": "\u0caa\u0cbe\u0ca4\u0ccd\u0cb0\u0cc6 \u0caa\u0cc1\u0ca1\u0cbf",
+        "price": 320,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Powder formula, quick dissolve.",
+        "image_url": "../images/cleans/home care/Dishwash Powder 300.jpg",
+        "image": "../images/cleans/home care/Dishwash Powder 300.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 320
+            }
+        ]
+    },
+    {
+        "id": 1031,
+        "name": "Kitchen Cleaner Spray",
+        "kn_name": "\u0c85\u0ca1\u0cc1\u0c97\u0cc6\u0c95\u0ccb\u0ca3\u0cc6 \u0cb8\u0ccd\u0caa\u0ccd\u0cb0\u0cc7",
+        "price": 200,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Cuts through grease on counters.",
+        "image_url": "../images/cleans/home care/Kitchen Cleaner Spray 200.jpg",
+        "image": "../images/cleans/home care/Kitchen Cleaner Spray 200.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 200
+            }
+        ]
+    },
+    {
+        "id": 1032,
+        "name": "Kitchen Degreaser",
+        "kn_name": "\u0ca1\u0cbf\u0c97\u0ccd\u0cb0\u0cc0\u0cb8\u0cb0\u0ccd",
+        "price": 200,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Powerful for exhaust and stoves.",
+        "image_url": "../images/cleans/home care/Kitchen Degreaser 200.jpg",
+        "image": "../images/cleans/home care/Kitchen Degreaser 200.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 200
+            }
+        ]
+    },
+    {
+        "id": 1033,
+        "name": "Gas Stove Cleaner",
+        "kn_name": "\u0c97\u0ccd\u0caf\u0cbe\u0cb8\u0ccd \u0cb8\u0ccd\u0c9f\u0ccc\u0cb5\u0ccd \u0c95\u0ccd\u0cb2\u0cc0\u0ca8\u0cb0\u0ccd",
+        "price": 180,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Removes burnt food stains.",
+        "image_url": "../images/cleans/home care/Gas Stove Cleaner 1450.jpg",
+        "image": "../images/cleans/home care/Gas Stove Cleaner 1450.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 180
+            }
+        ]
+    },
+    {
+        "id": 1034,
+        "name": "Chimney Cleaner Liquid",
+        "kn_name": "\u0c9a\u0cbf\u0cae\u0ccd\u0ca8\u0cbf \u0c95\u0ccd\u0cb2\u0cc0\u0ca8\u0cb0\u0ccd",
+        "price": 590,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Liquid spray for chimneys.",
+        "image_url": "../images/cleans/home care/Chimney Cleaner Liquid 590.jpg",
+        "image": "../images/cleans/home care/Chimney Cleaner Liquid 590.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 590
+            }
+        ]
+    },
+    {
+        "id": 1035,
+        "name": "Oven Cleaner Spray",
+        "kn_name": "\u0c92\u0cb5\u0ca8\u0ccd \u0c95\u0ccd\u0cb2\u0cc0\u0ca8\u0cb0\u0ccd \u0cb8\u0ccd\u0caa\u0ccd\u0cb0\u0cc7",
+        "price": 300,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Safe for ovens, no fumes.",
+        "image_url": "../images/cleans/home care/Oven Cleaner Spray 300.jpg",
+        "image": "../images/cleans/home care/Oven Cleaner Spray 300.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 300
+            }
+        ]
+    },
+    {
+        "id": 1036,
+        "name": "Microwave Cleaner",
+        "kn_name": "\u0cae\u0cc8\u0c95\u0ccd\u0cb0\u0ccb\u0cb5\u0cc7\u0cb5\u0ccd \u0c95\u0ccd\u0cb2\u0cc0\u0ca8\u0cb0\u0ccd",
+        "price": 500,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Removes food residue easily.",
+        "image_url": "../images/cleans/home care/Microwave Cleaner 500.jpg",
+        "image": "../images/cleans/home care/Microwave Cleaner 500.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 500
+            }
+        ]
+    },
+    {
+        "id": 1037,
+        "name": "Dishwash Combo Pack",
+        "kn_name": "\u0c95\u0cbe\u0c82\u0cac\u0cca \u0caa\u0ccd\u0caf\u0cbe\u0c95\u0ccd",
+        "price": 500,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Liquid + bar + sponge.",
+        "image_url": "../images/cleans/home care/Dishwash Combo Pack 500.jpg",
+        "image": "../images/cleans/home care/Dishwash Combo Pack 500.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 500
+            }
+        ]
+    },
+    {
+        "id": 1038,
+        "name": "Dishwash Bulk Pack",
+        "kn_name": "\u0cac\u0cb2\u0ccd\u0c95\u0ccd \u0caa\u0ccd\u0caf\u0cbe\u0c95\u0ccd",
+        "price": 50,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "5L liquid, huge savings.",
+        "image_url": "../images/cleans/home care/Dishwash Bulk Pack 50.jpg",
+        "image": "../images/cleans/home care/Dishwash Bulk Pack 50.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 50
+            }
+        ]
+    },
+    {
+        "id": 1039,
+        "name": "Herbal Dishwash Liquid",
+        "kn_name": "\u0cb9\u0cb0\u0ccd\u0cac\u0cb2\u0ccd \u0caa\u0cbe\u0ca4\u0ccd\u0cb0\u0cc6 \u0ca6\u0ccd\u0cb0\u0cb5",
+        "price": 600,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Natural ingredients, gentle.",
+        "image_url": "../images/cleans/home care/Herbal Dishwash Liquid 600.jpg",
+        "image": "../images/cleans/home care/Herbal Dishwash Liquid 600.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 600
+            }
+        ]
+    },
+    {
+        "id": 1040,
+        "name": "Organic Dishwash Liquid",
+        "kn_name": "\u0cb8\u0cbe\u0cb5\u0caf\u0cb5 \u0caa\u0cbe\u0ca4\u0ccd\u0cb0\u0cc6 \u0ca6\u0ccd\u0cb0\u0cb5",
+        "price": 1460,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Certified organic, zero chemicals.",
+        "image_url": "../images/cleans/home care/Organic Dishwash Liquid 1400.jpg",
+        "image": "../images/cleans/home care/Organic Dishwash Liquid 1400.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 1460
+            }
+        ]
+    },
+    {
+        "id": 1041,
+        "name": "Anti Bacterial Dishwash",
+        "kn_name": "\u0c86\u0c82\u0c9f\u0cbf \u0cac\u0ccd\u0caf\u0cbe\u0c95\u0ccd\u0c9f\u0cc0\u0cb0\u0cbf\u0caf\u0cb2\u0ccd",
+        "price": 360,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Kills germs on utensils.",
+        "image_url": "../images/cleans/home care/Anti Bacterial Dishwash 360.jpg",
+        "image": "../images/cleans/home care/Anti Bacterial Dishwash 360.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 360
+            }
+        ]
+    },
+    {
+        "id": 1042,
+        "name": "Dishwash Tablets Pack",
+        "kn_name": "\u0c9f\u0ccd\u0caf\u0cbe\u0cac\u0ccd\u0cb2\u0cc6\u0c9f\u0ccd \u0caa\u0ccd\u0caf\u0cbe\u0c95\u0ccd",
+        "price": 500,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "For dishwasher machines, 30 tablets.",
+        "image_url": "../images/cleans/home care/Dishwash Tablets Pack 500.jpg",
+        "image": "../images/cleans/home care/Dishwash Tablets Pack 500.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 500
+            }
+        ]
+    },
+    {
+        "id": 1043,
+        "name": "Premium Dishwash Kit",
+        "kn_name": "\u0caa\u0ccd\u0cb0\u0cc0\u0cae\u0cbf\u0caf\u0c82 \u0c95\u0cbf\u0c9f\u0ccd",
+        "price": 1300,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Complete set with stand.",
+        "image_url": "../images/cleans/home care/Premium Dishwash Kit 1290.jpg",
+        "image": "../images/cleans/home care/Premium Dishwash Kit 1290.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 1300
+            }
+        ]
+    },
+    {
+        "id": 1044,
+        "name": "Toilet Cleaner Liquid",
+        "kn_name": "\u0cb6\u0ccc\u0c9a\u0cbe\u0cb2\u0caf \u0c95\u0ccd\u0cb2\u0cc0\u0ca8\u0cb0\u0ccd",
+        "price": 50,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Disinfects and deodorizes.",
+        "image_url": "../images/cleans/home care/Toilet Cleaner Liquid 50.jpg",
+        "image": "../images/cleans/home care/Toilet Cleaner Liquid 50.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 50
+            }
+        ]
+    },
+    {
+        "id": 1045,
+        "name": "Toilet Cleaner Thick",
+        "kn_name": "\u0ca6\u0caa\u0ccd\u0caa \u0c9f\u0cbe\u0caf\u0ccd\u0cb2\u0cc6\u0c9f\u0ccd \u0c95\u0ccd\u0cb2\u0cc0\u0ca8\u0cb0\u0ccd",
+        "price": 110,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Gel formula, clings to surfaces.",
+        "image_url": "../images/cleans/home care/Toilet Cleaner Thick 110.jpg",
+        "image": "../images/cleans/home care/Toilet Cleaner Thick 110.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 110
+            }
+        ]
+    },
+    {
+        "id": 1046,
+        "name": "Bathroom Cleaner Spray",
+        "kn_name": "\u0cb8\u0ccd\u0ca8\u0cbe\u0ca8\u0c97\u0cc3\u0cb9 \u0c95\u0ccd\u0cb2\u0cc0\u0ca8\u0cb0\u0ccd",
+        "price": 460,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Removes soap scum & hard water.",
+        "image_url": "../images/cleans/home care/Bathroom Cleaner Spray 460.jpg",
+        "image": "../images/cleans/home care/Bathroom Cleaner Spray 460.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 460
+            }
+        ]
+    },
+    {
+        "id": 1047,
+        "name": "Tile Cleaner Liquid",
+        "kn_name": "\u0c9f\u0cc8\u0cb2\u0ccd \u0c95\u0ccd\u0cb2\u0cc0\u0ca8\u0cb0\u0ccd",
+        "price": 160,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Brightens grout lines.",
+        "image_url": "../images/cleans/home care/Tile Cleaner Liquid 150.jpg",
+        "image": "../images/cleans/home care/Tile Cleaner Liquid 150.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 160
+            }
+        ]
+    },
+    {
+        "id": 1048,
+        "name": "Acid Toilet Cleaner",
+        "kn_name": "\u0c86\u0cb8\u0cbf\u0ca1\u0ccd \u0c9f\u0cbe\u0caf\u0ccd\u0cb2\u0cc6\u0c9f\u0ccd \u0c95\u0ccd\u0cb2\u0cc0\u0ca8\u0cb0\u0ccd",
+        "price": 150,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Removes tough limescale.",
+        "image_url": "../images/cleans/home care/Acid Toilet Cleaner 150.jpg",
+        "image": "../images/cleans/home care/Acid Toilet Cleaner 150.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 150
+            }
+        ]
+    },
+    {
+        "id": 1049,
+        "name": "Gel Toilet Cleaner",
+        "kn_name": "\u0c9c\u0cc6\u0cb2\u0ccd \u0c9f\u0cbe\u0caf\u0ccd\u0cb2\u0cc6\u0c9f\u0ccd \u0c95\u0ccd\u0cb2\u0cc0\u0ca8\u0cb0\u0ccd",
+        "price": 360,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Under\u2011rim gel, fresh scent.",
+        "image_url": "../images/cleans/home care/Gel Toilet Cleaner 360.jpg",
+        "image": "../images/cleans/home care/Gel Toilet Cleaner 360.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 360
+            }
+        ]
+    },
+    {
+        "id": 1050,
+        "name": "Bathroom Cleaner Combo",
+        "kn_name": "\u0cb8\u0ccd\u0ca8\u0cbe\u0ca8\u0c97\u0cc3\u0cb9 \u0c95\u0cbe\u0c82\u0cac\u0cca",
+        "price": 300,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Spray + gel + wipes.",
+        "image_url": "../images/cleans/home care/Bathroom Cleaner Combo 300.jpg",
+        "image": "../images/cleans/home care/Bathroom Cleaner Combo 300.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 300
+            }
+        ]
+    },
+    {
+        "id": 1051,
+        "name": "Bathroom Cleaner Bulk",
+        "kn_name": "\u0cb8\u0ccd\u0ca8\u0cbe\u0ca8\u0c97\u0cc3\u0cb9 \u0cac\u0cb2\u0ccd\u0c95\u0ccd",
+        "price": 1000,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "5L, commercial use.",
+        "image_url": "../images/cleans/home care/Bathroom Cleaner Bulk 1000.jpg",
+        "image": "../images/cleans/home care/Bathroom Cleaner Bulk 1000.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 1000
+            }
+        ]
+    },
+    {
+        "id": 1052,
+        "name": "Herbal Bathroom Cleaner",
+        "kn_name": "\u0cb9\u0cb0\u0ccd\u0cac\u0cb2\u0ccd \u0cb8\u0ccd\u0ca8\u0cbe\u0ca8\u0c97\u0cc3\u0cb9 \u0c95\u0ccd\u0cb2\u0cc0\u0ca8\u0cb0\u0ccd",
+        "price": 550,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Plant\u2011based, safe for septic.",
+        "image_url": "../images/cleans/home care/Herbal Bathroom Cleaner 550.jpg",
+        "image": "../images/cleans/home care/Herbal Bathroom Cleaner 550.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 550
+            }
+        ]
+    },
+    {
+        "id": 1053,
+        "name": "Organic Bathroom Cleaner",
+        "kn_name": "\u0cb8\u0cbe\u0cb5\u0caf\u0cb5 \u0cb8\u0ccd\u0ca8\u0cbe\u0ca8\u0c97\u0cc3\u0cb9 \u0c95\u0ccd\u0cb2\u0cc0\u0ca8\u0cb0\u0ccd",
+        "price": 680,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Biodegradable, eco\u2011label.",
+        "image_url": "../images/cleans/home care/Organic Bathroom Cleaner 680.jpg",
+        "image": "../images/cleans/home care/Organic Bathroom Cleaner 680.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 680
+            }
+        ]
+    },
+    {
+        "id": 1054,
+        "name": "Anti Bacterial Bathroom Cleaner",
+        "kn_name": "\u0c86\u0c82\u0c9f\u0cbf \u0cac\u0ccd\u0caf\u0cbe\u0c95\u0ccd\u0c9f\u0cc0\u0cb0\u0cbf\u0caf\u0cb2\u0ccd",
+        "price": 360,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Kills germs in bathrooms.",
+        "image_url": "../images/cleans/home care/Anti Bacterial Bathroom Cleaner 350.jpg",
+        "image": "../images/cleans/home care/Anti Bacterial Bathroom Cleaner 350.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 360
+            }
+        ]
+    },
+    {
+        "id": 1055,
+        "name": "Glass Cleaner Spray",
+        "kn_name": "\u0c97\u0cbe\u0c9c\u0cbf\u0ca8 \u0c95\u0ccd\u0cb2\u0cc0\u0ca8\u0cb0\u0ccd",
+        "price": 50,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Streak\u2011free, ammonia based.",
+        "image_url": "../images/cleans/home care/Glass Cleaner Spray 40.jpg",
+        "image": "../images/cleans/home care/Glass Cleaner Spray 40.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 50
+            }
+        ]
+    },
+    {
+        "id": 1056,
+        "name": "Mirror Cleaner Spray",
+        "kn_name": "\u0c95\u0ca8\u0ccd\u0ca8\u0ca1\u0cbf \u0c95\u0ccd\u0cb2\u0cc0\u0ca8\u0cb0\u0ccd",
+        "price": 700,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Anti\u2011fog formula.",
+        "image_url": "../images/cleans/home care/Mirror Cleaner Spray 700.jpg",
+        "image": "../images/cleans/home care/Mirror Cleaner Spray 700.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 700
+            }
+        ]
+    },
+    {
+        "id": 1057,
+        "name": "Floor Disinfectant Liquid",
+        "kn_name": "\u0ca8\u0cc6\u0cb2\u0ca6 \u0cb8\u0ccb\u0c82\u0c95\u0cc1\u0ca8\u0cbf\u0cb5\u0cbe\u0cb0\u0c95",
+        "price": 250,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Kills 99.9% germs on floors.",
+        "image_url": "../images/cleans/home care/Floor Disinfectant Liquid 250.jpg",
+        "image": "../images/cleans/home care/Floor Disinfectant Liquid 250.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 250
+            }
+        ]
+    },
+    {
+        "id": 1058,
+        "name": "Bathroom Freshener Liquid",
+        "kn_name": "\u0cb8\u0ccd\u0ca8\u0cbe\u0ca8\u0c97\u0cc3\u0cb9 \u0ca4\u0cbe\u0c9c\u0cbe\u0c95\u0cbe\u0cb0\u0c95",
+        "price": 360,
+        "category": "freshener",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Long\u2011lasting freshness.",
+        "image_url": "../images/air/Bathroom Freshener Liquid360.jpg",
+        "image": "../images/air/Bathroom Freshener Liquid360.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 360
+            }
+        ]
+    },
+    {
+        "id": 1059,
+        "name": "Urinal Cleaner Block",
+        "kn_name": "\u0cae\u0cc2\u0ca4\u0ccd\u0cb0 \u0cb5\u0cbf\u0cb8\u0cb0\u0ccd\u0c9c\u0ca8\u0cbe \u0c95\u0ccd\u0cb2\u0cc0\u0ca8\u0cb0\u0ccd",
+        "price": 720,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Hanging block for urinals.",
+        "image_url": "../images/cleans/home care/Urinal Cleaner Block 720.jpg",
+        "image": "../images/cleans/home care/Urinal Cleaner Block 720.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 720
+            }
+        ]
+    },
+    {
+        "id": 1060,
+        "name": "Toilet Cleaning Kit",
+        "kn_name": "\u0c9f\u0cbe\u0caf\u0ccd\u0cb2\u0cc6\u0c9f\u0ccd \u0c95\u0ccd\u0cb2\u0cc0\u0ca8\u0cbf\u0c82\u0c97\u0ccd \u0c95\u0cbf\u0c9f\u0ccd",
+        "price": 1680,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Brush + holder + cleaner.",
+        "image_url": "../images/cleans/home care/Toilet Cleaning Kit1680.jpg",
+        "image": "../images/cleans/home care/Toilet Cleaning Kit1680.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 1680
+            }
+        ]
+    },
+    {
+        "id": 1061,
+        "name": "Premium Bathroom Kit",
+        "kn_name": "\u0caa\u0ccd\u0cb0\u0cc0\u0cae\u0cbf\u0caf\u0c82 \u0cac\u0cbe\u0ca4\u0ccd\u0cb0\u0cc2\u0cae\u0ccd \u0c95\u0cbf\u0c9f\u0ccd",
+        "price": 1900,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "5 products + caddy.",
+        "image_url": "../images/cleans/home care/Premium Bathroom Kit 1900.jpg",
+        "image": "../images/cleans/home care/Premium Bathroom Kit 1900.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 1900
+            }
+        ]
+    },
+    {
+        "id": 1062,
+        "name": "Hard Water Stain Remover",
+        "kn_name": "\u0c97\u0c9f\u0ccd\u0c9f\u0cbf \u0ca8\u0cc0\u0cb0\u0cbf\u0ca8 \u0c95\u0cb2\u0cc6 \u0ca4\u0cc6\u0c97\u0cc6\u0caf\u0cc1\u0cb5 \u0ca6\u0ccd\u0cb0\u0cb5",
+        "price": 350,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Removes limescale from taps.",
+        "image_url": "../images/cleans/home care/Hard Water Stain Remover 350.jpg",
+        "image": "../images/cleans/home care/Hard Water Stain Remover 350.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 350
+            }
+        ]
+    },
+    {
+        "id": 1063,
+        "name": "Mold Remover Spray",
+        "kn_name": "\u0cae\u0ccb\u0cb2\u0ccd\u0ca1\u0ccd \u0cb0\u0cbf\u0cae\u0cc2\u0cb5\u0cb0\u0ccd",
+        "price": 410,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Kills bathroom mold.",
+        "image_url": "../images/cleans/home care/Mold Remover Spray 410.jpg",
+        "image": "../images/cleans/home care/Mold Remover Spray 410.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 410
+            }
+        ]
+    },
+    {
+        "id": 1064,
+        "name": "Bathroom Foam Cleaner",
+        "kn_name": "\u0cab\u0ccb\u0cae\u0ccd \u0c95\u0ccd\u0cb2\u0cc0\u0ca8\u0cb0\u0ccd",
+        "price": 350,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Foam cling, no drip.",
+        "image_url": "../images/cleans/home care/Bathroom Foam Cleaner 350.jpg",
+        "image": "../images/cleans/home care/Bathroom Foam Cleaner 350.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 350
+            }
+        ]
+    },
+    {
+        "id": 1065,
+        "name": "Tile Grout Cleaner",
+        "kn_name": "\u0c9f\u0cc8\u0cb2\u0ccd \u0c97\u0ccd\u0cb0\u0ccc\u0c9f\u0ccd \u0c95\u0ccd\u0cb2\u0cc0\u0ca8\u0cb0\u0ccd",
+        "price": 460,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Brush\u2011on gel for grout.",
+        "image_url": "../images/cleans/home care/Tile Grout Cleaner 460.jpg",
+        "image": "../images/cleans/home care/Tile Grout Cleaner 460.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 460
+            }
+        ]
+    },
+    {
+        "id": 1066,
+        "name": "Anti Scale Cleaner",
+        "kn_name": "\u0c86\u0c82\u0c9f\u0cbf \u0cb8\u0ccd\u0c95\u0cc7\u0cb2\u0ccd \u0c95\u0ccd\u0cb2\u0cc0\u0ca8\u0cb0\u0ccd",
+        "price": 450,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Prevents scale buildup.",
+        "image_url": "../images/cleans/home care/Anti Scale Cleaner 450.jpg",
+        "image": "../images/cleans/home care/Anti Scale Cleaner 450.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 450
+            }
+        ]
+    },
+    {
+        "id": 1067,
+        "name": "Bathroom Cleaner Tablets",
+        "kn_name": "\u0c95\u0ccd\u0cb2\u0cc0\u0ca8\u0cb0\u0ccd \u0c9f\u0ccd\u0caf\u0cbe\u0cac\u0ccd\u0cb2\u0cc6\u0c9f\u0ccd\u0cb8\u0ccd",
+        "price": 300,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Dissolvable tablets for toilets.",
+        "image_url": "../images/cleans/home care/Bathroom Cleaner Tablets 300.jpg",
+        "image": "../images/cleans/home care/Bathroom Cleaner Tablets 300.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 300
+            }
+        ]
+    },
+    {
+        "id": 1068,
+        "name": "Washing Powder Regular",
+        "kn_name": "\u0cb5\u0cbe\u0cb7\u0cbf\u0c82\u0c97\u0ccd \u0caa\u0ccc\u0ca1\u0cb0\u0ccd",
+        "price": 120,
+        "category": "laundry",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Effective on everyday stains.",
+        "image_url": "../images/cleans/home care/Washing Powder Regular 190.jpg",
+        "image": "../images/cleans/home care/Washing Powder Regular 190.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 120
+            }
+        ]
+    },
+    {
+        "id": 1069,
+        "name": "Washing Powder Premium",
+        "kn_name": "\u0caa\u0ccd\u0cb0\u0cc0\u0cae\u0cbf\u0caf\u0c82 \u0cb5\u0cbe\u0cb7\u0cbf\u0c82\u0c97\u0ccd \u0caa\u0ccc\u0ca1\u0cb0\u0ccd",
+        "price": 800,
+        "category": "laundry",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Enhanced stain removal.",
+        "image_url": "../images/cleans/home care/Washing Powder Premium 800.jpg",
+        "image": "../images/cleans/home care/Washing Powder Premium 800.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 800
+            }
+        ]
+    },
+    {
+        "id": 1070,
+        "name": "Liquid Detergent",
+        "kn_name": "\u0cb2\u0cbf\u0c95\u0ccd\u0cb5\u0cbf\u0ca1\u0ccd \u0ca1\u0cbf\u0c9f\u0cb0\u0ccd\u0c9c\u0cc6\u0c82\u0c9f\u0ccd",
+        "price": 250,
+        "category": "laundry",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Concentrated, works in cold water.",
+        "image_url": "../images/cleans/home care/Liquid Detergent 250.jpg",
+        "image": "../images/cleans/home care/Liquid Detergent 250.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 250
+            }
+        ]
+    },
+    {
+        "id": 1071,
+        "name": "Liquid Detergent Bulk",
+        "kn_name": "\u0cac\u0cb2\u0ccd\u0c95\u0ccd \u0cb2\u0cbf\u0c95\u0ccd\u0cb5\u0cbf\u0ca1\u0ccd \u0ca1\u0cbf\u0c9f\u0cb0\u0ccd\u0c9c\u0cc6\u0c82\u0c9f\u0ccd",
+        "price": 820,
+        "category": "laundry",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "5L bottle, economical.",
+        "image_url": "../images/cleans/home care/Liquid Detergent Bulk 810.jpg",
+        "image": "../images/cleans/home care/Liquid Detergent Bulk 810.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 820
+            }
+        ]
+    },
+    {
+        "id": 1072,
+        "name": "Fabric Conditioner",
+        "kn_name": "\u0cab\u0ccd\u0caf\u0cbe\u0cac\u0ccd\u0cb0\u0cbf\u0c95\u0ccd \u0c95\u0c82\u0ca1\u0cc0\u0cb7\u0ca8\u0cb0\u0ccd",
+        "price": 220,
+        "category": "laundry",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Softens clothes, fresh scent.",
+        "image_url": "../images/cleans/home care/Fabric Conditioner 210.jpg",
+        "image": "../images/cleans/home care/Fabric Conditioner 210.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 220
+            }
+        ]
+    },
+    {
+        "id": 1073,
+        "name": "Stain Remover Liquid",
+        "kn_name": "\u0c95\u0cb2\u0cc6 \u0ca4\u0cc6\u0c97\u0cc6\u0caf\u0cc1\u0cb5 \u0ca6\u0ccd\u0cb0\u0cb5",
+        "price": 260,
+        "category": "laundry",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Targets oil, ink, food stains.",
+        "image_url": "../images/cleans/home care/Stain Remover Liquid 260.jpg",
+        "image": "../images/cleans/home care/Stain Remover Liquid 260.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 260
+            }
+        ]
+    },
+    {
+        "id": 1074,
+        "name": "Cleaning Powder",
+        "kn_name": "\u0c95\u0ccd\u0cb2\u0cc0\u0ca8\u0cbf\u0c82\u0c97\u0ccd \u0caa\u0ccc\u0ca1\u0cb0\u0ccd",
+        "price": 100,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Abrasive for tough soil.",
+        "image_url": "../images/cleans/home care/Cleaning Powder.jpg",
+        "image": "../images/cleans/home care/Cleaning Powder.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 100
+            }
+        ]
+    },
+    {
+        "id": 1075,
+        "name": "Carpet Cleaner Liquid",
+        "kn_name": "\u0c95\u0cbe\u0cb0\u0ccd\u0caa\u0cc6\u0c9f\u0ccd \u0c95\u0ccd\u0cb2\u0cc0\u0ca8\u0cb0\u0ccd",
+        "price": 250,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Removes deep stains from carpets.",
+        "image_url": "../images/cleans/home care/Carpet Cleaner Liquid.jpg",
+        "image": "../images/cleans/home care/Carpet Cleaner Liquid.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 250
+            }
+        ]
+    },
+    {
+        "id": 1076,
+        "name": "Sofa Cleaner Spray",
+        "kn_name": "\u0cb8\u0ccb\u0cab\u0cbe \u0c95\u0ccd\u0cb2\u0cc0\u0ca8\u0cb0\u0ccd \u0cb8\u0ccd\u0caa\u0ccd\u0cb0\u0cc7",
+        "price": 220,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Foam action, safe for fabric.",
+        "image_url": "../images/cleans/home care/Sofa Cleaner Spray.jpg",
+        "image": "../images/cleans/home care/Sofa Cleaner Spray.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 220
+            }
+        ]
+    },
+    {
+        "id": 1077,
+        "name": "Multipurpose Cleaner Spray",
+        "kn_name": "\u0cac\u0cb9\u0cc1\u0caa\u0caf\u0ccb\u0c97\u0cbf \u0c95\u0ccd\u0cb2\u0cc0\u0ca8\u0cb0\u0ccd",
+        "price": 180,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "All\u2011purpose for home.",
+        "image_url": "../images/cleans/home care/Multipurpose Cleaner Spray.jpg",
+        "image": "../images/cleans/home care/Multipurpose Cleaner Spray.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 180
+            }
+        ]
+    },
+    {
+        "id": 1078,
+        "name": "Dust Cleaner Spray",
+        "kn_name": "\u0ca1\u0cb8\u0ccd\u0c9f\u0ccd \u0c95\u0ccd\u0cb2\u0cc0\u0ca8\u0cb0\u0ccd",
+        "price": 140,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Anti\u2011static, repels dust.",
+        "image_url": "../images/cleans/home care/Dust Cleaner Spray.jpg",
+        "image": "../images/cleans/home care/Dust Cleaner Spray.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 140
+            }
+        ]
+    },
+    {
+        "id": 1079,
+        "name": "Room Freshener Gel",
+        "kn_name": "\u0cb0\u0cc2\u0cae\u0ccd \u0cab\u0ccd\u0cb0\u0cc6\u0cb6\u0ccd\u0ca8\u0cb0\u0ccd \u0c9c\u0cc6\u0cb2\u0ccd",
+        "price": 120,
+        "category": "freshener",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Long\u2011lasting gel, no spray.",
+        "image_url": "../images/cleans/home care/Room Freshener Gel.jpg",
+        "image": "../images/cleans/home care/Room Freshener Gel.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 120
+            }
+        ]
+    },
+    {
+        "id": 1080,
+        "name": "Naphthalene Balls",
+        "kn_name": "\u0ca8\u0ccd\u0caf\u0cbe\u0cab\u0ccd\u0ca4\u0cb2\u0cc0\u0ca8\u0ccd \u0cac\u0cbe\u0cb2\u0ccd\u0cb8\u0ccd",
+        "price": 90,
+        "category": "freshener",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Moth repellent, deodorizer.",
+        "image_url": "../images/cleans/home care/Naphthalene Balls.jpg",
+        "image": "../images/cleans/home care/Naphthalene Balls.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 90
+            }
+        ]
+    },
+    {
+        "id": 1081,
+        "name": "Laundry Combo Pack",
+        "kn_name": "\u0cb2\u0cbe\u0c82\u0ca1\u0ccd\u0cb0\u0cbf \u0c95\u0cbe\u0c82\u0cac\u0cca",
+        "price": 350,
+        "category": "laundry",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Powder + liquid + softener.",
+        "image_url": "../images/cleans/home care/Laundry Combo Pack.jpg",
+        "image": "../images/cleans/home care/Laundry Combo Pack.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 350
+            }
+        ]
+    },
+    {
+        "id": 1082,
+        "name": "Cleaning Combo Kit",
+        "kn_name": "\u0c95\u0ccd\u0cb2\u0cc0\u0ca8\u0cbf\u0c82\u0c97\u0ccd \u0c95\u0cbe\u0c82\u0cac\u0cca \u0c95\u0cbf\u0c9f\u0ccd",
+        "price": 1600,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Essential tools + cleaners.",
+        "image_url": "../images/cleans/home care/Cleaning Combo Kit.jpg",
+        "image": "../images/cleans/home care/Cleaning Combo Kit.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 1600
+            }
+        ]
+    },
+    {
+        "id": 1083,
+        "name": "Household Cleaning Kit",
+        "kn_name": "\u0cae\u0ca8\u0cc6 \u0c95\u0ccd\u0cb2\u0cc0\u0ca8\u0cbf\u0c82\u0c97\u0ccd \u0c95\u0cbf\u0c9f\u0ccd",
+        "price": 600,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "All\u2011in\u2011one cleaning set.",
+        "image_url": "../images/cleans/home care/Household Cleaning Kit.jpg",
+        "image": "../images/cleans/home care/Household Cleaning Kit.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 600
+            }
+        ]
+    },
+    {
+        "id": 1084,
+        "name": "Eco Friendly Cleaner",
+        "kn_name": "\u0caa\u0cb0\u0cbf\u0cb8\u0cb0 \u0cb8\u0ccd\u0ca8\u0cc7\u0cb9\u0cbf \u0c95\u0ccd\u0cb2\u0cc0\u0ca8\u0cb0\u0ccd",
+        "price": 200,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Plant\u2011based, biodegradable.",
+        "image_url": "../images/cleans/home care/Eco Friendly Cleaner.jpg",
+        "image": "../images/cleans/home care/Eco Friendly Cleaner.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 200
+            }
+        ]
+    },
+    {
+        "id": 1085,
+        "name": "Bio Enzyme Cleaner",
+        "kn_name": "\u0c9c\u0cc8\u0cb5\u0cbf\u0c95 \u0c95\u0cbf\u0ca3\u0ccd\u0cb5 \u0c95\u0ccd\u0cb2\u0cc0\u0ca8\u0cb0\u0ccd",
+        "price": 210,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Breaks down organic waste.",
+        "image_url": "../images/cleans/home care/Bio Enzyme Cleaner.jpg",
+        "image": "../images/cleans/home care/Bio Enzyme Cleaner.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 210
+            }
+        ]
+    },
+    {
+        "id": 1086,
+        "name": "Premium Cleaning Kit",
+        "kn_name": "\u0caa\u0ccd\u0cb0\u0cc0\u0cae\u0cbf\u0caf\u0c82 \u0c95\u0ccd\u0cb2\u0cc0\u0ca8\u0cbf\u0c82\u0c97\u0ccd \u0c95\u0cbf\u0c9f\u0ccd",
+        "price": 700,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Luxury set with caddy.",
+        "image_url": "../images/cleans/home care/Premium Cleaning Kit.jpg",
+        "image": "../images/cleans/home care/Premium Cleaning Kit.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 700
+            }
+        ]
+    },
+    {
+        "id": 1087,
+        "name": "Home Hygiene Kit",
+        "kn_name": "\u0cae\u0ca8\u0cc6\u0caf \u0ca8\u0cc8\u0cb0\u0ccd\u0cae\u0cb2\u0ccd\u0caf \u0c95\u0cbf\u0c9f\u0ccd",
+        "price": 1600,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Disinfectants + wipes.",
+        "image_url": "../images/cleans/home care/Home Hygiene Kit.jpg",
+        "image": "../images/cleans/home care/Home Hygiene Kit.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 1600
+            }
+        ]
+    },
+    {
+        "id": 1088,
+        "name": "Festival Cleaning Kit",
+        "kn_name": "\u0cb9\u0cac\u0ccd\u0cac\u0ca6 \u0c95\u0ccd\u0cb2\u0cc0\u0ca8\u0cbf\u0c82\u0c97\u0ccd \u0c95\u0cbf\u0c9f\u0ccd",
+        "price": 700,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Special kit for deep cleaning.",
+        "image_url": "../images/cleans/home care/Festival Cleaning Kit.jpg",
+        "image": "../images/cleans/home care/Festival Cleaning Kit.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 700
+            }
+        ]
+    },
+    {
+        "id": 1089,
+        "name": "Deep Cleaning Kit",
+        "kn_name": "\u0ca1\u0cc0\u0caa\u0ccd \u0c95\u0ccd\u0cb2\u0cc0\u0ca8\u0cbf\u0c82\u0c97\u0ccd \u0c95\u0cbf\u0c9f\u0ccd",
+        "price": 900,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Complete professional kit.",
+        "image_url": "../images/cleans/home care/Deep Cleaning Kit.jpg",
+        "image": "../images/cleans/home care/Deep Cleaning Kit.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 900
+            }
+        ]
+    },
+    {
+        "id": 1090,
+        "name": "Super Saver Cleaning Combo",
+        "kn_name": "\u0cb8\u0cc2\u0caa\u0cb0\u0ccd \u0cb8\u0cc7\u0cb5\u0cb0\u0ccd \u0c95\u0cbe\u0c82\u0cac\u0cca",
+        "price": 1000,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Best value with 8 items.",
+        "image_url": "../images/cleans/home care/Super Saver Cleaning Combo.jpg",
+        "image": "../images/cleans/home care/Super Saver Cleaning Combo.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 1000
+            }
+        ]
+    },
+    {
+        "id": 1091,
+        "name": "Ultimate Home Care Combo",
+        "kn_name": "\u0c85\u0cb2\u0ccd\u0c9f\u0cbf\u0cae\u0cc7\u0c9f\u0ccd \u0cb9\u0ccb\u0cae\u0ccd \u0c95\u0cc7\u0cb0\u0ccd",
+        "price": 1200,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "12 essential cleaners.",
+        "image_url": "../images/cleans/home care/Ultimate Home Care Combo.jpg",
+        "image": "../images/cleans/home care/Ultimate Home Care Combo.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 1200
+            }
+        ]
+    },
+    {
+        "id": 1092,
+        "name": "Microfiber Cloth (3 pcs)",
+        "kn_name": "\u0cae\u0cc8\u0c95\u0ccd\u0cb0\u0ccb\u0cab\u0cc8\u0cac\u0cb0\u0ccd \u0cac\u0c9f\u0ccd\u0c9f\u0cc6",
+        "price": 90,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Lint\u2011free, washable.",
+        "image_url": "../images/cleans/home care/Microfiber Cloth (3 pcs).jpg",
+        "image": "../images/cleans/home care/Microfiber Cloth (3 pcs).jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 90
+            }
+        ]
+    },
+    {
+        "id": 1093,
+        "name": "Scrub Brush Set",
+        "kn_name": "\u0cb8\u0ccd\u0c95\u0ccd\u0cb0\u0cac\u0ccd \u0cac\u0ccd\u0cb0\u0cb7\u0ccd \u0cb8\u0cc6\u0c9f\u0ccd",
+        "price": 1500,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "2 brushes for kitchen & bath.",
+        "image_url": "../images/cleans/home care/Scrub Brush Set.jpg",
+        "image": "../images/cleans/home care/Scrub Brush Set.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 1500
+            }
+        ]
+    },
+    {
+        "id": 1094,
+        "name": "Floor Cleaner Lavender",
+        "kn_name": "\u0ca8\u0cc6\u0cb2 \u0c95\u0ccd\u0cb2\u0cc0\u0ca8\u0cb0\u0ccd (\u0cb2\u0ccd\u0caf\u0cbe\u0cb5\u0cc6\u0c82\u0ca1\u0cb0\u0ccd)",
+        "price": 1600,
+        "category": "cleaning",
+        "emoji": "\ud83c\udfe0",
+        "description_en": "Calming scent, effective cleans.",
+        "image_url": "../images/cleans/home care/Floor Cleaner Lavender 116.jpg",
+        "image": "../images/cleans/home care/Floor Cleaner Lavender 116.jpg",
+        "variants": [
+            {
+                "label": "1 unit",
+                "price": 1600
+            }
+        ]
+    }
+]
