@@ -80,7 +80,7 @@ if (IS_DEVELOPMENT) {
 $dirs = [UPLOAD_DIR, PRODUCT_IMAGE_DIR, CATEGORY_IMAGE_DIR, TEMP_DIR, BASE_PATH . 'logs/'];
 foreach ($dirs as $dir) {
     if (!is_dir($dir)) {
-        mkdir($dir, 0755, true);
+        @mkdir($dir, 0755, true);
     }
 }
 
