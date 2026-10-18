@@ -6,21 +6,96 @@
 require_once 'config.php';
 
 /**
+ * Fallback category data when database is unavailable
+ */
+function getFallbackCategories(): array
+{
+    return [
+        ['id' => '1', 'name' => 'Air Freshener', 'kn_name' => 'ಏರ್ ಫ್ರೆಶ್ನರ್', 'icon' => 'fa-wind'],
+        ['id' => '2', 'name' => 'Bakery', 'kn_name' => 'ಬೇಕರಿ', 'icon' => 'fa-bread-slice'],
+        ['id' => '3', 'name' => 'Bath & Body', 'kn_name' => 'ಸ್ನಾನ ಮತ್ತು ದೇಹ', 'icon' => 'fa-bath'],
+        ['id' => '4', 'name' => 'Cleaning Supplies', 'kn_name' => 'ಶುಚಿಗೊಳಿಸುವ ಸರಬರಾಜು', 'icon' => 'fa-soap'],
+        ['id' => '5', 'name' => 'Cold Drinks', 'kn_name' => 'ಪಾನೀಯಗಳು', 'icon' => 'fa-mug-hot'],
+        ['id' => '6', 'name' => 'Cooking Oil', 'kn_name' => 'ಅಡುಗೆ ಎಣ್ಣೆ', 'icon' => 'fa-oil-can'],
+        ['id' => '7', 'name' => 'Dairy', 'kn_name' => 'ಡೈರಿ', 'icon' => 'fa-cheese'],
+        ['id' => '8', 'name' => 'Dishwash', 'kn_name' => 'ಡಿಶ್ವಾಶ್', 'icon' => 'fa-hand-sparkles'],
+        ['id' => '9', 'name' => 'Dry Fruits', 'kn_name' => 'ಒಣ ಹಣ್ಣುಗಳು', 'icon' => 'fa-seedling'],
+        ['id' => '10', 'name' => 'Grains & Cereals', 'kn_name' => 'ಧಾನ್ಯಗಳು', 'icon' => 'fa-wheat-alt'],
+        ['id' => '11', 'name' => 'Hair Care', 'kn_name' => 'ಹೇರ್ ಕೇರ್', 'icon' => 'fa-user-tie'],
+        ['id' => '12', 'name' => 'Health & Pharmacy', 'kn_name' => 'ಆರೋಗ್ಯ ಮತ್ತು ಔಷಧ', 'icon' => 'fa-capsules'],
+        ['id' => '13', 'name' => 'Home Care', 'kn_name' => 'ಮನೆ ಆರೈಕೆ', 'icon' => 'fa-home'],
+        ['id' => '14', 'name' => 'Kitchenware', 'kn_name' => 'ಅಡುಗೆ ಸಾಮಾನು', 'icon' => 'fa-utensils'],
+        ['id' => '15', 'name' => 'Laundry', 'kn_name' => 'ಲಾಂಡ್ರಿ', 'icon' => 'fa-jug-detergent'],
+        ['id' => '27', 'name' => 'Vegetables & Fruits', 'kn_name' => 'ತರಕಾರಿಗಳು ಮತ್ತು ಹಣ್ಣುಗಳು', 'icon' => 'fa-carrot'],
+        ['id' => '28', 'name' => 'Snacks', 'kn_name' => 'ಸ್ನ್ಯಾಕ್ಸ್', 'icon' => 'fa-cookie-bite']
+    ];
+}
+
+/**
+ * Fallback main categories when database is unavailable
+ */
+function getFallbackMainCategories(): array
+{
+    return [
+        ['id' => '1', 'name' => 'Groceries & Staples', 'kn' => 'ದೈನಂದಿನ ದಿನಸಿ', 'emoji' => '🌾', 'sub_ids' => '6,10,27'],
+        ['id' => '2', 'name' => 'Cleaning & Household', 'kn' => 'ಮನೆ ಮತ್ತು ಸ್ವಚ್ಛತೆ', 'emoji' => '🧼', 'sub_ids' => '1,4,8,13,15'],
+        ['id' => '3', 'name' => 'Bakery & Snacks', 'kn' => 'ಬೇಕರಿ ಮತ್ತು ತಿಂಡಿಗಳು', 'emoji' => '🥖', 'sub_ids' => '2,5,28'],
+        ['id' => '4', 'name' => 'Personal Care & Health', 'kn' => 'ಆರೋಗ್ಯ ಮತ್ತು ಕಾಳಜಿ', 'emoji' => '💊', 'sub_ids' => '3,11,12']
+    ];
+}
+
+/**
+ * Fallback product catalog when database is unavailable
+ */
+function getFallbackProducts(string $category = '', string $search = ''): array
+{
+    $catalog = [
+        ['id' => 1, 'name' => 'Floor Cleaner 1L', 'kn_name' => 'ಫ್ಲೋರ್ ಕ್ಲೀನರ್', 'price' => 140.00, 'category_id' => '4', 'category_name' => 'Cleaning Supplies', 'icon' => 'fa-bucket', 'images' => 'images/Cleans/Floor Cleaner 130.jpg', 'is_featured' => 1],
+        ['id' => 2, 'name' => 'Toilet Cleaner 750ml', 'kn_name' => 'ಟಾಯ್ಲೆಟ್ ಕ್ಲೀನರ್', 'price' => 160.00, 'category_id' => '4', 'category_name' => 'Cleaning Supplies', 'icon' => 'fa-toilet', 'images' => 'images/Cleans/Toilet Cleaner 195.jpg', 'is_featured' => 0],
+        ['id' => 3, 'name' => 'Glass Cleaner 500ml', 'kn_name' => 'ಗ್ಲಾಸ್ ಕ್ಲೀನರ್', 'price' => 75.00, 'category_id' => '4', 'category_name' => 'Cleaning Supplies', 'icon' => 'fa-window-maximize', 'images' => 'images/Cleans/Glass Cleaner 75.jpg', 'is_featured' => 0],
+        ['id' => 4, 'name' => 'Surface Disinfectant Cleaner', 'kn_name' => 'ಸರ್ಫೇಸ್ ಕ್ಲೀನರ್', 'price' => 130.00, 'category_id' => '4', 'category_name' => 'Cleaning Supplies', 'icon' => 'fa-spray-can-sparkles', 'images' => 'images/Cleans/Surface Cleaner 130.jpg', 'is_featured' => 0],
+        ['id' => 5, 'name' => 'Disinfectant Liquid 1L', 'kn_name' => 'ಡಿಸೆಂಫೆಕ್ಟೆಂಟ್ ಲಿಕ್ವಿಡ್', 'price' => 170.00, 'category_id' => '4', 'category_name' => 'Cleaning Supplies', 'icon' => 'fa-shield-virus', 'images' => 'images/Cleans/Disinfectant Liquid 170.jpg', 'is_featured' => 0],
+        ['id' => 6, 'name' => 'White Phenyl 1L', 'kn_name' => 'ಫಿನಾಯಿಲ್', 'price' => 150.00, 'category_id' => '4', 'category_name' => 'Cleaning Supplies', 'icon' => 'fa-bucket', 'images' => 'images/Cleans/Phenyl 210.jpg', 'is_featured' => 0],
+        ['id' => 7, 'name' => 'Fresh Bread Loaf', 'kn_name' => 'ತಾಜಾ ಬ್ರೆಡ್', 'price' => 45.00, 'category_id' => '2', 'category_name' => 'Bakery', 'icon' => 'fa-bread-slice', 'images' => 'cake.jpg', 'is_featured' => 0],
+        ['id' => 8, 'name' => 'Pure Sunflower Cooking Oil 1L', 'kn_name' => 'ಸೂರ್ಯಕಾಂತಿ ಎಣ್ಣೆ', 'price' => 135.00, 'category_id' => '6', 'category_name' => 'Cooking Oil', 'icon' => 'fa-droplet', 'images' => 'kitechen all product.jpg', 'is_featured' => 0],
+        ['id' => 9, 'name' => 'Royal Sona Masoori Rice 5kg', 'kn_name' => 'ಸೋನಾ ಮಸೂರಿ ಅಕ್ಕಿ', 'price' => 310.00, 'category_id' => '10', 'category_name' => 'Grains & Cereals', 'icon' => 'fa-wheat-awn', 'images' => 'kitechen all product.jpg', 'is_featured' => 0],
+        ['id' => 10, 'name' => 'Farm Fresh Premium Apples 1kg', 'kn_name' => 'ಸೇಬು ಹಣ್ಣುಗಳು', 'price' => 180.00, 'category_id' => '27', 'category_name' => 'Vegetables & Fruits', 'icon' => 'fa-apple-whole', 'images' => 'Banner.png', 'is_featured' => 0],
+        ['id' => 11, 'name' => 'Fresh Dairy Milk 1L', 'kn_name' => 'ತಾಜಾ ಹಾಲು', 'price' => 54.00, 'category_id' => '7', 'category_name' => 'Dairy', 'icon' => 'fa-cow', 'images' => 'kitechen all product.jpg', 'is_featured' => 0],
+        ['id' => 12, 'name' => 'Premium Almonds Badam 250g', 'kn_name' => 'ಬಾದಾಮಿ', 'price' => 220.00, 'category_id' => '9', 'category_name' => 'Dry Fruits', 'icon' => 'fa-seedling', 'images' => 'kitechen all product.jpg', 'is_featured' => 0]
+    ];
+    if ($category !== '') {
+        $catalog = array_values(array_filter($catalog, function($p) use ($category) {
+            return (string)$p['category_id'] === (string)$category;
+        }));
+    }
+    if ($search !== '') {
+        $q = mb_strtolower($search);
+        $catalog = array_values(array_filter($catalog, function($p) use ($q) {
+            return mb_stripos($p['name'], $q) !== false || mb_stripos($p['kn_name'], $q) !== false;
+        }));
+    }
+    return $catalog;
+}
+
+/**
  * Get all categories, ordered by name.
  * @return array
  */
 function getCategories(): array
 {
     global $conn;
+    if (!$conn) {
+        return getFallbackCategories();
+    }
     $sql = "SELECT id, name, kn_name, icon FROM categories ORDER BY name ASC";
     $result = $conn->query($sql);
     if (!$result)
-        return [];
+        return getFallbackCategories();
     $rows = [];
     while ($row = $result->fetch_assoc()) {
         $rows[] = $row;
     }
-    return $rows;
+    return !empty($rows) ? $rows : getFallbackCategories();
 }
 
 /**
@@ -31,7 +106,14 @@ function getCategories(): array
 function getCategoryById(string $id): ?array
 {
     global $conn;
+    if (!$conn) {
+        foreach (getFallbackCategories() as $c) {
+            if ((string)$c['id'] === (string)$id) return $c;
+        }
+        return null;
+    }
     $stmt = $conn->prepare("SELECT id, name, kn_name, icon FROM categories WHERE id = ?");
+    if (!$stmt) return null;
     $stmt->bind_param("s", $id);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -47,15 +129,18 @@ function getCategoryById(string $id): ?array
 function getMainCategories(): array
 {
     global $conn;
+    if (!$conn) {
+        return getFallbackMainCategories();
+    }
     $sql = "SELECT id, name, kn, emoji, sub_ids FROM main_categories ORDER BY name ASC";
     $result = $conn->query($sql);
     if (!$result)
-        return [];
+        return getFallbackMainCategories();
     $rows = [];
     while ($row = $result->fetch_assoc()) {
         $rows[] = $row;
     }
-    return $rows;
+    return !empty($rows) ? $rows : getFallbackMainCategories();
 }
 
 /**
@@ -67,6 +152,9 @@ function getMainCategories(): array
 function getProducts(string $category = '', string $search = ''): array
 {
     global $conn;
+    if (!$conn) {
+        return getFallbackProducts($category, $search);
+    }
 
     $sql = "SELECT p.*, c.name AS category_name
             FROM products p
@@ -92,6 +180,9 @@ function getProducts(string $category = '', string $search = ''): array
     $sql .= " ORDER BY p.name ASC";
 
     $stmt = $conn->prepare($sql);
+    if (!$stmt) {
+        return getFallbackProducts($category, $search);
+    }
 
     if ($types !== '') {
         $stmt->bind_param($types, ...$params);
@@ -104,7 +195,7 @@ function getProducts(string $category = '', string $search = ''): array
         $rows[] = $row;
     }
     $stmt->close();
-    return $rows;
+    return !empty($rows) ? $rows : getFallbackProducts($category, $search);
 }
 
 /**
@@ -115,12 +206,19 @@ function getProducts(string $category = '', string $search = ''): array
 function getProductById(int $id): ?array
 {
     global $conn;
+    if (!$conn) {
+        foreach (getFallbackProducts() as $p) {
+            if ((int)$p['id'] === (int)$id) return $p;
+        }
+        return null;
+    }
     $stmt = $conn->prepare(
         "SELECT p.*, c.name AS category_name
          FROM products p
          LEFT JOIN categories c ON p.category_id = c.id
          WHERE p.id = ?"
     );
+    if (!$stmt) return null;
     $stmt->bind_param("i", $id);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -136,16 +234,24 @@ function getProductById(int $id): ?array
 function getFeaturedProduct(): ?array
 {
     global $conn;
+    if (!$conn) {
+        $prods = getFallbackProducts();
+        return $prods[0] ?? null;
+    }
     $sql = "SELECT p.*, c.name AS category_name
             FROM products p
             LEFT JOIN categories c ON p.category_id = c.id
             WHERE p.is_featured = 1
             LIMIT 1";
     $result = $conn->query($sql);
-    if (!$result)
-        return null;
+    if (!$result) {
+        $prods = getFallbackProducts();
+        return $prods[0] ?? null;
+    }
     $row = $result->fetch_assoc();
-    return $row ?: null;
+    if ($row) return $row;
+    $prods = getFallbackProducts();
+    return $prods[0] ?? null;
 }
 
 /**
@@ -159,6 +265,10 @@ function getFeaturedProduct(): ?array
 function getRecommendations(int $excludeId = 0, int $limit = 4): array
 {
     global $conn;
+    if (!$conn) {
+        $recs = array_filter(getFallbackProducts(), fn($p) => (int)$p['id'] !== (int)$excludeId);
+        return array_slice(array_values($recs), 0, $limit);
+    }
 
     // 1. Fetch available product IDs
     $sql = "SELECT id FROM products";

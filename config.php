@@ -68,48 +68,17 @@ try {
     $connError = $e->getMessage();
 }
 
-// Check connection — show clear error (not blank page or FUNCTION_INVOCATION_FAILED crash)
+// Check connection — if not connected, set $conn = null so application can use graceful fallback
 if (!$connected || $conn->connect_errno) {
-    $errMsg = $connError ?: ($conn->connect_error ?: 'Unknown connection error');
-    $errCode = $conn->connect_errno ?: 500;
-    http_response_code(500);
-    echo "<!DOCTYPE html><html><head><meta charset='utf-8'><title>Database Connection Error</title>";
-    echo "<style>";
-    echo "body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background:#0f172a;color:#f1f5f9;margin:0;padding:24px;}";
-    echo ".container{max-width:680px;margin:40px auto;background:#1e293b;border:1px solid #334155;border-radius:16px;padding:32px;box-shadow:0 10px 25px rgba(0,0,0,0.5);}";
-    echo "h2{color:#f87171;margin-top:0;font-size:22px;display:flex;align-items:center;gap:8px;}";
-    echo ".badge{background:#450a0a;color:#fca5a5;padding:4px 10px;border-radius:6px;font-size:12px;font-weight:600;}";
-    echo ".box{background:#0f172a;border:1px solid #334155;border-radius:8px;padding:16px;margin:20px 0;font-family:monospace;font-size:13px;color:#fca5a5;word-break:break-all;}";
-    echo "p{color:#cbd5e1;line-height:1.6;}";
-    echo "ol{color:#cbd5e1;padding-left:20px;line-height:1.7;}";
-    echo "code{background:#334155;color:#38bdf8;padding:2px 6px;border-radius:4px;font-size:13px;}";
-    echo ".action-btn{display:inline-block;background:#2563eb;color:#fff;text-decoration:none;padding:10px 18px;border-radius:8px;font-weight:600;margin-top:16px;}";
-    echo ".action-btn:hover{background:#1d4ed8;}";
-    echo "</style></head><body>";
-    echo "<div class='container'>";
-    echo "<h2><span>⚠️</span> Database Connection Error <span class='badge'>Error #{$errCode}</span></h2>";
-    echo "<p>The application could not connect to the database server at <code>" . htmlspecialchars(DB_HOST) . ":" . DB_PORT . "</code> (Database: <code>" . htmlspecialchars(DB_NAME) . "</code>).</p>";
-    echo "<div class='box'>" . htmlspecialchars($errMsg) . "</div>";
-    echo "<p><strong>How to resolve this in Vercel:</strong></p>";
-    echo "<ol>";
-    echo "<li>Open the <a href='https://vercel.com/dashboard' target='_blank' style='color:#38bdf8;'>Vercel Dashboard</a> &rarr; Select your project &rarr; <strong>Settings &rarr; Environment Variables</strong>.</li>";
-    echo "<li>Verify the following variables are set for <strong>Production</strong>, <strong>Preview</strong>, and <strong>Development</strong>:";
-    echo "<ul>";
-    echo "<li><code>DB_HOST</code> (e.g. your TiDB Cloud host <code>gateway01.ap-south-1.prod.aws.tidbcloud.com</code>)</li>";
-    echo "<li><code>DB_PORT</code> (usually <code>4000</code> for TiDB Cloud, or <code>3306</code> for MySQL)</li>";
-    echo "<li><code>DB_USER</code> (your TiDB/MySQL username)</li>";
-    echo "<li><code>DB_PASS</code> (your database password)</li>";
-    echo "<li><code>DB_NAME</code> (your database name)</li>";
-    echo "</ul></li>";
-    echo "<li>If using TiDB Cloud, ensure your cluster allows traffic from any IP (Security Settings &rarr; allow <code>0.0.0.0/0</code>).</li>";
-    echo "</ol>";
-    echo "<a class='action-btn' href='/api/debug.php?key=ksrdebug2024'>Open Diagnostic Page (/api/debug.php)</a>";
-    echo "</div></body></html>";
-    exit(0);
+    $conn = null;
+    define('DB_CONNECTED', false);
+    define('DB_ERROR_MESSAGE', $connError ?: ($conn ? $conn->connect_error : 'Unable to connect to database'));
+} else {
+    define('DB_CONNECTED', true);
+    define('DB_ERROR_MESSAGE', '');
+    // Set charset to utf8mb4 for Kannada text support
+    $conn->set_charset("utf8mb4");
 }
-
-// Set charset to utf8mb4 for Kannada text support
-$conn->set_charset("utf8mb4");
 
 if (!function_exists('getDBConnection')) {
     function getDBConnection(): PDO
