@@ -551,6 +551,114 @@ $bestSellers = array_slice($products, 0, 8);
     </section>
 
     <!-- ============================================================
+    STATS COUNTER SECTION
+    ============================================================ -->
+    <div class="container">
+        <section style="padding: 40px 0 20px;">
+            <h2 class="section-title">🏆 Trusted by Thousands · ಸಾವಿರಾರು ಜನ ನಂಬಿದ ಅಂಗಡಿ</h2>
+            <div class="stats-grid" id="statsGrid">
+                <div class="stat-item fade-up">
+                    <div class="number" data-target="5000">0</div>
+                    <div style="font-size:0.85rem;color:var(--text-muted);font-weight:600;margin-top:4px;">Happy Customers</div>
+                </div>
+                <div class="stat-item fade-up">
+                    <div class="number" data-target="1200">0</div>
+                    <div style="font-size:0.85rem;color:var(--text-muted);font-weight:600;margin-top:4px;">Products Available</div>
+                </div>
+                <div class="stat-item fade-up">
+                    <div class="number" data-target="15000">0</div>
+                    <div style="font-size:0.85rem;color:var(--text-muted);font-weight:600;margin-top:4px;">Orders Delivered</div>
+                </div>
+                <div class="stat-item fade-up">
+                    <div class="number" data-target="4">0</div>
+                    <div style="font-size:0.85rem;color:var(--text-muted);font-weight:600;margin-top:4px;">Years of Service</div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ============================================================
+    CUSTOMER REVIEWS / TESTIMONIALS
+    ============================================================ -->
+    <section style="padding: 40px 0;">
+        <div class="container">
+            <h2 class="section-title">⭐ Customer Reviews · ಗ್ರಾಹಕ ಅಭಿಪ್ರಾಯಗಳು</h2>
+            <div class="review-grid">
+                <div class="review-card fade-up">
+                    <div class="stars">★★★★★</div>
+                    <p>"Excellent quality products! Got my groceries delivered within 2 hours. The fresh vegetables were amazing — just like from the farm."</p>
+                    <div class="reviewer">
+                        <div style="width:40px;height:40px;border-radius:50%;background:var(--gradient-primary);display:flex;align-items:center;justify-content:center;color:white;font-weight:800;font-size:1rem;">S</div>
+                        <div>
+                            <div class="name">Suresh Kumar</div>
+                            <div style="font-size:0.75rem;color:var(--text-muted);">Gajendragad</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="review-card fade-up">
+                    <div class="stars">★★★★★</div>
+                    <p>"ಬಹಳ ಒಳ್ಳೆಯ ಸೇವೆ! ಬೆಲೆ ಕಡಿಮೆ, ಗುಣಮಟ್ಟ ಉತ್ತಮ. KSR GURU JI ನಮ್ಮ ಮನೆಯ ದೈನಂದಿನ ಅಗತ್ಯಗಳಿಗೆ ಪ್ರಮುಖ ಆಧಾರ ಆಗಿದೆ."</p>
+                    <div class="reviewer">
+                        <div style="width:40px;height:40px;border-radius:50%;background:var(--gradient-accent);display:flex;align-items:center;justify-content:center;color:white;font-weight:800;font-size:1rem;">L</div>
+                        <div>
+                            <div class="name">Lakshmi Devi</div>
+                            <div style="font-size:0.75rem;color:var(--text-muted);">ಗಜೇಂದ್ರಗಡ</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="review-card fade-up">
+                    <div class="stars">★★★★★</div>
+                    <p>"The Doctor Assist feature helped me get medicine advice quickly. The emergency delivery was a lifesaver for my elderly parents. Truly great service!"</p>
+                    <div class="reviewer">
+                        <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#6366f1,#8b5cf6);display:flex;align-items:center;justify-content:center;color:white;font-weight:800;font-size:1rem;">R</div>
+                        <div>
+                            <div class="name">Rajesh Patil</div>
+                            <div style="font-size:0.75rem;color:var(--text-muted);">Gajendragad</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    APP DOWNLOAD BANNER
+    ============================================================ -->
+    <div class="container">
+        <div class="app-banner fade-up">
+            <div>
+                <h2>📱 Order via WhatsApp · ಸುಲಭ ಆದೇಶ</h2>
+                <p style="margin-top:8px;opacity:.9;">Chat with us on WhatsApp and place your order in seconds. No app download needed!</p>
+            </div>
+            <div class="app-buttons">
+                <a href="https://wa.me/918088584421?text=Hi%20KSR%20GURU%20JI%2C%20I%20want%20to%20place%20an%20order" target="_blank" rel="noopener">
+                    <i class="fab fa-whatsapp"></i> Order on WhatsApp
+                </a>
+                <a href="tel:8088584421">
+                    <i class="fas fa-phone"></i> Call Us Now
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    NEWSLETTER / NOTIFICATIONS SIGNUP
+    ============================================================ -->
+    <div class="container">
+        <div class="newsletter fade-up">
+            <h2>🔔 Get Daily Deals Alerts · ಡೀಲ್ ಅಲರ್ಟ್</h2>
+            <p style="color:var(--text-muted);margin-top:8px;">Subscribe via WhatsApp for exclusive discounts, fresh stock alerts, and special offers.</p>
+            <div class="input-group" style="margin-top:20px;">
+                <input type="tel" id="newsletterPhone" placeholder="Enter your mobile number" maxlength="10" />
+                <button onclick="subscribeNewsletter()" style="background:var(--gradient-primary);color:white;border:none;padding:12px 28px;border-radius:var(--radius-btn);font-weight:700;cursor:pointer;transition:var(--transition);">
+                    <i class="fab fa-whatsapp"></i> Subscribe
+                </button>
+            </div>
+            <p style="font-size:0.75rem;color:var(--text-muted);margin-top:10px;">We respect your privacy. Unsubscribe anytime.</p>
+        </div>
+    </div>
+
+    <!-- ============================================================
     PRODUCT GRID WITH PAGINATION
     ============================================================ -->
     <div class="container" style="padding-bottom:2rem;">
@@ -1828,8 +1936,38 @@ $bestSellers = array_slice($products, 0, 8);
                 // Initialize pagination on page load
                 initPagination();
 
+                // ============================================================
+                // ANIMATED STATS COUNTER
+                // ============================================================
+                function animateCounter(el, target, duration) {
+                    let start = 0;
+                    const step = Math.ceil(target / (duration / 16));
+                    const timer = setInterval(() => {
+                        start += step;
+                        if (start >= target) {
+                            start = target;
+                            clearInterval(timer);
+                        }
+                        el.textContent = start.toLocaleString('en-IN') + (target >= 100 ? '+' : '');
+                    }, 16);
+                }
+
+                const statsObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const numEl = entry.target.querySelector('.number[data-target]');
+                            if (numEl && !numEl.dataset.animated) {
+                                numEl.dataset.animated = '1';
+                                animateCounter(numEl, parseInt(numEl.dataset.target), 1800);
+                            }
+                        }
+                    });
+                }, { threshold: 0.3 });
+                document.querySelectorAll('#statsGrid .stat-item').forEach(el => statsObserver.observe(el));
+
                 console.log('🚀 KSR GURU JI — Redesigned store loaded!');
             }
+
 
             // ----- Start -----
             document.addEventListener('DOMContentLoaded', init);
@@ -1847,6 +1985,19 @@ $bestSellers = array_slice($products, 0, 8);
             });
 
         })();
+
+        // ============================================================
+        // GLOBAL HELPERS (outside IIFE - called via onclick)
+        // ============================================================
+        function subscribeNewsletter() {
+            var phone = (document.getElementById('newsletterPhone') ? document.getElementById('newsletterPhone').value : '').trim();
+            if (!phone || phone.length < 10) {
+                alert('Please enter a valid 10-digit mobile number.');
+                return;
+            }
+            var msg = encodeURIComponent('Hi KSR GURU JI! Please add ' + phone + ' to your daily deals list. Thank you!');
+            window.open('https://wa.me/918088584421?text=' + msg, '_blank');
+        }
     </script>
 </body>
 

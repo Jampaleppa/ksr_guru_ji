@@ -2215,3 +2215,92 @@ a {
     justify-content: flex-start;
   }
 }
+
+/* ============================================================
+   FADE-UP ANIMATION (used with IntersectionObserver)
+   ============================================================ */
+.fade-up {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.55s cubic-bezier(0.25, 0.8, 0.25, 1),
+              transform 0.55s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ============================================================
+   BEST SELLERS SECTION WRAPPER
+   ============================================================ */
+.best-sellers {
+  padding: 40px 0;
+}
+.best-sellers .best-sellers-grid {
+  margin-top: 0;
+}
+
+/* ============================================================
+   EMPTY CART STATE
+   ============================================================ */
+.empty-cart {
+  padding: 40px 20px;
+  text-align: center;
+  color: var(--text-muted);
+}
+.empty-cart i {
+  font-size: 3rem;
+  display: block;
+  margin-bottom: 12px;
+  color: var(--color-primary-light);
+}
+
+/* ============================================================
+   MOBILE HERO & PRODUCT GRID TWEAKS
+   ============================================================ */
+@media (max-width: 768px) {
+  .hero-slide {
+    padding: 32px 24px;
+  }
+  .hero-content h2 {
+    font-size: 1.6rem;
+  }
+  .hero-image {
+    display: none;
+  }
+  .app-banner {
+    flex-direction: column;
+    text-align: center;
+  }
+  .app-buttons {
+    justify-content: center;
+  }
+  .best-sellers-grid,
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+  .product-img,
+  .card-img {
+    font-size: 2.5rem;
+  }
+  .ai-showcase {
+    padding: 24px 20px;
+    margin: 24px 0;
+  }
+  .emergency-banner {
+    padding: 24px 20px;
+  }
+}
+
+@media (max-width: 420px) {
+  .best-sellers-grid,
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .best-card,
+  .product-card {
+    padding: 14px;
+  }
+}
