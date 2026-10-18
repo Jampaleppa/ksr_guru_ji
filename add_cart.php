@@ -35,69 +35,49 @@ if ($productIdRaw === '') {
     $error = 'Invalid product ID.';
 } else {
     $productId = $productIdRaw;
-    // --- Fetch product from database ---
+    // --- Fetch product from database or client fallback ---
+    $clientName = isset($_POST['name']) ? trim($_POST['name']) : (isset($_GET['name']) ? trim($_GET['name']) : '');
+    $clientKn = isset($_POST['kn']) ? trim($_POST['kn']) : (isset($_GET['kn']) ? trim($_GET['kn']) : '');
+    $clientImage = isset($_POST['image']) ? trim($_POST['image']) : (isset($_GET['image']) ? trim($_GET['image']) : '');
+    $clientPrice = $customPrice > 0 ? $customPrice : (isset($_POST['price']) ? (float)$_POST['price'] : (isset($_GET['price']) ? (float)$_GET['price'] : 0.0));
+
+    $product = null;
     try {
         $pdo = getDBConnection();
-        
-        // Statically define columns in products table to avoid slow SHOW COLUMNS query
-        $columns = ['id', 'name', 'kn_name', 'price', 'category_id', 'icon', 'emoji', 'is_featured', 'created_at', 'images', 'stock'];
-
-        $selectedFields = ['id', 'name', 'kn_name', 'price'];
-        
-        $hasStock = in_array('stock', $columns);
-        if ($hasStock) {
-            $selectedFields[] = 'stock';
+        if ($pdo) {
+            $stmt = $pdo->prepare("SELECT id, name, kn_name, price FROM products WHERE id = ?");
+            $stmt->execute([is_numeric($productId) ? (int)$productId : $productId]);
+            $product = $stmt->fetch(PDO::FETCH_ASSOC);
         }
-        
-        $imgCol = null;
-        if (in_array('image_url', $columns)) {
-            $imgCol = 'image_url';
-        } elseif (in_array('images', $columns)) {
-            $imgCol = 'images AS image_url';
-        }
-        if ($imgCol) {
-            $selectedFields[] = $imgCol;
-        }
+    } catch (Throwable $e) {
+        $product = null;
+    }
 
-        $fieldsStr = implode(', ', $selectedFields);
-        
-        $stmt = $pdo->prepare("SELECT $fieldsStr FROM products WHERE id = ?");
-        $stmt->execute([is_numeric($productId) ? (int)$productId : $productId]);
-        $product = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        $clientName = isset($_POST['name']) ? trim($_POST['name']) : (isset($_GET['name']) ? trim($_GET['name']) : '');
-
-        if (!$product || ($clientName !== '' && strcasecmp($product['name'], $clientName) !== 0)) {
-            // Check if product details were submitted by the client (allows fallback/static products to be added)
-            if ($clientName !== '') {
-                $clientKn = isset($_POST['kn']) ? trim($_POST['kn']) : (isset($_GET['kn']) ? trim($_GET['kn']) : '');
-                $clientImage = isset($_POST['image']) ? trim($_POST['image']) : (isset($_GET['image']) ? trim($_GET['image']) : '');
-                
-                // Determine price: custom_price, price, or fallback
-                $clientPrice = $customPrice > 0 ? $customPrice : (isset($_POST['price']) ? (float)$_POST['price'] : (isset($_GET['price']) ? (float)$_GET['price'] : 0.0));
-                
-                // Construct a unique productId prefix to avoid collisions
-                $refererPath = isset($_SERVER['HTTP_REFERER']) ? parse_url($_SERVER['HTTP_REFERER'], PHP_URL_PATH) : '';
-                $pageName = $refererPath ? pathinfo($refererPath, PATHINFO_FILENAME) : 'fallback';
-                $virtualId = $productId;
-                if (!empty($pageName) && $pageName !== 'index' && !str_starts_with($productId, $pageName . '_')) {
-                    $virtualId = $pageName . '_' . $productId;
-                }
-                
-                $product = [
-                    'id' => $virtualId,
-                    'name' => $clientName,
-                    'kn_name' => $clientKn,
-                    'price' => $clientPrice,
-                    'stock' => null,
-                    'image_url' => $clientImage
-                ];
-                
-                $productId = $virtualId;
-            } else {
-                $error = 'Product not found.';
+    if (!$product || ($clientName !== '' && strcasecmp($product['name'], $clientName) !== 0)) {
+        // Check if product details were submitted by the client (allows fallback/static products to be added)
+        if ($clientName !== '') {
+            // Construct a unique productId prefix to avoid collisions
+            $refererPath = isset($_SERVER['HTTP_REFERER']) ? parse_url($_SERVER['HTTP_REFERER'], PHP_URL_PATH) : '';
+            $pageName = $refererPath ? pathinfo($refererPath, PATHINFO_FILENAME) : 'fallback';
+            $virtualId = $productId;
+            if (!empty($pageName) && $pageName !== 'index' && !str_starts_with($productId, $pageName . '_')) {
+                $virtualId = $pageName . '_' . $productId;
             }
+            
+            $product = [
+                'id' => $virtualId,
+                'name' => $clientName,
+                'kn_name' => $clientKn,
+                'price' => $clientPrice,
+                'stock' => null,
+                'image_url' => $clientImage
+            ];
+            
+            $productId = $virtualId;
+        } else {
+            $error = 'Product not found.';
         }
+    }
 
         if (empty($error)) {
             // Supply empty if not exists in product array
@@ -157,10 +137,7 @@ if ($productIdRaw === '') {
                 $message = 'Product added to cart.';
             }
         }
-    } catch (PDOException $e) {
-        $error = 'Database error: ' . $e->getMessage();
     }
-}
 
 // --- Determine response type ---
 $isAjax = !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
