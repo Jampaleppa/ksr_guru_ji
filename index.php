@@ -1936,37 +1936,9 @@ $bestSellers = array_slice($products, 0, 8);
                 // Initialize pagination on page load
                 initPagination();
 
-                // ============================================================
-                // ANIMATED STATS COUNTER
-                // ============================================================
-                function animateCounter(el, target, duration) {
-                    let start = 0;
-                    const step = Math.ceil(target / (duration / 16));
-                    const timer = setInterval(() => {
-                        start += step;
-                        if (start >= target) {
-                            start = target;
-                            clearInterval(timer);
-                        }
-                        el.textContent = start.toLocaleString('en-IN') + (target >= 100 ? '+' : '');
-                    }, 16);
-                }
-
-                const statsObserver = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            const numEl = entry.target.querySelector('.number[data-target]');
-                            if (numEl && !numEl.dataset.animated) {
-                                numEl.dataset.animated = '1';
-                                animateCounter(numEl, parseInt(numEl.dataset.target), 1800);
-                            }
-                        }
-                    });
-                }, { threshold: 0.3 });
-                document.querySelectorAll('#statsGrid .stat-item').forEach(el => statsObserver.observe(el));
-
                 console.log('🚀 KSR GURU JI — Redesigned store loaded!');
             }
+
 
 
             // ----- Start -----
