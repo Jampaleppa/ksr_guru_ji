@@ -26,27 +26,36 @@ if (!defined('DB_NAME')) {
     define('DB_NAME', getenv('DB_NAME') ?: 'ksr_guru');  // e.g. 'if0_38000000_ksr_guru'
 }
 
-// Create connection with SSL support for cloud databases (TiDB Cloud, Aiven, etc.)
+
+// Create connection — supports both local MySQL and cloud (TiDB / Aiven) with SSL
 $conn = mysqli_init();
-if (DB_HOST !== '127.0.0.1' && DB_HOST !== 'localhost') {
-    $conn->ssl_set(NULL, NULL, NULL, NULL, NULL);
-    @$conn->real_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME, DB_PORT, NULL, MYSQLI_CLIENT_SSL);
-} else {
-    @$conn->real_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME, DB_PORT);
+if (!$conn) {
+    die("<div style='font-family:sans-serif;padding:20px;color:#721c24;background:#f8d7da;border-radius:8px;'>mysqli_init() failed. PHP mysqli extension may not be loaded.</div>");
 }
 
-// Check connection
-if ($conn->connect_error) {
+if (DB_HOST !== '127.0.0.1' && DB_HOST !== 'localhost') {
+    // Cloud MySQL (TiDB Cloud, Aiven, etc.) — enable SSL without cert verification
+    $conn->ssl_set(NULL, NULL, NULL, NULL, NULL);
+    $connected = $conn->real_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME, (int)DB_PORT, NULL, MYSQLI_CLIENT_SSL | MYSQLI_CLIENT_SSL_DONT_VERIFY_SERVER_CERT);
+} else {
+    $connected = $conn->real_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME, (int)DB_PORT);
+}
+
+// Check connection — show clear error (not blank page)
+if (!$connected || $conn->connect_errno) {
+    $errMsg = $conn->connect_error ?: 'Unknown connection error';
     die("<div style='font-family:sans-serif;padding:20px;margin:20px auto;max-width:600px;border:1px solid #f5c6cb;background:#f8d7da;color:#721c24;border-radius:8px;'>" .
-        "<h3>Database Connection Error</h3>" .
-        "<p>Could not connect to database at <strong>" . htmlspecialchars(DB_HOST) . "</strong>.</p>" .
-        "<p><small>Error: " . htmlspecialchars($conn->connect_error) . "</small></p>" .
-        "<p>Please verify DB_HOST, DB_USER, DB_PASS, and DB_NAME in <code>config.php</code> or your hosting panel.</p>" .
+        "<h3>&#9888; Database Connection Error</h3>" .
+        "<p>Could not connect to <strong>" . htmlspecialchars(DB_HOST) . ":" . DB_PORT . "</strong></p>" .
+        "<p><small>Error #" . $conn->connect_errno . ": " . htmlspecialchars($errMsg) . "</small></p>" .
+        "<p>Please set DB_HOST, DB_USER, DB_PASS, DB_NAME in Vercel Environment Variables.</p>" .
         "</div>");
 }
 
 // Set charset to utf8mb4 for Kannada text support
 $conn->set_charset("utf8mb4");
+
+
 
 if (!function_exists('getDBConnection')) {
     function getDBConnection(): PDO
