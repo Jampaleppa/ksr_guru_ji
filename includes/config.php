@@ -13,7 +13,9 @@ define('IS_DEVELOPMENT', $env === 'development');
 // --- Site URLs ---
 $protocol = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') ? 'https://' : 'http://';
 $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
-$basePath = rtrim(dirname(dirname($_SERVER['SCRIPT_NAME'])), '/') . '/';
+// On Vercel all requests route through api/index.php so SCRIPT_NAME is always
+// /api/index.php. We must always use '/' as the base path.
+$basePath = '/';
 define('BASE_URL', $protocol . $host . $basePath);
 define('BASE_PATH', realpath(__DIR__ . '/../') . '/');
 
@@ -73,13 +75,15 @@ if (IS_DEVELOPMENT) {
     error_reporting(E_ALL & ~E_DEPRECATED & ~E_STRICT);
     ini_set('display_errors', 0);
     ini_set('log_errors', 1);
-    ini_set('error_log', BASE_PATH . 'logs/error.log');
+    // Vercel has a read-only filesystem except /tmp — use sys_get_temp_dir()
+    $logDir = is_writable(BASE_PATH . 'logs/') ? BASE_PATH . 'logs/' : sys_get_temp_dir() . '/';
+    ini_set('error_log', $logDir . 'error.log');
 }
 
-// --- Ensure required directories exist ---
+// --- Ensure required directories exist (silently skip read-only paths on Vercel) ---
 $dirs = [UPLOAD_DIR, PRODUCT_IMAGE_DIR, CATEGORY_IMAGE_DIR, TEMP_DIR, BASE_PATH . 'logs/'];
 foreach ($dirs as $dir) {
-    if (!is_dir($dir)) {
+    if (!is_dir($dir) && is_writable(dirname(rtrim($dir, '/')))) {
         @mkdir($dir, 0755, true);
     }
 }
