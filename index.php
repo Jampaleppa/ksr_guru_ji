@@ -1432,7 +1432,7 @@ $bestSellers = array_slice($products, 0, 8);
 
                 // Stats Animate Counter
                 const stats = document.querySelectorAll('.stat-item .number');
-                const statsObserver = new IntersectionObserver((entries, observer) => {
+                const counterIntersectionObserver = new IntersectionObserver((entries, observer) => {
                     entries.forEach(entry => {
                         if (entry.isIntersecting) {
                             const target = parseInt(entry.target.dataset.target);
@@ -1454,7 +1454,7 @@ $bestSellers = array_slice($products, 0, 8);
                 }, {
                     threshold: 0.5
                 });
-                stats.forEach(el => statsObserver.observe(el));
+                stats.forEach(el => counterIntersectionObserver.observe(el));
 
                 // Mobile menu
                 if (mobileMenuBtn) {
