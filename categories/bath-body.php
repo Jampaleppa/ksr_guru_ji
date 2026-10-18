@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 // ============================================================
 // bath-body.php - Dynamic Bath & Body product page
 // ============================================================
@@ -68,7 +68,7 @@ function getBathBodyProducts(string $search = ''): array
 // ============================================================
 // FALLBACK: Load all 550+ products from the provided JSON
 // ============================================================
-function getFallbackProducts() {
+function getFallbackBathBodyProducts() {
     static $fallback = null;
     if ($fallback !== null) {
         return $fallback;
@@ -642,6 +642,11 @@ function getFallbackProducts() {
     $fallback = $result;
     return $fallback;
 }
+if (!function_exists('getFallbackProducts')) {
+    function getFallbackProducts() {
+        return getFallbackBathBodyProducts();
+    }
+}
 // ============================================================
 // Get products: Try DB first, then fallback to static
 // ============================================================
@@ -651,7 +656,7 @@ if (isset($pdo)) {
     $products = getBathBodyProducts();
 }
 if (empty($products)) {
-    $products = getFallbackProducts();
+    $products = getFallbackBathBodyProducts();
 }
 // Get cart count and total
 $cartCount = array_sum(array_column($_SESSION['cart'], 'qty'));

@@ -1,0 +1,19 @@
+[2026-10-18 16:45:01] [127.0.0.1] [Guest] [PAGE] GET - - Status: 0 - Referrer: - - UA: -
+[2026-10-18 11:16:08] [::1] [Guest] [PAGE] GET / - Status: 200 - Referrer: - - UA: Mozilla/5.0 (Windows NT 10.0; Microsoft Windows 10.0.22621; en-US) PowerShell/7.6.7
+[2026-10-18 11:16:22] [::1] [Guest] [PAGE] GET /cart.php - Status: 200 - Referrer: - - UA: Mozilla/5.0 (Windows NT 10.0; Microsoft Windows 10.0.22621; en-US) PowerShell/7.6.7
+[2026-10-18 11:16:23] [::1] [Guest] [PAGE] GET /checkout.php - Status: 200 - Referrer: - - UA: Mozilla/5.0 (Windows NT 10.0; Microsoft Windows 10.0.22621; en-US) PowerShell/7.6.7
+[2026-10-18 11:16:23] [::1] [Guest] [PAGE] GET /login.php - Status: 200 - Referrer: - - UA: Mozilla/5.0 (Windows NT 10.0; Microsoft Windows 10.0.22621; en-US) PowerShell/7.6.7
+[2026-10-18 16:46:23] [::1] [Guest] [PAGE] GET /support.php - Status: 200 - Referrer: - - UA: Mozilla/5.0 (Windows NT 10.0; Microsoft Windows 10.0.22621; en-US) PowerShell/7.6.7
+[2026-10-18 11:16:23] [::1] [Guest] [PAGE] GET /track-order.php - Status: 200 - Referrer: - - UA: Mozilla/5.0 (Windows NT 10.0; Microsoft Windows 10.0.22621; en-US) PowerShell/7.6.7
+[2026-10-18 16:48:19] [127.0.0.1] [Guest] [PAGE] GET - - Status: 0 - Referrer: - - UA: -
+[2026-10-18 11:18:32] [127.0.0.1] [Guest] [PAGE] GET - - Status: 0 - Referrer: - - UA: -
+[2026-10-18 11:21:31] [::1] [Guest] [PAGE] GET / - Status: 200 - Referrer: - - UA: Mozilla/5.0 (Windows NT 10.0; Microsoft Windows 10.0.22621; en-US) PowerShell/7.6.7
+[2026-10-18 11:22:03] [127.0.0.1] [Guest] [PAGE] GET / - Status: 200 - Referrer: - - UA: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:158.0) Gecko/20100101 Firefox/158.0
+[2026-10-18 11:22:03] [127.0.0.1] [Guest] [PAGE] GET / - Status: 200 - Referrer: - - UA: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:158.0) Gecko/20100101 Firefox/158.0
+[2026-10-18 11:22:29] [127.0.0.1] [Guest] [AJAX] GET /index.php?ajax=cart - Status: 200 - Referrer: http://localhost:8090/ - UA: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:158.0) Gecko/20100101 Firefox/158.0
+[2026-10-18 11:22:49] [127.0.0.1] [Guest] [AJAX] GET /index.php?ajax=cart - Status: 200 - Referrer: http://localhost:8090/ - UA: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:158.0) Gecko/20100101 Firefox/158.0
+[2026-10-18 11:27:07] [::1] [Guest] [PAGE] GET / - Status: 200 - Referrer: - - UA: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:158.0) Gecko/20100101 Firefox/158.0
+[2026-10-18 17:18:04] [127.0.0.1] [Guest] [PAGE] GET - - Status: 0 - Referrer: - - UA: -
+[2026-10-18 11:48:16] [127.0.0.1] [Guest] [PAGE] GET - - Status: 0 - Referrer: - - UA: -
+[2026-10-18 11:48:27] [127.0.0.1] [Guest] [PAGE] GET - - Status: 0 - Referrer: - - UA: -
+[2026-10-18 11:51:26] [127.0.0.1] [Guest] [PAGE] GET - - Status: 0 - Referrer: - - UA: -

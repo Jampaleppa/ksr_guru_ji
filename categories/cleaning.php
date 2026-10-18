@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 // ============================================================
 // cleaning.php - Dynamic Cleaning Supplies Page (images fixed)
 // ============================================================
@@ -92,12 +92,12 @@ function getCleaningProducts(string $search = ''): array {
     } catch (Throwable $e) {
         // Fall back to static data on any database error
     }
-    return getFallbackProducts($search);
+    return getFallbackCleaningProducts($search);
 }
 // ============================================================
 // FALLBACK PRODUCTS – always generated fresh from static data
 // ============================================================
-function getFallbackProducts(string $search = ''): array {
+function getFallbackCleaningProducts(string $search = ''): array {
     static $fallback = null;
     if ($fallback === null) {
         // All products with Windows paths (normalized later)

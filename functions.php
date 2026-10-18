@@ -5,49 +5,53 @@
 
 require_once 'config.php';
 
-/**
- * Fallback category data when database is unavailable
- */
-function getFallbackCategories(): array
-{
-    return [
-        ['id' => '1', 'name' => 'Air Freshener', 'kn_name' => 'ಏರ್ ಫ್ರೆಶ್ನರ್', 'icon' => 'fa-wind'],
-        ['id' => '2', 'name' => 'Bakery', 'kn_name' => 'ಬೇಕರಿ', 'icon' => 'fa-bread-slice'],
-        ['id' => '3', 'name' => 'Bath & Body', 'kn_name' => 'ಸ್ನಾನ ಮತ್ತು ದೇಹ', 'icon' => 'fa-bath'],
-        ['id' => '4', 'name' => 'Cleaning Supplies', 'kn_name' => 'ಶುಚಿಗೊಳಿಸುವ ಸರಬರಾಜು', 'icon' => 'fa-soap'],
-        ['id' => '5', 'name' => 'Cold Drinks', 'kn_name' => 'ಪಾನೀಯಗಳು', 'icon' => 'fa-mug-hot'],
-        ['id' => '6', 'name' => 'Cooking Oil', 'kn_name' => 'ಅಡುಗೆ ಎಣ್ಣೆ', 'icon' => 'fa-oil-can'],
-        ['id' => '7', 'name' => 'Dairy', 'kn_name' => 'ಡೈರಿ', 'icon' => 'fa-cheese'],
-        ['id' => '8', 'name' => 'Dishwash', 'kn_name' => 'ಡಿಶ್ವಾಶ್', 'icon' => 'fa-hand-sparkles'],
-        ['id' => '9', 'name' => 'Dry Fruits', 'kn_name' => 'ಒಣ ಹಣ್ಣುಗಳು', 'icon' => 'fa-seedling'],
-        ['id' => '10', 'name' => 'Grains & Cereals', 'kn_name' => 'ಧಾನ್ಯಗಳು', 'icon' => 'fa-wheat-alt'],
-        ['id' => '11', 'name' => 'Hair Care', 'kn_name' => 'ಹೇರ್ ಕೇರ್', 'icon' => 'fa-user-tie'],
-        ['id' => '12', 'name' => 'Health & Pharmacy', 'kn_name' => 'ಆರೋಗ್ಯ ಮತ್ತು ಔಷಧ', 'icon' => 'fa-capsules'],
-        ['id' => '13', 'name' => 'Home Care', 'kn_name' => 'ಮನೆ ಆರೈಕೆ', 'icon' => 'fa-home'],
-        ['id' => '14', 'name' => 'Kitchenware', 'kn_name' => 'ಅಡುಗೆ ಸಾಮಾನು', 'icon' => 'fa-utensils'],
-        ['id' => '15', 'name' => 'Laundry', 'kn_name' => 'ಲಾಂಡ್ರಿ', 'icon' => 'fa-jug-detergent'],
-        ['id' => '27', 'name' => 'Vegetables & Fruits', 'kn_name' => 'ತರಕಾರಿಗಳು ಮತ್ತು ಹಣ್ಣುಗಳು', 'icon' => 'fa-carrot'],
-        ['id' => '28', 'name' => 'Snacks', 'kn_name' => 'ಸ್ನ್ಯಾಕ್ಸ್', 'icon' => 'fa-cookie-bite']
-    ];
+if (!function_exists('getFallbackCategories')) {
+    /**
+     * Fallback category data when database is unavailable
+     */
+    function getFallbackCategories(): array
+    {
+        return [
+            ['id' => '1', 'name' => 'Air Freshener', 'kn_name' => 'ಏರ್ ಫ್ರೆಶ್ನರ್', 'icon' => 'fa-wind'],
+            ['id' => '2', 'name' => 'Bakery', 'kn_name' => 'ಬೇಕರಿ', 'icon' => 'fa-bread-slice'],
+            ['id' => '3', 'name' => 'Bath & Body', 'kn_name' => 'ಸ್ನಾನ ಮತ್ತು ದೇಹ', 'icon' => 'fa-bath'],
+            ['id' => '4', 'name' => 'Cleaning Supplies', 'kn_name' => 'ಶುಚಿಗೊಳಿಸುವ ಸರಬರಾಜು', 'icon' => 'fa-soap'],
+            ['id' => '5', 'name' => 'Cold Drinks', 'kn_name' => 'ಪಾನೀಯಗಳು', 'icon' => 'fa-mug-hot'],
+            ['id' => '6', 'name' => 'Cooking Oil', 'kn_name' => 'ಅಡುಗೆ ಎಣ್ಣೆ', 'icon' => 'fa-oil-can'],
+            ['id' => '7', 'name' => 'Dairy', 'kn_name' => 'ಡೈರಿ', 'icon' => 'fa-cheese'],
+            ['id' => '8', 'name' => 'Dishwash', 'kn_name' => 'ಡಿಶ್ವಾಶ್', 'icon' => 'fa-hand-sparkles'],
+            ['id' => '9', 'name' => 'Dry Fruits', 'kn_name' => 'ಒಣ ಹಣ್ಣುಗಳು', 'icon' => 'fa-seedling'],
+            ['id' => '10', 'name' => 'Grains & Cereals', 'kn_name' => 'ಧಾನ್ಯಗಳು', 'icon' => 'fa-wheat-alt'],
+            ['id' => '11', 'name' => 'Hair Care', 'kn_name' => 'ಹೇರ್ ಕೇರ್', 'icon' => 'fa-user-tie'],
+            ['id' => '12', 'name' => 'Health & Pharmacy', 'kn_name' => 'ಆರೋಗ್ಯ ಮತ್ತು ಔಷಧ', 'icon' => 'fa-capsules'],
+            ['id' => '13', 'name' => 'Home Care', 'kn_name' => 'ಮನೆ ಆರೈಕೆ', 'icon' => 'fa-home'],
+            ['id' => '14', 'name' => 'Kitchenware', 'kn_name' => 'ಅಡುಗೆ ಸಾಮಾನು', 'icon' => 'fa-utensils'],
+            ['id' => '15', 'name' => 'Laundry', 'kn_name' => 'ಲಾಂಡ್ರಿ', 'icon' => 'fa-jug-detergent'],
+            ['id' => '27', 'name' => 'Vegetables & Fruits', 'kn_name' => 'ತರಕಾರಿಗಳು ಮತ್ತು ಹಣ್ಣುಗಳು', 'icon' => 'fa-carrot'],
+            ['id' => '28', 'name' => 'Snacks', 'kn_name' => 'ಸ್ನ್ಯಾಕ್ಸ್', 'icon' => 'fa-cookie-bite']
+        ];
+    }
 }
 
-/**
- * Fallback main categories when database is unavailable
- */
-function getFallbackMainCategories(): array
-{
-    return [
-        ['id' => '1', 'name' => 'Groceries & Staples', 'kn' => 'ದೈನಂದಿನ ದಿನಸಿ', 'emoji' => '🌾', 'sub_ids' => '6,10,27'],
-        ['id' => '2', 'name' => 'Cleaning & Household', 'kn' => 'ಮನೆ ಮತ್ತು ಸ್ವಚ್ಛತೆ', 'emoji' => '🧼', 'sub_ids' => '1,4,8,13,15'],
-        ['id' => '3', 'name' => 'Bakery & Snacks', 'kn' => 'ಬೇಕರಿ ಮತ್ತು ತಿಂಡಿಗಳು', 'emoji' => '🥖', 'sub_ids' => '2,5,28'],
-        ['id' => '4', 'name' => 'Personal Care & Health', 'kn' => 'ಆರೋಗ್ಯ ಮತ್ತು ಕಾಳಜಿ', 'emoji' => '💊', 'sub_ids' => '3,11,12']
-    ];
+if (!function_exists('getFallbackMainCategories')) {
+    /**
+     * Fallback main categories when database is unavailable
+     */
+    function getFallbackMainCategories(): array
+    {
+        return [
+            ['id' => '1', 'name' => 'Groceries & Staples', 'kn' => 'ದೈನಂದಿನ ದಿನಸಿ', 'emoji' => '🌾', 'sub_ids' => '6,10,27'],
+            ['id' => '2', 'name' => 'Cleaning & Household', 'kn' => 'ಮನೆ ಮತ್ತು ಸ್ವಚ್ಛತೆ', 'emoji' => '🧼', 'sub_ids' => '1,4,8,13,15'],
+            ['id' => '3', 'name' => 'Bakery & Snacks', 'kn' => 'ಬೇಕರಿ ಮತ್ತು ತಿಂಡಿಗಳು', 'emoji' => '🥖', 'sub_ids' => '2,5,28'],
+            ['id' => '4', 'name' => 'Personal Care & Health', 'kn' => 'ಆರೋಗ್ಯ ಮತ್ತು ಕಾಳಜಿ', 'emoji' => '💊', 'sub_ids' => '3,11,12']
+        ];
+    }
 }
 
 /**
  * Fallback product catalog when database is unavailable
  */
-function getFallbackProducts(string $category = '', string $search = ''): array
+function getStoreFallbackProducts(string $category = '', string $search = ''): array
 {
     $catalog = [
         ['id' => 1, 'name' => 'Floor Cleaner 1L', 'kn_name' => 'ಫ್ಲೋರ್ ಕ್ಲೀನರ್', 'price' => 140.00, 'category_id' => '4', 'category_name' => 'Cleaning Supplies', 'icon' => 'fa-bucket', 'images' => 'images/Cleans/Floor Cleaner 130.jpg', 'is_featured' => 1],
@@ -75,6 +79,13 @@ function getFallbackProducts(string $category = '', string $search = ''): array
         }));
     }
     return $catalog;
+}
+
+if (!function_exists('getFallbackProducts')) {
+    function getFallbackProducts(string $category = '', string $search = ''): array
+    {
+        return getStoreFallbackProducts($category, $search);
+    }
 }
 
 /**
@@ -153,7 +164,7 @@ function getProducts(string $category = '', string $search = ''): array
 {
     global $conn;
     if (!$conn) {
-        return getFallbackProducts($category, $search);
+        return getStoreFallbackProducts($category, $search);
     }
 
     $sql = "SELECT p.*, c.name AS category_name
@@ -181,7 +192,7 @@ function getProducts(string $category = '', string $search = ''): array
 
     $stmt = $conn->prepare($sql);
     if (!$stmt) {
-        return getFallbackProducts($category, $search);
+        return getStoreFallbackProducts($category, $search);
     }
 
     if ($types !== '') {
@@ -195,7 +206,7 @@ function getProducts(string $category = '', string $search = ''): array
         $rows[] = $row;
     }
     $stmt->close();
-    return !empty($rows) ? $rows : getFallbackProducts($category, $search);
+    return !empty($rows) ? $rows : getStoreFallbackProducts($category, $search);
 }
 
 /**
@@ -207,7 +218,7 @@ function getProductById(int $id): ?array
 {
     global $conn;
     if (!$conn) {
-        foreach (getFallbackProducts() as $p) {
+        foreach (getStoreFallbackProducts() as $p) {
             if ((int)$p['id'] === (int)$id) return $p;
         }
         return null;
@@ -235,7 +246,7 @@ function getFeaturedProduct(): ?array
 {
     global $conn;
     if (!$conn) {
-        $prods = getFallbackProducts();
+        $prods = getStoreFallbackProducts();
         return $prods[0] ?? null;
     }
     $sql = "SELECT p.*, c.name AS category_name
@@ -245,12 +256,12 @@ function getFeaturedProduct(): ?array
             LIMIT 1";
     $result = $conn->query($sql);
     if (!$result) {
-        $prods = getFallbackProducts();
+        $prods = getStoreFallbackProducts();
         return $prods[0] ?? null;
     }
     $row = $result->fetch_assoc();
     if ($row) return $row;
-    $prods = getFallbackProducts();
+    $prods = getStoreFallbackProducts();
     return $prods[0] ?? null;
 }
 
@@ -266,7 +277,7 @@ function getRecommendations(int $excludeId = 0, int $limit = 4): array
 {
     global $conn;
     if (!$conn) {
-        $recs = array_filter(getFallbackProducts(), fn($p) => (int)$p['id'] !== (int)$excludeId);
+        $recs = array_filter(getStoreFallbackProducts(), fn($p) => (int)$p['id'] !== (int)$excludeId);
         return array_slice(array_values($recs), 0, $limit);
     }
 
@@ -334,13 +345,27 @@ function getRecommendations(int $excludeId = 0, int $limit = 4): array
 function getCategoryBySlug(string $slug): ?array
 {
     global $conn;
-    $stmt = $conn->prepare("SELECT id, name, kn_name, icon FROM categories WHERE id = ?");
-    $stmt->bind_param("s", $slug);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $row = $result->fetch_assoc();
-    $stmt->close();
-    return $row ?: null;
+    if ($conn) {
+        try {
+            $stmt = $conn->prepare("SELECT id, name, kn_name, icon FROM categories WHERE id = ?");
+            if ($stmt) {
+                $stmt->bind_param("s", $slug);
+                $stmt->execute();
+                $result = $stmt->get_result();
+                $row = $result ? $result->fetch_assoc() : null;
+                $stmt->close();
+                if ($row) return $row;
+            }
+        } catch (Throwable $e) {
+            // fallback below
+        }
+    }
+    foreach (getFallbackCategories() as $c) {
+        if ((string)$c['id'] === (string)$slug || strtolower(str_replace(' ', '-', $c['name'])) === strtolower($slug)) {
+            return $c;
+        }
+    }
+    return null;
 }
 
 /**

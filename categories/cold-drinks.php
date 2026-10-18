@@ -128,7 +128,7 @@ function getColdDrinksProducts(string $search = ''): array {
 // ============================================================
 // FALLBACK: Load static products from fallback JSON
 // ============================================================
-function getFallbackProducts(): array {
+function getFallbackColdDrinksProducts(): array {
     static $fallback = null;
     if ($fallback !== null) {
         return $fallback;
@@ -192,10 +192,16 @@ function getFallbackProducts(): array {
     return $fallback;
 }
 
+if (!function_exists('getFallbackProducts')) {
+    function getFallbackProducts(): array {
+        return getFallbackColdDrinksProducts();
+    }
+}
+
 // Load products
 $products = getColdDrinksProducts();
 if (empty($products)) {
-    $products = getFallbackProducts();
+    $products = getFallbackColdDrinksProducts();
 }
 
 $cartCount = array_sum(array_column($_SESSION['cart'] ?? [], 'qty'));

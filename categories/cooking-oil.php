@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 // ============================================================
 // cooking-oil.php - Dynamic Cooking Oil product page
 // ============================================================
@@ -30,7 +30,7 @@ if (isset($_GET['ajax'])) {
                 $product = getProductById($id);
                 if (!$product) {
                     // Fallback to static data
-                    $fallback = getFallbackProducts();
+                    $fallback = getFallbackCookingOilProducts();
                     foreach ($fallback as $fp) {
                         if ($fp['id'] == $id) {
                             $product = [
@@ -166,7 +166,7 @@ function getCookingOilProducts(string $search = ''): array {
 // ============================================================
 // FALLBACK: If no products from DB, load static data from JSON
 // ============================================================
-function getFallbackProducts(): array {
+function getFallbackCookingOilProducts(): array {
     static $fallback = null;
     if ($fallback !== null) {
         return $fallback;
@@ -311,13 +311,18 @@ function getFallbackProducts(): array {
         ];
     }
     $fallback = $result;
-    file_put_contents($jsonPath, json_encode($fallback, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
+    @file_put_contents($jsonPath, json_encode($fallback, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
     return $fallback;
+}
+if (!function_exists('getFallbackProducts')) {
+    function getFallbackProducts(): array {
+        return getFallbackCookingOilProducts();
+    }
 }
 // Get products (cooking oils category)
 $products = getCookingOilProducts();
 if (empty($products)) {
-    $products = getFallbackProducts();
+    $products = getFallbackCookingOilProducts();
 }
 // Ensure each product has a 'variants' array
 foreach ($products as &$p) {

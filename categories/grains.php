@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 // ============================================================
 // grains.php - Dynamic Grains & Cereals product page (FIXED)
 // ============================================================
@@ -29,7 +29,7 @@ if (isset($_GET['ajax'])) {
       if ($id) {
         $product = getProductById($id);
         if (!$product) {
-          $fallback = getFallbackProducts();
+          $fallback = getFallbackGrainsProducts();
           foreach ($fallback as $fp) {
             if ($fp['id'] == $id) {
               $product = [
@@ -167,7 +167,7 @@ function getGrainsProducts(string $search = ''): array
 // ============================================================
 // FALLBACK: If no products from DB, load static data from JSON
 // ============================================================
-function getFallbackProducts()
+function getFallbackGrainsProducts()
 {
   static $fallback = null;
   if ($fallback !== null) {
@@ -454,13 +454,18 @@ function getFallbackProducts()
     ];
   }
   $fallback = $result;
-  file_put_contents($jsonPath, json_encode($fallback, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
+  @file_put_contents($jsonPath, json_encode($fallback, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
   return $fallback;
+}
+if (!function_exists('getFallbackProducts')) {
+  function getFallbackProducts() {
+    return getFallbackGrainsProducts();
+  }
 }
 // Get products from DB, fallback if empty
 $products = getGrainsProducts();
 if (empty($products)) {
-  $products = getFallbackProducts();
+  $products = getFallbackGrainsProducts();
 }
 // Ensure variants are arrays for each product
 foreach ($products as &$p) {

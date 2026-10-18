@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 // ============================================================
 // dry-fruits.php - Dynamic Dry Fruits & Nuts product page
 // ============================================================
@@ -33,7 +33,7 @@ if (isset($_GET['ajax'])) {
                 $product = getProductById($id);
                 // If not found in DB, search fallback
                 if (!$product) {
-                    $fallbackProducts = getFallbackProducts();
+                    $fallbackProducts = getFallbackDryFruitsProducts();
                     foreach ($fallbackProducts as $fp) {
                         if ($fp['id'] == $id) {
                             $product = [
@@ -179,7 +179,7 @@ function getDryFruitsProducts(string $search = ''): array
 // ============================================================
 // FALLBACK: Parse the provided CSV-like product data
 // ============================================================
-function getFallbackProducts(): array
+function getFallbackDryFruitsProducts(): array
 {
     static $fallback = null;
     if ($fallback !== null) {
@@ -388,14 +388,19 @@ CSV;
         ];
     }
     $fallback = $products;
-    file_put_contents($jsonPath, json_encode($fallback, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
+    @file_put_contents($jsonPath, json_encode($fallback, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
     return $fallback;
+}
+if (!function_exists('getFallbackProducts')) {
+    function getFallbackProducts(): array {
+        return getFallbackDryFruitsProducts();
+    }
 }
 // Get products from database
 $products = getDryFruitsProducts();
 // If no products from DB, use fallback
 if (empty($products)) {
-    $fallbackProducts = getFallbackProducts();
+    $fallbackProducts = getFallbackDryFruitsProducts();
     // Convert fallback to same structure as DB products
     $products = [];
     foreach ($fallbackProducts as $fp) {

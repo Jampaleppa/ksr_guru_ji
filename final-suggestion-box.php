@@ -1,4 +1,4 @@
-﻿<?php
+<?php
     // ============================================================
     // UNIFIED: Product Suggestions + Medical Suggestions + Emergency Orders
     // Self-contained single file (no external dependencies)

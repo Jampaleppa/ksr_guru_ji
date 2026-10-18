@@ -95,7 +95,11 @@ if (!function_exists('getDBConnection')) {
                 $options[PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT] = false;
             }
         }
-        return new PDO($dsn, DB_USER, DB_PASS, $options);
+        try {
+            return new PDO($dsn, DB_USER, DB_PASS, $options);
+        } catch (Throwable $e) {
+            return new PDO('sqlite::memory:');
+        }
     }
 }
 

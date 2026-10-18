@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 // ============================================================
 // health-pharmacy.php - Dynamic Health & Pharmacy page (FIXED with images)
 // ============================================================
@@ -24,7 +24,7 @@ if (isset($_GET['ajax'])) {
             $search = $_GET['search'] ?? '';
             $res = getHealthPharmacyProducts($search);
             if (empty($res)) {
-                $res = getFallbackProducts();
+                $res = getFallbackHealthPharmacyProducts();
                 if ($search !== '') {
                     $res = array_filter($res, function ($p) use ($search) {
                         return stripos($p['name'], $search) !== false || stripos($p['kn_name'] ?? '', $search) !== false;
@@ -43,7 +43,7 @@ if (isset($_GET['ajax'])) {
                 $product = getProductById($id);
                 // If not found in DB, search in fallback static data
                 if (!$product) {
-                    $fallbackProducts = getFallbackProducts();
+                    $fallbackProducts = getFallbackHealthPharmacyProducts();
                     foreach ($fallbackProducts as $fp) {
                         if ($fp['id'] == $id) {
                             $product = [
@@ -178,7 +178,7 @@ $products = getHealthPharmacyProducts();
 // ============================================================
 // FALLBACK: If no products from DB, load static data from JSON
 // ============================================================
-function getFallbackProducts()
+function getFallbackHealthPharmacyProducts()
 {
     static $fallback = null;
     if ($fallback !== null) {
@@ -424,12 +424,17 @@ function getFallbackProducts()
         ];
     }
     $fallback = $result;
-    file_put_contents($jsonPath, json_encode($fallback, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
+    @file_put_contents($jsonPath, json_encode($fallback, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
     return $fallback;
+}
+if (!function_exists('getFallbackProducts')) {
+    function getFallbackProducts() {
+        return getFallbackHealthPharmacyProducts();
+    }
 }
 // If products from DB are empty, use fallback
 if (empty($products)) {
-    $products = getFallbackProducts();
+    $products = getFallbackHealthPharmacyProducts();
 }
 // Ensure each product has standard keys
 foreach ($products as &$p) {
