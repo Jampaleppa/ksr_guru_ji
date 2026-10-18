@@ -70,9 +70,10 @@ try {
 
 // Check connection — if not connected, set $conn = null so application can use graceful fallback
 if (!$connected || $conn->connect_errno) {
+    $dbErrMsg = $connError ?: ($conn->connect_error ?? 'Unable to connect to database');
     $conn = null;
     define('DB_CONNECTED', false);
-    define('DB_ERROR_MESSAGE', $connError ?: ($conn ? $conn->connect_error : 'Unable to connect to database'));
+    define('DB_ERROR_MESSAGE', $dbErrMsg);
 } else {
     define('DB_CONNECTED', true);
     define('DB_ERROR_MESSAGE', '');
