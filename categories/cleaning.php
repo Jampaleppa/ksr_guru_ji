@@ -744,7 +744,7 @@ $topPicks = array_slice($products, 0, 6);
         const formData = new FormData();
         formData.append('id', productId);
         formData.append('qty', qty);
-        fetch('cleaning.php?ajax=update_cart', { method: 'POST', body: formData })
+        fetch('../index.php?ajax=update_cart', { method: 'POST', body: formData })
             .then(res => res.json())
             .then(data => {
                 if (data.success) {
@@ -758,7 +758,7 @@ $topPicks = array_slice($products, 0, 6);
     function removeFromCart(productId) {
         const formData = new FormData();
         formData.append('id', productId);
-        fetch('cleaning.php?ajax=remove_cart', { method: 'POST', body: formData })
+        fetch('../index.php?ajax=remove_cart', { method: 'POST', body: formData })
             .then(res => res.json())
             .then(data => {
                 if (data.success) {

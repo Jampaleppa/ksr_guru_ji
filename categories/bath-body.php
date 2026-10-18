@@ -911,12 +911,12 @@ $cartTotal = array_sum(array_map(fn($i) => $i['price'] * $i['qty'], $_SESSION['c
                     const jsonStart = text.indexOf('{');
                     if (jsonStart !== -1) {
                         data = JSON.parse(text.substring(jsonStart));
-                    } else {
-                        throw new Error('Invalid JSON');
                     }
                 } catch(e) {
-                    console.error("JSON parse error:", text);
-                    alert("Error parsing cart response.");
+                    console.warn("Cart response parse warning:", text);
+                }
+                if (!data) {
+                    console.error("Invalid cart response:", text);
                     return;
                 }
                 

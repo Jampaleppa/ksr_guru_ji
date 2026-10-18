@@ -869,7 +869,7 @@ if (empty($topPicks)) {
             let searchTerm = '';
             // ----- CART AJAX FUNCTIONS -----
             function fetchCart() {
-                fetch('spices-masalas.php?ajax=cart')
+                fetch('../index.php?ajax=cart')
                     .then(res => res.json())
                     .then(data => {
                         cart = data;

@@ -1094,10 +1094,15 @@ $topPicks = array_slice($products, 0, 6);
                             let data;
                             try {
                                 const jsonStart = text.indexOf('{');
-                                data = JSON.parse(text.substring(jsonStart));
+                                if (jsonStart !== -1) {
+                                    data = JSON.parse(text.substring(jsonStart));
+                                }
                             } catch (e) {
-                                console.error("JSON parse error", text);
-                                return alert("Error parsing cart response.");
+                                console.warn("Cart response parse warning:", text);
+                            }
+                            if (!data) {
+                                console.error("Invalid cart response:", text);
+                                return;
                             }
 
                             if (data.success) {

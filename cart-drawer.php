@@ -32,7 +32,7 @@
   <div class="cart-items" id="globalCartItems"></div>
   <div class="cart-footer">
     <div class="cart-total"><span>Total</span><span class="total-price" id="globalCartTotal">₹0</span></div>
-    <button class="checkout-btn" onclick="window.location.href='../checkout/checkout.php'">Proceed to Checkout</button>
+    <button class="checkout-btn" onclick="window.location.href='/checkout.php'">Proceed to Checkout</button>
     <button class="continue-shopping" onclick="closeCartDrawer()">Continue Shopping</button>
   </div>
 </div>
@@ -42,7 +42,7 @@
 let globalCart = [];
 
 function loadGlobalCart() {
-  fetch('../index.php?ajax=cart')
+  fetch('/index.php?ajax=cart')
     .then(res => res.text())
     .then(text => {
       let data;
@@ -85,7 +85,7 @@ function updateGlobalCartQty(productId, qty) {
   const formData = new FormData();
   formData.append('id', productId);
   formData.append('qty', qty);
-  fetch('../index.php?ajax=update_cart', { method: 'POST', body: formData })
+  fetch('/index.php?ajax=update_cart', { method: 'POST', body: formData })
     .then(res => res.text())
     .then(text => {
       let data;
@@ -109,7 +109,7 @@ function updateGlobalCartQty(productId, qty) {
 function removeGlobalCartItem(productId) {
   const formData = new FormData();
   formData.append('id', productId);
-  fetch('../index.php?ajax=remove_cart', { method: 'POST', body: formData })
+  fetch('/index.php?ajax=remove_cart', { method: 'POST', body: formData })
     .then(res => res.text())
     .then(text => {
       let data;

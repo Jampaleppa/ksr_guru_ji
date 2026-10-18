@@ -2,6 +2,7 @@
 // ============================================================
 // add_cart.php - Add product to cart (AJAX + fallback)
 // ============================================================
+ob_start();
 require_once __DIR__ . '/config.php';
 require_once __DIR__ . '/functions.php';
 
@@ -162,28 +163,37 @@ if ($productIdRaw === '') {
 }
 
 // --- Determine response type ---
-$isAjax = !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest';
+$isAjax = !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
 $acceptHeader = $_SERVER['HTTP_ACCEPT'] ?? '';
-$wantsJson = $isAjax || strpos($acceptHeader, 'application/json') !== false;
+$secFetchMode = $_SERVER['HTTP_SEC_FETCH_MODE'] ?? '';
+
+// Treat as JSON if: requested via AJAX, wants application/json, fetch cors mode, or POST without explicit redirect
+$wantsJson = $isAjax 
+    || strpos($acceptHeader, 'application/json') !== false 
+    || $secFetchMode === 'cors'
+    || (empty($redirectUrl) && !empty($_POST));
 
 if ($wantsJson) {
-    // --- AJAX response (JSON) ---
-    header('Content-Type: application/json');
+    // Discard any PHP notices or accidental whitespace
+    while (ob_get_level()) {
+        ob_end_clean();
+    }
+    header('Content-Type: application/json; charset=utf-8');
     if (isset($error)) {
-        echo json_encode(['success' => false, 'error' => $error]);
+        echo json_encode(['success' => false, 'error' => $error], JSON_UNESCAPED_UNICODE);
     } else {
         // Return updated cart info
         $cartCount = array_sum(array_column($_SESSION['cart'], 'qty'));
         $cartTotal = array_sum(array_map(fn($item) => $item['price'] * $item['qty'], $_SESSION['cart']));
         echo json_encode([
             'success' => true,
-            'message' => $message,
-            'added_name' => $product['name'],
+            'message' => $message ?? 'Product added to cart.',
+            'added_name' => $product['name'] ?? '',
             'added_qty' => $quantity,
             'cart' => array_values($_SESSION['cart']),
             'cartCount' => $cartCount,
             'cartTotal' => $cartTotal,
-        ]);
+        ], JSON_UNESCAPED_UNICODE);
     }
     exit;
 } else {

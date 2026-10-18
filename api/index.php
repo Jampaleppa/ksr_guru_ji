@@ -41,6 +41,24 @@ if (preg_match('#(?:.*?/)?(WhatsApp/telehealth/.*)$#i', $cleanPath, $matches)) {
     }
 }
 
+// Common route aliases (e.g. cart & checkout endpoints requested with various subpaths)
+$aliases = [
+    'cart/add_cart.php' => 'add_cart.php',
+    'cart/add_cart' => 'add_cart.php',
+    'add_cart' => 'add_cart.php',
+    'cart/cart.php' => 'cart.php',
+    'cart' => 'cart.php',
+    'cart/' => 'cart.php',
+    'checkout/checkout.php' => 'checkout.php',
+    'cart/checkout.php' => 'checkout.php',
+    'checkout' => 'checkout.php',
+    'checkout/' => 'checkout.php'
+];
+
+if (isset($aliases[$cleanPath])) {
+    $cleanPath = $aliases[$cleanPath];
+}
+
 // Route resolution
 if ($cleanPath === '' || $cleanPath === 'index.php') {
     $targetFile = $rootDir . '/index.php';
@@ -55,6 +73,14 @@ if ($cleanPath === '' || $cleanPath === 'index.php') {
         // Directory index: /admin -> /admin/index.php
         $targetFile = $candidate . '/index.php';
     } else {
+        // If an AJAX request asks for a non-existent endpoint, return JSON rather than HTML home
+        $isAjax = !empty($_SERVER['HTTP_X_REQUESTED_WITH']) || (isset($_SERVER['HTTP_ACCEPT']) && strpos($_SERVER['HTTP_ACCEPT'], 'application/json') !== false);
+        if ($isAjax) {
+            http_response_code(404);
+            header('Content-Type: application/json; charset=utf-8');
+            echo json_encode(['success' => false, 'error' => 'Endpoint not found: ' . $cleanPath], JSON_UNESCAPED_UNICODE);
+            exit(0);
+        }
         // Fallback to home
         $targetFile = $rootDir . '/index.php';
     }

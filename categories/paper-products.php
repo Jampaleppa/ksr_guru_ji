@@ -584,7 +584,7 @@ if (isset($_GET['ajax'])) {
         const formData = new FormData();
         formData.append('id', productId);
         formData.append('qty', qty);
-        fetch('paper-products.php?ajax=update_cart', { method: 'POST', body: formData })
+        fetch('../index.php?ajax=update_cart', { method: 'POST', body: formData })
             .then(res => res.json())
             .then(data => {
                 if (data.success) {
@@ -598,7 +598,7 @@ if (isset($_GET['ajax'])) {
     function removeFromCart(productId) {
         const formData = new FormData();
         formData.append('id', productId);
-        fetch('paper-products.php?ajax=remove_cart', { method: 'POST', body: formData })
+        fetch('../index.php?ajax=remove_cart', { method: 'POST', body: formData })
             .then(res => res.json())
             .then(data => {
                 if (data.success) {
@@ -670,7 +670,7 @@ if (isset($_GET['ajax'])) {
     });
     // ----- LOAD CART FROM SERVER -----
     function loadCart() {
-        fetch('paper-products.php?ajax=cart')
+        fetch('../index.php?ajax=cart')
             .then(res => res.json())
             .then(data => {
                 cart = data;
