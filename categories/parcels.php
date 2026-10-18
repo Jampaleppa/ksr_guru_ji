@@ -202,7 +202,11 @@ function db(): PDO
   static $pdo = null;
   if ($pdo instanceof PDO) return $pdo;
   if (DB_DRIVER === 'sqlite') {
-    $pdo = new PDO('sqlite:' . DB_PATH);
+    $sqlitePath = DB_PATH;
+    if (!is_writable(dirname($sqlitePath))) {
+      $sqlitePath = sys_get_temp_dir() . '/parcel.sqlite';
+    }
+    $pdo = new PDO('sqlite:' . $sqlitePath);
     $pdo->exec('PRAGMA journal_mode = WAL');
   } else {
     $pdo = getDBConnection();
@@ -214,7 +218,13 @@ function db(): PDO
 
 function db_init(): void
 {
-  if (DB_DRIVER === 'sqlite') {
+  try {
+    $driver = 'sqlite';
+    try {
+      $driver = db()->getAttribute(PDO::ATTR_DRIVER_NAME);
+    } catch (\Throwable $e) {}
+
+    if ($driver === 'sqlite') {
     db()->exec("CREATE TABLE IF NOT EXISTS parcel_requests (
             id               INTEGER PRIMARY KEY AUTOINCREMENT,
             order_code       TEXT NOT NULL UNIQUE,
@@ -317,6 +327,9 @@ function db_init(): void
         } catch (\Throwable $e) {}
       }
     }
+  }
+  } catch (\Throwable $e) {
+    // Graceful fallback if database permissions or table creation fail
   }
 }
 db_init();

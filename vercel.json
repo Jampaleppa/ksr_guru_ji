@@ -3,7 +3,7 @@
     "api/*.php": {
       "runtime": "vercel-php@0.9.0",
       "maxDuration": 30,
-      "excludeFiles": "{images/**,WhatsApp/**}"
+      "excludeFiles": "{images/**,WhatsApp/vendor/**,WhatsApp/composer.phar}"
     }
   },
   "routes": [

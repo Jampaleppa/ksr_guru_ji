@@ -33,6 +33,14 @@ $cleanPath = ltrim($uriPath, '/');
 
 $rootDir = dirname(__DIR__);
 
+// Handle repetitive relative paths like WhatsApp/telehealth/medicine/WhatsApp/telehealth/index.php
+if (preg_match('#(?:.*?/)?(WhatsApp/telehealth/.*)$#i', $cleanPath, $matches)) {
+    $alt = $rootDir . '/' . $matches[1];
+    if (is_file($alt) || is_file($alt . '.php') || (is_dir($alt) && is_file($alt . '/index.php'))) {
+        $cleanPath = $matches[1];
+    }
+}
+
 // Route resolution
 if ($cleanPath === '' || $cleanPath === 'index.php') {
     $targetFile = $rootDir . '/index.php';

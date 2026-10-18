@@ -42,10 +42,16 @@ const OWNER_EXP     = 'D. Pharm · 6+ Years Experience';
    1.  DATABASE
    ===================================================================== */
 try {
+  $dbHost = getenv('DB_HOST') ?: DB_HOST;
+  $dbPort = getenv('DB_PORT') ?: '3306';
+  $dbUser = getenv('DB_USER') ?: DB_USER;
+  $dbPass = getenv('DB_PASS') !== false ? getenv('DB_PASS') : DB_PASS;
+  $dbName = getenv('DB_NAME') ?: DB_NAME;
+
   $pdo = new PDO(
-    'mysql:host=' . DB_HOST . ';dbname=' . DB_NAME . ';charset=utf8mb4',
-    DB_USER,
-    DB_PASS,
+    'mysql:host=' . $dbHost . ';port=' . $dbPort . ';dbname=' . $dbName . ';charset=utf8mb4',
+    $dbUser,
+    $dbPass,
     [
       PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
       PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,

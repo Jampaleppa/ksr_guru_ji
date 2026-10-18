@@ -9,7 +9,10 @@
 move_files.ps1
 deploy/
 deploy-infinityfree.ps1
-WhatsApp/
+WhatsApp/vendor/
+WhatsApp/composer.phar
+WhatsApp/*.txt
+WhatsApp/storage/
 KSR Guru JI/
 node_modules/
 deploy_database.sql
