@@ -60,7 +60,26 @@ try {
     ]
   );
 } catch (Throwable $e) {
-  $pdo = new PDO('sqlite::memory:');
+  $sourceSqlite = __DIR__ . '/medicines.sqlite';
+  $tmpSqlite    = sys_get_temp_dir() . '/medicines.sqlite';
+  $sqliteDb     = null;
+
+  if (file_exists($sourceSqlite)) {
+    // If running in a writable temp directory (e.g. Vercel /tmp), copy to allow order placing
+    if (is_writable(sys_get_temp_dir())) {
+      if (!file_exists($tmpSqlite) || filesize($tmpSqlite) !== filesize($sourceSqlite)) {
+        @copy($sourceSqlite, $tmpSqlite);
+      }
+      $sqliteDb = file_exists($tmpSqlite) && is_writable($tmpSqlite) ? $tmpSqlite : $sourceSqlite;
+    } else {
+      $sqliteDb = $sourceSqlite;
+    }
+    $pdo = new PDO('sqlite:' . $sqliteDb);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+  } else {
+    $pdo = new PDO('sqlite::memory:');
+  }
 }
 
 /* ---------- Auto-create the pharmacy order table if missing ----------
@@ -69,6 +88,36 @@ try {
 function ensureOrderTable(PDO $pdo): void
 {
   try {
+    if ($pdo->getAttribute(PDO::ATTR_DRIVER_NAME) === 'sqlite') {
+      $pdo->exec(
+        "CREATE TABLE IF NOT EXISTS pharmacy_orders (
+          id               INTEGER PRIMARY KEY AUTOINCREMENT,
+          order_code       TEXT NOT NULL UNIQUE,
+          customer_name    TEXT NOT NULL,
+          customer_phone   TEXT NOT NULL,
+          address_text     TEXT NULL,
+          latitude         REAL NULL,
+          longitude        REAL NULL,
+          accuracy_m       REAL NULL,
+          maps_url         TEXT NULL,
+          items_json       TEXT NULL,
+          items_text       TEXT NULL,
+          subtotal         REAL NOT NULL DEFAULT 0.00,
+          delivery         REAL NOT NULL DEFAULT 0.00,
+          total            REAL NOT NULL DEFAULT 0.00,
+          needs_rx         INTEGER NOT NULL DEFAULT 0,
+          rx_file          TEXT NULL,
+          customer_note    TEXT NULL,
+          status           TEXT NOT NULL DEFAULT 'pending',
+          reject_reason    TEXT NULL,
+          verified_by      TEXT NULL,
+          verified_at      TEXT NULL,
+          created_at       TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+        )"
+      );
+      return;
+    }
+
     $pdo->query(
       "CREATE TABLE IF NOT EXISTS pharmacy_orders (
         id INT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -100,7 +149,7 @@ function ensureOrderTable(PDO $pdo): void
       ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4"
     );
   } catch (Throwable $ex) {
-    /* table already exists or user lacks DDL rights — queries below will report */
+    /* table already exists or read-only filesystem — queries below will report */
   }
 }
 ensureOrderTable($pdo);
@@ -326,10 +375,10 @@ if ($pharmLoggedIn && ($_POST['do'] ?? '') === 'setstatus' && $route === 'pharma
   if ($id > 0 && in_array($status, $allowed, true)) {
     if ($status === 'rejected' && $reason === '') {
       $_SESSION['flash'] = ['err', 'Reject reason is required.'];
-    } else {
+      $nowFn = ($pdo->getAttribute(PDO::ATTR_DRIVER_NAME) === 'sqlite') ? 'CURRENT_TIMESTAMP' : 'NOW()';
       $st = $pdo->prepare(
         "UPDATE pharmacy_orders
-            SET status = :s, reject_reason = :r, verified_by = :v, verified_at = NOW()
+            SET status = :s, reject_reason = :r, verified_by = :v, verified_at = $nowFn
           WHERE id = :id"
       );
       $st->execute([

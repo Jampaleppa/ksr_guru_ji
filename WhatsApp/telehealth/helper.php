@@ -114,7 +114,14 @@ function getCatalogueDB(): PDO
             PDO::ATTR_TIMEOUT            => 3,
         ]);
     } catch (Throwable $e) {
-        $pdo = new PDO('sqlite::memory:');
+        $sqliteDb = __DIR__ . '/medicine/medicines.sqlite';
+        if (file_exists($sqliteDb)) {
+            $pdo = new PDO('sqlite:' . $sqliteDb);
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+        } else {
+            $pdo = new PDO('sqlite::memory:');
+        }
     }
 
     return $pdo;
