@@ -1,8 +1,0 @@
-{
-  "engines": {
-    "node": "22.x"
-  },
-  "dependencies": {
-    "@google/genai": "^2.24.0"
-  }
-}

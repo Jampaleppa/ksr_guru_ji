@@ -3,6 +3,23 @@
 // api/index.php - Vercel Serverless PHP Router / Front-Controller
 // ============================================================
 
+// Enable detailed error reporting immediately so any runtime issues can be seen
+ini_set('display_errors', '1');
+error_reporting(E_ALL);
+
+// Catch any fatal shutdown errors (E_ERROR, E_PARSE, compile errors)
+register_shutdown_function(function() {
+    $err = error_get_last();
+    if ($err && in_array($err['type'], [E_ERROR, E_PARSE, E_CORE_ERROR, E_COMPILE_ERROR])) {
+        http_response_code(500);
+        echo "<!DOCTYPE html><html><body style='font-family:sans-serif;padding:30px;background:#0f172a;color:#f87171;'>";
+        echo "<h2>PHP Fatal Error</h2>";
+        echo "<p><strong>Message:</strong> " . htmlspecialchars($err['message']) . "</p>";
+        echo "<p><strong>File:</strong> <code>" . htmlspecialchars($err['file']) . "</code> line " . $err['line'] . "</p>";
+        echo "</body></html>";
+    }
+});
+
 // Set temporary session save path for serverless environments
 $tmpDir = sys_get_temp_dir();
 if (is_writable($tmpDir)) {
@@ -34,10 +51,6 @@ if ($cleanPath === '' || $cleanPath === 'index.php') {
         $targetFile = $rootDir . '/index.php';
     }
 }
-
-// Enable detailed error reporting so runtime issues can be seen
-ini_set('display_errors', '1');
-error_reporting(E_ALL);
 
 // Security guard: prevent path traversal outside root directory
 $realTarget = realpath($targetFile);

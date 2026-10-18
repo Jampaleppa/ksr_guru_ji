@@ -4,10 +4,17 @@
 .env*
 !.env.example
 *.bat
+*.md
+*.log
 move_files.ps1
 deploy/
+deploy-infinityfree.ps1
+WhatsApp/
+KSR Guru JI/
+node_modules/
 deploy_database.sql
 database.sql
 patient_portal.sql
 payment_lifecycle_migration.sql
 cleaning_product_image_paths.sql
+
