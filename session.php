@@ -5,16 +5,24 @@
 
 // --- Start session if not already started ---
 if (session_status() === PHP_SESSION_NONE) {
+    // On Vercel / serverless, ensure session files can be written to writable /tmp
+    $tmpDir = sys_get_temp_dir();
+    if (is_writable($tmpDir)) {
+        @session_save_path($tmpDir);
+    }
+
     // Set secure session parameters
     ini_set('session.cookie_httponly', 1);
     ini_set('session.use_only_cookies', 1);
-    ini_set('session.cookie_secure', isset($_SERVER['HTTPS']));
+    $isSecure = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') || 
+                (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https');
+    ini_set('session.cookie_secure', $isSecure ? 1 : 0);
     
-    // Set session name (optional)
+    // Set session name
     session_name('KSR_SESSION');
     
     // Start session
-    session_start();
+    @session_start();
 }
 
 // --- Regenerate session ID periodically (every 5 requests) ---

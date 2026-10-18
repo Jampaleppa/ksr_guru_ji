@@ -1,0 +1,27 @@
+{
+  "version": 2,
+  "functions": {
+    "api/**/*.php": {
+      "runtime": "vercel-php@0.9.0",
+      "maxDuration": 30
+    }
+  },
+  "routes": [
+    {
+      "src": "/(images|assets|vendor|uploads)/(.*)",
+      "dest": "/$1/$2"
+    },
+    {
+      "src": "/(.*)\\.(css|js|jpg|jpeg|png|webp|gif|svg|ico|ttf|woff|woff2|xml|txt)$",
+      "dest": "/$1.$2"
+    },
+    {
+      "src": "/api/login.php",
+      "dest": "/api/login.php"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/api/index.php"
+    }
+  ]
+}

@@ -22,7 +22,11 @@
 // ============================================================
 
 if (session_status() === PHP_SESSION_NONE) {
-    session_start();
+    $tmpDir = sys_get_temp_dir();
+    if (is_writable($tmpDir)) {
+        @session_save_path($tmpDir);
+    }
+    @session_start();
 }
 
 require_once __DIR__ . '/admin_auth.php';
