@@ -55,13 +55,32 @@ $user = getenv('DB_USER') ?: 'root';
 $pass = getenv('DB_PASS') ?: '';
 $name = getenv('DB_NAME') ?: 'ksr_guru';
 
+if (!defined('MYSQLI_CLIENT_SSL_DONT_VERIFY_SERVER_CERT')) {
+    define('MYSQLI_CLIENT_SSL_DONT_VERIFY_SERVER_CERT', 64);
+}
+mysqli_report(MYSQLI_REPORT_OFF);
+
 $mysqli = mysqli_init();
-if ($host !== '127.0.0.1' && $host !== 'localhost') {
-    $mysqli->ssl_set(NULL, NULL, NULL, NULL, NULL);
-    $connected = @$mysqli->real_connect($host, $user, $pass, $name, $port, NULL,
-        MYSQLI_CLIENT_SSL | MYSQLI_CLIENT_SSL_DONT_VERIFY_SERVER_CERT);
-} else {
-    $connected = @$mysqli->real_connect($host, $user, $pass, $name, $port);
+if (defined('MYSQLI_OPT_CONNECT_TIMEOUT')) {
+    $mysqli->options(MYSQLI_OPT_CONNECT_TIMEOUT, 5);
+}
+
+$connected = false;
+$mysqliError = '';
+try {
+    if ($host !== '127.0.0.1' && $host !== 'localhost') {
+        $mysqli->ssl_set(NULL, NULL, NULL, NULL, NULL);
+        $flags = defined('MYSQLI_CLIENT_SSL') ? MYSQLI_CLIENT_SSL : 0;
+        if (defined('MYSQLI_CLIENT_SSL_DONT_VERIFY_SERVER_CERT')) {
+            $flags |= MYSQLI_CLIENT_SSL_DONT_VERIFY_SERVER_CERT;
+        }
+        $connected = @$mysqli->real_connect($host, $user, $pass, $name, $port, NULL, $flags);
+    } else {
+        $connected = @$mysqli->real_connect($host, $user, $pass, $name, $port);
+    }
+} catch (Throwable $e) {
+    $connected = false;
+    $mysqliError = $e->getMessage();
 }
 
 if ($connected && !$mysqli->connect_errno) {
@@ -70,7 +89,9 @@ if ($connected && !$mysqli->connect_errno) {
     echo "<p class='ok'>✅ MySQLi connected! Server: <strong>$ver</strong></p>";
     $tables = [];
     $res = $mysqli->query("SHOW TABLES");
-    while ($row = $res->fetch_row()) $tables[] = $row[0];
+    if ($res) {
+        while ($row = $res->fetch_row()) $tables[] = $row[0];
+    }
     echo "<p>Tables in <code>$name</code>: <strong>" . count($tables) . "</strong></p>";
     if (count($tables) > 0) {
         echo "<details><summary style='cursor:pointer;color:#60a5fa'>Show tables (" . count($tables) . ")</summary><ul>";
@@ -81,7 +102,7 @@ if ($connected && !$mysqli->connect_errno) {
     }
 } else {
     $errno = $mysqli->connect_errno;
-    $errstr = $mysqli->connect_error ?: 'unknown';
+    $errstr = $mysqliError ?: ($mysqli->connect_error ?: 'unknown');
     echo "<p class='err'>❌ MySQLi failed — Error #$errno: " . htmlspecialchars($errstr) . "</p>";
     echo "<p>Host: <code>$host:$port</code> | DB: <code>$name</code> | User: <code>$user</code></p>";
 }
@@ -92,12 +113,14 @@ try {
     $dsn = "mysql:host=$host;port=$port;dbname=$name;charset=utf8mb4";
     $opts = [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, PDO::ATTR_TIMEOUT => 5];
     if ($host !== '127.0.0.1' && $host !== 'localhost') {
-        $opts[PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT] = false;
+        if (defined('PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT')) {
+            $opts[PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT] = false;
+        }
     }
     $pdo = new PDO($dsn, $user, $pass, $opts);
     $v = $pdo->query('SELECT VERSION()')->fetchColumn();
     echo "<p class='ok'>✅ PDO connected! Server: <strong>$v</strong></p>";
-} catch (Exception $e) {
+} catch (Throwable $e) {
     echo "<p class='err'>❌ PDO failed: " . htmlspecialchars($e->getMessage()) . "</p>";
 }
 

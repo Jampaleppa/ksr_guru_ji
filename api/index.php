@@ -35,13 +35,24 @@ if ($cleanPath === '' || $cleanPath === 'index.php') {
     }
 }
 
+// Enable detailed error reporting so runtime issues can be seen
+ini_set('display_errors', '1');
+error_reporting(E_ALL);
+
 // Security guard: prevent path traversal outside root directory
 $realTarget = realpath($targetFile);
 $realRoot = realpath($rootDir);
-if (!$realTarget || strpos($realTarget, $realRoot) !== 0) {
+$normTarget = $realTarget ? str_replace('\\', '/', $realTarget) : '';
+$normRoot = $realRoot ? str_replace('\\', '/', $realRoot) : '';
+
+if (!$realTarget || strpos($normTarget, $normRoot) !== 0) {
     http_response_code(404);
-    echo "404 Not Found";
-    exit;
+    echo "<!DOCTYPE html><html><head><meta charset='utf-8'><title>404 Not Found</title></head>";
+    echo "<body style='font-family:sans-serif;padding:40px;background:#0f172a;color:#f1f5f9;'>";
+    echo "<h2>404 Not Found</h2><p>Page: <code>" . htmlspecialchars($cleanPath) . "</code></p>";
+    echo "<p><a href='/' style='color:#38bdf8;'>&larr; Return to Home</a></p>";
+    echo "</body></html>";
+    exit(0);
 }
 
 // Setup execution context to mimic standard web server
@@ -52,5 +63,26 @@ $_SERVER['PHP_SELF'] = $_SERVER['SCRIPT_NAME'];
 // Switch to the target script's directory so relative includes function correctly
 chdir(dirname($realTarget));
 
-// Execute target script
-require $realTarget;
+// Execute target script with top-level error catching
+try {
+    require $realTarget;
+} catch (Throwable $e) {
+    http_response_code(500);
+    echo "<!DOCTYPE html><html><head><meta charset='utf-8'><title>Application Error</title>";
+    echo "<style>";
+    echo "body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#0f172a;color:#e2e8f0;padding:40px;line-height:1.6;}";
+    echo ".card{max-width:800px;margin:0 auto;background:#1e293b;border:1px solid #334155;border-radius:12px;padding:32px;box-shadow:0 20px 25px -5px rgba(0,0,0,0.5);}";
+    echo "h1{color:#f87171;margin-top:0;font-size:22px;}p{color:#94a3b8;}code{background:#0f172a;color:#38bdf8;padding:2px 8px;border-radius:4px;font-size:14px;}";
+    echo "pre{background:#0f172a;color:#cbd5e1;padding:16px;border-radius:8px;overflow:auto;font-size:13px;border:1px solid #334155;}";
+    echo ".links{margin-top:24px;border-top:1px solid #334155;padding-top:16px;}";
+    echo ".links a{color:#38bdf8;text-decoration:none;font-weight:500;}.links a:hover{text-decoration:underline;}";
+    echo "</style></head><body><div class='card'>";
+    echo "<h1>⚠️ Application Runtime Error</h1>";
+    echo "<p><strong>Error:</strong> " . htmlspecialchars($e->getMessage()) . "</p>";
+    echo "<p><strong>Location:</strong> <code>" . htmlspecialchars($e->getFile()) . "</code> on line <strong>" . $e->getLine() . "</strong></p>";
+    echo "<details><summary style='cursor:pointer;color:#38bdf8;margin:12px 0;'>View Stack Trace</summary>";
+    echo "<pre>" . htmlspecialchars($e->getTraceAsString()) . "</pre></details>";
+    echo "<div class='links'><a href='/api/debug.php?key=ksrdebug2024'>👉 Open Vercel Diagnostic Page (/api/debug.php)</a></div>";
+    echo "</div></body></html>";
+    exit(0);
+}

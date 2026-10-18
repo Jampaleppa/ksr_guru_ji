@@ -16,8 +16,8 @@
       "dest": "/$1.$2"
     },
     {
-      "src": "/api/login.php",
-      "dest": "/api/login.php"
+      "src": "/api/(.*)",
+      "dest": "/api/$1"
     },
     {
       "src": "/(.*)",
