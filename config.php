@@ -26,8 +26,14 @@ if (!defined('DB_NAME')) {
     define('DB_NAME', getenv('DB_NAME') ?: 'ksr_guru');  // e.g. 'if0_38000000_ksr_guru'
 }
 
-// Create connection
-$conn = @new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME, DB_PORT);
+// Create connection with SSL support for cloud databases (TiDB Cloud, Aiven, etc.)
+$conn = mysqli_init();
+if (DB_HOST !== '127.0.0.1' && DB_HOST !== 'localhost') {
+    $conn->ssl_set(NULL, NULL, NULL, NULL, NULL);
+    @$conn->real_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME, DB_PORT, NULL, MYSQLI_CLIENT_SSL);
+} else {
+    @$conn->real_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME, DB_PORT);
+}
 
 // Check connection
 if ($conn->connect_error) {
@@ -51,6 +57,11 @@ if (!function_exists('getDBConnection')) {
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
             PDO::ATTR_EMULATE_PREPARES => false,
         ];
+        if (DB_HOST !== '127.0.0.1' && DB_HOST !== 'localhost') {
+            if (defined('PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT')) {
+                $options[PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT] = false;
+            }
+        }
         return new PDO($dsn, DB_USER, DB_PASS, $options);
     }
 }

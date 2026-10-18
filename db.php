@@ -50,6 +50,12 @@ class Database {
             PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES " . DB_CHARSET
         ];
 
+        if (DB_HOST !== '127.0.0.1' && DB_HOST !== 'localhost') {
+            if (defined('PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT')) {
+                $options[PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT] = false;
+            }
+        }
+
         try {
             $this->pdo = new PDO($dsn, DB_USER, DB_PASS, $options);
         } catch (PDOException $e) {
