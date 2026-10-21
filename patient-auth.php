@@ -43,6 +43,35 @@ function pp_db(): PDO
 }
 
 /**
+ * Returns the PDO driver name ('mysql' or 'sqlite').
+ */
+function pp_driver(): string
+{
+    return pp_db()->getAttribute(PDO::ATTR_DRIVER_NAME);
+}
+
+/**
+ * Returns a SQL expression for NOW() + $seconds.
+ * Compatible with both MySQL and SQLite.
+ */
+function pp_sql_future(int $seconds): string
+{
+    if (pp_driver() === 'sqlite') {
+        return "datetime('now', '+" . $seconds . " seconds')";
+    }
+    return 'DATE_ADD(NOW(), INTERVAL ' . $seconds . ' SECOND)';
+}
+
+/**
+ * Returns a SQL expression for the current timestamp.
+ * Compatible with both MySQL and SQLite.
+ */
+function pp_sql_now(): string
+{
+    return pp_driver() === 'sqlite' ? "datetime('now')" : 'NOW()';
+}
+
+/**
  * HTML-escape a value for safe output.
  *
  * @param mixed $v Value of any type; scalars and null are cast to string,
@@ -108,11 +137,11 @@ function pp_captcha_create(): array
     $answer = ($op === '+') ? $a + $b : (($op === '-') ? $a - $b : $a * $b);
 
     $token = bin2hex(random_bytes(24));
-    // NOTE: MySQL's clock is the source of truth here (PHP and MySQL timezones
-    // differ on some hosts), so expiry is computed in SQL, never in PHP.
+    // Expiry is computed in SQL (driver-aware) so PHP/DB timezone drift doesn't matter.
+    $expirySql = pp_sql_future(600);
     $stmt = pp_db()->prepare(
         "INSERT INTO patient_captcha (token, answer_hash, expires_at)
-         VALUES (?, ?, DATE_ADD(NOW(), INTERVAL 600 SECOND))"
+         VALUES (?, ?, $expirySql)"
     );
     $stmt->execute([$token, password_hash((string)$answer, PASSWORD_DEFAULT)]);
 
@@ -125,7 +154,7 @@ function pp_captcha_verify(string $token, string $answer): bool
     if (!pp_table_exists('patient_captcha')) {
         return true;
     } // portal not migrated yet
-    $nowSql = pp_db()->query("SELECT NOW()")->fetchColumn();
+    $nowSql = pp_db()->query('SELECT ' . pp_sql_now())->fetchColumn();
     $stmt = pp_db()->prepare("SELECT * FROM patient_captcha WHERE token = ? LIMIT 1");
     $stmt->execute([$token]);
     $row = $stmt->fetch();
@@ -374,8 +403,16 @@ function pp_table_exists(string $table): bool
         return $cache[$table];
     }
     try {
-        $s = pp_db()->prepare("SELECT COUNT(*) FROM information_schema.TABLES
-                                WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = ?");
+        if (pp_driver() === 'sqlite') {
+            $s = pp_db()->prepare(
+                "SELECT COUNT(*) FROM sqlite_master WHERE type='table' AND name=?"
+            );
+        } else {
+            $s = pp_db()->prepare(
+                "SELECT COUNT(*) FROM information_schema.TABLES
+                 WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = ?"
+            );
+        }
         $s->execute([$table]);
         return $cache[$table] = ((int)$s->fetchColumn()) > 0;
     } catch (PDOException $e) {
@@ -385,8 +422,21 @@ function pp_table_exists(string $table): bool
 
 function pp_find_user(string $identifier): ?array
 {
-    $hasMobile = pp_table_exists('users')
-        && in_array('mobile', pp_db()->query("SHOW COLUMNS FROM users")->fetchAll(PDO::FETCH_COLUMN), true);
+    if (!pp_table_exists('users')) {
+        return null;
+    }
+
+    // Check whether the 'mobile' column exists in a driver-agnostic way
+    try {
+        if (pp_driver() === 'sqlite') {
+            $cols = pp_db()->query("PRAGMA table_info(users)")->fetchAll(PDO::FETCH_COLUMN, 1);
+        } else {
+            $cols = pp_db()->query("SHOW COLUMNS FROM users")->fetchAll(PDO::FETCH_COLUMN);
+        }
+        $hasMobile = in_array('mobile', $cols, true);
+    } catch (Throwable $e) {
+        $hasMobile = false;
+    }
 
     if ($hasMobile) {
         $stmt = pp_db()->prepare("SELECT * FROM users WHERE email = ? OR mobile = ? LIMIT 1");
