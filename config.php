@@ -4,6 +4,8 @@
 // ============================================================
 
 require_once __DIR__ . '/logger.php';
+// Shared DB layer — provides _bootstrapSQLiteSchema() used by the SQLite fallback.
+require_once __DIR__ . '/includes/db.php';
 
 // ============================================================
 // Database credentials
@@ -20,7 +22,7 @@ if (!defined('DB_USER')) {
     define('DB_USER', getenv('DB_USER') ?: 'root');      // e.g. 'if0_38000000'
 }
 if (!defined('DB_PASS')) {
-    define('DB_PASS', getenv('DB_PASS') !== false ? getenv('DB_PASS') : 'JKRathod@406'); // Account password
+    define('DB_PASS', getenv('DB_PASS') !== false ? getenv('DB_PASS') : '');
 }
 if (!defined('DB_NAME')) {
     define('DB_NAME', getenv('DB_NAME') ?: 'ksr_guru');  // e.g. 'if0_38000000_ksr_guru'
@@ -99,7 +101,17 @@ if (!function_exists('getDBConnection')) {
         try {
             return new PDO($dsn, DB_USER, DB_PASS, $options);
         } catch (Throwable $e) {
-            return new PDO('sqlite::memory:');
+            // MySQL unavailable (Vercel serverless / local dev without MySQL).
+            // Fall back to in-memory SQLite with the full schema so pages don't
+            // crash with "no such table / no such column" errors.
+            $pdo = new PDO('sqlite::memory:', null, null, [
+                PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+            ]);
+            if (function_exists('_bootstrapSQLiteSchema')) {
+                _bootstrapSQLiteSchema($pdo);
+            }
+            return $pdo;
         }
     }
 }

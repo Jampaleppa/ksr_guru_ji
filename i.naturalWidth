@@ -1,0 +1,35 @@
+url        https://ksrguruji-3rpi.vercel.app/
+http       200
+load       7426ms
+title      "KSR GURU JI · ನಮ್ಮ ಅಂಗಡಿ"
+bodyChars  6626
+patchright C:\Users\DELL\.vscode\extensions\danielsanmedium.dscodegpt-3.24.78\standalone/
+text       KSR GURU JI Everything Your Family Needs, Every Day Air Fresheners Bakery Bath & Body Breakfast Cleaning Cold Drinks Cooking Oil Dairy Dishwash Dry Fruits Grains Hair Care Health Care Home Care Kitche
+eval       "EVAL ERROR: Error: page.evaluate: SyntaxError: Unexpected token ','"
+
+console errors/warnings (12):
+  [error] Failed to load resource: the server responded with a status of 404 ()
+  [error] Failed to load resource: the server responded with a status of 404 ()
+  [error] Failed to load resource: the server responded with a status of 404 ()
+  [error] Failed to load resource: the server responded with a status of 404 ()
+  [error] Failed to load resource: the server responded with a status of 404 ()
+  [error] Failed to load resource: the server responded with a status of 404 ()
+  [error] Failed to load resource: the server responded with a status of 404 ()
+  [error] Failed to load resource: the server responded with a status of 404 ()
+  [error] Failed to load resource: the server responded with a status of 404 ()
+  [error] Failed to load resource: the server responded with a status of 404 ()
+  [error] Failed to load resource: the server responded with a status of 404 ()
+  [error] Failed to load resource: the server responded with a status of 404 ()
+
+requests failed (13):
+  HTTP 404 https://ksrguruji-3rpi.vercel.app/Banner.png
+  HTTP 404 https://ksrguruji-3rpi.vercel.app/images/Cleans/Floor%20Cleaner%20130.jpg
+  HTTP 404 https://ksrguruji-3rpi.vercel.app/images/Cleans/Toilet%20Cleaner%20195.jpg
+  HTTP 404 https://ksrguruji-3rpi.vercel.app/images/Cleans/Glass%20Cleaner%2075.jpg
+  HTTP 404 https://ksrguruji-3rpi.vercel.app/images/Cleans/Surface%20Cleaner%20130.jpg
+  HTTP 404 https://ksrguruji-3rpi.vercel.app/images/Cleans/Disinfectant%20Liquid%20170.jpg
+  HTTP 404 https://ksrguruji-3rpi.vercel.app/images/Cleans/Phenyl%20210.jpg
+  HTTP 404 https://ksrguruji-3rpi.vercel.app/images/cake.jpg
+  HTTP 404 https://ksrguruji-3rpi.vercel.app/images/Banner.png
+  HTTP 404 https://ksrguruji-3rpi.vercel.app/images/kitechen%20all%20product.jpg
+  net::ERR_BLOCKED_BY_ORB https://img.icons8.com/fluency/300/groceries.png

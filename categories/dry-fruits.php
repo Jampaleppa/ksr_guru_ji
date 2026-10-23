@@ -195,116 +195,116 @@ function getFallbackDryFruitsProducts(): array
     // Raw data as a multi-line string (copied from your input, shortened for brevity)
     // We'll include the full data as in your original code.
     $rawData = <<<CSV
-1, Almonds, images\\Dry Fruits & Snacks\\Almonds.jpg, 10g,50g,100g,200g,250g,500g,1kg, ₹2300
-4, Cashews,images\\Dry Fruits & Snacks\\Cashews.jpg, 10g,50g,100g,200g,250g,500g,1kg, ₹2900
-6, Walnuts, images\\Dry Fruits & Snacks\\Walnuts 2400.jpg,10g,50g,100g,200g,250g,500g,1kg, ₹2700
-8, Pistachios,images\\Dry Fruits & Snacks\\Pistachios 700.jpg, 10g,50g,100g,200g,250g,500g,1kg,₹3100
-10, Hazelnuts, images\\Dry Fruits & Snacks\\Hazelnuts.jpg, 10g,50g,100g,200g,250g,500g,1kg, ₹2900
-12, Macadamia Nuts, images\\Dry Fruits & Snacks\\Macadamia Nuts.jpg, 10g,50g,100g,200g,250g,500g,1kg,₹4800
-14, Peanuts, images\\Dry Fruits & Snacks\\Peanuts.jpg, 10g,50g,100g,200g,250g,500g, 1kg, ₹950
-16, Brazil Nuts, images\\Dry Fruits & Snacks\\Brazil Nuts Roasted.jpg, 10g,50g,100g,200g,250g,500g, 1kg, ₹4200
-18, Almonds Blanched, images\\Dry Fruits & Snacks\\Almonds Blanched.jpg, 10g,50g,100g,200g,250g,500g, 1kg, ₹2500
-20, Cashew Kernels, images\\Dry Fruits & Snacks\\Cashew Kernels.jpg, 10g,50g,100g,200g,250g,500g, 1kg, ₹3100
+1, Almonds, images\\Almonds.jpg, 10g,50g,100g,200g,250g,500g,1kg, ₹2300
+4, Cashews,images\\Cashews.jpg, 10g,50g,100g,200g,250g,500g,1kg, ₹2900
+6, Walnuts, images\\Walnuts 2400.jpg,10g,50g,100g,200g,250g,500g,1kg, ₹2700
+8, Pistachios,images\\Pistachios 700.jpg, 10g,50g,100g,200g,250g,500g,1kg,₹3100
+10, Hazelnuts, images\\Hazelnuts.jpg, 10g,50g,100g,200g,250g,500g,1kg, ₹2900
+12, Macadamia Nuts, images\\Macadamia Nuts.jpg, 10g,50g,100g,200g,250g,500g,1kg,₹4800
+14, Peanuts, images\\Peanuts.jpg, 10g,50g,100g,200g,250g,500g, 1kg, ₹950
+16, Brazil Nuts, images\\Brazil Nuts Roasted.jpg, 10g,50g,100g,200g,250g,500g, 1kg, ₹4200
+18, Almonds Blanched, images\\Almonds Blanched.jpg, 10g,50g,100g,200g,250g,500g, 1kg, ₹2500
+20, Cashew Kernels, images\\Cashew Kernels.jpg, 10g,50g,100g,200g,250g,500g, 1kg, ₹3100
 ### Nuts / ಬೀಜಗಳು
-22, Raisins Black, images\\Dry Fruits & Snacks\\Raisins Black.jpg ,10g,50g,100g,200g,250g,500g, 1kg, ₹1100
-24, Raisins Green, images\\Dry Fruits & Snacks\\Raisins Green.jpg, 10g,50g,100g,200g,250g,500g, 1kg, ₹1200
-26, Dates Medjool,images\\Dry Fruits & Snacks\\Dates Medjool.jpg, 10g,50g,100g,200g,250g,500g, 1kg, ₹1700
-28, Figs Dry, images\\Dry Fruits & Snacks\\Figs Dry.jpg, 10g,50g,100g,200g,250g,500g, 1kg, ₹2300
-30, Apricots Dried, images\\Dry Fruits & Snacks\\Apricots Dried.jpg, 10g,50g,100g,200g,250g,500g, 1kg, ₹2300
-32, Prunes Dried, images\\Dry Fruits & Snacks\\Prunes Dried.jpg, 10g,50g,100g,200g,250g,500g, 1kg, ₹2100
-34, Mulberries White, images\\Dry Fruits & Snacks\\Mulberries White.jpg, 10g,50g,100g,200g,250g,500g, 1kg, ₹1700
-36, Mulberries Black, images\\Dry Fruits & Snacks\\Mulberries Black.jpg, 10g,50g,100g,200g,250g,500g, 1kg, ₹1800
-38, Mango Slices Dry, images\\Dry Fruits & Snacks\\Mango Slices Dry.jpg, 10g,50g,100g,200g,250g,500g, 1kg, ₹1300
-40, Pineapple Dried, images\\Dry Fruits & Snacks\\Pineapple Dried.jpg, 10g,50g,100g,200g,250g,500g, 1kg, ₹1500
-42, Banana Chips, images\\Dry Fruits & Snacks\\Banana Chips.jpg, 10g,50g,100g,200g,250g,500g, 1kg, ₹750
-44, Coconut Pieces Dry, images\\Dry Fruits & Snacks\\Coconut Pieces Dry.jpg, 10g,50g,100g,200g,250g,500g, 1kg, ₹950
-46, Papaya Dried, images\\Dry Fruits & Snacks\\Papaya Dried.jpg, 10g,50g,100g,200g,250g,500g, 1kg, ₹1300
-48, Pine Nuts, images\\Dry Fruits & Snacks\\Pine Nuts.jpg, 10g,50g,100g,200g,250g,500g, 1kg, ₹3900
-50, Dried Cherries,images\\Dry Fruits & Snacks\\Dried Cherries.jpg, 10g,50g,100g,200g,250g,500g, 1kg, ₹2900
+22, Raisins Black, images\\Raisins Black.jpg ,10g,50g,100g,200g,250g,500g, 1kg, ₹1100
+24, Raisins Green, images\\Raisins Green.jpg, 10g,50g,100g,200g,250g,500g, 1kg, ₹1200
+26, Dates Medjool,images\\Dates Medjool.jpg, 10g,50g,100g,200g,250g,500g, 1kg, ₹1700
+28, Figs Dry, images\\Figs Dry.jpg, 10g,50g,100g,200g,250g,500g, 1kg, ₹2300
+30, Apricots Dried, images\\Apricots Dried.jpg, 10g,50g,100g,200g,250g,500g, 1kg, ₹2300
+32, Prunes Dried, images\\Prunes Dried.jpg, 10g,50g,100g,200g,250g,500g, 1kg, ₹2100
+34, Mulberries White, images\\Mulberries White.jpg, 10g,50g,100g,200g,250g,500g, 1kg, ₹1700
+36, Mulberries Black, images\\Mulberries Black.jpg, 10g,50g,100g,200g,250g,500g, 1kg, ₹1800
+38, Mango Slices Dry, images\\Mango Slices Dry.jpg, 10g,50g,100g,200g,250g,500g, 1kg, ₹1300
+40, Pineapple Dried, images\\Pineapple Dried.jpg, 10g,50g,100g,200g,250g,500g, 1kg, ₹1500
+42, Banana Chips, images\\Banana Chips.jpg, 10g,50g,100g,200g,250g,500g, 1kg, ₹750
+44, Coconut Pieces Dry, images\\Coconut Pieces Dry.jpg, 10g,50g,100g,200g,250g,500g, 1kg, ₹950
+46, Papaya Dried, images\\Papaya Dried.jpg, 10g,50g,100g,200g,250g,500g, 1kg, ₹1300
+48, Pine Nuts, images\\Pine Nuts.jpg, 10g,50g,100g,200g,250g,500g, 1kg, ₹3900
+50, Dried Cherries,images\\Dried Cherries.jpg, 10g,50g,100g,200g,250g,500g, 1kg, ₹2900
 ### Seeds / ಬಿತ್ತನೆ
-52, Chia Seeds, images\\Dry Fruits & Snacks\\Chia Seeds.jpg, 10g,50g,100g,200g,250g,500g, 1kg, ₹2300
-54, Flax Seeds, images\\Dry Fruits & Snacks\\Flax Seeds.jpg, 10g,50g,100g,200g,250g,500g, 1kg, ₹1700
-56, Pumpkin Seeds, images\\Dry Fruits & Snacks\\Pumpkin Seeds.jpg, 10g,50g,100g,200g,250g,500g, 1kg, ₹2300
-58, Sunflower Seeds, images\\Dry Fruits & Snacks\\Sunflower Seeds.jpg, 10g,50g,100g,200g,250g,500g, 1kg, ₹1500
-60, Sesame Seeds, images\\Dry Fruits & Snacks\\Sesame Seeds.jpg, 10g,50g,100g,200g,250g,500g, 1kg, ₹1100
+52, Chia Seeds, images\\Chia Seeds.jpg, 10g,50g,100g,200g,250g,500g, 1kg, ₹2300
+54, Flax Seeds, images\\Flax Seeds.jpg, 10g,50g,100g,200g,250g,500g, 1kg, ₹1700
+56, Pumpkin Seeds, images\\Pumpkin Seeds.jpg, 10g,50g,100g,200g,250g,500g, 1kg, ₹2300
+58, Sunflower Seeds, images\\Sunflower Seeds.jpg, 10g,50g,100g,200g,250g,500g, 1kg, ₹1500
+60, Sesame Seeds, images\\Sesame Seeds.jpg, 10g,50g,100g,200g,250g,500g, 1kg, ₹1100
 ### Mixed / ಮಿಶ್ರ
-62, Mixed Nuts, images\\Dry Fruits & Snacks\\Mixed Nuts.jpg, 10g,50g,100g,200g,250g,500g, 1kg, ₹2700
-64, Mixed Dry Fruits, images\\Dry Fruits & Snacks\\Mixed Dry Fruits.jpg, 10g,50g,100g,200g,250g,500g, 1kg, ₹2300
-66, Trail Mix,images\\Dry Fruits & Snacks\\Trail Mix.jpg, 10g,50g,100g,200g,250g,500g, 1kg, ₹1700
-68, Nut & Seed Mix,images\\Dry Fruits & Snacks\\Nut & Seed Mix.jpg, 10g,50g,100g,200g,250g,500g, 1kg, ₹1900
-70, Premium Fruit & Nut Mix, images\\Dry Fruits & Snacks\\Premium Fruit & Nut Mix.jpg,10g,50g,100g,200g,250g,500g, 1kg, ₹2800
-72, Dry Fruit Mix with Almonds,images\\Dry Fruits & Snacks\\Dry Fruit Mix with Almonds.jpg, 1kg, ₹2500
-74, Dry Fruit Mix with Cashews, images\\Dry Fruits & Snacks\\Dry Fruit Mix with Cashews.jpg, 1kg, ₹2700
-76, Dry Fruit Mix with Walnuts, images\\Dry Fruits & Snacks\\Dry Fruit Mix with Walnuts.jpg,10g,50g,100g,200g,250g,500g, 1kg, ₹2800
-78, Energy Mix, images\\Dry Fruits & Snacks\\Energy Mix.jpg,10g,50g,100g,200g,250g,500g, 1kg, ₹2300
-80, Superfood Mix,images\\Dry Fruits & Snacks\\Superfood Mix.jpg,10g,50g,100g,200g,250g,500g,1kg, ₹3000
-82, Protein Nut Mix, images\\Dry Fruits & Snacks\\Protein Nut Mix.jpg,10g,50g,100g,200g,250g,500g, 1kg, ₹2800
-83, Gourmet Dry Fruits, images\\Dry Fruits & Snacks\\Gourmet Dry Fruits.jpg,10g,50g,100g,200g,250g, 500g, ₹1800
-84, Gourmet Dry Fruits, images\\Dry Fruits & Snacks\\Gourmet Dry Fruits.jpg,10g,50g,100g,200g,250g, 1kg, ₹3500
-85, Healthy Snack Mix, images\\Dry Fruits & Snacks\\Healthy Snack Mix.jpg,10g,50g,100g,200g,250g, 500g, ₹1300
-86, Healthy Snack Mix, images\\Dry Fruits & Snacks\\Healthy Snack Mix.jpg,10g,50g,100g,200g,250g, 1kg, ₹2500
-87, Nutty Delight Mix, images\\Dry Fruits & Snacks\\Nutty Delight Mix.jpg,10g,50g,100g,200g,250g, 500g, ₹1400
-88, Nutty Delight Mix, images\\Dry Fruits & Snacks\\Nutty Delight Mix.jpg,10g,50g,100g,200g,250g, 1kg, ₹2700
-90, Fruit & Nut Premium Mix, images\\Dry Fruits & Snacks\\Fruit & Nut Premium Mix.jpg,10g,50g,100g,200g,250g, 1kg, ₹2800
-92, Choco Nut Mix, images\\Dry Fruits & Snacks\\Choco Nut Mix.jpg,10g,50g,100g,200g,250g,500g, 1kg, ₹2300
-94, Exotic Nut Mix,images\\Dry Fruits & Snacks\\Exotic Nut Mix.jpg,10g,50g,100g,200g,250g,500g, 1kg, ₹3000
-96, Premium Trail Mix,images\\Dry Fruits & Snacks\\Premium Trail Mix.jpg,10g,50g,100g,200g,250g,500g, 1kg, ₹2700
-98, Super Nut Mix, images\\Dry Fruits & Snacks\\Super Nut Mix.jpg,10g,50g,100g,200g,250g,500g, 1kg, ₹2800
-100, Deluxe Dry Fruit Mix, images\\Dry Fruits & Snacks\\Deluxe Dry Fruit Mix.jpg,10g,50g,100g,200g,250g,500g, 1kg, ₹3500
+62, Mixed Nuts, images\\Mixed Nuts.jpg, 10g,50g,100g,200g,250g,500g, 1kg, ₹2700
+64, Mixed Dry Fruits, images\\Mixed Dry Fruits.jpg, 10g,50g,100g,200g,250g,500g, 1kg, ₹2300
+66, Trail Mix,images\\Trail Mix.jpg, 10g,50g,100g,200g,250g,500g, 1kg, ₹1700
+68, Nut & Seed Mix,images\\Nut & Seed Mix.jpg, 10g,50g,100g,200g,250g,500g, 1kg, ₹1900
+70, Premium Fruit & Nut Mix, images\\Premium Fruit & Nut Mix.jpg,10g,50g,100g,200g,250g,500g, 1kg, ₹2800
+72, Dry Fruit Mix with Almonds,images\\Dry Fruit Mix with Almonds.jpg, 1kg, ₹2500
+74, Dry Fruit Mix with Cashews, images\\Dry Fruit Mix with Cashews.jpg, 1kg, ₹2700
+76, Dry Fruit Mix with Walnuts, images\\Dry Fruit Mix with Walnuts.jpg,10g,50g,100g,200g,250g,500g, 1kg, ₹2800
+78, Energy Mix, images\\Energy Mix.jpg,10g,50g,100g,200g,250g,500g, 1kg, ₹2300
+80, Superfood Mix,images\\Superfood Mix.jpg,10g,50g,100g,200g,250g,500g,1kg, ₹3000
+82, Protein Nut Mix, images\\Protein Nut Mix.jpg,10g,50g,100g,200g,250g,500g, 1kg, ₹2800
+83, Gourmet Dry Fruits, images\\Gourmet Dry Fruits.jpg,10g,50g,100g,200g,250g, 500g, ₹1800
+84, Gourmet Dry Fruits, images\\Gourmet Dry Fruits.jpg,10g,50g,100g,200g,250g, 1kg, ₹3500
+85, Healthy Snack Mix, images\\Healthy Snack Mix.jpg,10g,50g,100g,200g,250g, 500g, ₹1300
+86, Healthy Snack Mix, images\\Healthy Snack Mix.jpg,10g,50g,100g,200g,250g, 1kg, ₹2500
+87, Nutty Delight Mix, images\\Nutty Delight Mix.jpg,10g,50g,100g,200g,250g, 500g, ₹1400
+88, Nutty Delight Mix, images\\Nutty Delight Mix.jpg,10g,50g,100g,200g,250g, 1kg, ₹2700
+90, Fruit & Nut Premium Mix, images\\Fruit & Nut Premium Mix.jpg,10g,50g,100g,200g,250g, 1kg, ₹2800
+92, Choco Nut Mix, images\\Choco Nut Mix.jpg,10g,50g,100g,200g,250g,500g, 1kg, ₹2300
+94, Exotic Nut Mix,images\\Exotic Nut Mix.jpg,10g,50g,100g,200g,250g,500g, 1kg, ₹3000
+96, Premium Trail Mix,images\\Premium Trail Mix.jpg,10g,50g,100g,200g,250g,500g, 1kg, ₹2700
+98, Super Nut Mix, images\\Super Nut Mix.jpg,10g,50g,100g,200g,250g,500g, 1kg, ₹2800
+100, Deluxe Dry Fruit Mix, images\\Deluxe Dry Fruit Mix.jpg,10g,50g,100g,200g,250g,500g, 1kg, ₹3500
 ### Nuts / ಬೀಜಗಳು (continued)
-101, Almonds Roasted, images\\Dry Fruits & Snacks\\Almonds Roasted.jpg,10g,50g,100g,200g,250g, 500g, ₹1300
-104, Cashews Roasted,images\\Dry Fruits & Snacks\\Cashews Roasted.jpg,10g,50g,100g,200g,250g,500g, 1kg, ₹3100
-106, Walnuts Roasted, images\\Dry Fruits & Snacks\\Walnuts Roasted.jpg,10g,50g,100g,200g,250g,500g, 1kg, ₹2800
-108, Pistachios Roasted, images\\Dry Fruits & Snacks\\Pistachios Roasted.jpg,10g,50g,100g,200g,250g,500g, 1kg, ₹3200
-110, Hazelnuts Roasted, images\\Dry Fruits & Snacks\\Hazelnuts Roasted.jpg,10g,50g,100g,200g,250g,500g, 1kg, ₹3000
-112, Macadamia Roasted,images\\Dry Fruits & Snacks\\Macadamia Roasted.jpg,10g,50g,100g,200g,250g,500g, 1kg, ₹5000
-114, Peanuts Roasted, images\\Dry Fruits & Snacks\\Peanuts Roasted.jpg,10g,50g,100g,200g,250g,500g, 1kg, ₹1000
-116, Brazil Nuts Roasted,images\\Dry Fruits & Snacks\\Brazil Nuts Roasted.jpg,10g,50g,100g,200g,250g,500g, 1kg, ₹4400
-118, Almonds Sliced, images\\Dry Fruits & Snacks\\Almonds Sliced.jpg,10g,50g,100g,200g,250g,500g, 1kg, ₹2600
-120, Cashew Pieces, images\\Dry Fruits & Snacks\\Cashew Pieces.jpg,10g,50g,100g,200g,250g,500g, 1kg, ₹3100
+101, Almonds Roasted, images\\Almonds Roasted.jpg,10g,50g,100g,200g,250g, 500g, ₹1300
+104, Cashews Roasted,images\\Cashews Roasted.jpg,10g,50g,100g,200g,250g,500g, 1kg, ₹3100
+106, Walnuts Roasted, images\\Walnuts Roasted.jpg,10g,50g,100g,200g,250g,500g, 1kg, ₹2800
+108, Pistachios Roasted, images\\Pistachios Roasted.jpg,10g,50g,100g,200g,250g,500g, 1kg, ₹3200
+110, Hazelnuts Roasted, images\\Hazelnuts Roasted.jpg,10g,50g,100g,200g,250g,500g, 1kg, ₹3000
+112, Macadamia Roasted,images\\Macadamia Roasted.jpg,10g,50g,100g,200g,250g,500g, 1kg, ₹5000
+114, Peanuts Roasted, images\\Peanuts Roasted.jpg,10g,50g,100g,200g,250g,500g, 1kg, ₹1000
+116, Brazil Nuts Roasted,images\\Brazil Nuts Roasted.jpg,10g,50g,100g,200g,250g,500g, 1kg, ₹4400
+118, Almonds Sliced, images\\Almonds Sliced.jpg,10g,50g,100g,200g,250g,500g, 1kg, ₹2600
+120, Cashew Pieces, images\\Cashew Pieces.jpg,10g,50g,100g,200g,250g,500g, 1kg, ₹3100
 ### Dry Fruits / ಒಣಹಣ್ಣುಗಳು (continued)
-121, Golden Raisins,images\\Dry Fruits & Snacks\\Golden Raisins.jpg,10g,50g,100g,200g,250g, 500g, ₹650
-124, Cranberries Dried, images\\Dry Fruits & Snacks\\Cranberries Dried.jpg,10g,50g,100g,200g,250g,500g, 1kg, ₹2800
-126, Dried Blueberries, images\\Dry Fruits & Snacks\\Dried Blueberries.jpg,10g,50g,100g,200g,250g,500g, 1kg, ₹3000
-128, Dried Strawberries, images\\Dry Fruits & Snacks\\Dried Strawberries.jpg,10g,50g,100g,200g,250g,500g, 1kg, ₹2800
-130, Dried Black Currants, images\\Dry Fruits & Snacks\\Dried Black Currants.jpg,10g,50g,100g,200g,250g,500g, 1kg, ₹3000
-132, Dried Mulberries Red, images\\Dry Fruits & Snacks\\Dried Mulberries Red.jpg,10g,50g,100g,200g,250g,500g, 1kg, ₹1800
-134, Dried Mango Cubes, images\\Dry Fruits & Snacks\\Dried Mango Cubes.jpg,10g,50g,100g,200g,250g,500g, 1kg, ₹1500
-136, Dried Papaya Cubes, images\\Dry Fruits & Snacks\\Dried Papaya Cubes.jpg,10g,50g,100g,200g,250g,500g, 1kg, ₹1300
-138, Dried Pineapple Cubes, images\\Dry Fruits & Snacks\\Dried Pineapple Cubes.jpg,10g,50g,100g,200g,250g,500g, 1kg, ₹1500
-140, Dried Apple Rings, images\\Dry Fruits & Snacks\\Dried Apple Rings.jpg,10g,50g,100g,200g,250g,500g, 1kg, ₹1300
+121, Golden Raisins,images\\Golden Raisins.jpg,10g,50g,100g,200g,250g, 500g, ₹650
+124, Cranberries Dried, images\\Cranberries Dried.jpg,10g,50g,100g,200g,250g,500g, 1kg, ₹2800
+126, Dried Blueberries, images\\Dried Blueberries.jpg,10g,50g,100g,200g,250g,500g, 1kg, ₹3000
+128, Dried Strawberries, images\\Dried Strawberries.jpg,10g,50g,100g,200g,250g,500g, 1kg, ₹2800
+130, Dried Black Currants, images\\Dried Black Currants.jpg,10g,50g,100g,200g,250g,500g, 1kg, ₹3000
+132, Dried Mulberries Red, images\\Dried Mulberries Red.jpg,10g,50g,100g,200g,250g,500g, 1kg, ₹1800
+134, Dried Mango Cubes, images\\Dried Mango Cubes.jpg,10g,50g,100g,200g,250g,500g, 1kg, ₹1500
+136, Dried Papaya Cubes, images\\Dried Papaya Cubes.jpg,10g,50g,100g,200g,250g,500g, 1kg, ₹1300
+138, Dried Pineapple Cubes, images\\Dried Pineapple Cubes.jpg,10g,50g,100g,200g,250g,500g, 1kg, ₹1500
+140, Dried Apple Rings, images\\Dried Apple Rings.jpg,10g,50g,100g,200g,250g,500g, 1kg, ₹1300
 ### Seeds / ಬಿತ್ತನೆ (continued)
-142, Quinoa Seeds,images\\Dry Fruits & Snacks\\Quinoa Seeds.jpg, 10g,50g,100g,200g,250g,500g, 1kg, ₹2300
-144, Hemp Seeds, images\\Dry Fruits & Snacks\\Hemp Seeds.jpg,10g,50g,100g,200g,250g,500g, 1kg, ₹2800
-146, Poppy Seeds, images\\Dry Fruits & Snacks\\Poppy Seeds.jpg, 10g,50g,100g,200g,250g,500g, 1kg, ₹1700
-148, Caraway Seeds, images\\Dry Fruits & Snacks\\Caraway Seeds.jpg, 10g,50g,100g,200g,250g,500g, 1kg, ₹1500
-150, Nigella Seeds, images\\Dry Fruits & Snacks\\Nigella Seeds.jpg, 10g,50g,100g,200g,250g,500g, 1kg, ₹1700
+142, Quinoa Seeds,images\\Quinoa Seeds.jpg, 10g,50g,100g,200g,250g,500g, 1kg, ₹2300
+144, Hemp Seeds, images\\Hemp Seeds.jpg,10g,50g,100g,200g,250g,500g, 1kg, ₹2800
+146, Poppy Seeds, images\\Poppy Seeds.jpg, 10g,50g,100g,200g,250g,500g, 1kg, ₹1700
+148, Caraway Seeds, images\\Caraway Seeds.jpg, 10g,50g,100g,200g,250g,500g, 1kg, ₹1500
+150, Nigella Seeds, images\\Nigella Seeds.jpg, 10g,50g,100g,200g,250g,500g, 1kg, ₹1700
 ### Mixed / ಮಿಶ್ರ (continued)
-152, Fruit & Nut Mix Roasted, images\\Dry Fruits & Snacks\\Fruit & Nut Mix Roasted.jpg,10g,50g,100g,200g,250g, 1kg, ₹3000
-154, Super Nut & Seed Mix,   images\\Dry Fruits & Snacks\\Super Nut & Seed Mix.jpg,10g,50g,100g,200g,250g, 1kg, ₹2800
-156, Gourmet Trail Mix, images\\Dry Fruits & Snacks\\Gourmet Trail Mix.jpg,10g,50g,100g,200g,250g, 1kg, ₹3000
-158, Premium Nutty Delight, images\\Dry Fruits & Snacks\\Premium Nutty Delight.jpg,10g,50g,100g,200g,250g, 1kg, ₹3200
-160, Fruit & Seed Premium Mix,images\\Dry Fruits & Snacks\\Fruit & Seed Premium Mix.jpg,10g,50g,100g,200g,250g, 1kg, ₹2800
-162, Energy Nut Mix, images\\Dry Fruits & Snacks\\Energy Nut Mix.jpg,10g,50g,100g,200g,250g, 1kg, ₹2700
-164, Superfood Nut Mix, images\\Dry Fruits & Snacks\\Superfood Nut Mix.jpg,10g,50g,100g,200g,250g, 1kg, ₹3000
-166, Nut & Fruit Gourmet Mix, images\\Dry Fruits & Snacks\\Nut & Fruit Gourmet Mix.jpg,10g,50g,100g,200g,250g, 1kg, ₹3200
-168, Protein Trail Mix, images\\Dry Fruits & Snacks\\Protein Trail Mix.jpg,10g,50g,100g,200g,250g, 1kg, ₹2800
-170, Deluxe Nut & Fruit Mix, images\\Dry Fruits & Snacks\\Deluxe Nut & Fruit Mix.jpg,10g,50g,100g,200g,250g, 1kg, ₹3500
-172, Choco Nut Gourmet Mix,images\\Dry Fruits & Snacks\\Choco Nut Gourmet Mix.jpg,10g,50g,100g,200g,250g, 1kg, ₹3000
-174, Exotic Dry Fruit Mix, images\\Dry Fruits & Snacks\\Exotic Dry Fruit Mix.jpg,10g,50g,100g,200g,250g, 1kg, ₹3500
-176, Premium Nutty Trail Mix, images\\Dry Fruits & Snacks\\Premium Nutty Trail Mix.jpg,10g,50g,100g,200g,250g, 1kg, ₹3200
-178, Gourmet Nut & Fruit Delight, images\\Dry Fruits & Snacks\\Gourmet Nut & Fruit Delight.jpg,10g,50g,100g,200g,250g, 1kg, ₹3500
-180, Super Deluxe Mix, images\\Dry Fruits & Snacks\\Super Deluxe Mix.jpg,10g,50g,100g,200g,250g, 1kg, ₹3700
-182, Protein Nut Delight, images\\Dry Fruits & Snacks\\Protein Nut Delight.jpg,10g,50g,100g,200g,250g, 1kg, ₹3500
-184, Healthy Gourmet Mix,images\\Dry Fruits & Snacks\\Healthy Gourmet Mix.jpg,10g,50g,100g,200g,250g, 1kg, ₹3200
-186, Deluxe Trail Mix, images\\Dry Fruits & Snacks\\Deluxe Trail Mix.jpg,10g,50g,100g,200g,250g, 1kg, ₹3500
-188, Super Nut Delight Mix,images\\Dry Fruits & Snacks\\Super Nut Delight Mix.jpg,10g,50g,100g,200g,250g, 1kg, ₹3700
-190, Exotic Fruit & Nut Mix, images\\Dry Fruits & Snacks\\Exotic Fruit & Nut Mix.jpg,10g,50g,100g,200g,250g, 1kg, ₹3900
-192, Premium Trail Gourmet, images\\Dry Fruits & Snacks\\Premium Trail Gourmet.jpg,10g,50g,100g,200g,250g, 1kg, ₹3500
-194, Deluxe Nut Mix, images\\Dry Fruits & Snacks\\Deluxe Nut Mix.jpg,10g,50g,100g,200g,250g,500g, 1kg, ₹3500
-196, Nut & Seed Gourmet Mix, images\\Dry Fruits & Snacks\\Nut & Seed Gourmet Mix.jpg,10g,50g,100g,200g,250g, 1kg, ₹3700
-198, Choco Fruit Nut Mix, images\\Dry Fruits & Snacks\\Choco Fruit Nut Mix.jpg,10g,50g,100g,200g,250g, 1kg, ₹3000
-200, Super Premium Nut Mix, images\\Dry Fruits & Snacks\\Super Premium Nut Mix.jpg,10g,50g,100g,200g,250g, 1kg, ₹3900
+152, Fruit & Nut Mix Roasted, images\\Fruit & Nut Mix Roasted.jpg,10g,50g,100g,200g,250g, 1kg, ₹3000
+154, Super Nut & Seed Mix,   images\\Super Nut & Seed Mix.jpg,10g,50g,100g,200g,250g, 1kg, ₹2800
+156, Gourmet Trail Mix, images\\Gourmet Trail Mix.jpg,10g,50g,100g,200g,250g, 1kg, ₹3000
+158, Premium Nutty Delight, images\\Premium Nutty Delight.jpg,10g,50g,100g,200g,250g, 1kg, ₹3200
+160, Fruit & Seed Premium Mix,images\\Fruit & Seed Premium Mix.jpg,10g,50g,100g,200g,250g, 1kg, ₹2800
+162, Energy Nut Mix, images\\Energy Nut Mix.jpg,10g,50g,100g,200g,250g, 1kg, ₹2700
+164, Superfood Nut Mix, images\\Superfood Nut Mix.jpg,10g,50g,100g,200g,250g, 1kg, ₹3000
+166, Nut & Fruit Gourmet Mix, images\\Nut & Fruit Gourmet Mix.jpg,10g,50g,100g,200g,250g, 1kg, ₹3200
+168, Protein Trail Mix, images\\Protein Trail Mix.jpg,10g,50g,100g,200g,250g, 1kg, ₹2800
+170, Deluxe Nut & Fruit Mix, images\\Deluxe Nut & Fruit Mix.jpg,10g,50g,100g,200g,250g, 1kg, ₹3500
+172, Choco Nut Gourmet Mix,images\\Choco Nut Gourmet Mix.jpg,10g,50g,100g,200g,250g, 1kg, ₹3000
+174, Exotic Dry Fruit Mix, images\\Exotic Dry Fruit Mix.jpg,10g,50g,100g,200g,250g, 1kg, ₹3500
+176, Premium Nutty Trail Mix, images\\Premium Nutty Trail Mix.jpg,10g,50g,100g,200g,250g, 1kg, ₹3200
+178, Gourmet Nut & Fruit Delight, images\\Gourmet Nut & Fruit Delight.jpg,10g,50g,100g,200g,250g, 1kg, ₹3500
+180, Super Deluxe Mix, images\\Super Deluxe Mix.jpg,10g,50g,100g,200g,250g, 1kg, ₹3700
+182, Protein Nut Delight, images\\Protein Nut Delight.jpg,10g,50g,100g,200g,250g, 1kg, ₹3500
+184, Healthy Gourmet Mix,images\\Healthy Gourmet Mix.jpg,10g,50g,100g,200g,250g, 1kg, ₹3200
+186, Deluxe Trail Mix, images\\Deluxe Trail Mix.jpg,10g,50g,100g,200g,250g, 1kg, ₹3500
+188, Super Nut Delight Mix,images\\Super Nut Delight Mix.jpg,10g,50g,100g,200g,250g, 1kg, ₹3700
+190, Exotic Fruit & Nut Mix, images\\Exotic Fruit & Nut Mix.jpg,10g,50g,100g,200g,250g, 1kg, ₹3900
+192, Premium Trail Gourmet, images\\Premium Trail Gourmet.jpg,10g,50g,100g,200g,250g, 1kg, ₹3500
+194, Deluxe Nut Mix, images\\Deluxe Nut Mix.jpg,10g,50g,100g,200g,250g,500g, 1kg, ₹3500
+196, Nut & Seed Gourmet Mix, images\\Nut & Seed Gourmet Mix.jpg,10g,50g,100g,200g,250g, 1kg, ₹3700
+198, Choco Fruit Nut Mix, images\\Choco Fruit Nut Mix.jpg,10g,50g,100g,200g,250g, 1kg, ₹3000
+200, Super Premium Nut Mix, images\\Super Premium Nut Mix.jpg,10g,50g,100g,200g,250g, 1kg, ₹3900
 CSV;
     $lines = explode("\n", $rawData);
     $products = [];
@@ -392,7 +392,8 @@ CSV;
     return $fallback;
 }
 if (!function_exists('getFallbackProducts')) {
-    function getFallbackProducts(): array {
+    function getFallbackProducts(): array
+    {
         return getFallbackDryFruitsProducts();
     }
 }

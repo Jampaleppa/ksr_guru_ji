@@ -41,7 +41,12 @@ if (preg_match('#(?:.*?/)?(WhatsApp/telehealth/.*)$#i', $cleanPath, $matches)) {
     }
 }
 
-// Common route aliases (e.g. cart & checkout endpoints requested with various subpaths)
+// Redirect fictitious image subpaths to the flat static /images/<filename> path
+if (preg_match('#^images/.+/(.+\.(?:jpg|jpeg|png|gif|webp|svg|ico))$#i', $cleanPath, $imgMatches)) {
+    header('Location: /images/' . rawurlencode($imgMatches[1]), true, 301);
+    exit;
+}
+
 $aliases = [
     'cart/add_cart.php' => 'add_cart.php',
     'cart/add_cart' => 'add_cart.php',

@@ -1,1 +1,69 @@
 /* KSR GURU JI - Admin Users Page Style Stub */
+/* ============================================================
+   KSR GURU JI - Admin Users Page Responsive Styles
+   ============================================================ */
+
+/* Responsive filter/search toolbar */
+.users-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.users-toolbar input,
+.users-toolbar select {
+    flex: 1 1 180px;
+    min-width: 0;
+    padding: 11px 14px;
+    border-radius: 10px;
+    border: 1px solid var(--border-light, rgba(15, 123, 58, 0.12));
+    background: var(--card-bg, #fff);
+    color: var(--text-primary, inherit);
+    outline: none;
+}
+
+.users-toolbar input:focus,
+.users-toolbar select:focus {
+    border-color: var(--color-primary, #0f7b3a);
+    box-shadow: 0 0 0 3px rgba(15, 123, 58, 0.14);
+}
+
+@media (max-width: 640px) {
+    .users-toolbar > * {
+        flex: 1 1 100%;
+    }
+
+    /* Modal sheets become full-screen on phones */
+    .modal {
+        padding: 0 !important;
+    }
+
+    .modal .modal-content {
+        border-radius: 16px 16px 0 0 !important;
+        max-height: 92vh;
+    }
+}
+
+/* Touch-friendly user avatar chips */
+.user-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: var(--color-primary-light, #eaf7ed);
+    color: var(--color-primary-dark, #074720);
+    font-weight: 600;
+    font-size: 0.82rem;
+    white-space: nowrap;
+}
+
+@media (max-width: 480px) {
+    .user-chip {
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}

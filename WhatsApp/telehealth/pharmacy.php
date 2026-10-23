@@ -77,10 +77,10 @@ if (empty($medicines)) {
             $productName = $prod['name'];
             $medicines[] = [
                 'id' => $prod['id'],
-                'name' => htmlspecialchars($productName),
+                'name' => htmlspecialchars((string)$productName, ENT_QUOTES, 'UTF-8'),
                 'pack' => htmlspecialchars($prod['dosage_form'] ?: 'Standard Pack'),
                 'price' => (float)($prod['selling_price'] ?: 50.00),
-                'description' => htmlspecialchars($prod['composition'] ?: $prod['strength']),
+                'description' => htmlspecialchars((string)($prod['composition'] ?? $prod['strength'] ?? ''), ENT_QUOTES, 'UTF-8'),
                 'rx' => true,
                 'image' => 'https://ui-avatars.com/api/?name=' . urlencode($productName) . '&background=E0F2FE&color=0284C7&size=300&font-size=0.25&bold=true',
                 'category' => 'General Pharmacy'

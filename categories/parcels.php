@@ -307,10 +307,20 @@ function db_init(): void
 
     $existing = [];
     try {
-      $st = db()->query("SHOW COLUMNS FROM parcel_requests");
-      if ($st) {
-        while ($row = $st->fetch(PDO::FETCH_ASSOC)) {
-          if (!empty($row['Field'])) $existing[$row['Field']] = true;
+      $driver = db()->getAttribute(PDO::ATTR_DRIVER_NAME);
+      if ($driver === 'sqlite') {
+        $st = db()->query("PRAGMA table_info(parcel_requests)");
+        if ($st) {
+          while ($row = $st->fetch(PDO::FETCH_ASSOC)) {
+            if (!empty($row['name'])) $existing[$row['name']] = true;
+          }
+        }
+      } else {
+        $st = db()->query("SHOW COLUMNS FROM parcel_requests");
+        if ($st) {
+          while ($row = $st->fetch(PDO::FETCH_ASSOC)) {
+            if (!empty($row['Field'])) $existing[$row['Field']] = true;
+          }
         }
       }
     } catch (\Throwable $e) {}

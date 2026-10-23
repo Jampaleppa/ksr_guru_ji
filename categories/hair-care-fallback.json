@@ -11,10 +11,10 @@
                 "price": 180
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/shampoo/Herbal Shampoo.jpg",
-        "image": "../images/Personal Care/shampoo/Herbal Shampoo.jpg"
+        "imageUrl": "/images/Herbal Shampoo.jpg",
+        "image": "/images/Herbal Shampoo.jpg"
     },
     {
         "id": 2,
@@ -28,10 +28,10 @@
                 "price": 250
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/tablet/Anti-Dandruff Shampoo 250.jpg",
-        "image": "../images/Personal Care/tablet/Anti-Dandruff Shampoo 250.jpg"
+        "imageUrl": "/images/Anti-Dandruff Shampoo 250.jpg",
+        "image": "/images/Anti-Dandruff Shampoo 250.jpg"
     },
     {
         "id": 178,
@@ -45,10 +45,10 @@
                 "price": 360
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/tablet/Anti-Dandruff Shampoo 360.jpg",
-        "image": "../images/Personal Care/tablet/Anti-Dandruff Shampoo 360.jpg"
+        "imageUrl": "/images/Anti-Dandruff Shampoo 360.jpg",
+        "image": "/images/Anti-Dandruff Shampoo 360.jpg"
     },
     {
         "id": 179,
@@ -62,10 +62,10 @@
                 "price": 420
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/personal care/tablet/Anti-Dandruff Shampoo 420.jpg",
-        "image": "../images/personal care/tablet/Anti-Dandruff Shampoo 420.jpg"
+        "imageUrl": "/images/Anti-Dandruff Shampoo 420.jpg",
+        "image": "/images/Anti-Dandruff Shampoo 420.jpg"
     },
     {
         "id": 3,
@@ -79,10 +79,10 @@
                 "price": 190
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/shampoo/Himalaya Gentle Daily Care Protein Shampoo 190.jpg",
-        "image": "../images/Personal Care/shampoo/Himalaya Gentle Daily Care Protein Shampoo 190.jpg"
+        "imageUrl": "/images/Himalaya Gentle Daily Care Protein Shampoo 190.jpg",
+        "image": "/images/Himalaya Gentle Daily Care Protein Shampoo 190.jpg"
     },
     {
         "id": 180,
@@ -96,10 +96,10 @@
                 "price": 190
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/shampoo/Biotique Kelp Protein Shampoo for Falling Hair 370.jpg",
-        "image": "../images/Personal Care/shampoo/Biotique Kelp Protein Shampoo for Falling Hair 370.jpg"
+        "imageUrl": "/images/Biotique Kelp Protein Shampoo for Falling Hair 370.jpg",
+        "image": "/images/Biotique Kelp Protein Shampoo for Falling Hair 370.jpg"
     },
     {
         "id": 4,
@@ -113,10 +113,10 @@
                 "price": 385
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/shampoo/Gentle Baby Shampoo 385.jpg",
-        "image": "../images/Personal Care/shampoo/Gentle Baby Shampoo 385.jpg"
+        "imageUrl": "/images/Gentle Baby Shampoo 385.jpg",
+        "image": "/images/Gentle Baby Shampoo 385.jpg"
     },
     {
         "id": 181,
@@ -130,10 +130,10 @@
                 "price": 300
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/shampoo/Cetaphil Baby Gentle Wash & Shampoo baby.jpg",
-        "image": "../images/Personal Care/shampoo/Cetaphil Baby Gentle Wash & Shampoo baby.jpg"
+        "imageUrl": "/images/Cetaphil Baby Gentle Wash & Shampoo baby.jpg",
+        "image": "/images/Cetaphil Baby Gentle Wash & Shampoo baby.jpg"
     },
     {
         "id": 5,
@@ -147,10 +147,10 @@
                 "price": 260
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/shampoo/Onion Hair Shampoo.jpg",
-        "image": "../images/Personal Care/shampoo/Onion Hair Shampoo.jpg"
+        "imageUrl": "/images/Onion Hair Shampoo.jpg",
+        "image": "/images/Onion Hair Shampoo.jpg"
     },
     {
         "id": 6,
@@ -164,10 +164,10 @@
                 "price": 220
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/shampoo/Forest Essentials Bhringraj & Shikakai Ayurvedic Anti Dandruff Hair Cleanser Shampoo 970.jpg",
-        "image": "../images/Personal Care/shampoo/Forest Essentials Bhringraj & Shikakai Ayurvedic Anti Dandruff Hair Cleanser Shampoo 970.jpg"
+        "imageUrl": "/images/Forest Essentials Bhringraj & Shikakai Ayurvedic Anti Dandruff Hair Cleanser Shampoo 970.jpg",
+        "image": "/images/Forest Essentials Bhringraj & Shikakai Ayurvedic Anti Dandruff Hair Cleanser Shampoo 970.jpg"
     },
     {
         "id": 2010,
@@ -181,10 +181,10 @@
                 "price": 220
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/shampoo/KP Namboodiri's Ayurvedic Hair Care Shampoo 210.jpg",
-        "image": "../images/Personal Care/shampoo/KP Namboodiri's Ayurvedic Hair Care Shampoo 210.jpg"
+        "imageUrl": "/images/KP Namboodiri's Ayurvedic Hair Care Shampoo 210.jpg",
+        "image": "/images/KP Namboodiri's Ayurvedic Hair Care Shampoo 210.jpg"
     },
     {
         "id": 7,
@@ -198,10 +198,10 @@
                 "price": 320
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/shampoo/Biotin Shampoo.jpg",
-        "image": "../images/Personal Care/shampoo/Biotin Shampoo.jpg"
+        "imageUrl": "/images/Biotin Shampoo.jpg",
+        "image": "/images/Biotin Shampoo.jpg"
     },
     {
         "id": 8,
@@ -215,10 +215,10 @@
                 "price": 680
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/shampoo/Tresemme Keratin Smooth Shampoo 680.jpg",
-        "image": "../images/Personal Care/shampoo/Tresemme Keratin Smooth Shampoo 680.jpg"
+        "imageUrl": "/images/Tresemme Keratin Smooth Shampoo 680.jpg",
+        "image": "/images/Tresemme Keratin Smooth Shampoo 680.jpg"
     },
     {
         "id": 182,
@@ -232,10 +232,10 @@
                 "price": 620
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/shampoo/Tresemme Keratin Smooth Shampoo 620.jpg",
-        "image": "../images/Personal Care/shampoo/Tresemme Keratin Smooth Shampoo 620.jpg"
+        "imageUrl": "/images/Tresemme Keratin Smooth Shampoo 620.jpg",
+        "image": "/images/Tresemme Keratin Smooth Shampoo 620.jpg"
     },
     {
         "id": 183,
@@ -249,10 +249,10 @@
                 "price": 150
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/shampoo/Tresemme Keratin Smooth Shampoo 150.jpg",
-        "image": "../images/Personal Care/shampoo/Tresemme Keratin Smooth Shampoo 150.jpg"
+        "imageUrl": "/images/Tresemme Keratin Smooth Shampoo 150.jpg",
+        "image": "/images/Tresemme Keratin Smooth Shampoo 150.jpg"
     },
     {
         "id": 9,
@@ -266,10 +266,10 @@
                 "price": 350
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/shampoo/Color Protection Shampoo.jpg",
-        "image": "../images/Personal Care/shampoo/Color Protection Shampoo.jpg"
+        "imageUrl": "/images/Color Protection Shampoo.jpg",
+        "image": "/images/Color Protection Shampoo.jpg"
     },
     {
         "id": 10,
@@ -283,10 +283,10 @@
                 "price": 420
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/shampoo/Sulfate-Free Shampoo.jpg",
-        "image": "../images/Personal Care/shampoo/Sulfate-Free Shampoo.jpg"
+        "imageUrl": "/images/Sulfate-Free Shampoo.jpg",
+        "image": "/images/Sulfate-Free Shampoo.jpg"
     },
     {
         "id": 11,
@@ -300,10 +300,10 @@
                 "price": 610
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/shampoo/The Body Shop Tea Tree Purifying & Balancing Shampoo 620.jpg",
-        "image": "../images/Personal Care/shampoo/The Body Shop Tea Tree Purifying & Balancing Shampoo 620.jpg"
+        "imageUrl": "/images/The Body Shop Tea Tree Purifying & Balancing Shampoo 620.jpg",
+        "image": "/images/The Body Shop Tea Tree Purifying & Balancing Shampoo 620.jpg"
     },
     {
         "id": 12,
@@ -317,10 +317,10 @@
                 "price": 290
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/shampoo/Volumizing Shampoo.jpg",
-        "image": "../images/Personal Care/shampoo/Volumizing Shampoo.jpg"
+        "imageUrl": "/images/Volumizing Shampoo.jpg",
+        "image": "/images/Volumizing Shampoo.jpg"
     },
     {
         "id": 13,
@@ -334,10 +334,10 @@
                 "price": 310
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/shampoo/Repair & Restore Shampoo.jpg",
-        "image": "../images/Personal Care/shampoo/Repair & Restore Shampoo.jpg"
+        "imageUrl": "/images/Repair & Restore Shampoo.jpg",
+        "image": "/images/Repair & Restore Shampoo.jpg"
     },
     {
         "id": 14,
@@ -351,10 +351,10 @@
                 "price": 340
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/shampoo/Charcoal Detox Shampoo.jpg",
-        "image": "../images/Personal Care/shampoo/Charcoal Detox Shampoo.jpg"
+        "imageUrl": "/images/Charcoal Detox Shampoo.jpg",
+        "image": "/images/Charcoal Detox Shampoo.jpg"
     },
     {
         "id": 15,
@@ -368,10 +368,10 @@
                 "price": 360
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/shampoo/Onion & Biotin Shampoo.jpg",
-        "image": "../images/Personal Care/shampoo/Onion & Biotin Shampoo.jpg"
+        "imageUrl": "/images/Onion & Biotin Shampoo.jpg",
+        "image": "/images/Onion & Biotin Shampoo.jpg"
     },
     {
         "id": 16,
@@ -385,10 +385,10 @@
                 "price": 380
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/shampoo/Apple Cider Vinegar Shampoo.jpg",
-        "image": "../images/Personal Care/shampoo/Apple Cider Vinegar Shampoo.jpg"
+        "imageUrl": "/images/Apple Cider Vinegar Shampoo.jpg",
+        "image": "/images/Apple Cider Vinegar Shampoo.jpg"
     },
     {
         "id": 17,
@@ -402,10 +402,10 @@
                 "price": 320
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/shampoo/Moisture Lock Shampoo.jpg",
-        "image": "../images/Personal Care/shampoo/Moisture Lock Shampoo.jpg"
+        "imageUrl": "/images/Moisture Lock Shampoo.jpg",
+        "image": "/images/Moisture Lock Shampoo.jpg"
     },
     {
         "id": 18,
@@ -419,10 +419,10 @@
                 "price": 210
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/shampoo/Daily Gentle Shampoo.jpg",
-        "image": "../images/Personal Care/shampoo/Daily Gentle Shampoo.jpg"
+        "imageUrl": "/images/Daily Gentle Shampoo.jpg",
+        "image": "/images/Daily Gentle Shampoo.jpg"
     },
     {
         "id": 19,
@@ -436,10 +436,10 @@
                 "price": 190
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/shampoo/Kids Tear-Free Shampoo.jpg",
-        "image": "../images/Personal Care/shampoo/Kids Tear-Free Shampoo.jpg"
+        "imageUrl": "/images/Kids Tear-Free Shampoo.jpg",
+        "image": "/images/Kids Tear-Free Shampoo.jpg"
     },
     {
         "id": 20,
@@ -453,10 +453,10 @@
                 "price": 420
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/shampoo/Keratin & Argan Shampoo.jpg",
-        "image": "../images/Personal Care/shampoo/Keratin & Argan Shampoo.jpg"
+        "imageUrl": "/images/Keratin & Argan Shampoo.jpg",
+        "image": "/images/Keratin & Argan Shampoo.jpg"
     },
     {
         "id": 21,
@@ -470,10 +470,10 @@
                 "price": 350
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/shampoo/Scalp Purifying Shampoo.jpg",
-        "image": "../images/Personal Care/shampoo/Scalp Purifying Shampoo.jpg"
+        "imageUrl": "/images/Scalp Purifying Shampoo.jpg",
+        "image": "/images/Scalp Purifying Shampoo.jpg"
     },
     {
         "id": 22,
@@ -487,10 +487,10 @@
                 "price": 380
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/shampoo/Anti-Hair Fall Onion Shampoo.jpg",
-        "image": "../images/Personal Care/shampoo/Anti-Hair Fall Onion Shampoo.jpg"
+        "imageUrl": "/images/Anti-Hair Fall Onion Shampoo.jpg",
+        "image": "/images/Anti-Hair Fall Onion Shampoo.jpg"
     },
     {
         "id": 23,
@@ -504,10 +504,10 @@
                 "price": 310
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/shampoo/Hydrating Aloe Shampoo.jpg",
-        "image": "../images/Personal Care/shampoo/Hydrating Aloe Shampoo.jpg"
+        "imageUrl": "/images/Hydrating Aloe Shampoo.jpg",
+        "image": "/images/Hydrating Aloe Shampoo.jpg"
     },
     {
         "id": 24,
@@ -521,10 +521,10 @@
                 "price": 330
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/shampoo/Damage Control Shampoo.jpg",
-        "image": "../images/Personal Care/shampoo/Damage Control Shampoo.jpg"
+        "imageUrl": "/images/Damage Control Shampoo.jpg",
+        "image": "/images/Damage Control Shampoo.jpg"
     },
     {
         "id": 25,
@@ -538,10 +538,10 @@
                 "price": 260
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/shampoo/Dandruff Control Neem Shampoo.jpg",
-        "image": "../images/Personal Care/shampoo/Dandruff Control Neem Shampoo.jpg"
+        "imageUrl": "/images/Dandruff Control Neem Shampoo.jpg",
+        "image": "/images/Dandruff Control Neem Shampoo.jpg"
     },
     {
         "id": 26,
@@ -555,10 +555,10 @@
                 "price": 480
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/shampoo/Hyaluronic Moisture Shampoo.jpg",
-        "image": "../images/Personal Care/shampoo/Hyaluronic Moisture Shampoo.jpg"
+        "imageUrl": "/images/Hyaluronic Moisture Shampoo.jpg",
+        "image": "/images/Hyaluronic Moisture Shampoo.jpg"
     },
     {
         "id": 27,
@@ -572,10 +572,10 @@
                 "price": 520
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/shampoo/Collagen Volume Shampoo.jpg",
-        "image": "../images/Personal Care/shampoo/Collagen Volume Shampoo.jpg"
+        "imageUrl": "/images/Collagen Volume Shampoo.jpg",
+        "image": "/images/Collagen Volume Shampoo.jpg"
     },
     {
         "id": 28,
@@ -589,10 +589,10 @@
                 "price": 390
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/shampoo/Anti-Pollution Shampoo.jpg",
-        "image": "../images/Personal Care/shampoo/Anti-Pollution Shampoo.jpg"
+        "imageUrl": "/images/Anti-Pollution Shampoo.jpg",
+        "image": "/images/Anti-Pollution Shampoo.jpg"
     },
     {
         "id": 29,
@@ -606,10 +606,10 @@
                 "price": 270
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/shampoo/Scalp Cooling Menthol Shampoo.jpg",
-        "image": "../images/Personal Care/shampoo/Scalp Cooling Menthol Shampoo.jpg"
+        "imageUrl": "/images/Scalp Cooling Menthol Shampoo.jpg",
+        "image": "/images/Scalp Cooling Menthol Shampoo.jpg"
     },
     {
         "id": 30,
@@ -623,10 +623,10 @@
                 "price": 450
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/shampoo/Hard Water Defense Shampoo.jpg",
-        "image": "../images/Personal Care/shampoo/Hard Water Defense Shampoo.jpg"
+        "imageUrl": "/images/Hard Water Defense Shampoo.jpg",
+        "image": "/images/Hard Water Defense Shampoo.jpg"
     },
     {
         "id": 31,
@@ -640,10 +640,10 @@
                 "price": 190
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/soap/Smoothening Conditioner.jpg",
-        "image": "../images/Personal Care/soap/Smoothening Conditioner.jpg"
+        "imageUrl": "/images/Smoothening Conditioner.jpg",
+        "image": "/images/Smoothening Conditioner.jpg"
     },
     {
         "id": 32,
@@ -657,10 +657,10 @@
                 "price": 220
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/soap/Hair Fall Control Conditioner.jpg",
-        "image": "../images/Personal Care/soap/Hair Fall Control Conditioner.jpg"
+        "imageUrl": "/images/Hair Fall Control Conditioner.jpg",
+        "image": "/images/Hair Fall Control Conditioner.jpg"
     },
     {
         "id": 33,
@@ -674,10 +674,10 @@
                 "price": 420
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/Keratin Conditioner 420.jpg",
-        "image": "../images/Personal Care/Keratin Conditioner 420.jpg"
+        "imageUrl": "/images/Keratin Conditioner 420.jpg",
+        "image": "/images/Keratin Conditioner 420.jpg"
     },
     {
         "id": 185,
@@ -691,10 +691,10 @@
                 "price": 420
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/Keratin Conditioner 300.jpg",
-        "image": "../images/Personal Care/Keratin Conditioner 300.jpg"
+        "imageUrl": "/images/Keratin Conditioner 300.jpg",
+        "image": "/images/Keratin Conditioner 300.jpg"
     },
     {
         "id": 186,
@@ -708,10 +708,10 @@
                 "price": 420
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/Tresemme Keratin Smooth Conditioner 200.jpg",
-        "image": "../images/Personal Care/Tresemme Keratin Smooth Conditioner 200.jpg"
+        "imageUrl": "/images/Tresemme Keratin Smooth Conditioner 200.jpg",
+        "image": "/images/Tresemme Keratin Smooth Conditioner 200.jpg"
     },
     {
         "id": 34,
@@ -725,10 +725,10 @@
                 "price": 210
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/soap/Moisturizing Conditioner.jpg",
-        "image": "../images/Personal Care/soap/Moisturizing Conditioner.jpg"
+        "imageUrl": "/images/Moisturizing Conditioner.jpg",
+        "image": "/images/Moisturizing Conditioner.jpg"
     },
     {
         "id": 35,
@@ -742,10 +742,10 @@
                 "price": 300
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/Damage Repair Conditioner 300.jpg",
-        "image": "../images/Personal Care/Damage Repair Conditioner 300.jpg"
+        "imageUrl": "/images/Damage Repair Conditioner 300.jpg",
+        "image": "/images/Damage Repair Conditioner 300.jpg"
     },
     {
         "id": 36,
@@ -759,10 +759,10 @@
                 "price": 300
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/shampoo/Biotin Conditioner 790.jpg",
-        "image": "../images/Personal Care/shampoo/Biotin Conditioner 790.jpg"
+        "imageUrl": "/images/Biotin Conditioner 790.jpg",
+        "image": "/images/Biotin Conditioner 790.jpg"
     },
     {
         "id": 37,
@@ -776,10 +776,10 @@
                 "price": 350
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/shampoo/Argan Oil Conditioner 300.jpg",
-        "image": "../images/Personal Care/shampoo/Argan Oil Conditioner 300.jpg"
+        "imageUrl": "/images/Argan Oil Conditioner 300.jpg",
+        "image": "/images/Argan Oil Conditioner 300.jpg"
     },
     {
         "id": 38,
@@ -793,10 +793,10 @@
                 "price": 260
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/shampoo/Anti-Frizz Conditioner.jpg",
-        "image": "../images/Personal Care/shampoo/Anti-Frizz Conditioner.jpg"
+        "imageUrl": "/images/Anti-Frizz Conditioner.jpg",
+        "image": "/images/Anti-Frizz Conditioner.jpg"
     },
     {
         "id": 39,
@@ -810,10 +810,10 @@
                 "price": 290
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/soap/Color Protect Conditioner.jpg",
-        "image": "../images/Personal Care/soap/Color Protect Conditioner.jpg"
+        "imageUrl": "/images/Color Protect Conditioner.jpg",
+        "image": "/images/Color Protect Conditioner.jpg"
     },
     {
         "id": 40,
@@ -827,10 +827,10 @@
                 "price": 240
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/soap/Coconut Milk Conditioner.jpg",
-        "image": "../images/Personal Care/soap/Coconut Milk Conditioner.jpg"
+        "imageUrl": "/images/Coconut Milk Conditioner.jpg",
+        "image": "/images/Coconut Milk Conditioner.jpg"
     },
     {
         "id": 41,
@@ -844,10 +844,10 @@
                 "price": 220
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/soap/Herbal Conditioner.jpg",
-        "image": "../images/Personal Care/soap/Herbal Conditioner.jpg"
+        "imageUrl": "/images/Herbal Conditioner.jpg",
+        "image": "/images/Herbal Conditioner.jpg"
     },
     {
         "id": 42,
@@ -861,10 +861,10 @@
                 "price": 400
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/Volume Boost Conditioner 400.jpg",
-        "image": "../images/Personal Care/Volume Boost Conditioner 400.jpg"
+        "imageUrl": "/images/Volume Boost Conditioner 400.jpg",
+        "image": "/images/Volume Boost Conditioner 400.jpg"
     },
     {
         "id": 43,
@@ -878,10 +878,10 @@
                 "price": 260
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/soap/Deep Nourish Conditioner.jpg",
-        "image": "../images/Personal Care/soap/Deep Nourish Conditioner.jpg"
+        "imageUrl": "/images/Deep Nourish Conditioner.jpg",
+        "image": "/images/Deep Nourish Conditioner.jpg"
     },
     {
         "id": 44,
@@ -895,10 +895,10 @@
                 "price": 300
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/soap/Silk Smooth Conditioner.jpg",
-        "image": "../images/Personal Care/soap/Silk Smooth Conditioner.jpg"
+        "imageUrl": "/images/Silk Smooth Conditioner.jpg",
+        "image": "/images/Silk Smooth Conditioner.jpg"
     },
     {
         "id": 45,
@@ -912,10 +912,10 @@
                 "price": 280
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/soap/Strengthening Conditioner.jpg",
-        "image": "../images/Personal Care/soap/Strengthening Conditioner.jpg"
+        "imageUrl": "/images/Strengthening Conditioner.jpg",
+        "image": "/images/Strengthening Conditioner.jpg"
     },
     {
         "id": 46,
@@ -929,10 +929,10 @@
                 "price": 250
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/soap/Herbal Repair Conditioner.jpg",
-        "image": "../images/Personal Care/soap/Herbal Repair Conditioner.jpg"
+        "imageUrl": "/images/Herbal Repair Conditioner.jpg",
+        "image": "/images/Herbal Repair Conditioner.jpg"
     },
     {
         "id": 47,
@@ -946,10 +946,10 @@
                 "price": 350
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/soap/Leave-In Conditioner.jpg",
-        "image": "../images/Personal Care/soap/Leave-In Conditioner.jpg"
+        "imageUrl": "/images/Leave-In Conditioner.jpg",
+        "image": "/images/Leave-In Conditioner.jpg"
     },
     {
         "id": 48,
@@ -963,10 +963,10 @@
                 "price": 420
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/Tresemme Keratin Smooth Conditioner 200.jpg",
-        "image": "../images/Personal Care/Tresemme Keratin Smooth Conditioner 200.jpg"
+        "imageUrl": "/images/Tresemme Keratin Smooth Conditioner 200.jpg",
+        "image": "/images/Tresemme Keratin Smooth Conditioner 200.jpg"
     },
     {
         "id": 49,
@@ -980,10 +980,10 @@
                 "price": 280
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/soap/Coconut Repair Conditioner.jpg",
-        "image": "../images/Personal Care/soap/Coconut Repair Conditioner.jpg"
+        "imageUrl": "/images/Coconut Repair Conditioner.jpg",
+        "image": "/images/Coconut Repair Conditioner.jpg"
     },
     {
         "id": 50,
@@ -997,10 +997,10 @@
                 "price": 240
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/soap/Aloe Vera Conditioner.jpg.webp",
-        "image": "../images/Personal Care/soap/Aloe Vera Conditioner.jpg.webp"
+        "imageUrl": "/images/Aloe Vera Conditioner.jpg.webp",
+        "image": "/images/Aloe Vera Conditioner.jpg.webp"
     },
     {
         "id": 51,
@@ -1014,10 +1014,10 @@
                 "price": 310
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/soap/Anti-Breakage Conditioner.jpg",
-        "image": "../images/Personal Care/soap/Anti-Breakage Conditioner.jpg"
+        "imageUrl": "/images/Anti-Breakage Conditioner.jpg",
+        "image": "/images/Anti-Breakage Conditioner.jpg"
     },
     {
         "id": 52,
@@ -1031,10 +1031,10 @@
                 "price": 330
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/soap/Volume Boost Protein Conditioner.jpg",
-        "image": "../images/Personal Care/soap/Volume Boost Protein Conditioner.jpg"
+        "imageUrl": "/images/Volume Boost Protein Conditioner.jpg",
+        "image": "/images/Volume Boost Protein Conditioner.jpg"
     },
     {
         "id": 53,
@@ -1048,10 +1048,10 @@
                 "price": 520
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/soap/Collagen Repair Conditioner.jpg",
-        "image": "../images/Personal Care/soap/Collagen Repair Conditioner.jpg"
+        "imageUrl": "/images/Collagen Repair Conditioner.jpg",
+        "image": "/images/Collagen Repair Conditioner.jpg"
     },
     {
         "id": 54,
@@ -1065,10 +1065,10 @@
                 "price": 480
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/soap/Hyaluronic Hydration Conditioner.jpg",
-        "image": "../images/Personal Care/soap/Hyaluronic Hydration Conditioner.jpg"
+        "imageUrl": "/images/Hyaluronic Hydration Conditioner.jpg",
+        "image": "/images/Hyaluronic Hydration Conditioner.jpg"
     },
     {
         "id": 55,
@@ -1082,10 +1082,10 @@
                 "price": 420
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/soap/Color Lock Conditioner.jpg",
-        "image": "../images/Personal Care/soap/Color Lock Conditioner.jpg"
+        "imageUrl": "/images/Color Lock Conditioner.jpg",
+        "image": "/images/Color Lock Conditioner.jpg"
     },
     {
         "id": 56,
@@ -1099,10 +1099,10 @@
                 "price": 390
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/soap/Coconut Repair Conditioner.jpg",
-        "image": "../images/Personal Care/soap/Coconut Repair Conditioner.jpg"
+        "imageUrl": "/images/Coconut Repair Conditioner.jpg",
+        "image": "/images/Coconut Repair Conditioner.jpg"
     },
     {
         "id": 57,
@@ -1116,10 +1116,10 @@
                 "price": 180
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/oill/Parachute Coconut Hair Oil 180.jpg",
-        "image": "../images/Personal Care/oill/Parachute Coconut Hair Oil 180.jpg"
+        "imageUrl": "/images/Parachute Coconut Hair Oil 180.jpg",
+        "image": "/images/Parachute Coconut Hair Oil 180.jpg"
     },
     {
         "id": 58,
@@ -1133,10 +1133,10 @@
                 "price": 360
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/oill/Bajaj Almond Drops Hair Oil 360.jpg",
-        "image": "../images/Personal Care/oill/Bajaj Almond Drops Hair Oil 360.jpg"
+        "imageUrl": "/images/Bajaj Almond Drops Hair Oil 360.jpg",
+        "image": "/images/Bajaj Almond Drops Hair Oil 360.jpg"
     },
     {
         "id": 59,
@@ -1150,10 +1150,10 @@
                 "price": 230
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/oill/Amla Hair Oil 230.jpg",
-        "image": "../images/Personal Care/oill/Amla Hair Oil 230.jpg"
+        "imageUrl": "/images/Amla Hair Oil 230.jpg",
+        "image": "/images/Amla Hair Oil 230.jpg"
     },
     {
         "id": 60,
@@ -1167,10 +1167,10 @@
                 "price": 250
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/oill/Onion Hair Oil 250.jpg",
-        "image": "../images/Personal Care/oill/Onion Hair Oil 250.jpg"
+        "imageUrl": "/images/Onion Hair Oil 250.jpg",
+        "image": "/images/Onion Hair Oil 250.jpg"
     },
     {
         "id": 61,
@@ -1184,10 +1184,10 @@
                 "price": 300
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/oill/Ayurvedic Hair Oil.jpg",
-        "image": "../images/Personal Care/oill/Ayurvedic Hair Oil.jpg"
+        "imageUrl": "/images/Ayurvedic Hair Oil.jpg",
+        "image": "/images/Ayurvedic Hair Oil.jpg"
     },
     {
         "id": 62,
@@ -1201,10 +1201,10 @@
                 "price": 180
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/oill/Castor Hair Oil 240.jpg",
-        "image": "../images/Personal Care/oill/Castor Hair Oil 240.jpg"
+        "imageUrl": "/images/Castor Hair Oil 240.jpg",
+        "image": "/images/Castor Hair Oil 240.jpg"
     },
     {
         "id": 63,
@@ -1218,10 +1218,10 @@
                 "price": 240
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/oill/Olive Hair Oil.jpg",
-        "image": "../images/Personal Care/oill/Olive Hair Oil.jpg"
+        "imageUrl": "/images/Olive Hair Oil.jpg",
+        "image": "/images/Olive Hair Oil.jpg"
     },
     {
         "id": 64,
@@ -1235,10 +1235,10 @@
                 "price": 210
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/oill/Brahmi Hair Oil.jpg",
-        "image": "../images/Personal Care/oill/Brahmi Hair Oil.jpg"
+        "imageUrl": "/images/Brahmi Hair Oil.jpg",
+        "image": "/images/Brahmi Hair Oil.jpg"
     },
     {
         "id": 65,
@@ -1252,10 +1252,10 @@
                 "price": 260
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/oill/Hibiscus Hair Oil.jpg",
-        "image": "../images/Personal Care/oill/Hibiscus Hair Oil.jpg"
+        "imageUrl": "/images/Hibiscus Hair Oil.jpg",
+        "image": "/images/Hibiscus Hair Oil.jpg"
     },
     {
         "id": 66,
@@ -1269,10 +1269,10 @@
                 "price": 380
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/oill/Onion Black Seed Oil.jpg",
-        "image": "../images/Personal Care/oill/Onion Black Seed Oil.jpg"
+        "imageUrl": "/images/Onion Black Seed Oil.jpg",
+        "image": "/images/Onion Black Seed Oil.jpg"
     },
     {
         "id": 67,
@@ -1286,10 +1286,10 @@
                 "price": 420
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/oill/Hair Growth Oil.jpg",
-        "image": "../images/Personal Care/oill/Hair Growth Oil.jpg"
+        "imageUrl": "/images/Hair Growth Oil.jpg",
+        "image": "/images/Hair Growth Oil.jpg"
     },
     {
         "id": 68,
@@ -1303,10 +1303,10 @@
                 "price": 190
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/oill/Cooling Hair Oil.jpg",
-        "image": "../images/Personal Care/oill/Cooling Hair Oil.jpg"
+        "imageUrl": "/images/Cooling Hair Oil.jpg",
+        "image": "/images/Cooling Hair Oil.jpg"
     },
     {
         "id": 69,
@@ -1320,10 +1320,10 @@
                 "price": 240
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/oill/Neem Hair Oil.jpg",
-        "image": "../images/Personal Care/oill/Neem Hair Oil.jpg"
+        "imageUrl": "/images/Neem Hair Oil.jpg",
+        "image": "/images/Neem Hair Oil.jpg"
     },
     {
         "id": 70,
@@ -1337,10 +1337,10 @@
                 "price": 280
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/oill/Tea Tree Hair Oil.jpg",
-        "image": "../images/Personal Care/oill/Tea Tree Hair Oil.jpg"
+        "imageUrl": "/images/Tea Tree Hair Oil.jpg",
+        "image": "/images/Tea Tree Hair Oil.jpg"
     },
     {
         "id": 71,
@@ -1354,10 +1354,10 @@
                 "price": 260
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/oill/Garlic Hair Oil.jpg",
-        "image": "../images/Personal Care/oill/Garlic Hair Oil.jpg"
+        "imageUrl": "/images/Garlic Hair Oil.jpg",
+        "image": "/images/Garlic Hair Oil.jpg"
     },
     {
         "id": 72,
@@ -1371,10 +1371,10 @@
                 "price": 240
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/oill/Fenugreek Hair Oil.jpg",
-        "image": "../images/Personal Care/oill/Fenugreek Hair Oil.jpg"
+        "imageUrl": "/images/Fenugreek Hair Oil.jpg",
+        "image": "/images/Fenugreek Hair Oil.jpg"
     },
     {
         "id": 73,
@@ -1388,10 +1388,10 @@
                 "price": 300
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/oill/Vitamin E Hair Oil.jpg",
-        "image": "../images/Personal Care/oill/Vitamin E Hair Oil.jpg"
+        "imageUrl": "/images/Vitamin E Hair Oil.jpg",
+        "image": "/images/Vitamin E Hair Oil.jpg"
     },
     {
         "id": 74,
@@ -1405,10 +1405,10 @@
                 "price": 420
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/oill/Onion Black Seed Hair Oil.jpg",
-        "image": "../images/Personal Care/oill/Onion Black Seed Hair Oil.jpg"
+        "imageUrl": "/images/Onion Black Seed Hair Oil.jpg",
+        "image": "/images/Onion Black Seed Hair Oil.jpg"
     },
     {
         "id": 75,
@@ -1422,10 +1422,10 @@
                 "price": 390
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/oill/Ayurvedic 18 Herbs Oil.jpg",
-        "image": "../images/Personal Care/oill/Ayurvedic 18 Herbs Oil.jpg"
+        "imageUrl": "/images/Ayurvedic 18 Herbs Oil.jpg",
+        "image": "/images/Ayurvedic 18 Herbs Oil.jpg"
     },
     {
         "id": 76,
@@ -1439,10 +1439,10 @@
                 "price": 560
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/oill/Bhringraj Hair Oil 560.jpg",
-        "image": "../images/Personal Care/oill/Bhringraj Hair Oil 560.jpg"
+        "imageUrl": "/images/Bhringraj Hair Oil 560.jpg",
+        "image": "/images/Bhringraj Hair Oil 560.jpg"
     },
     {
         "id": 77,
@@ -1456,10 +1456,10 @@
                 "price": 450
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/oill/Intensive Hair Growth Oil.jpg",
-        "image": "../images/Personal Care/oill/Intensive Hair Growth Oil.jpg"
+        "imageUrl": "/images/Intensive Hair Growth Oil.jpg",
+        "image": "/images/Intensive Hair Growth Oil.jpg"
     },
     {
         "id": 78,
@@ -1473,10 +1473,10 @@
                 "price": 260
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/oill/Cooling Brahmi Amla Oil.jpg",
-        "image": "../images/Personal Care/oill/Cooling Brahmi Amla Oil.jpg"
+        "imageUrl": "/images/Cooling Brahmi Amla Oil.jpg",
+        "image": "/images/Cooling Brahmi Amla Oil.jpg"
     },
     {
         "id": 79,
@@ -1490,10 +1490,10 @@
                 "price": 850
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/oill/Moroccan Argan Oil.jpg",
-        "image": "../images/Personal Care/oill/Moroccan Argan Oil.jpg"
+        "imageUrl": "/images/Moroccan Argan Oil.jpg",
+        "image": "/images/Moroccan Argan Oil.jpg"
     },
     {
         "id": 80,
@@ -1507,10 +1507,10 @@
                 "price": 450
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/oill/Cold Pressed Coconut Oil.jpg",
-        "image": "../images/Personal Care/oill/Cold Pressed Coconut Oil.jpg"
+        "imageUrl": "/images/Cold Pressed Coconut Oil.jpg",
+        "image": "/images/Cold Pressed Coconut Oil.jpg"
     },
     {
         "id": 81,
@@ -1524,10 +1524,10 @@
                 "price": 380
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/oill/Ayurvedic Kesh King Oil.jpg",
-        "image": "../images/Personal Care/oill/Ayurvedic Kesh King Oil.jpg"
+        "imageUrl": "/images/Ayurvedic Kesh King Oil.jpg",
+        "image": "/images/Ayurvedic Kesh King Oil.jpg"
     },
     {
         "id": 82,
@@ -1541,10 +1541,10 @@
                 "price": 720
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/oill/21 Herbs Hair Oil.jpg",
-        "image": "../images/Personal Care/oill/21 Herbs Hair Oil.jpg"
+        "imageUrl": "/images/21 Herbs Hair Oil.jpg",
+        "image": "/images/21 Herbs Hair Oil.jpg"
     },
     {
         "id": 83,
@@ -1558,10 +1558,10 @@
                 "price": 450
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/Keratin Hair Mask.jpg",
-        "image": "../images/Personal Care/Keratin Hair Mask.jpg"
+        "imageUrl": "/images/Keratin Hair Mask.jpg",
+        "image": "/images/Keratin Hair Mask.jpg"
     },
     {
         "id": 84,
@@ -1575,10 +1575,10 @@
                 "price": 500
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/Argan Oil Hair Mask.jpg",
-        "image": "../images/Personal Care/Argan Oil Hair Mask.jpg"
+        "imageUrl": "/images/Argan Oil Hair Mask.jpg",
+        "image": "/images/Argan Oil Hair Mask.jpg"
     },
     {
         "id": 85,
@@ -1592,10 +1592,10 @@
                 "price": 420
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/Deep Conditioning Mask.jpg",
-        "image": "../images/Personal Care/Deep Conditioning Mask.jpg"
+        "imageUrl": "/images/Deep Conditioning Mask.jpg",
+        "image": "/images/Deep Conditioning Mask.jpg"
     },
     {
         "id": 86,
@@ -1609,10 +1609,10 @@
                 "price": 300
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/Anti-Dandruff Hair Mask.jpg",
-        "image": "../images/Personal Care/Anti-Dandruff Hair Mask.jpg"
+        "imageUrl": "/images/Anti-Dandruff Hair Mask.jpg",
+        "image": "/images/Anti-Dandruff Hair Mask.jpg"
     },
     {
         "id": 87,
@@ -1626,10 +1626,10 @@
                 "price": 550
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/Hair Spa Cream Mask.jpg",
-        "image": "../images/Personal Care/Hair Spa Cream Mask.jpg"
+        "imageUrl": "/images/Hair Spa Cream Mask.jpg",
+        "image": "/images/Hair Spa Cream Mask.jpg"
     },
     {
         "id": 88,
@@ -1643,10 +1643,10 @@
                 "price": 350
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/Banana Hair Mask.jpg",
-        "image": "../images/Personal Care/Banana Hair Mask.jpg"
+        "imageUrl": "/images/Banana Hair Mask.jpg",
+        "image": "/images/Banana Hair Mask.jpg"
     },
     {
         "id": 89,
@@ -1660,10 +1660,10 @@
                 "price": 300
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/Egg Protein Hair Mask.jpg",
-        "image": "../images/Personal Care/Egg Protein Hair Mask.jpg"
+        "imageUrl": "/images/Egg Protein Hair Mask.jpg",
+        "image": "/images/Egg Protein Hair Mask.jpg"
     },
     {
         "id": 90,
@@ -1677,10 +1677,10 @@
                 "price": 420
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/Onion Hair Mask.jpg",
-        "image": "../images/Personal Care/Onion Hair Mask.jpg"
+        "imageUrl": "/images/Onion Hair Mask.jpg",
+        "image": "/images/Onion Hair Mask.jpg"
     },
     {
         "id": 91,
@@ -1694,10 +1694,10 @@
                 "price": 380
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/Hair Fall Control Mask.jpg",
-        "image": "../images/Personal Care/Hair Fall Control Mask.jpg"
+        "imageUrl": "/images/Hair Fall Control Mask.jpg",
+        "image": "/images/Hair Fall Control Mask.jpg"
     },
     {
         "id": 92,
@@ -1711,10 +1711,10 @@
                 "price": 400
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/Hydrating Hair Mask.jpg",
-        "image": "../images/Personal Care/Hydrating Hair Mask.jpg"
+        "imageUrl": "/images/Hydrating Hair Mask.jpg",
+        "image": "/images/Hydrating Hair Mask.jpg"
     },
     {
         "id": 93,
@@ -1728,10 +1728,10 @@
                 "price": 450
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/Repair Therapy Mask.jpg",
-        "image": "../images/Personal Care/Repair Therapy Mask.jpg"
+        "imageUrl": "/images/Repair Therapy Mask.jpg",
+        "image": "/images/Repair Therapy Mask.jpg"
     },
     {
         "id": 94,
@@ -1745,10 +1745,10 @@
                 "price": 420
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/Charcoal Hair Mask.jpg",
-        "image": "../images/Personal Care/Charcoal Hair Mask.jpg"
+        "imageUrl": "/images/Charcoal Hair Mask.jpg",
+        "image": "/images/Charcoal Hair Mask.jpg"
     },
     {
         "id": 95,
@@ -1762,10 +1762,10 @@
                 "price": 500
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/Keratin Repair Mask.jpg",
-        "image": "../images/Personal Care/Keratin Repair Mask.jpg"
+        "imageUrl": "/images/Keratin Repair Mask.jpg",
+        "image": "/images/Keratin Repair Mask.jpg"
     },
     {
         "id": 96,
@@ -1779,10 +1779,10 @@
                 "price": 380
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/Smooth & Shine Mask.jpg",
-        "image": "../images/Personal Care/Smooth & Shine Mask.jpg"
+        "imageUrl": "/images/Smooth & Shine Mask.jpg",
+        "image": "/images/Smooth & Shine Mask.jpg"
     },
     {
         "id": 97,
@@ -1796,10 +1796,10 @@
                 "price": 410
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/Protein Boost Mask.jpg",
-        "image": "../images/Personal Care/Protein Boost Mask.jpg"
+        "imageUrl": "/images/Protein Boost Mask.jpg",
+        "image": "/images/Protein Boost Mask.jpg"
     },
     {
         "id": 98,
@@ -1813,10 +1813,10 @@
                 "price": 390
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/Anti-Frizz Hair Mask.jpg",
-        "image": "../images/Personal Care/Anti-Frizz Hair Mask.jpg"
+        "imageUrl": "/images/Anti-Frizz Hair Mask.jpg",
+        "image": "/images/Anti-Frizz Hair Mask.jpg"
     },
     {
         "id": 99,
@@ -1830,10 +1830,10 @@
                 "price": 600
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/Keratin Spa Mask.jpg",
-        "image": "../images/Personal Care/Keratin Spa Mask.jpg"
+        "imageUrl": "/images/Keratin Spa Mask.jpg",
+        "image": "/images/Keratin Spa Mask.jpg"
     },
     {
         "id": 100,
@@ -1847,10 +1847,10 @@
                 "price": 450
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/Onion Black Seed Mask.jpg",
-        "image": "../images/Personal Care/Onion Black Seed Mask.jpg"
+        "imageUrl": "/images/Onion Black Seed Mask.jpg",
+        "image": "/images/Onion Black Seed Mask.jpg"
     },
     {
         "id": 101,
@@ -1864,10 +1864,10 @@
                 "price": 480
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/Protein Repair Mask.jpg",
-        "image": "../images/Personal Care/Protein Repair Mask.jpg"
+        "imageUrl": "/images/Protein Repair Mask.jpg",
+        "image": "/images/Protein Repair Mask.jpg"
     },
     {
         "id": 102,
@@ -1881,10 +1881,10 @@
                 "price": 520
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/Deep Nourish Cream Mask.jpg",
-        "image": "../images/Personal Care/Deep Nourish Cream Mask.jpg"
+        "imageUrl": "/images/Deep Nourish Cream Mask.jpg",
+        "image": "/images/Deep Nourish Cream Mask.jpg"
     },
     {
         "id": 103,
@@ -1898,10 +1898,10 @@
                 "price": 400
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/Aloe Hydration Mask.jpg",
-        "image": "../images/Personal Care/Aloe Hydration Mask.jpg"
+        "imageUrl": "/images/Aloe Hydration Mask.jpg",
+        "image": "/images/Aloe Hydration Mask.jpg"
     },
     {
         "id": 104,
@@ -1915,10 +1915,10 @@
                 "price": 650
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/Collagen Hair Spa Mask.jpg",
-        "image": "../images/Personal Care/Collagen Hair Spa Mask.jpg"
+        "imageUrl": "/images/Collagen Hair Spa Mask.jpg",
+        "image": "/images/Collagen Hair Spa Mask.jpg"
     },
     {
         "id": 105,
@@ -1932,10 +1932,10 @@
                 "price": 600
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/Smoothening Hair Spa Cream.jpg",
-        "image": "../images/Personal Care/Smoothening Hair Spa Cream.jpg"
+        "imageUrl": "/images/Smoothening Hair Spa Cream.jpg",
+        "image": "/images/Smoothening Hair Spa Cream.jpg"
     },
     {
         "id": 106,
@@ -1949,10 +1949,10 @@
                 "price": 550
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/Color Protection Hair Mask.jpg",
-        "image": "../images/Personal Care/Color Protection Hair Mask.jpg"
+        "imageUrl": "/images/Color Protection Hair Mask.jpg",
+        "image": "/images/Color Protection Hair Mask.jpg"
     },
     {
         "id": 107,
@@ -1966,10 +1966,10 @@
                 "price": 520
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/Anti-Hair Fall Therapy Mask.jpg",
-        "image": "../images/Personal Care/Anti-Hair Fall Therapy Mask.jpg"
+        "imageUrl": "/images/Anti-Hair Fall Therapy Mask.jpg",
+        "image": "/images/Anti-Hair Fall Therapy Mask.jpg"
     },
     {
         "id": 108,
@@ -1983,10 +1983,10 @@
                 "price": 450
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/tablet/Hair Growth Serum 400.jpg",
-        "image": "../images/Personal Care/tablet/Hair Growth Serum 400.jpg"
+        "imageUrl": "/images/Hair Growth Serum 400.jpg",
+        "image": "/images/Hair Growth Serum 400.jpg"
     },
     {
         "id": 109,
@@ -2000,10 +2000,10 @@
                 "price": 390
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/Anti-Frizz Serum 390.jpg",
-        "image": "../images/Personal Care/Anti-Frizz Serum 390.jpg"
+        "imageUrl": "/images/Anti-Frizz Serum 390.jpg",
+        "image": "/images/Anti-Frizz Serum 390.jpg"
     },
     {
         "id": 110,
@@ -2017,10 +2017,10 @@
                 "price": 250
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/Keratin Hair Serum.jpg",
-        "image": "../images/Personal Care/Keratin Hair Serum.jpg"
+        "imageUrl": "/images/Keratin Hair Serum.jpg",
+        "image": "/images/Keratin Hair Serum.jpg"
     },
     {
         "id": 111,
@@ -2034,10 +2034,10 @@
                 "price": 300
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/Shine Boost Serum.jpg",
-        "image": "../images/Personal Care/Shine Boost Serum.jpg"
+        "imageUrl": "/images/Shine Boost Serum.jpg",
+        "image": "/images/Shine Boost Serum.jpg"
     },
     {
         "id": 112,
@@ -2051,10 +2051,10 @@
                 "price": 420
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/Onion Hair Serum.jpg",
-        "image": "../images/Personal Care/Onion Hair Serum.jpg"
+        "imageUrl": "/images/Onion Hair Serum.jpg",
+        "image": "/images/Onion Hair Serum.jpg"
     },
     {
         "id": 113,
@@ -2068,10 +2068,10 @@
                 "price": 350
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/Vitamin E Hair Serum.jpg",
-        "image": "../images/Personal Care/Vitamin E Hair Serum.jpg"
+        "imageUrl": "/images/Vitamin E Hair Serum.jpg",
+        "image": "/images/Vitamin E Hair Serum.jpg"
     },
     {
         "id": 114,
@@ -2085,10 +2085,10 @@
                 "price": 300
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/Smooth Finish Serum.jpg",
-        "image": "../images/Personal Care/Smooth Finish Serum.jpg"
+        "imageUrl": "/images/Smooth Finish Serum.jpg",
+        "image": "/images/Smooth Finish Serum.jpg"
     },
     {
         "id": 115,
@@ -2102,10 +2102,10 @@
                 "price": 450
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/Damage Repair Serum.jpg",
-        "image": "../images/Personal Care/Damage Repair Serum.jpg"
+        "imageUrl": "/images/Damage Repair Serum.jpg",
+        "image": "/images/Damage Repair Serum.jpg"
     },
     {
         "id": 116,
@@ -2119,10 +2119,10 @@
                 "price": 520
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/Keratin Smooth Serum Pro .jpg",
-        "image": "../images/Personal Care/Keratin Smooth Serum Pro .jpg"
+        "imageUrl": "/images/Keratin Smooth Serum Pro .jpg",
+        "image": "/images/Keratin Smooth Serum Pro .jpg"
     },
     {
         "id": 117,
@@ -2136,10 +2136,10 @@
                 "price": 480
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/Argan Oil Hair Serum.jpg",
-        "image": "../images/Personal Care/Argan Oil Hair Serum.jpg"
+        "imageUrl": "/images/Argan Oil Hair Serum.jpg",
+        "image": "/images/Argan Oil Hair Serum.jpg"
     },
     {
         "id": 118,
@@ -2153,10 +2153,10 @@
                 "price": 350
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/Split End Repair Serum.jpg",
-        "image": "../images/Personal Care/Split End Repair Serum.jpg"
+        "imageUrl": "/images/Split End Repair Serum.jpg",
+        "image": "/images/Split End Repair Serum.jpg"
     },
     {
         "id": 119,
@@ -2170,10 +2170,10 @@
                 "price": 420
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/Ultra Shine Hair Serum.jpg",
-        "image": "../images/Personal Care/Ultra Shine Hair Serum.jpg"
+        "imageUrl": "/images/Ultra Shine Hair Serum.jpg",
+        "image": "/images/Ultra Shine Hair Serum.jpg"
     },
     {
         "id": 120,
@@ -2187,10 +2187,10 @@
                 "price": 4450
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/Moroccan Argan Serum.jpg",
-        "image": "../images/Personal Care/Moroccan Argan Serum.jpg"
+        "imageUrl": "/images/Moroccan Argan Serum.jpg",
+        "image": "/images/Moroccan Argan Serum.jpg"
     },
     {
         "id": 121,
@@ -2204,10 +2204,10 @@
                 "price": 600
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/Hyaluronic Hair Serum.jpg",
-        "image": "../images/Personal Care/Hyaluronic Hair Serum.jpg"
+        "imageUrl": "/images/Hyaluronic Hair Serum.jpg",
+        "image": "/images/Hyaluronic Hair Serum.jpg"
     },
     {
         "id": 122,
@@ -2221,10 +2221,10 @@
                 "price": 520
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/Frizz Control Serum Pro.jpg",
-        "image": "../images/Personal Care/Frizz Control Serum Pro.jpg"
+        "imageUrl": "/images/Frizz Control Serum Pro.jpg",
+        "image": "/images/Frizz Control Serum Pro.jpg"
     },
     {
         "id": 123,
@@ -2238,10 +2238,10 @@
                 "price": 480
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/Heat Defense Hair Serum.jpg",
-        "image": "../images/Personal Care/Heat Defense Hair Serum.jpg"
+        "imageUrl": "/images/Heat Defense Hair Serum.jpg",
+        "image": "/images/Heat Defense Hair Serum.jpg"
     },
     {
         "id": 124,
@@ -2255,10 +2255,10 @@
                 "price": 180
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/hair color/Hair Gel Strong Hold.jpg",
-        "image": "../images/Personal Care/hair color/Hair Gel Strong Hold.jpg"
+        "imageUrl": "/images/Hair Gel Strong Hold.jpg",
+        "image": "/images/Hair Gel Strong Hold.jpg"
     },
     {
         "id": 125,
@@ -2272,10 +2272,10 @@
                 "price": 220
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/hair color/Hair Wax Matte Finish.jpg",
-        "image": "../images/Personal Care/hair color/Hair Wax Matte Finish.jpg"
+        "imageUrl": "/images/Hair Wax Matte Finish.jpg",
+        "image": "/images/Hair Wax Matte Finish.jpg"
     },
     {
         "id": 126,
@@ -2289,10 +2289,10 @@
                 "price": 350
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/soap/Hair Spray.jpg",
-        "image": "../images/Personal Care/soap/Hair Spray.jpg"
+        "imageUrl": "/images/Hair Spray.jpg",
+        "image": "/images/Hair Spray.jpg"
     },
     {
         "id": 127,
@@ -2306,10 +2306,10 @@
                 "price": 400
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/soap/Heat Protection Spray.jpg",
-        "image": "../images/Personal Care/soap/Heat Protection Spray.jpg"
+        "imageUrl": "/images/Heat Protection Spray.jpg",
+        "image": "/images/Heat Protection Spray.jpg"
     },
     {
         "id": 128,
@@ -2323,10 +2323,10 @@
                 "price": 220
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/soap/Hair Cream Styling.jpg",
-        "image": "../images/Personal Care/soap/Hair Cream Styling.jpg"
+        "imageUrl": "/images/Hair Cream Styling.jpg",
+        "image": "/images/Hair Cream Styling.jpg"
     },
     {
         "id": 129,
@@ -2340,10 +2340,10 @@
                 "price": 400
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/soap/Curl Defining Cream.jpg",
-        "image": "../images/Personal Care/soap/Curl Defining Cream.jpg"
+        "imageUrl": "/images/Curl Defining Cream.jpg",
+        "image": "/images/Curl Defining Cream.jpg"
     },
     {
         "id": 130,
@@ -2357,10 +2357,10 @@
                 "price": 350
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/soap/Hair Mousse.jpg",
-        "image": "../images/Personal Care/soap/Hair Mousse.jpg"
+        "imageUrl": "/images/Hair Mousse.jpg",
+        "image": "/images/Hair Mousse.jpg"
     },
     {
         "id": 131,
@@ -2374,10 +2374,10 @@
                 "price": 280
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/soap/Beard Styling Wax.jpg",
-        "image": "../images/Personal Care/soap/Beard Styling Wax.jpg"
+        "imageUrl": "/images/Beard Styling Wax.jpg",
+        "image": "/images/Beard Styling Wax.jpg"
     },
     {
         "id": 132,
@@ -2391,10 +2391,10 @@
                 "price": 250
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/soap/Strong Hold Hair Gel Pro.jpg",
-        "image": "../images/Personal Care/soap/Strong Hold Hair Gel Pro.jpg"
+        "imageUrl": "/images/Strong Hold Hair Gel Pro.jpg",
+        "image": "/images/Strong Hold Hair Gel Pro.jpg"
     },
     {
         "id": 133,
@@ -2408,10 +2408,10 @@
                 "price": 350
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/soap/Matte Finish Hair Clay.jpg",
-        "image": "../images/Personal Care/soap/Matte Finish Hair Clay.jpg"
+        "imageUrl": "/images/Matte Finish Hair Clay.jpg",
+        "image": "/images/Matte Finish Hair Clay.jpg"
     },
     {
         "id": 134,
@@ -2425,10 +2425,10 @@
                 "price": 450
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/soap/Professional Hair Spray.jpg",
-        "image": "../images/Personal Care/soap/Professional Hair Spray.jpg"
+        "imageUrl": "/images/Professional Hair Spray.jpg",
+        "image": "/images/Professional Hair Spray.jpg"
     },
     {
         "id": 135,
@@ -2442,10 +2442,10 @@
                 "price": 380
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/soap/Curl Enhancing Gel.jpg",
-        "image": "../images/Personal Care/soap/Curl Enhancing Gel.jpg"
+        "imageUrl": "/images/Curl Enhancing Gel.jpg",
+        "image": "/images/Curl Enhancing Gel.jpg"
     },
     {
         "id": 136,
@@ -2459,10 +2459,10 @@
                 "price": 500
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/soap/Hair Setting Spray Ultra Hold.jpg",
-        "image": "../images/Personal Care/soap/Hair Setting Spray Ultra Hold.jpg"
+        "imageUrl": "/images/Hair Setting Spray Ultra Hold.jpg",
+        "image": "/images/Hair Setting Spray Ultra Hold.jpg"
     },
     {
         "id": 137,
@@ -2476,10 +2476,10 @@
                 "price": 700
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/soap/Hair Fiber Powder.jpg",
-        "image": "../images/Personal Care/soap/Hair Fiber Powder.jpg"
+        "imageUrl": "/images/Hair Fiber Powder.jpg",
+        "image": "/images/Hair Fiber Powder.jpg"
     },
     {
         "id": 138,
@@ -2493,10 +2493,10 @@
                 "price": 420
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/soap/Sea Salt Hair Spray.jpg",
-        "image": "../images/Personal Care/soap/Sea Salt Hair Spray.jpg"
+        "imageUrl": "/images/Sea Salt Hair Spray.jpg",
+        "image": "/images/Sea Salt Hair Spray.jpg"
     },
     {
         "id": 139,
@@ -2510,10 +2510,10 @@
                 "price": 500
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/soap/Hair Thickening Spray.jpg",
-        "image": "../images/Personal Care/soap/Hair Thickening Spray.jpg"
+        "imageUrl": "/images/Hair Thickening Spray.jpg",
+        "image": "/images/Hair Thickening Spray.jpg"
     },
     {
         "id": 140,
@@ -2527,10 +2527,10 @@
                 "price": 450
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/soap/Curl Activator Cream.jpg",
-        "image": "../images/Personal Care/soap/Curl Activator Cream.jpg"
+        "imageUrl": "/images/Curl Activator Cream.jpg",
+        "image": "/images/Curl Activator Cream.jpg"
     },
     {
         "id": 141,
@@ -2544,10 +2544,10 @@
                 "price": 180
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/hair color/Inuds Valley Herbal Hair Gel Color Singal Pack 600.jpg",
-        "image": "../images/Personal Care/hair color/Inuds Valley Herbal Hair Gel Color Singal Pack 600.jpg"
+        "imageUrl": "/images/Inuds Valley Herbal Hair Gel Color Singal Pack 600.jpg",
+        "image": "/images/Inuds Valley Herbal Hair Gel Color Singal Pack 600.jpg"
     },
     {
         "id": 142,
@@ -2561,10 +2561,10 @@
                 "price": 350
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/hair color/Ammonia-Free Hair Dye.jpg",
-        "image": "../images/Personal Care/hair color/Ammonia-Free Hair Dye.jpg"
+        "imageUrl": "/images/Ammonia-Free Hair Dye.jpg",
+        "image": "/images/Ammonia-Free Hair Dye.jpg"
     },
     {
         "id": 143,
@@ -2578,10 +2578,10 @@
                 "price": 120
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/hair color/Henna Powder.jpg",
-        "image": "../images/Personal Care/hair color/Henna Powder.jpg"
+        "imageUrl": "/images/Henna Powder.jpg",
+        "image": "/images/Henna Powder.jpg"
     },
     {
         "id": 144,
@@ -2595,10 +2595,10 @@
                 "price": 300
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/hair color/Root Touch-Up Powder.jpg",
-        "image": "../images/Personal Care/hair color/Root Touch-Up Powder.jpg"
+        "imageUrl": "/images/Root Touch-Up Powder.jpg",
+        "image": "/images/Root Touch-Up Powder.jpg"
     },
     {
         "id": 145,
@@ -2612,10 +2612,10 @@
                 "price": 280
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/hair color/Hair Color Shampoo.jpg",
-        "image": "../images/Personal Care/hair color/Hair Color Shampoo.jpg"
+        "imageUrl": "/images/Hair Color Shampoo.jpg",
+        "image": "/images/Hair Color Shampoo.jpg"
     },
     {
         "id": 146,
@@ -2629,10 +2629,10 @@
                 "price": 400
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/hair color/Permanent Hair Color Cream.jpg",
-        "image": "../images/Personal Care/hair color/Permanent Hair Color Cream.jpg"
+        "imageUrl": "/images/Permanent Hair Color Cream.jpg",
+        "image": "/images/Permanent Hair Color Cream.jpg"
     },
     {
         "id": 147,
@@ -2646,10 +2646,10 @@
                 "price": 350
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/Instant Hair Color Spray.jpg",
-        "image": "../images/Personal Care/Instant Hair Color Spray.jpg"
+        "imageUrl": "/images/Instant Hair Color Spray.jpg",
+        "image": "/images/Instant Hair Color Spray.jpg"
     },
     {
         "id": 148,
@@ -2663,10 +2663,10 @@
                 "price": 250
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/Beard Color Gel 250.jpg",
-        "image": "../images/Personal Care/Beard Color Gel 250.jpg"
+        "imageUrl": "/images/Beard Color Gel 250.jpg",
+        "image": "/images/Beard Color Gel 250.jpg"
     },
     {
         "id": 149,
@@ -2680,10 +2680,10 @@
                 "price": 180
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/shampoo/Organic Henna Mix.jpg",
-        "image": "../images/Personal Care/shampoo/Organic Henna Mix.jpg"
+        "imageUrl": "/images/Organic Henna Mix.jpg",
+        "image": "/images/Organic Henna Mix.jpg"
     },
     {
         "id": 150,
@@ -2697,10 +2697,10 @@
                 "price": 300
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/shampoo/Color Protect Shampoo Dye.jpg",
-        "image": "../images/Personal Care/shampoo/Color Protect Shampoo Dye.jpg"
+        "imageUrl": "/images/Color Protect Shampoo Dye.jpg",
+        "image": "/images/Color Protect Shampoo Dye.jpg"
     },
     {
         "id": 151,
@@ -2714,10 +2714,10 @@
                 "price": 800
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/Salon Professional Hair Color Kit.jpg",
-        "image": "../images/Personal Care/Salon Professional Hair Color Kit.jpg"
+        "imageUrl": "/images/Salon Professional Hair Color Kit.jpg",
+        "image": "/images/Salon Professional Hair Color Kit.jpg"
     },
     {
         "id": 152,
@@ -2731,10 +2731,10 @@
                 "price": 900
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/Blonde Highlight Kit.jpg",
-        "image": "../images/Personal Care/Blonde Highlight Kit.jpg"
+        "imageUrl": "/images/Blonde Highlight Kit.jpg",
+        "image": "/images/Blonde Highlight Kit.jpg"
     },
     {
         "id": 153,
@@ -2748,10 +2748,10 @@
                 "price": 300
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/Temporary Hair Chalk.jpg",
-        "image": "../images/Personal Care/Temporary Hair Chalk.jpg"
+        "imageUrl": "/images/Temporary Hair Chalk.jpg",
+        "image": "/images/Temporary Hair Chalk.jpg"
     },
     {
         "id": 154,
@@ -2765,10 +2765,10 @@
                 "price": 250
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/Hair Mascara Color.jpg",
-        "image": "../images/Personal Care/Hair Mascara Color.jpg"
+        "imageUrl": "/images/Hair Mascara Color.jpg",
+        "image": "/images/Hair Mascara Color.jpg"
     },
     {
         "id": 155,
@@ -2782,10 +2782,10 @@
                 "price": 1500
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/oill/Hair Dryer.jpg",
-        "image": "../images/Personal Care/oill/Hair Dryer.jpg"
+        "imageUrl": "/images/Hair Dryer.jpg",
+        "image": "/images/Hair Dryer.jpg"
     },
     {
         "id": 156,
@@ -2799,10 +2799,10 @@
                 "price": 2000
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/oill/Hair Straightener.jpg",
-        "image": "../images/Personal Care/oill/Hair Straightener.jpg"
+        "imageUrl": "/images/Hair Straightener.jpg",
+        "image": "/images/Hair Straightener.jpg"
     },
     {
         "id": 157,
@@ -2816,10 +2816,10 @@
                 "price": 1800
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/oill/Hair Curler.jpg",
-        "image": "../images/Personal Care/oill/Hair Curler.jpg"
+        "imageUrl": "/images/Hair Curler.jpg",
+        "image": "/images/Hair Curler.jpg"
     },
     {
         "id": 158,
@@ -2833,10 +2833,10 @@
                 "price": 3500
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/oill/Electric Hair Brush .jpg",
-        "image": "../images/Personal Care/oill/Electric Hair Brush .jpg"
+        "imageUrl": "/images/Electric Hair Brush .jpg",
+        "image": "/images/Electric Hair Brush .jpg"
     },
     {
         "id": 159,
@@ -2850,10 +2850,10 @@
                 "price": 3200
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/oill/Cordless Hair Trimmer.jpg",
-        "image": "../images/Personal Care/oill/Cordless Hair Trimmer.jpg"
+        "imageUrl": "/images/Cordless Hair Trimmer.jpg",
+        "image": "/images/Cordless Hair Trimmer.jpg"
     },
     {
         "id": 160,
@@ -2867,10 +2867,10 @@
                 "price": 3200
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/oill/Ionic Hair Dryer.jpg",
-        "image": "../images/Personal Care/oill/Ionic Hair Dryer.jpg"
+        "imageUrl": "/images/Ionic Hair Dryer.jpg",
+        "image": "/images/Ionic Hair Dryer.jpg"
     },
     {
         "id": 161,
@@ -2884,10 +2884,10 @@
                 "price": 2500
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/oill/Ceramic Hair Straightener.jpg",
-        "image": "../images/Personal Care/oill/Ceramic Hair Straightener.jpg"
+        "imageUrl": "/images/Ceramic Hair Straightener.jpg",
+        "image": "/images/Ceramic Hair Straightener.jpg"
     },
     {
         "id": 162,
@@ -2901,10 +2901,10 @@
                 "price": 3000
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/oill/Automatic Hair Curler.jpg",
-        "image": "../images/Personal Care/oill/Automatic Hair Curler.jpg"
+        "imageUrl": "/images/Automatic Hair Curler.jpg",
+        "image": "/images/Automatic Hair Curler.jpg"
     },
     {
         "id": 163,
@@ -2918,10 +2918,10 @@
                 "price": 4500
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/oill/Multi-Styler Kit.jpg",
-        "image": "../images/Personal Care/oill/Multi-Styler Kit.jpg"
+        "imageUrl": "/images/Multi-Styler Kit.jpg",
+        "image": "/images/Multi-Styler Kit.jpg"
     },
     {
         "id": 164,
@@ -2935,10 +2935,10 @@
                 "price": 2800
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/oill/Cordless Hair Trimmer.jpg",
-        "image": "../images/Personal Care/oill/Cordless Hair Trimmer.jpg"
+        "imageUrl": "/images/Cordless Hair Trimmer.jpg",
+        "image": "/images/Cordless Hair Trimmer.jpg"
     },
     {
         "id": 165,
@@ -2952,10 +2952,10 @@
                 "price": 3500
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/oill/Professional Hair Dryer 2200W.jpg",
-        "image": "../images/Personal Care/oill/Professional Hair Dryer 2200W.jpg"
+        "imageUrl": "/images/Professional Hair Dryer 2200W.jpg",
+        "image": "/images/Professional Hair Dryer 2200W.jpg"
     },
     {
         "id": 166,
@@ -2969,10 +2969,10 @@
                 "price": 4000
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/oill/Titanium Hair Straightener.jpg",
-        "image": "../images/Personal Care/oill/Titanium Hair Straightener.jpg"
+        "imageUrl": "/images/Titanium Hair Straightener.jpg",
+        "image": "/images/Titanium Hair Straightener.jpg"
     },
     {
         "id": 167,
@@ -2986,10 +2986,10 @@
                 "price": 3200
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/oill/Curling Wand Professional.jpg",
-        "image": "../images/Personal Care/oill/Curling Wand Professional.jpg"
+        "imageUrl": "/images/Curling Wand Professional.jpg",
+        "image": "/images/Curling Wand Professional.jpg"
     },
     {
         "id": 168,
@@ -3003,10 +3003,10 @@
                 "price": 2500
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/oill/Beard Grooming Kit.jpg",
-        "image": "../images/Personal Care/oill/Beard Grooming Kit.jpg"
+        "imageUrl": "/images/Beard Grooming Kit.jpg",
+        "image": "/images/Beard Grooming Kit.jpg"
     },
     {
         "id": 169,
@@ -3020,10 +3020,10 @@
                 "price": 900
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/oill/Hair Comb Set.jpg",
-        "image": "../images/Personal Care/oill/Hair Comb Set.jpg"
+        "imageUrl": "/images/Hair Comb Set.jpg",
+        "image": "/images/Hair Comb Set.jpg"
     },
     {
         "id": 170,
@@ -3037,10 +3037,10 @@
                 "price": 250
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/oill/Hair Brush Wooden.jpg",
-        "image": "../images/Personal Care/oill/Hair Brush Wooden.jpg"
+        "imageUrl": "/images/Hair Brush Wooden.jpg",
+        "image": "/images/Hair Brush Wooden.jpg"
     },
     {
         "id": 171,
@@ -3054,10 +3054,10 @@
                 "price": 100
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/oill/Hair Clips Pack.jpg",
-        "image": "../images/Personal Care/oill/Hair Clips Pack.jpg"
+        "imageUrl": "/images/Hair Clips Pack.jpg",
+        "image": "/images/Hair Clips Pack.jpg"
     },
     {
         "id": 172,
@@ -3071,10 +3071,10 @@
                 "price": 90
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/oill/Hair Bands Elastic.jpg",
-        "image": "../images/Personal Care/oill/Hair Bands Elastic.jpg"
+        "imageUrl": "/images/Hair Bands Elastic.jpg",
+        "image": "/images/Hair Bands Elastic.jpg"
     },
     {
         "id": 173,
@@ -3088,10 +3088,10 @@
                 "price": 300
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/oill/Hair Rollers Set.jpg",
-        "image": "../images/Personal Care/oill/Hair Rollers Set.jpg"
+        "imageUrl": "/images/Hair Rollers Set.jpg",
+        "image": "/images/Hair Rollers Set.jpg"
     },
     {
         "id": 174,
@@ -3105,10 +3105,10 @@
                 "price": 180
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/oill/Satin Hair Scrunchies.jpg",
-        "image": "../images/Personal Care/oill/Satin Hair Scrunchies.jpg"
+        "imageUrl": "/images/Satin Hair Scrunchies.jpg",
+        "image": "/images/Satin Hair Scrunchies.jpg"
     },
     {
         "id": 175,
@@ -3122,10 +3122,10 @@
                 "price": 350
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/oill/Anti-Static Hair Brush.jpg",
-        "image": "../images/Personal Care/oill/Anti-Static Hair Brush.jpg"
+        "imageUrl": "/images/Anti-Static Hair Brush.jpg",
+        "image": "/images/Anti-Static Hair Brush.jpg"
     },
     {
         "id": 176,
@@ -3139,10 +3139,10 @@
                 "price": 300
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/oill/Detangling Hair Brush.jpg",
-        "image": "../images/Personal Care/oill/Detangling Hair Brush.jpg"
+        "imageUrl": "/images/Detangling Hair Brush.jpg",
+        "image": "/images/Detangling Hair Brush.jpg"
     },
     {
         "id": 177,
@@ -3156,9 +3156,9 @@
                 "price": 200
             }
         ],
-        "emoji": "\ud83d\udc87",
+        "emoji": "💇",
         "description_en": "Premium hair care product",
-        "imageUrl": "../images/Personal Care/oill/Sectioning Hair Clips.jpg",
-        "image": "../images/Personal Care/oill/Sectioning Hair Clips.jpg"
+        "imageUrl": "/images/Sectioning Hair Clips.jpg",
+        "image": "/images/Sectioning Hair Clips.jpg"
     }
 ]

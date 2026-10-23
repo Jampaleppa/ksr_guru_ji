@@ -1,0 +1,260 @@
+<?php
+// ============================================================
+// functions.php - Core Helper Functions for KSR GURU JI
+// ============================================================
+
+require_once 'includes/db.php';
+
+// ============================================================
+// PRODUCT FUNCTIONS
+// ============================================================
+
+/**
+ * Get all products with optional category filter and search
+ */
+function getProducts($category = '', $search = '')
+{
+    $pdo = getDBConnection();
+    $sql = "SELECT p.*, c.name as category_name 
+            FROM products p 
+            LEFT JOIN categories c ON p.category_id = c.id 
+            WHERE 1=1";
+    $params = [];
+
+    if (!empty($category)) {
+        $sql .= " AND (p.category_id = ? OR c.slug = ?)";
+        $params[] = $category;
+        $params[] = $category;
+    }
+
+    if (!empty($search)) {
+        $sql .= " AND (p.name LIKE ? OR p.kn_name LIKE ? OR p.description LIKE ?)";
+        $term = '%' . $search . '%';
+        $params[] = $term;
+        $params[] = $term;
+        $params[] = $term;
+    }
+
+    $sql .= " ORDER BY p.id DESC";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute($params);
+    return $stmt->fetchAll();
+}
+
+/**
+ * Get a single product by ID
+ *
+ * @param int $id
+ * @return array|false
+ */
+function getProductById(int $id)
+{
+    $pdo = getDBConnection();
+    $stmt = $pdo->prepare("SELECT p.*, c.name as category_name, c.slug as category_slug 
+                           FROM products p 
+                           LEFT JOIN categories c ON p.category_id = c.id 
+                           WHERE p.id = ?");
+    $stmt->execute([$id]);
+    return $stmt->fetch();
+}
+
+/**
+ * Get products by category slug
+ *
+ * @param int $categoryId
+ * @return array
+ */
+function getProductsByCategory(int $categoryId)
+{
+    $pdo = getDBConnection();
+    $stmt = $pdo->prepare("SELECT * FROM products WHERE category_id = ? ORDER BY name");
+    $stmt->execute([$categoryId]);
+    return $stmt->fetchAll();
+}
+
+/**
+ * Get products by category name (fallback)
+ *
+ * @param string $name
+ * @return array
+ */
+function getProductsByCategoryName(string $name)
+{
+    $pdo = getDBConnection();
+    $stmt = $pdo->prepare("SELECT p.* FROM products p 
+                           JOIN categories c ON p.category_id = c.id 
+                           WHERE c.name LIKE ? OR c.slug LIKE ?");
+    $like = '%' . $name . '%';
+    $stmt->execute([$like, $like]);
+    return $stmt->fetchAll();
+}
+
+/**
+ * Get featured product (for AI showcase)
+ */
+function getFeaturedProduct()
+{
+    $pdo = getDBConnection();
+    // Get a random product or the most popular one
+    $stmt = $pdo->query("SELECT p.*, c.name as category_name 
+                          FROM products p 
+                          LEFT JOIN categories c ON p.category_id = c.id 
+                          ORDER BY p.id DESC LIMIT 1");
+    return $stmt->fetch();
+}
+
+/**
+ * Get product recommendations based on a product ID.
+ * Optimized to remove random database sorting query execution times.
+ *
+ * @param int $productId
+ * @param int $limit
+ * @return array
+ */
+function getRecommendations(int $productId, int $limit = 4)
+{
+    $pdo = getDBConnection();
+    $product = getProductById($productId);
+
+    // Optimized helper to select random products matching filters
+    $getRandomRowSelect = function (array $excludeIds, ?string $categoryId = null, int $limitCount = 4) use ($pdo) {
+        $conditions = [];
+        $params = [];
+
+        if (!empty($excludeIds)) {
+            $placeholders = implode(',', array_fill(0, count($excludeIds), '?'));
+            $conditions[] = "id NOT IN ($placeholders)";
+            $params = array_merge($params, $excludeIds);
+        }
+
+        if ($categoryId !== null) {
+            $conditions[] = "category_id = ?";
+            $params[] = $categoryId;
+        }
+
+        $whereSql = !empty($conditions) ? "WHERE " . implode(" AND ", $conditions) : "";
+
+        // Fetch matching product IDs (utilizing indices)
+        $stmt = $pdo->prepare("SELECT id FROM products $whereSql");
+        $stmt->execute($params);
+        $ids = $stmt->fetchAll(PDO::FETCH_COLUMN);
+
+        if (empty($ids)) {
+            return [];
+        }
+
+        // Randomize IDs in memory
+        if (count($ids) <= $limitCount) {
+            $selectedIds = $ids;
+        } else {
+            $randomKeys = array_rand($ids, $limitCount);
+            $selectedIds = is_array($randomKeys) ? array_map(fn($key) => $ids[$key], $randomKeys) : [$ids[$randomKeys]];
+        }
+
+        // Retrieve full records
+        $loadPlaceholders = implode(',', array_fill(0, count($selectedIds), '?'));
+        $stmtLoad = $pdo->prepare("SELECT p.*, c.name as category_name, c.slug as category_slug 
+                                   FROM products p 
+                                   LEFT JOIN categories c ON p.category_id = c.id 
+                                   WHERE p.id IN ($loadPlaceholders)");
+        $stmtLoad->execute($selectedIds);
+        $rows = $stmtLoad->fetchAll();
+        shuffle($rows);
+        return $rows;
+    };
+
+    if (!$product) {
+        return $getRandomRowSelect([$productId], null, $limit);
+    }
+
+    // 1. Get products from same category
+    $recommendations = $getRandomRowSelect([$productId], $product['category_id'], $limit);
+
+    // 2. If not enough recommendations found, pull from other categories
+    if (count($recommendations) < $limit) {
+        $remaining = $limit - count($recommendations);
+        $alreadySelected = array_merge([$productId], array_column($recommendations, 'id'));
+        $moreRecommendations = $getRandomRowSelect($alreadySelected, null, $remaining);
+        $recommendations = array_merge($recommendations, $moreRecommendations);
+    }
+
+    return array_slice($recommendations, 0, $limit);
+}
+
+function hasTableColumn(PDO $pdo, string $table, string $column): bool
+{
+    try {
+        if ($pdo->getAttribute(PDO::ATTR_DRIVER_NAME) === 'sqlite') {
+            $cols = $pdo->query("PRAGMA table_info(`$table`)")->fetchAll(PDO::FETCH_COLUMN, 1);
+            return in_array($column, $cols, true);
+        }
+        $check = $pdo->query("SHOW COLUMNS FROM `$table` LIKE " . $pdo->quote($column))->fetch();
+        return !empty($check);
+    } catch (\Throwable $e) {
+        return false;
+    }
+}
+
+/**
+ * Update product stock
+ *
+ * @param int $productId
+ * @param int $quantity
+ * @return bool
+ */
+function updateProductStock(int $productId, int $quantity)
+{
+    $pdo = getDBConnection();
+    // Check if stock column exists in products table
+    if (!hasTableColumn($pdo, 'products', 'stock')) {
+        return true;
+    }
+    $stmt = $pdo->prepare("UPDATE products SET stock = stock - ? WHERE id = ? AND stock >= ?");
+    return $stmt->execute([$quantity, $productId, $quantity]);
+}
+
+/**
+ * Check if product is in stock
+ *
+ * @param int $productId
+ * @param int $quantity
+ * @return bool
+ */
+function isProductInStock(int $productId, int $quantity = 1)
+{
+    $pdo = getDBConnection();
+    // Check if stock column exists in products table
+    if (!hasTableColumn($pdo, 'products', 'stock')) {
+        return true;
+    }
+    $stmt = $pdo->prepare("SELECT stock FROM products WHERE id = ?");
+    $stmt->execute([$productId]);
+    $stock = $stmt->fetchColumn();
+    return $stock !== false && $stock >= $quantity;
+}
+
+// ============================================================
+// CATEGORY FUNCTIONS
+// ============================================================
+
+/**
+ * Get all categories
+ */
+function getCategories()
+{
+    $pdo = getDBConnection();
+    $stmt = $pdo->query("SELECT * FROM categories ORDER BY name");
+    return $stmt->fetchAll();
+}
+
+/**
+ * Get a category by ID
+ *
+ * @param int $id
+ * @return array|false
+ */
+function getCategoryById(int $id)
+{
+    $pdo = getDBConnection();
+    $stmt = $pdo->prepare("SELECT * FROM categories WHERE id = ?");
+    $stmt->execute([$id]);

@@ -114,8 +114,23 @@ function getCatalogueDB(): PDO
             PDO::ATTR_TIMEOUT            => 3,
         ]);
     } catch (Throwable $e) {
-        $sqliteDb = __DIR__ . '/medicine/medicines.sqlite';
-        if (file_exists($sqliteDb)) {
+        // MySQL unavailable (Vercel serverless) — use the bundled catalogue.
+        // Copy to a writable temp dir first so stock updates / order placement
+        // don't fail on the read-only deployment filesystem.
+        $sourceSqlite = __DIR__ . '/medicine/medicines.sqlite';
+        $tmpSqlite    = sys_get_temp_dir() . '/medicines.sqlite';
+        $sqliteDb     = null;
+        if (file_exists($sourceSqlite)) {
+            if (is_writable(sys_get_temp_dir())) {
+                if (!file_exists($tmpSqlite) || filesize($tmpSqlite) !== filesize($sourceSqlite)) {
+                    @copy($sourceSqlite, $tmpSqlite);
+                }
+                $sqliteDb = file_exists($tmpSqlite) && is_writable($tmpSqlite) ? $tmpSqlite : $sourceSqlite;
+            } else {
+                $sqliteDb = $sourceSqlite;
+            }
+        }
+        if ($sqliteDb) {
             $pdo = new PDO('sqlite:' . $sqliteDb);
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
@@ -311,31 +326,40 @@ function telehealthDoctorById(PDO $pdo, int $id): ?array
  */
 function telehealthResolveDoctorId(PDO $pdo, ?int $userId = null): int
 {
-    if ($userId !== null && $userId > 0) {
+    try {
+        if ($userId !== null && $userId > 0) {
+            $st = $pdo->prepare(
+                "SELECT id FROM doctors WHERE user_id = ?
+                  ORDER BY (verification_status = 'VERIFIED') DESC, id ASC
+                  LIMIT 1"
+            );
+            $st->execute([$userId]);
+            $id = (int) $st->fetchColumn();
+            if ($id > 0) {
+                return $id;
+            }
+        }
+
         $st = $pdo->prepare(
-            "SELECT id FROM doctors WHERE user_id = ?
-              ORDER BY (verification_status = 'VERIFIED') DESC, id ASC
+            "SELECT id FROM doctors WHERE doctor_name LIKE ?
+              ORDER BY (experience_years = ?) DESC, (verification_status = 'VERIFIED') DESC, id ASC
               LIMIT 1"
         );
-        $st->execute([$userId]);
+        $st->execute(['%' . TELEHEALTH_LEAD_DOCTOR_NAME . '%', TELEHEALTH_LEAD_DOCTOR_EXPERIENCE]);
         $id = (int) $st->fetchColumn();
         if ($id > 0) {
             return $id;
         }
+
+        $fallbackId = (int) $pdo->query('SELECT id FROM doctors ORDER BY id ASC LIMIT 1')->fetchColumn();
+        if ($fallbackId > 0) {
+            return $fallbackId;
+        }
+    } catch (Throwable $e) {
+        // Fall back to default lead doctor id 1
     }
 
-    $st = $pdo->prepare(
-        "SELECT id FROM doctors WHERE doctor_name LIKE ?
-          ORDER BY (experience_years = ?) DESC, (verification_status = 'VERIFIED') DESC, id ASC
-          LIMIT 1"
-    );
-    $st->execute(['%' . TELEHEALTH_LEAD_DOCTOR_NAME . '%', TELEHEALTH_LEAD_DOCTOR_EXPERIENCE]);
-    $id = (int) $st->fetchColumn();
-    if ($id > 0) {
-        return $id;
-    }
-
-    return (int) $pdo->query('SELECT id FROM doctors ORDER BY id ASC LIMIT 1')->fetchColumn();
+    return 1;
 }
 
 /**
@@ -405,15 +429,52 @@ function telehealthPatients(PDO $pdo, int $limit = 300): array
 {
     $limit = max(1, min(1000, $limit));
 
-    $sql = "SELECT p.id, p.user_id, p.patient_name, p.date_of_birth, p.gender,
-                   p.mobile_number, p.address, p.emergency_contact, p.medical_history,
-                   p.allergies, p.current_medications, u.ksr_id
-              FROM patients p
-              LEFT JOIN users u ON u.id = p.user_id
-          ORDER BY p.patient_name ASC
-             LIMIT " . $limit;
+    // The `patients` table doesn't always carry a `user_id` column on every
+    // deployment — resolve the columns first instead of hard-coding them,
+    // otherwise SQLite/MySQL raises "no such column: p.user_id".
+    $patCols = telehealthColumns($pdo, 'patients');
+    if (empty($patCols)) {
+        return [];
+    }
 
-    $rows = $pdo->query($sql)->fetchAll();
+    $col = static function (array $candidates) use ($patCols) {
+        foreach ($candidates as $c) {
+            if (isset($patCols[strtolower($c)])) {
+                return '`p`.`' . $patCols[strtolower($c)] . '`';
+            }
+        }
+        return 'NULL';
+    };
+
+    $sql = "SELECT {$col(['id'])} AS id, {$col(['user_id'])} AS user_id,
+                   {$col(['patient_name', 'name'])} AS patient_name,
+                   {$col(['date_of_birth', 'dob'])} AS date_of_birth,
+                   {$col(['gender'])} AS gender,
+                   {$col(['mobile_number', 'phone', 'mobile'])} AS mobile_number,
+                   {$col(['address'])} AS address,
+                   {$col(['emergency_contact'])} AS emergency_contact,
+                   {$col(['medical_history'])} AS medical_history,
+                   {$col(['allergies'])} AS allergies,
+                   {$col(['current_medications'])} AS current_medications";
+
+    if (telehealthCol($pdo, 'users', ['ksr_id']) !== null && isset($patCols['user_id'])) {
+        $sql .= ", u.ksr_id
+              FROM patients p
+              LEFT JOIN users u ON u.id = p.user_id";
+    } else {
+        $sql .= ", NULL AS ksr_id
+              FROM patients p";
+    }
+
+    $nameExpr = isset($patCols['patient_name']) ? '`p`.`patient_name`'
+        : (isset($patCols['name']) ? '`p`.`name`' : '`p`.`id`');
+    $sql .= " ORDER BY {$nameExpr} ASC LIMIT " . $limit;
+
+    try {
+        $rows = $pdo->query($sql)->fetchAll();
+    } catch (Throwable $e) {
+        return [];
+    }
 
     foreach ($rows as &$row) {
         $row['age'] = telehealthAge($row['date_of_birth'] ?? null);
@@ -823,6 +884,19 @@ function telehealthColumns(PDO $pdo, string $table): array
     }
 
     try {
+        $driver = $pdo->getAttribute(PDO::ATTR_DRIVER_NAME);
+        if ($driver === 'sqlite') {
+            $st = $pdo->query("PRAGMA table_info(`$table`)");
+            $cols = [];
+            foreach ($st->fetchAll(PDO::FETCH_ASSOC) as $col) {
+                $name = (string)($col['name'] ?? '');
+                if ($name !== '') {
+                    $cols[strtolower($name)] = $name;
+                }
+            }
+            return $cache[$table] = $cols;
+        }
+
         // Use INFORMATION_SCHEMA to check existence first — avoids
         // PDOException on missing tables that SHOW COLUMNS would throw.
         $dbName = null;

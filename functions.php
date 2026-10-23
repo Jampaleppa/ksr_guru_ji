@@ -54,12 +54,12 @@ if (!function_exists('getFallbackMainCategories')) {
 function getStoreFallbackProducts(string $category = '', string $search = ''): array
 {
     $catalog = [
-        ['id' => 1, 'name' => 'Floor Cleaner 1L', 'kn_name' => 'ಫ್ಲೋರ್ ಕ್ಲೀನರ್', 'price' => 140.00, 'category_id' => '4', 'category_name' => 'Cleaning Supplies', 'icon' => 'fa-bucket', 'images' => 'images/Cleans/Floor Cleaner 130.jpg', 'is_featured' => 1],
-        ['id' => 2, 'name' => 'Toilet Cleaner 750ml', 'kn_name' => 'ಟಾಯ್ಲೆಟ್ ಕ್ಲೀನರ್', 'price' => 160.00, 'category_id' => '4', 'category_name' => 'Cleaning Supplies', 'icon' => 'fa-toilet', 'images' => 'images/Cleans/Toilet Cleaner 195.jpg', 'is_featured' => 0],
-        ['id' => 3, 'name' => 'Glass Cleaner 500ml', 'kn_name' => 'ಗ್ಲಾಸ್ ಕ್ಲೀನರ್', 'price' => 75.00, 'category_id' => '4', 'category_name' => 'Cleaning Supplies', 'icon' => 'fa-window-maximize', 'images' => 'images/Cleans/Glass Cleaner 75.jpg', 'is_featured' => 0],
-        ['id' => 4, 'name' => 'Surface Disinfectant Cleaner', 'kn_name' => 'ಸರ್ಫೇಸ್ ಕ್ಲೀನರ್', 'price' => 130.00, 'category_id' => '4', 'category_name' => 'Cleaning Supplies', 'icon' => 'fa-spray-can-sparkles', 'images' => 'images/Cleans/Surface Cleaner 130.jpg', 'is_featured' => 0],
-        ['id' => 5, 'name' => 'Disinfectant Liquid 1L', 'kn_name' => 'ಡಿಸೆಂಫೆಕ್ಟೆಂಟ್ ಲಿಕ್ವಿಡ್', 'price' => 170.00, 'category_id' => '4', 'category_name' => 'Cleaning Supplies', 'icon' => 'fa-shield-virus', 'images' => 'images/Cleans/Disinfectant Liquid 170.jpg', 'is_featured' => 0],
-        ['id' => 6, 'name' => 'White Phenyl 1L', 'kn_name' => 'ಫಿನಾಯಿಲ್', 'price' => 150.00, 'category_id' => '4', 'category_name' => 'Cleaning Supplies', 'icon' => 'fa-bucket', 'images' => 'images/Cleans/Phenyl 210.jpg', 'is_featured' => 0],
+        ['id' => 1, 'name' => 'Floor Cleaner 1L', 'kn_name' => 'ಫ್ಲೋರ್ ಕ್ಲೀನರ್', 'price' => 140.00, 'category_id' => '4', 'category_name' => 'Cleaning Supplies', 'icon' => 'fa-bucket', 'images' => 'images/Floor Cleaner 130.jpg', 'is_featured' => 1],
+        ['id' => 2, 'name' => 'Toilet Cleaner 750ml', 'kn_name' => 'ಟಾಯ್ಲೆಟ್ ಕ್ಲೀನರ್', 'price' => 160.00, 'category_id' => '4', 'category_name' => 'Cleaning Supplies', 'icon' => 'fa-toilet', 'images' => 'images/Toilet Cleaner 195.jpg', 'is_featured' => 0],
+        ['id' => 3, 'name' => 'Glass Cleaner 500ml', 'kn_name' => 'ಗ್ಲಾಸ್ ಕ್ಲೀನರ್', 'price' => 75.00, 'category_id' => '4', 'category_name' => 'Cleaning Supplies', 'icon' => 'fa-window-maximize', 'images' => 'images/Glass Cleaner 75.jpg', 'is_featured' => 0],
+        ['id' => 4, 'name' => 'Surface Disinfectant Cleaner', 'kn_name' => 'ಸರ್ಫೇಸ್ ಕ್ಲೀನರ್', 'price' => 130.00, 'category_id' => '4', 'category_name' => 'Cleaning Supplies', 'icon' => 'fa-spray-can-sparkles', 'images' => 'images/Surface Cleaner 130.jpg', 'is_featured' => 0],
+        ['id' => 5, 'name' => 'Disinfectant Liquid 1L', 'kn_name' => 'ಡಿಸೆಂಫೆಕ್ಟೆಂಟ್ ಲಿಕ್ವಿಡ್', 'price' => 170.00, 'category_id' => '4', 'category_name' => 'Cleaning Supplies', 'icon' => 'fa-shield-virus', 'images' => 'images/Disinfectant Liquid 170.jpg', 'is_featured' => 0],
+        ['id' => 6, 'name' => 'White Phenyl 1L', 'kn_name' => 'ಫಿನಾಯಿಲ್', 'price' => 150.00, 'category_id' => '4', 'category_name' => 'Cleaning Supplies', 'icon' => 'fa-bucket', 'images' => 'images/Phenyl 210.jpg', 'is_featured' => 0],
         ['id' => 7, 'name' => 'Fresh Bread Loaf', 'kn_name' => 'ತಾಜಾ ಬ್ರೆಡ್', 'price' => 45.00, 'category_id' => '2', 'category_name' => 'Bakery', 'icon' => 'fa-bread-slice', 'images' => 'cake.jpg', 'is_featured' => 0],
         ['id' => 8, 'name' => 'Pure Sunflower Cooking Oil 1L', 'kn_name' => 'ಸೂರ್ಯಕಾಂತಿ ಎಣ್ಣೆ', 'price' => 135.00, 'category_id' => '6', 'category_name' => 'Cooking Oil', 'icon' => 'fa-droplet', 'images' => 'kitechen all product.jpg', 'is_featured' => 0],
         ['id' => 9, 'name' => 'Royal Sona Masoori Rice 5kg', 'kn_name' => 'ಸೋನಾ ಮಸೂರಿ ಅಕ್ಕಿ', 'price' => 310.00, 'category_id' => '10', 'category_name' => 'Grains & Cereals', 'icon' => 'fa-wheat-awn', 'images' => 'kitechen all product.jpg', 'is_featured' => 0],
@@ -68,13 +68,13 @@ function getStoreFallbackProducts(string $category = '', string $search = ''): a
         ['id' => 12, 'name' => 'Premium Almonds Badam 250g', 'kn_name' => 'ಬಾದಾಮಿ', 'price' => 220.00, 'category_id' => '9', 'category_name' => 'Dry Fruits', 'icon' => 'fa-seedling', 'images' => 'kitechen all product.jpg', 'is_featured' => 0]
     ];
     if ($category !== '') {
-        $catalog = array_values(array_filter($catalog, function($p) use ($category) {
+        $catalog = array_values(array_filter($catalog, function ($p) use ($category) {
             return (string)$p['category_id'] === (string)$category;
         }));
     }
     if ($search !== '') {
         $q = mb_strtolower($search);
-        $catalog = array_values(array_filter($catalog, function($p) use ($q) {
+        $catalog = array_values(array_filter($catalog, function ($p) use ($q) {
             return mb_stripos($p['name'], $q) !== false || mb_stripos($p['kn_name'], $q) !== false;
         }));
     }
@@ -319,19 +319,19 @@ function getRecommendations(int $excludeId = 0, int $limit = 4): array
                 WHERE p.id IN ($placeholders)";
 
     $stmtLoad = $conn->prepare($sqlLoad);
-    
+
     // Bind parameters dynamically
     $types = str_repeat('i', count($selectedIds));
     $stmtLoad->bind_param($types, ...$selectedIds);
     $stmtLoad->execute();
     $resultLoad = $stmtLoad->get_result();
-    
+
     $rows = [];
     while ($row = $resultLoad->fetch_assoc()) {
         $rows[] = $row;
     }
     $stmtLoad->close();
-    
+
     // Shuffle rows to ensure random display order
     shuffle($rows);
     return $rows;
@@ -446,9 +446,14 @@ if (!function_exists('getProductSchemaInfo')) {
             ];
             try {
                 $pdo = getDBConnection();
-                $stmt = $pdo->query("SHOW COLUMNS FROM products");
-                $cols = $stmt->fetchAll(PDO::FETCH_COLUMN);
-                
+                $driver = $pdo->getAttribute(PDO::ATTR_DRIVER_NAME);
+                if ($driver === 'sqlite') {
+                    $cols = $pdo->query("PRAGMA table_info(products)")->fetchAll(PDO::FETCH_COLUMN, 1);
+                } else {
+                    $stmt = $pdo->query("SHOW COLUMNS FROM products");
+                    $cols = $stmt->fetchAll(PDO::FETCH_COLUMN);
+                }
+
                 if (in_array('description_en', $cols)) {
                     $schemaInfo['desc_col'] = 'p.description_en';
                     $schemaInfo['has_desc'] = true;
@@ -456,7 +461,7 @@ if (!function_exists('getProductSchemaInfo')) {
                     $schemaInfo['desc_col'] = 'p.description';
                     $schemaInfo['has_desc'] = true;
                 }
-                
+
                 if (in_array('image_url', $cols)) {
                     $schemaInfo['img_col'] = 'p.image_url';
                     $schemaInfo['has_img'] = true;
@@ -464,13 +469,17 @@ if (!function_exists('getProductSchemaInfo')) {
                     $schemaInfo['img_col'] = 'p.images';
                     $schemaInfo['has_img'] = true;
                 }
-                
+
                 if (in_array('weight', $cols)) {
                     $schemaInfo['has_weight'] = true;
                 }
-                
-                $stmt2 = $pdo->query("SHOW COLUMNS FROM categories");
-                $catCols = $stmt2->fetchAll(PDO::FETCH_COLUMN);
+
+                if ($driver === 'sqlite') {
+                    $catCols = $pdo->query("PRAGMA table_info(categories)")->fetchAll(PDO::FETCH_COLUMN, 1);
+                } else {
+                    $stmt2 = $pdo->query("SHOW COLUMNS FROM categories");
+                    $catCols = $stmt2->fetchAll(PDO::FETCH_COLUMN);
+                }
                 if (in_array('slug', $catCols)) {
                     $schemaInfo['cat_slug_col'] = 'c.slug';
                     $schemaInfo['has_cat_slug'] = true;
@@ -484,44 +493,40 @@ if (!function_exists('getProductSchemaInfo')) {
 }
 
 if (!function_exists('normalizeImagePath')) {
-    function normalizeImagePath(?string $rawPath): string {
+    function normalizeImagePath(?string $rawPath): string
+    {
         if (empty($rawPath)) return '';
-        $clean = str_replace('\\', '/', $rawPath);
-        
-        // Dynamically detect subdirectory depth to prepend correct relative path
-        $prefix = '';
-        $scriptPath = $_SERVER['SCRIPT_NAME'] ?? '';
-        if (strpos($scriptPath, '/categories/') !== false || 
-            strpos($scriptPath, '/cart/') !== false || 
-            strpos($scriptPath, '/checkout/') !== false ||
-            strpos($scriptPath, '/admin/') !== false || 
-            strpos($scriptPath, '/delivery/') !== false) {
-            $prefix = '../';
+        $clean = trim(str_replace('\\', '/', $rawPath));
+        if ($clean === '') return '';
+
+        // Handle external URLs or data URIs
+        if (preg_match('#^https?://#i', $clean) || str_starts_with($clean, 'data:')) {
+            return $clean;
         }
-        
-        if (preg_match('#(?:.*)(images/.*)$#i', $clean, $matches)) {
-            $imagePath = preg_replace('#/+#', '/', $matches[1]);
-            $localPath = __DIR__ . DIRECTORY_SEPARATOR . str_replace('/', DIRECTORY_SEPARATOR, $imagePath);
-            if (!is_file($localPath)) {
-                $flatPath = 'images/' . basename($imagePath);
-                $flatLocalPath = __DIR__ . DIRECTORY_SEPARATOR . str_replace('/', DIRECTORY_SEPARATOR, $flatPath);
-                if (is_file($flatLocalPath)) {
-                    $imagePath = $flatPath;
-                }
-            }
-            $finalPath = $prefix . $imagePath;
-            return (string)preg_replace('/%(?!25)/', '%25', $finalPath);
+
+        // Static files stored directly at the project root
+        $rootAssets = [
+            'cake.jpg', 'banner.png', 'kitechen all product.jpg',
+            'company_logo.jpg', 'ksr guru ji.jpg'
+        ];
+        $base = basename($clean);
+        if ($base === '' || $base === '.' || $base === '..') return '';
+
+        if (in_array(strtolower($base), $rootAssets, true)) {
+            return '/' . $base;
         }
-        $finalPath = $prefix . 'images/' . basename($clean);
-        return (string)preg_replace('/%(?!25)/', '%25', $finalPath);
+
+        // All product images in this project are located directly in /images/<filename>
+        // Strip any fictitious category subdirectories (e.g. images/oil/, images/Milk/, etc.)
+        return '/images/' . $base;
     }
 }
 
-register_shutdown_function(function() {
+register_shutdown_function(function () {
     // Avoid injecting HTML into JSON/AJAX API requests
     $isAjax = !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest';
     if ($isAjax || isset($_GET['ajax'])) return;
-    
+
     $isJson = false;
     foreach (headers_list() as $h) {
         if (stripos($h, 'Content-Type: application/json') !== false) {
@@ -530,7 +535,7 @@ register_shutdown_function(function() {
         }
     }
     if ($isJson) return;
-    ?>
+?>
     <!-- Styled Cart Add Toast Popup -->
     <style>
         #ksr-cart-alert-toast {
@@ -549,10 +554,19 @@ register_shutdown_function(function() {
             box-sizing: border-box;
             animation: ksrFadeInUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
+
         @keyframes ksrFadeInUp {
-            from { transform: translateY(50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
+
         .ksr-toast-header {
             display: flex;
             align-items: center;
@@ -561,6 +575,7 @@ register_shutdown_function(function() {
             border-bottom: 1px solid #f0f7f2;
             padding-bottom: 8px;
         }
+
         .ksr-toast-title {
             color: #0f7b3a;
             font-weight: 700;
@@ -570,6 +585,7 @@ register_shutdown_function(function() {
             gap: 8px;
             font-family: 'Inter', sans-serif;
         }
+
         .ksr-toast-close {
             background: none;
             border: none;
@@ -580,9 +596,11 @@ register_shutdown_function(function() {
             line-height: 1;
             transition: color 0.2s;
         }
+
         .ksr-toast-close:hover {
             color: #333;
         }
+
         .ksr-toast-body {
             font-size: 0.92rem;
             color: #2e3e35;
@@ -590,9 +608,11 @@ register_shutdown_function(function() {
             line-height: 1.5;
             font-family: 'Inter', sans-serif;
         }
+
         .ksr-toast-body strong {
             color: #111;
         }
+
         .ksr-toast-count {
             display: inline-block;
             margin-top: 6px;
@@ -603,10 +623,12 @@ register_shutdown_function(function() {
             font-size: 0.8rem;
             font-weight: 600;
         }
+
         .ksr-toast-actions {
             display: flex;
             gap: 12px;
         }
+
         .ksr-toast-btn {
             flex: 1;
             padding: 10px;
@@ -620,20 +642,24 @@ register_shutdown_function(function() {
             box-sizing: border-box;
             font-family: 'Inter', sans-serif;
         }
+
         .ksr-toast-btn-continue {
             background: #f3f5f4;
             color: #4b6354;
             border: 1px solid #e1e7e4;
         }
+
         .ksr-toast-btn-continue:hover {
             background: #e8ebe9;
         }
+
         .ksr-toast-btn-cart {
             background: linear-gradient(135deg, #0f7b3a, #149c4a);
             color: #ffffff;
             border: none;
             box-shadow: 0 4px 10px rgba(15, 123, 58, 0.2);
         }
+
         .ksr-toast-btn-cart:hover {
             transform: translateY(-1px);
             box-shadow: 0 6px 15px rgba(15, 123, 58, 0.3);
@@ -641,7 +667,9 @@ register_shutdown_function(function() {
     </style>
     <div id="ksr-cart-alert-toast">
         <div class="ksr-toast-header">
-            <span class="ksr-toast-title"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: #10b981; vertical-align: middle;"><polyline points="20 6 9 17 4 12"/></svg> Added to Cart!</span>
+            <span class="ksr-toast-title"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: #10b981; vertical-align: middle;">
+                    <polyline points="20 6 9 17 4 12" />
+                </svg> Added to Cart!</span>
             <button class="ksr-toast-close" onclick="closeKsrToast()">&times;</button>
         </div>
         <div class="ksr-toast-body">
@@ -676,11 +704,12 @@ register_shutdown_function(function() {
         function closeKsrToast() {
             document.getElementById('ksr-cart-alert-toast').style.display = 'none';
         }
+
         function showAddedToCartPopup(name, qty, totalItems) {
             document.getElementById('ksr-toast-item-name').innerText = name;
             document.getElementById('ksr-toast-item-qty').innerText = qty;
             document.getElementById('ksr-toast-item-total').innerText = "Total items in cart: " + totalItems;
-            
+
             var targetLink = document.getElementById('ksr-toast-item-link');
             if (window.location.pathname.indexOf('/categories/') !== -1) {
                 targetLink.href = '../cart/cart.php';
@@ -689,15 +718,15 @@ register_shutdown_function(function() {
             } else {
                 targetLink.href = 'cart/cart.php';
             }
-            
+
             var toast = document.getElementById('ksr-cart-alert-toast');
             toast.style.display = 'block';
-            
+
             if (window._ksrToastTimeout) clearTimeout(window._ksrToastTimeout);
             window._ksrToastTimeout = setTimeout(function() {
                 toast.style.display = 'none';
             }, 5000);
-            
+
             // Dynamically update standard badges
             var selectors = ['#cartCount', '#cartBadge', '.cart-count', '.cart-badge', '#cartCountSpan', '.cart-item-count'];
             selectors.forEach(function(sel) {
@@ -711,5 +740,5 @@ register_shutdown_function(function() {
             });
         }
     </script>
-    <?php
+<?php
 });

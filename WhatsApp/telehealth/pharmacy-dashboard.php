@@ -30,9 +30,23 @@ $liveOrders = $pdo->query("
     ORDER BY created_at DESC LIMIT 20
 ")->fetchAll(PDO::FETCH_ASSOC);
 
-// Fetch live database records for integrated modules
-$stockMovements = $pdo->query("SELECT * FROM pharmacy_stock_movement ORDER BY created_at DESC LIMIT 20")->fetchAll(PDO::FETCH_ASSOC);
-$deliveries = $pdo->query("SELECT * FROM pharmacy_deliveries ORDER BY created_at DESC LIMIT 20")->fetchAll(PDO::FETCH_ASSOC);
+// Fetch live database records for integrated modules. These tables only
+// exist on deployments that ran the pharmacy schema — degrade gracefully
+// instead of throwing "no such table: pharmacy_stock_movement".
+try {
+    $stockMovements = telehealthTableExists($pdo, 'pharmacy_stock_movement')
+        ? $pdo->query("SELECT * FROM pharmacy_stock_movement ORDER BY created_at DESC LIMIT 20")->fetchAll(PDO::FETCH_ASSOC)
+        : [];
+} catch (Throwable $e) {
+    $stockMovements = [];
+}
+try {
+    $deliveries = telehealthTableExists($pdo, 'pharmacy_deliveries')
+        ? $pdo->query("SELECT * FROM pharmacy_deliveries ORDER BY created_at DESC LIMIT 20")->fetchAll(PDO::FETCH_ASSOC)
+        : [];
+} catch (Throwable $e) {
+    $deliveries = [];
+}
 
 // Map live products catalog into the Pharmacy Inventory format
 $inventoryQuery = $pdo->query("SELECT name, stock, price FROM products LIMIT 20")->fetchAll(PDO::FETCH_ASSOC);

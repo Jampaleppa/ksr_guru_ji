@@ -15,18 +15,32 @@ if (!isset($_SESSION['cart'])) {
 // ============================================================
 // HELPER: Normalize image path (Windows → web-relative)
 // ============================================================
+// HELPER: Normalize image path (Windows -> root-absolute web path)
+// Falls back to the flat images/ copy when a subdirectory file is missing.
+// ============================================================
 if (!function_exists('normalizeImagePath')) {
-function normalizeImagePath(?string $rawPath): string {
-    if (empty($rawPath)) return '';
-    // Remove Windows drive letter and backslashes
-    $clean = str_replace('\\', '/', $rawPath);
-    // Remove everything before 'images/' and prepend a slash
-    if (preg_match('#(?:.*?)(images/.*)$#i', $clean, $matches)) {
-        return '/' . $matches[1];
+    function normalizeImagePath(?string $rawPath): string {
+        if (empty($rawPath)) return '';
+        $clean = str_replace('\\', '/', $rawPath);
+        if (preg_match('#(?:.*)(images/.*)$#i', $clean, $matches)) {
+            $imagePath = preg_replace('#/+#', '/', $matches[1]);
+            $localPath = __DIR__ . '/../' . $imagePath;
+            if (!is_file($localPath)) {
+                $flatPath = 'images/' . basename($imagePath);
+                if (is_file(__DIR__ . '/../' . $flatPath)) {
+                    $imagePath = $flatPath;
+                }
+            }
+            // Root-absolute path works at every page depth
+            return '/' . $imagePath;
+        }
+        // File may live at the project root (e.g. cake.jpg, Banner.png)
+        $base = basename($clean);
+        if (is_file(__DIR__ . '/../' . $base)) {
+            return '/' . $base;
+        }
+        return '/images/' . $base;
     }
-    // If no 'images/' found, just return the filename
-    return basename($clean);
-}
 }
 // ============================================================
 // HELPER: Get cleaning products from DB or fallback static data

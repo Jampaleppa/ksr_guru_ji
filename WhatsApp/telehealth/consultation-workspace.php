@@ -6,8 +6,8 @@ $docName = $_SESSION['user_name'] ?? 'DR. D C Rathod';
 
 // Dynamically generate or load patient from DB
 $pdo = getAssistDB();
-$stmt = $pdo->query("SELECT name, email, phone, created_at, ksr_id FROM users WHERE role = 'user' OR role = 'admin' LIMIT 1");
-$patient = $stmt->fetch(PDO::FETCH_ASSOC);
+try { $stmt = $pdo->query("SELECT name, email, phone, created_at, ksr_id FROM users WHERE role = 'user' OR role = 'admin' LIMIT 1"); } catch (\Throwable $e) { $stmt = null; }
+$patient = isset($stmt) && $stmt ? $stmt->fetch(PDO::FETCH_ASSOC) : null;
 
 // Map DB payload to workspace state (with safe fallbacks)
 $patientName = $patient ? ($patient['name'] ?: 'Patient User') : 'Rahul Kumar';

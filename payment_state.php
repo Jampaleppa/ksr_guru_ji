@@ -309,35 +309,37 @@ if (!function_exists('ksrPaymentStates')) {
 
         $orderId = (int)$payment['order_id'];
 
+        $nowSql = ($pdo->getAttribute(PDO::ATTR_DRIVER_NAME) === 'sqlite') ? "datetime('now')" : "NOW()";
+
         // Build the SET clause with lifecycle timestamps.
         $sets   = ['status = ?'];
         $params = [$newStatus];
 
         switch ($newStatus) {
             case 'success':
-                $sets[]  = 'paid_at = COALESCE(paid_at, NOW())';
-                $sets[]  = 'confirmed_at = COALESCE(confirmed_at, NOW())';
+                $sets[]  = "paid_at = COALESCE(paid_at, {$nowSql})";
+                $sets[]  = "confirmed_at = COALESCE(confirmed_at, {$nowSql})";
                 break;
             case 'processing':
                 if ($oldStatus === 'initiated') {
-                    $sets[] = 'confirmed_at = COALESCE(confirmed_at, NOW())';
+                    $sets[] = "confirmed_at = COALESCE(confirmed_at, {$nowSql})";
                 }
                 break;
             case 'failed':
-                $sets[] = 'failed_at = NOW()';
+                $sets[] = "failed_at = {$nowSql}";
                 break;
             case 'cancelled':
-                $sets[] = 'cancelled_at = NOW()';
+                $sets[] = "cancelled_at = {$nowSql}";
                 break;
             case 'expired':
-                $sets[] = 'expired_at = NOW()';
+                $sets[] = "expired_at = {$nowSql}";
                 break;
             case 'refund_pending':
                 $sets[]  = "refund_status = 'pending'";
                 break;
             case 'refunded':
                 $sets[]  = "refund_status = 'processed'";
-                $sets[]  = 'refunded_at = NOW()';
+                $sets[]  = "refunded_at = {$nowSql}";
                 break;
             case 'refund_failed':
                 $sets[]  = "refund_status = 'failed'";
@@ -351,13 +353,13 @@ if (!function_exists('ksrPaymentStates')) {
                     $sets[]   = 'collected_by = ?';
                     $params[] = $context['collected_by'];
                 }
-                $sets[]  = 'collected_at = NOW()';
+                $sets[]  = "collected_at = {$nowSql}";
                 if (!empty($context['collection_reference'])) {
                     $sets[]   = 'collection_reference = ?';
                     $params[] = $context['collection_reference'];
                 }
-                $sets[] = 'paid_at = COALESCE(paid_at, NOW())';
-                $sets[] = 'confirmed_at = COALESCE(confirmed_at, NOW())';
+                $sets[] = "paid_at = COALESCE(paid_at, {$nowSql})";
+                $sets[] = "confirmed_at = COALESCE(confirmed_at, {$nowSql})";
                 break;
         }
 
@@ -387,7 +389,7 @@ if (!function_exists('ksrPaymentStates')) {
         }
 
         if (!empty($context['webhook_received'])) {
-            $sets[] = 'webhook_received_at = NOW()';
+            $sets[] = "webhook_received_at = {$nowSql}";
         }
 
         $params[] = $paymentId;

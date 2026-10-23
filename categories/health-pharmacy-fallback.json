@@ -11,10 +11,10 @@
                 "price": 25
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Paracetamol Tablets 500mg.jpg",
-        "image": "../images/Personal Care/tablet/Paracetamol Tablets 500mg.jpg"
+        "image_url": "/images/Paracetamol Tablets 500mg.jpg",
+        "image": "/images/Paracetamol Tablets 500mg.jpg"
     },
     {
         "id": 1001,
@@ -28,10 +28,10 @@
                 "price": 120
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Vitamin C Tablets.jpg",
-        "image": "../images/Personal Care/tablet/Vitamin C Tablets.jpg"
+        "image_url": "/images/Vitamin C Tablets.jpg",
+        "image": "/images/Vitamin C Tablets.jpg"
     },
     {
         "id": 1002,
@@ -45,10 +45,10 @@
                 "price": 250
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Digital Thermometer.jpg",
-        "image": "../images/Personal Care/tablet/Digital Thermometer.jpg"
+        "image_url": "/images/Digital Thermometer.jpg",
+        "image": "/images/Digital Thermometer.jpg"
     },
     {
         "id": 1003,
@@ -62,10 +62,10 @@
                 "price": 160
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Hand Sanitizer (Alcohol-Based) 1.jpg",
-        "image": "../images/Personal Care/tablet/Hand Sanitizer (Alcohol-Based) 1.jpg"
+        "image_url": "/images/Hand Sanitizer (Alcohol-Based) 1.jpg",
+        "image": "/images/Hand Sanitizer (Alcohol-Based) 1.jpg"
     },
     {
         "id": 1004,
@@ -79,10 +79,10 @@
                 "price": 200
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Hand Sanitizer (Alcohol-Based)2.jpg",
-        "image": "../images/Personal Care/tablet/Hand Sanitizer (Alcohol-Based)2.jpg"
+        "image_url": "/images/Hand Sanitizer (Alcohol-Based)2.jpg",
+        "image": "/images/Hand Sanitizer (Alcohol-Based)2.jpg"
     },
     {
         "id": 1005,
@@ -96,10 +96,10 @@
                 "price": 180
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Dettol Antiseptic Liquid 1.jpg",
-        "image": "../images/Personal Care/tablet/Dettol Antiseptic Liquid 1.jpg"
+        "image_url": "/images/Dettol Antiseptic Liquid 1.jpg",
+        "image": "/images/Dettol Antiseptic Liquid 1.jpg"
     },
     {
         "id": 1006,
@@ -113,10 +113,10 @@
                 "price": 320
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Dettol Antiseptic Liquid 315.jpg",
-        "image": "../images/Personal Care/tablet/Dettol Antiseptic Liquid 315.jpg"
+        "image_url": "/images/Dettol Antiseptic Liquid 315.jpg",
+        "image": "/images/Dettol Antiseptic Liquid 315.jpg"
     },
     {
         "id": 1007,
@@ -130,10 +130,10 @@
                 "price": 85
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Pain Relief Balm.jpg",
-        "image": "../images/Personal Care/tablet/Pain Relief Balm.jpg"
+        "image_url": "/images/Pain Relief Balm.jpg",
+        "image": "/images/Pain Relief Balm.jpg"
     },
     {
         "id": 1008,
@@ -147,10 +147,10 @@
                 "price": 140
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Glucose Powder.jpg",
-        "image": "../images/Personal Care/tablet/Glucose Powder.jpg"
+        "image_url": "/images/Glucose Powder.jpg",
+        "image": "/images/Glucose Powder.jpg"
     },
     {
         "id": 1009,
@@ -164,10 +164,10 @@
                 "price": 75
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/ORS Sachets.jpg",
-        "image": "../images/Personal Care/tablet/ORS Sachets.jpg"
+        "image_url": "/images/ORS Sachets.jpg",
+        "image": "/images/ORS Sachets.jpg"
     },
     {
         "id": 1010,
@@ -181,10 +181,10 @@
                 "price": 300
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Face Mask (Surgical).jpg",
-        "image": "../images/Personal Care/tablet/Face Mask (Surgical).jpg"
+        "image_url": "/images/Face Mask (Surgical).jpg",
+        "image": "/images/Face Mask (Surgical).jpg"
     },
     {
         "id": 1011,
@@ -198,10 +198,10 @@
                 "price": 80
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Face Mask (Surgical) 50.jpg",
-        "image": "../images/Personal Care/tablet/Face Mask (Surgical) 50.jpg"
+        "image_url": "/images/Face Mask (Surgical) 50.jpg",
+        "image": "/images/Face Mask (Surgical) 50.jpg"
     },
     {
         "id": 1012,
@@ -215,10 +215,10 @@
                 "price": 1500
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Blood Pressure Monitor.jpg",
-        "image": "../images/Personal Care/tablet/Blood Pressure Monitor.jpg"
+        "image_url": "/images/Blood Pressure Monitor.jpg",
+        "image": "/images/Blood Pressure Monitor.jpg"
     },
     {
         "id": 1013,
@@ -232,10 +232,10 @@
                 "price": 220
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Multivitamin Capsules.jpg",
-        "image": "../images/Personal Care/tablet/Multivitamin Capsules.jpg"
+        "image_url": "/images/Multivitamin Capsules.jpg",
+        "image": "/images/Multivitamin Capsules.jpg"
     },
     {
         "id": 1014,
@@ -249,10 +249,10 @@
                 "price": 1200
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Protein Powder.jpg",
-        "image": "../images/Personal Care/tablet/Protein Powder.jpg"
+        "image_url": "/images/Protein Powder.jpg",
+        "image": "/images/Protein Powder.jpg"
     },
     {
         "id": 1015,
@@ -266,10 +266,10 @@
                 "price": 450
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/First Aid Kit.jpg",
-        "image": "../images/Personal Care/tablet/First Aid Kit.jpg"
+        "image_url": "/images/First Aid Kit.jpg",
+        "image": "/images/First Aid Kit.jpg"
     },
     {
         "id": 1016,
@@ -283,10 +283,10 @@
                 "price": 95
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Cough Syrup.jpg",
-        "image": "../images/Personal Care/tablet/Cough Syrup.jpg"
+        "image_url": "/images/Cough Syrup.jpg",
+        "image": "/images/Cough Syrup.jpg"
     },
     {
         "id": 1017,
@@ -300,10 +300,10 @@
                 "price": 110
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Antacid Liquid.jpg",
-        "image": "../images/Personal Care/tablet/Antacid Liquid.jpg"
+        "image_url": "/images/Antacid Liquid.jpg",
+        "image": "/images/Antacid Liquid.jpg"
     },
     {
         "id": 1018,
@@ -317,10 +317,10 @@
                 "price": 35
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Ibuprofen Tablets.jpg",
-        "image": "../images/Personal Care/tablet/Ibuprofen Tablets.jpg"
+        "image_url": "/images/Ibuprofen Tablets.jpg",
+        "image": "/images/Ibuprofen Tablets.jpg"
     },
     {
         "id": 1019,
@@ -334,10 +334,10 @@
                 "price": 150
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Zinc Tablets.jpg",
-        "image": "../images/Personal Care/tablet/Zinc Tablets.jpg"
+        "image_url": "/images/Zinc Tablets.jpg",
+        "image": "/images/Zinc Tablets.jpg"
     },
     {
         "id": 1020,
@@ -351,10 +351,10 @@
                 "price": 210
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Calcium Supplements.jpg",
-        "image": "../images/Personal Care/tablet/Calcium Supplements.jpg"
+        "image_url": "/images/Calcium Supplements.jpg",
+        "image": "/images/Calcium Supplements.jpg"
     },
     {
         "id": 1021,
@@ -368,10 +368,10 @@
                 "price": 320
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Ayurvedic Chyawanprash 180.jpg",
-        "image": "../images/Personal Care/tablet/Ayurvedic Chyawanprash 180.jpg"
+        "image_url": "/images/Ayurvedic Chyawanprash 180.jpg",
+        "image": "/images/Ayurvedic Chyawanprash 180.jpg"
     },
     {
         "id": 1022,
@@ -385,10 +385,10 @@
                 "price": 420
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Ayurvedic Chyawanprash 415.jpg",
-        "image": "../images/Personal Care/tablet/Ayurvedic Chyawanprash 415.jpg"
+        "image_url": "/images/Ayurvedic Chyawanprash 415.jpg",
+        "image": "/images/Ayurvedic Chyawanprash 415.jpg"
     },
     {
         "id": 1023,
@@ -402,10 +402,10 @@
                 "price": 1260
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Ayurvedic Chyawanprash 1260.jpg",
-        "image": "../images/Personal Care/tablet/Ayurvedic Chyawanprash 1260.jpg"
+        "image_url": "/images/Ayurvedic Chyawanprash 1260.jpg",
+        "image": "/images/Ayurvedic Chyawanprash 1260.jpg"
     },
     {
         "id": 1024,
@@ -419,10 +419,10 @@
                 "price": 130
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Aloe Vera Gel.jpg",
-        "image": "../images/Personal Care/tablet/Aloe Vera Gel.jpg"
+        "image_url": "/images/Aloe Vera Gel.jpg",
+        "image": "/images/Aloe Vera Gel.jpg"
     },
     {
         "id": 1025,
@@ -436,10 +436,10 @@
                 "price": 160
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Betadine Antiseptic Solution 1.jpg",
-        "image": "../images/Personal Care/tablet/Betadine Antiseptic Solution 1.jpg"
+        "image_url": "/images/Betadine Antiseptic Solution 1.jpg",
+        "image": "/images/Betadine Antiseptic Solution 1.jpg"
     },
     {
         "id": 1026,
@@ -453,10 +453,10 @@
                 "price": 60
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Cotton Roll.jpg",
-        "image": "../images/Personal Care/tablet/Cotton Roll.jpg"
+        "image_url": "/images/Cotton Roll.jpg",
+        "image": "/images/Cotton Roll.jpg"
     },
     {
         "id": 1027,
@@ -470,10 +470,10 @@
                 "price": 55
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Band-Aid Strips.jpg",
-        "image": "../images/Personal Care/tablet/Band-Aid Strips.jpg"
+        "image_url": "/images/Band-Aid Strips.jpg",
+        "image": "/images/Band-Aid Strips.jpg"
     },
     {
         "id": 1028,
@@ -487,10 +487,10 @@
                 "price": 90
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Pregnancy Test Kit.jpg",
-        "image": "../images/Personal Care/tablet/Pregnancy Test Kit.jpg"
+        "image_url": "/images/Pregnancy Test Kit.jpg",
+        "image": "/images/Pregnancy Test Kit.jpg"
     },
     {
         "id": 1029,
@@ -504,10 +504,10 @@
                 "price": 350
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Steam Inhaler.jpg",
-        "image": "../images/Personal Care/tablet/Steam Inhaler.jpg"
+        "image_url": "/images/Steam Inhaler.jpg",
+        "image": "/images/Steam Inhaler.jpg"
     },
     {
         "id": 1030,
@@ -521,10 +521,10 @@
                 "price": 2200
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Nebulizer Machine.jpg",
-        "image": "../images/Personal Care/tablet/Nebulizer Machine.jpg"
+        "image_url": "/images/Nebulizer Machine.jpg",
+        "image": "/images/Nebulizer Machine.jpg"
     },
     {
         "id": 1031,
@@ -538,10 +538,10 @@
                 "price": 180
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Insulin Syringe.jpg",
-        "image": "../images/Personal Care/tablet/Insulin Syringe.jpg"
+        "image_url": "/images/Insulin Syringe.jpg",
+        "image": "/images/Insulin Syringe.jpg"
     },
     {
         "id": 1032,
@@ -555,10 +555,10 @@
                 "price": 70
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Thermometer Strips.jpg",
-        "image": "../images/Personal Care/tablet/Thermometer Strips.jpg"
+        "image_url": "/images/Thermometer Strips.jpg",
+        "image": "/images/Thermometer Strips.jpg"
     },
     {
         "id": 1033,
@@ -572,10 +572,10 @@
                 "price": 280
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Electrolyte Drink Powder.jpg",
-        "image": "../images/Personal Care/tablet/Electrolyte Drink Powder.jpg"
+        "image_url": "/images/Electrolyte Drink Powder.jpg",
+        "image": "/images/Electrolyte Drink Powder.jpg"
     },
     {
         "id": 1034,
@@ -589,10 +589,10 @@
                 "price": 170
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Digestive Enzyme Syrup 170.jpg",
-        "image": "../images/Personal Care/tablet/Digestive Enzyme Syrup 170.jpg"
+        "image_url": "/images/Digestive Enzyme Syrup 170.jpg",
+        "image": "/images/Digestive Enzyme Syrup 170.jpg"
     },
     {
         "id": 1035,
@@ -606,10 +606,10 @@
                 "price": 200
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Digestive Enzyme Syrup 200.jpg",
-        "image": "../images/Personal Care/tablet/Digestive Enzyme Syrup 200.jpg"
+        "image_url": "/images/Digestive Enzyme Syrup 200.jpg",
+        "image": "/images/Digestive Enzyme Syrup 200.jpg"
     },
     {
         "id": 1036,
@@ -623,10 +623,10 @@
                 "price": 230
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Digestive Enzyme Syrup 230.jpg",
-        "image": "../images/Personal Care/tablet/Digestive Enzyme Syrup 230.jpg"
+        "image_url": "/images/Digestive Enzyme Syrup 230.jpg",
+        "image": "/images/Digestive Enzyme Syrup 230.jpg"
     },
     {
         "id": 1037,
@@ -640,10 +640,10 @@
                 "price": 400
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Hair Growth Serum 400.jpg",
-        "image": "../images/Personal Care/tablet/Hair Growth Serum 400.jpg"
+        "image_url": "/images/Hair Growth Serum 400.jpg",
+        "image": "/images/Hair Growth Serum 400.jpg"
     },
     {
         "id": 1038,
@@ -657,10 +657,10 @@
                 "price": 1550
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Hair Growth Serum 1550.jpg",
-        "image": "../images/Personal Care/tablet/Hair Growth Serum 1550.jpg"
+        "image_url": "/images/Hair Growth Serum 1550.jpg",
+        "image": "/images/Hair Growth Serum 1550.jpg"
     },
     {
         "id": 1039,
@@ -674,10 +674,10 @@
                 "price": 780
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Hair Growth Serum 780.jpg",
-        "image": "../images/Personal Care/tablet/Hair Growth Serum 780.jpg"
+        "image_url": "/images/Hair Growth Serum 780.jpg",
+        "image": "/images/Hair Growth Serum 780.jpg"
     },
     {
         "id": 1040,
@@ -691,10 +691,10 @@
                 "price": 250
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Anti-Dandruff Shampoo 250.jpg",
-        "image": "../images/Personal Care/tablet/Anti-Dandruff Shampoo 250.jpg"
+        "image_url": "/images/Anti-Dandruff Shampoo 250.jpg",
+        "image": "/images/Anti-Dandruff Shampoo 250.jpg"
     },
     {
         "id": 1041,
@@ -708,10 +708,10 @@
                 "price": 360
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Anti-Dandruff Shampoo 360.jpg",
-        "image": "../images/Personal Care/tablet/Anti-Dandruff Shampoo 360.jpg"
+        "image_url": "/images/Anti-Dandruff Shampoo 360.jpg",
+        "image": "/images/Anti-Dandruff Shampoo 360.jpg"
     },
     {
         "id": 1042,
@@ -725,10 +725,10 @@
                 "price": 420
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Anti-Dandruff Shampoo 420.jpg",
-        "image": "../images/Personal Care/tablet/Anti-Dandruff Shampoo 420.jpg"
+        "image_url": "/images/Anti-Dandruff Shampoo 420.jpg",
+        "image": "/images/Anti-Dandruff Shampoo 420.jpg"
     },
     {
         "id": 1043,
@@ -742,10 +742,10 @@
                 "price": 75
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Medicated Soap.jpg",
-        "image": "../images/Personal Care/tablet/Medicated Soap.jpg"
+        "image_url": "/images/Medicated Soap.jpg",
+        "image": "/images/Medicated Soap.jpg"
     },
     {
         "id": 1044,
@@ -759,10 +759,10 @@
                 "price": 85
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Eye Drops.jpg",
-        "image": "../images/Personal Care/tablet/Eye Drops.jpg"
+        "image_url": "/images/Eye Drops.jpg",
+        "image": "/images/Eye Drops.jpg"
     },
     {
         "id": 1045,
@@ -776,10 +776,10 @@
                 "price": 140
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Nasal Spray.jpg",
-        "image": "../images/Personal Care/tablet/Nasal Spray.jpg"
+        "image_url": "/images/Nasal Spray.jpg",
+        "image": "/images/Nasal Spray.jpg"
     },
     {
         "id": 1046,
@@ -793,10 +793,10 @@
                 "price": 240
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Hot Water Bag 200.jpg",
-        "image": "../images/Personal Care/tablet/Hot Water Bag 200.jpg"
+        "image_url": "/images/Hot Water Bag 200.jpg",
+        "image": "/images/Hot Water Bag 200.jpg"
     },
     {
         "id": 1047,
@@ -810,10 +810,10 @@
                 "price": 130
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Hot Water Bag min 130.jpg",
-        "image": "../images/Personal Care/tablet/Hot Water Bag min 130.jpg"
+        "image_url": "/images/Hot Water Bag min 130.jpg",
+        "image": "/images/Hot Water Bag min 130.jpg"
     },
     {
         "id": 1048,
@@ -827,10 +827,10 @@
                 "price": 900
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Digital Weighing Scale 800.jpg",
-        "image": "../images/Personal Care/tablet/Digital Weighing Scale 800.jpg"
+        "image_url": "/images/Digital Weighing Scale 800.jpg",
+        "image": "/images/Digital Weighing Scale 800.jpg"
     },
     {
         "id": 1049,
@@ -844,10 +844,10 @@
                 "price": 650
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Digital Weighing Scale 570.jpg",
-        "image": "../images/Personal Care/tablet/Digital Weighing Scale 570.jpg"
+        "image_url": "/images/Digital Weighing Scale 570.jpg",
+        "image": "/images/Digital Weighing Scale 570.jpg"
     },
     {
         "id": 1050,
@@ -861,10 +861,10 @@
                 "price": 620
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Pulse Oximeter 500.jpg",
-        "image": "../images/Personal Care/tablet/Pulse Oximeter 500.jpg"
+        "image_url": "/images/Pulse Oximeter 500.jpg",
+        "image": "/images/Pulse Oximeter 500.jpg"
     },
     {
         "id": 1051,
@@ -878,10 +878,10 @@
                 "price": 1350
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Pulse Oximeter 1350.jpg",
-        "image": "../images/Personal Care/tablet/Pulse Oximeter 1350.jpg"
+        "image_url": "/images/Pulse Oximeter 1350.jpg",
+        "image": "/images/Pulse Oximeter 1350.jpg"
     },
     {
         "id": 1052,
@@ -895,10 +895,10 @@
                 "price": 1600
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Pulse Oximeter 1600.jpg",
-        "image": "../images/Personal Care/tablet/Pulse Oximeter 1600.jpg"
+        "image_url": "/images/Pulse Oximeter 1600.jpg",
+        "image": "/images/Pulse Oximeter 1600.jpg"
     },
     {
         "id": 1053,
@@ -912,10 +912,10 @@
                 "price": 450
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Knee Support Belt 400.jpg",
-        "image": "../images/Personal Care/tablet/Knee Support Belt 400.jpg"
+        "image_url": "/images/Knee Support Belt 400.jpg",
+        "image": "/images/Knee Support Belt 400.jpg"
     },
     {
         "id": 1054,
@@ -929,10 +929,10 @@
                 "price": 600
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Knee Support Belt 600.jpg",
-        "image": "../images/Personal Care/tablet/Knee Support Belt 600.jpg"
+        "image_url": "/images/Knee Support Belt 600.jpg",
+        "image": "/images/Knee Support Belt 600.jpg"
     },
     {
         "id": 1055,
@@ -946,10 +946,10 @@
                 "price": 700
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Knee Support Belt 690.jpg",
-        "image": "../images/Personal Care/tablet/Knee Support Belt 690.jpg"
+        "image_url": "/images/Knee Support Belt 690.jpg",
+        "image": "/images/Knee Support Belt 690.jpg"
     },
     {
         "id": 1056,
@@ -963,10 +963,10 @@
                 "price": 820
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Knee Support Belt 800.jpg",
-        "image": "../images/Personal Care/tablet/Knee Support Belt 800.jpg"
+        "image_url": "/images/Knee Support Belt 800.jpg",
+        "image": "/images/Knee Support Belt 800.jpg"
     },
     {
         "id": 1057,
@@ -980,10 +980,10 @@
                 "price": 220
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Back Pain Relief Spray 220.jpg",
-        "image": "../images/Personal Care/tablet/Back Pain Relief Spray 220.jpg"
+        "image_url": "/images/Back Pain Relief Spray 220.jpg",
+        "image": "/images/Back Pain Relief Spray 220.jpg"
     },
     {
         "id": 1058,
@@ -997,10 +997,10 @@
                 "price": 180
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Back Pain Relief Spray 151.jpg",
-        "image": "../images/Personal Care/tablet/Back Pain Relief Spray 151.jpg"
+        "image_url": "/images/Back Pain Relief Spray 151.jpg",
+        "image": "/images/Back Pain Relief Spray 151.jpg"
     },
     {
         "id": 1059,
@@ -1014,10 +1014,10 @@
                 "price": 180
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Back Pain Relief Spray 145.jpg",
-        "image": "../images/Personal Care/tablet/Back Pain Relief Spray 145.jpg"
+        "image_url": "/images/Back Pain Relief Spray 145.jpg",
+        "image": "/images/Back Pain Relief Spray 145.jpg"
     },
     {
         "id": 1060,
@@ -1031,10 +1031,10 @@
                 "price": 180
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Back Pain Relief Spray 65.jpg",
-        "image": "../images/Personal Care/tablet/Back Pain Relief Spray 65.jpg"
+        "image_url": "/images/Back Pain Relief Spray 65.jpg",
+        "image": "/images/Back Pain Relief Spray 65.jpg"
     },
     {
         "id": 1061,
@@ -1048,10 +1048,10 @@
                 "price": 380
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Back Pain Relief Spray relispray 173-380.jpg",
-        "image": "../images/Personal Care/tablet/Back Pain Relief Spray relispray 173-380.jpg"
+        "image_url": "/images/Back Pain Relief Spray relispray 173-380.jpg",
+        "image": "/images/Back Pain Relief Spray relispray 173-380.jpg"
     },
     {
         "id": 1062,
@@ -1065,10 +1065,10 @@
                 "price": 180
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Back Pain Relief Spray moov 180.jpg",
-        "image": "../images/Personal Care/tablet/Back Pain Relief Spray moov 180.jpg"
+        "image_url": "/images/Back Pain Relief Spray moov 180.jpg",
+        "image": "/images/Back Pain Relief Spray moov 180.jpg"
     },
     {
         "id": 1063,
@@ -1082,10 +1082,10 @@
                 "price": 180
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Vitamin D3 Capsules 40.jpg",
-        "image": "../images/Personal Care/tablet/Vitamin D3 Capsules 40.jpg"
+        "image_url": "/images/Vitamin D3 Capsules 40.jpg",
+        "image": "/images/Vitamin D3 Capsules 40.jpg"
     },
     {
         "id": 1064,
@@ -1099,10 +1099,10 @@
                 "price": 350
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Iron Supplements 325.jpg",
-        "image": "../images/Personal Care/tablet/Iron Supplements 325.jpg"
+        "image_url": "/images/Iron Supplements 325.jpg",
+        "image": "/images/Iron Supplements 325.jpg"
     },
     {
         "id": 1065,
@@ -1116,10 +1116,10 @@
                 "price": 850
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/OZiva Plant Based Iron Supplements 800.jpg",
-        "image": "../images/Personal Care/tablet/OZiva Plant Based Iron Supplements 800.jpg"
+        "image_url": "/images/OZiva Plant Based Iron Supplements 800.jpg",
+        "image": "/images/OZiva Plant Based Iron Supplements 800.jpg"
     },
     {
         "id": 1066,
@@ -1133,10 +1133,10 @@
                 "price": 160
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Iron, Omega for Control Hair Fall, Hair Growth Supplements  150.jpg",
-        "image": "../images/Personal Care/tablet/Iron, Omega for Control Hair Fall, Hair Growth Supplements  150.jpg"
+        "image_url": "/images/Iron, Omega for Control Hair Fall, Hair Growth Supplements  150.jpg",
+        "image": "/images/Iron, Omega for Control Hair Fall, Hair Growth Supplements  150.jpg"
     },
     {
         "id": 1067,
@@ -1150,10 +1150,10 @@
                 "price": 350
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Probiotic Capsules 325.jpg",
-        "image": "../images/Personal Care/tablet/Probiotic Capsules 325.jpg"
+        "image_url": "/images/Probiotic Capsules 325.jpg",
+        "image": "/images/Probiotic Capsules 325.jpg"
     },
     {
         "id": 1068,
@@ -1167,10 +1167,10 @@
                 "price": 750
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Probiotic Capsules 720.jpg",
-        "image": "../images/Personal Care/tablet/Probiotic Capsules 720.jpg"
+        "image_url": "/images/Probiotic Capsules 720.jpg",
+        "image": "/images/Probiotic Capsules 720.jpg"
     },
     {
         "id": 1069,
@@ -1184,10 +1184,10 @@
                 "price": 350
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Diarrhea For Kids & Adults Strip Of 4 Capsules 165.jpg",
-        "image": "../images/Personal Care/tablet/Diarrhea For Kids & Adults Strip Of 4 Capsules 165.jpg"
+        "image_url": "/images/Diarrhea For Kids & Adults Strip Of 4 Capsules 165.jpg",
+        "image": "/images/Diarrhea For Kids & Adults Strip Of 4 Capsules 165.jpg"
     },
     {
         "id": 1070,
@@ -1201,10 +1201,10 @@
                 "price": 250
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Tata Probiotics 30 Billion CFUs+ 60 Capsules 260.jpg",
-        "image": "../images/Personal Care/tablet/Tata Probiotics 30 Billion CFUs+ 60 Capsules 260.jpg"
+        "image_url": "/images/Tata Probiotics 30 Billion CFUs+ 60 Capsules 260.jpg",
+        "image": "/images/Tata Probiotics 30 Billion CFUs+ 60 Capsules 260.jpg"
     },
     {
         "id": 1071,
@@ -1218,10 +1218,10 @@
                 "price": 95
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Antiseptic Cream 40.jpg",
-        "image": "../images/Personal Care/tablet/Antiseptic Cream 40.jpg"
+        "image_url": "/images/Antiseptic Cream 40.jpg",
+        "image": "/images/Antiseptic Cream 40.jpg"
     },
     {
         "id": 1072,
@@ -1235,10 +1235,10 @@
                 "price": 65
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Himalaya Antiseptic Cream 20g 55.jpg",
-        "image": "../images/Personal Care/tablet/Himalaya Antiseptic Cream 20g 55.jpg"
+        "image_url": "/images/Himalaya Antiseptic Cream 20g 55.jpg",
+        "image": "/images/Himalaya Antiseptic Cream 20g 55.jpg"
     },
     {
         "id": 1073,
@@ -1252,10 +1252,10 @@
                 "price": 75
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Himalaya Antiseptic Cream 50.jpg",
-        "image": "../images/Personal Care/tablet/Himalaya Antiseptic Cream 50.jpg"
+        "image_url": "/images/Himalaya Antiseptic Cream 50.jpg",
+        "image": "/images/Himalaya Antiseptic Cream 50.jpg"
     },
     {
         "id": 1074,
@@ -1269,10 +1269,10 @@
                 "price": 95
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/BoroPlus Antiseptic Cream 95.jpg",
-        "image": "../images/Personal Care/tablet/BoroPlus Antiseptic Cream 95.jpg"
+        "image_url": "/images/BoroPlus Antiseptic Cream 95.jpg",
+        "image": "/images/BoroPlus Antiseptic Cream 95.jpg"
     },
     {
         "id": 1075,
@@ -1286,10 +1286,10 @@
                 "price": 90
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Burn Relief Gel 68.jpg",
-        "image": "../images/Personal Care/tablet/Burn Relief Gel 68.jpg"
+        "image_url": "/images/Burn Relief Gel 68.jpg",
+        "image": "/images/Burn Relief Gel 68.jpg"
     },
     {
         "id": 1076,
@@ -1303,10 +1303,10 @@
                 "price": 65
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Mosquito Repellent Cream 48.jpg",
-        "image": "../images/Personal Care/tablet/Mosquito Repellent Cream 48.jpg"
+        "image_url": "/images/Mosquito Repellent Cream 48.jpg",
+        "image": "/images/Mosquito Repellent Cream 48.jpg"
     },
     {
         "id": 1077,
@@ -1320,10 +1320,10 @@
                 "price": 110
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Mosquito Repellent Cream 110.jpg",
-        "image": "../images/Personal Care/tablet/Mosquito Repellent Cream 110.jpg"
+        "image_url": "/images/Mosquito Repellent Cream 110.jpg",
+        "image": "/images/Mosquito Repellent Cream 110.jpg"
     },
     {
         "id": 1078,
@@ -1337,10 +1337,10 @@
                 "price": 85
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Odomos Naturals Mosquito Repellent Cream wellness forever 58.jpg",
-        "image": "../images/Personal Care/tablet/Odomos Naturals Mosquito Repellent Cream wellness forever 58.jpg"
+        "image_url": "/images/Odomos Naturals Mosquito Repellent Cream wellness forever 58.jpg",
+        "image": "/images/Odomos Naturals Mosquito Repellent Cream wellness forever 58.jpg"
     },
     {
         "id": 1079,
@@ -1354,10 +1354,10 @@
                 "price": 180
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Liquid Hand Wash (Medicinal) 180.jpg",
-        "image": "../images/Personal Care/tablet/Liquid Hand Wash (Medicinal) 180.jpg"
+        "image_url": "/images/Liquid Hand Wash (Medicinal) 180.jpg",
+        "image": "/images/Liquid Hand Wash (Medicinal) 180.jpg"
     },
     {
         "id": 1080,
@@ -1371,10 +1371,10 @@
                 "price": 400
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Medical Gloves.jpg",
-        "image": "../images/Personal Care/tablet/Medical Gloves.jpg"
+        "image_url": "/images/Medical Gloves.jpg",
+        "image": "/images/Medical Gloves.jpg"
     },
     {
         "id": 1081,
@@ -1388,10 +1388,10 @@
                 "price": 380
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Face Shield.jpg",
-        "image": "../images/Personal Care/tablet/Face Shield.jpg"
+        "image_url": "/images/Face Shield.jpg",
+        "image": "/images/Face Shield.jpg"
     },
     {
         "id": 1082,
@@ -1405,10 +1405,10 @@
                 "price": 128
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Surgical Tape 128.jpg",
-        "image": "../images/Personal Care/tablet/Surgical Tape 128.jpg"
+        "image_url": "/images/Surgical Tape 128.jpg",
+        "image": "/images/Surgical Tape 128.jpg"
     },
     {
         "id": 1083,
@@ -1422,10 +1422,10 @@
                 "price": 360
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Romsons Kenpore Surgical Tape 350.jpg",
-        "image": "../images/Personal Care/tablet/Romsons Kenpore Surgical Tape 350.jpg"
+        "image_url": "/images/Romsons Kenpore Surgical Tape 350.jpg",
+        "image": "/images/Romsons Kenpore Surgical Tape 350.jpg"
     },
     {
         "id": 1084,
@@ -1439,10 +1439,10 @@
                 "price": 128
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Doctor's Choice Micropore Surgical Tape 20.jpg",
-        "image": "../images/Personal Care/tablet/Doctor's Choice Micropore Surgical Tape 20.jpg"
+        "image_url": "/images/Doctor's Choice Micropore Surgical Tape 20.jpg",
+        "image": "/images/Doctor's Choice Micropore Surgical Tape 20.jpg"
     },
     {
         "id": 1085,
@@ -1456,10 +1456,10 @@
                 "price": 90
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Crepe Bandage 75.jpg",
-        "image": "../images/Personal Care/tablet/Crepe Bandage 75.jpg"
+        "image_url": "/images/Crepe Bandage 75.jpg",
+        "image": "/images/Crepe Bandage 75.jpg"
     },
     {
         "id": 1086,
@@ -1473,10 +1473,10 @@
                 "price": 150
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Hansaplast Cotton Crepe Bandage 150.jpg",
-        "image": "../images/Personal Care/tablet/Hansaplast Cotton Crepe Bandage 150.jpg"
+        "image_url": "/images/Hansaplast Cotton Crepe Bandage 150.jpg",
+        "image": "/images/Hansaplast Cotton Crepe Bandage 150.jpg"
     },
     {
         "id": 1087,
@@ -1490,10 +1490,10 @@
                 "price": 700
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Digital Glucometer 620.jpg",
-        "image": "../images/Personal Care/tablet/Digital Glucometer 620.jpg"
+        "image_url": "/images/Digital Glucometer 620.jpg",
+        "image": "/images/Digital Glucometer 620.jpg"
     },
     {
         "id": 1088,
@@ -1507,10 +1507,10 @@
                 "price": 800
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Glucometer Test Strips.jpg",
-        "image": "../images/Personal Care/tablet/Glucometer Test Strips.jpg"
+        "image_url": "/images/Glucometer Test Strips.jpg",
+        "image": "/images/Glucometer Test Strips.jpg"
     },
     {
         "id": 1089,
@@ -1524,10 +1524,10 @@
                 "price": 250
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/lancets/Lancets for Glucometer 130.jpg",
-        "image": "../images/lancets/Lancets for Glucometer 130.jpg"
+        "image_url": "/images/Lancets for Glucometer 130.jpg",
+        "image": "/images/Lancets for Glucometer 130.jpg"
     },
     {
         "id": 1090,
@@ -1541,15 +1541,15 @@
                 "price": 140
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Liver Tonic Syrup 120.jpg",
-        "image": "../images/Personal Care/tablet/Liver Tonic Syrup 120.jpg"
+        "image_url": "/images/Liver Tonic Syrup 120.jpg",
+        "image": "/images/Liver Tonic Syrup 120.jpg"
     },
     {
         "id": 1091,
-        "name": "Torque\u2019s Torliv Ayurvedic Healthy Liver Tonic Syrup",
-        "kn_name": "Torque\u2019s Torliv Ayurvedic Healthy Liver Tonic Syrup",
+        "name": "Torque’s Torliv Ayurvedic Healthy Liver Tonic Syrup",
+        "kn_name": "Torque’s Torliv Ayurvedic Healthy Liver Tonic Syrup",
         "price": 140,
         "category": "vitamins",
         "variants": [
@@ -1558,10 +1558,10 @@
                 "price": 140
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Torque\u2019s Torliv Ayurvedic Healthy Liver Tonic Syrup \u2013 200m 130.jpg",
-        "image": "../images/Personal Care/tablet/Torque\u2019s Torliv Ayurvedic Healthy Liver Tonic Syrup \u2013 200m 130.jpg"
+        "image_url": "/images/Torque’s Torliv Ayurvedic Healthy Liver Tonic Syrup – 200m 130.jpg",
+        "image": "/images/Torque’s Torliv Ayurvedic Healthy Liver Tonic Syrup – 200m 130.jpg"
     },
     {
         "id": 1092,
@@ -1575,10 +1575,10 @@
                 "price": 260
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Herbal Immunity Booster 230.jpg",
-        "image": "../images/Personal Care/tablet/Herbal Immunity Booster 230.jpg"
+        "image_url": "/images/Herbal Immunity Booster 230.jpg",
+        "image": "/images/Herbal Immunity Booster 230.jpg"
     },
     {
         "id": 1093,
@@ -1592,10 +1592,10 @@
                 "price": 960
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Herbal Booster Original Tablets For Immunity Booster (30 Tablets) 960.jpg",
-        "image": "../images/Personal Care/tablet/Herbal Booster Original Tablets For Immunity Booster (30 Tablets) 960.jpg"
+        "image_url": "/images/Herbal Booster Original Tablets For Immunity Booster (30 Tablets) 960.jpg",
+        "image": "/images/Herbal Booster Original Tablets For Immunity Booster (30 Tablets) 960.jpg"
     },
     {
         "id": 1094,
@@ -1609,10 +1609,10 @@
                 "price": 300
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Attar Ayurveda Herbalvilla Immunity Booster capsules 60 capsules 300.jpg",
-        "image": "../images/Personal Care/tablet/Attar Ayurveda Herbalvilla Immunity Booster capsules 60 capsules 300.jpg"
+        "image_url": "/images/Attar Ayurveda Herbalvilla Immunity Booster capsules 60 capsules 300.jpg",
+        "image": "/images/Attar Ayurveda Herbalvilla Immunity Booster capsules 60 capsules 300.jpg"
     },
     {
         "id": 1095,
@@ -1626,10 +1626,10 @@
                 "price": 700
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Ambrosial Herbal Immunity Booster 60 Tablets 630-700.jpg",
-        "image": "../images/Personal Care/tablet/Ambrosial Herbal Immunity Booster 60 Tablets 630-700.jpg"
+        "image_url": "/images/Ambrosial Herbal Immunity Booster 60 Tablets 630-700.jpg",
+        "image": "/images/Ambrosial Herbal Immunity Booster 60 Tablets 630-700.jpg"
     },
     {
         "id": 1096,
@@ -1643,10 +1643,10 @@
                 "price": 300
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Spice Sip Natural Immunity Booster Herbal Tea165.jpg",
-        "image": "../images/Personal Care/tablet/Spice Sip Natural Immunity Booster Herbal Tea165.jpg"
+        "image_url": "/images/Spice Sip Natural Immunity Booster Herbal Tea165.jpg",
+        "image": "/images/Spice Sip Natural Immunity Booster Herbal Tea165.jpg"
     },
     {
         "id": 1097,
@@ -1660,10 +1660,10 @@
                 "price": 120
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Tulsi Drops 160.jpg",
-        "image": "../images/Personal Care/tablet/Tulsi Drops 160.jpg"
+        "image_url": "/images/Tulsi Drops 160.jpg",
+        "image": "/images/Tulsi Drops 160.jpg"
     },
     {
         "id": 1098,
@@ -1677,10 +1677,10 @@
                 "price": 190
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Dabur Tulsi Drops 120-190.jpg",
-        "image": "../images/Personal Care/tablet/Dabur Tulsi Drops 120-190.jpg"
+        "image_url": "/images/Dabur Tulsi Drops 120-190.jpg",
+        "image": "/images/Dabur Tulsi Drops 120-190.jpg"
     },
     {
         "id": 1099,
@@ -1694,10 +1694,10 @@
                 "price": 180
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Apollo Pharmacy Panch Tulsi Drops 175.jpg",
-        "image": "../images/Personal Care/tablet/Apollo Pharmacy Panch Tulsi Drops 175.jpg"
+        "image_url": "/images/Apollo Pharmacy Panch Tulsi Drops 175.jpg",
+        "image": "/images/Apollo Pharmacy Panch Tulsi Drops 175.jpg"
     },
     {
         "id": 1100,
@@ -1711,10 +1711,10 @@
                 "price": 260
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/MyUpchar Tulsi Drops 260.jpg",
-        "image": "../images/Personal Care/tablet/MyUpchar Tulsi Drops 260.jpg"
+        "image_url": "/images/MyUpchar Tulsi Drops 260.jpg",
+        "image": "/images/MyUpchar Tulsi Drops 260.jpg"
     },
     {
         "id": 1101,
@@ -1728,10 +1728,10 @@
                 "price": 330
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/mrit Tulsi Drops 330.jpg",
-        "image": "../images/Personal Care/tablet/mrit Tulsi Drops 330.jpg"
+        "image_url": "/images/mrit Tulsi Drops 330.jpg",
+        "image": "/images/mrit Tulsi Drops 330.jpg"
     },
     {
         "id": 1102,
@@ -1745,10 +1745,10 @@
                 "price": 810
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Ashwagandha Capsules 810.jpg",
-        "image": "../images/Personal Care/tablet/Ashwagandha Capsules 810.jpg"
+        "image_url": "/images/Ashwagandha Capsules 810.jpg",
+        "image": "/images/Ashwagandha Capsules 810.jpg"
     },
     {
         "id": 1103,
@@ -1762,10 +1762,10 @@
                 "price": 380
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/ORGANIC INDIA Ashwagandha Capsules 380.jpg",
-        "image": "../images/Personal Care/tablet/ORGANIC INDIA Ashwagandha Capsules 380.jpg"
+        "image_url": "/images/ORGANIC INDIA Ashwagandha Capsules 380.jpg",
+        "image": "/images/ORGANIC INDIA Ashwagandha Capsules 380.jpg"
     },
     {
         "id": 1104,
@@ -1779,10 +1779,10 @@
                 "price": 170
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Himalaya Pain Relief Oil 100-150.jpg",
-        "image": "../images/Personal Care/tablet/Himalaya Pain Relief Oil 100-150.jpg"
+        "image_url": "/images/Himalaya Pain Relief Oil 100-150.jpg",
+        "image": "/images/Himalaya Pain Relief Oil 100-150.jpg"
     },
     {
         "id": 1105,
@@ -1796,10 +1796,10 @@
                 "price": 150
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Hiran Pain Relief Oil 480.jpg",
-        "image": "../images/Personal Care/tablet/Hiran Pain Relief Oil 480.jpg"
+        "image_url": "/images/Hiran Pain Relief Oil 480.jpg",
+        "image": "/images/Hiran Pain Relief Oil 480.jpg"
     },
     {
         "id": 1106,
@@ -1813,10 +1813,10 @@
                 "price": 150
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Pain Relief Oil 50 ml Pack of 1 Krishna's Herbal & Ayurveda 140.jpg",
-        "image": "../images/Personal Care/tablet/Pain Relief Oil 50 ml Pack of 1 Krishna's Herbal & Ayurveda 140.jpg"
+        "image_url": "/images/Pain Relief Oil 50 ml Pack of 1 Krishna's Herbal & Ayurveda 140.jpg",
+        "image": "/images/Pain Relief Oil 50 ml Pack of 1 Krishna's Herbal & Ayurveda 140.jpg"
     },
     {
         "id": 1107,
@@ -1830,10 +1830,10 @@
                 "price": 120
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Apollo Pharmacy Pain Relief Oil 120.jpg",
-        "image": "../images/Personal Care/tablet/Apollo Pharmacy Pain Relief Oil 120.jpg"
+        "image_url": "/images/Apollo Pharmacy Pain Relief Oil 120.jpg",
+        "image": "/images/Apollo Pharmacy Pain Relief Oil 120.jpg"
     },
     {
         "id": 1108,
@@ -1847,10 +1847,10 @@
                 "price": 60
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Cold Relief Balm 45.jpg",
-        "image": "../images/Personal Care/tablet/Cold Relief Balm 45.jpg"
+        "image_url": "/images/Cold Relief Balm 45.jpg",
+        "image": "/images/Cold Relief Balm 45.jpg"
     },
     {
         "id": 1109,
@@ -1864,10 +1864,10 @@
                 "price": 120
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Cold Relief Balm 46-120.jpg",
-        "image": "../images/Personal Care/tablet/Cold Relief Balm 46-120.jpg"
+        "image_url": "/images/Cold Relief Balm 46-120.jpg",
+        "image": "/images/Cold Relief Balm 46-120.jpg"
     },
     {
         "id": 1110,
@@ -1881,10 +1881,10 @@
                 "price": 320
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Anti-Allergy Tablets 320.jpg",
-        "image": "../images/Personal Care/tablet/Anti-Allergy Tablets 320.jpg"
+        "image_url": "/images/Anti-Allergy Tablets 320.jpg",
+        "image": "/images/Anti-Allergy Tablets 320.jpg"
     },
     {
         "id": 1111,
@@ -1898,10 +1898,10 @@
                 "price": 65
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Throat Lozenges 47.jpg",
-        "image": "../images/Personal Care/tablet/Throat Lozenges 47.jpg"
+        "image_url": "/images/Throat Lozenges 47.jpg",
+        "image": "/images/Throat Lozenges 47.jpg"
     },
     {
         "id": 1112,
@@ -1915,10 +1915,10 @@
                 "price": 65
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Strepsils Sore Throat Lozenges - Ginger & Lemon 35.jpg",
-        "image": "../images/Personal Care/tablet/Strepsils Sore Throat Lozenges - Ginger & Lemon 35.jpg"
+        "image_url": "/images/Strepsils Sore Throat Lozenges - Ginger & Lemon 35.jpg",
+        "image": "/images/Strepsils Sore Throat Lozenges - Ginger & Lemon 35.jpg"
     },
     {
         "id": 1113,
@@ -1932,10 +1932,10 @@
                 "price": 40
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Oral Rehydration Drink 32.jpg",
-        "image": "../images/Personal Care/tablet/Oral Rehydration Drink 32.jpg"
+        "image_url": "/images/Oral Rehydration Drink 32.jpg",
+        "image": "/images/Oral Rehydration Drink 32.jpg"
     },
     {
         "id": 1114,
@@ -1949,10 +1949,10 @@
                 "price": 100
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Foot Care Cream 95.jpg",
-        "image": "../images/Personal Care/tablet/Foot Care Cream 95.jpg"
+        "image_url": "/images/Foot Care Cream 95.jpg",
+        "image": "/images/Foot Care Cream 95.jpg"
     },
     {
         "id": 1115,
@@ -1966,10 +1966,10 @@
                 "price": 140
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Himalaya Foot Care Cream 135.jpg",
-        "image": "../images/Personal Care/tablet/Himalaya Foot Care Cream 135.jpg"
+        "image_url": "/images/Himalaya Foot Care Cream 135.jpg",
+        "image": "/images/Himalaya Foot Care Cream 135.jpg"
     },
     {
         "id": 1116,
@@ -1983,10 +1983,10 @@
                 "price": 320
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Moha Foot Care Cream 318.jpg",
-        "image": "../images/Personal Care/tablet/Moha Foot Care Cream 318.jpg"
+        "image_url": "/images/Moha Foot Care Cream 318.jpg",
+        "image": "/images/Moha Foot Care Cream 318.jpg"
     },
     {
         "id": 1117,
@@ -2000,10 +2000,10 @@
                 "price": 90
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Crack Heel Repair Cream 88.jpg",
-        "image": "../images/Personal Care/tablet/Crack Heel Repair Cream 88.jpg"
+        "image_url": "/images/Crack Heel Repair Cream 88.jpg",
+        "image": "/images/Crack Heel Repair Cream 88.jpg"
     },
     {
         "id": 1118,
@@ -2017,10 +2017,10 @@
                 "price": 140
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Heelmate Cracked Heel Repair Cream 136.jpg",
-        "image": "../images/Personal Care/tablet/Heelmate Cracked Heel Repair Cream 136.jpg"
+        "image_url": "/images/Heelmate Cracked Heel Repair Cream 136.jpg",
+        "image": "/images/Heelmate Cracked Heel Repair Cream 136.jpg"
     },
     {
         "id": 1119,
@@ -2034,10 +2034,10 @@
                 "price": 350
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/lotion/Sunscreen Lotion SPF 50.jpg",
-        "image": "../images/lotion/Sunscreen Lotion SPF 50.jpg"
+        "image_url": "/images/Sunscreen Lotion SPF 50.jpg",
+        "image": "/images/Sunscreen Lotion SPF 50.jpg"
     },
     {
         "id": 1120,
@@ -2051,10 +2051,10 @@
                 "price": 75
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Lip Balm Medicated.jpg",
-        "image": "../images/Personal Care/tablet/Lip Balm Medicated.jpg"
+        "image_url": "/images/Lip Balm Medicated.jpg",
+        "image": "/images/Lip Balm Medicated.jpg"
     },
     {
         "id": 1121,
@@ -2068,10 +2068,10 @@
                 "price": 90
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Antifungal Powder 80.jpg",
-        "image": "../images/Personal Care/tablet/Antifungal Powder 80.jpg"
+        "image_url": "/images/Antifungal Powder 80.jpg",
+        "image": "/images/Antifungal Powder 80.jpg"
     },
     {
         "id": 1122,
@@ -2085,10 +2085,10 @@
                 "price": 80
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Toilet Seat Sanitizer Spray 72.jpg",
-        "image": "../images/Personal Care/tablet/Toilet Seat Sanitizer Spray 72.jpg"
+        "image_url": "/images/Toilet Seat Sanitizer Spray 72.jpg",
+        "image": "/images/Toilet Seat Sanitizer Spray 72.jpg"
     },
     {
         "id": 1123,
@@ -2102,10 +2102,10 @@
                 "price": 200
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Toilet Seat Sanitizer Spray  200.jpg",
-        "image": "../images/Personal Care/tablet/Toilet Seat Sanitizer Spray  200.jpg"
+        "image_url": "/images/Toilet Seat Sanitizer Spray  200.jpg",
+        "image": "/images/Toilet Seat Sanitizer Spray  200.jpg"
     },
     {
         "id": 1124,
@@ -2119,10 +2119,10 @@
                 "price": 200
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Evereve Pee Secure Toilet Seat Sanitizer Spray Combo 190.jpg",
-        "image": "../images/Personal Care/tablet/Evereve Pee Secure Toilet Seat Sanitizer Spray Combo 190.jpg"
+        "image_url": "/images/Evereve Pee Secure Toilet Seat Sanitizer Spray Combo 190.jpg",
+        "image": "/images/Evereve Pee Secure Toilet Seat Sanitizer Spray Combo 190.jpg"
     },
     {
         "id": 1125,
@@ -2136,10 +2136,10 @@
                 "price": 220
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Harpic Toilet Seat Sanitizer & Disinfectant Spray 210.jpg",
-        "image": "../images/Personal Care/tablet/Harpic Toilet Seat Sanitizer & Disinfectant Spray 210.jpg"
+        "image_url": "/images/Harpic Toilet Seat Sanitizer & Disinfectant Spray 210.jpg",
+        "image": "/images/Harpic Toilet Seat Sanitizer & Disinfectant Spray 210.jpg"
     },
     {
         "id": 1126,
@@ -2153,10 +2153,10 @@
                 "price": 220
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Disinfectant Surface Spray 169.jpg",
-        "image": "../images/Personal Care/tablet/Disinfectant Surface Spray 169.jpg"
+        "image_url": "/images/Disinfectant Surface Spray 169.jpg",
+        "image": "/images/Disinfectant Surface Spray 169.jpg"
     },
     {
         "id": 1127,
@@ -2170,10 +2170,10 @@
                 "price": 170
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Vitamin B-Complex Tablets.jpg",
-        "image": "../images/Personal Care/tablet/Vitamin B-Complex Tablets.jpg"
+        "image_url": "/images/Vitamin B-Complex Tablets.jpg",
+        "image": "/images/Vitamin B-Complex Tablets.jpg"
     },
     {
         "id": 1128,
@@ -2187,10 +2187,10 @@
                 "price": 450
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Omega 3 Fish Oil Capsules.jpg",
-        "image": "../images/Personal Care/tablet/Omega 3 Fish Oil Capsules.jpg"
+        "image_url": "/images/Omega 3 Fish Oil Capsules.jpg",
+        "image": "/images/Omega 3 Fish Oil Capsules.jpg"
     },
     {
         "id": 1129,
@@ -2204,10 +2204,10 @@
                 "price": 900
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Collagen Powder.jpg",
-        "image": "../images/Personal Care/tablet/Collagen Powder.jpg"
+        "image_url": "/images/Collagen Powder.jpg",
+        "image": "/images/Collagen Powder.jpg"
     },
     {
         "id": 1130,
@@ -2221,10 +2221,10 @@
                 "price": 420
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Protein Bars 420.jpg",
-        "image": "../images/Personal Care/tablet/Protein Bars 420.jpg"
+        "image_url": "/images/Protein Bars 420.jpg",
+        "image": "/images/Protein Bars 420.jpg"
     },
     {
         "id": 1131,
@@ -2238,10 +2238,10 @@
                 "price": 360
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Energy Drink Powder.jpg",
-        "image": "../images/Personal Care/tablet/Energy Drink Powder.jpg"
+        "image_url": "/images/Energy Drink Powder.jpg",
+        "image": "/images/Energy Drink Powder.jpg"
     },
     {
         "id": 1132,
@@ -2255,10 +2255,10 @@
                 "price": 295
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Anti-Itch Cream 290.jpg",
-        "image": "../images/Personal Care/tablet/Anti-Itch Cream 290.jpg"
+        "image_url": "/images/Anti-Itch Cream 290.jpg",
+        "image": "/images/Anti-Itch Cream 290.jpg"
     },
     {
         "id": 1133,
@@ -2272,10 +2272,10 @@
                 "price": 110
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Skin Rash Ointment.jpg",
-        "image": "../images/Personal Care/tablet/Skin Rash Ointment.jpg"
+        "image_url": "/images/Skin Rash Ointment.jpg",
+        "image": "/images/Skin Rash Ointment.jpg"
     },
     {
         "id": 1134,
@@ -2289,10 +2289,10 @@
                 "price": 250
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Acne Treatment Gel 230.jpg",
-        "image": "../images/Personal Care/tablet/Acne Treatment Gel 230.jpg"
+        "image_url": "/images/Acne Treatment Gel 230.jpg",
+        "image": "/images/Acne Treatment Gel 230.jpg"
     },
     {
         "id": 1135,
@@ -2306,10 +2306,10 @@
                 "price": 250
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Benzoyl Peroxide Acne Treatment Gel 79.jpg",
-        "image": "../images/Personal Care/tablet/Benzoyl Peroxide Acne Treatment Gel 79.jpg"
+        "image_url": "/images/Benzoyl Peroxide Acne Treatment Gel 79.jpg",
+        "image": "/images/Benzoyl Peroxide Acne Treatment Gel 79.jpg"
     },
     {
         "id": 1136,
@@ -2323,10 +2323,10 @@
                 "price": 520
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Scar Removal Gel 500.jpg",
-        "image": "../images/Personal Care/tablet/Scar Removal Gel 500.jpg"
+        "image_url": "/images/Scar Removal Gel 500.jpg",
+        "image": "/images/Scar Removal Gel 500.jpg"
     },
     {
         "id": 1137,
@@ -2340,10 +2340,10 @@
                 "price": 170
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Hair Loss Tablets refollium biotin 169.jpg",
-        "image": "../images/Personal Care/tablet/Hair Loss Tablets refollium biotin 169.jpg"
+        "image_url": "/images/Hair Loss Tablets refollium biotin 169.jpg",
+        "image": "/images/Hair Loss Tablets refollium biotin 169.jpg"
     },
     {
         "id": 1138,
@@ -2357,10 +2357,10 @@
                 "price": 600
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Beard Growth Oil 419-600.jpg",
-        "image": "../images/Personal Care/tablet/Beard Growth Oil 419-600.jpg"
+        "image_url": "/images/Beard Growth Oil 419-600.jpg",
+        "image": "/images/Beard Growth Oil 419-600.jpg"
     },
     {
         "id": 1139,
@@ -2374,10 +2374,10 @@
                 "price": 600
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Bombay Shaving Company Beard Growth Oil 250-400.jpg",
-        "image": "../images/Personal Care/tablet/Bombay Shaving Company Beard Growth Oil 250-400.jpg"
+        "image_url": "/images/Bombay Shaving Company Beard Growth Oil 250-400.jpg",
+        "image": "/images/Bombay Shaving Company Beard Growth Oil 250-400.jpg"
     },
     {
         "id": 1140,
@@ -2391,10 +2391,10 @@
                 "price": 390
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Urban Gabru Beard Booster Growth Oil 380.jpg",
-        "image": "../images/Personal Care/tablet/Urban Gabru Beard Booster Growth Oil 380.jpg"
+        "image_url": "/images/Urban Gabru Beard Booster Growth Oil 380.jpg",
+        "image": "/images/Urban Gabru Beard Booster Growth Oil 380.jpg"
     },
     {
         "id": 1141,
@@ -2408,10 +2408,10 @@
                 "price": 350
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Ustraa Beard Growth Oil 330.jpg",
-        "image": "../images/Personal Care/tablet/Ustraa Beard Growth Oil 330.jpg"
+        "image_url": "/images/Ustraa Beard Growth Oil 330.jpg",
+        "image": "/images/Ustraa Beard Growth Oil 330.jpg"
     },
     {
         "id": 1142,
@@ -2425,10 +2425,10 @@
                 "price": 360
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Nourish Mantra Advanced Beard Growth Oil Serum 360.jpg",
-        "image": "../images/Personal Care/tablet/Nourish Mantra Advanced Beard Growth Oil Serum 360.jpg"
+        "image_url": "/images/Nourish Mantra Advanced Beard Growth Oil Serum 360.jpg",
+        "image": "/images/Nourish Mantra Advanced Beard Growth Oil Serum 360.jpg"
     },
     {
         "id": 1143,
@@ -2442,10 +2442,10 @@
                 "price": 550
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/MAX-G Hefty Beard Growth Oil 50 ml Bottle 550.jpg",
-        "image": "../images/Personal Care/tablet/MAX-G Hefty Beard Growth Oil 50 ml Bottle 550.jpg"
+        "image_url": "/images/MAX-G Hefty Beard Growth Oil 50 ml Bottle 550.jpg",
+        "image": "/images/MAX-G Hefty Beard Growth Oil 50 ml Bottle 550.jpg"
     },
     {
         "id": 1144,
@@ -2459,10 +2459,10 @@
                 "price": 180
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Baby Diaper Rash Cream.jpg",
-        "image": "../images/Personal Care/tablet/Baby Diaper Rash Cream.jpg"
+        "image_url": "/images/Baby Diaper Rash Cream.jpg",
+        "image": "/images/Baby Diaper Rash Cream.jpg"
     },
     {
         "id": 1145,
@@ -2476,10 +2476,10 @@
                 "price": 900
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Thermometer (Infrared) 870.jpg",
-        "image": "../images/Personal Care/tablet/Thermometer (Infrared) 870.jpg"
+        "image_url": "/images/Thermometer (Infrared) 870.jpg",
+        "image": "/images/Thermometer (Infrared) 870.jpg"
     },
     {
         "id": 1146,
@@ -2493,10 +2493,10 @@
                 "price": 1400
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Dr Trust USA Forehead Digital Infrared Thermometer 1400.jpg",
-        "image": "../images/Personal Care/tablet/Dr Trust USA Forehead Digital Infrared Thermometer 1400.jpg"
+        "image_url": "/images/Dr Trust USA Forehead Digital Infrared Thermometer 1400.jpg",
+        "image": "/images/Dr Trust USA Forehead Digital Infrared Thermometer 1400.jpg"
     },
     {
         "id": 1147,
@@ -2510,10 +2510,10 @@
                 "price": 120
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Ice Gel Pack.jpg",
-        "image": "../images/Personal Care/tablet/Ice Gel Pack.jpg"
+        "image_url": "/images/Ice Gel Pack.jpg",
+        "image": "/images/Ice Gel Pack.jpg"
     },
     {
         "id": 1148,
@@ -2527,10 +2527,10 @@
                 "price": 1000
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Dr. Odin Electric Heating Pad 1000.jpg",
-        "image": "../images/Personal Care/tablet/Dr. Odin Electric Heating Pad 1000.jpg"
+        "image_url": "/images/Dr. Odin Electric Heating Pad 1000.jpg",
+        "image": "/images/Dr. Odin Electric Heating Pad 1000.jpg"
     },
     {
         "id": 1149,
@@ -2544,10 +2544,10 @@
                 "price": 190
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/electric heating pad multicolour 160.jpg",
-        "image": "../images/Personal Care/tablet/electric heating pad multicolour 160.jpg"
+        "image_url": "/images/electric heating pad multicolour 160.jpg",
+        "image": "/images/electric heating pad multicolour 160.jpg"
     },
     {
         "id": 1150,
@@ -2561,10 +2561,10 @@
                 "price": 9000
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Wheelchair Manual 9000.jpg",
-        "image": "../images/Personal Care/tablet/Wheelchair Manual 9000.jpg"
+        "image_url": "/images/Wheelchair Manual 9000.jpg",
+        "image": "/images/Wheelchair Manual 9000.jpg"
     },
     {
         "id": 1151,
@@ -2578,10 +2578,10 @@
                 "price": 400
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Walking Stick 400.jpg",
-        "image": "../images/Personal Care/tablet/Walking Stick 400.jpg"
+        "image_url": "/images/Walking Stick 400.jpg",
+        "image": "/images/Walking Stick 400.jpg"
     },
     {
         "id": 1152,
@@ -2595,10 +2595,10 @@
                 "price": 500
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Walking Stick 475.jpg",
-        "image": "../images/Personal Care/tablet/Walking Stick 475.jpg"
+        "image_url": "/images/Walking Stick 475.jpg",
+        "image": "/images/Walking Stick 475.jpg"
     },
     {
         "id": 1153,
@@ -2612,10 +2612,10 @@
                 "price": 1200
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Dr Trust USA Orthopedic King Size Cervical Pillow 1200.jpg",
-        "image": "../images/Personal Care/tablet/Dr Trust USA Orthopedic King Size Cervical Pillow 1200.jpg"
+        "image_url": "/images/Dr Trust USA Orthopedic King Size Cervical Pillow 1200.jpg",
+        "image": "/images/Dr Trust USA Orthopedic King Size Cervical Pillow 1200.jpg"
     },
     {
         "id": 1154,
@@ -2629,10 +2629,10 @@
                 "price": 1200
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Dr Trust USA Orthopedic King Size Cervical Pillow 700.jpg",
-        "image": "../images/Personal Care/tablet/Dr Trust USA Orthopedic King Size Cervical Pillow 700.jpg"
+        "image_url": "/images/Dr Trust USA Orthopedic King Size Cervical Pillow 700.jpg",
+        "image": "/images/Dr Trust USA Orthopedic King Size Cervical Pillow 700.jpg"
     },
     {
         "id": 1155,
@@ -2646,10 +2646,10 @@
                 "price": 350
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Cervical Collar 300.jpg",
-        "image": "../images/Personal Care/tablet/Cervical Collar 300.jpg"
+        "image_url": "/images/Cervical Collar 300.jpg",
+        "image": "/images/Cervical Collar 300.jpg"
     },
     {
         "id": 1156,
@@ -2663,10 +2663,10 @@
                 "price": 350
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Dyna Soft Cervical Collar 420.jpg",
-        "image": "../images/Personal Care/tablet/Dyna Soft Cervical Collar 420.jpg"
+        "image_url": "/images/Dyna Soft Cervical Collar 420.jpg",
+        "image": "/images/Dyna Soft Cervical Collar 420.jpg"
     },
     {
         "id": 1157,
@@ -2680,10 +2680,10 @@
                 "price": 250
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Nivia Orthopedic Basic Elbow Support 180.jpg",
-        "image": "../images/Personal Care/tablet/Nivia Orthopedic Basic Elbow Support 180.jpg"
+        "image_url": "/images/Nivia Orthopedic Basic Elbow Support 180.jpg",
+        "image": "/images/Nivia Orthopedic Basic Elbow Support 180.jpg"
     },
     {
         "id": 1158,
@@ -2697,10 +2697,10 @@
                 "price": 290
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Fovera Elbow Support Brace with Strap 280.jpg",
-        "image": "../images/Personal Care/tablet/Fovera Elbow Support Brace with Strap 280.jpg"
+        "image_url": "/images/Fovera Elbow Support Brace with Strap 280.jpg",
+        "image": "/images/Fovera Elbow Support Brace with Strap 280.jpg"
     },
     {
         "id": 1159,
@@ -2714,10 +2714,10 @@
                 "price": 200
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Lite Feel Hand And Wrist Support Band 200.jpg",
-        "image": "../images/Personal Care/tablet/Lite Feel Hand And Wrist Support Band 200.jpg"
+        "image_url": "/images/Lite Feel Hand And Wrist Support Band 200.jpg",
+        "image": "/images/Lite Feel Hand And Wrist Support Band 200.jpg"
     },
     {
         "id": 1160,
@@ -2731,10 +2731,10 @@
                 "price": 200
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Lite Feel Hand And Wrist Support Band 360.jpg",
-        "image": "../images/Personal Care/tablet/Lite Feel Hand And Wrist Support Band 360.jpg"
+        "image_url": "/images/Lite Feel Hand And Wrist Support Band 360.jpg",
+        "image": "/images/Lite Feel Hand And Wrist Support Band 360.jpg"
     },
     {
         "id": 1161,
@@ -2748,10 +2748,10 @@
                 "price": 790
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Compression Stockings 790.jpg",
-        "image": "../images/Personal Care/tablet/Compression Stockings 790.jpg"
+        "image_url": "/images/Compression Stockings 790.jpg",
+        "image": "/images/Compression Stockings 790.jpg"
     },
     {
         "id": 1162,
@@ -2765,10 +2765,10 @@
                 "price": 650
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Diabetes Care Powder 625.jpg",
-        "image": "../images/Personal Care/tablet/Diabetes Care Powder 625.jpg"
+        "image_url": "/images/Diabetes Care Powder 625.jpg",
+        "image": "/images/Diabetes Care Powder 625.jpg"
     },
     {
         "id": 1163,
@@ -2782,10 +2782,10 @@
                 "price": 260
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Sugar-Free Tablets 260.jpg",
-        "image": "../images/Personal Care/tablet/Sugar-Free Tablets 260.jpg"
+        "image_url": "/images/Sugar-Free Tablets 260.jpg",
+        "image": "/images/Sugar-Free Tablets 260.jpg"
     },
     {
         "id": 1164,
@@ -2799,10 +2799,10 @@
                 "price": 380
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Herbal Tea (Immunity) 380.jpg",
-        "image": "../images/Personal Care/tablet/Herbal Tea (Immunity) 380.jpg"
+        "image_url": "/images/Herbal Tea (Immunity) 380.jpg",
+        "image": "/images/Herbal Tea (Immunity) 380.jpg"
     },
     {
         "id": 1165,
@@ -2816,10 +2816,10 @@
                 "price": 800
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Immunity Herbal Tea 800.jpg",
-        "image": "../images/Personal Care/tablet/Immunity Herbal Tea 800.jpg"
+        "image_url": "/images/Immunity Herbal Tea 800.jpg",
+        "image": "/images/Immunity Herbal Tea 800.jpg"
     },
     {
         "id": 1166,
@@ -2833,10 +2833,10 @@
                 "price": 170
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Spice Sip Natural Immunity Booster Herbal Tea165.jpg",
-        "image": "../images/Personal Care/tablet/Spice Sip Natural Immunity Booster Herbal Tea165.jpg"
+        "image_url": "/images/Spice Sip Natural Immunity Booster Herbal Tea165.jpg",
+        "image": "/images/Spice Sip Natural Immunity Booster Herbal Tea165.jpg"
     },
     {
         "id": 1167,
@@ -2850,10 +2850,10 @@
                 "price": 300
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Detox Juice 300.webp",
-        "image": "../images/Personal Care/tablet/Detox Juice 300.webp"
+        "image_url": "/images/Detox Juice 300.webp",
+        "image": "/images/Detox Juice 300.webp"
     },
     {
         "id": 1168,
@@ -2867,10 +2867,10 @@
                 "price": 420
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Ayurvedic Detox Juice 1000 ml Pack of 1 Krishna's Herbal & Ayurveda 420.jpg",
-        "image": "../images/Personal Care/tablet/Ayurvedic Detox Juice 1000 ml Pack of 1 Krishna's Herbal & Ayurveda 420.jpg"
+        "image_url": "/images/Ayurvedic Detox Juice 1000 ml Pack of 1 Krishna's Herbal & Ayurveda 420.jpg",
+        "image": "/images/Ayurvedic Detox Juice 1000 ml Pack of 1 Krishna's Herbal & Ayurveda 420.jpg"
     },
     {
         "id": 1169,
@@ -2884,10 +2884,10 @@
                 "price": 300
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Detox Juice with Wheatgrass & Amla 300.jpg",
-        "image": "../images/Personal Care/tablet/Detox Juice with Wheatgrass & Amla 300.jpg"
+        "image_url": "/images/Detox Juice with Wheatgrass & Amla 300.jpg",
+        "image": "/images/Detox Juice with Wheatgrass & Amla 300.jpg"
     },
     {
         "id": 1170,
@@ -2901,10 +2901,10 @@
                 "price": 450
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Detox Juice with Wheatgrass & Amla 450.jpg",
-        "image": "../images/Personal Care/tablet/Detox Juice with Wheatgrass & Amla 450.jpg"
+        "image_url": "/images/Detox Juice with Wheatgrass & Amla 450.jpg",
+        "image": "/images/Detox Juice with Wheatgrass & Amla 450.jpg"
     },
     {
         "id": 1171,
@@ -2918,10 +2918,10 @@
                 "price": 320
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Multigrain Health Mix 300.jpg",
-        "image": "../images/Personal Care/tablet/Multigrain Health Mix 300.jpg"
+        "image_url": "/images/Multigrain Health Mix 300.jpg",
+        "image": "/images/Multigrain Health Mix 300.jpg"
     },
     {
         "id": 1172,
@@ -2935,10 +2935,10 @@
                 "price": 160
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Lion Health Mix Multigrain  160.jpg",
-        "image": "../images/Personal Care/tablet/Lion Health Mix Multigrain  160.jpg"
+        "image_url": "/images/Lion Health Mix Multigrain  160.jpg",
+        "image": "/images/Lion Health Mix Multigrain  160.jpg"
     },
     {
         "id": 1173,
@@ -2952,10 +2952,10 @@
                 "price": 180
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Manna Health Multigrain Mix 165.jpg",
-        "image": "../images/Personal Care/tablet/Manna Health Multigrain Mix 165.jpg"
+        "image_url": "/images/Manna Health Multigrain Mix 165.jpg",
+        "image": "/images/Manna Health Multigrain Mix 165.jpg"
     },
     {
         "id": 1174,
@@ -2969,10 +2969,10 @@
                 "price": 220
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Adult Diapers 210.jpg",
-        "image": "../images/Personal Care/tablet/Adult Diapers 210.jpg"
+        "image_url": "/images/Adult Diapers 210.jpg",
+        "image": "/images/Adult Diapers 210.jpg"
     },
     {
         "id": 1175,
@@ -2986,10 +2986,10 @@
                 "price": 500
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Dignity Premium Adult Diapers 500.jpg",
-        "image": "../images/Personal Care/tablet/Dignity Premium Adult Diapers 500.jpg"
+        "image_url": "/images/Dignity Premium Adult Diapers 500.jpg",
+        "image": "/images/Dignity Premium Adult Diapers 500.jpg"
     },
     {
         "id": 1176,
@@ -3003,10 +3003,10 @@
                 "price": 410
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Himalaya Adult Diapers Pants 10'S 410.jpg",
-        "image": "../images/Personal Care/tablet/Himalaya Adult Diapers Pants 10'S 410.jpg"
+        "image_url": "/images/Himalaya Adult Diapers Pants 10'S 410.jpg",
+        "image": "/images/Himalaya Adult Diapers Pants 10'S 410.jpg"
     },
     {
         "id": 1177,
@@ -3020,10 +3020,10 @@
                 "price": 140
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Folic Acid Tablets 60.jpg",
-        "image": "../images/Personal Care/tablet/Folic Acid Tablets 60.jpg"
+        "image_url": "/images/Folic Acid Tablets 60.jpg",
+        "image": "/images/Folic Acid Tablets 60.jpg"
     },
     {
         "id": 1178,
@@ -3037,10 +3037,10 @@
                 "price": 370
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/INLIFE Iron Folic Acid Supplement 60 Tablets 352.jpg",
-        "image": "../images/Personal Care/tablet/INLIFE Iron Folic Acid Supplement 60 Tablets 352.jpg"
+        "image_url": "/images/INLIFE Iron Folic Acid Supplement 60 Tablets 352.jpg",
+        "image": "/images/INLIFE Iron Folic Acid Supplement 60 Tablets 352.jpg"
     },
     {
         "id": 1179,
@@ -3054,10 +3054,10 @@
                 "price": 40
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Intas Folitas 5mg Folic Acid Tablets 30.jpg",
-        "image": "../images/Personal Care/tablet/Intas Folitas 5mg Folic Acid Tablets 30.jpg"
+        "image_url": "/images/Intas Folitas 5mg Folic Acid Tablets 30.jpg",
+        "image": "/images/Intas Folitas 5mg Folic Acid Tablets 30.jpg"
     },
     {
         "id": 1180,
@@ -3071,10 +3071,10 @@
                 "price": 790
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Magnesium Supplements.jpg",
-        "image": "../images/Personal Care/tablet/Magnesium Supplements.jpg"
+        "image_url": "/images/Magnesium Supplements.jpg",
+        "image": "/images/Magnesium Supplements.jpg"
     },
     {
         "id": 1181,
@@ -3088,10 +3088,10 @@
                 "price": 260
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Electrolyte Tablets 250.jpg",
-        "image": "../images/Personal Care/tablet/Electrolyte Tablets 250.jpg"
+        "image_url": "/images/Electrolyte Tablets 250.jpg",
+        "image": "/images/Electrolyte Tablets 250.jpg"
     },
     {
         "id": 1182,
@@ -3105,10 +3105,10 @@
                 "price": 120
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Anti-Diarrheal Tablets 120.jpg",
-        "image": "../images/Personal Care/tablet/Anti-Diarrheal Tablets 120.jpg"
+        "image_url": "/images/Anti-Diarrheal Tablets 120.jpg",
+        "image": "/images/Anti-Diarrheal Tablets 120.jpg"
     },
     {
         "id": 1183,
@@ -3122,10 +3122,10 @@
                 "price": 190
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Laxative Syrup 185.jpg",
-        "image": "../images/Personal Care/tablet/Laxative Syrup 185.jpg"
+        "image_url": "/images/Laxative Syrup 185.jpg",
+        "image": "/images/Laxative Syrup 185.jpg"
     },
     {
         "id": 1184,
@@ -3139,10 +3139,10 @@
                 "price": 85
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Gas Relief Tablets.jpg",
-        "image": "../images/Personal Care/tablet/Gas Relief Tablets.jpg"
+        "image_url": "/images/Gas Relief Tablets.jpg",
+        "image": "/images/Gas Relief Tablets.jpg"
     },
     {
         "id": 1185,
@@ -3156,10 +3156,10 @@
                 "price": 75
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Motion Sickness Tablets.jpg",
-        "image": "../images/Personal Care/tablet/Motion Sickness Tablets.jpg"
+        "image_url": "/images/Motion Sickness Tablets.jpg",
+        "image": "/images/Motion Sickness Tablets.jpg"
     },
     {
         "id": 1186,
@@ -3173,10 +3173,10 @@
                 "price": 110
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Sleep Aid Tablets.jpg",
-        "image": "../images/Personal Care/tablet/Sleep Aid Tablets.jpg"
+        "image_url": "/images/Sleep Aid Tablets.jpg",
+        "image": "/images/Sleep Aid Tablets.jpg"
     },
     {
         "id": 1187,
@@ -3190,10 +3190,10 @@
                 "price": 2200
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Stress Relief Capsules.jpg",
-        "image": "../images/Personal Care/tablet/Stress Relief Capsules.jpg"
+        "image_url": "/images/Stress Relief Capsules.jpg",
+        "image": "/images/Stress Relief Capsules.jpg"
     },
     {
         "id": 1188,
@@ -3207,10 +3207,10 @@
                 "price": 590
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Memory Booster Syrup.jpg",
-        "image": "../images/Personal Care/tablet/Memory Booster Syrup.jpg"
+        "image_url": "/images/Memory Booster Syrup.jpg",
+        "image": "/images/Memory Booster Syrup.jpg"
     },
     {
         "id": 1189,
@@ -3224,10 +3224,10 @@
                 "price": 1200
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Joint Support Capsules 800-1200.jpg",
-        "image": "../images/Personal Care/tablet/Joint Support Capsules 800-1200.jpg"
+        "image_url": "/images/Joint Support Capsules 800-1200.jpg",
+        "image": "/images/Joint Support Capsules 800-1200.jpg"
     },
     {
         "id": 1190,
@@ -3241,10 +3241,10 @@
                 "price": 630
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Bone Health Powder 630.jpg",
-        "image": "../images/Personal Care/tablet/Bone Health Powder 630.jpg"
+        "image_url": "/images/Bone Health Powder 630.jpg",
+        "image": "/images/Bone Health Powder 630.jpg"
     },
     {
         "id": 1191,
@@ -3258,9 +3258,9 @@
                 "price": 350
             }
         ],
-        "emoji": "\ud83d\udc8a",
+        "emoji": "💊",
         "description_en": "Trusted quality health product",
-        "image_url": "../images/Personal Care/tablet/Kids Multivitamin Gummies.jpg",
-        "image": "../images/Personal Care/tablet/Kids Multivitamin Gummies.jpg"
+        "image_url": "/images/Kids Multivitamin Gummies.jpg",
+        "image": "/images/Kids Multivitamin Gummies.jpg"
     }
 ]

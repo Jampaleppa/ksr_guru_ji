@@ -82,7 +82,7 @@ if (pp_is_post()) {
 
     // --- uniqueness ---
     if (!$errors) {
-        $hasMobile = in_array('mobile', pp_db()->query("SHOW COLUMNS FROM users")->fetchAll(PDO::FETCH_COLUMN), true);
+        $hasMobile = in_array('mobile', pp_columns('users'), true);
         $chk = $hasMobile
             ? pp_db()->prepare("SELECT id FROM users WHERE mobile = ? OR email = ? LIMIT 1")
             : pp_db()->prepare("SELECT id FROM users WHERE phone = ? OR email = ? LIMIT 1");
@@ -96,7 +96,8 @@ if (pp_is_post()) {
         try {
             pp_db()->beginTransaction();
 
-            $hasMobile = in_array('mobile', pp_db()->query("SHOW COLUMNS FROM users")->fetchAll(PDO::FETCH_COLUMN), true);
+            $hasMobile = in_array('mobile', pp_columns('users'), true);
+
             $sql = "INSERT INTO users (name, email, phone, password, address, role"
                 . ($hasMobile ? ', mobile, account_status' : '')
                 . ") VALUES (?, ?, ?, ?, ?, 'customer'"
@@ -137,6 +138,27 @@ if (pp_is_post()) {
             ]);
 
             pp_db()->commit();
+
+            // ── WhatsApp registration success message ──────────────────────────────
+            // Non-blocking: WhatsApp failure must never break the registration flow.
+            try {
+                $waMobile = preg_replace('/\D+/', '', $old['mobile']);
+                if (strlen($waMobile) === 10) { $waMobile = '91' . $waMobile; }
+                if ($waMobile !== '') {
+                    require_once __DIR__ . '/admin/inc/whatsapp/WhatsAppFactory.php';
+                    $wa = WhatsAppFactory::make(pp_db());
+                    $wa->sendMessage($waMobile,
+                        "🎉 *Welcome to KSR GURU JI!*\n\n" .
+                        "Hello *{$old['full_name']}*,\n" .
+                        "Your patient account has been created successfully.\n\n" .
+                        "🛡️ Patient Portal: https://ksrgurujiupload.vercel.app/patient-login.php\n" .
+                        "📞 Support: 6362079192\n\n" .
+                        "Please verify your mobile number to activate your account."
+                    );
+                }
+            } catch (Throwable $waEx) {
+                error_log('[patient-register WhatsApp] ' . $waEx->getMessage());
+            }
 
             pp_clear_failures('register:' . pp_ip());
             $_SESSION['pending_verify_user'] = $userId;

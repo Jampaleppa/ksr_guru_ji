@@ -89,8 +89,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
             exit;
         }
 
-        require_once '../api/razorpay_helper.php';
-        require_once '../api/payment_state.php';
+        if (file_exists(__DIR__ . '/razorpay_helper.php')) {
+            require_once __DIR__ . '/razorpay_helper.php';
+        } else {
+            require_once __DIR__ . '/../api/razorpay_helper.php';
+        }
+        if (file_exists(__DIR__ . '/payment_state.php')) {
+            require_once __DIR__ . '/payment_state.php';
+        } else {
+            require_once __DIR__ . '/../api/payment_state.php';
+        }
 
         if (empty($razorpay_payment_id) || empty($razorpay_order_id) || empty($razorpay_signature)) {
             echo json_encode(['success' => false, 'error' => 'Missing verification signatures.']);
@@ -349,8 +357,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
         $clientTotal     = (float)($_POST['total'] ?? 0);
         $deliveryCharge  = (float)($_POST['delivery_charge'] ?? 0);
 
-        require_once '../api/pricing.php';
-        require_once '../api/payment_state.php';
+        if (file_exists(__DIR__ . '/pricing.php')) {
+            require_once __DIR__ . '/pricing.php';
+        } else {
+            require_once __DIR__ . '/../api/pricing.php';
+        }
+        if (file_exists(__DIR__ . '/payment_state.php')) {
+            require_once __DIR__ . '/payment_state.php';
+        } else {
+            require_once __DIR__ . '/../api/payment_state.php';
+        }
 
         // Validation
         $errors = [];
@@ -404,19 +420,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
 
             // Generate order number
             $year = date('Y');
-            $stmt = $pdo->query("SELECT COUNT(*) FROM orders WHERE YEAR(created_at) = $year");
-            $count = $stmt->fetchColumn();
+            $isSqlite = ($pdo->getAttribute(PDO::ATTR_DRIVER_NAME) === 'sqlite');
+            $countSql = $isSqlite
+                ? "SELECT COUNT(*) FROM orders WHERE strftime('%Y', created_at) = '$year'"
+                : "SELECT COUNT(*) FROM orders WHERE YEAR(created_at) = $year";
+            $stmt = $pdo->query($countSql);
+            $count = $stmt ? (int)$stmt->fetchColumn() : 0;
             $orderNumber = 'KSR-' . $year . '-' . str_pad($count + 1, 4, '0', STR_PAD_LEFT);
 
             // Determine payment status
             $payment_status = 'pending';
 
             // Insert order (transaction_id will be populated with Razorpay Order ID for online payments)
+            $nowExpr = $isSqlite ? "datetime('now')" : "NOW()";
             $stmt = $pdo->prepare("
                 INSERT INTO orders (
                     order_number, user_id, name, email, phone, address, city, state, pincode,
                     total, payment_method, transaction_id, payment_status, notes, status, created_at
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending', NOW())
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending', $nowExpr)
             ");
 
             $stmt->execute([
@@ -515,7 +536,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
 
             // Generate Razorpay Order if not COD
             if ($payment_method !== 'cod') {
-                require_once '../api/razorpay_helper.php';
+                if (file_exists(__DIR__ . '/razorpay_helper.php')) {
+                    require_once __DIR__ . '/razorpay_helper.php';
+                } else {
+                    require_once __DIR__ . '/../api/razorpay_helper.php';
+                }
 
                 $rzpOrder = RazorpayHelper::createOrder($total, $orderNumber);
 

@@ -8,6 +8,7 @@ $appDate = $_POST['date'] ?? 'September 6, 2026';
 $appTime = $_POST['time'] ?? '02:30 PM';
 $totalFee = (float)($_POST['amount'] ?? 140);
 $patientName = $_POST['patient_name'] ?? 'Jampaleppa';
+$patientMobile = !empty($_POST['patient_mobile']) ? trim((string)$_POST['patient_mobile']) : (!empty($_SESSION['user_mobile']) ? $_SESSION['user_mobile'] : '6362079192');
 
 $pdo = getAssistDB();
 
@@ -270,6 +271,7 @@ if (!$doctor) {
     <input type="hidden" name="time" value="<?php echo htmlspecialchars((string)$appTime); ?>">
     <input type="hidden" name="amount" value="<?php echo htmlspecialchars((string)$totalFee); ?>">
     <input type="hidden" name="patient_name" value="<?php echo htmlspecialchars((string)$patientName); ?>">
+    <input type="hidden" name="patient_mobile" value="<?php echo htmlspecialchars((string)$patientMobile); ?>">
     <input type="hidden" name="payment_method" id="form-pay-method" value="UPI">
     <!-- Generate txn id -->
     <input type="hidden" name="txn_id" id="form-txn-id" value="<?php echo 'UPI-' . rand(1000000000, 9999999999); ?>">

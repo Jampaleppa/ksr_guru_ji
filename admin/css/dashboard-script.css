@@ -1,1 +1,87 @@
 /* KSR GURU JI - Admin Dashboard Script Style Stub */
+/* ============================================================
+   KSR GURU JI - Admin Dashboard Responsive Styles
+   (loaded by users.php alongside admin-theme.css)
+   ============================================================ */
+
+/* Make any unwrapped table scrollable instead of breaking layout */
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border-radius: 12px;
+}
+
+.table-container table {
+    min-width: 720px;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* User rows become stacked cards on mobile */
+@media (max-width: 768px) {
+    .table-container table {
+        min-width: 0;
+        display: block;
+    }
+
+    .table-container thead {
+        display: none;
+    }
+
+    .table-container tbody,
+    .table-container tr,
+    .table-container td {
+        display: block;
+        width: 100%;
+    }
+
+    .table-container tr {
+        background: var(--card-bg, #fff);
+        border: 1px solid var(--border-light, rgba(15, 123, 58, 0.08));
+        border-radius: 12px;
+        margin-bottom: 12px;
+        padding: 6px 0;
+        box-shadow: 0 2px 8px rgba(15, 123, 58, 0.05);
+    }
+
+    .table-container td {
+        padding: 8px 14px;
+        text-align: left !important;
+        border: none;
+        word-break: break-word;
+    }
+
+    .table-container td:last-child {
+        padding-bottom: 12px;
+    }
+
+    .table-container td button,
+    .table-container td .btn {
+        width: 100%;
+        margin-top: 6px;
+    }
+}
+
+/* Sticky mobile action bar hook */
+.mobile-action-bar {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .mobile-action-bar {
+        display: flex;
+        position: sticky;
+        bottom: 0;
+        z-index: 50;
+        gap: 8px;
+        padding: 10px 12px;
+        background: var(--card-bg, #fff);
+        border-top: 1px solid var(--border-light, rgba(15, 123, 58, 0.08));
+        box-shadow: 0 -4px 16px rgba(15, 123, 58, 0.08);
+    }
+
+    .mobile-action-bar .btn {
+        flex: 1;
+    }
+}

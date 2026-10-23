@@ -12,7 +12,8 @@ require_once 'includes/db.php';
 /**
  * Get all products with optional category filter and search
  */
-function getProducts($category = '', $search = '') {
+function getProducts($category = '', $search = '')
+{
     $pdo = getDBConnection();
     $sql = "SELECT p.*, c.name as category_name 
             FROM products p 
@@ -46,7 +47,8 @@ function getProducts($category = '', $search = '') {
  * @param int $id
  * @return array|false
  */
-function getProductById(int $id) {
+function getProductById(int $id)
+{
     $pdo = getDBConnection();
     $stmt = $pdo->prepare("SELECT p.*, c.name as category_name, c.slug as category_slug 
                            FROM products p 
@@ -62,7 +64,8 @@ function getProductById(int $id) {
  * @param int $categoryId
  * @return array
  */
-function getProductsByCategory(int $categoryId) {
+function getProductsByCategory(int $categoryId)
+{
     $pdo = getDBConnection();
     $stmt = $pdo->prepare("SELECT * FROM products WHERE category_id = ? ORDER BY name");
     $stmt->execute([$categoryId]);
@@ -75,7 +78,8 @@ function getProductsByCategory(int $categoryId) {
  * @param string $name
  * @return array
  */
-function getProductsByCategoryName(string $name) {
+function getProductsByCategoryName(string $name)
+{
     $pdo = getDBConnection();
     $stmt = $pdo->prepare("SELECT p.* FROM products p 
                            JOIN categories c ON p.category_id = c.id 
@@ -88,7 +92,8 @@ function getProductsByCategoryName(string $name) {
 /**
  * Get featured product (for AI showcase)
  */
-function getFeaturedProduct() {
+function getFeaturedProduct()
+{
     $pdo = getDBConnection();
     // Get a random product or the most popular one
     $stmt = $pdo->query("SELECT p.*, c.name as category_name 
@@ -106,37 +111,38 @@ function getFeaturedProduct() {
  * @param int $limit
  * @return array
  */
-function getRecommendations(int $productId, int $limit = 4) {
+function getRecommendations(int $productId, int $limit = 4)
+{
     $pdo = getDBConnection();
     $product = getProductById($productId);
 
     // Optimized helper to select random products matching filters
-    $getRandomRowSelect = function(array $excludeIds, ?string $categoryId = null, int $limitCount = 4) use ($pdo) {
+    $getRandomRowSelect = function (array $excludeIds, ?string $categoryId = null, int $limitCount = 4) use ($pdo) {
         $conditions = [];
         $params = [];
-        
+
         if (!empty($excludeIds)) {
             $placeholders = implode(',', array_fill(0, count($excludeIds), '?'));
             $conditions[] = "id NOT IN ($placeholders)";
             $params = array_merge($params, $excludeIds);
         }
-        
+
         if ($categoryId !== null) {
             $conditions[] = "category_id = ?";
             $params[] = $categoryId;
         }
-        
+
         $whereSql = !empty($conditions) ? "WHERE " . implode(" AND ", $conditions) : "";
-        
+
         // Fetch matching product IDs (utilizing indices)
         $stmt = $pdo->prepare("SELECT id FROM products $whereSql");
         $stmt->execute($params);
         $ids = $stmt->fetchAll(PDO::FETCH_COLUMN);
-        
+
         if (empty($ids)) {
             return [];
         }
-        
+
         // Randomize IDs in memory
         if (count($ids) <= $limitCount) {
             $selectedIds = $ids;
@@ -144,7 +150,7 @@ function getRecommendations(int $productId, int $limit = 4) {
             $randomKeys = array_rand($ids, $limitCount);
             $selectedIds = is_array($randomKeys) ? array_map(fn($key) => $ids[$key], $randomKeys) : [$ids[$randomKeys]];
         }
-        
+
         // Retrieve full records
         $loadPlaceholders = implode(',', array_fill(0, count($selectedIds), '?'));
         $stmtLoad = $pdo->prepare("SELECT p.*, c.name as category_name, c.slug as category_slug 
@@ -175,6 +181,20 @@ function getRecommendations(int $productId, int $limit = 4) {
     return array_slice($recommendations, 0, $limit);
 }
 
+function hasTableColumn(PDO $pdo, string $table, string $column): bool
+{
+    try {
+        if ($pdo->getAttribute(PDO::ATTR_DRIVER_NAME) === 'sqlite') {
+            $cols = $pdo->query("PRAGMA table_info(`$table`)")->fetchAll(PDO::FETCH_COLUMN, 1);
+            return in_array($column, $cols, true);
+        }
+        $check = $pdo->query("SHOW COLUMNS FROM `$table` LIKE " . $pdo->quote($column))->fetch();
+        return !empty($check);
+    } catch (\Throwable $e) {
+        return false;
+    }
+}
+
 /**
  * Update product stock
  *
@@ -182,11 +202,11 @@ function getRecommendations(int $productId, int $limit = 4) {
  * @param int $quantity
  * @return bool
  */
-function updateProductStock(int $productId, int $quantity) {
+function updateProductStock(int $productId, int $quantity)
+{
     $pdo = getDBConnection();
     // Check if stock column exists in products table
-    $check = $pdo->query("SHOW COLUMNS FROM products LIKE 'stock'")->fetch();
-    if (!$check) {
+    if (!hasTableColumn($pdo, 'products', 'stock')) {
         return true;
     }
     $stmt = $pdo->prepare("UPDATE products SET stock = stock - ? WHERE id = ? AND stock >= ?");
@@ -200,11 +220,11 @@ function updateProductStock(int $productId, int $quantity) {
  * @param int $quantity
  * @return bool
  */
-function isProductInStock(int $productId, int $quantity = 1) {
+function isProductInStock(int $productId, int $quantity = 1)
+{
     $pdo = getDBConnection();
     // Check if stock column exists in products table
-    $check = $pdo->query("SHOW COLUMNS FROM products LIKE 'stock'")->fetch();
-    if (!$check) {
+    if (!hasTableColumn($pdo, 'products', 'stock')) {
         return true;
     }
     $stmt = $pdo->prepare("SELECT stock FROM products WHERE id = ?");
@@ -220,7 +240,8 @@ function isProductInStock(int $productId, int $quantity = 1) {
 /**
  * Get all categories
  */
-function getCategories() {
+function getCategories()
+{
     $pdo = getDBConnection();
     $stmt = $pdo->query("SELECT * FROM categories ORDER BY name");
     return $stmt->fetchAll();
@@ -232,7 +253,8 @@ function getCategories() {
  * @param int $id
  * @return array|false
  */
-function getCategoryById(int $id) {
+function getCategoryById(int $id)
+{
     $pdo = getDBConnection();
     $stmt = $pdo->prepare("SELECT * FROM categories WHERE id = ?");
     $stmt->execute([$id]);
@@ -245,7 +267,8 @@ function getCategoryById(int $id) {
  * @param string $slug
  * @return array|false
  */
-function getCategoryBySlug(string $slug) {
+function getCategoryBySlug(string $slug)
+{
     $pdo = getDBConnection();
     $stmt = $pdo->prepare("SELECT * FROM categories WHERE slug = ?");
     $stmt->execute([$slug]);
@@ -255,7 +278,8 @@ function getCategoryBySlug(string $slug) {
 /**
  * Get main categories (for home page grouping)
  */
-function getMainCategories() {
+function getMainCategories()
+{
     // This could be stored in a separate table or you can define them here
     // For now, we'll use a static list that matches the frontend
     return [
@@ -282,14 +306,16 @@ function getMainCategories() {
 /**
  * Get cart items from session
  */
-function getCart() {
+function getCart()
+{
     return $_SESSION['cart'] ?? [];
 }
 
 /**
  * Get cart count (total quantity)
  */
-function getCartCount() {
+function getCartCount()
+{
     $cart = getCart();
     return array_sum(array_column($cart, 'qty'));
 }
@@ -297,7 +323,8 @@ function getCartCount() {
 /**
  * Get cart total price
  */
-function getCartTotal() {
+function getCartTotal()
+{
     $cart = getCart();
     return array_sum(array_map(fn($item) => $item['price'] * $item['qty'], $cart));
 }
@@ -311,7 +338,8 @@ function getCartTotal() {
  * @param float|int|null $customPrice
  * @return bool
  */
-function addToCart($productId, int $quantity = 1, ?string $variant = null, $customPrice = null) {
+function addToCart($productId, int $quantity = 1, ?string $variant = null, $customPrice = null)
+{
     if (!isset($_SESSION['cart'])) {
         $_SESSION['cart'] = [];
     }
@@ -355,7 +383,8 @@ function addToCart($productId, int $quantity = 1, ?string $variant = null, $cust
  * @param int $quantity
  * @return bool
  */
-function updateCartItem(string $itemId, int $quantity) {
+function updateCartItem(string $itemId, int $quantity)
+{
     if (!isset($_SESSION['cart'])) return false;
 
     foreach ($_SESSION['cart'] as &$item) {
@@ -376,7 +405,8 @@ function updateCartItem(string $itemId, int $quantity) {
  * @param string $itemId
  * @return bool
  */
-function removeFromCart(string $itemId) {
+function removeFromCart(string $itemId)
+{
     if (!isset($_SESSION['cart'])) return false;
     $_SESSION['cart'] = array_filter($_SESSION['cart'], fn($item) => $item['id'] != $itemId);
     $_SESSION['cart'] = array_values($_SESSION['cart']);
@@ -386,7 +416,8 @@ function removeFromCart(string $itemId) {
 /**
  * Clear entire cart
  */
-function clearCart() {
+function clearCart()
+{
     $_SESSION['cart'] = [];
     return true;
 }
@@ -398,14 +429,16 @@ function clearCart() {
 /**
  * Check if user is logged in
  */
-function isLoggedIn() {
+function isLoggedIn()
+{
     return isset($_SESSION['user_id']);
 }
 
 /**
  * Get current user data
  */
-function getCurrentUser() {
+function getCurrentUser()
+{
     if (!isLoggedIn()) return null;
     $pdo = getDBConnection();
     $stmt = $pdo->prepare("SELECT * FROM users WHERE id = ?");
@@ -419,7 +452,8 @@ function getCurrentUser() {
  * @param string $email
  * @return array|false
  */
-function getUserByEmail(string $email) {
+function getUserByEmail(string $email)
+{
     $pdo = getDBConnection();
     $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ?");
     $stmt->execute([$email]);
@@ -432,7 +466,8 @@ function getUserByEmail(string $email) {
  * @param int $id
  * @return array|false
  */
-function getUserById(int $id) {
+function getUserById(int $id)
+{
     $pdo = getDBConnection();
     $stmt = $pdo->prepare("SELECT * FROM users WHERE id = ?");
     $stmt->execute([$id]);
@@ -449,7 +484,8 @@ function getUserById(int $id) {
  * @param string $role
  * @return bool
  */
-function createUser(string $name, string $email, string $password, string $phone = '', string $role = 'customer') {
+function createUser(string $name, string $email, string $password, string $phone = '', string $role = 'customer')
+{
     $pdo = getDBConnection();
     $hashed = password_hash($password, PASSWORD_DEFAULT);
     $stmt = $pdo->prepare("INSERT INTO users (name, email, phone, password_hash, role, status, created_at) VALUES (?, ?, ?, ?, ?, 'active', NOW())");
@@ -463,7 +499,8 @@ function createUser(string $name, string $email, string $password, string $phone
  * @param array $data
  * @return bool
  */
-function updateUser(int $userId, array $data) {
+function updateUser(int $userId, array $data)
+{
     $pdo = getDBConnection();
     $fields = [];
     $params = [];
@@ -496,7 +533,8 @@ function updateUser(int $userId, array $data) {
  * @param string $password
  * @return array|false
  */
-function verifyUser(string $email, string $password) {
+function verifyUser(string $email, string $password)
+{
     $pdo = getDBConnection();
     $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ? AND status = 'active'");
     $stmt->execute([$email]);
@@ -523,7 +561,8 @@ function verifyUser(string $email, string $password) {
  * @param string $notes
  * @return array|false
  */
-function createOrder($userId, array $customerData, array $cartItems, $total, string $paymentMethod, string $notes = '') {
+function createOrder($userId, array $customerData, array $cartItems, $total, string $paymentMethod, string $notes = '')
+{
     $pdo = getDBConnection();
 
     try {
@@ -571,7 +610,6 @@ function createOrder($userId, array $customerData, array $cartItems, $total, str
 
         $pdo->commit();
         return ['order_id' => $orderId, 'order_number' => $orderNumber];
-
     } catch (PDOException $e) {
         $pdo->rollBack();
         error_log('Order creation error: ' . $e->getMessage());
@@ -586,7 +624,8 @@ function createOrder($userId, array $customerData, array $cartItems, $total, str
  * @param int|null $limit
  * @return array
  */
-function getUserOrders($userId, ?int $limit = null) {
+function getUserOrders($userId, ?int $limit = null)
+{
     $pdo = getDBConnection();
     $sql = "SELECT * FROM orders WHERE user_id = ? ORDER BY id DESC";
     if ($limit) {
@@ -606,7 +645,8 @@ function getUserOrders($userId, ?int $limit = null) {
  * @param int $orderId
  * @return array|false
  */
-function getOrderById(int $orderId) {
+function getOrderById(int $orderId)
+{
     $pdo = getDBConnection();
     $stmt = $pdo->prepare("SELECT * FROM orders WHERE id = ?");
     $stmt->execute([$orderId]);
@@ -619,7 +659,8 @@ function getOrderById(int $orderId) {
  * @param int $orderId
  * @return array
  */
-function getOrderItems(int $orderId) {
+function getOrderItems(int $orderId)
+{
     $pdo = getDBConnection();
     $stmt = $pdo->prepare("SELECT oi.*, p.name as product_name 
                            FROM order_items oi 
@@ -636,7 +677,8 @@ function getOrderItems(int $orderId) {
  * @param string $status
  * @return bool
  */
-function updateOrderStatus(int $orderId, string $status) {
+function updateOrderStatus(int $orderId, string $status)
+{
     $pdo = getDBConnection();
     $allowed = ['pending', 'processing', 'shipped', 'delivered', 'cancelled'];
     if (!in_array($status, $allowed)) return false;
@@ -654,7 +696,8 @@ function updateOrderStatus(int $orderId, string $status) {
  * @param int $id
  * @return array|false
  */
-function getDeliveryBoy(int $id) {
+function getDeliveryBoy(int $id)
+{
     $pdo = getDBConnection();
     $stmt = $pdo->prepare("SELECT * FROM users WHERE id = ? AND role = 'delivery'");
     $stmt->execute([$id]);
@@ -668,7 +711,8 @@ function getDeliveryBoy(int $id) {
  * @param string|null $status
  * @return array
  */
-function getDeliveryBoyOrders(int $deliveryBoyId, ?string $status = null) {
+function getDeliveryBoyOrders(int $deliveryBoyId, ?string $status = null)
+{
     $pdo = getDBConnection();
     $sql = "SELECT * FROM orders WHERE driver_id = ?";
     if ($status) {
@@ -689,7 +733,8 @@ function getDeliveryBoyOrders(int $deliveryBoyId, ?string $status = null) {
  * @param int $deliveryBoyId
  * @return bool
  */
-function assignOrderToDeliveryBoy(int $orderId, int $deliveryBoyId) {
+function assignOrderToDeliveryBoy(int $orderId, int $deliveryBoyId)
+{
     $pdo = getDBConnection();
     $stmt = $pdo->prepare("UPDATE orders SET driver_id = ?, status = 'assigned', assigned_at = NOW() WHERE id = ?");
     return $stmt->execute([$deliveryBoyId, $orderId]);
@@ -702,7 +747,8 @@ function assignOrderToDeliveryBoy(int $orderId, int $deliveryBoyId) {
  * @param string $status
  * @return bool
  */
-function updateDeliveryStatus(int $orderId, string $status) {
+function updateDeliveryStatus(int $orderId, string $status)
+{
     $pdo = getDBConnection();
     $allowed = ['assigned', 'picked_up', 'in_transit', 'delivered', 'cancelled'];
     if (!in_array($status, $allowed)) return false;
@@ -722,7 +768,8 @@ function updateDeliveryStatus(int $orderId, string $status) {
 /**
  * Get dashboard stats
  */
-function getDashboardStats() {
+function getDashboardStats()
+{
     $pdo = getDBConnection();
     $stats = [];
 
@@ -739,19 +786,20 @@ function getDashboardStats() {
 /**
  * Get revenue by period (days)
  */
-function getRevenueByDays($days = 7) {
+function getRevenueByDays($days = 7)
+{
     $pdo = getDBConnection();
     $result = [];
-    
+
     // Initialize array with 0.0 for last N days
     for ($i = $days - 1; $i >= 0; $i--) {
         $date = date('Y-m-d', strtotime("-$i days"));
         $result[$date] = 0.0;
     }
-    
-    $startDate = date('Y-m-d 00:00:00', strtotime("-".($days - 1)." days"));
+
+    $startDate = date('Y-m-d 00:00:00', strtotime("-" . ($days - 1) . " days"));
     $endDate = date('Y-m-d 23:59:59');
-    
+
     $stmt = $pdo->prepare("
         SELECT DATE(created_at) as date_only, COALESCE(SUM(total), 0) as daily_revenue 
         FROM orders 
@@ -763,14 +811,15 @@ function getRevenueByDays($days = 7) {
     foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $row) {
         $result[$row['date_only']] = (float)$row['daily_revenue'];
     }
-    
+
     return $result;
 }
 
 /**
  * Get recent orders
  */
-function getRecentOrders($limit = 10) {
+function getRecentOrders($limit = 10)
+{
     $pdo = getDBConnection();
     $stmt = $pdo->query("SELECT o.*, u.name as customer_name 
                          FROM orders o 
@@ -782,7 +831,8 @@ function getRecentOrders($limit = 10) {
 /**
  * Get top selling products
  */
-function getTopProducts($limit = 5) {
+function getTopProducts($limit = 5)
+{
     $pdo = getDBConnection();
     $stmt = $pdo->query("
         SELECT p.id, p.name, SUM(oi.quantity) as total_sold 
@@ -805,7 +855,8 @@ function getTopProducts($limit = 5) {
  * @param float|int $amount
  * @return string
  */
-function formatCurrency($amount) {
+function formatCurrency($amount)
+{
     return '₹' . number_format($amount, 2);
 }
 
@@ -815,7 +866,8 @@ function formatCurrency($amount) {
  * @param string $status
  * @return string
  */
-function getStatusBadge(string $status) {
+function getStatusBadge(string $status)
+{
     $classes = [
         'pending' => 'pending',
         'processing' => 'processing',
@@ -832,14 +884,16 @@ function getStatusBadge(string $status) {
 /**
  * Generate a random string
  */
-function generateRandomString($length = 32) {
+function generateRandomString($length = 32)
+{
     return bin2hex(random_bytes($length / 2));
 }
 
 /**
  * Generate a unique order number
  */
-function generateOrderNumber() {
+function generateOrderNumber()
+{
     $year = date('Y');
     $pdo = getDBConnection();
     $stmt = $pdo->query("SELECT COUNT(*) FROM orders WHERE YEAR(created_at) = $year");
@@ -850,7 +904,8 @@ function generateOrderNumber() {
 /**
  * Get delivery time estimate
  */
-function getDeliveryEstimate() {
+function getDeliveryEstimate()
+{
     return date('h:i A', strtotime('+45 minutes'));
 }
 
@@ -860,7 +915,8 @@ function getDeliveryEstimate() {
  * @param string $path
  * @return string
  */
-function getImageUrl(string $path) {
+function getImageUrl(string $path)
+{
     if (empty($path)) return '';
     if (strpos($path, 'http') === 0) return $path;
     if (strpos($path, 'uploads/') === 0) return '/' . $path;
@@ -880,7 +936,8 @@ function getImageUrl(string $path) {
  * @param string $from
  * @return bool
  */
-function sendEmail(string $to, string $subject, string $message, string $from = 'noreply@ksrguru.com') {
+function sendEmail(string $to, string $subject, string $message, string $from = 'noreply@ksrguru.com')
+{
     // TODO: Implement email sending
     // For now, just log
     error_log("Email to $to: $subject");
@@ -893,7 +950,8 @@ function sendEmail(string $to, string $subject, string $message, string $from = 
  * @param int $orderId
  * @return bool
  */
-function sendOrderConfirmation(int $orderId) {
+function sendOrderConfirmation(int $orderId)
+{
     $order = getOrderById($orderId);
     if (!$order) return false;
     $items = getOrderItems($orderId);
@@ -924,7 +982,8 @@ function sendOrderConfirmation(int $orderId) {
  * @param string $type
  * @return void
  */
-function setFlash(string $key, string $message, string $type = 'success') {
+function setFlash(string $key, string $message, string $type = 'success')
+{
     $_SESSION['flash'][$key] = ['message' => $message, 'type' => $type];
 }
 
@@ -934,7 +993,8 @@ function setFlash(string $key, string $message, string $type = 'success') {
  * @param string $key
  * @return array|null
  */
-function getFlash(string $key) {
+function getFlash(string $key)
+{
     if (isset($_SESSION['flash'][$key])) {
         $flash = $_SESSION['flash'][$key];
         unset($_SESSION['flash'][$key]);
@@ -953,7 +1013,8 @@ function getFlash(string $key) {
  * @param string $email
  * @return bool
  */
-function isValidEmail(string $email) {
+function isValidEmail(string $email)
+{
     return filter_var($email, FILTER_VALIDATE_EMAIL) !== false;
 }
 
@@ -963,7 +1024,8 @@ function isValidEmail(string $email) {
  * @param string $phone
  * @return bool
  */
-function isValidPhone(string $phone) {
+function isValidPhone(string $phone)
+{
     return preg_match('/^[0-9]{10,15}$/', $phone);
 }
 
@@ -973,7 +1035,8 @@ function isValidPhone(string $phone) {
  * @param string $pincode
  * @return bool
  */
-function isValidPincode(string $pincode) {
+function isValidPincode(string $pincode)
+{
     return preg_match('/^[0-9]{5,6}$/', $pincode);
 }
 
@@ -983,7 +1046,8 @@ function isValidPincode(string $pincode) {
  * @param string $input
  * @return string
  */
-function sanitize(string $input) {
+function sanitize(string $input)
+{
     return htmlspecialchars(trim($input), ENT_QUOTES, 'UTF-8');
 }
 
@@ -998,7 +1062,8 @@ function sanitize(string $input) {
  * @param int $statusCode
  * @return void
  */
-function jsonResponse($data, int $statusCode = 200) {
+function jsonResponse($data, int $statusCode = 200)
+{
     http_response_code($statusCode);
     header('Content-Type: application/json');
     echo json_encode($data);
@@ -1008,14 +1073,16 @@ function jsonResponse($data, int $statusCode = 200) {
 /**
  * Send success JSON response
  */
-function jsonSuccess($data = [], $message = 'Success') {
+function jsonSuccess($data = [], $message = 'Success')
+{
     jsonResponse(['success' => true, 'message' => $message, 'data' => $data]);
 }
 
 /**
  * Send error JSON response
  */
-function jsonError($message = 'Error', $statusCode = 400) {
+function jsonError($message = 'Error', $statusCode = 400)
+{
     jsonResponse(['success' => false, 'message' => $message], $statusCode);
 }
 
@@ -1033,12 +1100,30 @@ if (!function_exists('esc')) {
 }
 
 if (!function_exists('normalizeImagePath')) {
-    function normalizeImagePath(?string $rawPath): string {
+    function normalizeImagePath(?string $rawPath): string
+    {
         if (empty($rawPath)) return '';
         $clean = str_replace('\\', '/', $rawPath);
+
         if (preg_match('#(?:.*)(images/.*)$#i', $clean, $matches)) {
-            return '../' . $matches[1];
+            $imagePath = preg_replace('#/+#', '/', $matches[1]);
+            // If the subdirectory file doesn't exist on disk, fall back to the
+            // flat images/ copy (deployments may flatten the images folder)
+            $localPath = __DIR__ . '/../' . $imagePath;
+            if (!is_file($localPath)) {
+                $flatPath = 'images/' . basename($imagePath);
+                if (is_file(__DIR__ . '/../' . $flatPath)) {
+                    $imagePath = $flatPath;
+                }
+            }
+            // Root-absolute path works on every page depth
+            return '/' . $imagePath;
         }
-        return '../images/' . basename($clean);
+        // File may live at the project root (e.g. cake.jpg, Banner.png)
+        $base = basename($clean);
+        if (is_file(__DIR__ . '/../' . $base)) {
+            return '/' . $base;
+        }
+        return '/images/' . $base;
     }
 }

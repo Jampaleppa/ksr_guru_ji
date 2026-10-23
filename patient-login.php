@@ -51,7 +51,7 @@ if (pp_is_post()) {
                     pp_log_attempt('login:' . $identifier, true);
                     pp_redirect($safeNext);
                 } else {
-                    if (in_array('failed_logins', pp_db()->query("SHOW COLUMNS FROM users")->fetchAll(PDO::FETCH_COLUMN), true)) {
+                    if (in_array('failed_logins', pp_columns('users'), true)) {
                         pp_db()->prepare("UPDATE users SET failed_logins = failed_logins + 1 WHERE id = ?")
                             ->execute([$user['id']]);
                     }

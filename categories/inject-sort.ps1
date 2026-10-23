@@ -14,7 +14,7 @@ foreach ($file in $files) {
     $content = Get-Content -Raw -Encoding UTF8 $file.FullName
     if ($content -notmatch 'id="sortSelect"') {
         # Check if the file has search-bar end div
-        $content = $content -replace '(?s)(<div class="search-bar">.*?</div>)(\s*)<div class="filter-row">', "`$1`$2$sortHtml`$2<div class=`"filter-row`">"
+        $content = $content -replace '(?s)(<div class="search-bar">.0*?</div>)(\s*)<div class="filter-row">', "`$1`$2$sortHtml`$2<div class=`"filter-row`">"
         Set-Content -Path $file.FullName -Value $content -Encoding UTF8
     }
 }

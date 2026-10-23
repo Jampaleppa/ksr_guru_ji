@@ -72,6 +72,21 @@ function pp_sql_now(): string
 }
 
 /**
+ * Returns column names for a table, driver-agnostic and safe against missing tables.
+ */
+function pp_columns(string $table): array
+{
+    try {
+        if (pp_driver() === 'sqlite') {
+            return pp_db()->query("PRAGMA table_info(`$table`)")->fetchAll(PDO::FETCH_COLUMN, 1);
+        }
+        return pp_db()->query("SHOW COLUMNS FROM `$table`")->fetchAll(PDO::FETCH_COLUMN);
+    } catch (Throwable $e) {
+        return [];
+    }
+}
+
+/**
  * HTML-escape a value for safe output.
  *
  * @param mixed $v Value of any type; scalars and null are cast to string,
@@ -319,17 +334,19 @@ function pp_verify_otp(int $userId, string $code, string $purpose): bool
         return false;
     }
 
-    pp_db()->prepare("UPDATE patient_otps SET is_used = 1, verified_at = NOW() WHERE id = ?")->execute([$row['id']]);
+    $nowExpr = pp_sql_now();
+    pp_db()->prepare("UPDATE patient_otps SET is_used = 1, verified_at = $nowExpr WHERE id = ?")->execute([$row['id']]);
     return true;
 }
 
 function pp_activate_account(int $userId): void
 {
-    if (!in_array('account_status', pp_db()->query("SHOW COLUMNS FROM users")->fetchAll(PDO::FETCH_COLUMN), true)) {
+    if (!in_array('account_status', pp_columns('users'), true)) {
         return;
     }
+    $nowExpr = pp_sql_now();
     pp_db()->prepare(
-        "UPDATE users SET account_status = 'ACTIVE', verified_at = NOW() WHERE id = ?"
+        "UPDATE users SET account_status = 'ACTIVE', verified_at = $nowExpr WHERE id = ?"
     )->execute([$userId]);
 }
 
@@ -427,16 +444,8 @@ function pp_find_user(string $identifier): ?array
     }
 
     // Check whether the 'mobile' column exists in a driver-agnostic way
-    try {
-        if (pp_driver() === 'sqlite') {
-            $cols = pp_db()->query("PRAGMA table_info(users)")->fetchAll(PDO::FETCH_COLUMN, 1);
-        } else {
-            $cols = pp_db()->query("SHOW COLUMNS FROM users")->fetchAll(PDO::FETCH_COLUMN);
-        }
-        $hasMobile = in_array('mobile', $cols, true);
-    } catch (Throwable $e) {
-        $hasMobile = false;
-    }
+    $cols = pp_columns('users');
+    $hasMobile = in_array('mobile', $cols, true);
 
     if ($hasMobile) {
         $stmt = pp_db()->prepare("SELECT * FROM users WHERE email = ? OR mobile = ? LIMIT 1");
@@ -478,15 +487,48 @@ function pp_login(array $user, bool $remember = false): void
     $_SESSION['last_activity']  = time();
     $_SESSION['fingerprint']    = pp_fingerprint();
 
-    $cols = pp_db()->query("SHOW COLUMNS FROM users")->fetchAll(PDO::FETCH_COLUMN);
-    if (in_array('last_login_at', $cols, true) || in_array('failed_logins', $cols, true)) {
-        pp_db()->prepare(
-            "UPDATE users SET last_login_at = NOW(), failed_logins = 0 WHERE id = ?"
-        )->execute([$user['id']]);
+    // Update last_login_at if the column exists (driver-agnostic)
+    try {
+        $cols = pp_columns('users');
+        if (in_array('last_login_at', $cols, true) || in_array('failed_logins', $cols, true)) {
+            $nowExpr = pp_sql_now();
+            pp_db()->prepare(
+                "UPDATE users SET last_login_at = $nowExpr, failed_logins = 0 WHERE id = ?"
+            )->execute([$user['id']]);
+        }
+    } catch (Throwable $e) {
+        // Non-fatal — do not block login
     }
 
     if ($remember) {
         pp_remember_create((int)$user['id']);
+    }
+
+    // ── WhatsApp login notification ─────────────────────────────────────
+    // Fire-and-forget: failure must never block the login redirect.
+    try {
+        $waMobile = $mobile ? preg_replace('/\D+/', '', (string)$mobile) : '';
+        if ($waMobile !== '') {
+            if (strlen($waMobile) === 10) {
+                $waMobile = '91' . $waMobile;
+            }
+            require_once __DIR__ . '/admin/inc/whatsapp/WhatsAppFactory.php';
+            $wa = WhatsAppFactory::make(pp_db());
+            $time  = date('h:i A');
+            $date  = date('d M Y');
+            $name  = $user['name'] ?? 'Patient';
+            $wa->sendMessage($waMobile,
+                "✅ *KSR GURU JI – Login Alert*\n\n" .
+                "Hello *{$name}*,\n" .
+                "You have successfully logged in to your Patient Portal.\n\n" .
+                "🕐 Time: {$time}\n" .
+                "📅 Date: {$date}\n\n" .
+                "If this wasn't you, please change your password immediately.\n" .
+                "📞 Support: 6362079192"
+            );
+        }
+    } catch (Throwable $e) {
+        error_log('[pp_login WhatsApp] ' . $e->getMessage());
     }
 
     // Back-compat: other pages read $_SESSION['simulated_role'] / ['user_id']

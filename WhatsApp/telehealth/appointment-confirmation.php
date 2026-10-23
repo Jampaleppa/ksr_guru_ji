@@ -29,6 +29,41 @@ if (!$doctor) {
     $docNameFallback = $_SESSION['user_name'] ?? 'DR. D C Rathod';
     $doctor = ['doctor_name' => $docNameFallback];
 }
+
+$patientMobile = !empty($_POST['patient_mobile']) ? trim((string)$_POST['patient_mobile']) : (!empty($_SESSION['user_mobile']) ? $_SESSION['user_mobile'] : '6362079192');
+
+// ── WhatsApp appointment confirmation ─────────────────────────────────
+// Non-blocking: WhatsApp failure must never break the confirmation display.
+try {
+    $waMobile = preg_replace('/\D+/', '', (string)$patientMobile);
+    if (strlen($waMobile) === 10) {
+        $waMobile = '91' . $waMobile;
+    }
+    if ($waMobile !== '') {
+        $waFactoryPath = dirname(__DIR__, 2) . '/admin/inc/whatsapp/WhatsAppFactory.php';
+        if (file_exists($waFactoryPath)) {
+            require_once $waFactoryPath;
+            $wa = WhatsAppFactory::make($pdo);
+            $docName = $doctor['doctor_name'] ?? 'KSR Doctor';
+            $wa->sendMessage(
+                $waMobile,
+                "🗓️ *Appointment Confirmed – KSR GURU JI*\n\n" .
+                "Hello *{$patientName}*,\n" .
+                "Your appointment has been successfully scheduled.\n\n" .
+                "🆔 *Appointment ID:* {$appointId}\n" .
+                "👨‍⚕️ *Doctor:* {$docName}\n" .
+                "🩺 *Consultation:* " . ucfirst($consultType) . "\n" .
+                "📅 *Date:* {$appDate}\n" .
+                "🕐 *Time:* {$appTime}\n" .
+                "💳 *Payment:* " . ($isCod ? 'Pay on Visit / COD' : 'Paid via UPI (₹' . number_format($totalFee, 2) . ')') . "\n\n" .
+                "📍 Manage appointments: https://ksrgurujiupload.vercel.app/WhatsApp/telehealth/my-appointments.php\n" .
+                "📞 Support: 6362079192"
+            );
+        }
+    }
+} catch (Throwable $waEx) {
+    error_log('[appointment-confirmation WhatsApp] ' . $waEx->getMessage());
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">

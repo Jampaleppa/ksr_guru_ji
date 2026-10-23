@@ -1,191 +1,1703 @@
 [
-  {"id":1,"name":"Potato Chips","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Potato Chips.jpg","weight":"1 pack","price":20,"category":"chips","desc":"Classic salted potato chips, crispy and golden."},
-  {"id":2,"name":"Masala Chips","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Masala Corn Chips.jpg","weight":"1 pack","price":25,"category":"chips","desc":"Tangy masala twist, irresistible crunch."},
-  {"id":3,"name":"Banana Chips","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Banana Chips.jpg","weight":"1 pack","price":40,"category":"chips","desc":"Thin sliced, salted Kerala-style banana chips."},
-  {"id":4,"name":"Tapioca Chips","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Tapioca Chips.jpg","weight":"1 pack","price":45,"category":"chips","desc":"Crunchy yucca chips with black pepper."},
-  {"id":5,"name":"Murukku","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Murukku.jpg","weight":"1 pack","price":60,"category":"namkeen","desc":"Spiral rice & urad dal crisp."},
-  {"id":6,"name":"Chakli","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Chakli.jpg","weight":"1 pack","price":70,"category":"namkeen","desc":"Traditional spicy disc snack."},
-  {"id":7,"name":"Bhujia","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Bhujia.jpg","weight":"1 pack","price":80,"category":"namkeen","desc":"Thin gram flour noodles, spicy."},
-  {"id":8,"name":"Aloo Bhujia","imageUrl":"D:\\\\KSR GURU Ji\\\\images\\\\snack\\\\Aloo Bhujia.webp","weight":"1 pack","price":75,"category":"namkeen","desc":"Potato based crispy sev."},
-  {"id":9,"name":"Nylon Sev","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Nylon Sev.jpg","weight":"1 pack","price":60,"category":"namkeen","desc":"Fine, crunchy sev for chaats."},
-  {"id":10,"name":"Ratlami Sev","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Ratlami Sev.jpg","weight":"1 pack","price":90,"category":"namkeen","desc":"Medium spice, bold namkeen."},
-  {"id":11,"name":"Corn Chips","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Corn Chips.jpg","weight":"1 pack","price":30,"category":"chips","desc":"Sweet corn flavour puffs."},
-  {"id":12,"name":"Nachos","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Nachos.jpg","weight":"1 pack","price":60,"category":"chips","desc":"Triangle tortilla chips."},
-  {"id":13,"name":"Cheese Balls","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Cheese Balls.jpg","weight":"1 pack","price":40,"category":"chips","desc":"Cheese flavoured crunchy balls."},
-  {"id":14,"name":"Rings Snack","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Rings Snack.jpg","weight":"1 pack","price":30,"category":"chips","desc":"Onion ring shaped maida crisp."},
-  {"id":15,"name":"Popcorn Salted","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Popcorn Salted.jpg","weight":"1 pack","price":40,"category":"chips","desc":"Butter salted popcorn."},
-  {"id":16,"name":"Popcorn Butter","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Popcorn Butter.jpg","weight":"1 pack","price":45,"category":"chips","desc":"Movie style buttery popcorn."},
-  {"id":17,"name":"Caramel Popcorn","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Caramel Popcorn.jpeg","weight":"1 pack","price":60,"category":"sweets","desc":"Sweet & crunchy caramel coated."},
-  {"id":18,"name":"Peanuts Salted","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Peanuts Salted.jpg","weight":"1 pack","price":30,"category":"namkeen","desc":"Roasted peanuts with salt."},
-  {"id":19,"name":"Masala Peanuts","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Masala Peanuts.jpg","weight":"1 pack","price":40,"category":"namkeen","desc":"Spicy gram flour coated peanuts."},
-  {"id":20,"name":"Roasted Chana","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Roasted Chana.jpg","weight":"1 pack","price":35,"category":"namkeen","desc":"Protein rich roasted chickpeas."},
-  {"id":21,"name":"Bombay Mix","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Bombay Mix.jpg","weight":"1 pack","price":80,"category":"namkeen","desc":"Spicy mixture of sev, nuts & lentils."},
-  {"id":22,"name":"Navratan Mix","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Navratan Mix.jpg","weight":"1 pack","price":90,"category":"namkeen","desc":"Nine treasure crunchy blend."},
-  {"id":23,"name":"Punjabi Mix","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Punjabi Mix.jpg","weight":"1 pack","price":85,"category":"namkeen","desc":"Punjabi style spicy tadka mix."},
-  {"id":24,"name":"Gujarati Mix","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Gujarati Mix.jpg","weight":"1 pack","price":80,"category":"namkeen","desc":"Sweet & spicy Gujarati farsan."},
-  {"id":25,"name":"South Indian Mixture","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\South Indian Mixture.jpg","weight":"1 pack","price":90,"category":"namkeen","desc":"Curry leaf & coconut flavored mix."},
-  {"id":26,"name":"Khatta Meetha Mix","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Khatta Meetha Mix.jpg","weight":"1 pack","price":85,"category":"namkeen","desc":"Sweet & tangy khatta meetha blend."},
-  {"id":27,"name":"Dal Mixture","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Dal Mixture.jpg","weight":"1 pack","price":75,"category":"namkeen","desc":"Lentil based crunchy mix."},
-  {"id":28,"name":"Corn Mixture","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Corn Mixture.jpg","weight":"1 pack","price":80,"category":"namkeen","desc":"Flakes & corn crispy blend."},
-  {"id":29,"name":"Chivda","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Chivda.jpg","weight":"1 pack","price":70,"category":"namkeen","desc":"Pressed rice flakes savory snack."},
-  {"id":30,"name":"Poha Chivda","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Poha Chivda.jpg","weight":"1 pack","price":75,"category":"namkeen","desc":"Flattened rice with peanuts."},
-  {"id":31,"name":"Samosa","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Samosa.jpg","weight":"1 pack","price":15,"category":"namkeen","desc":"Crispy pastry with spiced potato."},
-  {"id":32,"name":"Mini Samosa","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Mini Samosa.jpg","weight":"1 pack","price":120,"category":"namkeen","desc":"Bite sized samosa party pack."},
-  {"id":33,"name":"Kachori","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Kachori.jpg","weight":"1 pack","price":20,"category":"namkeen","desc":"Stuffed flaky kachori."},
-  {"id":34,"name":"Dal Kachori","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Dal Kachori.jpg","weight":"1 pack","price":25,"category":"namkeen","desc":"Lentil filled spicy kachori."},
-  {"id":35,"name":"Aloo Bonda","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Aloo Bonda.jpg","weight":"1 pack","price":20,"category":"namkeen","desc":"Potato dumpling fritter."},
-  {"id":36,"name":"Onion Pakoda","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Onion Pakoda.jpg","weight":"1 pack","price":25,"category":"namkeen","desc":"Crispy onion fritters."},
-  {"id":37,"name":"Bread Pakoda","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Bread Pakoda.jpg","weight":"1 pack","price":25,"category":"namkeen","desc":"Stuffed bread deep fried."},
-  {"id":38,"name":"Mirchi Bajji","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Mirchi Bajji.jpg","weight":"1 pack","price":20,"category":"namkeen","desc":"Spicy chilli fritter."},
-  {"id":39,"name":"Paneer Pakoda","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Paneer Pakoda.jpg","weight":"1 pack","price":40,"category":"namkeen","desc":"Cottage cheese fritter."},
-  {"id":40,"name":"Veg Cutlet","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Veg Cutlet.jpg","weight":"1 pack","price":30,"category":"namkeen","desc":"Mixed vegetable patty."},
-  {"id":41,"name":"Biscuit Pack","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Biscuit Pack.jpg","weight":"1 pack","price":20,"category":"biscuits","desc":"Classic tea time biscuits."},
-  {"id":42,"name":"Cream Biscuit","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Cream Biscuit.jpg","weight":"1 pack","price":30,"category":"biscuits","desc":"Cream filled sandwich biscuits."},
-  {"id":43,"name":"Chocolate Biscuit","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Chocolate Biscuit.jpg","weight":"1 pack","price":40,"category":"biscuits","desc":"Choco chip cookies."},
-  {"id":44,"name":"Rusk","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Rusk.jpg","weight":"1 pack","price":50,"category":"biscuits","desc":"Twice baked bread rusk."},
-  {"id":45,"name":"Cake Slice","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Cake Slice.jpg","weight":"1 pack","price":40,"category":"biscuits","desc":"Vanilla sponge cake slice."},
-  {"id":46,"name":"Cup Cake","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Cup Cake.jpg","weight":"1 pack","price":35,"category":"biscuits","desc":"Mini butter cupcake."},
-  {"id":47,"name":"Muffin","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Muffin.jpg","weight":"1 pack","price":50,"category":"biscuits","desc":"Chocolate chip muffin."},
-  {"id":48,"name":"Doughnut","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Doughnut.jpg","weight":"1 pack","price":60,"category":"sweets","desc":"Glazed ring doughnut."},
-  {"id":49,"name":"Pastry","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Pastry.jpg","weight":"1 pack","price":70,"category":"sweets","desc":"Butter cream pastry."},
-  {"id":50,"name":"Brownie","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Brownie.jpg","weight":"1 pack","price":80,"category":"sweets","desc":"Fudgy chocolate brownie."},
-  {"id":51,"name":"Dry Fruits Mix","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Dry Fruits Mix.jpg","weight":"1 pack","price":200,"category":"namkeen","desc":"Premium dry fruit trail mix."},
-  {"id":52,"name":"Almond Snack Pack","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Almond Snack Pack.jpg","weight":"1 pack","price":150,"category":"namkeen","desc":"Roasted salted almonds."},
-  {"id":53,"name":"Cashew Snack","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Cashew Snack.jpg","weight":"1 pack","price":180,"category":"namkeen","desc":"Spiced cashews."},
-  {"id":54,"name":"Pistachio Snack","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Pistachio Snack.jpg","weight":"1 pack","price":220,"category":"namkeen","desc":"Premium salted pistachios."},
-  {"id":55,"name":"Trail Mix","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Trail Mix.jpg","weight":"1 pack","price":180,"category":"namkeen","desc":"Nut, seed & raisin mix."},
-  {"id":56,"name":"Granola Bar","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Granola Bar.jpg","weight":"1 pack","price":40,"category":"sweets","desc":"Oats & honey energy bar."},
-  {"id":57,"name":"Protein Bar","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Protein Bar.jpg","weight":"1 pack","price":80,"category":"sweets","desc":"High protein snack bar."},
-  {"id":58,"name":"Energy Bar","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Energy Bar.jpg","weight":"1 pack","price":60,"category":"sweets","desc":"Dates & nuts bar."},
-  {"id":59,"name":"Oats Cookies","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Oats Cookies.jpg","weight":"1 pack","price":70,"category":"biscuits","desc":"Whole wheat oats cookies."},
-  {"id":60,"name":"Multigrain Chips","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Multigrain Chips.jpg","weight":"1 pack","price":80,"category":"chips","desc":"Healthy multigrain crisp."},
-  {"id":61,"name":"Bhel Puri Mix","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Bhel Puri Mix.jpg","weight":"1 pack","price":40,"category":"namkeen","desc":"Ready to mix bhel puri."},
-  {"id":62,"name":"Sev Puri Pack","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Sev Puri Pack.jpg","weight":"1 pack","price":40,"category":"namkeen","desc":"Sev puri chaat base."},
-  {"id":63,"name":"Pani Puri Kit","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Pani Puri Kit.jpg","weight":"1 pack","price":60,"category":"namkeen","desc":"Puri + masala + chutney."},
-  {"id":64,"name":"Papdi Chaat Mix","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Papdi Chaat Mix.jpg","weight":"1 pack","price":50,"category":"namkeen","desc":"Crispy papdi with spices."},
-  {"id":65,"name":"Ragda Patties","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Ragda Patties.jpg","weight":"1 pack","price":50,"category":"namkeen","desc":"Potato patty set (2 pieces)."},
-  {"id":66,"name":"Vada Pav","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Vada Pav.jpg","weight":"1 pack","price":20,"category":"namkeen","desc":"Mumbai style vada pav."},
-  {"id":67,"name":"Dabeli","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Dabeli.jpg","weight":"1 pack","price":25,"category":"namkeen","desc":"Kutchi dabeli with garlic chutney."},
-  {"id":68,"name":"Pav Bhaji Bread Pack","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Pav Bhaji Bread Pack.jpg","weight":"1 pack","price":35,"category":"namkeen","desc":"Fresh pav (4 pcs) + bhaji masala."},
-  {"id":69,"name":"Chana Chaat","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Chana Chaat.jpg","weight":"1 pack","price":30,"category":"namkeen","desc":"Spicy chickpea chaat."},
-  {"id":70,"name":"Corn Chaat","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Corn Chaat .jpg","weight":"1 pack","price":40,"category":"namkeen","desc":"Tangy corn masala mix."},
-  {"id":71,"name":"Khakhra","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Khakhra.jpg","weight":"1 pack","price":60,"category":"biscuits","desc":"Thin whole wheat cracker."},
-  {"id":72,"name":"Mathri","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Mathri.jpg","weight":"1 pack","price":70,"category":"biscuits","desc":"Salted flaky mathri."},
-  {"id":73,"name":"Namak Para","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Namak Para.jpg","weight":"1 pack","price":60,"category":"biscuits","desc":"Salty diamond shaped crisp."},
-  {"id":74,"name":"Shakar Para","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Shakar Para.jpg","weight":"1 pack","price":60,"category":"sweets","desc":"Sweet sugar coated crisp."},
-  {"id":75,"name":"Bakarwadi","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Bakarwadi.jpg","weight":"1 pack","price":90,"category":"namkeen","desc":"Spiral maharashtrian snack."},
-  {"id":76,"name":"Fafda","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Fafda.jpg","weight":"1 pack","price":80,"category":"namkeen","desc":"Crispy gram flour fafda."},
-  {"id":77,"name":"Gathiya","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Gathiya.jpg","weight":"1 pack","price":70,"category":"namkeen","desc":"Thin besan gathiya."},
-  {"id":78,"name":"Thepla Chips","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Thepla Chips.jpg","weight":"1 pack","price":80,"category":"chips","desc":"Methi thepla flavored chips."},
-  {"id":79,"name":"Masala Papad","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Masala Papad.jpg","weight":"1 pack","price":40,"category":"namkeen","desc":"Roasted papad with masala."},
-  {"id":80,"name":"Roasted Makhana","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Roasted Makhana.jpg","weight":"1 pack","price":120,"category":"namkeen","desc":"Foxnut super snack, lightly spiced."},
-  {"id":81,"name":"Chocolate Popcorn","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Chocolate Popcorn.jpg","weight":"1 pack","price":70,"category":"sweets","desc":"Belgian chocolate coated popcorn."},
-  {"id":82,"name":"Cheese Crackers","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Cheese Crackers.jpg","weight":"1 pack","price":50,"category":"biscuits","desc":"Cheese flavored square crackers."},
-  {"id":83,"name":"Wheat Crackers","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Wheat Crackers.jpg","weight":"1 pack","price":45,"category":"biscuits","desc":"High fiber wheat crackers."},
-  {"id":84,"name":"Cream Rolls","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Cream Rolls.jpg","weight":"1 pack","price":60,"category":"sweets","desc":"Custard filled cream rolls."},
-  {"id":85,"name":"Peanut Chikki","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Peanut Chikki.jpg","weight":"1 pack","price":40,"category":"sweets","desc":"Jaggery & peanut brittle."},
-  {"id":86,"name":"Sesame Chikki","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Sesame Chikki.jpg","weight":"1 pack","price":45,"category":"sweets","desc":"Sesame seed sweet bar."},
-  {"id":87,"name":"Coconut Chips","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Coconut Chips.jpg","weight":"1 pack","price":70,"category":"chips","desc":"Toasted coconut crisp chips."},
-  {"id":88,"name":"Sweet Corn Snack","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Sweet Corn Snack.jpg","weight":"1 pack","price":50,"category":"chips","desc":"Sweet corn crispies."},
-  {"id":89,"name":"Masala Corn","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Masala Corn.jpg","weight":"1 pack","price":60,"category":"chips","desc":"Spicy corn puffs."},
-  {"id":90,"name":"BBQ Chips","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\BBQ Chips.jpg","weight":"1 pack","price":50,"category":"chips","desc":"Smoky barbecue flavour."},
-  {"id":91,"name":"Peri Peri Chips","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Peri Peri Chips.jpg","weight":"1 pack","price":50,"category":"chips","desc":"Hot peri peri potato crisps."},
-  {"id":92,"name":"Salsa Nachos","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Salsa Nachos.jpg","weight":"1 pack","price":60,"category":"chips","desc":"Salsa flavored tortilla chips."},
-  {"id":93,"name":"Cheese Nachos","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Cheese Nachos.jpg","weight":"1 pack","price":60,"category":"chips","desc":"Cheese dusted nachos."},
-  {"id":94,"name":"Jalapeno Chips","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Jalapeno Corn Chips.jpg","weight":"1 pack","price":55,"category":"chips","desc":"Spicy jalapeno flavored chips."},
-  {"id":95,"name":"Potato Wafers","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Potato Wafers.jpg","weight":"1 pack","price":30,"category":"chips","desc":"Thin salted potato wafers."},
-  {"id":96,"name":"Masala Murukku","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Masala Murukku.jpg","weight":"1 pack","price":80,"category":"namkeen","desc":"Spiced rice flour murukku."},
-  {"id":97,"name":"Tomato Chips","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Tomato Chips.jpg","weight":"1 pack","price":50,"category":"chips","desc":"Tangy tomato flavor chips."},
-  {"id":98,"name":"Garlic Chips","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Garlic Chips.jpg","weight":"1 pack","price":55,"category":"chips","desc":"Garlic infused potato crisps."},
-  {"id":99,"name":"Onion Rings","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Onion Rings.jpg","weight":"1 pack","price":60,"category":"chips","desc":"Crispy onion ring snack."},
-  {"id":100,"name":"Cheese Puffs","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Cheese Puffs.jpg","weight":"1 pack","price":40,"category":"chips","desc":"Airy cheese flavored puffs."},
-  {"id":101,"name":"Spicy Corn Rings","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Spicy Corn Rings.jpg","weight":"1 pack","price":35,"category":"chips","desc":"Ring shaped spicy corn snack."},
-  {"id":102,"name":"BBQ Corn Chips","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\BBQ Corn Chips.jpg","weight":"1 pack","price":50,"category":"chips","desc":"BBQ flavor corn crisps."},
-  {"id":103,"name":"Masala Khakhra","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Masala Khakhra.jpg","weight":"1 pack","price":70,"category":"biscuits","desc":"Spicy whole wheat khakhra."},
-  {"id":104,"name":"Jeera Khakhra","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Jeera Khakhra.jpg","weight":"1 pack","price":70,"category":"biscuits","desc":"Cumin flavored khakhra."},
-  {"id":105,"name":"Butter Cookies","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Butter Cookies.jpg","weight":"1 pack","price":90,"category":"biscuits","desc":"Rich butter cookies."},
-  {"id":106,"name":"Chocolate Cookies","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Chocolate Cookies.jpg","weight":"1 pack","price":100,"category":"biscuits","desc":"Double chocolate chip cookies."},
-  {"id":107,"name":"Fruit Cake Slice","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Fruit Cake Slice.jpg","weight":"1 pack","price":60,"category":"sweets","desc":"Rich fruit cake slice."},
-  {"id":108,"name":"Cream Wafers","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Cream Wafers.jpg","weight":"1 pack","price":50,"category":"biscuits","desc":"Cream wafer rolls."},
-  {"id":109,"name":"Choco Pie","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Choco Pie.jpg","weight":"1 pack","price":120,"category":"sweets","desc":"Chocolate coated marshmallow pie."},
-  {"id":110,"name":"Mini Pizza Snack","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Mini Pizza Snack.jpg","weight":"1 pack","price":80,"category":"namkeen","desc":"Mini pizza flavored bites."},
-  {"id":111,"name":"Veg Puff","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Veg Puff.jpg","weight":"1 pack","price":25,"category":"namkeen","desc":"Flaky puff with veg filling."},
-  {"id":113,"name":"Egg Puff","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Egg Puff.jpg","weight":"1 pack","price":30,"category":"namkeen","desc":"Puff pastry with egg filling."},
-  {"id":114,"name":"Potato Croquettes","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Potato Croquettes.jpg","weight":"1 pack","price":80,"category":"namkeen","desc":"Breaded potato cylinders."},
-  {"id":115,"name":"Veg Nuggets","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Veg Nuggets.jpg","weight":"1 pack","price":120,"category":"namkeen","desc":"Crunchy veggie nuggets."},
-  {"id":116,"name":"French Fries Pack","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\French Fries Pack.jpg","weight":"1 pack","price":100,"category":"chips","desc":"Frozen french fries."},
-  {"id":117,"name":"Sweet Potato Chips","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Sweet Potato Chips.jpg","weight":"1 pack","price":70,"category":"chips","desc":"Healthy sweet potato crisps."},
-  {"id":118,"name":"Jackfruit Chips","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Jackfruit Chips.jpg","weight":"1 pack","price":120,"category":"chips","desc":"Crispy raw jackfruit chips."},
-  {"id":119,"name":"Ragi Chips","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Ragi Chips.jpg","weight":"1 pack","price":90,"category":"chips","desc":"Finger millet based chips."},
-  {"id":120,"name":"Millet Chips","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Millet Chips.jpg","weight":"1 pack","price":95,"category":"chips","desc":"Multimillet crunchy chips."},
-  {"id":121,"name":"Quinoa Chips","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Quinoa Chips.jpg","weight":"1 pack","price":120,"category":"chips","desc":"Protein rich quinoa chips."},
-  {"id":122,"name":"Masala Makhana","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Masala Makhana.jpg","weight":"1 pack","price":140,"category":"namkeen","desc":"Spiced foxnut snack."},
-  {"id":123,"name":"Chocolate Makhana","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Chocolate Makhana.jpg","weight":"1 pack","price":150,"category":"sweets","desc":"Chocolate coated makhana."},
-  {"id":124,"name":"Honey Roasted Peanuts","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Honey Roasted Peanuts.jpg","weight":"1 pack","price":110,"category":"namkeen","desc":"Sweet honey coated peanuts."},
-  {"id":125,"name":"Wasabi Peanuts","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Wasabi Peanuts.jpg","weight":"1 pack","price":130,"category":"namkeen","desc":"Wasabi coated green peas."},
-  {"id":126,"name":"Cheese Crackers","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Cheese Crackers.jpg","weight":"1 pack","price":60,"category":"biscuits","desc":"Savory cheese crackers."},
-  {"id":127,"name":"Wheat Crackers","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Wheat Crackers.jpg","weight":"1 pack","price":55,"category":"biscuits","desc":"Whole wheat salted crackers."},
-  {"id":128,"name":"Salt Crackers","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Salt Crackers.jpg","weight":"1 pack","price":50,"category":"biscuits","desc":"Plain salted crackers."},
-  {"id":129,"name":"Cream Rolls","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Cream Rolls.jpg","weight":"1 pack","price":70,"category":"sweets","desc":"Cream filled roll pastries."},
-  {"id":130,"name":"Coconut Cookies","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Coconut Cookies.jpg","weight":"1 pack","price":90,"category":"biscuits","desc":"Toasted coconut cookies."},
-  {"id":131,"name":"Oats Cookies","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Oats Cookies.jpg","weight":"1 pack","price":100,"category":"biscuits","desc":"Healthy oats cookies."},
-  {"id":132,"name":"Almond Cookies","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Almond Cookies.jpg","weight":"1 pack","price":120,"category":"biscuits","desc":"Butter almond cookies."},
-  {"id":133,"name":"Cashew Cookies","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Cashew Cookies.jpg","weight":"1 pack","price":130,"category":"biscuits","desc":"Cashew rich cookies."},
-  {"id":134,"name":"Butter Rusk","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Butter Rusk.jpg","weight":"1 pack","price":80,"category":"biscuits","desc":"Buttery sweet rusk."},
-  {"id":135,"name":"Milk Rusk","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Milk Rusk.jpg","weight":"1 pack","price":85,"category":"biscuits","desc":"Milk flavored rusk."},
-  {"id":136,"name":"Garlic Bread Snack","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Garlic Bread Snack.jpg","weight":"1 pack","price":70,"category":"namkeen","desc":"Garlic toast bites."},
-  {"id":137,"name":"Cheese Bread Snack","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Cheese Bread Snack.jpg","weight":"1 pack","price":75,"category":"namkeen","desc":"Cheese flavored bread snack."},
-  {"id":138,"name":"Veg Roll Snack","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Veg Roll Snack.jpg","weight":"1 pack","price":60,"category":"namkeen","desc":"Spring roll style veg snack."},
-  {"id":141,"name":"Sweet Corn Cups","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Sweet Corn Cups.webp","weight":"1 pack","price":60,"category":"chips","desc":"Sweet corn snack cups."},
-  {"id":142,"name":"Masala Corn Cups","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Masala Corn Cups.jpg","weight":"1 pack","price":65,"category":"chips","desc":"Masala flavored corn cups."},
-  {"id":143,"name":"Popcorn Cheese","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Popcorn Cheese.jpg","weight":"1 pack","price":60,"category":"chips","desc":"Cheese popcorn."},
-  {"id":144,"name":"Popcorn Caramel","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Popcorn Caramel.jpeg","weight":"1 pack","price":70,"category":"sweets","desc":"Caramel coated popcorn."},
-  {"id":145,"name":"Popcorn Chocolate","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Popcorn Chocolate.jpg","weight":"1 pack","price":75,"category":"sweets","desc":"Chocolate drizzled popcorn."},
-  {"id":146,"name":"Spicy Potato Wafers","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Spicy Potato Wafers.jpg","weight":"1 pack","price":45,"category":"chips","desc":"Spicy wafers."},
-  {"id":147,"name":"Tomato Wafers","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Tomato Wafers.jpg","weight":"1 pack","price":45,"category":"chips","desc":"Tomato flavored wafers."},
-  {"id":148,"name":"Cream Biscuits","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Cream Biscuits.jpg","weight":"1 pack","price":30,"category":"biscuits","desc":"Cream sandwich biscuits."},
-  {"id":149,"name":"Chocolate Biscuits","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Chocolate Biscuits.jpg","weight":"1 pack","price":40,"category":"biscuits","desc":"Chocolate cream biscuits."},
-  {"id":150,"name":"Strawberry Biscuits","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Strawberry Biscuits.jpg","weight":"1 pack","price":40,"category":"biscuits","desc":"Strawberry cream biscuits."},
-  {"id":151,"name":"Orange Biscuits","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Orange Biscuits.jpg","weight":"1 pack","price":35,"category":"biscuits","desc":"Orange flavor biscuits."},
-  {"id":152,"name":"Peanut Chikki","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Peanut Chikki.jpg","weight":"1 pack","price":40,"category":"sweets","desc":"Peanut brittle."},
-  {"id":153,"name":"Sesame Chikki","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Sesame Chikki.jpg","weight":"1 pack","price":45,"category":"sweets","desc":"Sesame seed brittle."},
-  {"id":154,"name":"Coconut Chikki","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Coconut Chikki.jpg","weight":"1 pack","price":45,"category":"sweets","desc":"Coconut jaggery bar."},
-  {"id":155,"name":"Dry Fruit Chikki","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Dry Fruit Chikki.jpg","weight":"1 pack","price":80,"category":"sweets","desc":"Dry fruit & nut chikki."},
-  {"id":158,"name":"Spicy Mixture","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Spicy Mixture.jpg","weight":"1 pack","price":90,"category":"namkeen","desc":"Hot and spicy mixture."},
-  {"id":159,"name":"Gujarati Gathiya","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Gujarati Gathiya.jpg","weight":"1 pack","price":85,"category":"namkeen","desc":"Thick gathiya snack."},
-  {"id":160,"name":"Ratlami Sev","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Ratlami Sev.jpg","weight":"1 pack","price":95,"category":"namkeen","desc":"Spicy sev from Ratlam."},
-  {"id":161,"name":"Nylon Sev","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Nylon Sev.jpg","weight":"1 pack","price":80,"category":"namkeen","desc":"Thin nylon sev."},
-  {"id":162,"name":"Dal Mixture","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Dal Mixture.jpg","weight":"1 pack","price":85,"category":"namkeen","desc":"Lentil mixture."},
-  {"id":163,"name":"Corn Mixture","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Corn Mixture.jpg","weight":"1 pack","price":80,"category":"namkeen","desc":"Corn flakes mixture."},
-  {"id":164,"name":"Bombay Mixture","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Bombay Mixture.jpg","weight":"1 pack","price":90,"category":"namkeen","desc":"Classic Bombay mix."},
-  {"id":165,"name":"Punjabi Mixture","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Punjabi Mixture.jpg","weight":"1 pack","price":95,"category":"namkeen","desc":"Punjabi tadka mix."},
-  {"id":166,"name":"Chivda Mix","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Chivda Mix.jpg","weight":"1 pack","price":85,"category":"namkeen","desc":"Chivda with peanuts."},
-  {"id":167,"name":"Poha Chivda","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Poha Chivda.jpg","weight":"1 pack","price":80,"category":"namkeen","desc":"Flattened rice chivda."},
-  {"id":168,"name":"Dry Fruit Mixture","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Dry Fruit Mixture.jpg","weight":"1 pack","price":120,"category":"namkeen","desc":"Premium dry fruit mix."},
-  {"id":169,"name":"Masala Papad Pack","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Masala Papad Pack.jpg","weight":"1 pack","price":60,"category":"namkeen","desc":"Masala papad (10 pcs)."},
-  {"id":170,"name":"Roasted Chana Snack","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Roasted Chana Snack.jpg","weight":"1 pack","price":50,"category":"namkeen","desc":"Roasted black chana."},
-  {"id":171,"name":"Masala Chana Snack","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Masala Chana Snack.jpg","weight":"1 pack","price":60,"category":"namkeen","desc":"Spicy roasted chana."},
-  {"id":172,"name":"Sweet Corn Snack","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Sweet Corn Snack.jpg","weight":"1 pack","price":65,"category":"chips","desc":"Sweet corn puffs."},
-  {"id":173,"name":"Roasted Peanut Pack","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Roasted Peanut Pack.jpg","weight":"1 pack","price":55,"category":"namkeen","desc":"Plain roasted peanuts."},
-  {"id":174,"name":"Masala Peanut Pack","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Masala Peanut Pack.jpg","weight":"1 pack","price":65,"category":"namkeen","desc":"Masala coated peanuts."},
-  {"id":175,"name":"Garlic Peanut Pack","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Garlic Peanut Pack.jpg","weight":"1 pack","price":70,"category":"namkeen","desc":"Garlic flavored peanuts."},
-  {"id":177,"name":"BBQ Peanut Pack","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\BBQ Peanut Pack.jpg","weight":"1 pack","price":75,"category":"namkeen","desc":"BBQ peanuts."},
-  {"id":178,"name":"Spicy Peanut Pack","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Spicy Peanut Pack.jpg","weight":"1 pack","price":70,"category":"namkeen","desc":"Extra spicy peanuts."},
-  {"id":179,"name":"Lemon Peanut Pack","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Lemon Peanut Pack.jpg","weight":"1 pack","price":65,"category":"namkeen","desc":"Lemon chili peanuts."},
-  {"id":181,"name":"Caramel Peanut Pack","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Caramel Peanut Pack.jpg","weight":"1 pack","price":80,"category":"sweets","desc":"Caramel candy peanuts."},
-  {"id":184,"name":"Spicy Corn Chips","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Spicy Corn Chips.jpg","weight":"1 pack","price":50,"category":"chips","desc":"Spicy corn chips."},
-  {"id":185,"name":"Cheese Corn Chips","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Cheese Corn Chips.jpg","weight":"1 pack","price":55,"category":"chips","desc":"Cheese flavored corn chips."},
-  {"id":186,"name":"BBQ Corn Chips","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\BBQ Corn Chips.jpg","weight":"1 pack","price":55,"category":"chips","desc":"BBQ corn chips."},
-  {"id":187,"name":"Masala Corn Chips","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Masala Corn Chips.jpg","weight":"1 pack","price":50,"category":"chips","desc":"Masala corn chips."},
-  {"id":189,"name":"Garlic Corn Chips","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Garlic Corn Chips.jpg","weight":"1 pack","price":55,"category":"chips","desc":"Garlic corn chips."},
-  {"id":191,"name":"Lemon Corn Chips","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Lemon Corn Chips.jpg","weight":"1 pack","price":55,"category":"chips","desc":"Lemon flavored corn chips."},
-  {"id":193,"name":"Jalapeno Corn Chips","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Jalapeno Corn Chips.jpg","weight":"1 pack","price":60,"category":"chips","desc":"Jalapeno corn chips."},
-  {"id":194,"name":"Salsa Corn Chips","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Salsa Corn Chips.jpg","weight":"1 pack","price":60,"category":"chips","desc":"Salsa corn chips."},
-  {"id":196,"name":"Mexican Nachos","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Mexican Nachos.jpg","weight":"1 pack","price":65,"category":"chips","desc":"Mexican style nachos."},
-  {"id":245,"name":"Mexican Nachos","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Mexican Nachos.jpg","weight":"1 pack","price":75,"category":"chips","desc":"Mexican style nachos."},
-  {"id":260,"name":"Garlic Corn Chips","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Garlic Corn Chips.jpg","weight":"1 pack","price":60,"category":"chips","desc":"Garlic corn chips."},
-  {"id":262,"name":"Lemon Corn Chips","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Lemon Corn Chips.jpg","weight":"1 pack","price":60,"category":"chips","desc":"Lemon corn chips."},
-  {"id":264,"name":"Salsa Corn Chips","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Salsa Corn Chips.jpg","weight":"1 pack","price":65,"category":"chips","desc":"Salsa corn chips."},
-  {"id":265,"name":"Cheese Corn Chips","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\Cheese Corn Chips.jpg","weight":"1 pack","price":65,"category":"chips","desc":"Cheese corn chips."},
-  {"id":266,"name":"BBQ Corn Chips","imageUrl":"D:\\\\KSR GURU JI\\\\images\\\\snack\\\\BBQ Corn Chips.jpg","weight":"1 pack","price":65,"category":"chips","desc":"BBQ corn chips."}
+    {
+        "id": 1,
+        "name": "Potato Chips",
+        "imageUrl": "/images/Potato Chips.jpg",
+        "weight": "1 pack",
+        "price": 20,
+        "category": "chips",
+        "desc": "Classic salted potato chips, crispy and golden."
+    },
+    {
+        "id": 2,
+        "name": "Masala Chips",
+        "imageUrl": "/images/Masala Corn Chips.jpg",
+        "weight": "1 pack",
+        "price": 25,
+        "category": "chips",
+        "desc": "Tangy masala twist, irresistible crunch."
+    },
+    {
+        "id": 3,
+        "name": "Banana Chips",
+        "imageUrl": "/images/Banana Chips.jpg",
+        "weight": "1 pack",
+        "price": 40,
+        "category": "chips",
+        "desc": "Thin sliced, salted Kerala-style banana chips."
+    },
+    {
+        "id": 4,
+        "name": "Tapioca Chips",
+        "imageUrl": "/images/Tapioca Chips.jpg",
+        "weight": "1 pack",
+        "price": 45,
+        "category": "chips",
+        "desc": "Crunchy yucca chips with black pepper."
+    },
+    {
+        "id": 5,
+        "name": "Murukku",
+        "imageUrl": "/images/Murukku.jpg",
+        "weight": "1 pack",
+        "price": 60,
+        "category": "namkeen",
+        "desc": "Spiral rice & urad dal crisp."
+    },
+    {
+        "id": 6,
+        "name": "Chakli",
+        "imageUrl": "/images/Chakli.jpg",
+        "weight": "1 pack",
+        "price": 70,
+        "category": "namkeen",
+        "desc": "Traditional spicy disc snack."
+    },
+    {
+        "id": 7,
+        "name": "Bhujia",
+        "imageUrl": "/images/Bhujia.jpg",
+        "weight": "1 pack",
+        "price": 80,
+        "category": "namkeen",
+        "desc": "Thin gram flour noodles, spicy."
+    },
+    {
+        "id": 8,
+        "name": "Aloo Bhujia",
+        "imageUrl": "/images/Aloo Bhujia.webp",
+        "weight": "1 pack",
+        "price": 75,
+        "category": "namkeen",
+        "desc": "Potato based crispy sev."
+    },
+    {
+        "id": 9,
+        "name": "Nylon Sev",
+        "imageUrl": "/images/Nylon Sev.jpg",
+        "weight": "1 pack",
+        "price": 60,
+        "category": "namkeen",
+        "desc": "Fine, crunchy sev for chaats."
+    },
+    {
+        "id": 10,
+        "name": "Ratlami Sev",
+        "imageUrl": "/images/Ratlami Sev.jpg",
+        "weight": "1 pack",
+        "price": 90,
+        "category": "namkeen",
+        "desc": "Medium spice, bold namkeen."
+    },
+    {
+        "id": 11,
+        "name": "Corn Chips",
+        "imageUrl": "/images/Corn Chips.jpg",
+        "weight": "1 pack",
+        "price": 30,
+        "category": "chips",
+        "desc": "Sweet corn flavour puffs."
+    },
+    {
+        "id": 12,
+        "name": "Nachos",
+        "imageUrl": "/images/Nachos.jpg",
+        "weight": "1 pack",
+        "price": 60,
+        "category": "chips",
+        "desc": "Triangle tortilla chips."
+    },
+    {
+        "id": 13,
+        "name": "Cheese Balls",
+        "imageUrl": "/images/Cheese Balls.jpg",
+        "weight": "1 pack",
+        "price": 40,
+        "category": "chips",
+        "desc": "Cheese flavoured crunchy balls."
+    },
+    {
+        "id": 14,
+        "name": "Rings Snack",
+        "imageUrl": "/images/Rings Snack.jpg",
+        "weight": "1 pack",
+        "price": 30,
+        "category": "chips",
+        "desc": "Onion ring shaped maida crisp."
+    },
+    {
+        "id": 15,
+        "name": "Popcorn Salted",
+        "imageUrl": "/images/Popcorn Salted.jpg",
+        "weight": "1 pack",
+        "price": 40,
+        "category": "chips",
+        "desc": "Butter salted popcorn."
+    },
+    {
+        "id": 16,
+        "name": "Popcorn Butter",
+        "imageUrl": "/images/Popcorn Butter.jpg",
+        "weight": "1 pack",
+        "price": 45,
+        "category": "chips",
+        "desc": "Movie style buttery popcorn."
+    },
+    {
+        "id": 17,
+        "name": "Caramel Popcorn",
+        "imageUrl": "/images/Caramel Popcorn.jpeg",
+        "weight": "1 pack",
+        "price": 60,
+        "category": "sweets",
+        "desc": "Sweet & crunchy caramel coated."
+    },
+    {
+        "id": 18,
+        "name": "Peanuts Salted",
+        "imageUrl": "/images/Peanuts Salted.jpg",
+        "weight": "1 pack",
+        "price": 30,
+        "category": "namkeen",
+        "desc": "Roasted peanuts with salt."
+    },
+    {
+        "id": 19,
+        "name": "Masala Peanuts",
+        "imageUrl": "/images/Masala Peanuts.jpg",
+        "weight": "1 pack",
+        "price": 40,
+        "category": "namkeen",
+        "desc": "Spicy gram flour coated peanuts."
+    },
+    {
+        "id": 20,
+        "name": "Roasted Chana",
+        "imageUrl": "/images/Roasted Chana.jpg",
+        "weight": "1 pack",
+        "price": 35,
+        "category": "namkeen",
+        "desc": "Protein rich roasted chickpeas."
+    },
+    {
+        "id": 21,
+        "name": "Bombay Mix",
+        "imageUrl": "/images/Bombay Mix.jpg",
+        "weight": "1 pack",
+        "price": 80,
+        "category": "namkeen",
+        "desc": "Spicy mixture of sev, nuts & lentils."
+    },
+    {
+        "id": 22,
+        "name": "Navratan Mix",
+        "imageUrl": "/images/Navratan Mix.jpg",
+        "weight": "1 pack",
+        "price": 90,
+        "category": "namkeen",
+        "desc": "Nine treasure crunchy blend."
+    },
+    {
+        "id": 23,
+        "name": "Punjabi Mix",
+        "imageUrl": "/images/Punjabi Mix.jpg",
+        "weight": "1 pack",
+        "price": 85,
+        "category": "namkeen",
+        "desc": "Punjabi style spicy tadka mix."
+    },
+    {
+        "id": 24,
+        "name": "Gujarati Mix",
+        "imageUrl": "/images/Gujarati Mix.jpg",
+        "weight": "1 pack",
+        "price": 80,
+        "category": "namkeen",
+        "desc": "Sweet & spicy Gujarati farsan."
+    },
+    {
+        "id": 25,
+        "name": "South Indian Mixture",
+        "imageUrl": "/images/South Indian Mixture.jpg",
+        "weight": "1 pack",
+        "price": 90,
+        "category": "namkeen",
+        "desc": "Curry leaf & coconut flavored mix."
+    },
+    {
+        "id": 26,
+        "name": "Khatta Meetha Mix",
+        "imageUrl": "/images/Khatta Meetha Mix.jpg",
+        "weight": "1 pack",
+        "price": 85,
+        "category": "namkeen",
+        "desc": "Sweet & tangy khatta meetha blend."
+    },
+    {
+        "id": 27,
+        "name": "Dal Mixture",
+        "imageUrl": "/images/Dal Mixture.jpg",
+        "weight": "1 pack",
+        "price": 75,
+        "category": "namkeen",
+        "desc": "Lentil based crunchy mix."
+    },
+    {
+        "id": 28,
+        "name": "Corn Mixture",
+        "imageUrl": "/images/Corn Mixture.jpg",
+        "weight": "1 pack",
+        "price": 80,
+        "category": "namkeen",
+        "desc": "Flakes & corn crispy blend."
+    },
+    {
+        "id": 29,
+        "name": "Chivda",
+        "imageUrl": "/images/Chivda.jpg",
+        "weight": "1 pack",
+        "price": 70,
+        "category": "namkeen",
+        "desc": "Pressed rice flakes savory snack."
+    },
+    {
+        "id": 30,
+        "name": "Poha Chivda",
+        "imageUrl": "/images/Poha Chivda.jpg",
+        "weight": "1 pack",
+        "price": 75,
+        "category": "namkeen",
+        "desc": "Flattened rice with peanuts."
+    },
+    {
+        "id": 31,
+        "name": "Samosa",
+        "imageUrl": "/images/Samosa.jpg",
+        "weight": "1 pack",
+        "price": 15,
+        "category": "namkeen",
+        "desc": "Crispy pastry with spiced potato."
+    },
+    {
+        "id": 32,
+        "name": "Mini Samosa",
+        "imageUrl": "/images/Mini Samosa.jpg",
+        "weight": "1 pack",
+        "price": 120,
+        "category": "namkeen",
+        "desc": "Bite sized samosa party pack."
+    },
+    {
+        "id": 33,
+        "name": "Kachori",
+        "imageUrl": "/images/Kachori.jpg",
+        "weight": "1 pack",
+        "price": 20,
+        "category": "namkeen",
+        "desc": "Stuffed flaky kachori."
+    },
+    {
+        "id": 34,
+        "name": "Dal Kachori",
+        "imageUrl": "/images/Dal Kachori.jpg",
+        "weight": "1 pack",
+        "price": 25,
+        "category": "namkeen",
+        "desc": "Lentil filled spicy kachori."
+    },
+    {
+        "id": 35,
+        "name": "Aloo Bonda",
+        "imageUrl": "/images/Aloo Bonda.jpg",
+        "weight": "1 pack",
+        "price": 20,
+        "category": "namkeen",
+        "desc": "Potato dumpling fritter."
+    },
+    {
+        "id": 36,
+        "name": "Onion Pakoda",
+        "imageUrl": "/images/Onion Pakoda.jpg",
+        "weight": "1 pack",
+        "price": 25,
+        "category": "namkeen",
+        "desc": "Crispy onion fritters."
+    },
+    {
+        "id": 37,
+        "name": "Bread Pakoda",
+        "imageUrl": "/images/Bread Pakoda.jpg",
+        "weight": "1 pack",
+        "price": 25,
+        "category": "namkeen",
+        "desc": "Stuffed bread deep fried."
+    },
+    {
+        "id": 38,
+        "name": "Mirchi Bajji",
+        "imageUrl": "/images/Mirchi Bajji.jpg",
+        "weight": "1 pack",
+        "price": 20,
+        "category": "namkeen",
+        "desc": "Spicy chilli fritter."
+    },
+    {
+        "id": 39,
+        "name": "Paneer Pakoda",
+        "imageUrl": "/images/Paneer Pakoda.jpg",
+        "weight": "1 pack",
+        "price": 40,
+        "category": "namkeen",
+        "desc": "Cottage cheese fritter."
+    },
+    {
+        "id": 40,
+        "name": "Veg Cutlet",
+        "imageUrl": "/images/Veg Cutlet.jpg",
+        "weight": "1 pack",
+        "price": 30,
+        "category": "namkeen",
+        "desc": "Mixed vegetable patty."
+    },
+    {
+        "id": 41,
+        "name": "Biscuit Pack",
+        "imageUrl": "/images/Biscuit Pack.jpg",
+        "weight": "1 pack",
+        "price": 20,
+        "category": "biscuits",
+        "desc": "Classic tea time biscuits."
+    },
+    {
+        "id": 42,
+        "name": "Cream Biscuit",
+        "imageUrl": "/images/Cream Biscuit.jpg",
+        "weight": "1 pack",
+        "price": 30,
+        "category": "biscuits",
+        "desc": "Cream filled sandwich biscuits."
+    },
+    {
+        "id": 43,
+        "name": "Chocolate Biscuit",
+        "imageUrl": "/images/Chocolate Biscuit.jpg",
+        "weight": "1 pack",
+        "price": 40,
+        "category": "biscuits",
+        "desc": "Choco chip cookies."
+    },
+    {
+        "id": 44,
+        "name": "Rusk",
+        "imageUrl": "/images/Rusk.jpg",
+        "weight": "1 pack",
+        "price": 50,
+        "category": "biscuits",
+        "desc": "Twice baked bread rusk."
+    },
+    {
+        "id": 45,
+        "name": "Cake Slice",
+        "imageUrl": "/images/Cake Slice.jpg",
+        "weight": "1 pack",
+        "price": 40,
+        "category": "biscuits",
+        "desc": "Vanilla sponge cake slice."
+    },
+    {
+        "id": 46,
+        "name": "Cup Cake",
+        "imageUrl": "/images/Cup Cake.jpg",
+        "weight": "1 pack",
+        "price": 35,
+        "category": "biscuits",
+        "desc": "Mini butter cupcake."
+    },
+    {
+        "id": 47,
+        "name": "Muffin",
+        "imageUrl": "/images/Muffin.jpg",
+        "weight": "1 pack",
+        "price": 50,
+        "category": "biscuits",
+        "desc": "Chocolate chip muffin."
+    },
+    {
+        "id": 48,
+        "name": "Doughnut",
+        "imageUrl": "/images/Doughnut.jpg",
+        "weight": "1 pack",
+        "price": 60,
+        "category": "sweets",
+        "desc": "Glazed ring doughnut."
+    },
+    {
+        "id": 49,
+        "name": "Pastry",
+        "imageUrl": "/images/Pastry.jpg",
+        "weight": "1 pack",
+        "price": 70,
+        "category": "sweets",
+        "desc": "Butter cream pastry."
+    },
+    {
+        "id": 50,
+        "name": "Brownie",
+        "imageUrl": "/images/Brownie.jpg",
+        "weight": "1 pack",
+        "price": 80,
+        "category": "sweets",
+        "desc": "Fudgy chocolate brownie."
+    },
+    {
+        "id": 51,
+        "name": "Dry Fruits Mix",
+        "imageUrl": "/images/Dry Fruits Mix.jpg",
+        "weight": "1 pack",
+        "price": 200,
+        "category": "namkeen",
+        "desc": "Premium dry fruit trail mix."
+    },
+    {
+        "id": 52,
+        "name": "Almond Snack Pack",
+        "imageUrl": "/images/Almond Snack Pack.jpg",
+        "weight": "1 pack",
+        "price": 150,
+        "category": "namkeen",
+        "desc": "Roasted salted almonds."
+    },
+    {
+        "id": 53,
+        "name": "Cashew Snack",
+        "imageUrl": "/images/Cashew Snack.jpg",
+        "weight": "1 pack",
+        "price": 180,
+        "category": "namkeen",
+        "desc": "Spiced cashews."
+    },
+    {
+        "id": 54,
+        "name": "Pistachio Snack",
+        "imageUrl": "/images/Pistachio Snack.jpg",
+        "weight": "1 pack",
+        "price": 220,
+        "category": "namkeen",
+        "desc": "Premium salted pistachios."
+    },
+    {
+        "id": 55,
+        "name": "Trail Mix",
+        "imageUrl": "/images/Trail Mix.jpg",
+        "weight": "1 pack",
+        "price": 180,
+        "category": "namkeen",
+        "desc": "Nut, seed & raisin mix."
+    },
+    {
+        "id": 56,
+        "name": "Granola Bar",
+        "imageUrl": "/images/Granola Bar.jpg",
+        "weight": "1 pack",
+        "price": 40,
+        "category": "sweets",
+        "desc": "Oats & honey energy bar."
+    },
+    {
+        "id": 57,
+        "name": "Protein Bar",
+        "imageUrl": "/images/Protein Bar.jpg",
+        "weight": "1 pack",
+        "price": 80,
+        "category": "sweets",
+        "desc": "High protein snack bar."
+    },
+    {
+        "id": 58,
+        "name": "Energy Bar",
+        "imageUrl": "/images/Energy Bar.jpg",
+        "weight": "1 pack",
+        "price": 60,
+        "category": "sweets",
+        "desc": "Dates & nuts bar."
+    },
+    {
+        "id": 59,
+        "name": "Oats Cookies",
+        "imageUrl": "/images/Oats Cookies.jpg",
+        "weight": "1 pack",
+        "price": 70,
+        "category": "biscuits",
+        "desc": "Whole wheat oats cookies."
+    },
+    {
+        "id": 60,
+        "name": "Multigrain Chips",
+        "imageUrl": "/images/Multigrain Chips.jpg",
+        "weight": "1 pack",
+        "price": 80,
+        "category": "chips",
+        "desc": "Healthy multigrain crisp."
+    },
+    {
+        "id": 61,
+        "name": "Bhel Puri Mix",
+        "imageUrl": "/images/Bhel Puri Mix.jpg",
+        "weight": "1 pack",
+        "price": 40,
+        "category": "namkeen",
+        "desc": "Ready to mix bhel puri."
+    },
+    {
+        "id": 62,
+        "name": "Sev Puri Pack",
+        "imageUrl": "/images/Sev Puri Pack.jpg",
+        "weight": "1 pack",
+        "price": 40,
+        "category": "namkeen",
+        "desc": "Sev puri chaat base."
+    },
+    {
+        "id": 63,
+        "name": "Pani Puri Kit",
+        "imageUrl": "/images/Pani Puri Kit.jpg",
+        "weight": "1 pack",
+        "price": 60,
+        "category": "namkeen",
+        "desc": "Puri + masala + chutney."
+    },
+    {
+        "id": 64,
+        "name": "Papdi Chaat Mix",
+        "imageUrl": "/images/Papdi Chaat Mix.jpg",
+        "weight": "1 pack",
+        "price": 50,
+        "category": "namkeen",
+        "desc": "Crispy papdi with spices."
+    },
+    {
+        "id": 65,
+        "name": "Ragda Patties",
+        "imageUrl": "/images/Ragda Patties.jpg",
+        "weight": "1 pack",
+        "price": 50,
+        "category": "namkeen",
+        "desc": "Potato patty set (2 pieces)."
+    },
+    {
+        "id": 66,
+        "name": "Vada Pav",
+        "imageUrl": "/images/Vada Pav.jpg",
+        "weight": "1 pack",
+        "price": 20,
+        "category": "namkeen",
+        "desc": "Mumbai style vada pav."
+    },
+    {
+        "id": 67,
+        "name": "Dabeli",
+        "imageUrl": "/images/Dabeli.jpg",
+        "weight": "1 pack",
+        "price": 25,
+        "category": "namkeen",
+        "desc": "Kutchi dabeli with garlic chutney."
+    },
+    {
+        "id": 68,
+        "name": "Pav Bhaji Bread Pack",
+        "imageUrl": "/images/Pav Bhaji Bread Pack.jpg",
+        "weight": "1 pack",
+        "price": 35,
+        "category": "namkeen",
+        "desc": "Fresh pav (4 pcs) + bhaji masala."
+    },
+    {
+        "id": 69,
+        "name": "Chana Chaat",
+        "imageUrl": "/images/Chana Chaat.jpg",
+        "weight": "1 pack",
+        "price": 30,
+        "category": "namkeen",
+        "desc": "Spicy chickpea chaat."
+    },
+    {
+        "id": 70,
+        "name": "Corn Chaat",
+        "imageUrl": "/images/Corn Chaat .jpg",
+        "weight": "1 pack",
+        "price": 40,
+        "category": "namkeen",
+        "desc": "Tangy corn masala mix."
+    },
+    {
+        "id": 71,
+        "name": "Khakhra",
+        "imageUrl": "/images/Khakhra.jpg",
+        "weight": "1 pack",
+        "price": 60,
+        "category": "biscuits",
+        "desc": "Thin whole wheat cracker."
+    },
+    {
+        "id": 72,
+        "name": "Mathri",
+        "imageUrl": "/images/Mathri.jpg",
+        "weight": "1 pack",
+        "price": 70,
+        "category": "biscuits",
+        "desc": "Salted flaky mathri."
+    },
+    {
+        "id": 73,
+        "name": "Namak Para",
+        "imageUrl": "/images/Namak Para.jpg",
+        "weight": "1 pack",
+        "price": 60,
+        "category": "biscuits",
+        "desc": "Salty diamond shaped crisp."
+    },
+    {
+        "id": 74,
+        "name": "Shakar Para",
+        "imageUrl": "/images/Shakar Para.jpg",
+        "weight": "1 pack",
+        "price": 60,
+        "category": "sweets",
+        "desc": "Sweet sugar coated crisp."
+    },
+    {
+        "id": 75,
+        "name": "Bakarwadi",
+        "imageUrl": "/images/Bakarwadi.jpg",
+        "weight": "1 pack",
+        "price": 90,
+        "category": "namkeen",
+        "desc": "Spiral maharashtrian snack."
+    },
+    {
+        "id": 76,
+        "name": "Fafda",
+        "imageUrl": "/images/Fafda.jpg",
+        "weight": "1 pack",
+        "price": 80,
+        "category": "namkeen",
+        "desc": "Crispy gram flour fafda."
+    },
+    {
+        "id": 77,
+        "name": "Gathiya",
+        "imageUrl": "/images/Gathiya.jpg",
+        "weight": "1 pack",
+        "price": 70,
+        "category": "namkeen",
+        "desc": "Thin besan gathiya."
+    },
+    {
+        "id": 78,
+        "name": "Thepla Chips",
+        "imageUrl": "/images/Thepla Chips.jpg",
+        "weight": "1 pack",
+        "price": 80,
+        "category": "chips",
+        "desc": "Methi thepla flavored chips."
+    },
+    {
+        "id": 79,
+        "name": "Masala Papad",
+        "imageUrl": "/images/Masala Papad.jpg",
+        "weight": "1 pack",
+        "price": 40,
+        "category": "namkeen",
+        "desc": "Roasted papad with masala."
+    },
+    {
+        "id": 80,
+        "name": "Roasted Makhana",
+        "imageUrl": "/images/Roasted Makhana.jpg",
+        "weight": "1 pack",
+        "price": 120,
+        "category": "namkeen",
+        "desc": "Foxnut super snack, lightly spiced."
+    },
+    {
+        "id": 81,
+        "name": "Chocolate Popcorn",
+        "imageUrl": "/images/Chocolate Popcorn.jpg",
+        "weight": "1 pack",
+        "price": 70,
+        "category": "sweets",
+        "desc": "Belgian chocolate coated popcorn."
+    },
+    {
+        "id": 82,
+        "name": "Cheese Crackers",
+        "imageUrl": "/images/Cheese Crackers.jpg",
+        "weight": "1 pack",
+        "price": 50,
+        "category": "biscuits",
+        "desc": "Cheese flavored square crackers."
+    },
+    {
+        "id": 83,
+        "name": "Wheat Crackers",
+        "imageUrl": "/images/Wheat Crackers.jpg",
+        "weight": "1 pack",
+        "price": 45,
+        "category": "biscuits",
+        "desc": "High fiber wheat crackers."
+    },
+    {
+        "id": 84,
+        "name": "Cream Rolls",
+        "imageUrl": "/images/Cream Rolls.jpg",
+        "weight": "1 pack",
+        "price": 60,
+        "category": "sweets",
+        "desc": "Custard filled cream rolls."
+    },
+    {
+        "id": 85,
+        "name": "Peanut Chikki",
+        "imageUrl": "/images/Peanut Chikki.jpg",
+        "weight": "1 pack",
+        "price": 40,
+        "category": "sweets",
+        "desc": "Jaggery & peanut brittle."
+    },
+    {
+        "id": 86,
+        "name": "Sesame Chikki",
+        "imageUrl": "/images/Sesame Chikki.jpg",
+        "weight": "1 pack",
+        "price": 45,
+        "category": "sweets",
+        "desc": "Sesame seed sweet bar."
+    },
+    {
+        "id": 87,
+        "name": "Coconut Chips",
+        "imageUrl": "/images/Coconut Chips.jpg",
+        "weight": "1 pack",
+        "price": 70,
+        "category": "chips",
+        "desc": "Toasted coconut crisp chips."
+    },
+    {
+        "id": 88,
+        "name": "Sweet Corn Snack",
+        "imageUrl": "/images/Sweet Corn Snack.jpg",
+        "weight": "1 pack",
+        "price": 50,
+        "category": "chips",
+        "desc": "Sweet corn crispies."
+    },
+    {
+        "id": 89,
+        "name": "Masala Corn",
+        "imageUrl": "/images/Masala Corn.jpg",
+        "weight": "1 pack",
+        "price": 60,
+        "category": "chips",
+        "desc": "Spicy corn puffs."
+    },
+    {
+        "id": 90,
+        "name": "BBQ Chips",
+        "imageUrl": "/images/BBQ Chips.jpg",
+        "weight": "1 pack",
+        "price": 50,
+        "category": "chips",
+        "desc": "Smoky barbecue flavour."
+    },
+    {
+        "id": 91,
+        "name": "Peri Peri Chips",
+        "imageUrl": "/images/Peri Peri Chips.jpg",
+        "weight": "1 pack",
+        "price": 50,
+        "category": "chips",
+        "desc": "Hot peri peri potato crisps."
+    },
+    {
+        "id": 92,
+        "name": "Salsa Nachos",
+        "imageUrl": "/images/Salsa Nachos.jpg",
+        "weight": "1 pack",
+        "price": 60,
+        "category": "chips",
+        "desc": "Salsa flavored tortilla chips."
+    },
+    {
+        "id": 93,
+        "name": "Cheese Nachos",
+        "imageUrl": "/images/Cheese Nachos.jpg",
+        "weight": "1 pack",
+        "price": 60,
+        "category": "chips",
+        "desc": "Cheese dusted nachos."
+    },
+    {
+        "id": 94,
+        "name": "Jalapeno Chips",
+        "imageUrl": "/images/Jalapeno Corn Chips.jpg",
+        "weight": "1 pack",
+        "price": 55,
+        "category": "chips",
+        "desc": "Spicy jalapeno flavored chips."
+    },
+    {
+        "id": 95,
+        "name": "Potato Wafers",
+        "imageUrl": "/images/Potato Wafers.jpg",
+        "weight": "1 pack",
+        "price": 30,
+        "category": "chips",
+        "desc": "Thin salted potato wafers."
+    },
+    {
+        "id": 96,
+        "name": "Masala Murukku",
+        "imageUrl": "/images/Masala Murukku.jpg",
+        "weight": "1 pack",
+        "price": 80,
+        "category": "namkeen",
+        "desc": "Spiced rice flour murukku."
+    },
+    {
+        "id": 97,
+        "name": "Tomato Chips",
+        "imageUrl": "/images/Tomato Chips.jpg",
+        "weight": "1 pack",
+        "price": 50,
+        "category": "chips",
+        "desc": "Tangy tomato flavor chips."
+    },
+    {
+        "id": 98,
+        "name": "Garlic Chips",
+        "imageUrl": "/images/Garlic Chips.jpg",
+        "weight": "1 pack",
+        "price": 55,
+        "category": "chips",
+        "desc": "Garlic infused potato crisps."
+    },
+    {
+        "id": 99,
+        "name": "Onion Rings",
+        "imageUrl": "/images/Onion Rings.jpg",
+        "weight": "1 pack",
+        "price": 60,
+        "category": "chips",
+        "desc": "Crispy onion ring snack."
+    },
+    {
+        "id": 100,
+        "name": "Cheese Puffs",
+        "imageUrl": "/images/Cheese Puffs.jpg",
+        "weight": "1 pack",
+        "price": 40,
+        "category": "chips",
+        "desc": "Airy cheese flavored puffs."
+    },
+    {
+        "id": 101,
+        "name": "Spicy Corn Rings",
+        "imageUrl": "/images/Spicy Corn Rings.jpg",
+        "weight": "1 pack",
+        "price": 35,
+        "category": "chips",
+        "desc": "Ring shaped spicy corn snack."
+    },
+    {
+        "id": 102,
+        "name": "BBQ Corn Chips",
+        "imageUrl": "/images/BBQ Corn Chips.jpg",
+        "weight": "1 pack",
+        "price": 50,
+        "category": "chips",
+        "desc": "BBQ flavor corn crisps."
+    },
+    {
+        "id": 103,
+        "name": "Masala Khakhra",
+        "imageUrl": "/images/Masala Khakhra.jpg",
+        "weight": "1 pack",
+        "price": 70,
+        "category": "biscuits",
+        "desc": "Spicy whole wheat khakhra."
+    },
+    {
+        "id": 104,
+        "name": "Jeera Khakhra",
+        "imageUrl": "/images/Jeera Khakhra.jpg",
+        "weight": "1 pack",
+        "price": 70,
+        "category": "biscuits",
+        "desc": "Cumin flavored khakhra."
+    },
+    {
+        "id": 105,
+        "name": "Butter Cookies",
+        "imageUrl": "/images/Butter Cookies.jpg",
+        "weight": "1 pack",
+        "price": 90,
+        "category": "biscuits",
+        "desc": "Rich butter cookies."
+    },
+    {
+        "id": 106,
+        "name": "Chocolate Cookies",
+        "imageUrl": "/images/Chocolate Cookies.jpg",
+        "weight": "1 pack",
+        "price": 100,
+        "category": "biscuits",
+        "desc": "Double chocolate chip cookies."
+    },
+    {
+        "id": 107,
+        "name": "Fruit Cake Slice",
+        "imageUrl": "/images/Fruit Cake Slice.jpg",
+        "weight": "1 pack",
+        "price": 60,
+        "category": "sweets",
+        "desc": "Rich fruit cake slice."
+    },
+    {
+        "id": 108,
+        "name": "Cream Wafers",
+        "imageUrl": "/images/Cream Wafers.jpg",
+        "weight": "1 pack",
+        "price": 50,
+        "category": "biscuits",
+        "desc": "Cream wafer rolls."
+    },
+    {
+        "id": 109,
+        "name": "Choco Pie",
+        "imageUrl": "/images/Choco Pie.jpg",
+        "weight": "1 pack",
+        "price": 120,
+        "category": "sweets",
+        "desc": "Chocolate coated marshmallow pie."
+    },
+    {
+        "id": 110,
+        "name": "Mini Pizza Snack",
+        "imageUrl": "/images/Mini Pizza Snack.jpg",
+        "weight": "1 pack",
+        "price": 80,
+        "category": "namkeen",
+        "desc": "Mini pizza flavored bites."
+    },
+    {
+        "id": 111,
+        "name": "Veg Puff",
+        "imageUrl": "/images/Veg Puff.jpg",
+        "weight": "1 pack",
+        "price": 25,
+        "category": "namkeen",
+        "desc": "Flaky puff with veg filling."
+    },
+    {
+        "id": 113,
+        "name": "Egg Puff",
+        "imageUrl": "/images/Egg Puff.jpg",
+        "weight": "1 pack",
+        "price": 30,
+        "category": "namkeen",
+        "desc": "Puff pastry with egg filling."
+    },
+    {
+        "id": 114,
+        "name": "Potato Croquettes",
+        "imageUrl": "/images/Potato Croquettes.jpg",
+        "weight": "1 pack",
+        "price": 80,
+        "category": "namkeen",
+        "desc": "Breaded potato cylinders."
+    },
+    {
+        "id": 115,
+        "name": "Veg Nuggets",
+        "imageUrl": "/images/Veg Nuggets.jpg",
+        "weight": "1 pack",
+        "price": 120,
+        "category": "namkeen",
+        "desc": "Crunchy veggie nuggets."
+    },
+    {
+        "id": 116,
+        "name": "French Fries Pack",
+        "imageUrl": "/images/French Fries Pack.jpg",
+        "weight": "1 pack",
+        "price": 100,
+        "category": "chips",
+        "desc": "Frozen french fries."
+    },
+    {
+        "id": 117,
+        "name": "Sweet Potato Chips",
+        "imageUrl": "/images/Sweet Potato Chips.jpg",
+        "weight": "1 pack",
+        "price": 70,
+        "category": "chips",
+        "desc": "Healthy sweet potato crisps."
+    },
+    {
+        "id": 118,
+        "name": "Jackfruit Chips",
+        "imageUrl": "/images/Jackfruit Chips.jpg",
+        "weight": "1 pack",
+        "price": 120,
+        "category": "chips",
+        "desc": "Crispy raw jackfruit chips."
+    },
+    {
+        "id": 119,
+        "name": "Ragi Chips",
+        "imageUrl": "/images/Ragi Chips.jpg",
+        "weight": "1 pack",
+        "price": 90,
+        "category": "chips",
+        "desc": "Finger millet based chips."
+    },
+    {
+        "id": 120,
+        "name": "Millet Chips",
+        "imageUrl": "/images/Millet Chips.jpg",
+        "weight": "1 pack",
+        "price": 95,
+        "category": "chips",
+        "desc": "Multimillet crunchy chips."
+    },
+    {
+        "id": 121,
+        "name": "Quinoa Chips",
+        "imageUrl": "/images/Quinoa Chips.jpg",
+        "weight": "1 pack",
+        "price": 120,
+        "category": "chips",
+        "desc": "Protein rich quinoa chips."
+    },
+    {
+        "id": 122,
+        "name": "Masala Makhana",
+        "imageUrl": "/images/Masala Makhana.jpg",
+        "weight": "1 pack",
+        "price": 140,
+        "category": "namkeen",
+        "desc": "Spiced foxnut snack."
+    },
+    {
+        "id": 123,
+        "name": "Chocolate Makhana",
+        "imageUrl": "/images/Chocolate Makhana.jpg",
+        "weight": "1 pack",
+        "price": 150,
+        "category": "sweets",
+        "desc": "Chocolate coated makhana."
+    },
+    {
+        "id": 124,
+        "name": "Honey Roasted Peanuts",
+        "imageUrl": "/images/Honey Roasted Peanuts.jpg",
+        "weight": "1 pack",
+        "price": 110,
+        "category": "namkeen",
+        "desc": "Sweet honey coated peanuts."
+    },
+    {
+        "id": 125,
+        "name": "Wasabi Peanuts",
+        "imageUrl": "/images/Wasabi Peanuts.jpg",
+        "weight": "1 pack",
+        "price": 130,
+        "category": "namkeen",
+        "desc": "Wasabi coated green peas."
+    },
+    {
+        "id": 126,
+        "name": "Cheese Crackers",
+        "imageUrl": "/images/Cheese Crackers.jpg",
+        "weight": "1 pack",
+        "price": 60,
+        "category": "biscuits",
+        "desc": "Savory cheese crackers."
+    },
+    {
+        "id": 127,
+        "name": "Wheat Crackers",
+        "imageUrl": "/images/Wheat Crackers.jpg",
+        "weight": "1 pack",
+        "price": 55,
+        "category": "biscuits",
+        "desc": "Whole wheat salted crackers."
+    },
+    {
+        "id": 128,
+        "name": "Salt Crackers",
+        "imageUrl": "/images/Salt Crackers.jpg",
+        "weight": "1 pack",
+        "price": 50,
+        "category": "biscuits",
+        "desc": "Plain salted crackers."
+    },
+    {
+        "id": 129,
+        "name": "Cream Rolls",
+        "imageUrl": "/images/Cream Rolls.jpg",
+        "weight": "1 pack",
+        "price": 70,
+        "category": "sweets",
+        "desc": "Cream filled roll pastries."
+    },
+    {
+        "id": 130,
+        "name": "Coconut Cookies",
+        "imageUrl": "/images/Coconut Cookies.jpg",
+        "weight": "1 pack",
+        "price": 90,
+        "category": "biscuits",
+        "desc": "Toasted coconut cookies."
+    },
+    {
+        "id": 131,
+        "name": "Oats Cookies",
+        "imageUrl": "/images/Oats Cookies.jpg",
+        "weight": "1 pack",
+        "price": 100,
+        "category": "biscuits",
+        "desc": "Healthy oats cookies."
+    },
+    {
+        "id": 132,
+        "name": "Almond Cookies",
+        "imageUrl": "/images/Almond Cookies.jpg",
+        "weight": "1 pack",
+        "price": 120,
+        "category": "biscuits",
+        "desc": "Butter almond cookies."
+    },
+    {
+        "id": 133,
+        "name": "Cashew Cookies",
+        "imageUrl": "/images/Cashew Cookies.jpg",
+        "weight": "1 pack",
+        "price": 130,
+        "category": "biscuits",
+        "desc": "Cashew rich cookies."
+    },
+    {
+        "id": 134,
+        "name": "Butter Rusk",
+        "imageUrl": "/images/Butter Rusk.jpg",
+        "weight": "1 pack",
+        "price": 80,
+        "category": "biscuits",
+        "desc": "Buttery sweet rusk."
+    },
+    {
+        "id": 135,
+        "name": "Milk Rusk",
+        "imageUrl": "/images/Milk Rusk.jpg",
+        "weight": "1 pack",
+        "price": 85,
+        "category": "biscuits",
+        "desc": "Milk flavored rusk."
+    },
+    {
+        "id": 136,
+        "name": "Garlic Bread Snack",
+        "imageUrl": "/images/Garlic Bread Snack.jpg",
+        "weight": "1 pack",
+        "price": 70,
+        "category": "namkeen",
+        "desc": "Garlic toast bites."
+    },
+    {
+        "id": 137,
+        "name": "Cheese Bread Snack",
+        "imageUrl": "/images/Cheese Bread Snack.jpg",
+        "weight": "1 pack",
+        "price": 75,
+        "category": "namkeen",
+        "desc": "Cheese flavored bread snack."
+    },
+    {
+        "id": 138,
+        "name": "Veg Roll Snack",
+        "imageUrl": "/images/Veg Roll Snack.jpg",
+        "weight": "1 pack",
+        "price": 60,
+        "category": "namkeen",
+        "desc": "Spring roll style veg snack."
+    },
+    {
+        "id": 141,
+        "name": "Sweet Corn Cups",
+        "imageUrl": "/images/Sweet Corn Cups.webp",
+        "weight": "1 pack",
+        "price": 60,
+        "category": "chips",
+        "desc": "Sweet corn snack cups."
+    },
+    {
+        "id": 142,
+        "name": "Masala Corn Cups",
+        "imageUrl": "/images/Masala Corn Cups.jpg",
+        "weight": "1 pack",
+        "price": 65,
+        "category": "chips",
+        "desc": "Masala flavored corn cups."
+    },
+    {
+        "id": 143,
+        "name": "Popcorn Cheese",
+        "imageUrl": "/images/Popcorn Cheese.jpg",
+        "weight": "1 pack",
+        "price": 60,
+        "category": "chips",
+        "desc": "Cheese popcorn."
+    },
+    {
+        "id": 144,
+        "name": "Popcorn Caramel",
+        "imageUrl": "/images/Popcorn Caramel.jpeg",
+        "weight": "1 pack",
+        "price": 70,
+        "category": "sweets",
+        "desc": "Caramel coated popcorn."
+    },
+    {
+        "id": 145,
+        "name": "Popcorn Chocolate",
+        "imageUrl": "/images/Popcorn Chocolate.jpg",
+        "weight": "1 pack",
+        "price": 75,
+        "category": "sweets",
+        "desc": "Chocolate drizzled popcorn."
+    },
+    {
+        "id": 146,
+        "name": "Spicy Potato Wafers",
+        "imageUrl": "/images/Spicy Potato Wafers.jpg",
+        "weight": "1 pack",
+        "price": 45,
+        "category": "chips",
+        "desc": "Spicy wafers."
+    },
+    {
+        "id": 147,
+        "name": "Tomato Wafers",
+        "imageUrl": "/images/Tomato Wafers.jpg",
+        "weight": "1 pack",
+        "price": 45,
+        "category": "chips",
+        "desc": "Tomato flavored wafers."
+    },
+    {
+        "id": 148,
+        "name": "Cream Biscuits",
+        "imageUrl": "/images/Cream Biscuits.jpg",
+        "weight": "1 pack",
+        "price": 30,
+        "category": "biscuits",
+        "desc": "Cream sandwich biscuits."
+    },
+    {
+        "id": 149,
+        "name": "Chocolate Biscuits",
+        "imageUrl": "/images/Chocolate Biscuits.jpg",
+        "weight": "1 pack",
+        "price": 40,
+        "category": "biscuits",
+        "desc": "Chocolate cream biscuits."
+    },
+    {
+        "id": 150,
+        "name": "Strawberry Biscuits",
+        "imageUrl": "/images/Strawberry Biscuits.jpg",
+        "weight": "1 pack",
+        "price": 40,
+        "category": "biscuits",
+        "desc": "Strawberry cream biscuits."
+    },
+    {
+        "id": 151,
+        "name": "Orange Biscuits",
+        "imageUrl": "/images/Orange Biscuits.jpg",
+        "weight": "1 pack",
+        "price": 35,
+        "category": "biscuits",
+        "desc": "Orange flavor biscuits."
+    },
+    {
+        "id": 152,
+        "name": "Peanut Chikki",
+        "imageUrl": "/images/Peanut Chikki.jpg",
+        "weight": "1 pack",
+        "price": 40,
+        "category": "sweets",
+        "desc": "Peanut brittle."
+    },
+    {
+        "id": 153,
+        "name": "Sesame Chikki",
+        "imageUrl": "/images/Sesame Chikki.jpg",
+        "weight": "1 pack",
+        "price": 45,
+        "category": "sweets",
+        "desc": "Sesame seed brittle."
+    },
+    {
+        "id": 154,
+        "name": "Coconut Chikki",
+        "imageUrl": "/images/Coconut Chikki.jpg",
+        "weight": "1 pack",
+        "price": 45,
+        "category": "sweets",
+        "desc": "Coconut jaggery bar."
+    },
+    {
+        "id": 155,
+        "name": "Dry Fruit Chikki",
+        "imageUrl": "/images/Dry Fruit Chikki.jpg",
+        "weight": "1 pack",
+        "price": 80,
+        "category": "sweets",
+        "desc": "Dry fruit & nut chikki."
+    },
+    {
+        "id": 158,
+        "name": "Spicy Mixture",
+        "imageUrl": "/images/Spicy Mixture.jpg",
+        "weight": "1 pack",
+        "price": 90,
+        "category": "namkeen",
+        "desc": "Hot and spicy mixture."
+    },
+    {
+        "id": 159,
+        "name": "Gujarati Gathiya",
+        "imageUrl": "/images/Gujarati Gathiya.jpg",
+        "weight": "1 pack",
+        "price": 85,
+        "category": "namkeen",
+        "desc": "Thick gathiya snack."
+    },
+    {
+        "id": 160,
+        "name": "Ratlami Sev",
+        "imageUrl": "/images/Ratlami Sev.jpg",
+        "weight": "1 pack",
+        "price": 95,
+        "category": "namkeen",
+        "desc": "Spicy sev from Ratlam."
+    },
+    {
+        "id": 161,
+        "name": "Nylon Sev",
+        "imageUrl": "/images/Nylon Sev.jpg",
+        "weight": "1 pack",
+        "price": 80,
+        "category": "namkeen",
+        "desc": "Thin nylon sev."
+    },
+    {
+        "id": 162,
+        "name": "Dal Mixture",
+        "imageUrl": "/images/Dal Mixture.jpg",
+        "weight": "1 pack",
+        "price": 85,
+        "category": "namkeen",
+        "desc": "Lentil mixture."
+    },
+    {
+        "id": 163,
+        "name": "Corn Mixture",
+        "imageUrl": "/images/Corn Mixture.jpg",
+        "weight": "1 pack",
+        "price": 80,
+        "category": "namkeen",
+        "desc": "Corn flakes mixture."
+    },
+    {
+        "id": 164,
+        "name": "Bombay Mixture",
+        "imageUrl": "/images/Bombay Mixture.jpg",
+        "weight": "1 pack",
+        "price": 90,
+        "category": "namkeen",
+        "desc": "Classic Bombay mix."
+    },
+    {
+        "id": 165,
+        "name": "Punjabi Mixture",
+        "imageUrl": "/images/Punjabi Mixture.jpg",
+        "weight": "1 pack",
+        "price": 95,
+        "category": "namkeen",
+        "desc": "Punjabi tadka mix."
+    },
+    {
+        "id": 166,
+        "name": "Chivda Mix",
+        "imageUrl": "/images/Chivda Mix.jpg",
+        "weight": "1 pack",
+        "price": 85,
+        "category": "namkeen",
+        "desc": "Chivda with peanuts."
+    },
+    {
+        "id": 167,
+        "name": "Poha Chivda",
+        "imageUrl": "/images/Poha Chivda.jpg",
+        "weight": "1 pack",
+        "price": 80,
+        "category": "namkeen",
+        "desc": "Flattened rice chivda."
+    },
+    {
+        "id": 168,
+        "name": "Dry Fruit Mixture",
+        "imageUrl": "/images/Dry Fruit Mixture.jpg",
+        "weight": "1 pack",
+        "price": 120,
+        "category": "namkeen",
+        "desc": "Premium dry fruit mix."
+    },
+    {
+        "id": 169,
+        "name": "Masala Papad Pack",
+        "imageUrl": "/images/Masala Papad Pack.jpg",
+        "weight": "1 pack",
+        "price": 60,
+        "category": "namkeen",
+        "desc": "Masala papad (10 pcs)."
+    },
+    {
+        "id": 170,
+        "name": "Roasted Chana Snack",
+        "imageUrl": "/images/Roasted Chana Snack.jpg",
+        "weight": "1 pack",
+        "price": 50,
+        "category": "namkeen",
+        "desc": "Roasted black chana."
+    },
+    {
+        "id": 171,
+        "name": "Masala Chana Snack",
+        "imageUrl": "/images/Masala Chana Snack.jpg",
+        "weight": "1 pack",
+        "price": 60,
+        "category": "namkeen",
+        "desc": "Spicy roasted chana."
+    },
+    {
+        "id": 172,
+        "name": "Sweet Corn Snack",
+        "imageUrl": "/images/Sweet Corn Snack.jpg",
+        "weight": "1 pack",
+        "price": 65,
+        "category": "chips",
+        "desc": "Sweet corn puffs."
+    },
+    {
+        "id": 173,
+        "name": "Roasted Peanut Pack",
+        "imageUrl": "/images/Roasted Peanut Pack.jpg",
+        "weight": "1 pack",
+        "price": 55,
+        "category": "namkeen",
+        "desc": "Plain roasted peanuts."
+    },
+    {
+        "id": 174,
+        "name": "Masala Peanut Pack",
+        "imageUrl": "/images/Masala Peanut Pack.jpg",
+        "weight": "1 pack",
+        "price": 65,
+        "category": "namkeen",
+        "desc": "Masala coated peanuts."
+    },
+    {
+        "id": 175,
+        "name": "Garlic Peanut Pack",
+        "imageUrl": "/images/Garlic Peanut Pack.jpg",
+        "weight": "1 pack",
+        "price": 70,
+        "category": "namkeen",
+        "desc": "Garlic flavored peanuts."
+    },
+    {
+        "id": 177,
+        "name": "BBQ Peanut Pack",
+        "imageUrl": "/images/BBQ Peanut Pack.jpg",
+        "weight": "1 pack",
+        "price": 75,
+        "category": "namkeen",
+        "desc": "BBQ peanuts."
+    },
+    {
+        "id": 178,
+        "name": "Spicy Peanut Pack",
+        "imageUrl": "/images/Spicy Peanut Pack.jpg",
+        "weight": "1 pack",
+        "price": 70,
+        "category": "namkeen",
+        "desc": "Extra spicy peanuts."
+    },
+    {
+        "id": 179,
+        "name": "Lemon Peanut Pack",
+        "imageUrl": "/images/Lemon Peanut Pack.jpg",
+        "weight": "1 pack",
+        "price": 65,
+        "category": "namkeen",
+        "desc": "Lemon chili peanuts."
+    },
+    {
+        "id": 181,
+        "name": "Caramel Peanut Pack",
+        "imageUrl": "/images/Caramel Peanut Pack.jpg",
+        "weight": "1 pack",
+        "price": 80,
+        "category": "sweets",
+        "desc": "Caramel candy peanuts."
+    },
+    {
+        "id": 184,
+        "name": "Spicy Corn Chips",
+        "imageUrl": "/images/Spicy Corn Chips.jpg",
+        "weight": "1 pack",
+        "price": 50,
+        "category": "chips",
+        "desc": "Spicy corn chips."
+    },
+    {
+        "id": 185,
+        "name": "Cheese Corn Chips",
+        "imageUrl": "/images/Cheese Corn Chips.jpg",
+        "weight": "1 pack",
+        "price": 55,
+        "category": "chips",
+        "desc": "Cheese flavored corn chips."
+    },
+    {
+        "id": 186,
+        "name": "BBQ Corn Chips",
+        "imageUrl": "/images/BBQ Corn Chips.jpg",
+        "weight": "1 pack",
+        "price": 55,
+        "category": "chips",
+        "desc": "BBQ corn chips."
+    },
+    {
+        "id": 187,
+        "name": "Masala Corn Chips",
+        "imageUrl": "/images/Masala Corn Chips.jpg",
+        "weight": "1 pack",
+        "price": 50,
+        "category": "chips",
+        "desc": "Masala corn chips."
+    },
+    {
+        "id": 189,
+        "name": "Garlic Corn Chips",
+        "imageUrl": "/images/Garlic Corn Chips.jpg",
+        "weight": "1 pack",
+        "price": 55,
+        "category": "chips",
+        "desc": "Garlic corn chips."
+    },
+    {
+        "id": 191,
+        "name": "Lemon Corn Chips",
+        "imageUrl": "/images/Lemon Corn Chips.jpg",
+        "weight": "1 pack",
+        "price": 55,
+        "category": "chips",
+        "desc": "Lemon flavored corn chips."
+    },
+    {
+        "id": 193,
+        "name": "Jalapeno Corn Chips",
+        "imageUrl": "/images/Jalapeno Corn Chips.jpg",
+        "weight": "1 pack",
+        "price": 60,
+        "category": "chips",
+        "desc": "Jalapeno corn chips."
+    },
+    {
+        "id": 194,
+        "name": "Salsa Corn Chips",
+        "imageUrl": "/images/Salsa Corn Chips.jpg",
+        "weight": "1 pack",
+        "price": 60,
+        "category": "chips",
+        "desc": "Salsa corn chips."
+    },
+    {
+        "id": 196,
+        "name": "Mexican Nachos",
+        "imageUrl": "/images/Mexican Nachos.jpg",
+        "weight": "1 pack",
+        "price": 65,
+        "category": "chips",
+        "desc": "Mexican style nachos."
+    },
+    {
+        "id": 245,
+        "name": "Mexican Nachos",
+        "imageUrl": "/images/Mexican Nachos.jpg",
+        "weight": "1 pack",
+        "price": 75,
+        "category": "chips",
+        "desc": "Mexican style nachos."
+    },
+    {
+        "id": 260,
+        "name": "Garlic Corn Chips",
+        "imageUrl": "/images/Garlic Corn Chips.jpg",
+        "weight": "1 pack",
+        "price": 60,
+        "category": "chips",
+        "desc": "Garlic corn chips."
+    },
+    {
+        "id": 262,
+        "name": "Lemon Corn Chips",
+        "imageUrl": "/images/Lemon Corn Chips.jpg",
+        "weight": "1 pack",
+        "price": 60,
+        "category": "chips",
+        "desc": "Lemon corn chips."
+    },
+    {
+        "id": 264,
+        "name": "Salsa Corn Chips",
+        "imageUrl": "/images/Salsa Corn Chips.jpg",
+        "weight": "1 pack",
+        "price": 65,
+        "category": "chips",
+        "desc": "Salsa corn chips."
+    },
+    {
+        "id": 265,
+        "name": "Cheese Corn Chips",
+        "imageUrl": "/images/Cheese Corn Chips.jpg",
+        "weight": "1 pack",
+        "price": 65,
+        "category": "chips",
+        "desc": "Cheese corn chips."
+    },
+    {
+        "id": 266,
+        "name": "BBQ Corn Chips",
+        "imageUrl": "/images/BBQ Corn Chips.jpg",
+        "weight": "1 pack",
+        "price": 65,
+        "category": "chips",
+        "desc": "BBQ corn chips."
+    }
 ]

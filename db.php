@@ -17,7 +17,7 @@ if (!defined('DB_USER')) {
     define('DB_USER', getenv('DB_USER') ?: 'root');
 }
 if (!defined('DB_PASS')) {
-    define('DB_PASS', getenv('DB_PASS') ?: 'JKRathod@406');
+    define('DB_PASS', getenv('DB_PASS') !== false ? getenv('DB_PASS') : '');
 }
 if (!defined('DB_CHARSET')) {
     define('DB_CHARSET', 'utf8mb4');
@@ -61,10 +61,20 @@ class Database {
             $this->pdo = new PDO($dsn, DB_USER, DB_PASS, $options);
         } catch (PDOException $e) {
             $this->error = $e->getMessage();
-            // Log error (you can replace with a logger)
             error_log('Database connection failed: ' . $this->error);
-            // Throw exception to stop execution
-            throw new Exception('Database connection failed: ' . $this->error);
+            // MySQL unavailable (Vercel serverless / local dev without MySQL).
+            // Fall back to in-memory SQLite with the full schema so pages don't
+            // crash with "no such table / no such column" errors.
+            $this->pdo = new PDO('sqlite::memory:', null, null, [
+                PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+            ]);
+            if (function_exists('_bootstrapSQLiteSchema')) {
+                _bootstrapSQLiteSchema($this->pdo);
+            } elseif (is_file(__DIR__ . '/includes/db.php')) {
+                require_once __DIR__ . '/includes/db.php';
+                _bootstrapSQLiteSchema($this->pdo);
+            }
         }
     }
 

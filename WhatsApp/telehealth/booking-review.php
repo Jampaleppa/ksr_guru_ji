@@ -11,7 +11,7 @@ $appTime = $_POST['time'] ?? '02:30 PM';
 $totalFee = $_POST['total_amount'] ?? 140;
 
 $patientName = $_POST['patient_name'] ?? 'Jampaleppa';
-$patientMobile = $_POST['patient_mobile'] ?? ' ';
+$patientMobile = !empty($_POST['patient_mobile']) ? trim((string)$_POST['patient_mobile']) : (!empty($_SESSION['user_mobile']) ? $_SESSION['user_mobile'] : '6362079192');
 $patientGender = $_POST['patient_gender'] ?? 'Male';
 $patientDob = $_POST['patient_dob'] ?? '1994-05-15';
 $symptoms = $_POST['symptoms'] ?? 'Headache and fever';
@@ -661,6 +661,7 @@ if (!$doctor) {
                         <input type="hidden" name="time" value="<?php echo htmlspecialchars($appTime); ?>">
                         <input type="hidden" name="amount" value="<?php echo htmlspecialchars($totalFee); ?>">
                         <input type="hidden" name="patient_name" value="<?php echo htmlspecialchars($patientName); ?>">
+                        <input type="hidden" name="patient_mobile" value="<?php echo htmlspecialchars($patientMobile); ?>">
                     </form>
 
                     <button type="button" class="btn-primary" style="width:100%; margin-top:24px; padding: 16px; font-size: 1.1rem; justify-content:center;" onclick="continueToPayment()">🔒 Proceed Payment</button>

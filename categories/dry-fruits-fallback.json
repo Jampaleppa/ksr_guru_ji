@@ -35,9 +35,9 @@
                 "price": 2300
             }
         ],
-        "emoji": "\ud83c\udf30",
+        "emoji": "🌰",
         "description_en": "Premium quality almonds, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Almonds.jpg"
+        "imageUrl": "/images/Almonds.jpg"
     },
     {
         "id": 4,
@@ -75,9 +75,9 @@
                 "price": 2900
             }
         ],
-        "emoji": "\ud83c\udf30",
+        "emoji": "🌰",
         "description_en": "Premium quality cashews, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Cashews.jpg"
+        "imageUrl": "/images/Cashews.jpg"
     },
     {
         "id": 6,
@@ -115,9 +115,9 @@
                 "price": 2700
             }
         ],
-        "emoji": "\ud83c\udf30",
+        "emoji": "🌰",
         "description_en": "Premium quality walnuts, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Walnuts 2400.jpg"
+        "imageUrl": "/images/Walnuts 2400.jpg"
     },
     {
         "id": 8,
@@ -155,9 +155,9 @@
                 "price": 3100
             }
         ],
-        "emoji": "\ud83c\udf30",
+        "emoji": "🌰",
         "description_en": "Premium quality pistachios, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Pistachios 700.jpg"
+        "imageUrl": "/images/Pistachios 700.jpg"
     },
     {
         "id": 10,
@@ -195,9 +195,9 @@
                 "price": 2900
             }
         ],
-        "emoji": "\ud83c\udf30",
+        "emoji": "🌰",
         "description_en": "Premium quality hazelnuts, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Hazelnuts.jpg"
+        "imageUrl": "/images/Hazelnuts.jpg"
     },
     {
         "id": 12,
@@ -235,9 +235,9 @@
                 "price": 4800
             }
         ],
-        "emoji": "\ud83c\udf30",
+        "emoji": "🌰",
         "description_en": "Premium quality macadamia nuts, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Macadamia Nuts.jpg"
+        "imageUrl": "/images/Macadamia Nuts.jpg"
     },
     {
         "id": 14,
@@ -275,9 +275,9 @@
                 "price": 950
             }
         ],
-        "emoji": "\ud83c\udf30",
+        "emoji": "🌰",
         "description_en": "Premium quality peanuts, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Peanuts.jpg"
+        "imageUrl": "/images/Peanuts.jpg"
     },
     {
         "id": 16,
@@ -315,9 +315,9 @@
                 "price": 4200
             }
         ],
-        "emoji": "\ud83c\udf30",
+        "emoji": "🌰",
         "description_en": "Premium quality brazil nuts, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Brazil Nuts Roasted.jpg"
+        "imageUrl": "/images/Brazil Nuts Roasted.jpg"
     },
     {
         "id": 18,
@@ -355,9 +355,9 @@
                 "price": 2500
             }
         ],
-        "emoji": "\ud83c\udf30",
+        "emoji": "🌰",
         "description_en": "Premium quality almonds blanched, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Almonds Blanched.jpg"
+        "imageUrl": "/images/Almonds Blanched.jpg"
     },
     {
         "id": 20,
@@ -395,9 +395,9 @@
                 "price": 3100
             }
         ],
-        "emoji": "\ud83c\udf30",
+        "emoji": "🌰",
         "description_en": "Premium quality cashew kernels, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Cashew Kernels.jpg"
+        "imageUrl": "/images/Cashew Kernels.jpg"
     },
     {
         "id": 22,
@@ -435,9 +435,9 @@
                 "price": 1100
             }
         ],
-        "emoji": "\ud83c\udf30",
+        "emoji": "🌰",
         "description_en": "Premium quality raisins black, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Raisins Black.jpg"
+        "imageUrl": "/images/Raisins Black.jpg"
     },
     {
         "id": 24,
@@ -475,9 +475,9 @@
                 "price": 1200
             }
         ],
-        "emoji": "\ud83c\udf30",
+        "emoji": "🌰",
         "description_en": "Premium quality raisins green, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Raisins Green.jpg"
+        "imageUrl": "/images/Raisins Green.jpg"
     },
     {
         "id": 26,
@@ -515,9 +515,9 @@
                 "price": 1700
             }
         ],
-        "emoji": "\ud83c\udf30",
+        "emoji": "🌰",
         "description_en": "Premium quality dates medjool, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Dates Medjool.jpg"
+        "imageUrl": "/images/Dates Medjool.jpg"
     },
     {
         "id": 28,
@@ -555,9 +555,9 @@
                 "price": 2300
             }
         ],
-        "emoji": "\ud83c\udf30",
+        "emoji": "🌰",
         "description_en": "Premium quality figs dry, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Figs Dry.jpg"
+        "imageUrl": "/images/Figs Dry.jpg"
     },
     {
         "id": 30,
@@ -595,9 +595,9 @@
                 "price": 2300
             }
         ],
-        "emoji": "\ud83c\udf30",
+        "emoji": "🌰",
         "description_en": "Premium quality apricots dried, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Apricots Dried.jpg"
+        "imageUrl": "/images/Apricots Dried.jpg"
     },
     {
         "id": 32,
@@ -635,9 +635,9 @@
                 "price": 2100
             }
         ],
-        "emoji": "\ud83c\udf30",
+        "emoji": "🌰",
         "description_en": "Premium quality prunes dried, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Prunes Dried.jpg"
+        "imageUrl": "/images/Prunes Dried.jpg"
     },
     {
         "id": 34,
@@ -675,9 +675,9 @@
                 "price": 1700
             }
         ],
-        "emoji": "\ud83c\udf30",
+        "emoji": "🌰",
         "description_en": "Premium quality mulberries white, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Mulberries White.jpg"
+        "imageUrl": "/images/Mulberries White.jpg"
     },
     {
         "id": 36,
@@ -715,9 +715,9 @@
                 "price": 1800
             }
         ],
-        "emoji": "\ud83c\udf30",
+        "emoji": "🌰",
         "description_en": "Premium quality mulberries black, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Mulberries Black.jpg"
+        "imageUrl": "/images/Mulberries Black.jpg"
     },
     {
         "id": 38,
@@ -755,9 +755,9 @@
                 "price": 1300
             }
         ],
-        "emoji": "\ud83c\udf30",
+        "emoji": "🌰",
         "description_en": "Premium quality mango slices dry, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Mango Slices Dry.jpg"
+        "imageUrl": "/images/Mango Slices Dry.jpg"
     },
     {
         "id": 40,
@@ -795,9 +795,9 @@
                 "price": 1500
             }
         ],
-        "emoji": "\ud83c\udf30",
+        "emoji": "🌰",
         "description_en": "Premium quality pineapple dried, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Pineapple Dried.jpg"
+        "imageUrl": "/images/Pineapple Dried.jpg"
     },
     {
         "id": 42,
@@ -835,9 +835,9 @@
                 "price": 750
             }
         ],
-        "emoji": "\ud83c\udf30",
+        "emoji": "🌰",
         "description_en": "Premium quality banana chips, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Banana Chips.jpg"
+        "imageUrl": "/images/Banana Chips.jpg"
     },
     {
         "id": 44,
@@ -875,9 +875,9 @@
                 "price": 950
             }
         ],
-        "emoji": "\ud83c\udf30",
+        "emoji": "🌰",
         "description_en": "Premium quality coconut pieces dry, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Coconut Pieces Dry.jpg"
+        "imageUrl": "/images/Coconut Pieces Dry.jpg"
     },
     {
         "id": 46,
@@ -915,9 +915,9 @@
                 "price": 1300
             }
         ],
-        "emoji": "\ud83c\udf30",
+        "emoji": "🌰",
         "description_en": "Premium quality papaya dried, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Papaya Dried.jpg"
+        "imageUrl": "/images/Papaya Dried.jpg"
     },
     {
         "id": 48,
@@ -955,9 +955,9 @@
                 "price": 3900
             }
         ],
-        "emoji": "\ud83c\udf30",
+        "emoji": "🌰",
         "description_en": "Premium quality pine nuts, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Pine Nuts.jpg"
+        "imageUrl": "/images/Pine Nuts.jpg"
     },
     {
         "id": 50,
@@ -995,9 +995,9 @@
                 "price": 2900
             }
         ],
-        "emoji": "\ud83c\udf30",
+        "emoji": "🌰",
         "description_en": "Premium quality dried cherries, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Dried Cherries.jpg"
+        "imageUrl": "/images/Dried Cherries.jpg"
     },
     {
         "id": 52,
@@ -1035,9 +1035,9 @@
                 "price": 2300
             }
         ],
-        "emoji": "\ud83c\udf31",
+        "emoji": "🌱",
         "description_en": "Premium quality chia seeds, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Chia Seeds.jpg"
+        "imageUrl": "/images/Chia Seeds.jpg"
     },
     {
         "id": 54,
@@ -1075,9 +1075,9 @@
                 "price": 1700
             }
         ],
-        "emoji": "\ud83c\udf31",
+        "emoji": "🌱",
         "description_en": "Premium quality flax seeds, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Flax Seeds.jpg"
+        "imageUrl": "/images/Flax Seeds.jpg"
     },
     {
         "id": 56,
@@ -1115,9 +1115,9 @@
                 "price": 2300
             }
         ],
-        "emoji": "\ud83c\udf31",
+        "emoji": "🌱",
         "description_en": "Premium quality pumpkin seeds, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Pumpkin Seeds.jpg"
+        "imageUrl": "/images/Pumpkin Seeds.jpg"
     },
     {
         "id": 58,
@@ -1155,9 +1155,9 @@
                 "price": 1500
             }
         ],
-        "emoji": "\ud83c\udf31",
+        "emoji": "🌱",
         "description_en": "Premium quality sunflower seeds, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Sunflower Seeds.jpg"
+        "imageUrl": "/images/Sunflower Seeds.jpg"
     },
     {
         "id": 60,
@@ -1195,9 +1195,9 @@
                 "price": 1100
             }
         ],
-        "emoji": "\ud83c\udf31",
+        "emoji": "🌱",
         "description_en": "Premium quality sesame seeds, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Sesame Seeds.jpg"
+        "imageUrl": "/images/Sesame Seeds.jpg"
     },
     {
         "id": 62,
@@ -1235,9 +1235,9 @@
                 "price": 2700
             }
         ],
-        "emoji": "\ud83e\udd5c",
+        "emoji": "🥜",
         "description_en": "Premium quality mixed nuts, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Mixed Nuts.jpg"
+        "imageUrl": "/images/Mixed Nuts.jpg"
     },
     {
         "id": 64,
@@ -1275,9 +1275,9 @@
                 "price": 2300
             }
         ],
-        "emoji": "\ud83e\udd5c",
+        "emoji": "🥜",
         "description_en": "Premium quality mixed dry fruits, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Mixed Dry Fruits.jpg"
+        "imageUrl": "/images/Mixed Dry Fruits.jpg"
     },
     {
         "id": 66,
@@ -1315,9 +1315,9 @@
                 "price": 1700
             }
         ],
-        "emoji": "\ud83e\udd5c",
+        "emoji": "🥜",
         "description_en": "Premium quality trail mix, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Trail Mix.jpg"
+        "imageUrl": "/images/Trail Mix.jpg"
     },
     {
         "id": 68,
@@ -1355,9 +1355,9 @@
                 "price": 1900
             }
         ],
-        "emoji": "\ud83e\udd5c",
+        "emoji": "🥜",
         "description_en": "Premium quality nut & seed mix, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Nut & Seed Mix.jpg"
+        "imageUrl": "/images/Nut & Seed Mix.jpg"
     },
     {
         "id": 70,
@@ -1395,9 +1395,9 @@
                 "price": 2800
             }
         ],
-        "emoji": "\ud83e\udd5c",
+        "emoji": "🥜",
         "description_en": "Premium quality premium fruit & nut mix, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Premium Fruit & Nut Mix.jpg"
+        "imageUrl": "/images/Premium Fruit & Nut Mix.jpg"
     },
     {
         "id": 72,
@@ -1411,9 +1411,9 @@
                 "price": 2500
             }
         ],
-        "emoji": "\ud83e\udd5c",
+        "emoji": "🥜",
         "description_en": "Premium quality dry fruit mix with almonds, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Dry Fruit Mix with Almonds.jpg"
+        "imageUrl": "/images/Dry Fruit Mix with Almonds.jpg"
     },
     {
         "id": 74,
@@ -1427,9 +1427,9 @@
                 "price": 2700
             }
         ],
-        "emoji": "\ud83e\udd5c",
+        "emoji": "🥜",
         "description_en": "Premium quality dry fruit mix with cashews, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Dry Fruit Mix with Cashews.jpg"
+        "imageUrl": "/images/Dry Fruit Mix with Cashews.jpg"
     },
     {
         "id": 76,
@@ -1467,9 +1467,9 @@
                 "price": 2800
             }
         ],
-        "emoji": "\ud83e\udd5c",
+        "emoji": "🥜",
         "description_en": "Premium quality dry fruit mix with walnuts, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Dry Fruit Mix with Walnuts.jpg"
+        "imageUrl": "/images/Dry Fruit Mix with Walnuts.jpg"
     },
     {
         "id": 78,
@@ -1507,9 +1507,9 @@
                 "price": 2300
             }
         ],
-        "emoji": "\ud83e\udd5c",
+        "emoji": "🥜",
         "description_en": "Premium quality energy mix, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Energy Mix.jpg"
+        "imageUrl": "/images/Energy Mix.jpg"
     },
     {
         "id": 80,
@@ -1547,9 +1547,9 @@
                 "price": 3000
             }
         ],
-        "emoji": "\ud83e\udd5c",
+        "emoji": "🥜",
         "description_en": "Premium quality superfood mix, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Superfood Mix.jpg"
+        "imageUrl": "/images/Superfood Mix.jpg"
     },
     {
         "id": 82,
@@ -1587,9 +1587,9 @@
                 "price": 2800
             }
         ],
-        "emoji": "\ud83e\udd5c",
+        "emoji": "🥜",
         "description_en": "Premium quality protein nut mix, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Protein Nut Mix.jpg"
+        "imageUrl": "/images/Protein Nut Mix.jpg"
     },
     {
         "id": 83,
@@ -1623,9 +1623,9 @@
                 "price": 900
             }
         ],
-        "emoji": "\ud83e\udd5c",
+        "emoji": "🥜",
         "description_en": "Premium quality gourmet dry fruits, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Gourmet Dry Fruits.jpg"
+        "imageUrl": "/images/Gourmet Dry Fruits.jpg"
     },
     {
         "id": 84,
@@ -1659,9 +1659,9 @@
                 "price": 3500
             }
         ],
-        "emoji": "\ud83e\udd5c",
+        "emoji": "🥜",
         "description_en": "Premium quality gourmet dry fruits, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Gourmet Dry Fruits.jpg"
+        "imageUrl": "/images/Gourmet Dry Fruits.jpg"
     },
     {
         "id": 85,
@@ -1695,9 +1695,9 @@
                 "price": 650
             }
         ],
-        "emoji": "\ud83e\udd5c",
+        "emoji": "🥜",
         "description_en": "Premium quality healthy snack mix, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Healthy Snack Mix.jpg"
+        "imageUrl": "/images/Healthy Snack Mix.jpg"
     },
     {
         "id": 86,
@@ -1731,9 +1731,9 @@
                 "price": 2500
             }
         ],
-        "emoji": "\ud83e\udd5c",
+        "emoji": "🥜",
         "description_en": "Premium quality healthy snack mix, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Healthy Snack Mix.jpg"
+        "imageUrl": "/images/Healthy Snack Mix.jpg"
     },
     {
         "id": 87,
@@ -1767,9 +1767,9 @@
                 "price": 700
             }
         ],
-        "emoji": "\ud83e\udd5c",
+        "emoji": "🥜",
         "description_en": "Premium quality nutty delight mix, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Nutty Delight Mix.jpg"
+        "imageUrl": "/images/Nutty Delight Mix.jpg"
     },
     {
         "id": 88,
@@ -1803,9 +1803,9 @@
                 "price": 2700
             }
         ],
-        "emoji": "\ud83e\udd5c",
+        "emoji": "🥜",
         "description_en": "Premium quality nutty delight mix, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Nutty Delight Mix.jpg"
+        "imageUrl": "/images/Nutty Delight Mix.jpg"
     },
     {
         "id": 90,
@@ -1839,9 +1839,9 @@
                 "price": 2800
             }
         ],
-        "emoji": "\ud83e\udd5c",
+        "emoji": "🥜",
         "description_en": "Premium quality fruit & nut premium mix, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Fruit & Nut Premium Mix.jpg"
+        "imageUrl": "/images/Fruit & Nut Premium Mix.jpg"
     },
     {
         "id": 92,
@@ -1879,9 +1879,9 @@
                 "price": 2300
             }
         ],
-        "emoji": "\ud83e\udd5c",
+        "emoji": "🥜",
         "description_en": "Premium quality choco nut mix, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Choco Nut Mix.jpg"
+        "imageUrl": "/images/Choco Nut Mix.jpg"
     },
     {
         "id": 94,
@@ -1919,9 +1919,9 @@
                 "price": 3000
             }
         ],
-        "emoji": "\ud83e\udd5c",
+        "emoji": "🥜",
         "description_en": "Premium quality exotic nut mix, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Exotic Nut Mix.jpg"
+        "imageUrl": "/images/Exotic Nut Mix.jpg"
     },
     {
         "id": 96,
@@ -1959,9 +1959,9 @@
                 "price": 2700
             }
         ],
-        "emoji": "\ud83e\udd5c",
+        "emoji": "🥜",
         "description_en": "Premium quality premium trail mix, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Premium Trail Mix.jpg"
+        "imageUrl": "/images/Premium Trail Mix.jpg"
     },
     {
         "id": 98,
@@ -1999,9 +1999,9 @@
                 "price": 2800
             }
         ],
-        "emoji": "\ud83e\udd5c",
+        "emoji": "🥜",
         "description_en": "Premium quality super nut mix, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Super Nut Mix.jpg"
+        "imageUrl": "/images/Super Nut Mix.jpg"
     },
     {
         "id": 100,
@@ -2039,9 +2039,9 @@
                 "price": 3500
             }
         ],
-        "emoji": "\ud83e\udd5c",
+        "emoji": "🥜",
         "description_en": "Premium quality deluxe dry fruit mix, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Deluxe Dry Fruit Mix.jpg"
+        "imageUrl": "/images/Deluxe Dry Fruit Mix.jpg"
     },
     {
         "id": 101,
@@ -2075,9 +2075,9 @@
                 "price": 650
             }
         ],
-        "emoji": "\ud83c\udf30",
+        "emoji": "🌰",
         "description_en": "Premium quality almonds roasted, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Almonds Roasted.jpg"
+        "imageUrl": "/images/Almonds Roasted.jpg"
     },
     {
         "id": 104,
@@ -2115,9 +2115,9 @@
                 "price": 3100
             }
         ],
-        "emoji": "\ud83c\udf30",
+        "emoji": "🌰",
         "description_en": "Premium quality cashews roasted, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Cashews Roasted.jpg"
+        "imageUrl": "/images/Cashews Roasted.jpg"
     },
     {
         "id": 106,
@@ -2155,9 +2155,9 @@
                 "price": 2800
             }
         ],
-        "emoji": "\ud83c\udf30",
+        "emoji": "🌰",
         "description_en": "Premium quality walnuts roasted, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Walnuts Roasted.jpg"
+        "imageUrl": "/images/Walnuts Roasted.jpg"
     },
     {
         "id": 108,
@@ -2195,9 +2195,9 @@
                 "price": 3200
             }
         ],
-        "emoji": "\ud83c\udf30",
+        "emoji": "🌰",
         "description_en": "Premium quality pistachios roasted, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Pistachios Roasted.jpg"
+        "imageUrl": "/images/Pistachios Roasted.jpg"
     },
     {
         "id": 110,
@@ -2235,9 +2235,9 @@
                 "price": 3000
             }
         ],
-        "emoji": "\ud83c\udf30",
+        "emoji": "🌰",
         "description_en": "Premium quality hazelnuts roasted, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Hazelnuts Roasted.jpg"
+        "imageUrl": "/images/Hazelnuts Roasted.jpg"
     },
     {
         "id": 112,
@@ -2275,9 +2275,9 @@
                 "price": 5000
             }
         ],
-        "emoji": "\ud83c\udf30",
+        "emoji": "🌰",
         "description_en": "Premium quality macadamia roasted, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Macadamia Roasted.jpg"
+        "imageUrl": "/images/Macadamia Roasted.jpg"
     },
     {
         "id": 114,
@@ -2315,9 +2315,9 @@
                 "price": 1000
             }
         ],
-        "emoji": "\ud83c\udf30",
+        "emoji": "🌰",
         "description_en": "Premium quality peanuts roasted, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Peanuts Roasted.jpg"
+        "imageUrl": "/images/Peanuts Roasted.jpg"
     },
     {
         "id": 116,
@@ -2355,9 +2355,9 @@
                 "price": 4400
             }
         ],
-        "emoji": "\ud83c\udf30",
+        "emoji": "🌰",
         "description_en": "Premium quality brazil nuts roasted, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Brazil Nuts Roasted.jpg"
+        "imageUrl": "/images/Brazil Nuts Roasted.jpg"
     },
     {
         "id": 118,
@@ -2395,9 +2395,9 @@
                 "price": 2600
             }
         ],
-        "emoji": "\ud83c\udf30",
+        "emoji": "🌰",
         "description_en": "Premium quality almonds sliced, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Almonds Sliced.jpg"
+        "imageUrl": "/images/Almonds Sliced.jpg"
     },
     {
         "id": 120,
@@ -2435,9 +2435,9 @@
                 "price": 3100
             }
         ],
-        "emoji": "\ud83c\udf30",
+        "emoji": "🌰",
         "description_en": "Premium quality cashew pieces, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Cashew Pieces.jpg"
+        "imageUrl": "/images/Cashew Pieces.jpg"
     },
     {
         "id": 121,
@@ -2471,9 +2471,9 @@
                 "price": 325
             }
         ],
-        "emoji": "\ud83c\udf47",
+        "emoji": "🍇",
         "description_en": "Premium quality golden raisins, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Golden Raisins.jpg"
+        "imageUrl": "/images/Golden Raisins.jpg"
     },
     {
         "id": 124,
@@ -2511,9 +2511,9 @@
                 "price": 2800
             }
         ],
-        "emoji": "\ud83c\udf47",
+        "emoji": "🍇",
         "description_en": "Premium quality cranberries dried, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Cranberries Dried.jpg"
+        "imageUrl": "/images/Cranberries Dried.jpg"
     },
     {
         "id": 126,
@@ -2551,9 +2551,9 @@
                 "price": 3000
             }
         ],
-        "emoji": "\ud83c\udf47",
+        "emoji": "🍇",
         "description_en": "Premium quality dried blueberries, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Dried Blueberries.jpg"
+        "imageUrl": "/images/Dried Blueberries.jpg"
     },
     {
         "id": 128,
@@ -2591,9 +2591,9 @@
                 "price": 2800
             }
         ],
-        "emoji": "\ud83c\udf47",
+        "emoji": "🍇",
         "description_en": "Premium quality dried strawberries, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Dried Strawberries.jpg"
+        "imageUrl": "/images/Dried Strawberries.jpg"
     },
     {
         "id": 130,
@@ -2631,9 +2631,9 @@
                 "price": 3000
             }
         ],
-        "emoji": "\ud83c\udf47",
+        "emoji": "🍇",
         "description_en": "Premium quality dried black currants, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Dried Black Currants.jpg"
+        "imageUrl": "/images/Dried Black Currants.jpg"
     },
     {
         "id": 132,
@@ -2671,9 +2671,9 @@
                 "price": 1800
             }
         ],
-        "emoji": "\ud83c\udf47",
+        "emoji": "🍇",
         "description_en": "Premium quality dried mulberries red, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Dried Mulberries Red.jpg"
+        "imageUrl": "/images/Dried Mulberries Red.jpg"
     },
     {
         "id": 134,
@@ -2711,9 +2711,9 @@
                 "price": 1500
             }
         ],
-        "emoji": "\ud83c\udf47",
+        "emoji": "🍇",
         "description_en": "Premium quality dried mango cubes, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Dried Mango Cubes.jpg"
+        "imageUrl": "/images/Dried Mango Cubes.jpg"
     },
     {
         "id": 136,
@@ -2751,9 +2751,9 @@
                 "price": 1300
             }
         ],
-        "emoji": "\ud83c\udf47",
+        "emoji": "🍇",
         "description_en": "Premium quality dried papaya cubes, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Dried Papaya Cubes.jpg"
+        "imageUrl": "/images/Dried Papaya Cubes.jpg"
     },
     {
         "id": 138,
@@ -2791,9 +2791,9 @@
                 "price": 1500
             }
         ],
-        "emoji": "\ud83c\udf47",
+        "emoji": "🍇",
         "description_en": "Premium quality dried pineapple cubes, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Dried Pineapple Cubes.jpg"
+        "imageUrl": "/images/Dried Pineapple Cubes.jpg"
     },
     {
         "id": 140,
@@ -2831,9 +2831,9 @@
                 "price": 1300
             }
         ],
-        "emoji": "\ud83c\udf47",
+        "emoji": "🍇",
         "description_en": "Premium quality dried apple rings, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Dried Apple Rings.jpg"
+        "imageUrl": "/images/Dried Apple Rings.jpg"
     },
     {
         "id": 142,
@@ -2871,9 +2871,9 @@
                 "price": 2300
             }
         ],
-        "emoji": "\ud83c\udf31",
+        "emoji": "🌱",
         "description_en": "Premium quality quinoa seeds, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Quinoa Seeds.jpg"
+        "imageUrl": "/images/Quinoa Seeds.jpg"
     },
     {
         "id": 144,
@@ -2911,9 +2911,9 @@
                 "price": 2800
             }
         ],
-        "emoji": "\ud83c\udf31",
+        "emoji": "🌱",
         "description_en": "Premium quality hemp seeds, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Hemp Seeds.jpg"
+        "imageUrl": "/images/Hemp Seeds.jpg"
     },
     {
         "id": 146,
@@ -2951,9 +2951,9 @@
                 "price": 1700
             }
         ],
-        "emoji": "\ud83c\udf31",
+        "emoji": "🌱",
         "description_en": "Premium quality poppy seeds, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Poppy Seeds.jpg"
+        "imageUrl": "/images/Poppy Seeds.jpg"
     },
     {
         "id": 148,
@@ -2991,9 +2991,9 @@
                 "price": 1500
             }
         ],
-        "emoji": "\ud83c\udf31",
+        "emoji": "🌱",
         "description_en": "Premium quality caraway seeds, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Caraway Seeds.jpg"
+        "imageUrl": "/images/Caraway Seeds.jpg"
     },
     {
         "id": 150,
@@ -3031,9 +3031,9 @@
                 "price": 1700
             }
         ],
-        "emoji": "\ud83c\udf31",
+        "emoji": "🌱",
         "description_en": "Premium quality nigella seeds, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Nigella Seeds.jpg"
+        "imageUrl": "/images/Nigella Seeds.jpg"
     },
     {
         "id": 152,
@@ -3067,9 +3067,9 @@
                 "price": 3000
             }
         ],
-        "emoji": "\ud83e\udd5c",
+        "emoji": "🥜",
         "description_en": "Premium quality fruit & nut mix roasted, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Fruit & Nut Mix Roasted.jpg"
+        "imageUrl": "/images/Fruit & Nut Mix Roasted.jpg"
     },
     {
         "id": 154,
@@ -3103,9 +3103,9 @@
                 "price": 2800
             }
         ],
-        "emoji": "\ud83e\udd5c",
+        "emoji": "🥜",
         "description_en": "Premium quality super nut & seed mix, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Super Nut & Seed Mix.jpg"
+        "imageUrl": "/images/Super Nut & Seed Mix.jpg"
     },
     {
         "id": 156,
@@ -3139,9 +3139,9 @@
                 "price": 3000
             }
         ],
-        "emoji": "\ud83e\udd5c",
+        "emoji": "🥜",
         "description_en": "Premium quality gourmet trail mix, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Gourmet Trail Mix.jpg"
+        "imageUrl": "/images/Gourmet Trail Mix.jpg"
     },
     {
         "id": 158,
@@ -3175,9 +3175,9 @@
                 "price": 3200
             }
         ],
-        "emoji": "\ud83e\udd5c",
+        "emoji": "🥜",
         "description_en": "Premium quality premium nutty delight, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Premium Nutty Delight.jpg"
+        "imageUrl": "/images/Premium Nutty Delight.jpg"
     },
     {
         "id": 160,
@@ -3211,9 +3211,9 @@
                 "price": 2800
             }
         ],
-        "emoji": "\ud83e\udd5c",
+        "emoji": "🥜",
         "description_en": "Premium quality fruit & seed premium mix, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Fruit & Seed Premium Mix.jpg"
+        "imageUrl": "/images/Fruit & Seed Premium Mix.jpg"
     },
     {
         "id": 162,
@@ -3247,9 +3247,9 @@
                 "price": 2700
             }
         ],
-        "emoji": "\ud83e\udd5c",
+        "emoji": "🥜",
         "description_en": "Premium quality energy nut mix, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Energy Nut Mix.jpg"
+        "imageUrl": "/images/Energy Nut Mix.jpg"
     },
     {
         "id": 164,
@@ -3283,9 +3283,9 @@
                 "price": 3000
             }
         ],
-        "emoji": "\ud83e\udd5c",
+        "emoji": "🥜",
         "description_en": "Premium quality superfood nut mix, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Superfood Nut Mix.jpg"
+        "imageUrl": "/images/Superfood Nut Mix.jpg"
     },
     {
         "id": 166,
@@ -3319,9 +3319,9 @@
                 "price": 3200
             }
         ],
-        "emoji": "\ud83e\udd5c",
+        "emoji": "🥜",
         "description_en": "Premium quality nut & fruit gourmet mix, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Nut & Fruit Gourmet Mix.jpg"
+        "imageUrl": "/images/Nut & Fruit Gourmet Mix.jpg"
     },
     {
         "id": 168,
@@ -3355,9 +3355,9 @@
                 "price": 2800
             }
         ],
-        "emoji": "\ud83e\udd5c",
+        "emoji": "🥜",
         "description_en": "Premium quality protein trail mix, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Protein Trail Mix.jpg"
+        "imageUrl": "/images/Protein Trail Mix.jpg"
     },
     {
         "id": 170,
@@ -3391,9 +3391,9 @@
                 "price": 3500
             }
         ],
-        "emoji": "\ud83e\udd5c",
+        "emoji": "🥜",
         "description_en": "Premium quality deluxe nut & fruit mix, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Deluxe Nut & Fruit Mix.jpg"
+        "imageUrl": "/images/Deluxe Nut & Fruit Mix.jpg"
     },
     {
         "id": 172,
@@ -3427,9 +3427,9 @@
                 "price": 3000
             }
         ],
-        "emoji": "\ud83e\udd5c",
+        "emoji": "🥜",
         "description_en": "Premium quality choco nut gourmet mix, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Choco Nut Gourmet Mix.jpg"
+        "imageUrl": "/images/Choco Nut Gourmet Mix.jpg"
     },
     {
         "id": 174,
@@ -3463,9 +3463,9 @@
                 "price": 3500
             }
         ],
-        "emoji": "\ud83e\udd5c",
+        "emoji": "🥜",
         "description_en": "Premium quality exotic dry fruit mix, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Exotic Dry Fruit Mix.jpg"
+        "imageUrl": "/images/Exotic Dry Fruit Mix.jpg"
     },
     {
         "id": 176,
@@ -3499,9 +3499,9 @@
                 "price": 3200
             }
         ],
-        "emoji": "\ud83e\udd5c",
+        "emoji": "🥜",
         "description_en": "Premium quality premium nutty trail mix, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Premium Nutty Trail Mix.jpg"
+        "imageUrl": "/images/Premium Nutty Trail Mix.jpg"
     },
     {
         "id": 178,
@@ -3535,9 +3535,9 @@
                 "price": 3500
             }
         ],
-        "emoji": "\ud83e\udd5c",
+        "emoji": "🥜",
         "description_en": "Premium quality gourmet nut & fruit delight, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Gourmet Nut & Fruit Delight.jpg"
+        "imageUrl": "/images/Gourmet Nut & Fruit Delight.jpg"
     },
     {
         "id": 180,
@@ -3571,9 +3571,9 @@
                 "price": 3700
             }
         ],
-        "emoji": "\ud83e\udd5c",
+        "emoji": "🥜",
         "description_en": "Premium quality super deluxe mix, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Super Deluxe Mix.jpg"
+        "imageUrl": "/images/Super Deluxe Mix.jpg"
     },
     {
         "id": 182,
@@ -3607,9 +3607,9 @@
                 "price": 3500
             }
         ],
-        "emoji": "\ud83e\udd5c",
+        "emoji": "🥜",
         "description_en": "Premium quality protein nut delight, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Protein Nut Delight.jpg"
+        "imageUrl": "/images/Protein Nut Delight.jpg"
     },
     {
         "id": 184,
@@ -3643,9 +3643,9 @@
                 "price": 3200
             }
         ],
-        "emoji": "\ud83e\udd5c",
+        "emoji": "🥜",
         "description_en": "Premium quality healthy gourmet mix, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Healthy Gourmet Mix.jpg"
+        "imageUrl": "/images/Healthy Gourmet Mix.jpg"
     },
     {
         "id": 186,
@@ -3679,9 +3679,9 @@
                 "price": 3500
             }
         ],
-        "emoji": "\ud83e\udd5c",
+        "emoji": "🥜",
         "description_en": "Premium quality deluxe trail mix, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Deluxe Trail Mix.jpg"
+        "imageUrl": "/images/Deluxe Trail Mix.jpg"
     },
     {
         "id": 188,
@@ -3715,9 +3715,9 @@
                 "price": 3700
             }
         ],
-        "emoji": "\ud83e\udd5c",
+        "emoji": "🥜",
         "description_en": "Premium quality super nut delight mix, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Super Nut Delight Mix.jpg"
+        "imageUrl": "/images/Super Nut Delight Mix.jpg"
     },
     {
         "id": 190,
@@ -3751,9 +3751,9 @@
                 "price": 3900
             }
         ],
-        "emoji": "\ud83e\udd5c",
+        "emoji": "🥜",
         "description_en": "Premium quality exotic fruit & nut mix, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Exotic Fruit & Nut Mix.jpg"
+        "imageUrl": "/images/Exotic Fruit & Nut Mix.jpg"
     },
     {
         "id": 192,
@@ -3787,9 +3787,9 @@
                 "price": 3500
             }
         ],
-        "emoji": "\ud83e\udd5c",
+        "emoji": "🥜",
         "description_en": "Premium quality premium trail gourmet, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Premium Trail Gourmet.jpg"
+        "imageUrl": "/images/Premium Trail Gourmet.jpg"
     },
     {
         "id": 194,
@@ -3827,9 +3827,9 @@
                 "price": 3500
             }
         ],
-        "emoji": "\ud83e\udd5c",
+        "emoji": "🥜",
         "description_en": "Premium quality deluxe nut mix, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Deluxe Nut Mix.jpg"
+        "imageUrl": "/images/Deluxe Nut Mix.jpg"
     },
     {
         "id": 196,
@@ -3863,9 +3863,9 @@
                 "price": 3700
             }
         ],
-        "emoji": "\ud83e\udd5c",
+        "emoji": "🥜",
         "description_en": "Premium quality nut & seed gourmet mix, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Nut & Seed Gourmet Mix.jpg"
+        "imageUrl": "/images/Nut & Seed Gourmet Mix.jpg"
     },
     {
         "id": 198,
@@ -3899,9 +3899,9 @@
                 "price": 3000
             }
         ],
-        "emoji": "\ud83e\udd5c",
+        "emoji": "🥜",
         "description_en": "Premium quality choco fruit nut mix, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Choco Fruit Nut Mix.jpg"
+        "imageUrl": "/images/Choco Fruit Nut Mix.jpg"
     },
     {
         "id": 200,
@@ -3935,8 +3935,8 @@
                 "price": 3900
             }
         ],
-        "emoji": "\ud83e\udd5c",
+        "emoji": "🥜",
         "description_en": "Premium quality super premium nut mix, naturally sourced.",
-        "imageUrl": "../images/Dry Fruits & Snacks/Super Premium Nut Mix.jpg"
+        "imageUrl": "/images/Super Premium Nut Mix.jpg"
     }
 ]

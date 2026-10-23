@@ -12,7 +12,7 @@ if (!defined('DB_USER')) {
     define('DB_USER', getenv('DB_USER') ?: 'root');
 }
 if (!defined('DB_PASS')) {
-    define('DB_PASS', getenv('DB_PASS') ?: 'JKRathod@406');
+    define('DB_PASS', getenv('DB_PASS') !== false ? getenv('DB_PASS') : '');
 }
 if (!defined('DB_CHARSET')) {
     define('DB_CHARSET', 'utf8mb4');
@@ -83,14 +83,22 @@ if (!function_exists('_bootstrapSQLiteSchema')) {
 
             "CREATE TABLE IF NOT EXISTS patients (
                 id          INTEGER PRIMARY KEY AUTOINCREMENT,
+                user_id     INTEGER,
                 name        TEXT    NOT NULL DEFAULT '',
+                patient_name TEXT   NOT NULL DEFAULT '',
                 email       TEXT    UNIQUE,
                 phone       TEXT,
                 mobile      TEXT,
+                mobile_number TEXT,
                 password    TEXT,
                 dob         TEXT,
+                date_of_birth TEXT,
                 gender      TEXT,
                 address     TEXT,
+                emergency_contact TEXT,
+                medical_history TEXT,
+                allergies   TEXT,
+                current_medications TEXT,
                 ksr_id      TEXT,
                 account_status TEXT DEFAULT 'ACTIVE',
                 created_at  TEXT DEFAULT (datetime('now'))
@@ -172,16 +180,81 @@ if (!function_exists('_bootstrapSQLiteSchema')) {
 
             "CREATE TABLE IF NOT EXISTS orders (
                 id             INTEGER PRIMARY KEY AUTOINCREMENT,
+                order_number   TEXT UNIQUE,
                 user_id        INTEGER,
                 name           TEXT,
                 email          TEXT,
                 phone          TEXT,
                 address        TEXT,
+                city           TEXT,
+                state          TEXT,
+                pincode        TEXT,
                 total          REAL    DEFAULT 0,
-                payment_method TEXT    DEFAULT 'COD',
+                payment_method TEXT    DEFAULT 'cod',
+                payment_status TEXT    DEFAULT 'pending',
+                transaction_id TEXT,
+                notes          TEXT,
                 status         TEXT    DEFAULT 'pending',
                 items          TEXT,
                 created_at     TEXT DEFAULT (datetime('now'))
+            )",
+
+            "CREATE TABLE IF NOT EXISTS order_items (
+                id           INTEGER PRIMARY KEY AUTOINCREMENT,
+                order_id     INTEGER NOT NULL,
+                product_id   INTEGER,
+                product_name TEXT,
+                quantity     INTEGER DEFAULT 1,
+                price        REAL    DEFAULT 0,
+                total        REAL    DEFAULT 0
+            )",
+
+            "CREATE TABLE IF NOT EXISTS payments (
+                id                  INTEGER PRIMARY KEY AUTOINCREMENT,
+                order_id            INTEGER NOT NULL,
+                user_id             INTEGER,
+                amount              REAL    DEFAULT 0,
+                method              TEXT,
+                gateway             TEXT,
+                status              TEXT    DEFAULT 'pending',
+                transaction_id      TEXT,
+                gateway_order_id    TEXT,
+                gateway_payment_id  TEXT,
+                gateway_signature   TEXT,
+                paid_at             TEXT,
+                confirmed_at        TEXT,
+                collected_amount    REAL,
+                collected_by        TEXT,
+                collected_at        TEXT,
+                collection_reference TEXT,
+                failure_code        TEXT,
+                failure_reason      TEXT,
+                gateway_response    TEXT,
+                webhook_received_at TEXT,
+                created_at          TEXT DEFAULT (datetime('now'))
+            )",
+
+            "CREATE TABLE IF NOT EXISTS payment_events (
+                id                 INTEGER PRIMARY KEY AUTOINCREMENT,
+                payment_id         INTEGER,
+                order_id           INTEGER,
+                event_type         TEXT,
+                old_status         TEXT,
+                new_status         TEXT,
+                gateway_event_id   TEXT,
+                gateway_payment_id TEXT,
+                payload            TEXT,
+                source             TEXT,
+                created_at         TEXT DEFAULT (datetime('now'))
+            )",
+
+            "CREATE TABLE IF NOT EXISTS order_timeline (
+                id         INTEGER PRIMARY KEY AUTOINCREMENT,
+                order_id   INTEGER NOT NULL,
+                status     TEXT,
+                notes      TEXT,
+                created_by INTEGER,
+                created_at TEXT DEFAULT (datetime('now'))
             )",
 
             // ── Patient portal auth tables ──────────────────────────────────
@@ -231,6 +304,30 @@ if (!function_exists('_bootstrapSQLiteSchema')) {
                 created_at  TEXT DEFAULT (datetime('now'))
             )",
 
+            // ── Pharmacy: stock movements & deliveries ─────────────────────
+            "CREATE TABLE IF NOT EXISTS pharmacy_stock_movement (
+                id          INTEGER PRIMARY KEY AUTOINCREMENT,
+                product_id  INTEGER,
+                product_name TEXT,
+                type        TEXT    DEFAULT 'in',
+                quantity    INTEGER DEFAULT 0,
+                reason      TEXT,
+                performed_by TEXT,
+                created_at  TEXT DEFAULT (datetime('now'))
+            )",
+
+            "CREATE TABLE IF NOT EXISTS pharmacy_deliveries (
+                id            INTEGER PRIMARY KEY AUTOINCREMENT,
+                order_id      INTEGER,
+                delivery_person TEXT,
+                phone         TEXT,
+                status        TEXT    DEFAULT 'pending',
+                address       TEXT,
+                dispatched_at TEXT,
+                delivered_at  TEXT,
+                created_at    TEXT DEFAULT (datetime('now'))
+            )",
+
             // ── Notifications ───────────────────────────────────────────────
             "CREATE TABLE IF NOT EXISTS notifications (
                 id          INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -262,6 +359,19 @@ if (!function_exists('_bootstrapSQLiteSchema')) {
                 ('Dr. D C Rathod', 'Neuro Care, Cardiology', 'Neuro Care, Cardiology', 3,
                  'MBBS, MD (Neuro Care & Cardiology)', 'VERIFIED', 'active', 300, 4.8,
                  'Dr. D C Rathod is a neuro care and cardiology physician with 3 years of clinical experience.')");
+        }
+
+        // Seed default user so user/patient queries succeed
+        $hasUsers = (int) $pdo->query("SELECT COUNT(*) FROM users")->fetchColumn();
+        if ($hasUsers === 0) {
+            $pdo->exec("INSERT INTO users
+                (name, email, phone, mobile, role, ksr_id, account_status)
+                VALUES
+                ('Rahul Kumar', 'patient@ksrguru.com', '6362079192', '6362079192', 'user', 'PT-000124', 'ACTIVE')");
+            $pdo->exec("INSERT INTO patients
+                (user_id, name, patient_name, phone, mobile, mobile_number, date_of_birth, gender, address)
+                VALUES
+                (1, 'Rahul Kumar', 'Rahul Kumar', '6362079192', '6362079192', '6362079192', '1990-01-01', 'Male', 'Hubballi, Karnataka')");
         }
     }
 }

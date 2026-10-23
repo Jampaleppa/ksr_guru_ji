@@ -4,7 +4,7 @@
         "name": "Floor Cleaner",
         "category": "floor",
         "price": 140,
-        "imageUrl": "images\\Floor Cleaner 130.jpg",
+        "imageUrl": "/images/Floor Cleaner 130.jpg",
         "description": "1L bottle, removes dirt and grime",
         "icon": "fa-bucket",
         "categoryName": "Floor"
@@ -14,7 +14,7 @@
         "name": "Toilet Cleaner",
         "category": "bathroom",
         "price": 160,
-        "imageUrl": "images\\Toilet Cleaner 195.jpg",
+        "imageUrl": "/images/Toilet Cleaner 195.jpg",
         "description": "1L, disinfects and deodorizes",
         "icon": "fa-toilet",
         "categoryName": "Bathroom"
@@ -24,7 +24,7 @@
         "name": "Glass Cleaner",
         "category": "glass",
         "price": 75,
-        "imageUrl": "images\\Glass Cleaner 75.jpg",
+        "imageUrl": "/images/Glass Cleaner 75.jpg",
         "description": "500ml, streak-free shine",
         "icon": "fa-window-maximize",
         "categoryName": "Glass"
@@ -34,7 +34,7 @@
         "name": "Surface Cleaner",
         "category": "all-purpose",
         "price": 130,
-        "imageUrl": "images\\Surface Cleaner 130.jpg",
+        "imageUrl": "/images/Surface Cleaner 130.jpg",
         "description": "500ml, for all surfaces",
         "icon": "fa-spray-can-sparkles",
         "categoryName": "All-Purpose"
@@ -44,7 +44,7 @@
         "name": "Disinfectant Liquid",
         "category": "disinfectant",
         "price": 170,
-        "imageUrl": "images\\Disinfectant Liquid 170.jpg",
+        "imageUrl": "/images/Disinfectant Liquid 170.jpg",
         "description": "1L, kills 99.9% germs",
         "icon": "fa-shield-virus",
         "categoryName": "Disinfectant"
@@ -54,7 +54,7 @@
         "name": "Phenyl",
         "category": "floor",
         "price": 150,
-        "imageUrl": "images\\Phenyl 210.jpg",
+        "imageUrl": "/images/Phenyl 210.jpg",
         "description": "1L, concentrated floor cleaner",
         "icon": "fa-bucket",
         "categoryName": "Floor"
@@ -64,7 +64,7 @@
         "name": "Bleach Liquid",
         "category": "disinfectant",
         "price": 150,
-        "imageUrl": "images\\Bleach Liquid 150.jpg",
+        "imageUrl": "/images/Bleach Liquid 150.jpg",
         "description": "1L, kills germs",
         "icon": "fa-shield-virus",
         "categoryName": "Disinfectant"
@@ -74,7 +74,7 @@
         "name": "Window Cleaner Gel",
         "category": "glass",
         "price": 125,
-        "imageUrl": "images\\Window Cleaner Gel 125.jpg",
+        "imageUrl": "/images/Window Cleaner Gel 125.jpg",
         "description": "500ml, for windows",
         "icon": "fa-window-maximize",
         "categoryName": "Glass"
@@ -84,7 +84,7 @@
         "name": "Air Freshener",
         "category": "all-purpose",
         "price": 60,
-        "imageUrl": "images\\Air Freshener 60.jpg",
+        "imageUrl": "/images/Air Freshener 60.jpg",
         "description": "500ml, removes odors",
         "icon": "fa-spray-can-sparkles",
         "categoryName": "All-Purpose"
@@ -94,7 +94,7 @@
         "name": "Laundry Detergent",
         "category": "laundry",
         "price": 300,
-        "imageUrl": "images\\Laundry Detergent 300.jpg",
+        "imageUrl": "/images/Laundry Detergent 300.jpg",
         "description": "1L, powerful",
         "icon": "fa-jug-detergent",
         "categoryName": "Laundry"
@@ -104,7 +104,7 @@
         "name": "Fabric Softener",
         "category": "laundry",
         "price": 290,
-        "imageUrl": "images\\Fabric Softener 290.jpg",
+        "imageUrl": "/images/Fabric Softener 290.jpg",
         "description": "500ml, smooth feel",
         "icon": "fa-jug-detergent",
         "categoryName": "Laundry"
@@ -114,7 +114,7 @@
         "name": "Stain Remover",
         "category": "laundry",
         "price": 60,
-        "imageUrl": "images\\Stain Remover 60.jpg",
+        "imageUrl": "/images/Stain Remover 60.jpg",
         "description": "200ml, for tough stains",
         "icon": "fa-jug-detergent",
         "categoryName": "Laundry"
@@ -124,7 +124,7 @@
         "name": "Dishwash Liquid",
         "category": "kitchen",
         "price": 25,
-        "imageUrl": "images\\Dishwash Liquid 25.jpg",
+        "imageUrl": "/images/Dishwash Liquid 25.jpg",
         "description": "500ml, cuts grease",
         "icon": "fa-kitchen-set",
         "categoryName": "Kitchen"
@@ -134,7 +134,7 @@
         "name": "Dishwash Bar",
         "category": "kitchen",
         "price": 72,
-        "imageUrl": "images\\Dishwash Bar 72.jpg",
+        "imageUrl": "/images/Dishwash Bar 72.jpg",
         "description": "200g, for utensils",
         "icon": "fa-kitchen-set",
         "categoryName": "Kitchen"
@@ -144,7 +144,7 @@
         "name": "Steel Scrubber",
         "category": "tools",
         "price": 20,
-        "imageUrl": "images\\Steel Scrubber 15.jpg",
+        "imageUrl": "/images/Steel Scrubber 15.jpg",
         "description": "1pc, for tough scrubbing",
         "icon": "fa-brush",
         "categoryName": "Tools"
@@ -154,7 +154,7 @@
         "name": "Sponge",
         "category": "tools",
         "price": 15,
-        "imageUrl": "images\\Sponge 20.jpg",
+        "imageUrl": "/images/Sponge 20.jpg",
         "description": "1pc, for gentle cleaning",
         "icon": "fa-brush",
         "categoryName": "Tools"
@@ -164,7 +164,7 @@
         "name": "Scouring Pad",
         "category": "tools",
         "price": 110,
-        "imageUrl": "images\\Scouring Pad 110.jpg",
+        "imageUrl": "/images/Scouring Pad 110.jpg",
         "description": "1pc, for pots and pans",
         "icon": "fa-brush",
         "categoryName": "Tools"
@@ -174,7 +174,7 @@
         "name": "Oven Cleaner",
         "category": "kitchen",
         "price": 220,
-        "imageUrl": "images\\Oven Cleaner 220.jpg",
+        "imageUrl": "/images/Oven Cleaner 220.jpg",
         "description": "500ml, removes burnt food",
         "icon": "fa-kitchen-set",
         "categoryName": "Kitchen"
@@ -184,7 +184,7 @@
         "name": "Fridge Cleaner",
         "category": "kitchen",
         "price": 100,
-        "imageUrl": "images\\Fridge Cleaner 100.jpg",
+        "imageUrl": "/images/Fridge Cleaner 100.jpg",
         "description": "500ml, odor eliminator",
         "icon": "fa-kitchen-set",
         "categoryName": "Kitchen"
@@ -194,7 +194,7 @@
         "name": "Drain Cleaner",
         "category": "all-purpose",
         "price": 30,
-        "imageUrl": "images\\Drain Cleaner 30.jpg",
+        "imageUrl": "/images/Drain Cleaner 30.jpg",
         "description": "500ml, unblocks drains",
         "icon": "fa-spray-can-sparkles",
         "categoryName": "All-Purpose"
@@ -204,7 +204,7 @@
         "name": "Mop",
         "category": "tools",
         "price": 610,
-        "imageUrl": "images\\Mop 610.jpg",
+        "imageUrl": "/images/Mop 610.jpg",
         "description": "1pc, cotton mop",
         "icon": "fa-broom",
         "categoryName": "Tools"
@@ -214,7 +214,7 @@
         "name": "Spin Mop Set",
         "category": "tools",
         "price": 800,
-        "imageUrl": "images\\Spin Mop Set 800.jpg",
+        "imageUrl": "/images/Spin Mop Set 800.jpg",
         "description": "1set, with bucket",
         "icon": "fa-hand-sparkles",
         "categoryName": "Tools"
@@ -224,7 +224,7 @@
         "name": "Bucket",
         "category": "tools",
         "price": 200,
-        "imageUrl": "images\\Bucket 200.jpg",
+        "imageUrl": "/images/Bucket 200.jpg",
         "description": "10L, plastic",
         "icon": "fa-bucket",
         "categoryName": "Tools"
@@ -234,7 +234,7 @@
         "name": "Broom (Soft)",
         "category": "tools",
         "price": 120,
-        "imageUrl": "images\\Broom (Soft) 190.jpg",
+        "imageUrl": "/images/Broom (Soft) 190.jpg",
         "description": "1pc, soft bristles",
         "icon": "fa-broom",
         "categoryName": "Tools"
@@ -244,7 +244,7 @@
         "name": "Broom (Hard)",
         "category": "tools",
         "price": 130,
-        "imageUrl": "images\\Broom (Hard) 100.jpg",
+        "imageUrl": "/images/Broom (Hard) 100.jpg",
         "description": "1pc, hard bristles",
         "icon": "fa-broom",
         "categoryName": "Tools"
@@ -254,7 +254,7 @@
         "name": "Dustpan",
         "category": "tools",
         "price": 50,
-        "imageUrl": "images\\Dustpan 50.jpg",
+        "imageUrl": "/images/Dustpan 50.jpg",
         "description": "1pc, with handle",
         "icon": "fa-broom",
         "categoryName": "Tools"
@@ -264,7 +264,7 @@
         "name": "Floor Brush",
         "category": "tools",
         "price": 80,
-        "imageUrl": "images\\Floor Brush 60.jpg",
+        "imageUrl": "/images/Floor Brush 60.jpg",
         "description": "1pc, stiff bristles",
         "icon": "fa-brush",
         "categoryName": "Tools"
@@ -274,7 +274,7 @@
         "name": "Toilet Brush",
         "category": "tools",
         "price": 280,
-        "imageUrl": "images\\Toilet Brush 280.jpg",
+        "imageUrl": "/images/Toilet Brush 280.jpg",
         "description": "1pc, with holder",
         "icon": "fa-brush",
         "categoryName": "Tools"
@@ -284,7 +284,7 @@
         "name": "Hand Gloves",
         "category": "tools",
         "price": 60,
-        "imageUrl": "images\\Hand Gloves 50.jpg",
+        "imageUrl": "/images/Hand Gloves 50.jpg",
         "description": "1pair, rubber",
         "icon": "fa-hand-sparkles",
         "categoryName": "Tools"
@@ -294,7 +294,7 @@
         "name": "Garbage Bags Small",
         "category": "tools",
         "price": 100,
-        "imageUrl": "images\\Garbage Bags Small 300.jpg",
+        "imageUrl": "/images/Garbage Bags Small 300.jpg",
         "description": "30pcs, 10L",
         "icon": "fa-trash-alt",
         "categoryName": "Tools"
@@ -304,7 +304,7 @@
         "name": "Garbage Bags Large",
         "category": "tools",
         "price": 180,
-        "imageUrl": "images\\Garbage Bags Large 180.jpg",
+        "imageUrl": "/images/Garbage Bags Large 180.jpg",
         "description": "20pcs, 20L",
         "icon": "fa-trash-alt",
         "categoryName": "Tools"
@@ -314,7 +314,7 @@
         "name": "Trash Can",
         "category": "tools",
         "price": 260,
-        "imageUrl": "images\\Trash Can 250.jpg",
+        "imageUrl": "/images/Trash Can 250.jpg",
         "description": "20L, plastic",
         "icon": "fa-trash-alt",
         "categoryName": "Tools"
@@ -324,7 +324,7 @@
         "name": "Dusting Cloth",
         "category": "tools",
         "price": 200,
-        "imageUrl": "images\\Dusting Cloth 200.jpg",
+        "imageUrl": "/images/Dusting Cloth 200.jpg",
         "description": "2pcs, microfiber",
         "icon": "fa-broom",
         "categoryName": "Tools"
@@ -334,7 +334,7 @@
         "name": "Microfiber Cloth",
         "category": "tools",
         "price": 150,
-        "imageUrl": "images\\Microfiber Cloth 150.jpg",
+        "imageUrl": "/images/Microfiber Cloth 150.jpg",
         "description": "2pcs, for glass",
         "icon": "fa-broom",
         "categoryName": "Tools"
@@ -344,7 +344,7 @@
         "name": "Feather Duster",
         "category": "tools",
         "price": 250,
-        "imageUrl": "images\\Feather Duster 250.jpg",
+        "imageUrl": "/images/Feather Duster 250.jpg",
         "description": "1pc, extendable",
         "icon": "fa-broom",
         "categoryName": "Tools"
@@ -354,7 +354,7 @@
         "name": "Vacuum Cleaner",
         "category": "tools",
         "price": 8000,
-        "imageUrl": "images\\Vacuum Cleaner 6500.jpg",
+        "imageUrl": "/images/Vacuum Cleaner 6500.jpg",
         "description": "1pc, bagless",
         "icon": "fa-broom",
         "categoryName": "Tools"
@@ -364,7 +364,7 @@
         "name": "Handheld Vacuum",
         "category": "tools",
         "price": 3000,
-        "imageUrl": "images\\Handheld Vacuum 2800.jpg",
+        "imageUrl": "/images/Handheld Vacuum 2800.jpg",
         "description": "1pc, cordless",
         "icon": "fa-broom",
         "categoryName": "Tools"
@@ -374,7 +374,7 @@
         "name": "Carpet Cleaner",
         "category": "floor",
         "price": 7000,
-        "imageUrl": "images\\Carpet Cleaner 7000.jpg",
+        "imageUrl": "/images/Carpet Cleaner 7000.jpg",
         "description": "500ml, removes stains",
         "icon": "fa-bucket",
         "categoryName": "Floor"
@@ -384,7 +384,7 @@
         "name": "Upholstery Cleaner",
         "category": "all-purpose",
         "price": 660,
-        "imageUrl": "images\\Upholstery Cleaner 660.jpg",
+        "imageUrl": "/images/Upholstery Cleaner 660.jpg",
         "description": "500ml, for sofas",
         "icon": "fa-spray-can-sparkles",
         "categoryName": "All-Purpose"
@@ -394,7 +394,7 @@
         "name": "Laundry Basket",
         "category": "laundry",
         "price": 350,
-        "imageUrl": "images\\Laundry Basket 800.jpg",
+        "imageUrl": "/images/Laundry Basket 800.jpg",
         "description": "1pc, plastic",
         "icon": "fa-jug-detergent",
         "categoryName": "Laundry"
@@ -404,7 +404,7 @@
         "name": "Cloth Clips",
         "category": "laundry",
         "price": 120,
-        "imageUrl": "images\\Cloth Clips 120.jpg",
+        "imageUrl": "/images/Cloth Clips 120.jpg",
         "description": "20pcs, plastic",
         "icon": "fa-jug-detergent",
         "categoryName": "Laundry"
@@ -414,7 +414,7 @@
         "name": "Clothes Brush",
         "category": "laundry",
         "price": 100,
-        "imageUrl": "images\\Clothes Brush 100.jpg",
+        "imageUrl": "/images/Clothes Brush 100.jpg",
         "description": "1pc, for lint",
         "icon": "fa-brush",
         "categoryName": "Laundry"
@@ -424,7 +424,7 @@
         "name": "Iron Cleaner",
         "category": "laundry",
         "price": 750,
-        "imageUrl": "images\\Iron Cleaner 750.jpg",
+        "imageUrl": "/images/Iron Cleaner 750.jpg",
         "description": "100ml, for steam irons",
         "icon": "fa-jug-detergent",
         "categoryName": "Laundry"
@@ -434,7 +434,7 @@
         "name": "Window Wiper",
         "category": "glass",
         "price": 390,
-        "imageUrl": "images\\Window Wiper 390.jpg",
+        "imageUrl": "/images/Window Wiper 390.jpg",
         "description": "1pc, squeegee",
         "icon": "fa-window-maximize",
         "categoryName": "Glass"
@@ -444,7 +444,7 @@
         "name": "Squeegee",
         "category": "glass",
         "price": 150,
-        "imageUrl": "images\\Squeegee 150.jpg",
+        "imageUrl": "/images/Squeegee 150.jpg",
         "description": "1pc, for floors",
         "icon": "fa-window-maximize",
         "categoryName": "Glass"
@@ -454,7 +454,7 @@
         "name": "Air Freshener Spray",
         "category": "all-purpose",
         "price": 180,
-        "imageUrl": "images\\Air Freshener Spray 120.jpg",
+        "imageUrl": "/images/Air Freshener Spray 120.jpg",
         "description": "250ml, fresh scent",
         "icon": "fa-spray-can-sparkles",
         "categoryName": "All-Purpose"
@@ -464,7 +464,7 @@
         "name": "Incense Sticks",
         "category": "all-purpose",
         "price": 60,
-        "imageUrl": "images\\Incense Sticks 60.jpg",
+        "imageUrl": "/images/Incense Sticks 60.jpg",
         "description": "100g, floral",
         "icon": "fa-spray-can-sparkles",
         "categoryName": "All-Purpose"
@@ -474,7 +474,7 @@
         "name": "Camphor",
         "category": "all-purpose",
         "price": 35,
-        "imageUrl": "images\\Camphor 35.jpg",
+        "imageUrl": "/images/Camphor 35.jpg",
         "description": "50g, pure",
         "icon": "fa-spray-can-sparkles",
         "categoryName": "All-Purpose"
@@ -484,7 +484,7 @@
         "name": "Moth Repellent Balls",
         "category": "all-purpose",
         "price": 100,
-        "imageUrl": "images\\Moth Repellent Balls 100.jpg",
+        "imageUrl": "/images/Moth Repellent Balls 100.jpg",
         "description": "100g, protects clothes",
         "icon": "fa-spray-can-sparkles",
         "categoryName": "All-Purpose"
@@ -494,7 +494,7 @@
         "name": "Carpet Deodorizer",
         "category": "floor",
         "price": 1700,
-        "imageUrl": "images\\Carpet Deodorizer 1700.jpg",
+        "imageUrl": "/images/Carpet Deodorizer 1700.jpg",
         "description": "500g, freshens carpets",
         "icon": "fa-bucket",
         "categoryName": "Floor"
@@ -504,7 +504,7 @@
         "name": "Pet Odor Eliminator",
         "category": "all-purpose",
         "price": 210,
-        "imageUrl": "images\\Pet Odor Eliminator 210.jpg",
+        "imageUrl": "/images/Pet Odor Eliminator 210.jpg",
         "description": "500ml, for pets",
         "icon": "fa-spray-can-sparkles",
         "categoryName": "All-Purpose"
@@ -514,7 +514,7 @@
         "name": "Garbage Odor Neutralizer",
         "category": "tools",
         "price": 55,
-        "imageUrl": "images\\Garbage Odor Neutralizer 55.jpg",
+        "imageUrl": "/images/Garbage Odor Neutralizer 55.jpg",
         "description": "200g, for trash cans",
         "icon": "fa-trash-alt",
         "categoryName": "Tools"
@@ -524,7 +524,7 @@
         "name": "Bathroom Odor Eliminator Spray",
         "category": "bathroom",
         "price": 50,
-        "imageUrl": "images\\Bathroom Odor Eliminator Spray 50.jpg",
+        "imageUrl": "/images/Bathroom Odor Eliminator Spray 50.jpg",
         "description": "250ml, for bathrooms",
         "icon": "fa-toilet",
         "categoryName": "Bathroom"
@@ -534,7 +534,7 @@
         "name": "Air Purifying Bag",
         "category": "all-purpose",
         "price": 1700,
-        "imageUrl": "images\\Air Purifying Bag 1700.jpg",
+        "imageUrl": "/images/Air Purifying Bag 1700.jpg",
         "description": "1pc, natural odor absorber",
         "icon": "fa-spray-can-sparkles",
         "categoryName": "All-Purpose"
@@ -544,7 +544,7 @@
         "name": "Mattress Cleaner Spray",
         "category": "all-purpose",
         "price": 250,
-        "imageUrl": "images\\Mattress Cleaner Spray 290.jpg",
+        "imageUrl": "/images/Mattress Cleaner Spray 290.jpg",
         "description": "500ml, removes odors",
         "icon": "fa-spray-can-sparkles",
         "categoryName": "All-Purpose"
@@ -554,7 +554,7 @@
         "name": "Pillow Cleaner",
         "category": "all-purpose",
         "price": 150,
-        "imageUrl": "images\\Pillow Cleaner 660.jpg",
+        "imageUrl": "/images/Pillow Cleaner 660.jpg",
         "description": "200ml, for pillows",
         "icon": "fa-spray-can-sparkles",
         "categoryName": "All-Purpose"
@@ -564,7 +564,7 @@
         "name": "Sofa Cleaner",
         "category": "all-purpose",
         "price": 300,
-        "imageUrl": "images\\Sofa Cleaner 700.jpg",
+        "imageUrl": "/images/Sofa Cleaner 700.jpg",
         "description": "500ml, upholstery",
         "icon": "fa-spray-can-sparkles",
         "categoryName": "All-Purpose"
@@ -574,7 +574,7 @@
         "name": "Tile Cleaner",
         "category": "floor",
         "price": 180,
-        "imageUrl": "images\\Tile Cleaner 400.jpg",
+        "imageUrl": "/images/Tile Cleaner 400.jpg",
         "description": "1L, for floors",
         "icon": "fa-bucket",
         "categoryName": "Floor"
@@ -584,7 +584,7 @@
         "name": "Grout Cleaner",
         "category": "floor",
         "price": 200,
-        "imageUrl": "images\\Grout Cleaner 205.jpg",
+        "imageUrl": "/images/Grout Cleaner 205.jpg",
         "description": "500ml, for tiles",
         "icon": "fa-bucket",
         "categoryName": "Floor"
@@ -594,7 +594,7 @@
         "name": "Baby Surface Cleaner",
         "category": "all-purpose",
         "price": 300,
-        "imageUrl": "images\\Baby Surface Cleaner 300.jpg",
+        "imageUrl": "/images/Baby Surface Cleaner 300.jpg",
         "description": "500ml, gentle",
         "icon": "fa-spray-can-sparkles",
         "categoryName": "All-Purpose"
@@ -604,7 +604,7 @@
         "name": "Bathroom Cleaner Kit",
         "category": "all-purpose",
         "price": 800,
-        "imageUrl": "images\\Bathroom Cleaner Kit 800.jpg",
+        "imageUrl": "/images/Bathroom Cleaner Kit 800.jpg",
         "description": "",
         "icon": "fa-spray-can-sparkles",
         "categoryName": "All-Purpose"
@@ -614,7 +614,7 @@
         "name": "Floor Polish",
         "category": "floor",
         "price": 220,
-        "imageUrl": "images\\Floor Disinfectant Wipes 300.jpg",
+        "imageUrl": "/images/Floor Disinfectant Wipes 300.jpg",
         "description": "500ml, for shine",
         "icon": "fa-bucket",
         "categoryName": "Floor"
@@ -624,7 +624,7 @@
         "name": "Glass Polish",
         "category": "glass",
         "price": 720,
-        "imageUrl": "images\\Glass Polish 720.jpg",
+        "imageUrl": "/images/Glass Polish 720.jpg",
         "description": "200ml, for mirrors",
         "icon": "fa-window-maximize",
         "categoryName": "Glass"
@@ -634,7 +634,7 @@
         "name": "Rust Remover",
         "category": "all-purpose",
         "price": 60,
-        "imageUrl": "images\\Rust Remover 60.jpg",
+        "imageUrl": "/images/Rust Remover 60.jpg",
         "description": "200ml, for metal",
         "icon": "fa-spray-can-sparkles",
         "categoryName": "All-Purpose"
@@ -644,7 +644,7 @@
         "name": "Lime Scale Remover",
         "category": "bathroom",
         "price": 200,
-        "imageUrl": "images\\Lime Scale Remover 200.jpg",
+        "imageUrl": "/images/Lime Scale Remover 200.jpg",
         "description": "200ml, for faucets",
         "icon": "fa-toilet",
         "categoryName": "Bathroom"
@@ -654,7 +654,7 @@
         "name": "Odor Eliminator",
         "category": "all-purpose",
         "price": 1800,
-        "imageUrl": "images\\Odor Eliminator 1800.jpg",
+        "imageUrl": "/images/Odor Eliminator 1800.jpg",
         "description": "250ml, neutralizes smells",
         "icon": "fa-spray-can-sparkles",
         "categoryName": "All-Purpose"
@@ -664,7 +664,7 @@
         "name": "Pet Stain Cleaner",
         "category": "all-purpose",
         "price": 880,
-        "imageUrl": "images\\Pet Stain Cleaner 880.jpg",
+        "imageUrl": "/images/Pet Stain Cleaner 880.jpg",
         "description": "500ml, for pets",
         "icon": "fa-spray-can-sparkles",
         "categoryName": "All-Purpose"
@@ -674,7 +674,7 @@
         "name": "Baby Surface Cleaner",
         "category": "all-purpose",
         "price": 200,
-        "imageUrl": "images\\Baby Surface Cleaner 200.jpg",
+        "imageUrl": "/images/Baby Surface Cleaner 200.jpg",
         "description": "500ml, gentle",
         "icon": "fa-spray-can-sparkles",
         "categoryName": "All-Purpose"
@@ -684,7 +684,7 @@
         "name": "Multipurpose Spray",
         "category": "all-purpose",
         "price": 186,
-        "imageUrl": "images\\Multipurpose Spray 186.jpg",
+        "imageUrl": "/images/Multipurpose Spray 186.jpg",
         "description": "500ml, everyday use",
         "icon": "fa-spray-can-sparkles",
         "categoryName": "All-Purpose"
@@ -694,7 +694,7 @@
         "name": "Antiseptic Liquid",
         "category": "disinfectant",
         "price": 150,
-        "imageUrl": "images\\Antiseptic Liquid.webp",
+        "imageUrl": "/images/Antiseptic Liquid.webp",
         "description": "500ml, for wounds",
         "icon": "fa-shield-virus",
         "categoryName": "Disinfectant"
@@ -704,7 +704,7 @@
         "name": "Floor Disinfectant Wipes",
         "category": "disinfectant",
         "price": 180,
-        "imageUrl": "images\\Floor Disinfectant Wipes 250.jpg",
+        "imageUrl": "/images/Floor Disinfectant Wipes 250.jpg",
         "description": "40pcs, for floors",
         "icon": "fa-wipe",
         "categoryName": "Disinfectant"
@@ -714,7 +714,7 @@
         "name": "Kitchen Degreaser",
         "category": "kitchen",
         "price": 150,
-        "imageUrl": "images\\Kitchen Degreaser 150.jpg",
+        "imageUrl": "/images/Kitchen Degreaser 150.jpg",
         "description": "500ml, for ovens",
         "icon": "fa-kitchen-set",
         "categoryName": "Kitchen"
@@ -724,7 +724,7 @@
         "name": "Chimney Cleaner",
         "category": "kitchen",
         "price": 250,
-        "imageUrl": "images\\Chimney Cleaner 300.jpg",
+        "imageUrl": "/images/Chimney Cleaner 300.jpg",
         "description": "500ml, removes grease",
         "icon": "fa-kitchen-set",
         "categoryName": "Kitchen"
@@ -734,7 +734,7 @@
         "name": "Water Tank Cleaner",
         "category": "all-purpose",
         "price": 300,
-        "imageUrl": "images\\Water Tank Cleaner 380.jpg",
+        "imageUrl": "/images/Water Tank Cleaner 380.jpg",
         "description": "1L, for overhead tanks",
         "icon": "fa-spray-can-sparkles",
         "categoryName": "All-Purpose"
@@ -744,7 +744,7 @@
         "name": "Pipe Cleaner",
         "category": "all-purpose",
         "price": 120,
-        "imageUrl": "images\\Pipe Cleaner120.jpg",
+        "imageUrl": "/images/Pipe Cleaner120.jpg",
         "description": "500ml, for drains",
         "icon": "fa-spray-can-sparkles",
         "categoryName": "All-Purpose"
@@ -754,7 +754,7 @@
         "name": "Drain Opener Gel",
         "category": "all-purpose",
         "price": 240,
-        "imageUrl": "images\\Drain Opener Gel 600.jpg",
+        "imageUrl": "/images/Drain Opener Gel 600.jpg",
         "description": "500ml, thick gel",
         "icon": "fa-spray-can-sparkles",
         "categoryName": "All-Purpose"
@@ -764,7 +764,7 @@
         "name": "Toilet Freshener Block",
         "category": "bathroom",
         "price": 120,
-        "imageUrl": "images\\Toilet Freshener Block 200.jpg",
+        "imageUrl": "/images/Toilet Freshener Block 200.jpg",
         "description": "2pcs, for toilet",
         "icon": "fa-toilet",
         "categoryName": "Bathroom"
@@ -774,7 +774,7 @@
         "name": "Room Fragrance Diffuser",
         "category": "all-purpose",
         "price": 600,
-        "imageUrl": "images\\Room Fragrance Diffuser 350.jpg",
+        "imageUrl": "/images/Room Fragrance Diffuser 350.jpg",
         "description": "1pc, electric",
         "icon": "fa-spray-can-sparkles",
         "categoryName": "All-Purpose"
@@ -784,7 +784,7 @@
         "name": "Essential Oil Cleaner",
         "category": "all-purpose",
         "price": 315,
-        "imageUrl": "images\\Essential Oil Cleaner 315.jpg",
+        "imageUrl": "/images/Essential Oil Cleaner 315.jpg",
         "description": "100ml, natural",
         "icon": "fa-spray-can-sparkles",
         "categoryName": "All-Purpose"
@@ -794,7 +794,7 @@
         "name": "Natural Vinegar Cleaner",
         "category": "all-purpose",
         "price": 280,
-        "imageUrl": "images\\Natural Vinegar Cleaner280.jpg",
+        "imageUrl": "/images/Natural Vinegar Cleaner280.jpg",
         "description": "500ml, eco-friendly",
         "icon": "fa-spray-can-sparkles",
         "categoryName": "All-Purpose"
@@ -804,7 +804,7 @@
         "name": "Baking Soda Cleaner",
         "category": "all-purpose",
         "price": 400,
-        "imageUrl": "images\\Baking Soda Cleaner 400.jpg",
+        "imageUrl": "/images/Baking Soda Cleaner 400.jpg",
         "description": "500g, multi-use",
         "icon": "fa-spray-can-sparkles",
         "categoryName": "All-Purpose"
@@ -814,7 +814,7 @@
         "name": "Lemon Cleaner",
         "category": "all-purpose",
         "price": 140,
-        "imageUrl": "images\\Lemon Cleaner 140.jpg",
+        "imageUrl": "/images/Lemon Cleaner 140.jpg",
         "description": "500ml, citrus scent",
         "icon": "fa-spray-can-sparkles",
         "categoryName": "All-Purpose"
@@ -824,7 +824,7 @@
         "name": "Herbal Floor Cleaner",
         "category": "floor",
         "price": 180,
-        "imageUrl": "images\\Herbal Floor Cleaner 180.jpg",
+        "imageUrl": "/images/Herbal Floor Cleaner 180.jpg",
         "description": "1L, ayurvedic",
         "icon": "fa-bucket",
         "categoryName": "Floor"
@@ -834,7 +834,7 @@
         "name": "Organic Dishwash Liquid",
         "category": "kitchen",
         "price": 160,
-        "imageUrl": "images\\Organic Dishwash Liquid 160.jpg",
+        "imageUrl": "/images/Organic Dishwash Liquid 160.jpg",
         "description": "500ml, natural",
         "icon": "fa-kitchen-set",
         "categoryName": "Kitchen"
@@ -844,7 +844,7 @@
         "name": "Organic Laundry Liquid",
         "category": "laundry",
         "price": 220,
-        "imageUrl": "images\\Organic Laundry Liquid 220.jpg",
+        "imageUrl": "/images/Organic Laundry Liquid 220.jpg",
         "description": "1L, plant-based",
         "icon": "fa-jug-detergent",
         "categoryName": "Laundry"
@@ -854,7 +854,7 @@
         "name": "Bathroom Odor Eliminator Spray",
         "category": "bathroom",
         "price": 250,
-        "imageUrl": "images\\Bathroom Odor Eliminator Spray 250.jpg",
+        "imageUrl": "/images/Bathroom Odor Eliminator Spray 250.jpg",
         "description": "250ml, for bathrooms",
         "icon": "fa-toilet",
         "categoryName": "Bathroom"
@@ -864,7 +864,7 @@
         "name": "Disposable Gloves",
         "category": "tools",
         "price": 120,
-        "imageUrl": "images\\Disposable Gloves 120.jpg",
+        "imageUrl": "/images/Disposable Gloves 120.jpg",
         "description": "10pcs, powder-free",
         "icon": "fa-hand-sparkles",
         "categoryName": "Tools"
@@ -874,7 +874,7 @@
         "name": "Bathtub Cleaner",
         "category": "bathroom",
         "price": 420,
-        "imageUrl": "images\\Bathtub Cleaner 420.jpg",
+        "imageUrl": "/images/Bathtub Cleaner 420.jpg",
         "description": "250ml, for bathrooms",
         "icon": "fa-toilet",
         "categoryName": "Bathroom"
@@ -884,7 +884,7 @@
         "name": "Bio-Enzyme Cleaner",
         "category": "all-purpose",
         "price": 680,
-        "imageUrl": "images\\Bio Enzyme Cleaner 680.jpg",
+        "imageUrl": "/images/Bio Enzyme Cleaner 680.jpg",
         "description": "500ml, natural",
         "icon": "fa-spray-can-sparkles",
         "categoryName": "All-Purpose"
@@ -894,7 +894,7 @@
         "name": "Bleach Liquid",
         "category": "disinfectant",
         "price": 330,
-        "imageUrl": "images\\Bleach Liquid 330.jpg",
+        "imageUrl": "/images/Bleach Liquid 330.jpg",
         "description": "1L, kills germs",
         "icon": "fa-shield-virus",
         "categoryName": "Disinfectant"
@@ -904,7 +904,7 @@
         "name": "Broom (Hard)",
         "category": "tools",
         "price": 500,
-        "imageUrl": "images\\Broom (Hard) 500.jpg",
+        "imageUrl": "/images/Broom (Hard) 500.jpg",
         "description": "1pc, hard bristles",
         "icon": "fa-broom",
         "categoryName": "Tools"
@@ -914,7 +914,7 @@
         "name": "Floor Cleaning Kit",
         "category": "floor",
         "price": 2400,
-        "imageUrl": "images\\Floor Cleaning Kit 2400.jpg",
+        "imageUrl": "/images/Floor Cleaning Kit 2400.jpg",
         "description": "1set, mop + bucket",
         "icon": "fa-bucket",
         "categoryName": "Floor"
@@ -924,7 +924,7 @@
         "name": "Broom (Hard)",
         "category": "tools",
         "price": 600,
-        "imageUrl": "images\\Broom (Hard) 600.jpg",
+        "imageUrl": "/images/Broom (Hard) 600.jpg",
         "description": "1pc, hard bristles",
         "icon": "fa-broom",
         "categoryName": "Tools"
@@ -934,7 +934,7 @@
         "name": "Ceiling Cleaner Brush",
         "category": "tools",
         "price": 900,
-        "imageUrl": "images\\Ceiling Cleaner Brush 900.jpg",
+        "imageUrl": "/images/Ceiling Cleaner Brush 900.jpg",
         "description": "1pc, extendable",
         "icon": "fa-brush",
         "categoryName": "Tools"
@@ -944,7 +944,7 @@
         "name": "Fan Cleaning Brush",
         "category": "tools",
         "price": 2400,
-        "imageUrl": "images\\Fan Cleaning Brush 2400.jpg",
+        "imageUrl": "/images/Fan Cleaning Brush 2400.jpg",
         "description": "1pc, for ceiling fans",
         "icon": "fa-brush",
         "categoryName": "Tools"
@@ -954,7 +954,7 @@
         "name": "AC Cleaning Spray",
         "category": "all-purpose",
         "price": 510,
-        "imageUrl": "images\\Home Care\\AC Cleaning Spray 510.jpg",
+        "imageUrl": "/images/AC Cleaning Spray 510.jpg",
         "description": "500ml, for AC coils",
         "icon": "fa-spray-can-sparkles",
         "categoryName": "All-Purpose"
@@ -964,7 +964,7 @@
         "name": "Keyboard Cleaner",
         "category": "tools",
         "price": 790,
-        "imageUrl": "images\\Keyboard Cleaner 790.jpg",
+        "imageUrl": "/images/Keyboard Cleaner 790.jpg",
         "description": "100ml, gel",
         "icon": "fa-brush",
         "categoryName": "Tools"
@@ -974,7 +974,7 @@
         "name": "Screen Cleaning Spray",
         "category": "glass",
         "price": 480,
-        "imageUrl": "images\\Screen Cleaning Spray 480.jpg",
+        "imageUrl": "/images/Screen Cleaning Spray 480.jpg",
         "description": "100ml, for monitors",
         "icon": "fa-window-maximize",
         "categoryName": "Glass"
@@ -984,7 +984,7 @@
         "name": "Car Interior Cleaner",
         "category": "all-purpose",
         "price": 500,
-        "imageUrl": "images\\Car Interior Cleaner 500.jpg",
+        "imageUrl": "/images/Car Interior Cleaner 500.jpg",
         "description": "500ml, for dashboards",
         "icon": "fa-spray-can-sparkles",
         "categoryName": "All-Purpose"
@@ -994,7 +994,7 @@
         "name": "Helmet Cleaner",
         "category": "all-purpose",
         "price": 180,
-        "imageUrl": "images\\Helmet Cleaner 180.jpg",
+        "imageUrl": "/images/Helmet Cleaner 180.jpg",
         "description": "200ml, for helmets",
         "icon": "fa-spray-can-sparkles",
         "categoryName": "All-Purpose"
@@ -1004,7 +1004,7 @@
         "name": "Glass Cloth Premium",
         "category": "glass",
         "price": 150,
-        "imageUrl": "images\\Glass Cloth Premium 150.jpg",
+        "imageUrl": "/images/Glass Cloth Premium 150.jpg",
         "description": "2pcs, lint-free",
         "icon": "fa-window-maximize",
         "categoryName": "Glass"
@@ -1014,7 +1014,7 @@
         "name": "Heavy Duty Scrubber",
         "category": "tools",
         "price": 200,
-        "imageUrl": "images\\Heavy Duty Scrubber 200.jpg",
+        "imageUrl": "/images/Heavy Duty Scrubber 200.jpg",
         "description": "1pc, for tough stains",
         "icon": "fa-brush",
         "categoryName": "Tools"
@@ -1024,7 +1024,7 @@
         "name": "Broom (Soft)",
         "category": "tools",
         "price": 90,
-        "imageUrl": "images\\Broom (Soft) 90.jpg",
+        "imageUrl": "/images/Broom (Soft) 90.jpg",
         "description": "1pc, for soft bristles",
         "icon": "fa-broom",
         "categoryName": "Tools"
@@ -1034,7 +1034,7 @@
         "name": "Broom (Soft)",
         "category": "tools",
         "price": 180,
-        "imageUrl": "images\\Broom (Soft) 180.jpg",
+        "imageUrl": "/images/Broom (Soft) 180.jpg",
         "description": "1pc, for soft bristles",
         "icon": "fa-broom",
         "categoryName": "Tools"
@@ -1044,7 +1044,7 @@
         "name": "Broom (Soft)",
         "category": "tools",
         "price": 190,
-        "imageUrl": "images\\Broom (Soft) 190.jpg",
+        "imageUrl": "/images/Broom (Soft) 190.jpg",
         "description": "1pc, for soft bristles",
         "icon": "fa-broom",
         "categoryName": "Tools"
@@ -1054,7 +1054,7 @@
         "name": "Broom (Soft)",
         "category": "tools",
         "price": 250,
-        "imageUrl": "images\\Broom (Soft) 250.jpg",
+        "imageUrl": "/images/Broom (Soft) 250.jpg",
         "description": "1pc, for soft bristles",
         "icon": "fa-broom",
         "categoryName": "Tools"
@@ -1064,7 +1064,7 @@
         "name": "Paint Cleaner",
         "category": "all-purpose",
         "price": 630,
-        "imageUrl": "images\\Paint Cleaner 630.jpg",
+        "imageUrl": "/images/Paint Cleaner 630.jpg",
         "description": "200ml, for fresh paint",
         "icon": "fa-spray-can-sparkles",
         "categoryName": "All-Purpose"
@@ -1074,7 +1074,7 @@
         "name": "Plastic Cleaner",
         "category": "all-purpose",
         "price": 999,
-        "imageUrl": "images\\Plastic Cleaner 999.jpg",
+        "imageUrl": "/images/Plastic Cleaner 999.jpg",
         "description": "200ml, restores shine",
         "icon": "fa-spray-can-sparkles",
         "categoryName": "All-Purpose"
@@ -1084,7 +1084,7 @@
         "name": "Electronic Cleaner Spray",
         "category": "all-purpose",
         "price": 480,
-        "imageUrl": "images\\Electronic Cleaner Spray 480.jpg",
+        "imageUrl": "/images/Electronic Cleaner Spray 480.jpg",
         "description": "200ml, safe for circuits",
         "icon": "fa-spray-can-sparkles",
         "categoryName": "All-Purpose"
@@ -1094,7 +1094,7 @@
         "name": "Silver Polish",
         "category": "all-purpose",
         "price": 700,
-        "imageUrl": "images\\Silver Polish 700.jpg",
+        "imageUrl": "/images/Silver Polish 700.jpg",
         "description": "100ml, for silver",
         "icon": "fa-spray-can-sparkles",
         "categoryName": "All-Purpose"
@@ -1104,7 +1104,7 @@
         "name": "Copper Cleaner",
         "category": "all-purpose",
         "price": 220,
-        "imageUrl": "images\\Copper Cleaner",
+        "imageUrl": "/images/Copper Cleaner",
         "description": "100ml, for copper",
         "icon": "fa-spray-can-sparkles",
         "categoryName": "All-Purpose"
@@ -1114,7 +1114,7 @@
         "name": "Brass Cleaner",
         "category": "all-purpose",
         "price": 400,
-        "imageUrl": "images\\Brass Cleaner 399.jpg",
+        "imageUrl": "/images/Brass Cleaner 399.jpg",
         "description": "100ml, for brass",
         "icon": "fa-spray-can-sparkles",
         "categoryName": "All-Purpose"
@@ -1124,7 +1124,7 @@
         "name": "Stone Cleaner",
         "category": "floor",
         "price": 2200,
-        "imageUrl": "images\\Stone Cleaner 2200.jpg",
+        "imageUrl": "/images/Stone Cleaner 2200.jpg",
         "description": "500ml, for marble/granite",
         "icon": "fa-bucket",
         "categoryName": "Floor"
@@ -1134,7 +1134,7 @@
         "name": "Granite Cleaner",
         "category": "floor",
         "price": 450,
-        "imageUrl": "images\\Granite Cleaner 450.jpg",
+        "imageUrl": "/images/Granite Cleaner 450.jpg",
         "description": "500ml, for granite",
         "icon": "fa-bucket",
         "categoryName": "Floor"
@@ -1144,7 +1144,7 @@
         "name": "Marble Cleaner",
         "category": "floor",
         "price": 880,
-        "imageUrl": "images\\Marble Cleaner 880.jpg",
+        "imageUrl": "/images/Marble Cleaner 880.jpg",
         "description": "500ml, for marble",
         "icon": "fa-bucket",
         "categoryName": "Floor"
@@ -1154,7 +1154,7 @@
         "name": "Leather Cleaner",
         "category": "all-purpose",
         "price": 2250,
-        "imageUrl": "images\\Leather Cleaner 2250.jpg",
+        "imageUrl": "/images/Leather Cleaner 2250.jpg",
         "description": "200ml, for sofas",
         "icon": "fa-spray-can-sparkles",
         "categoryName": "All-Purpose"
@@ -1164,7 +1164,7 @@
         "name": "Wood Floor Cleaner",
         "category": "floor",
         "price": 400,
-        "imageUrl": "images\\Wood Floor Cleaner 400.jpg",
+        "imageUrl": "/images/Wood Floor Cleaner 400.jpg",
         "description": "1L, for wooden floors",
         "icon": "fa-bucket",
         "categoryName": "Floor"
@@ -1174,7 +1174,7 @@
         "name": "Tile Polish Liquid",
         "category": "floor",
         "price": 240,
-        "imageUrl": "images\\Tile Polish Liquid 240.jpg",
+        "imageUrl": "/images/Tile Polish Liquid 240.jpg",
         "description": "500ml, for shine",
         "icon": "fa-bucket",
         "categoryName": "Floor"
@@ -1184,7 +1184,7 @@
         "name": "Carpet Deodorizer",
         "category": "floor",
         "price": 1700,
-        "imageUrl": "images\\Carpet Deodorizer 1700.jpg",
+        "imageUrl": "/images/Carpet Deodorizer 1700.jpg",
         "description": "300g, powder",
         "icon": "fa-bucket",
         "categoryName": "Floor"
@@ -1194,7 +1194,7 @@
         "name": "Bucket",
         "category": "tools",
         "price": 100,
-        "imageUrl": "images\\Bucket 100.jpg",
+        "imageUrl": "/images/Bucket 100.jpg",
         "description": "10L, plastic",
         "icon": "fa-bucket",
         "categoryName": "Tools"
@@ -1204,7 +1204,7 @@
         "name": "Mattress Protector Spray",
         "category": "all-purpose",
         "price": 290,
-        "imageUrl": "images\\Mattress Protector Spray 290.jpg",
+        "imageUrl": "/images/Mattress Protector Spray 290.jpg",
         "description": "300ml, waterproofing",
         "icon": "fa-spray-can-sparkles",
         "categoryName": "All-Purpose"
@@ -1214,7 +1214,7 @@
         "name": "Window Cleaning Kit",
         "category": "glass",
         "price": 190,
-        "imageUrl": "images\\Window Cleaning Kit 181.jpg",
+        "imageUrl": "/images/Window Cleaning Kit 181.jpg",
         "description": "1set, squeegee+cloth",
         "icon": "fa-window-maximize",
         "categoryName": "Glass"
@@ -1224,7 +1224,7 @@
         "name": "Floor Scrubbing Machine",
         "category": "tools",
         "price": 1810,
-        "imageUrl": "images\\Floor Scrubbing Machine 1810.jpg",
+        "imageUrl": "/images/Floor Scrubbing Machine 1810.jpg",
         "description": "1unit, commercial",
         "icon": "fa-broom",
         "categoryName": "Tools"
@@ -1234,7 +1234,7 @@
         "name": "Steam Cleaner",
         "category": "tools",
         "price": 4000,
-        "imageUrl": "images\\Steam Cleaner 4000.jpg",
+        "imageUrl": "/images/Steam Cleaner 4000.jpg",
         "description": "1unit, for deep cleaning",
         "icon": "fa-broom",
         "categoryName": "Tools"
@@ -1244,7 +1244,7 @@
         "name": "Pressure Washer",
         "category": "tools",
         "price": 7800,
-        "imageUrl": "images\\Pressure Washer 7800.jpg",
+        "imageUrl": "/images/Pressure Washer 7800.jpg",
         "description": "1unit, 1500W",
         "icon": "fa-broom",
         "categoryName": "Tools"
@@ -1254,7 +1254,7 @@
         "name": "Industrial Mop",
         "category": "tools",
         "price": 1500,
-        "imageUrl": "images\\Industrial Mop 1500.jpg",
+        "imageUrl": "/images/Industrial Mop 1500.jpg",
         "description": "1pc, heavy duty",
         "icon": "fa-broom",
         "categoryName": "Tools"
@@ -1264,7 +1264,7 @@
         "name": "Industrial Broom",
         "category": "tools",
         "price": 200,
-        "imageUrl": "images\\Industrial Broom 200.jpg",
+        "imageUrl": "/images/Industrial Broom 200.jpg",
         "description": "1pc, large",
         "icon": "fa-broom",
         "categoryName": "Tools"
@@ -1274,7 +1274,7 @@
         "name": "Bucket",
         "category": "tools",
         "price": 600,
-        "imageUrl": "images\\Bucket 600.jpg",
+        "imageUrl": "/images/Bucket 600.jpg",
         "description": "10L, plastic",
         "icon": "fa-bucket",
         "categoryName": "Tools"
@@ -1284,7 +1284,7 @@
         "name": "Wet Floor Sign Board",
         "category": "tools",
         "price": 800,
-        "imageUrl": "images\\Wet Floor Sign Board 800.jpg",
+        "imageUrl": "/images/Wet Floor Sign Board 800.jpg",
         "description": "1pc, warning",
         "icon": "fa-broom",
         "categoryName": "Tools"
@@ -1294,7 +1294,7 @@
         "name": "Janitor Cart",
         "category": "tools",
         "price": 500,
-        "imageUrl": "images\\Janitor Cart 500.jpg",
+        "imageUrl": "/images/Janitor Cart 500.jpg",
         "description": "1pc, with bags",
         "icon": "fa-broom",
         "categoryName": "Tools"
@@ -1304,7 +1304,7 @@
         "name": "Floor Sweeper Machine",
         "category": "tools",
         "price": 7000,
-        "imageUrl": "images\\Floor Sweeper Machine 7000.jpg",
+        "imageUrl": "/images/Floor Sweeper Machine 7000.jpg",
         "description": "1unit, automatic",
         "icon": "fa-broom",
         "categoryName": "Tools"
@@ -1314,7 +1314,7 @@
         "name": "Air Freshener Refill",
         "category": "all-purpose",
         "price": 250,
-        "imageUrl": "images\\Air Freshener Refill 250.webp",
+        "imageUrl": "/images/Air Freshener Refill 250.webp",
         "description": "250ml, for dispensers",
         "icon": "fa-spray-can-sparkles",
         "categoryName": "All-Purpose"
@@ -1324,7 +1324,7 @@
         "name": "Automatic Air Freshener",
         "category": "all-purpose",
         "price": 190,
-        "imageUrl": "images\\Automatic Air Freshener 190.jpg",
+        "imageUrl": "/images/Automatic Air Freshener 190.jpg",
         "description": "1pc, with motion sensor",
         "icon": "fa-spray-can-sparkles",
         "categoryName": "All-Purpose"
@@ -1334,7 +1334,7 @@
         "name": "Soap Dispenser",
         "category": "tools",
         "price": 100,
-        "imageUrl": "images\\Soap Dispenser 100.jpg",
+        "imageUrl": "/images/Soap Dispenser 100.jpg",
         "description": "1pc, wall mount",
         "icon": "fa-hand-sparkles",
         "categoryName": "Tools"
@@ -1344,7 +1344,7 @@
         "name": "Camera Lens Cleaner",
         "category": "tools",
         "price": 280,
-        "imageUrl": "images\\Camera Lens Cleaner 280.jpg",
+        "imageUrl": "/images/Camera Lens Cleaner 280.jpg",
         "description": "1pc, for camera lenses",
         "icon": "fa-hand-sparkles",
         "categoryName": "Tools"
@@ -1354,7 +1354,7 @@
         "name": "Hand Dryer Machine",
         "category": "tools",
         "price": 3000,
-        "imageUrl": "images\\Hand Dryer Machine 3000.jpg",
+        "imageUrl": "/images/Hand Dryer Machine 3000.jpg",
         "description": "1pc, wall mounted",
         "icon": "fa-hand-sparkles",
         "categoryName": "Tools"
@@ -1364,7 +1364,7 @@
         "name": "Paper Towel Dispenser",
         "category": "tools",
         "price": 1100,
-        "imageUrl": "images\\Paper Towel Dispenser 1100.jpg",
+        "imageUrl": "/images/Paper Towel Dispenser 1100.jpg",
         "description": "1pc, stainless steel",
         "icon": "fa-trash-alt",
         "categoryName": "Tools"
@@ -1374,7 +1374,7 @@
         "name": "Toilet Paper Dispenser",
         "category": "tools",
         "price": 2450,
-        "imageUrl": "images\\Toilet Paper Dispenser 2450.jpg",
+        "imageUrl": "/images/Toilet Paper Dispenser 2450.jpg",
         "description": "1pc, plastic",
         "icon": "fa-trash-alt",
         "categoryName": "Tools"
@@ -1384,7 +1384,7 @@
         "name": "Urinal Screen",
         "category": "bathroom",
         "price": 290,
-        "imageUrl": "images\\Urinal Screen 290.jpg",
+        "imageUrl": "/images/Urinal Screen 290.jpg",
         "description": "2pcs, anti-odor",
         "icon": "fa-toilet",
         "categoryName": "Bathroom"
@@ -1394,7 +1394,7 @@
         "name": "Urinal Cleaner Block",
         "category": "bathroom",
         "price": 1400,
-        "imageUrl": "images\\Urinal Cleaner Block 1400.jpg",
+        "imageUrl": "/images/Urinal Cleaner Block 1400.jpg",
         "description": "2pcs, hanging",
         "icon": "fa-toilet",
         "categoryName": "Bathroom"
@@ -1404,7 +1404,7 @@
         "name": "Washroom Cleaner Kit",
         "category": "bathroom",
         "price": 140,
-        "imageUrl": "images\\Washroom Cleaner Kit 140.jpg",
+        "imageUrl": "/images/Washroom Cleaner Kit 140.jpg",
         "description": "1set, spray + brush + block",
         "icon": "fa-toilet",
         "categoryName": "Bathroom"
@@ -1414,7 +1414,7 @@
         "name": "Kitchen Sink Cleaner",
         "category": "kitchen",
         "price": 180,
-        "imageUrl": "images\\Kitchen Sink Cleaner.webp",
+        "imageUrl": "/images/Kitchen Sink Cleaner.webp",
         "description": "500ml, removes stains",
         "icon": "fa-kitchen-set",
         "categoryName": "Kitchen"
@@ -1424,7 +1424,7 @@
         "name": "Drain Mesh Filter",
         "category": "kitchen",
         "price": 25,
-        "imageUrl": "images\\Drain Mesh Filter 25.jpg",
+        "imageUrl": "/images/Drain Mesh Filter 25.jpg",
         "description": "1pc, for sink",
         "icon": "fa-kitchen-set",
         "categoryName": "Kitchen"
@@ -1434,7 +1434,7 @@
         "name": "Grease Trap Cleaner",
         "category": "kitchen",
         "price": 9500,
-        "imageUrl": "images\\Grease Trap Cleaner 9500.jpg",
+        "imageUrl": "/images/Grease Trap Cleaner 9500.jpg",
         "description": "500ml, for drains",
         "icon": "fa-kitchen-set",
         "categoryName": "Kitchen"
@@ -1444,7 +1444,7 @@
         "name": "Oil Stain Remover",
         "category": "laundry",
         "price": 600,
-        "imageUrl": "images\\Oil Stain Remover 600.jpg",
+        "imageUrl": "/images/Oil Stain Remover 600.jpg",
         "description": "200ml, for clothes",
         "icon": "fa-jug-detergent",
         "categoryName": "Laundry"
@@ -1454,7 +1454,7 @@
         "name": "Ink Stain Remover",
         "category": "laundry",
         "price": 200,
-        "imageUrl": "images\\Ink Stain Remover 200.jpg",
+        "imageUrl": "/images/Ink Stain Remover 200.jpg",
         "description": "100ml, for fabrics",
         "icon": "fa-jug-detergent",
         "categoryName": "Laundry"
@@ -1464,7 +1464,7 @@
         "name": "Paint Stain Remover",
         "category": "all-purpose",
         "price": 700,
-        "imageUrl": "images\\Paint Stain Remover 700.jpg",
+        "imageUrl": "/images/Paint Stain Remover 700.jpg",
         "description": "200ml, for surfaces",
         "icon": "fa-spray-can-sparkles",
         "categoryName": "All-Purpose"
@@ -1474,7 +1474,7 @@
         "name": "Adhesive Remover",
         "category": "all-purpose",
         "price": 200,
-        "imageUrl": "images\\Adhesive Remover 200.jpg",
+        "imageUrl": "/images/Adhesive Remover 200.jpg",
         "description": "200ml, for stickers",
         "icon": "fa-spray-can-sparkles",
         "categoryName": "All-Purpose"
@@ -1484,7 +1484,7 @@
         "name": "Glue Residue Cleaner",
         "category": "all-purpose",
         "price": 500,
-        "imageUrl": "images\\Glue Residue Cleaner 500.jpg",
+        "imageUrl": "/images/Glue Residue Cleaner 500.jpg",
         "description": "200ml, for tough residue",
         "icon": "fa-spray-can-sparkles",
         "categoryName": "All-Purpose"
@@ -1494,7 +1494,7 @@
         "name": "Sticker Remover Spray",
         "category": "all-purpose",
         "price": 350,
-        "imageUrl": "images\\Sticker Remover Spray 350.jpg",
+        "imageUrl": "/images/Sticker Remover Spray 350.jpg",
         "description": "200ml, for glass",
         "icon": "fa-spray-can-sparkles",
         "categoryName": "All-Purpose"
@@ -1504,7 +1504,7 @@
         "name": "Glass Scratch Remover",
         "category": "glass",
         "price": 500,
-        "imageUrl": "images\\Glass Scratch Remover 500.jpg",
+        "imageUrl": "/images/Glass Scratch Remover 500.jpg",
         "description": "100ml, for minor scratches",
         "icon": "fa-window-maximize",
         "categoryName": "Glass"
@@ -1514,7 +1514,7 @@
         "name": "Tile Scrubber Brush",
         "category": "tools",
         "price": 200,
-        "imageUrl": "images\\Tile Scrubber Brush 200.jpg",
+        "imageUrl": "/images/Tile Scrubber Brush 200.jpg",
         "description": "1pc, with handle",
         "icon": "fa-brush",
         "categoryName": "Tools"
@@ -1524,7 +1524,7 @@
         "name": "Corner Cleaning Brush",
         "category": "tools",
         "price": 450,
-        "imageUrl": "images\\Corner Cleaning Brush 450.jpg",
+        "imageUrl": "/images/Corner Cleaning Brush 450.jpg",
         "description": "1pc, for corners",
         "icon": "fa-brush",
         "categoryName": "Tools"
@@ -1534,7 +1534,7 @@
         "name": "Grout Scrubber",
         "category": "tools",
         "price": 190,
-        "imageUrl": "images\\Grout Scrubber 190.jpg",
+        "imageUrl": "/images/Grout Scrubber 190.jpg",
         "description": "1pc, for grout lines",
         "icon": "fa-brush",
         "categoryName": "Tools"
@@ -1544,7 +1544,7 @@
         "name": "Electric Scrubber",
         "category": "tools",
         "price": 2950,
-        "imageUrl": "images\\Electric Scrubber 2950.jpg",
+        "imageUrl": "/images/Electric Scrubber 2950.jpg",
         "description": "1pc, rechargeable",
         "icon": "fa-brush",
         "categoryName": "Tools"
@@ -1554,7 +1554,7 @@
         "name": "Camera Lens Cleaner",
         "category": "tools",
         "price": 360,
-        "imageUrl": "images\\Camera Lens Cleaner 360.jpg",
+        "imageUrl": "/images/Camera Lens Cleaner 360.jpg",
         "description": "1pc, for camera lenses",
         "icon": "fa-hand-sparkles",
         "categoryName": "Tools"
@@ -1564,7 +1564,7 @@
         "name": "Bottle Cleaning Brush",
         "category": "tools",
         "price": 60,
-        "imageUrl": "images\\Bottle Cleaning Brush 60.jpg",
+        "imageUrl": "/images/Bottle Cleaning Brush 60.jpg",
         "description": "1pc, narrow",
         "icon": "fa-brush",
         "categoryName": "Tools"
@@ -1574,7 +1574,7 @@
         "name": "Straw Cleaning Brush",
         "category": "tools",
         "price": 1600,
-        "imageUrl": "images\\Straw Cleaning Brush 1600.jpg",
+        "imageUrl": "/images/Straw Cleaning Brush 1600.jpg",
         "description": "1pc, thin",
         "icon": "fa-brush",
         "categoryName": "Tools"
@@ -1584,7 +1584,7 @@
         "name": "Pipe Cleaning Brush",
         "category": "tools",
         "price": 1700,
-        "imageUrl": "images\\Pipe Cleaning Brush 1700.jpg",
+        "imageUrl": "/images/Pipe Cleaning Brush 1700.jpg",
         "description": "1pc, flexible",
         "icon": "fa-brush",
         "categoryName": "Tools"
@@ -1594,7 +1594,7 @@
         "name": "Sink Cleaning Brush",
         "category": "tools",
         "price": 100,
-        "imageUrl": "images\\Sink Cleaning Brush 270.jpg",
+        "imageUrl": "/images/Sink Cleaning Brush 270.jpg",
         "description": "1pc, with handle",
         "icon": "fa-brush",
         "categoryName": "Tools"
@@ -1604,7 +1604,7 @@
         "name": "Toilet Rim Brush",
         "category": "tools",
         "price": 270,
-        "imageUrl": "images\\Toilet Rim Brush 270.jpg",
+        "imageUrl": "/images/Toilet Rim Brush 270.jpg",
         "description": "1pc, for under rim",
         "icon": "fa-brush",
         "categoryName": "Tools"
@@ -1614,7 +1614,7 @@
         "name": "Camphor",
         "category": "all-purpose",
         "price": 280,
-        "imageUrl": "images\\Camphor 280.jpg",
+        "imageUrl": "/images/Camphor 280.jpg",
         "description": "50g, pure",
         "icon": "fa-spray-can-sparkles",
         "categoryName": "All-Purpose"
@@ -1624,7 +1624,7 @@
         "name": "Carpet Cleaner Liquid",
         "category": "floor",
         "price": 600,
-        "imageUrl": "images\\Carpet Cleaner Liquid 590.jpg",
+        "imageUrl": "/images/Carpet Cleaner Liquid 590.jpg",
         "description": "500ml, removes stains",
         "icon": "fa-bucket",
         "categoryName": "Floor"
@@ -1634,7 +1634,7 @@
         "name": "Carpet Deodorizer",
         "category": "floor",
         "price": 1700,
-        "imageUrl": "images\\Carpet Deodorizer 1700.jpg",
+        "imageUrl": "/images/Carpet Deodorizer 1700.jpg",
         "description": "500ml, removes stains",
         "icon": "fa-bucket",
         "categoryName": "Floor"
@@ -1644,7 +1644,7 @@
         "name": "Ceiling Cleaner Brush",
         "category": "floor",
         "price": 900,
-        "imageUrl": "images\\Ceiling Cleaner Brush 900.jpg",
+        "imageUrl": "/images/Ceiling Cleaner Brush 900.jpg",
         "description": "500ml, removes stains",
         "icon": "fa-bucket",
         "categoryName": "Floor"
@@ -1654,7 +1654,7 @@
         "name": "Chimney Cleaner",
         "category": "floor",
         "price": 300,
-        "imageUrl": "images\\Chimney Cleaner 300.jpg",
+        "imageUrl": "/images/Chimney Cleaner 300.jpg",
         "description": "500ml, removes stains",
         "icon": "fa-bucket",
         "categoryName": "Floor"
@@ -1664,7 +1664,7 @@
         "name": "Cleaning Caddy",
         "category": "floor",
         "price": 900,
-        "imageUrl": "images\\Cleaning Caddy 900.jpg",
+        "imageUrl": "/images/Cleaning Caddy 900.jpg",
         "description": "500ml, removes stains",
         "icon": "",
         "categoryName": "Floor"
@@ -1674,7 +1674,7 @@
         "name": "Static Dust Cloth",
         "category": "tools",
         "price": 180,
-        "imageUrl": "images\\Static Dust Cloth 180.jpg",
+        "imageUrl": "/images/Static Dust Cloth 180.jpg",
         "description": "5pcs, disposable",
         "icon": "fa-broom",
         "categoryName": "Tools"
@@ -1684,7 +1684,7 @@
         "name": "Blind Cleaner Tool",
         "category": "tools",
         "price": 300,
-        "imageUrl": "images\\Blind Cleaner Tool 300.jpg",
+        "imageUrl": "/images/Blind Cleaner Tool 300.jpg",
         "description": "1pc, for window blinds",
         "icon": "fa-brush",
         "categoryName": "Tools"
@@ -1694,7 +1694,7 @@
         "name": "Cloth Clips",
         "category": "tools",
         "price": 60,
-        "imageUrl": "images\\Cloth Clips 35.jpg",
+        "imageUrl": "/images/Cloth Clips 35.jpg",
         "description": "1pc, angled",
         "icon": "fa-brush",
         "categoryName": "Tools"
@@ -1704,7 +1704,7 @@
         "name": "Closet Freshener",
         "category": "tools",
         "price": 350,
-        "imageUrl": "images\\Closet Freshener 350.jpg",
+        "imageUrl": "/images/Closet Freshener 350.jpg",
         "description": "1pc, angled",
         "icon": "fa-brush",
         "categoryName": "Tools"
@@ -1714,7 +1714,7 @@
         "name": "Cleaning Combo Kit",
         "category": "tools",
         "price": 250,
-        "imageUrl": "images\\Cleaning Combo Kit 250.jpg",
+        "imageUrl": "/images/Cleaning Combo Kit 250.jpg",
         "description": "1pc, angled",
         "icon": "fa-brush",
         "categoryName": "Tools"
@@ -1724,7 +1724,7 @@
         "name": "Door Frame Cleaner",
         "category": "tools",
         "price": 150,
-        "imageUrl": "images\\Door Frame Cleaner 150.jpg",
+        "imageUrl": "/images/Door Frame Cleaner 150.jpg",
         "description": "1pc, angled",
         "icon": "fa-brush",
         "categoryName": "Tools"
@@ -1734,7 +1734,7 @@
         "name": "Compressed Air Cleaner",
         "category": "tools",
         "price": 3000,
-        "imageUrl": "images\\Compressed Air Cleaner 3000.jpg",
+        "imageUrl": "/images/Compressed Air Cleaner 3000.jpg",
         "description": "200ml, for electronics",
         "icon": "fa-brush",
         "categoryName": "Tools"
@@ -1744,7 +1744,7 @@
         "name": "Screen Cleaning Cloth",
         "category": "glass",
         "price": 1800,
-        "imageUrl": "images\\Screen Cleaning Cloth 1800.jpg",
+        "imageUrl": "/images/Screen Cleaning Cloth 1800.jpg",
         "description": "2pcs, microfiber",
         "icon": "fa-window-maximize",
         "categoryName": "Glass"
@@ -1754,7 +1754,7 @@
         "name": "Screen Cleaning Kit",
         "category": "glass",
         "price": 600,
-        "imageUrl": "images\\Screen Cleaning Kit 600.jpg",
+        "imageUrl": "/images/Screen Cleaning Kit 600.jpg",
         "description": "1set, spray+cloth",
         "icon": "fa-window-maximize",
         "categoryName": "Glass"
@@ -1764,7 +1764,7 @@
         "name": "Laptop Cleaning Spray",
         "category": "all-purpose",
         "price": 522,
-        "imageUrl": "images\\Laptop Cleaning Spray 522.jpg",
+        "imageUrl": "/images/Laptop Cleaning Spray 522.jpg",
         "description": "100ml, for screens",
         "icon": "fa-spray-can-sparkles",
         "categoryName": "All-Purpose"
@@ -1774,7 +1774,7 @@
         "name": "Cloth Clips",
         "category": "tools",
         "price": 60,
-        "imageUrl": "images\\Cloth Clips 45.jpg",
+        "imageUrl": "/images/Cloth Clips 45.jpg",
         "description": "1pc, angled",
         "icon": "fa-brush",
         "categoryName": "Tools"
@@ -1784,7 +1784,7 @@
         "name": "Cloth Clips",
         "category": "tools",
         "price": 120,
-        "imageUrl": "images\\Cloth Clips 120.jpg",
+        "imageUrl": "/images/Cloth Clips 120.jpg",
         "description": "1pc, angled",
         "icon": "fa-brush",
         "categoryName": "Tools"
@@ -1794,7 +1794,7 @@
         "name": "TV Screen Cleaner",
         "category": "glass",
         "price": 150,
-        "imageUrl": "images\\TV Screen Cleaner 150.jpg",
+        "imageUrl": "/images/TV Screen Cleaner 150.jpg",
         "description": "200ml, for LED",
         "icon": "fa-window-maximize",
         "categoryName": "Glass"
@@ -1804,7 +1804,7 @@
         "name": "Clothes Brush",
         "category": "laundry",
         "price": 200,
-        "imageUrl": "images\\Clothes Brush 200.jpg",
+        "imageUrl": "/images/Clothes Brush 200.jpg",
         "description": "1pc, for lint",
         "icon": "fa-brush",
         "categoryName": "Laundry"
@@ -1814,7 +1814,7 @@
         "name": "Clothes Brush",
         "category": "laundry",
         "price": 300,
-        "imageUrl": "images\\Clothes Brush 300.jpg",
+        "imageUrl": "/images/Clothes Brush 300.jpg",
         "description": "1pc, for lint",
         "icon": "fa-brush",
         "categoryName": "Laundry"
@@ -1824,7 +1824,7 @@
         "name": "Dusting Cloth",
         "category": "tools",
         "price": 360,
-        "imageUrl": "images\\Dusting Cloth 360.jpg",
+        "imageUrl": "/images/Dusting Cloth 360.jpg",
         "description": "2pcs, microfiber",
         "icon": "fa-broom",
         "categoryName": "Tools"
@@ -1834,7 +1834,7 @@
         "name": "Dusting Cloth",
         "category": "tools",
         "price": 300,
-        "imageUrl": "images\\Dusting Cloth 300.jpg",
+        "imageUrl": "/images/Dusting Cloth 300.jpg",
         "description": "2pcs, microfiber",
         "icon": "fa-broom",
         "categoryName": "Tools"
@@ -1844,7 +1844,7 @@
         "name": "Dustpan",
         "category": "tools",
         "price": 250,
-        "imageUrl": "images\\Dustpan 250.jpg",
+        "imageUrl": "/images/Dustpan 250.jpg",
         "description": "1pc, with handle",
         "icon": "fa-broom",
         "categoryName": "Tools"
@@ -1854,7 +1854,7 @@
         "name": "Electronic Cleaner Spray",
         "category": "all-purpose",
         "price": 500,
-        "imageUrl": "images\\Electronic Cleaner Spray 500.jpg",
+        "imageUrl": "/images/Electronic Cleaner Spray 500.jpg",
         "description": "200ml, safe for circuits",
         "icon": "fa-spray-can-sparkles",
         "categoryName": "All-Purpose"
@@ -1864,7 +1864,7 @@
         "name": "Fabric Softener",
         "category": "laundry",
         "price": 360,
-        "imageUrl": "images\\Fabric Softener 360.jpg",
+        "imageUrl": "/images/Fabric Softener 360.jpg",
         "description": "500ml, smooth feel",
         "icon": "fa-jug-detergent",
         "categoryName": "Laundry"
@@ -1874,7 +1874,7 @@
         "name": "Anti-Allergen Spray",
         "category": "all-purpose",
         "price": 390,
-        "imageUrl": "images\\Antifungal Spray 385.jpg",
+        "imageUrl": "/images/Antifungal Spray 385.jpg",
         "description": "300ml, for bedding",
         "icon": "fa-spray-can-sparkles",
         "categoryName": "All-Purpose"
@@ -1884,7 +1884,7 @@
         "name": "Anti-Allergen Spray",
         "category": "all-purpose",
         "price": 1900,
-        "imageUrl": "images\\Anti-Allergen Spray 1900.jpg",
+        "imageUrl": "/images/Anti-Allergen Spray 1900.jpg",
         "description": "300ml, for bedding",
         "icon": "fa-spray-can-sparkles",
         "categoryName": "All-Purpose"
@@ -1894,7 +1894,7 @@
         "name": "Pet Hair Remover Roller",
         "category": "tools",
         "price": 290,
-        "imageUrl": "images\\Pet Hair Remover Roller 290.jpg",
+        "imageUrl": "/images/Pet Hair Remover Roller 290.jpg",
         "description": "1pc, reusable",
         "icon": "fa-brush",
         "categoryName": "Tools"
@@ -1904,7 +1904,7 @@
         "name": "Lint Roller",
         "category": "laundry",
         "price": 120,
-        "imageUrl": "images\\Lint Roller 120.jpg",
+        "imageUrl": "/images/Lint Roller 120.jpg",
         "description": "1pc, for clothes",
         "icon": "fa-jug-detergent",
         "categoryName": "Laundry"
@@ -1914,7 +1914,7 @@
         "name": "Lint Remover Machine",
         "category": "laundry",
         "price": 900,
-        "imageUrl": "images\\Lint Remover Machine 900.jpg",
+        "imageUrl": "/images/Lint Remover Machine 900.jpg",
         "description": "1pc, battery operated",
         "icon": "fa-jug-detergent",
         "categoryName": "Laundry"
@@ -1924,7 +1924,7 @@
         "name": "Vacuum Cleaner",
         "category": "tools",
         "price": 5000,
-        "imageUrl": "images\\Vacuum Cleaner 4400.jpg",
+        "imageUrl": "/images/Vacuum Cleaner 4400.jpg",
         "description": "1pc, bagless",
         "icon": "fa-broom",
         "categoryName": "Tools"
@@ -1934,7 +1934,7 @@
         "name": "Trash Can",
         "category": "tools",
         "price": 600,
-        "imageUrl": "images\\Trash Can 600.jpg",
+        "imageUrl": "/images/Trash Can 600.jpg",
         "description": "20L, plastic",
         "icon": "fa-trash-alt",
         "categoryName": "Tools"
@@ -1944,7 +1944,7 @@
         "name": "Trash Can",
         "category": "tools",
         "price": 800,
-        "imageUrl": "images\\Trash Can 800.jpg",
+        "imageUrl": "/images/Trash Can 800.jpg",
         "description": "20L, plastic",
         "icon": "fa-trash-alt",
         "categoryName": "Tools"
@@ -1954,7 +1954,7 @@
         "name": "Trash Can",
         "category": "tools",
         "price": 1500,
-        "imageUrl": "images\\Trash Can 1500.jpg",
+        "imageUrl": "/images/Trash Can 1500.jpg",
         "description": "20L, plastic",
         "icon": "fa-trash-alt",
         "categoryName": "Tools"
@@ -1964,7 +1964,7 @@
         "name": "Steel Scrubber",
         "category": "tools",
         "price": 160,
-        "imageUrl": "images\\Steel Scrubber 155.jpg",
+        "imageUrl": "/images/Steel Scrubber 155.jpg",
         "description": "1pc, for tough scrubbing",
         "icon": "fa-brush",
         "categoryName": "Tools"
@@ -1974,7 +1974,7 @@
         "name": "Steel Scrubber",
         "category": "tools",
         "price": 60,
-        "imageUrl": "images\\Steel Scrubber 50.jpg",
+        "imageUrl": "/images/Steel Scrubber 50.jpg",
         "description": "1pc, for tough scrubbing",
         "icon": "fa-brush",
         "categoryName": "Tools"
@@ -1984,7 +1984,7 @@
         "name": "Squeegee",
         "category": "glass",
         "price": 700,
-        "imageUrl": "images\\Squeegee 700.jpg",
+        "imageUrl": "/images/Squeegee 700.jpg",
         "description": "1pc, for floors",
         "icon": "fa-window-maximize",
         "categoryName": "Glass"
@@ -1994,7 +1994,7 @@
         "name": "Soap Scum Remover",
         "category": "bathroom",
         "price": 330,
-        "imageUrl": "images\\Soap Scum Remover 330.jpg",
+        "imageUrl": "/images/Soap Scum Remover 330.jpg",
         "description": "200ml, for showers",
         "icon": "fa-toilet",
         "categoryName": "Bathroom"
@@ -2004,7 +2004,7 @@
         "name": "Mirror Anti-Fog Spray",
         "category": "glass",
         "price": 250,
-        "imageUrl": "images\\Mirror Anti-Fog Spray 250.jpg",
+        "imageUrl": "/images/Mirror Anti-Fog Spray 250.jpg",
         "description": "100ml, for mirrors",
         "icon": "fa-window-maximize",
         "categoryName": "Glass"
@@ -2014,7 +2014,7 @@
         "name": "Septic Tank Cleaner",
         "category": "all-purpose",
         "price": 290,
-        "imageUrl": "images\\Septic Tank Cleaner 290.jpg",
+        "imageUrl": "/images/Septic Tank Cleaner 290.jpg",
         "description": "1L, for septic",
         "icon": "fa-spray-can-sparkles",
         "categoryName": "All-Purpose"
@@ -2024,7 +2024,7 @@
         "name": "Bio-Enzyme Cleaner",
         "category": "all-purpose",
         "price": 750,
-        "imageUrl": "images\\Bio-Enzyme Cleaner 750.jpg",
+        "imageUrl": "/images/Bio-Enzyme Cleaner 750.jpg",
         "description": "500ml, natural",
         "icon": "fa-spray-can-sparkles",
         "categoryName": "All-Purpose"
@@ -2034,7 +2034,7 @@
         "name": "Green Cleaning Liquid",
         "category": "all-purpose",
         "price": 3280,
-        "imageUrl": "images\\Green Cleaning Liquid 3280.jpg",
+        "imageUrl": "/images/Green Cleaning Liquid 3280.jpg",
         "description": "1L, eco-friendly",
         "icon": "fa-spray-can-sparkles",
         "categoryName": "All-Purpose"
@@ -2044,7 +2044,7 @@
         "name": "Plant-Based Cleaner",
         "category": "all-purpose",
         "price": 850,
-        "imageUrl": "images\\Plant-Based Cleaner 850.jpg",
+        "imageUrl": "/images/Plant-Based Cleaner 850.jpg",
         "description": "500ml, natural",
         "icon": "fa-spray-can-sparkles",
         "categoryName": "All-Purpose"
@@ -2054,7 +2054,7 @@
         "name": "Non-Toxic Cleaner",
         "category": "all-purpose",
         "price": 160,
-        "imageUrl": "images\\Non-Toxic Cleaner160.jpg",
+        "imageUrl": "/images/Non-Toxic Cleaner160.jpg",
         "description": "500ml, safe for kids",
         "icon": "fa-spray-can-sparkles",
         "categoryName": "All-Purpose"
@@ -2064,7 +2064,7 @@
         "name": "Refill Cleaning Pack",
         "category": "all-purpose",
         "price": 330,
-        "imageUrl": "images\\Refill Cleaning Pack 330.jpg",
+        "imageUrl": "/images/Refill Cleaning Pack 330.jpg",
         "description": "1L, concentrated",
         "icon": "fa-spray-can-sparkles",
         "categoryName": "All-Purpose"
@@ -2074,7 +2074,7 @@
         "name": "Reusable Spray Bottle",
         "category": "tools",
         "price": 50,
-        "imageUrl": "images\\Reusable Spray Bottle 50.jpg",
+        "imageUrl": "/images/Reusable Spray Bottle 50.jpg",
         "description": "500ml, empty",
         "icon": "fa-spray-can-sparkles",
         "categoryName": "Tools"
@@ -2084,7 +2084,7 @@
         "name": "Measuring Cup (Cleaning)",
         "category": "tools",
         "price": 400,
-        "imageUrl": "images\\Measuring Cup 400.jpg",
+        "imageUrl": "/images/Measuring Cup 400.jpg",
         "description": "1pc, 1L",
         "icon": "fa-bucket",
         "categoryName": "Tools"
@@ -2094,7 +2094,7 @@
         "name": "Measuring Spoon Set",
         "category": "tools",
         "price": 600,
-        "imageUrl": "images\\Measuring Spoon Set 600.jpg",
+        "imageUrl": "/images/Measuring Spoon Set 600.jpg",
         "description": "1set, plastic",
         "icon": "fa-bucket",
         "categoryName": "Tools"
@@ -2104,7 +2104,7 @@
         "name": "Cleaning Caddy",
         "category": "tools",
         "price": 900,
-        "imageUrl": "images\\Cleaning Caddy 900.jpg",
+        "imageUrl": "/images/Cleaning Caddy 900.jpg",
         "description": "1pc, with handle",
         "icon": "fa-bucket",
         "categoryName": "Tools"
@@ -2114,7 +2114,7 @@
         "name": "Storage Rack (Cleaning)",
         "category": "tools",
         "price": 662,
-        "imageUrl": "images\\Storage Rack 662.jpg",
+        "imageUrl": "/images/Storage Rack 662.jpg",
         "description": "1pc, wall mounted",
         "icon": "fa-broom",
         "categoryName": "Tools"
@@ -2124,7 +2124,7 @@
         "name": "Under Sink Organizer",
         "category": "tools",
         "price": 780,
-        "imageUrl": "images\\Under Sink Organizer 780.jpg",
+        "imageUrl": "/images/Under Sink Organizer 780.jpg",
         "description": "1pc, adjustable",
         "icon": "fa-broom",
         "categoryName": "Tools"
@@ -2134,7 +2134,7 @@
         "name": "Closet Freshener",
         "category": "all-purpose",
         "price": 350,
-        "imageUrl": "images\\Closet Freshener 350.jpg",
+        "imageUrl": "/images/Closet Freshener 350.jpg",
         "description": "200g, for cupboards",
         "icon": "fa-spray-can-sparkles",
         "categoryName": "All-Purpose"
@@ -2144,7 +2144,7 @@
         "name": "Fridge Deodorizer",
         "category": "kitchen",
         "price": 450,
-        "imageUrl": "images\\Fridge Deodorizer 450.jpg",
+        "imageUrl": "/images/Fridge Deodorizer 450.jpg",
         "description": "100g, absorbs odors",
         "icon": "fa-kitchen-set",
         "categoryName": "Kitchen"
@@ -2154,7 +2154,7 @@
         "name": "Garbage Bin Deodorizer",
         "category": "all-purpose",
         "price": 3300,
-        "imageUrl": "images\\Garbage Bin Deodorizer 3300.jpg",
+        "imageUrl": "/images/Garbage Bin Deodorizer 3300.jpg",
         "description": "200g, for bins",
         "icon": "fa-spray-can-sparkles",
         "categoryName": "All-Purpose"
@@ -2164,7 +2164,7 @@
         "name": "Air Purifier Filter Cleaner",
         "category": "all-purpose",
         "price": 6680,
-        "imageUrl": "images\\Air Purifier Filter Cleaner 6680.jpg",
+        "imageUrl": "/images/Air Purifier Filter Cleaner 6680.jpg",
         "description": "200ml, for filters",
         "icon": "fa-spray-can-sparkles",
         "categoryName": "All-Purpose"
@@ -2174,7 +2174,7 @@
         "name": "AC Filter Cleaner",
         "category": "all-purpose",
         "price": 550,
-        "imageUrl": "images\\AC Filter Cleaner 550.jpg",
+        "imageUrl": "/images/AC Filter Cleaner 550.jpg",
         "description": "200ml, for AC",
         "icon": "fa-spray-can-sparkles",
         "categoryName": "All-Purpose"
@@ -2184,7 +2184,7 @@
         "name": "Humidifier Cleaner",
         "category": "all-purpose",
         "price": 1100,
-        "imageUrl": "images\\Humidifier Cleaner 1100.jpg",
+        "imageUrl": "/images/Humidifier Cleaner 1100.jpg",
         "description": "200ml, descaling",
         "icon": "fa-spray-can-sparkles",
         "categoryName": "All-Purpose"
@@ -2194,7 +2194,7 @@
         "name": "Water Purifier Cleaner",
         "category": "all-purpose",
         "price": 430,
-        "imageUrl": "images\\Water Purifier Cleaner 430.jpg",
+        "imageUrl": "/images/Water Purifier Cleaner 430.jpg",
         "description": "200ml, for RO",
         "icon": "fa-spray-can-sparkles",
         "categoryName": "All-Purpose"
@@ -2204,7 +2204,7 @@
         "name": "Pipe Descaler",
         "category": "all-purpose",
         "price": 1200,
-        "imageUrl": "images\\Pipe Descaler 1200.jpg",
+        "imageUrl": "/images/Pipe Descaler 1200.jpg",
         "description": "200ml, for pipes",
         "icon": "fa-spray-can-sparkles",
         "categoryName": "All-Purpose"
@@ -2214,7 +2214,7 @@
         "name": "Boiler Cleaner",
         "category": "all-purpose",
         "price": 6000,
-        "imageUrl": "images\\Boiler Cleaner 6000.jpg",
+        "imageUrl": "/images/Boiler Cleaner 6000.jpg",
         "description": "500ml, for geysers",
         "icon": "fa-spray-can-sparkles",
         "categoryName": "All-Purpose"
@@ -2224,7 +2224,7 @@
         "name": "Coffee Machine Cleaner",
         "category": "kitchen",
         "price": 1000,
-        "imageUrl": "images\\Coffee Machine Cleaner 1000.jpg",
+        "imageUrl": "/images/Coffee Machine Cleaner 1000.jpg",
         "description": "200ml, descaling",
         "icon": "fa-kitchen-set",
         "categoryName": "Kitchen"
@@ -2234,7 +2234,7 @@
         "name": "Kettle Descaler",
         "category": "kitchen",
         "price": 680,
-        "imageUrl": "images\\Kettle Descaler 680.jpg",
+        "imageUrl": "/images/Kettle Descaler 680.jpg",
         "description": "200ml, for kettles",
         "icon": "fa-kitchen-set",
         "categoryName": "Kitchen"
@@ -2244,7 +2244,7 @@
         "name": "Washing Machine Cleaner",
         "category": "laundry",
         "price": 300,
-        "imageUrl": "images\\Washing Machine Cleaner 300.jpg",
+        "imageUrl": "/images/Washing Machine Cleaner 300.jpg",
         "description": "200ml, for machines",
         "icon": "fa-jug-detergent",
         "categoryName": "Laundry"
@@ -2254,7 +2254,7 @@
         "name": "Laundry Drum Cleaner",
         "category": "laundry",
         "price": 230,
-        "imageUrl": "images\\Laundry Drum Cleaner 230.jpg",
+        "imageUrl": "/images/Laundry Drum Cleaner 230.jpg",
         "description": "200ml, for drums",
         "icon": "fa-jug-detergent",
         "categoryName": "Laundry"
