@@ -313,11 +313,11 @@ $bestSellers = array_slice($products, 0, 8);
                         <p>Order before 2 PM for same-day delivery. Healthy choice, healthy life.</p>
                         <div class="hero-btns">
                             <a href="?category=27" class="btn btn-primary">Shop Now <i class="fas fa-arrow-right"></i></a>
-                            <a href="delivery/index.php" class="btn btn-secondary">Delivery Info</a>
+                            <a href="/delivery/index.php" class="btn btn-secondary">Delivery Info</a>
                         </div>
                     </div>
                     <div class="hero-image">
-                        <img src="Banner.png" onerror="this.src='https://img.icons8.com/fluency/300/groceries.png'" alt="KSR GURU JI Delivery" />
+                        <img src="/Banner.png" onerror="this.src='/ksr%20guru%20ji.jpg'" alt="KSR GURU JI Delivery" />
                         <div class="floating-badge"><i class="fas fa-truck-fast" style="color:var(--color-primary);"></i> Free Delivery</div>
                     </div>
                 </div>
@@ -329,11 +329,11 @@ $bestSellers = array_slice($products, 0, 8);
                         <p>Grab limited-time discounts on kitchen goods, curries, snacks and bakery items.</p>
                         <div class="hero-btns">
                             <a href="?category=28" class="btn btn-primary" style="background:var(--gradient-accent); box-shadow: 0 4px 16px rgba(232, 93, 44, 0.25);">Shop Deals <i class="fas fa-percent"></i></a>
-                            <a href="final-suggest.php" class="btn btn-secondary">Suggest Product</a>
+                            <a href="/final-suggest.php" class="btn btn-secondary">Suggest Product</a>
                         </div>
                     </div>
                     <div class="hero-image">
-                        <img src="kitechen all product.jpg" onerror="this.src='https://img.icons8.com/fluency/300/groceries.png'" alt="Groceries & Fruits" />
+                        <img src="/kitechen%20all%20product.jpg" onerror="this.src='https://img.icons8.com/fluency/300/groceries.png'" alt="Groceries & Fruits" />
                         <div class="floating-badge"><i class="fas fa-tag" style="color:var(--color-accent);"></i> Premium Quality</div>
                     </div>
                 </div>
@@ -344,12 +344,12 @@ $bestSellers = array_slice($products, 0, 8);
                         <h2>Celebrate Life with<br /><span>Homemade Cakes</span></h2>
                         <p>Order custom chocolate, vanilla, and wedding cakes freshly baked just for you.</p>
                         <div class="hero-btns">
-                            <a href="categories/bakery.php" class="btn btn-primary">Bakery Shop <i class="fas fa-birthday-cake"></i></a>
-                            <a href="track-order.php" class="btn btn-secondary">Track Order</a>
+                            <a href="/categories/bakery.php" class="btn btn-primary">Bakery Shop <i class="fas fa-birthday-cake"></i></a>
+                            <a href="/track-order.php" class="btn btn-secondary">Track Order</a>
                         </div>
                     </div>
                     <div class="hero-image">
-                        <img src="cake.jpg" alt="Bakery Cakes" onerror="this.src='https://img.icons8.com/fluency/300/pastry.png'" />
+                        <img src="/cake.jpg" alt="Bakery Cakes" onerror="this.src='https://img.icons8.com/fluency/300/pastry.png'" />
                         <div class="floating-badge"><i class="fas fa-star" style="color:var(--color-accent);"></i> Made to Order</div>
                     </div>
                 </div>
@@ -424,7 +424,7 @@ $bestSellers = array_slice($products, 0, 8);
                             <div class="product-name"><?php echo htmlspecialchars($p['name'], ENT_QUOTES, 'UTF-8'); ?></div>
                             <div class="product-category"><?php echo htmlspecialchars($p['category_name'] ?? '', ENT_QUOTES, 'UTF-8'); ?></div>
                             <span class="price">₹<?php echo number_format($p['price'], 2); ?></span>
-                            <button class="add-btn" data-id="<?php echo $p['id']; ?>">
+                            <button class="add-btn" data-id="<?php echo $p['id']; ?>" data-name="<?php echo htmlspecialchars($p['name'], ENT_QUOTES, 'UTF-8'); ?>" data-price="<?php echo $p['price']; ?>" data-image="<?php echo htmlspecialchars($imgPath, ENT_QUOTES, 'UTF-8'); ?>" data-kn="<?php echo htmlspecialchars($p['kn_name'] ?? '', ENT_QUOTES, 'UTF-8'); ?>" onclick="event.stopPropagation();">
                                 <i class="fas fa-cart-plus"></i> ಸೇರಿಸು
                             </button>
                         </div>
@@ -1005,10 +1005,14 @@ $bestSellers = array_slice($products, 0, 8);
             }
 
             // ----- Add to cart -----
-            function addToCart(productId) {
+            function addToCart(productId, name = '', price = '', image = '', kn = '') {
                 const formData = new FormData();
                 formData.append('id', productId);
-                fetch('index.php?ajax=add_cart', {
+                if (name) formData.append('name', name);
+                if (price) formData.append('price', price);
+                if (image) formData.append('image', image);
+                if (kn) formData.append('kn', kn);
+                fetch('/index.php?ajax=add_cart', {
                         method: 'POST',
                         body: formData
                     })
@@ -1172,7 +1176,7 @@ $bestSellers = array_slice($products, 0, 8);
                                     <div class="product-category">${p.category_name || ''}</div>
                                     <div class="product-footer" onclick="event.stopPropagation()">
                                         <span class="price">₹${parseFloat(p.price).toFixed(2)}</span>
-                                        <button class="add-btn" data-id="${p.id}">
+                                        <button class="add-btn" data-id="${p.id}" data-name="${p.name.replace(/"/g, '&quot;')}" data-price="${p.price}" data-image="${imgPath}" data-kn="${(p.kn_name || '').replace(/"/g, '&quot;')}">
                                             <i class="fas fa-cart-plus"></i> ಸೇರಿಸು
                                         </button>
                                     </div>
@@ -1399,13 +1403,13 @@ $bestSellers = array_slice($products, 0, 8);
 
                 // Integrate fly animation inside addToCart
                 const originalAddToCart = addToCart;
-                addToCart = function(productId) {
+                addToCart = function(productId, name = '', price = '', image = '', kn = '') {
                     const btn = document.querySelector(`.add-btn[data-id="${productId}"]`) ||
                         document.querySelector(`.btn-add-large[data-id="${productId}"]`);
                     if (btn) {
                         animateCartFly(btn);
                     }
-                    originalAddToCart(productId);
+                    originalAddToCart(productId, name, price, image, kn);
                 };
 
                 // Scroll To Top
@@ -1445,6 +1449,9 @@ $bestSellers = array_slice($products, 0, 8);
                     const qvAddBtn = document.getElementById('quickViewAddBtn');
                     if (qvAddBtn && productId) {
                         qvAddBtn.setAttribute('data-id', productId);
+                        qvAddBtn.setAttribute('data-name', name);
+                        qvAddBtn.setAttribute('data-price', price.replace(/[^0-9.]/g, ''));
+                        qvAddBtn.setAttribute('data-image', imageUrl);
                     }
                     qvModal.classList.add('open');
                 };
@@ -1558,34 +1565,35 @@ $bestSellers = array_slice($products, 0, 8);
                     cartItemsContainer.addEventListener('click', handleCartQty);
                 }
 
-                // Add to cart (delegated)
+                // Add to cart (delegated for main grid)
                 if (productsGrid) {
                     productsGrid.addEventListener('click', function(e) {
                         const btn = e.target.closest('.add-btn');
                         if (btn && btn.dataset.id) {
                             e.preventDefault();
-                            addToCart(btn.dataset.id);
+                            addToCart(btn.dataset.id, btn.dataset.name, btn.dataset.price, btn.dataset.image, btn.dataset.kn);
                         }
                     });
                 }
 
-                // AI large button
+                // AI / QuickView large button
                 document.addEventListener('click', function(e) {
                     const btn = e.target.closest('.btn-add-large');
                     if (btn && btn.dataset.id) {
                         e.preventDefault();
-                        addToCart(btn.dataset.id);
+                        if (qvModal && qvModal.classList.contains('open')) {
+                            qvModal.classList.remove('open');
+                        }
+                        addToCart(btn.dataset.id, btn.dataset.name, btn.dataset.price, btn.dataset.image, btn.dataset.kn);
                     }
                 });
-
-
 
                 // Best seller add buttons
                 document.querySelectorAll('.best-card .add-btn').forEach(btn => {
                     btn.addEventListener('click', function(e) {
                         e.stopPropagation();
                         const id = this.dataset.id;
-                        if (id) addToCart(id);
+                        if (id) addToCart(id, this.dataset.name, this.dataset.price, this.dataset.image, this.dataset.kn);
                     });
                 });
 

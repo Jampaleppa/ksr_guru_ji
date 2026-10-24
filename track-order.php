@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             
             if ($order) {
                 // Redirect to delivery/tracking page
-                header("Location: delivery/tracking.php?order=" . urlencode($order['order_number']));
+                header("Location: /delivery/tracking.php?order=" . urlencode($order['order_number']));
                 exit;
             } else {
                 $error = 'No order found with that Number or ID. Please check and try again.';
