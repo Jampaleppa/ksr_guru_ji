@@ -693,7 +693,7 @@ $waText .= "%0ATotal Amount: ₹" . $grandTotal . "%0APlease confirm my order.";
                     </a>
 
                     <!-- Direct WhatsApp Order -->
-                    <a href="https://wa.me/919999999999?text=<?php echo $waText; ?>" target="_blank" class="whatsapp-order-btn" title="Order directly on WhatsApp">
+                    <a href="https://wa.me/918088584421?text=<?php echo $waText; ?>" target="_blank" class="whatsapp-order-btn" title="Order directly on WhatsApp">
                         <i class="fab fa-whatsapp" style="font-size: 1.15rem;"></i> Order via WhatsApp
                     </a>
 

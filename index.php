@@ -206,9 +206,9 @@ $bestSellers = array_slice($products, 0, 8);
         <div class="container">
             <nav class="navbar">
                 <!-- Logo -->
-                <div class="logo-container" onclick="window.location.href='index.php'" style="cursor: pointer;">
+                <div class="logo-container" onclick="window.location.href='/index.php'" style="cursor: pointer;">
                     <div class="logo-image">
-                        <img src="company_logo.jpg" alt="KSR GURU JI Logo" style="max-width: 85%; max-height: 85%; object-fit: contain; border-radius: 50%;" onerror="this.src='company_logo.jpg';" />
+                        <img src="/company_logo.jpg" alt="KSR GURU JI Logo" style="max-width: 85%; max-height: 85%; object-fit: contain; border-radius: 50%;" onerror="this.style.display='none';this.parentElement.innerHTML='🛒';" />
                     </div>
                     <div class="logo-text">
                         <span class="logo-brand">KSR GURU JI</span>
@@ -225,41 +225,40 @@ $bestSellers = array_slice($products, 0, 8);
 
                 <!-- Nav Links -->
                 <div class="nav-links" id="navLinks">
-                    <a href="categories/air-freshner.php" class="nav-link"><i class="fas fa-spray-can-sparkles"></i> Air Fresheners</a>
-                    <a href="categories/bakery.php" class="nav-link"><i class="fas fa-bread-slice"></i> Bakery</a>
-                    <a href="categories/bath-body.php" class="nav-link"><i class="fas fa-bath"></i> Bath & Body</a>
-                    <a href="categories/breakfast.php" class="nav-link"><i class="fas fa-egg"></i> Breakfast</a>
-                    <a href="categories/cleaning.php" class="nav-link"><i class="fas fa-broom"></i> Cleaning</a>
-                    <a href="categories/cold-drinks.php" class="nav-link"><i class="fas fa-glass-water"></i> Cold Drinks</a>
-                    <a href="categories/cooking-oil.php" class="nav-link"><i class="fas fa-droplet"></i> Cooking Oil</a>
-                    <a href="categories/dairy.php" class="nav-link"><i class="fas fa-cow"></i> Dairy</a>
-                    <a href="categories/dishwash.php" class="nav-link"><i class="fas fa-soap"></i> Dishwash</a>
-                    <a href="categories/dry-fruits.php" class="nav-link"><i class="fas fa-seedling"></i> Dry Fruits</a>
-                    <a href="categories/grains.php" class="nav-link"><i class="fas fa-wheat-awn"></i> Grains</a>
-                    <a href="categories/hair-care.php" class="nav-link"><i class="fas fa-scissors"></i> Hair Care</a>
-                    <a href="categories/health-pharmacy.php" class="nav-link"><i class="fas fa-prescription-bottle-medical"></i> Health Care</a>
-                    <a href="categories/home-care.php" class="nav-link"><i class="fas fa-house"></i> Home Care</a>
-                    <a href="categories/kitchen.php" class="nav-link"><i class="fas fa-kitchen-set"></i> Kitchen Care</a>
-                    <a href="categories/laundry.php" class="nav-link"><i class="fas fa-shirt"></i> Laundry</a>
-                    <a href="categories/personal-care.php" class="nav-link"><i class="fas fa-spa"></i> Personal Care</a>
-                    <a href="categories/pet-supplies.php" class="nav-link"><i class="fas fa-paw"></i> Pet Care</a>
-                    <a href="categories/pules-lentils.php" class="nav-link"><i class="fas fa-bowl-rice"></i> Pulses</a>
-                    <a href="categories/paper-products.php" class="nav-link"><i class="fas fa-toilet-paper"></i> Paper Products</a>
-                    <a href="categories/pickles.php" class="nav-link"><i class="fas fa-jar"></i> Pickles</a>
-                    <a href="categories/plastic-household.php" class="nav-link"><i class="fas fa-box"></i> Plastic Household</a>
-                    <a href="categories/pooja.php" class="nav-link"><i class="fas fa-hands-praying"></i> Pooja</a>
-                    <a href="categories/ready-to-eat.php" class="nav-link"><i class="fas fa-bowl-food"></i> Ready to Eat</a>
-                    <a href="categories/seasonal.php" class="nav-link"><i class="fas fa-cloud-sun"></i> Seasonal</a>
-                    <a href="categories/snacks.php" class="nav-link"><i class="fas fa-cookie-bite"></i> Snacks</a>
-                    <a href="categories/spices.php" class="nav-link"><i class="fas fa-pepper-hot"></i> Spices</a>
-                    <a href="categories/stationery.php" class="nav-link"><i class="fas fa-pencil"></i> Stationery</a>
-                    <a href="categories/vegetables-fruits.php" class="nav-link"><i class="fas fa-carrot"></i> Vegetables & Fruits</a>
+                    <a href="/categories/air-freshner.php" class="nav-link"><i class="fas fa-spray-can-sparkles"></i> Air Fresheners</a>
+                    <a href="/categories/bakery.php" class="nav-link"><i class="fas fa-bread-slice"></i> Bakery</a>
+                    <a href="/categories/bath-body.php" class="nav-link"><i class="fas fa-bath"></i> Bath & Body</a>
+                    <a href="/categories/breakfast.php" class="nav-link"><i class="fas fa-egg"></i> Breakfast</a>
+                    <a href="/categories/cleaning.php" class="nav-link"><i class="fas fa-broom"></i> Cleaning</a>
+                    <a href="/categories/cold-drinks.php" class="nav-link"><i class="fas fa-glass-water"></i> Cold Drinks</a>
+                    <a href="/categories/cooking-oil.php" class="nav-link"><i class="fas fa-droplet"></i> Cooking Oil</a>
+                    <a href="/categories/dairy.php" class="nav-link"><i class="fas fa-cow"></i> Dairy</a>
+                    <a href="/categories/dishwash.php" class="nav-link"><i class="fas fa-soap"></i> Dishwash</a>
+                    <a href="/categories/dry-fruits.php" class="nav-link"><i class="fas fa-seedling"></i> Dry Fruits</a>
+                    <a href="/categories/grains.php" class="nav-link"><i class="fas fa-wheat-awn"></i> Grains</a>
+                    <a href="/categories/hair-care.php" class="nav-link"><i class="fas fa-scissors"></i> Hair Care</a>
+                    <a href="/categories/health-pharmacy.php" class="nav-link"><i class="fas fa-prescription-bottle-medical"></i> Health Care</a>
+                    <a href="/categories/home-care.php" class="nav-link"><i class="fas fa-house"></i> Home Care</a>
+                    <a href="/categories/kitchen.php" class="nav-link"><i class="fas fa-kitchen-set"></i> Kitchen Care</a>
+                    <a href="/categories/laundry.php" class="nav-link"><i class="fas fa-shirt"></i> Laundry</a>
+                    <a href="/categories/personal-care.php" class="nav-link"><i class="fas fa-spa"></i> Personal Care</a>
+                    <a href="/categories/pet-supplies.php" class="nav-link"><i class="fas fa-paw"></i> Pet Care</a>
+                    <a href="/categories/pules-lentils.php" class="nav-link"><i class="fas fa-bowl-rice"></i> Pulses</a>
+                    <a href="/categories/paper-products.php" class="nav-link"><i class="fas fa-toilet-paper"></i> Paper Products</a>
+                    <a href="/categories/pickles.php" class="nav-link"><i class="fas fa-jar"></i> Pickles</a>
+                    <a href="/categories/plastic-household.php" class="nav-link"><i class="fas fa-box"></i> Plastic Household</a>
+                    <a href="/categories/pooja.php" class="nav-link"><i class="fas fa-hands-praying"></i> Pooja</a>
+                    <a href="/categories/ready-to-eat.php" class="nav-link"><i class="fas fa-bowl-food"></i> Ready to Eat</a>
+                    <a href="/categories/seasonal.php" class="nav-link"><i class="fas fa-cloud-sun"></i> Seasonal</a>
+                    <a href="/categories/snacks.php" class="nav-link"><i class="fas fa-cookie-bite"></i> Snacks</a>
+                    <a href="/categories/spices.php" class="nav-link"><i class="fas fa-pepper-hot"></i> Spices</a>
+                    <a href="/categories/stationery.php" class="nav-link"><i class="fas fa-pencil"></i> Stationery</a>
+                    <a href="/categories/vegetables-fruits.php" class="nav-link"><i class="fas fa-carrot"></i> Vegetables & Fruits</a>
                     <!-- ★ Product & Medical Suggest Box -->
-                    <a href="WhatsApp/telehealth/medicine/tablet.php" class="nav-link"><i class="fas fa-medkit"></i> Medicines</a>
-                    <a href="final-suggestion-box.php" class="nav-link"><i class="fas fa-lightbulb"></i> Suggestion Box</a>
-                    <a href="categories/parcels.php" class="nav-link"><i class="fas fa-box"></i> Parcel Delivery</a>
-                    <a href="WhatsApp/telehealth/index.php" class="nav-link" style="color: #059669; font-weight:700;"><i class="fas fa-stethoscope"></i> Doctor Assist</a>
-
+                    <a href="/WhatsApp/telehealth/medicine/tablet.php" class="nav-link"><i class="fas fa-medkit"></i> Medicines</a>
+                    <a href="/final-suggestion-box.php" class="nav-link"><i class="fas fa-lightbulb"></i> Suggestion Box</a>
+                    <a href="/categories/parcels.php" class="nav-link"><i class="fas fa-box"></i> Parcel Delivery</a>
+                    <a href="/WhatsApp/telehealth/index.php" class="nav-link" style="color: #059669; font-weight:700;"><i class="fas fa-stethoscope"></i> Doctor Assist</a>
                 </div>
 
                 <!-- Header Actions (Visible on Mobile & Desktop) -->
@@ -281,20 +280,17 @@ $bestSellers = array_slice($products, 0, 8);
                         <button class="user-btn" aria-label="User Profile"><i class="fas fa-user"></i></button>
                         <div class="dropdown-content">
                             <?php if ($isLoggedIn): ?>
-                                <a href="profile.php"><i class="fas fa-user-circle"></i> My Profile</a>
-                                <a href="logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a>
-                                <!-- <a href="login.php"><i class="fas fa-sign-in-alt"></i> Login</a>
-                                <a href="register.php"><i class="fas fa-user-plus"></i> Register</a> -->
+                                <a href="/profile.php"><i class="fas fa-user-circle"></i> My Profile</a>
+                                <a href="/logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a>
                             <?php endif; ?>
-                            <a href="admin/index.php"><i class="fas fa-user-cog"></i> Admin</a>
-                            <a href="delivery/index.php"><i class="fas fa-truck"></i> Delivery</a>
-                            <a href="patient-portal.php"><i class="fas fa-heart-pulse"></i> Patient Portal</a>
-
+                            <a href="/admin/index.php"><i class="fas fa-user-cog"></i> Admin</a>
+                            <a href="/delivery/index.php"><i class="fas fa-truck"></i> Delivery</a>
+                            <a href="/patient-portal.php"><i class="fas fa-heart-pulse"></i> Patient Portal</a>
                         </div>
                     </div>
 
                     <!-- Support Link icon style -->
-                    <a href="support.php" class="nav-link-support" title="Support"><i class="fas fa-headset"></i></a>
+                    <a href="/support.php" class="nav-link-support" title="Support"><i class="fas fa-headset"></i></a>
 
                     <!-- Hamburger button for mobile menu -->
                     <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle Menu"><i class="fas fa-bars"></i></button>
