@@ -5,7 +5,7 @@
  * Provides consistent footer across main shop and categories.
  * Expects $base_url to be defined, e.g. './' or '../'.
  */
-$base_url = $base_url ?? './';
+$base_url = '/';
 ?>
 
 <!-- ===== RELATED PAGES (Every Page) ===== -->
@@ -85,3 +85,39 @@ $base_url = $base_url ?? './';
         </div>
     </div>
 </footer>
+
+<script>
+window.showFastCartToast = function(msg) {
+    try {
+        var existing = document.getElementById('ksr-fast-toast');
+        if (existing) existing.remove();
+        var t = document.createElement('div');
+        t.id = 'ksr-fast-toast';
+        t.style.cssText = 'position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(20px);background:#0f172a;color:#f8fafc;padding:12px 22px;border-radius:999px;font-family:Inter,system-ui,sans-serif;font-size:0.88rem;font-weight:600;box-shadow:0 12px 30px rgba(0,0,0,0.35);z-index:999999;opacity:0;transition:all 0.22s cubic-bezier(0.16,1,0.3,1);pointer-events:none;display:inline-flex;align-items:center;gap:8px;';
+        t.innerHTML = '<i class="fas fa-shopping-cart" style="color:#f59e0b;"></i> ' + (msg || 'Your cart is empty! Add items to continue.');
+        document.body.appendChild(t);
+        requestAnimationFrame(function() {
+            t.style.opacity = '1';
+            t.style.transform = 'translateX(-50%) translateY(0)';
+        });
+        setTimeout(function() {
+            t.style.opacity = '0';
+            t.style.transform = 'translateX(-50%) translateY(10px)';
+            setTimeout(function() { if (t.parentNode) t.remove(); }, 250);
+        }, 2200);
+    } catch (e) {}
+};
+
+// Safeguard against main-thread blocking alerts on cart operations to preserve low INP
+(function() {
+    if (typeof window === 'undefined') return;
+    var _origAlert = window.alert;
+    window.alert = function(msg) {
+        if (typeof msg === 'string' && /cart is empty/i.test(msg)) {
+            window.showFastCartToast('🛒 Your cart is empty! Add items to proceed.');
+            return;
+        }
+        return _origAlert ? _origAlert.apply(this, arguments) : undefined;
+    };
+})();
+</script>

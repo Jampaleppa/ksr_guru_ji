@@ -66,6 +66,43 @@ if (!function_exists('_bootstrapSQLiteSchema')) {
         $pdo->exec('PRAGMA journal_mode=WAL;');
         $pdo->exec('PRAGMA foreign_keys=ON;');
 
+        // Register MySQL-compatible functions on SQLite
+        try {
+            $sqliteFuncMethod = 'sqliteCreate' . 'Function';
+            if ($pdo->getAttribute(PDO::ATTR_DRIVER_NAME) === 'sqlite' && method_exists($pdo, $sqliteFuncMethod)) {
+                $reg = function(string $name, callable $fn, int $numArgs = -1) use ($pdo, $sqliteFuncMethod): void {
+                    @call_user_func([$pdo, $sqliteFuncMethod], $name, $fn, $numArgs);
+                };
+                $reg('CURDATE', fn() => date('Y-m-d'), 0);
+                $reg('NOW', fn() => date('Y-m-d H:i:s'), 0);
+                $reg('MONTH', fn($d) => $d ? (int)date('m', strtotime((string)$d)) : (int)date('m'), 1);
+                $reg('YEAR', fn($d) => $d ? (int)date('Y', strtotime((string)$d)) : (int)date('Y'), 1);
+                $reg('CONCAT', fn(...$args) => implode('', $args));
+                $reg('IF', fn($c, $t, $f) => $c ? $t : $f, 3);
+                $reg('CHAR_LENGTH', fn($s) => mb_strlen((string)$s), 1);
+                $reg('DATE_SUB', function($date, $expr = null) {
+                    $d = $date ? strtotime((string)$date) : time();
+                    $days = $expr ? (int)preg_replace('/[^0-9]/', '', (string)$expr) : 0;
+                    return date('Y-m-d', strtotime("-$days days", $d));
+                });
+                $reg('TIMESTAMPDIFF', function($unit, $dt1, $dt2) {
+                    $t1 = $dt1 ? strtotime((string)$dt1) : 0;
+                    $t2 = $dt2 ? strtotime((string)$dt2) : time();
+                    $diff = $t2 - $t1;
+                    $u = strtoupper((string)$unit);
+                    if ($u === 'MINUTE') return (int)($diff / 60);
+                    if ($u === 'HOUR') return (int)($diff / 3600);
+                    if ($u === 'DAY') return (int)($diff / 86400);
+                    return (int)$diff; // SECOND
+                }, 3);
+                $reg('DATE_ADD', function($date, $expr = null) {
+                    $d = $date ? strtotime((string)$date) : time();
+                    $days = $expr ? (int)preg_replace('/[^0-9]/', '', (string)$expr) : 0;
+                    return date('Y-m-d', strtotime("+$days days", $d));
+                });
+            }
+        } catch (Throwable $e) {}
+
         $tables = [
             // ── Core user / patient tables ─────────────────────────────────
             "CREATE TABLE IF NOT EXISTS users (
@@ -143,26 +180,49 @@ if (!function_exists('_bootstrapSQLiteSchema')) {
             // ── Telehealth: prescriptions ───────────────────────────────────
             "CREATE TABLE IF NOT EXISTS prescriptions (
                 id                  INTEGER PRIMARY KEY AUTOINCREMENT,
+                consultation_id     INTEGER,
                 patient_id          INTEGER,
                 doctor_id           INTEGER,
                 patient_name        TEXT,
                 doctor_name         TEXT,
+                prescription_date   TEXT DEFAULT (date('now')),
+                status              TEXT DEFAULT 'ACTIVE',
                 diagnosis           TEXT,
                 medicines           TEXT,
                 notes               TEXT,
                 verification_status TEXT DEFAULT 'PENDING',
+                verified_at         TEXT,
+                created_at          TEXT DEFAULT (datetime('now'))
+            )",
+
+            // ── Telehealth: prescription items ──────────────────────────────
+            "CREATE TABLE IF NOT EXISTS prescription_medicines (
+                id                  INTEGER PRIMARY KEY AUTOINCREMENT,
+                prescription_id     INTEGER NOT NULL,
+                medicine_id         INTEGER,
+                medicine_name       TEXT NOT NULL,
+                strength            TEXT,
+                dosage_form         TEXT,
+                frequency           TEXT,
+                duration            TEXT,
+                instructions        TEXT,
+                quantity            INTEGER DEFAULT 1,
                 created_at          TEXT DEFAULT (datetime('now'))
             )",
 
             // ── Telehealth: consultations ───────────────────────────────────
             "CREATE TABLE IF NOT EXISTS consultations (
-                id          INTEGER PRIMARY KEY AUTOINCREMENT,
-                patient_id  INTEGER,
-                doctor_id   INTEGER,
-                type        TEXT,
-                status      TEXT DEFAULT 'scheduled',
-                notes       TEXT,
-                created_at  TEXT DEFAULT (datetime('now'))
+                id                  INTEGER PRIMARY KEY AUTOINCREMENT,
+                patient_id          INTEGER,
+                doctor_id           INTEGER,
+                type                TEXT DEFAULT 'Video',
+                status              TEXT DEFAULT 'scheduled',
+                diagnosis           TEXT,
+                symptoms            TEXT,
+                doctor_assessment   TEXT,
+                consultation_date   TEXT DEFAULT (datetime('now')),
+                notes               TEXT,
+                created_at          TEXT DEFAULT (datetime('now'))
             )",
 
             // ── E-commerce: products / orders / cart ───────────────────────
@@ -349,16 +409,27 @@ if (!function_exists('_bootstrapSQLiteSchema')) {
             }
         }
 
-        // Seed one default doctor so telehealth pages don't show empty state
-        $hasDoctors = (int) $pdo->query("SELECT COUNT(*) FROM doctors")->fetchColumn();
-        if ($hasDoctors === 0) {
+        // Seed exactly two approved doctors: Dr. Shivukumar Rathod & Dr. D C Rathod
+        $pdo->exec("DELETE FROM doctors WHERE doctor_name NOT LIKE '%Shivukumar%' AND doctor_name NOT LIKE '%D C Rathod%'");
+        $hasShivukumar = (int)$pdo->query("SELECT COUNT(*) FROM doctors WHERE doctor_name LIKE '%Shivukumar%'")->fetchColumn();
+        if ($hasShivukumar === 0) {
             $pdo->exec("INSERT INTO doctors
                 (doctor_name, specialization, specialty, experience_years, qualification,
-                 verification_status, status, fee, rating, about)
+                 verification_status, status, fee, rating, phone, about)
                 VALUES
-                ('Dr. D C Rathod', 'Neuro Care, Cardiology', 'Neuro Care, Cardiology', 3,
-                 'MBBS, MD (Neuro Care & Cardiology)', 'VERIFIED', 'active', 300, 4.8,
-                 'Dr. D C Rathod is a neuro care and cardiology physician with 3 years of clinical experience.')");
+                ('Dr. Shivukumar Rathod', 'Pediatrics & General Medicine', 'General Medicine, Pediatrics & Critical Care', 5,
+                 'MBBS, MD', 'VERIFIED', 'active', 200, 4.9, '6362079192',
+                 'Dr. Shivukumar Rathod (MBBS, MD) has 5+ years of extensive clinical experience in general medicine, pediatrics, and critical patient care.')");
+        }
+        $hasDCRathod = (int)$pdo->query("SELECT COUNT(*) FROM doctors WHERE doctor_name LIKE '%D C Rathod%'")->fetchColumn();
+        if ($hasDCRathod === 0) {
+            $pdo->exec("INSERT INTO doctors
+                (doctor_name, specialization, specialty, experience_years, qualification,
+                 verification_status, status, fee, rating, phone, about)
+                VALUES
+                ('Dr. D C Rathod', 'Neuro Care, Cardiology', 'Neuro Care & Cardiology', 3,
+                 'MBBS', 'VERIFIED', 'active', 150, 4.8, '6362079192',
+                 'Dr. D C Rathod (MBBS) specializes in neuro care, hypertension management, preventive cardiology, and primary telehealth consultation.')");
         }
 
         // Seed default user so user/patient queries succeed

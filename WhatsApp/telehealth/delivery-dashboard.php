@@ -4,7 +4,7 @@ require_once 'helper.php';
 $pdo = getAssistDB();
 $userId = $_SESSION['user_id'] ?? 5; 
 
-$driverName = $_SESSION['user_name'] ?? 'Courier Details';
+$driverName = $_SESSION['user_name'] ?? 'JK (Delivery Partner - 8088584421)';
 
 // Stats queries
 try { $assignedOrders = (int)$pdo->query("SELECT COUNT(*) FROM order_delivery WHERE delivery_user_id = " . (int)$userId . " AND delivery_time IS NULL")->fetchColumn(); } catch (Throwable $e) { $assignedOrders = 0; }

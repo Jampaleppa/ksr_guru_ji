@@ -1160,7 +1160,7 @@ JSON;
           if (currentCart.length) {
             window.location.href = '../checkout/checkout.php';
           } else {
-            alert('Cart is empty');
+            window.showFastCartToast ? window.showFastCartToast('Your cart is empty! Add items to proceed.') : alert('Cart is empty');
           }
         });
       }

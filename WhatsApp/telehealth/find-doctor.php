@@ -10,7 +10,7 @@ $locationFilter = $_GET['location'] ?? '';
 $langFilter = $_GET['language'] ?? '';
 
 // Fetch all verified/pending doctors for display
-$sql = "SELECT d.*, u.name as user_name FROM doctors d JOIN users u ON d.user_id = u.id";
+$sql = "SELECT d.*, u.name as user_name FROM doctors d LEFT JOIN users u ON d.user_id = u.id WHERE (d.doctor_name LIKE '%Shivukumar%' OR d.doctor_name LIKE '%Rathod%') AND d.doctor_name NOT LIKE '%Anjali%' AND d.doctor_name NOT LIKE '%Kumar%' AND d.doctor_name NOT LIKE '%Priya%'";
 $conditions = [];
 $params = [];
 
@@ -33,15 +33,15 @@ $stmt->execute($params);
 $doctors = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 // Fallback to simulated data if none exist natively yet
-if (count($doctors) === 0 && !$searchQuery && !$specialtyFilter) {
+if (count($doctors) === 0) {
     $doctors = [
         [
             'id' => 1,
-            'doctor_name' => 'Dr.ShivukumarRathod',
-            'specialty' => 'pardiatrics',
-            'experience_years' => 3,
-            'qualification' => 'MBBS,MD',
-            'clinic_hospital_details' => 'KMC:131985 (Max time: 5 mins)',
+            'doctor_name' => 'Dr. Shivukumar Rathod',
+            'specialty' => 'Pediatrics & General Medicine',
+            'experience_years' => 5,
+            'qualification' => 'MBBS, MD',
+            'clinic_hospital_details' => 'KMC: 131985 (Max time: 5 mins)',
             'verification_status' => 'VERIFIED',
             'languages' => 'Kannada • English • Hindi',
             'status' => 'Available Now',
@@ -49,39 +49,15 @@ if (count($doctors) === 0 && !$searchQuery && !$specialtyFilter) {
         ],
         [
             'id' => 2,
-            'doctor_name' => 'DR. D C Rathod',
-            'specialty' => 'General Physician',
-            'experience_years' => 18,
-            'qualification' => 'MBBS, DO',
-            'clinic_hospital_details' => 'KSR Medical Center',
+            'doctor_name' => 'Dr. D C Rathod',
+            'specialty' => 'Neuro Care & Cardiology',
+            'experience_years' => 3,
+            'qualification' => 'MBBS',
+            'clinic_hospital_details' => 'KMC: 10824',
             'verification_status' => 'VERIFIED',
-            'languages' => 'Kannada • English',
+            'languages' => 'Kannada • English • Hindi',
             'status' => 'Available Today',
             'status_class' => 'status-today'
-        ],
-        [
-            'id' => 3,
-            'doctor_name' => 'Dr. Anjali Sharma',
-            'specialty' => 'Cardiology',
-            'experience_years' => 8,
-            'qualification' => 'MBBS, MD - Cardiology',
-            'clinic_hospital_details' => 'Heart Care Center',
-            'verification_status' => 'VERIFIED',
-            'languages' => 'English • Hindi',
-            'status' => 'Limited Slots',
-            'status_class' => 'status-limited'
-        ],
-        [
-            'id' => 4,
-            'doctor_name' => 'Dr. Ramesh Kumar',
-            'specialty' => 'Dermatology',
-            'experience_years' => 5,
-            'qualification' => 'MBBS, DDVL',
-            'clinic_hospital_details' => 'Skin & Hair Clinic',
-            'verification_status' => 'VERIFIED',
-            'languages' => 'English • Telugu',
-            'status' => 'Offline',
-            'status_class' => 'status-offline'
         ]
     ];
 }

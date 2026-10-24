@@ -79,7 +79,7 @@ foreach ($inventoryQuery as $idx => $prod) {
 $billingSummary = $pdo->query("SELECT 
     SUM(CASE WHEN payment_status = 'COMPLETED' OR payment_status = 'PAID' OR payment_method = 'ONLINE' THEN total ELSE 0 END) as completed_revenue,
     SUM(CASE WHEN payment_status != 'COMPLETED' AND payment_status != 'PAID' AND payment_method != 'ONLINE' THEN total ELSE 0 END) as pending_revenue
-    FROM orders WHERE DATE(created_at) = CURDATE()")->fetch(PDO::FETCH_ASSOC);
+    FROM orders WHERE DATE(created_at) = '" . date('Y-m-d') . "'")->fetch(PDO::FETCH_ASSOC);
 
 $completedRevenue = $billingSummary['completed_revenue'] ?? 0;
 $pendingRevenue = $billingSummary['pending_revenue'] ?? 0;

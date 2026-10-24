@@ -8,7 +8,7 @@ $pdo = getAssistDB();
 
 // Fetch live metrics
 try { $pendingOrdersCount = $pdo ? (int)$pdo->query("SELECT COUNT(*) FROM orders WHERE status IN ('PENDING', 'APPROVED', 'PHARMACY_ACCEPTED')")->fetchColumn() : 0; } catch (Throwable $e) { $pendingOrdersCount = 3; }
-try { $verifiedToday = $pdo ? (int)$pdo->query("SELECT COUNT(*) FROM orders WHERE status = 'COMPLETED' AND DATE(created_at) = CURDATE()")->fetchColumn() : 0; } catch (Throwable $e) { $verifiedToday = 12; }
+try { $verifiedToday = $pdo ? (int)$pdo->query("SELECT COUNT(*) FROM orders WHERE status = 'COMPLETED' AND DATE(created_at) = '" . date('Y-m-d') . "'")->fetchColumn() : 0; } catch (Throwable $e) { $verifiedToday = 12; }
 // Mock AI stats for now as there is no specific AI table yet
 $aiReviewCount = rand(2, 9);
 ?>

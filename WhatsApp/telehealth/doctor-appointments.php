@@ -152,11 +152,11 @@ $docName = 'DR. D C Rathod';
 
         <div class="c-box">
             <div class="status-tabs">
-                <button class="st-btn active">Today (12)</button>
-                <button class="st-btn">Upcoming (14)</button>
-                <button class="st-btn">Waiting (2)</button>
-                <button class="st-btn">Completed (42)</button>
-                <button class="st-btn">Cancelled (1)</button>
+                <button class="st-btn active" onclick="filterAppointments('today', this)">Today (12)</button>
+                <button class="st-btn" onclick="filterAppointments('upcoming', this)">Upcoming (14)</button>
+                <button class="st-btn" onclick="filterAppointments('waiting', this)">Waiting (2)</button>
+                <button class="st-btn" onclick="filterAppointments('completed', this)">Completed (42)</button>
+                <button class="st-btn" onclick="filterAppointments('cancelled', this)">Cancelled (1)</button>
             </div>
 
             <div style="overflow-x: auto;">
@@ -173,7 +173,7 @@ $docName = 'DR. D C Rathod';
                     </thead>
                     <tbody>
                         <!-- Completed -->
-                        <tr style="opacity:0.6;">
+                        <tr style="opacity:0.6;" data-status="completed">
                             <td class="time-cell">09:30</td>
                             <td class="pat-cell">Patient A</td>
                             <td class="type-cell"><i class="fas fa-phone-alt"></i> Audio</td>
@@ -182,7 +182,7 @@ $docName = 'DR. D C Rathod';
                             <td><button class="btn-action" onclick="window.location.href='doctor-patients.php'">View</button></td>
                         </tr>
                         <!-- Next/Scheduled -->
-                        <tr style="background:#F0FDF4;">
+                        <tr style="background:#F0FDF4;" data-status="upcoming next">
                             <td class="time-cell">04:30</td>
                             <td class="pat-cell">Jampaleppa Rathod</td>
                             <td class="type-cell"><i class="fas fa-video"></i> Video</td>
@@ -194,7 +194,7 @@ $docName = 'DR. D C Rathod';
                             </td>
                         </tr>
                         <!-- Waiting -->
-                        <tr style="background:#FFFAEB;">
+                        <tr style="background:#FFFAEB;" data-status="waiting">
                             <td class="time-cell">11:30</td>
                             <td class="pat-cell">Patient C</td>
                             <td class="type-cell"><i class="fas fa-video"></i> Video</td>
@@ -205,7 +205,7 @@ $docName = 'DR. D C Rathod';
                             </td>
                         </tr>
                         <!-- Upcoming -->
-                        <tr>
+                        <tr data-status="upcoming">
                             <td class="time-cell">14:00</td>
                             <td class="pat-cell">Patient D</td>
                             <td class="type-cell"><i class="fas fa-phone-alt"></i> Audio</td>
@@ -425,6 +425,21 @@ $docName = 'DR. D C Rathod';
 <script>
     function openModal(id) { document.getElementById(id).classList.add('active'); }
     function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+    function filterAppointments(status, btn) {
+        document.querySelectorAll('.st-btn').forEach(b => b.classList.remove('active'));
+        if (btn) btn.classList.add('active');
+        const rows = document.querySelectorAll('.data-table tbody tr');
+        rows.forEach(r => {
+            const s = r.getAttribute('data-status') || '';
+            if (status === 'all' || status === 'today') {
+                r.style.display = '';
+            } else if (s.indexOf(status) !== -1) {
+                r.style.display = '';
+            } else {
+                r.style.display = 'none';
+            }
+        });
+    }
 </script>
 </body>
 </html>

@@ -996,7 +996,7 @@ $topPickIds = [1, 5, 13, 24, 18, 15, 9, 28, 38, 44];
             if (currentCart.length) {
               window.location.href = '../checkout/checkout.php';
             } else {
-              alert('Cart is empty');
+              window.showFastCartToast ? window.showFastCartToast('Your cart is empty! Add items to proceed.') : alert('Cart is empty');
             }
           });
         }

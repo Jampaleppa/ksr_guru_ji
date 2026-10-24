@@ -6,15 +6,53 @@ $docName = $_SESSION['user_name'] ?? 'DR. D C Rathod';
 
 // Dynamically generate or load patient from DB
 $pdo = getAssistDB();
-try { $stmt = $pdo->query("SELECT name, email, phone, created_at, ksr_id FROM users WHERE role = 'user' OR role = 'admin' LIMIT 1"); } catch (\Throwable $e) { $stmt = null; }
-$patient = isset($stmt) && $stmt ? $stmt->fetch(PDO::FETCH_ASSOC) : null;
+$reqPatientId = (int)($_GET['patient_id'] ?? ($_GET['id'] ?? 0));
+$apptId = !empty($_GET['apt_id']) ? htmlspecialchars((string)$_GET['apt_id']) : ('APT-' . date('Ymd-') . strtolower(date('hia')));
 
-// Map DB payload to workspace state (with safe fallbacks)
-$patientName = $patient ? ($patient['name'] ?: 'Patient User') : 'Rahul Kumar';
-$patientId = $patient ? ($patient['ksr_id'] ?: 'PT-' . strtoupper(substr(md5($patient['email']), 0, 6))) : 'PT-000124';
-$patientAge = '32'; // Can be expanded with DOB parsing
-$patientGender = 'Unknown'; 
-$apptId = 'APT-' . date('Ymd-Hia');
+$patientData = null;
+if ($reqPatientId > 0) {
+    try {
+        $stPat = $pdo->prepare("SELECT p.*, u.email as user_email FROM patients p LEFT JOIN users u ON u.id = p.user_id WHERE p.id = ? OR p.user_id = ? LIMIT 1");
+        $stPat->execute([$reqPatientId, $reqPatientId]);
+        $patientData = $stPat->fetch(PDO::FETCH_ASSOC);
+    } catch (\Throwable $e) {}
+}
+if (!$patientData) {
+    try {
+        $patientData = $pdo->query("SELECT p.*, u.email as user_email FROM patients p LEFT JOIN users u ON u.id = p.user_id ORDER BY p.id ASC LIMIT 1")->fetch(PDO::FETCH_ASSOC);
+    } catch (\Throwable $e) {}
+}
+
+if (!$patientData) {
+    try {
+        $uRow = $pdo->query("SELECT * FROM users WHERE role = 'user' OR role = 'admin' ORDER BY id ASC LIMIT 1")->fetch(PDO::FETCH_ASSOC);
+    } catch (\Throwable $e) { $uRow = null; }
+    $patientName = $uRow['name'] ?? 'Rahul Kumar';
+    $patientId = $uRow['ksr_id'] ?? 'PT-000124';
+    $patientAge = 32;
+    $patientGender = 'Male';
+    $patientBlood = 'O+';
+    $patientAllergies = 'Mild Penicillin Allergy';
+    $patientMeds = 'Amlodipine (5mg)';
+    $patientConditions = 'Mild Hypertension';
+    $patientLastVisit = '02 Sep 2026';
+} else {
+    $patientName = !empty($patientData['patient_name']) ? $patientData['patient_name'] : (!empty($patientData['name']) ? $patientData['name'] : 'Rahul Kumar');
+    $patientId = !empty($patientData['ksr_id']) ? $patientData['ksr_id'] : ('PT-' . str_pad((string)$patientData['id'], 6, '0', STR_PAD_LEFT));
+    $dob = $patientData['date_of_birth'] ?? ($patientData['dob'] ?? '1994-05-15');
+    $patientAge = $dob ? (new DateTimeImmutable((string)$dob))->diff(new DateTimeImmutable('today'))->y : 32;
+    if ($patientAge <= 0) $patientAge = 32;
+    $patientGender = !empty($patientData['gender']) ? $patientData['gender'] : 'Male';
+    $patientBlood = !empty($patientData['blood_group']) ? $patientData['blood_group'] : 'O+';
+    $patientAllergies = !empty($patientData['allergies']) ? $patientData['allergies'] : 'Mild Penicillin Allergy';
+    $patientMeds = !empty($patientData['current_medications']) ? $patientData['current_medications'] : 'Amlodipine (5mg)';
+    $patientConditions = !empty($patientData['medical_history']) ? $patientData['medical_history'] : 'Mild Hypertension';
+    $patientLastVisit = !empty($patientData['last_visit']) ? $patientData['last_visit'] : '02 Sep 2026';
+}
+
+$parts = preg_split('/\s+/', trim($patientName));
+$patientInitials = strtoupper((substr($parts[0] ?? 'R', 0, 1)) . (isset($parts[1]) ? substr($parts[1], 0, 1) : ''));
+if ($patientInitials === '') $patientInitials = 'RK';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -174,30 +212,30 @@ $apptId = 'APT-' . date('Ymd-Hia');
         <div class="cb-head"><i class="fas fa-id-card"></i> Patient Summary</div>
         
         <div style="text-align:center; margin-bottom:20px;">
-            <div style="width:72px; height:72px; border-radius:50%; background:var(--clr-primary-light); color:var(--clr-primary); display:flex; align-items:center; justify-content:center; font-size:1.8rem; font-weight:800; margin:0 auto 12px auto;">RK</div>
-            <div style="font-weight:800; font-size:1.1rem; color:var(--clr-text-primary);"><?php echo $patientName; ?></div>
-            <div style="font-family:monospace; color:var(--clr-text-secondary);"><?php echo $patientId; ?></div>
+            <div style="width:72px; height:72px; border-radius:50%; background:var(--clr-primary-light); color:var(--clr-primary); display:flex; align-items:center; justify-content:center; font-size:1.8rem; font-weight:800; margin:0 auto 12px auto;"><?php echo htmlspecialchars($patientInitials); ?></div>
+            <div style="font-weight:800; font-size:1.1rem; color:var(--clr-text-primary);"><?php echo htmlspecialchars($patientName); ?></div>
+            <div style="font-family:monospace; color:var(--clr-text-secondary);"><?php echo htmlspecialchars($patientId); ?></div>
         </div>
         
         <div class="kv-grid">
-            <div class="kv-key">Age/Sex</div><div class="kv-val">32 / Male</div>
-            <div class="kv-key">Blood</div><div class="kv-val">O+</div>
-            <div class="kv-key">Last Visit</div><div class="kv-val">02 Sep 2026</div>
+            <div class="kv-key">Age/Sex</div><div class="kv-val"><?php echo htmlspecialchars($patientAge . ' / ' . $patientGender); ?></div>
+            <div class="kv-key">Blood</div><div class="kv-val"><?php echo htmlspecialchars($patientBlood); ?></div>
+            <div class="kv-key">Last Visit</div><div class="kv-val"><?php echo htmlspecialchars($patientLastVisit); ?></div>
         </div>
 
         <div class="alert-box">
             <div style="font-weight:800; text-transform:uppercase;"><i class="fas fa-exclamation-triangle"></i> Allergies</div>
-            <div style="margin-top:4px;">Mild Penicillin Allergy</div>
+            <div style="margin-top:4px;"><?php echo htmlspecialchars($patientAllergies); ?></div>
         </div>
 
         <div class="info-box">
             <div style="font-weight:800; text-transform:uppercase;"><i class="fas fa-pills"></i> Current Meds</div>
-            <div style="margin-top:4px;">Amlodipine (5mg)</div>
+            <div style="margin-top:4px;"><?php echo htmlspecialchars($patientMeds); ?></div>
         </div>
 
         <div class="info-box" style="background:#F3E8FF; border-color:#9333EA; color:#6B21A8;">
             <div style="font-weight:800; text-transform:uppercase;"><i class="fas fa-stethoscope"></i> Conditions</div>
-            <div style="margin-top:4px;">Mild Hypertension</div>
+            <div style="margin-top:4px;"><?php echo htmlspecialchars($patientConditions); ?></div>
         </div>
 
         <button style="width:100%; padding:10px; background:white; border:1px solid var(--clr-border); border-radius:var(--radius-sm); font-weight:700; cursor:pointer;">[ View Full Profile ]</button>

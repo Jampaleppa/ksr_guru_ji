@@ -3,12 +3,36 @@ require_once 'helper.php';
 
 // Dynamically generate or load patient from DB
 $pdo = getAssistDB();
-$stmt = $pdo->query("SELECT name, email, phone, created_at, ksr_id FROM users WHERE role = 'user' OR role = 'admin' LIMIT 1");
-$patient = $stmt->fetch(PDO::FETCH_ASSOC);
+$reqPatientId = (int)($_GET['patient_id'] ?? ($_GET['id'] ?? 0));
+$apptId = !empty($_GET['apt_id']) ? htmlspecialchars((string)$_GET['apt_id']) : ('APT-' . date('Ymd-') . strtolower(date('hia')));
 
-$patientName = $patient ? ($patient['name'] ?: 'Patient User') : 'Rahul Kumar';
-$patientId = $patient ? ($patient['ksr_id'] ?: 'PT-' . strtoupper(substr(md5($patient['email']), 0, 6))) : 'PT-000124';
-$apptId = 'APT-' . date('Ymd-Hia');
+$patientData = null;
+if ($reqPatientId > 0) {
+    try {
+        $stPat = $pdo->prepare("SELECT p.*, u.email as user_email FROM patients p LEFT JOIN users u ON u.id = p.user_id WHERE p.id = ? OR p.user_id = ? LIMIT 1");
+        $stPat->execute([$reqPatientId, $reqPatientId]);
+        $patientData = $stPat->fetch(PDO::FETCH_ASSOC);
+    } catch (\Throwable $e) {}
+}
+if (!$patientData) {
+    try {
+        $patientData = $pdo->query("SELECT p.*, u.email as user_email FROM patients p LEFT JOIN users u ON u.id = p.user_id ORDER BY p.id ASC LIMIT 1")->fetch(PDO::FETCH_ASSOC);
+    } catch (\Throwable $e) {}
+}
+
+if (!$patientData) {
+    $patientName = 'Rahul Kumar';
+    $patientId = 'PT-000124';
+    $patientAge = 32;
+    $patientGender = 'Male';
+} else {
+    $patientName = !empty($patientData['patient_name']) ? $patientData['patient_name'] : (!empty($patientData['name']) ? $patientData['name'] : 'Rahul Kumar');
+    $patientId = !empty($patientData['ksr_id']) ? $patientData['ksr_id'] : ('PT-' . str_pad((string)$patientData['id'], 6, '0', STR_PAD_LEFT));
+    $dob = $patientData['date_of_birth'] ?? ($patientData['dob'] ?? '1994-05-15');
+    $patientAge = $dob ? (new DateTimeImmutable((string)$dob))->diff(new DateTimeImmutable('today'))->y : 32;
+    if ($patientAge <= 0) $patientAge = 32;
+    $patientGender = !empty($patientData['gender']) ? $patientData['gender'] : 'Male';
+}
     // Mode & Fee Calculation
     $mode = isset($_GET['mode']) && $_GET['mode'] === 'audio' ? 'Audio' : 'Video';
     $baseFee = $mode === 'Audio' ? 100 : 125;
@@ -200,7 +224,7 @@ $apptId = 'APT-' . date('Ymd-Hia');
             <div class="pat-name-overlay">
                 👤 <?php echo htmlspecialchars($patientName); ?> 
                 <span class="pat-chip"><?php echo htmlspecialchars($patientId); ?></span>
-                <span class="pat-chip">32 Yrs</span>
+                <span class="pat-chip"><?php echo htmlspecialchars($patientAge); ?> Yrs</span>
             </div>
             
             <div class="pip-video">
