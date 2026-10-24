@@ -61,6 +61,31 @@ if (pp_is_post()) {
         if (pp_verify_otp($userId, $code, $purpose)) {
             if ($purpose === 'registration') {
                 pp_activate_account($userId);
+
+                // Send WhatsApp registration success confirmation message
+                try {
+                    $waMobile = preg_replace('/\D+/', '', (string)($user['mobile'] ?? ($user['phone'] ?? '')));
+                    if (strlen($waMobile) === 10) { $waMobile = '91' . $waMobile; }
+                    if ($waMobile !== '') {
+                        require_once __DIR__ . '/admin/inc/whatsapp/WhatsAppFactory.php';
+                        $wa = WhatsAppFactory::make(pp_db());
+                        $patientName = $user['name'] ?? 'Patient';
+                        $wa->sendMessage($waMobile,
+                            "🎉 *Registration Complete & Verified!*\n\n" .
+                            "Namaste *{$patientName}*,\n" .
+                            "Your KSR GURU JI Patient Portal account is now active.\n\n" .
+                            "✅ Verified Practitioners available:\n" .
+                            "   • Dr. Shivukumar Rathod (MBBS, MD)\n" .
+                            "   • Dr. D C Rathod (MBBS)\n" .
+                            "✅ Maintain all medical records, vitals & digital prescriptions.\n\n" .
+                            "🔗 Portal: https://ksrgurujiupload.vercel.app/WhatsApp/telehealth/patient-dashboard.php\n" .
+                            "📞 Support: 6362079192"
+                        );
+                    }
+                } catch (Throwable $waEx) {
+                    error_log('[patient-verify WhatsApp Success] ' . $waEx->getMessage());
+                }
+
                 unset($_SESSION['pending_verify_user']);
                 pp_login($user, false);
                 $_SESSION['patient_registration_success'] = true;
