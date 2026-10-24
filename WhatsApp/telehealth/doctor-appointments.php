@@ -1,8 +1,12 @@
 <?php
 require_once 'helper.php';
 
-// Mock Doctor State
-$docName = 'DR. D C Rathod';
+// Dynamic Doctor State
+if (session_status() === PHP_SESSION_NONE) { session_start(); }
+$pdo = getAssistDB();
+$doctorId = telehealthResolveDoctorId($pdo, isset($_SESSION['user_id']) ? (int)$_SESSION['user_id'] : null);
+$doc = telehealthDoctorProfile($pdo, $doctorId);
+$docName = !empty($_SESSION['user_name']) ? $_SESSION['user_name'] : $doc['name'];
 ?>
 <!DOCTYPE html>
 <html lang="en">

@@ -433,7 +433,7 @@ if (!function_exists('_bootstrapSQLiteSchema')) {
         }
 
         // Seed default user so user/patient queries succeed
-        $hasUsers = (int) $pdo->query("SELECT COUNT(*) FROM users")->fetchColumn();
+        $hasUsers = (int) $pdo->query("SELECT COUNT(*) FROM users WHERE role = 'user'")->fetchColumn();
         if ($hasUsers === 0) {
             $pdo->exec("INSERT INTO users
                 (name, email, phone, mobile, role, ksr_id, account_status)
@@ -444,5 +444,34 @@ if (!function_exists('_bootstrapSQLiteSchema')) {
                 VALUES
                 (1, 'Rahul Kumar', 'Rahul Kumar', '6362079192', '6362079192', '6362079192', '1990-01-01', 'Male', 'Hubballi, Karnataka')");
         }
+
+        // Seed doctor user accounts for Dr. Shivukumar Rathod & Dr. D C Rathod
+        $defaultDocPassword = password_hash('Doctor@123', PASSWORD_DEFAULT);
+
+        // 1. Dr. Shivukumar Rathod (User & Doctor linkage)
+        $shivUser = $pdo->query("SELECT id FROM users WHERE role = 'doctor' AND (name LIKE '%Shivukumar%' OR email = 'drshivukumar@ksrguru.com') LIMIT 1")->fetch(PDO::FETCH_ASSOC);
+        if (!$shivUser) {
+            $pdo->prepare("INSERT INTO users (name, email, phone, mobile, role, password, account_status)
+                           VALUES (?, ?, ?, ?, 'doctor', ?, 'ACTIVE')")
+                ->execute(['Dr. Shivukumar Rathod', 'drshivukumar@ksrguru.com', '6362079192', '6362079192', $defaultDocPassword]);
+            $shivUserId = (int)$pdo->lastInsertId();
+        } else {
+            $shivUserId = (int)$shivUser['id'];
+        }
+        $pdo->prepare("UPDATE doctors SET user_id = ?, phone = '6362079192' WHERE doctor_name LIKE '%Shivukumar%'")
+            ->execute([$shivUserId]);
+
+        // 2. Dr. D C Rathod (User & Doctor linkage)
+        $dcUser = $pdo->query("SELECT id FROM users WHERE role = 'doctor' AND (name LIKE '%D C Rathod%' OR email = 'drdcrathod@ksrguru.com') LIMIT 1")->fetch(PDO::FETCH_ASSOC);
+        if (!$dcUser) {
+            $pdo->prepare("INSERT INTO users (name, email, phone, mobile, role, password, account_status)
+                           VALUES (?, ?, ?, ?, 'doctor', ?, 'ACTIVE')")
+                ->execute(['Dr. D C Rathod', 'drdcrathod@ksrguru.com', '6362079192', '6362079192', $defaultDocPassword]);
+            $dcUserId = (int)$pdo->lastInsertId();
+        } else {
+            $dcUserId = (int)$dcUser['id'];
+        }
+        $pdo->prepare("UPDATE doctors SET user_id = ?, phone = '6362079192' WHERE doctor_name LIKE '%D C Rathod%'")
+            ->execute([$dcUserId]);
     }
 }

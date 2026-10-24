@@ -4,7 +4,7 @@ require_once 'helper.php';
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
-$pharmacistName = $_SESSION['user_name'] ?? 'JK Rathod, Pharm.D';
+$pharmacistName = $_SESSION['user_name'] ?? 'Bheemappa Kali-Appa Hanamannavar';
 
 $pdo = getAssistDB();
 

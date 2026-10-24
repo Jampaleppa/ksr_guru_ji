@@ -357,6 +357,9 @@ function telehealthDoctorById(PDO $pdo, int $id): ?array
 function telehealthResolveDoctorId(PDO $pdo, ?int $userId = null): int
 {
     try {
+        if (!empty($_SESSION['doctor_id'])) {
+            return (int)$_SESSION['doctor_id'];
+        }
         if ($userId !== null && $userId > 0) {
             $st = $pdo->prepare(
                 "SELECT id FROM doctors WHERE user_id = ?

@@ -587,14 +587,9 @@ if ($patientInitials === '') $patientInitials = 'RK';
                 // Clear draft if any
                 localStorage.removeItem('rx_draft');
                 
-                // Route safely back to their isolated dashboard
+                // Route safely back to doctor appointments
                 setTimeout(() => {
-                    const docName = "<?php echo addslashes($docName); ?>";
-                    if(docName.toLowerCase().includes('shivu')) {
-                        window.location.href = 'doctor-shivukumar-appointments.php';
-                    } else {
-                        window.location.href = 'doctor-appointments.php';
-                    }
+                    window.location.href = 'doctor-appointments.php';
                 }, 2000);
             } else {
                 throw new Error(data.message);
