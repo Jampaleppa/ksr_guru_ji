@@ -317,7 +317,7 @@ $bestSellers = array_slice($products, 0, 8);
                         </div>
                     </div>
                     <div class="hero-image">
-                        <img src="/Banner.png" onerror="this.src='/ksr%20guru%20ji.jpg'" alt="KSR GURU JI Delivery" />
+                        <img src="/ksr%20guru%20ji.jpg" onerror="this.src='/company_logo.jpg'" alt="KSR GURU JI Delivery" />
                         <div class="floating-badge"><i class="fas fa-truck-fast" style="color:var(--color-primary);"></i> Free Delivery</div>
                     </div>
                 </div>
