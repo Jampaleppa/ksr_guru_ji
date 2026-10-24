@@ -692,8 +692,8 @@ if ($isLoggedIn) {
     </script>
     <!-- Razorpay Checkout SDK -->
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-    <link rel="stylesheet" href="../index.css?v=1.4" />
-    <link rel="stylesheet" href="../cart-checkout.css?v=1.0" />
+    <link rel="stylesheet" href="/index.css?v=1.5" />
+    <link rel="stylesheet" href="/cart-checkout.css?v=1.1" />
 </head>
 
 <body>
@@ -707,9 +707,9 @@ if ($isLoggedIn) {
         <div>
 
             <div class="brand-header">
-                <div class="brand" onclick="window.location.href='../index.php'" style="cursor: pointer; display: flex; align-items: center; gap: 14px;">
+                <div class="brand" onclick="window.location.href='/index.php'" style="cursor: pointer; display: flex; align-items: center; gap: 14px;">
                     <div class="logo-image" style="width: 48px; height: 48px; background: linear-gradient(135deg, #0f7b3a, #1ea85a); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 16px rgba(15, 123, 58, 0.15); flex-shrink: 0; border: 2px solid rgba(255, 255, 255, 0.8);">
-                        <img src="../company_logo.jpg" alt="KSR GURU JI Logo" style="max-width: 85%; max-height: 85%; object-fit: contain; border-radius: 50%;" onerror="this.style.display='none';this.parentElement.innerHTML='🛒';">
+                        <img src="/company_logo.jpg" alt="KSR GURU JI Logo" style="max-width: 85%; max-height: 85%; object-fit: contain; border-radius: 50%;" onerror="this.style.display='none';this.parentElement.innerHTML='🛒';">
                     </div>
                     <div>
                         <h1 style="margin: 0; line-height: 1.1; font-size: 1.5rem; font-weight: 800; color: var(--text-primary); letter-spacing: -0.5px;">KSR <span style="background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">GURU JI</span></h1>
@@ -1261,11 +1261,7 @@ if ($isLoggedIn) {
                 clean = 'images/' + parts[parts.length - 1];
             }
             clean = clean.replace(/%(?!25)/g, '%25');
-            const path = window.location.pathname;
-            if (path.includes('/checkout/') || path.includes('/categories/') || path.includes('/cart/') || path.includes('/admin/') || path.includes('/delivery/')) {
-                return '../' + clean;
-            }
-            return clean;
+            return '/' + clean.replace(/^\/+/, '');
         }
 
         function getTotal() {
@@ -2371,7 +2367,7 @@ if ($isLoggedIn) {
                     orderIdDisplay.textContent = orderNo;
                     const trackBtn = document.getElementById('modalTrackBtn');
                     if (trackBtn) {
-                        trackBtn.href = `../delivery/tracking.php?ref=${orderNo}`;
+                        trackBtn.href = `/delivery/tracking.php?ref=${orderNo}`;
                     }
                     waPrimaryBtn.href = `https://wa.me/${WHATSAPP_NUMBERS[0]}?text=${encodeURIComponent(waMessage)}`;
                     waSecondaryBtn.href = `https://wa.me/${WHATSAPP_NUMBERS[1]}?text=${encodeURIComponent(waMessage)}`;
@@ -2535,7 +2531,7 @@ if ($isLoggedIn) {
             for (let attempt = 0; attempt < maxAttempts; attempt++) {
                 try {
                     const response = await fetch(
-                        `../api/payment_status.php?order_id=${encodeURIComponent(orderId)}`, {
+                        `/api/payment_status.php?order_id=${encodeURIComponent(orderId)}`, {
                             method: 'GET',
                             cache: 'no-store',
                             credentials: 'same-origin'
@@ -2859,7 +2855,7 @@ if ($isLoggedIn) {
         // Modal actions
         modalContinueBtn.addEventListener('click', () => {
             successModal.classList.remove('show');
-            window.location.href = '../index.php';
+            window.location.href = '/index.php';
         });
 
         if (downloadInvoiceBtn) {

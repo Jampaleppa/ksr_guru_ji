@@ -33,6 +33,7 @@
   <div class="cart-footer">
     <div class="cart-total"><span>Total</span><span class="total-price" id="globalCartTotal">₹0</span></div>
     <button class="checkout-btn" onclick="window.location.href='/checkout.php'">Proceed to Checkout</button>
+    <button class="continue-shopping" onclick="window.location.href='/cart.php'" style="margin-bottom:8px;">View Full Cart</button>
     <button class="continue-shopping" onclick="closeCartDrawer()">Continue Shopping</button>
   </div>
 </div>
@@ -154,9 +155,12 @@ function renderGlobalCartItems() {
     const itemTotal = parseFloat(item.price || 0) * parseInt(item.qty || 1);
     total += itemTotal;
     const itemName = item.name || 'Product';
+    const imgHtml = item.image 
+      ? `<img src="${item.image}" alt="${itemName}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.style.display='none';this.parentElement.innerHTML='🛒';">`
+      : `<i class="fas fa-shopping-cart"></i>`;
     html += `
       <div class="cart-item" data-id="${item.id}">
-        <div class="cart-item-image"><i class="fas fa-shopping-cart"></i></div>
+        <div class="cart-item-image">${imgHtml}</div>
         <div class="cart-item-details">
           <div class="cart-item-name">${itemName}</div>
           <div class="cart-item-price">₹${parseFloat(item.price || 0).toFixed(2)} × ${item.qty} = ₹${itemTotal.toFixed(2)}</div>

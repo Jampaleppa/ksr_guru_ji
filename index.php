@@ -56,33 +56,67 @@ if (isset($_GET['ajax'])) {
             exit;
 
         case 'add_cart':
-            $id = (int) ($_POST['id'] ?? 0);
-            if ($id) {
-                $product = getProductById($id);
-                if ($product) {
-                    $found = false;
-                    foreach ($_SESSION['cart'] as &$item) {
-                        if ($item['id'] == $id) {
-                            $item['qty'] += 1;
-                            $found = true;
-                            break;
-                        }
-                    }
-                    if (!$found) {
-                        $_SESSION['cart'][] = [
-                            'id' => $product['id'],
-                            'name' => $product['name'],
-                            'kn' => $product['kn_name'],
-                            'price' => (float) $product['price'],
-                            'qty' => 1,
-                            'icon' => $product['icon'] ?: 'fa-box',
-                            'image' => !empty($product['images']) ? normalizeImagePath($product['images']) : ''
-                        ];
-                    }
-                    echo json_encode(['success' => true, 'cart' => $_SESSION['cart']], JSON_UNESCAPED_UNICODE);
-                    exit;
-                }
+            $id = $_POST['id'] ?? '';
+            $product = null;
+            if (is_numeric($id) && (int)$id > 0) {
+                $product = getProductById((int)$id);
             }
+            if ($product) {
+                $found = false;
+                foreach ($_SESSION['cart'] as &$item) {
+                    if ((string)$item['id'] === (string)$product['id']) {
+                        $item['qty'] += 1;
+                        $found = true;
+                        break;
+                    }
+                }
+                if (!$found) {
+                    $_SESSION['cart'][] = [
+                        'id' => $product['id'],
+                        'name' => $product['name'],
+                        'kn' => $product['kn_name'] ?? '',
+                        'price' => (float) $product['price'],
+                        'qty' => 1,
+                        'icon' => $product['icon'] ?: 'fa-box',
+                        'image' => !empty($product['images']) ? normalizeImagePath($product['images']) : ''
+                    ];
+                }
+                $_SESSION['cart'] = array_values($_SESSION['cart']);
+                echo json_encode(['success' => true, 'cart' => $_SESSION['cart']], JSON_UNESCAPED_UNICODE);
+                exit;
+            }
+
+            // Fallback: if product was not found in DB, use client-provided product details
+            $clientName = trim($_POST['name'] ?? '');
+            if ($clientName !== '') {
+                $clientPrice = (float)($_POST['price'] ?? 0);
+                $clientImage = trim($_POST['image'] ?? '');
+                $clientKn = trim($_POST['kn'] ?? '');
+                $clientQty = max(1, (int)($_POST['qty'] ?? 1));
+                $found = false;
+                foreach ($_SESSION['cart'] as &$item) {
+                    if ((string)$item['id'] === (string)$id || (string)$item['name'] === $clientName) {
+                        $item['qty'] += $clientQty;
+                        $found = true;
+                        break;
+                    }
+                }
+                if (!$found) {
+                    $_SESSION['cart'][] = [
+                        'id' => $id ?: uniqid('item_'),
+                        'name' => $clientName,
+                        'kn' => $clientKn,
+                        'price' => $clientPrice,
+                        'qty' => $clientQty,
+                        'icon' => 'fa-box',
+                        'image' => !empty($clientImage) ? normalizeImagePath($clientImage) : ''
+                    ];
+                }
+                $_SESSION['cart'] = array_values($_SESSION['cart']);
+                echo json_encode(['success' => true, 'cart' => $_SESSION['cart']], JSON_UNESCAPED_UNICODE);
+                exit;
+            }
+
             echo json_encode(['success' => false]);
             exit;
 
@@ -96,12 +130,13 @@ if (isset($_GET['ajax'])) {
                         break;
                     }
                 }
-            } elseif ($id !== '' && $qty == 0) {
+            } elseif ($id !== '' && $qty <= 0) {
                 $_SESSION['cart'] = array_filter($_SESSION['cart'], function ($i) use ($id) {
                     return (string)$i['id'] !== (string)$id;
                 });
             }
-            echo json_encode(['success' => true, 'cart' => array_values($_SESSION['cart'])], JSON_UNESCAPED_UNICODE);
+            $_SESSION['cart'] = array_values($_SESSION['cart']);
+            echo json_encode(['success' => true, 'cart' => $_SESSION['cart']], JSON_UNESCAPED_UNICODE);
             exit;
 
         case 'remove_cart':
@@ -235,7 +270,7 @@ $bestSellers = array_slice($products, 0, 8);
                     </button>
 
                     <!-- Cart Link -->
-                    <a href="cart/cart.php" class="cart-link" id="cartLink">
+                    <a href="/cart.php" class="cart-link" id="cartLink">
                         <i class="fas fa-shopping-cart"></i>
                         <span class="cart-text">Cart</span>
                         <span class="cart-badge" id="cartCount"><?php echo $cartCount; ?></span>
@@ -923,7 +958,7 @@ $bestSellers = array_slice($products, 0, 8);
                 <button class="btn-modal-checkout" id="modalCheckoutBtn">
                     <i class="fas fa-credit-card"></i> Proceed to Checkout / ಚೆಕ್-ಔಟ್
                 </button>
-                <a href="cart/cart.php" class="btn-modal-view-cart">
+                <a href="/cart.php" class="btn-modal-view-cart">
                     <i class="fas fa-shopping-cart"></i> View Detailed Cart / ಬಂಡಿ ನೋಡಿ
                 </a>
             </div>
@@ -1518,7 +1553,7 @@ $bestSellers = array_slice($products, 0, 8);
                 const modalCheckoutBtn = document.getElementById('modalCheckoutBtn');
                 if (modalCheckoutBtn) {
                     modalCheckoutBtn.addEventListener('click', function() {
-                        window.location.href = 'checkout/checkout.php';
+                        window.location.href = '/checkout.php';
                     });
                 }
 
