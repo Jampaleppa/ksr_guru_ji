@@ -17,45 +17,86 @@ $userId = $isLoggedIn ? $_SESSION['user_id'] : null;
 // Create tables if they don't exist (on first run)
 try {
     $pdo = getDBConnection();
-    $pdo->exec("CREATE TABLE IF NOT EXISTS suggestions_products (
-        id VARCHAR(36) PRIMARY KEY,
-        user_id INT NULL,
-        name VARCHAR(255) NOT NULL,
-        price DECIMAL(10,2) NOT NULL,
-        unit VARCHAR(50) NOT NULL,
-        qty INT NOT NULL DEFAULT 1,
-        note TEXT,
-        payment VARCHAR(100),
-        payment_status VARCHAR(50) DEFAULT 'Paid',
-        upi_id VARCHAR(100),
-        image_base64 MEDIUMTEXT,
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-        INDEX (user_id)
-    )");
+    $driver = $pdo->getAttribute(PDO::ATTR_DRIVER_NAME);
+    if ($driver === 'sqlite') {
+        $pdo->exec("CREATE TABLE IF NOT EXISTS suggestions_products (
+            id TEXT PRIMARY KEY,
+            user_id INTEGER NULL,
+            name TEXT NOT NULL,
+            price REAL NOT NULL,
+            unit TEXT NOT NULL,
+            qty INTEGER NOT NULL DEFAULT 1,
+            note TEXT,
+            payment TEXT,
+            payment_status TEXT DEFAULT 'Paid',
+            upi_id TEXT,
+            image_base64 TEXT,
+            created_at TEXT DEFAULT (datetime('now')),
+            updated_at TEXT DEFAULT (datetime('now'))
+        )");
 
-    $pdo->exec("CREATE TABLE IF NOT EXISTS suggestions_medical (
-        id VARCHAR(36) PRIMARY KEY,
-        user_id INT NULL,
-        patient_name VARCHAR(255) NOT NULL,
-        age INT NOT NULL,
-        gender VARCHAR(20) NOT NULL,
-        shop_name VARCHAR(255) NOT NULL,
-        symptoms TEXT,
-        suggested_meds TEXT,
-        diagnosis VARCHAR(255),
-        date DATE,
-        doctor_name VARCHAR(255),
-        suggestion TEXT NOT NULL,
-        payment VARCHAR(100),
-        payment_status VARCHAR(50) DEFAULT 'Paid',
-        upi_id VARCHAR(100),
-        prescription_image MEDIUMTEXT,
-        resolved BOOLEAN DEFAULT 0,
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-        INDEX (user_id)
-    )");
+        $pdo->exec("CREATE TABLE IF NOT EXISTS suggestions_medical (
+            id TEXT PRIMARY KEY,
+            user_id INTEGER NULL,
+            patient_name TEXT NOT NULL,
+            age INTEGER NOT NULL,
+            gender TEXT NOT NULL,
+            shop_name TEXT NOT NULL,
+            symptoms TEXT,
+            suggested_meds TEXT,
+            diagnosis TEXT,
+            date TEXT,
+            doctor_name TEXT,
+            suggestion TEXT NOT NULL,
+            payment TEXT,
+            payment_status TEXT DEFAULT 'Paid',
+            upi_id TEXT,
+            prescription_image TEXT,
+            resolved INTEGER DEFAULT 0,
+            created_at TEXT DEFAULT (datetime('now')),
+            updated_at TEXT DEFAULT (datetime('now'))
+        )");
+    } else {
+        $pdo->exec("CREATE TABLE IF NOT EXISTS suggestions_products (
+            id VARCHAR(36) PRIMARY KEY,
+            user_id INT NULL,
+            name VARCHAR(255) NOT NULL,
+            price DECIMAL(10,2) NOT NULL,
+            unit VARCHAR(50) NOT NULL,
+            qty INT NOT NULL DEFAULT 1,
+            note TEXT,
+            payment VARCHAR(100),
+            payment_status VARCHAR(50) DEFAULT 'Paid',
+            upi_id VARCHAR(100),
+            image_base64 MEDIUMTEXT,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+            INDEX (user_id)
+        )");
+
+        $pdo->exec("CREATE TABLE IF NOT EXISTS suggestions_medical (
+            id VARCHAR(36) PRIMARY KEY,
+            user_id INT NULL,
+            patient_name VARCHAR(255) NOT NULL,
+            age INT NOT NULL,
+            gender VARCHAR(20) NOT NULL,
+            shop_name VARCHAR(255) NOT NULL,
+            symptoms TEXT,
+            suggested_meds TEXT,
+            diagnosis VARCHAR(255),
+            date DATE,
+            doctor_name VARCHAR(255),
+            suggestion TEXT NOT NULL,
+            payment VARCHAR(100),
+            payment_status VARCHAR(50) DEFAULT 'Paid',
+            upi_id VARCHAR(100),
+            prescription_image MEDIUMTEXT,
+            resolved BOOLEAN DEFAULT 0,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+            INDEX (user_id)
+        )");
+    }
 } catch (PDOException $e) {
     error_log("Table creation error: " . $e->getMessage());
 }
@@ -461,7 +502,7 @@ $cartCount = array_sum(array_column($_SESSION['cart'] ?? [], 'qty'));
                                     class="fas fa-times-circle"></i> Cancel Edit</button>
                         </div>
                         <div style="margin-top:12px;">
-                            <a href="WhatsApp/telehealth/index.php?triage=1" class="btn-emergency" style="text-decoration:none; display:inline-flex; width:100%;"><i
+                            <a href="WhatsApp/telehealth/index.php?triage=1" id="medEmergencyBtnJS" class="btn-emergency" style="text-decoration:none; display:inline-flex; width:100%;"><i
                                     class="fas fa-ambulance"></i> 🚨 Emergency · Request Doctor</a>
                         </div>
 
@@ -712,8 +753,8 @@ $cartCount = array_sum(array_column($_SESSION['cart'] ?? [], 'qty'));
             const qtyInp = document.getElementById('prodQty');
             const noteInp = document.getElementById('prodNote');
             const paymentSel = document.getElementById('prodPayment');
-            const paymentStatusSel = document.getElementById('prodPaymentStatus');
-            const upiIdInp = document.getElementById('prodUpiId');
+            const paymentStatusSel = null; // no UI element; handled server-side
+            const upiIdInp = null;         // no UI element
             const imageInput = document.getElementById('prodImage');
             const previewImg = document.getElementById('prodPreview');
             const uploadStatus = document.getElementById('prodUploadStatus');
@@ -770,9 +811,7 @@ $cartCount = array_sum(array_column($_SESSION['cart'] ?? [], 'qty'));
                 unitSel.value = 'Packet';
                 qtyInp.value = '1';
                 noteInp.value = '';
-                paymentSel.value = 'Cash on Delivery';
-                if (paymentStatusSel) paymentStatusSel.value = 'Paid';
-                if (upiIdInp) upiIdInp.value = '';
+                // paymentSel is a hidden input; no reset needed
                 resetImage();
             }
 
@@ -781,7 +820,7 @@ $cartCount = array_sum(array_column($_SESSION['cart'] ?? [], 'qty'));
                 fetch('final-suggest.php?ajax=products')
                     .then(res => res.json())
                     .then(data => {
-                        products = data;
+                        products = Array.isArray(data) ? data : [];
                         filteredProducts = [...products];
                         render();
                     })
@@ -819,6 +858,11 @@ $cartCount = array_sum(array_column($_SESSION['cart'] ?? [], 'qty'));
                             showToast('⚠️ Error saving: ' + (data.error || 'unknown'), true);
                             return data;
                         }
+                    })
+                    .catch(err => {
+                        showToast('⚠️ Network/server error saving product', true);
+                        console.error(err);
+                        return { success: false, error: err.message };
                     });
             }
 
@@ -834,8 +878,13 @@ $cartCount = array_sum(array_column($_SESSION['cart'] ?? [], 'qty'));
                             loadProducts();
                             showToast('🗑️ Removed', false);
                         } else {
-                            showToast('⚠️ Delete failed', true);
+                            showToast('⚠️ Delete failed: ' + (data.error || ''), true);
                         }
+                        return data;
+                    })
+                    .catch(err => {
+                        showToast('⚠️ Network error deleting product', true);
+                        console.error(err);
                     });
             }
 
@@ -1173,8 +1222,8 @@ $cartCount = array_sum(array_column($_SESSION['cart'] ?? [], 'qty'));
             const doctor = document.getElementById('medDoctor');
             const suggestion = document.getElementById('medSuggestion');
             const paymentSel = document.getElementById('medPayment');
-            const paymentStatusSel = document.getElementById('medPaymentStatus');
-            const upiIdInp = document.getElementById('medUpiId');
+            const paymentStatusSel = null; // no UI element
+            const upiIdInp = null;         // no UI element
             const imageInput = document.getElementById('medPrescription');
             const previewImg = document.getElementById('medPreview');
             const uploadStatus = document.getElementById('medUploadStatus');
@@ -1185,7 +1234,7 @@ $cartCount = array_sum(array_column($_SESSION['cart'] ?? [], 'qty'));
             const submitBtn = document.getElementById('medSubmitBtn');
             const cancelBtn = document.getElementById('medCancelBtn');
             const clearFormBtn = document.getElementById('medClearFormBtn');
-            const emergencyBtn = document.getElementById('medEmergencyBtn');
+            const emergencyBtn = document.getElementById('medEmergencyBtnJS');
             const form = document.getElementById('medForm');
             const searchInput = document.getElementById('medSearch');
             const sortSelect = document.getElementById('medSort');
@@ -1255,7 +1304,7 @@ $cartCount = array_sum(array_column($_SESSION['cart'] ?? [], 'qty'));
                 fetch('final-suggest.php?ajax=medical')
                     .then(res => res.json())
                     .then(data => {
-                        records = data;
+                        records = Array.isArray(data) ? data : [];
                         filteredRecords = [...records];
                         render();
                     })
@@ -1283,6 +1332,11 @@ $cartCount = array_sum(array_column($_SESSION['cart'] ?? [], 'qty'));
                             showToast('⚠️ Error saving: ' + (result.error || 'unknown'), true);
                             return result;
                         }
+                    })
+                    .catch(err => {
+                        showToast('⚠️ Network/server error saving record', true);
+                        console.error(err);
+                        return { success: false, error: err.message };
                     });
             }
 
@@ -1298,8 +1352,13 @@ $cartCount = array_sum(array_column($_SESSION['cart'] ?? [], 'qty'));
                             loadMedical();
                             showToast('🗑️ Removed', false);
                         } else {
-                            showToast('⚠️ Delete failed', true);
+                            showToast('⚠️ Delete failed: ' + (data.error || ''), true);
                         }
+                        return data;
+                    })
+                    .catch(err => {
+                        showToast('⚠️ Network error deleting record', true);
+                        console.error(err);
                     });
             }
 
@@ -1620,7 +1679,8 @@ $cartCount = array_sum(array_column($_SESSION['cart'] ?? [], 'qty'));
             }
 
             // ─── Emergency functions ───
-            function triggerEmergency() {
+            function triggerEmergency(e) {
+                if (e) e.preventDefault();
                 const name = patient.value.trim() || 'Unknown Patient';
                 const ageVal = age.value.trim() || '?';
                 const gen = gender.value || 'Not specified';
@@ -1640,7 +1700,7 @@ $cartCount = array_sum(array_column($_SESSION['cart'] ?? [], 'qty'));
                 const ampm = hours >= 12 ? 'pm' : 'am';
                 hours = hours % 12;
                 hours = hours ? hours : 12;
-                const timeFormatted = `${d}/${m}/${y} names, ${hours}:${minutes}:${seconds} ${ampm}`;
+                const timeFormatted = `${d}/${m}/${y}, ${hours}:${minutes}:${seconds} ${ampm}`;
 
                 let lines = [
                     '🚨 *🚑 MEDICAL EMERGENCY — DOCTOR REQUESTED* 🚨',
@@ -1667,13 +1727,14 @@ $cartCount = array_sum(array_column($_SESSION['cart'] ?? [], 'qty'));
                 window.open(`https://wa.me/${getWhatsAppNumber()}?text=${msg}`, '_blank');
                 showToast('🚨 Emergency alert sent to doctor via WhatsApp!', false);
 
-                const btn = document.getElementById('medEmergencyBtn');
-                btn.textContent = '⚠️ Emergency Sent!';
-                btn.style.background = '#7f1d1d';
-                setTimeout(() => {
-                    btn.innerHTML = '<i class="fas fa-ambulance"></i> 🚨 Emergency · Request Doctor';
-                    btn.style.background = '';
-                }, 3000);
+                const btn = document.getElementById('medEmergencyBtnJS');
+                if (btn) {
+                    btn.textContent = '⚠️ Emergency Sent! Connecting...';
+                    btn.style.background = '#7f1d1d';
+                    setTimeout(() => {
+                        window.location.href = 'WhatsApp/telehealth/index.php?triage=1';
+                    }, 1200);
+                }
             }
 
             function triggerMedicalSearch() {
@@ -1732,7 +1793,7 @@ $cartCount = array_sum(array_column($_SESSION['cart'] ?? [], 'qty'));
             form.addEventListener('submit', addOrUpdate);
             cancelBtn.addEventListener('click', cancelEdit);
             clearFormBtn.addEventListener('click', clearForm);
-            emergencyBtn.addEventListener('click', triggerEmergency);
+            if (emergencyBtn) emergencyBtn.addEventListener('click', triggerEmergency);
             searchInput.addEventListener('input', triggerMedicalSearch);
             sortSelect.addEventListener('change', render);
             document.getElementById('medExportCSV').addEventListener('click', exportMedicalCSV);

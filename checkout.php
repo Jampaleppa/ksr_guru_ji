@@ -1244,8 +1244,44 @@ if ($isLoggedIn) {
 
         const COD_LIMIT = 2000;
         const DELIVERY_CHARGE = 15; // fixed delivery fee
-        const UPI_ID = '8088584421@oksbi';
-        const MERCHANT_UPI_IDS = ['8088584421@oksbi', '8088584421@apl', '9590902742'];
+        const UPI_ID = 'jyampallepparathod-1@oksbi';
+        const APP_UPI_IDS = {
+            gpay: 'jyampallepparathod-1@oksbi',
+            phonepe: '959090274@axl',
+            paytm: '9590902742@ptyes',
+            amazonpay: '8088584421@apl',
+            bhim: '9590902742@upi',
+            upi: 'jyampallepparathod-1@oksbi',
+            qr: 'jyampallepparathod-1@oksbi'
+        };
+        const MERCHANT_UPI_ACCOUNTS = [{
+                name: 'Google Pay',
+                id: 'jyampallepparathod-1@oksbi'
+            },
+            {
+                name: 'PhonePe',
+                id: '9590902742@axl'
+            },
+            {
+                name: 'Paytm',
+                id: '9590902742@ptyes'
+            },
+            {
+                name: 'Amazon Pay',
+                id: '8088584421@apl'
+            },
+            {
+                name: 'BHIM UPI',
+                id: '9590902742@upi'
+            }
+        ];
+        const MERCHANT_UPI_IDS = [
+            'jyampallepparathod-1@oksbi',
+            '9590902742@axl',
+            '9590902742@ptyes',
+            '8088584421@apl',
+            '9590902742@upi'
+        ];
         const COMPANY_NAME = 'KSR GURU JI';
         const COMPANY_PHONE = '8088584421';
         const COMPANY_EMAIL = 'support@ksrguru.com';
@@ -1629,7 +1665,7 @@ if ($isLoggedIn) {
 
         function getUpiAppDeepLink(method, amount) {
             const amtStr = Number(amount).toFixed(2);
-            const pa = '8088584421@oksbi';
+            const pa = (typeof APP_UPI_IDS !== 'undefined' && APP_UPI_IDS[method]) ? APP_UPI_IDS[method] : (typeof UPI_ID !== 'undefined' ? UPI_ID : 'jyampallepparathod-1@oksbi');
             const pn = encodeURIComponent('KSR GURU JI');
             const tn = encodeURIComponent('KSR Order Payment');
             const genericUpi = `upi://pay?pa=${pa}&pn=${pn}&am=${amtStr}&cu=INR&tn=${tn}`;
@@ -1703,19 +1739,22 @@ if ($isLoggedIn) {
                         <i class="fas fa-chevron-down" id="merchantUpiChevron" style="font-size: 0.75rem; color: #64748b;"></i>
                     </button>
                     <div id="merchantUpiPanel" style="display: none; padding: 12px; background: #f8fafc; border: 1px solid #e2e8f0; border-top: none; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">
-                        <strong style="font-size: 0.8rem; color: #475569; display: block; margin-bottom: 8px;">Merchant UPI IDs (Verified)</strong>
+                        <strong style="font-size: 0.8rem; color: #475569; display: block; margin-bottom: 8px;">Verified Merchant UPI Accounts</strong>
                         <div style="display: grid; gap: 8px;">
-                            ${MERCHANT_UPI_IDS.map(upiId => `
+                            ${MERCHANT_UPI_ACCOUNTS.map(acc => `
                                 <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; background: #fff; padding: 7px 10px; border-radius: 8px; border: 1px solid #e2e8f0;">
-                                    <span style="overflow-wrap: anywhere; font-weight: 700; font-size: 0.86rem; color: #0f172a;">${escapeHtml(upiId)}</span>
-                                    <button type="button" onclick="navigator.clipboard.writeText('${escapeHtml(upiId)}'); showToast('Copied ${escapeHtml(upiId)}', 'success');" title="Copy UPI ID" style="display: inline-flex; align-items: center; gap: 4px; padding: 4px 8px; border: 1px solid #bae6fd; border-radius: 6px; background: #f0f9ff; color: #0369a1; font-weight: 700; font-size: 0.74rem; cursor: pointer;">
+                                    <div>
+                                        <span style="font-size: 0.72rem; font-weight: 600; color: #0f7b3a; display: block;">${escapeHtml(acc.name)}</span>
+                                        <span style="overflow-wrap: anywhere; font-weight: 700; font-size: 0.86rem; color: #0f172a;">${escapeHtml(acc.id)}</span>
+                                    </div>
+                                    <button type="button" onclick="navigator.clipboard.writeText('${escapeHtml(acc.id)}'); showToast('Copied ${escapeHtml(acc.id)}', 'success');" title="Copy UPI ID" style="display: inline-flex; align-items: center; gap: 4px; padding: 5px 10px; border: 1px solid #bae6fd; border-radius: 6px; background: #f0f9ff; color: #0369a1; font-weight: 700; font-size: 0.74rem; cursor: pointer; white-space: nowrap;">
                                         <i class="fas fa-copy" aria-hidden="true"></i> Copy
                                     </button>
                                 </div>
                             `).join('')}
                         </div>
                         <div style="font-size: 0.75rem; line-height: 1.4; color: #64748b; margin-top: 8px;">
-                            For account reference. Complete this order in Razorpay Checkout so payment is verified automatically.
+                            For direct account transfer or scan QR code. Complete this order in Razorpay Checkout for automated verification.
                         </div>
                     </div>
                 </div>
@@ -1747,57 +1786,74 @@ if ($isLoggedIn) {
                 qr: {
                     icon: 'fas fa-qrcode',
                     color: '#10b981',
-                    title: 'UPI via Razorpay',
-                    appTitle: 'Any UPI App',
-                    blurb: 'Choose an available UPI app in Razorpay Checkout. Payment is confirmed after Razorpay verifies it.'
+                    title: 'Scan QR Code',
+                    appTitle: 'UPI QR Scanner',
+                    blurb: 'Scan the official KSR Guru Ji QR Code below using Google Pay, PhonePe, Paytm, BHIM, or any UPI app.'
                 },
                 upi: {
                     icon: 'fas fa-at',
                     color: '#097969',
                     title: 'Pay by UPI',
                     appTitle: 'UPI ID / VPA',
-                    blurb: 'Choose an available UPI app in Razorpay Checkout. Payment is confirmed after Razorpay verifies it.'
+                    blurb: 'Tap any UPI app below to pay directly, or choose your UPI app in Razorpay Checkout.'
                 },
                 gpay: {
                     icon: 'fab fa-google-pay',
                     color: '#4285f4',
                     title: 'Google Pay',
                     appTitle: 'Google Pay',
-                    blurb: 'Choose Google Pay in Razorpay Checkout. Payment is confirmed after Razorpay verifies it.'
+                    blurb: 'Pay securely using Google Pay. Tap below to launch Google Pay app or complete via Razorpay.'
                 },
                 phonepe: {
                     icon: 'fas fa-mobile-alt',
                     color: '#5f259f',
                     title: 'PhonePe',
                     appTitle: 'PhonePe',
-                    blurb: 'Choose PhonePe in Razorpay Checkout. Payment is confirmed after Razorpay verifies it.'
+                    blurb: 'Pay securely using PhonePe. Tap below to launch PhonePe app or complete via Razorpay.'
                 },
                 paytm: {
                     icon: 'fas fa-wallet',
                     color: '#00baf2',
                     title: 'Paytm',
                     appTitle: 'Paytm',
-                    blurb: 'Choose Paytm in Razorpay Checkout. Payment is confirmed after Razorpay verifies it.'
+                    blurb: 'Pay securely using Paytm UPI or Wallet. Tap below to launch Paytm or complete via Razorpay.'
                 },
                 bhim: {
                     icon: 'fas fa-hand-holding-heart',
                     color: '#1a73e8',
                     title: 'BHIM UPI',
                     appTitle: 'BHIM UPI',
-                    blurb: 'Choose BHIM in Razorpay Checkout. Payment is confirmed after Razorpay verifies it.'
+                    blurb: 'Pay securely using BHIM UPI. Tap below to launch BHIM app or complete via Razorpay.'
                 },
                 amazonpay: {
                     icon: 'fab fa-amazon',
                     color: '#ff9900',
                     title: 'Amazon Pay',
                     appTitle: 'Amazon Pay',
-                    blurb: 'Choose Amazon Pay in Razorpay Checkout. Payment is confirmed after Razorpay verifies it.'
+                    blurb: 'Pay securely using Amazon Pay UPI. Tap below to launch Amazon app or complete via Razorpay.'
                 }
             };
 
             const info = meta[method] || meta.upi;
             const appDeepLink = getUpiAppDeepLink(method, total);
-            const qrImageUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(appDeepLink)}`;
+            const qrImageUrl = '/images/ksr_upi_qr.png';
+            const specificUpiId = APP_UPI_IDS[method] || '';
+
+            // Individual UPI ID copy banner for specific methods
+            let upiIdBannerHtml = '';
+            if (specificUpiId && method !== 'upi' && method !== 'qr') {
+                upiIdBannerHtml = `
+                    <div style="margin: 10px 0; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 10px; padding: 10px 14px; display: flex; align-items: center; justify-content: space-between; gap: 8px;">
+                        <div>
+                            <span style="font-size: 0.72rem; color: #166534; display: block; font-weight: 600;">${escapeHtml(info.appTitle)} UPI ID:</span>
+                            <span style="font-weight: 800; font-size: 0.88rem; color: #0f172a; word-break: break-all;">${escapeHtml(specificUpiId)}</span>
+                        </div>
+                        <button type="button" onclick="navigator.clipboard.writeText('${escapeHtml(specificUpiId)}'); showToast('Copied ${escapeHtml(specificUpiId)}', 'success');" style="display: inline-flex; align-items: center; gap: 4px; padding: 6px 12px; border: 1px solid #86efac; border-radius: 6px; background: #ffffff; color: #15803d; font-weight: 700; font-size: 0.76rem; cursor: pointer; white-space: nowrap; box-shadow: 0 1px 3px rgba(0,0,0,0.06);">
+                            <i class="fas fa-copy"></i> Copy
+                        </button>
+                    </div>
+                `;
+            }
 
             let appButtonHtml = '';
             if (method === 'upi') {
@@ -1834,8 +1890,10 @@ if ($isLoggedIn) {
                                 <i class="fas fa-qrcode" style="color: #0f7b3a;"></i> <span id="desktopQrToggleText">Or click to Scan UPI QR Code with Phone</span>
                             </button>
                             <div id="desktopUpiQrWrap" style="display: none; margin-top: 10px; flex-direction: column; align-items: center;">
-                                <img src="${qrImageUrl}" alt="Scan UPI QR" style="width: 140px; height: 140px; border-radius: 12px; border: 1px solid #e2e8f0; padding: 4px; background: #fff;" onerror="this.style.display='none';">
-                                <div style="font-size: 0.72rem; color: #64748b; margin-top: 4px;">Scan with Google Pay, PhonePe, Paytm, or any UPI app</div>
+                                <div style="padding: 6px; background: #fff; border: 1.5px solid #0f7b3a; border-radius: 12px; box-shadow: 0 4px 12px rgba(15,123,58,0.12);">
+                                    <img src="${qrImageUrl}" alt="Scan UPI QR" style="width: 150px; height: 150px; object-fit: contain; border-radius: 8px; display: block;" onerror="if(this.src.indexOf('../images')===-1){this.src='../images/ksr_upi_qr.png';}">
+                                </div>
+                                <div style="font-size: 0.74rem; color: #64748b; margin-top: 6px; font-weight: 600;">Scan with Google Pay, PhonePe, Paytm, or any UPI app</div>
                             </div>
                         </div>
                         <div style="font-size: 0.74rem; color: #64748b; text-align: center; margin-top: 8px;">
@@ -1843,23 +1901,32 @@ if ($isLoggedIn) {
                         </div>
                     </div>
                 `;
-            } else if (method !== 'qr') {
+            } else if (method === 'qr') {
                 appButtonHtml = `
-                    <div style="margin: 12px 0 8px 0;">
-                        <a href="${appDeepLink}" class="pay-intent-btn" style="display: flex; align-items: center; justify-content: center; gap: 10px; background: ${info.color}; color: #fff; padding: 12px 16px; border-radius: 12px; font-weight: 700; text-decoration: none; font-size: 0.95rem; box-shadow: 0 4px 10px rgba(0,0,0,0.12); transition: transform 0.2s; text-align: center;">
-                            <i class="${info.icon}"></i> Open ${info.appTitle} App
-                        </a>
-                        <div style="font-size: 0.74rem; color: #64748b; text-align: center; margin-top: 6px;">
-                            <i class="fas fa-shield-alt" style="color: #10b981;"></i> Click to launch app on Android/iOS, or click Place Order for Razorpay checkout.
+                    <div style="display: flex; flex-direction: column; align-items: center; margin: 12px 0;">
+                        <div style="padding: 8px; background: #fff; border: 2px solid #0f7b3a; border-radius: 16px; box-shadow: 0 4px 16px rgba(15,123,58,0.16);">
+                            <img src="${qrImageUrl}" alt="Scan UPI QR Code" style="width: 180px; height: 180px; object-fit: contain; border-radius: 10px; display: block;" onerror="if(this.src.indexOf('../images')===-1){this.src='../images/ksr_upi_qr.png';}">
+                        </div>
+                        <div style="font-size: 0.85rem; font-weight: 700; color: #0f172a; margin-top: 8px;">
+                            Scan &amp; Pay using any UPI App
+                        </div>
+                        <div style="font-size: 0.75rem; color: #64748b; text-align: center; margin-top: 2px;">
+                            Google Pay · PhonePe · Paytm · BHIM · Amazon Pay
+                        </div>
+                        <div style="margin-top: 8px; font-size: 0.74rem; color: #0f7b3a; font-weight: 600; display: flex; align-items: center; gap: 4px;">
+                            <i class="fas fa-check-circle"></i> Verified KSR GURU JI Merchant QR
                         </div>
                     </div>
                 `;
             } else {
                 appButtonHtml = `
-                    <div style="display: flex; flex-direction: column; align-items: center; margin: 10px 0;">
-                        <img src="${qrImageUrl}" alt="Scan UPI QR" style="width: 140px; height: 140px; border-radius: 12px; border: 1px solid #e2e8f0; padding: 4px; background: #fff;" onerror="this.style.display='none';">
+                    <div style="margin: 12px 0 8px 0;">
+                        ${upiIdBannerHtml}
+                        <a href="${appDeepLink}" class="pay-intent-btn" style="display: flex; align-items: center; justify-content: center; gap: 10px; background: ${info.color}; color: #fff; padding: 12px 16px; border-radius: 12px; font-weight: 700; text-decoration: none; font-size: 0.95rem; box-shadow: 0 4px 10px rgba(0,0,0,0.12); transition: transform 0.2s; text-align: center;">
+                            <i class="${info.icon}"></i> Open ${info.appTitle} App
+                        </a>
                         <div style="font-size: 0.74rem; color: #64748b; text-align: center; margin-top: 6px;">
-                            Scan with Google Pay, PhonePe, Paytm, BHIM or any UPI app
+                            <i class="fas fa-shield-alt" style="color: #10b981;"></i> Click to launch app on Android/iOS, or click Place Order for Razorpay checkout.
                         </div>
                     </div>
                 `;

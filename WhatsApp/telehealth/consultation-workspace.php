@@ -484,14 +484,11 @@ if ($patientInitials === '') $patientInitials = 'RK';
 
         searchTimeout = setTimeout(async () => {
             try {
-                const res = await fetch('../../api/telehealth/api_inventory_search.php?q=' + encodeURIComponent(input.value));
+                let res = await fetch('api_inventory_search.php?q=' + encodeURIComponent(input.value));
                 if (!res.ok) {
-                    // Fallback to local path if api folder structure differs
-                    const res2 = await fetch('api_inventory_search.php?q=' + encodeURIComponent(input.value));
-                    var data = await res2.json();
-                } else {
-                    var data = await res.json();
+                    res = await fetch('../api/telehealth/api_inventory_search.php?q=' + encodeURIComponent(input.value));
                 }
+                const data = await res.json();
                 
                 resultsDiv.innerHTML = '';
                 if (data.results && data.results.length > 0) {
@@ -533,40 +530,52 @@ if ($patientInitials === '') $patientInitials = 'RK';
         const medicines = [];
         document.querySelectorAll('.rx-table tbody tr').forEach(row => {
             const inputs = row.querySelectorAll('input');
-            if (inputs.length >= 4 && inputs[0].value.trim() !== '') {
+            if (inputs.length >= 1 && inputs[0].value.trim() !== '') {
                 medicines.push({
-                    name: inputs[0].value.trim(),
-                    type: inputs[1].value.trim(),
-                    dose: inputs[2].value.trim(),
-                    freq: inputs[3].value.trim(),
-                    dur: inputs[4].value.trim()
+                    name: inputs[0] ? inputs[0].value.trim() : '',
+                    type: inputs[1] ? inputs[1].value.trim() : '',
+                    dose: inputs[2] ? inputs[2].value.trim() : '',
+                    freq: inputs[3] ? inputs[3].value.trim() : '',
+                    dur: inputs[4] ? inputs[4].value.trim() : ''
                 });
             }
         });
 
         // 2. Package Payload
+        const assessmentEl = document.querySelector('textarea[placeholder*="Clinical Assessment"]');
+        const rxNotesEl = document.querySelector('textarea[placeholder*="General Rx Instructions"]');
+        const diagnosisEl = document.querySelector('.doc-section .input-box div[style*="font-weight:800"]');
+        
         const payload = {
             patientId: '<?php echo $patientId; ?>',
             apptId: '<?php echo $apptId; ?>',
             medicines: medicines,
-            notes: 'Test note',
-            diagnosis: 'Test diagnosis'
+            notes: (assessmentEl ? assessmentEl.value.trim() : '') + (rxNotesEl && rxNotesEl.value.trim() ? '\nInstructions: ' + rxNotesEl.value.trim() : ''),
+            diagnosis: diagnosisEl ? diagnosisEl.innerText.trim() : 'General Consultation'
         };
 
         // 3. Dispatch to Gateway
         try {
-            const res = await fetch('../../api/telehealth/submit-prescription.php', {
+            let res = await fetch('../api/telehealth/submit-prescription.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
             });
+            if (!res.ok) {
+                // Fallback attempt if nested differently
+                res = await fetch('../../api/telehealth/submit-prescription.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+            }
             const data = await res.json();
             
             feedback.style.display = 'block';
             if (data.success) {
                 feedback.style.background = '#F0FDF4';
                 feedback.style.color = '#166534';
-                feedback.innerText = 'Prescription successfully validated and committed (ID: ' + data.audit_id + '). Redirecting...';
+                feedback.innerText = 'Prescription successfully validated and committed (ID: ' + (data.audit_id || 'OK') + '). Redirecting...';
                 
                 // Clear draft if any
                 localStorage.removeItem('rx_draft');
@@ -576,7 +585,7 @@ if ($patientInitials === '') $patientInitials = 'RK';
                     window.location.href = 'doctor-appointments.php';
                 }, 2000);
             } else {
-                throw new Error(data.message);
+                throw new Error(data.message || 'Submission failed');
             }
         } catch (err) {
             feedback.style.display = 'block';

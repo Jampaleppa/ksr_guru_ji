@@ -87,19 +87,18 @@ function getColdDrinksProducts(string $search = ''): array {
                         }
                     }
                 }
-                
-                if (!empty($finalImage) && !str_starts_with($finalImage, 'http') && !str_starts_with($finalImage, '../')) {
-                    $finalImage = '../images/' . ltrim(str_replace('images/', '', $finalImage), '/');
-                }
             } else {
-                $finalImage = (function($img) {
-                    if (str_starts_with($img, 'http') || str_starts_with($img, 'data:')) return $img;
-                    $img = str_replace(['D:\\KSR Guru\\', 'D:\\KSR Guru JI\\'], '', $img);
-                    $img = str_replace('\\', '/', $img);
-                    if (str_starts_with($img, 'images/')) return '../' . $img;
-                    if (!str_starts_with($img, '../')) return '../images/' . ltrim($img, '/');
-                    return $img;
-                })($dbIcon);
+                $finalImage = $dbIcon;
+            }
+
+            if (!empty($finalImage) && !str_starts_with($finalImage, 'http') && !str_starts_with($finalImage, 'data:')) {
+                $clean = str_replace(['D:\\KSR Guru\\', 'D:\\KSR Guru JI\\'], '', $finalImage);
+                $clean = str_replace('\\', '/', $clean);
+                $idx = stripos($clean, 'images/');
+                if ($idx !== false) {
+                    $clean = substr($clean, $idx + 7);
+                }
+                $finalImage = '../images/' . ltrim($clean, '/');
             }
 
             $products[] = [
@@ -162,14 +161,13 @@ function getFallbackColdDrinksProducts(): array {
         
         $imagePath = $item['imageUrl'] ?? '';
         if ($imagePath && !str_starts_with($imagePath, 'http') && !str_starts_with($imagePath, 'data:')) {
-            $imagePath = str_replace('D:\\KSR Guru\\', '', $imagePath);
-            $imagePath = str_replace('D:\\KSR Guru JI\\', '', $imagePath);
-            $imagePath = str_replace('\\', '/', $imagePath);
-            if (!str_starts_with($imagePath, 'images/') && !str_starts_with($imagePath, '../')) {
-                $imagePath = '../images/' . ltrim($imagePath, '/');
-            } elseif (!str_starts_with($imagePath, '../')) {
-                $imagePath = '../' . ltrim($imagePath, '/');
+            $clean = str_replace(['D:\\KSR Guru\\', 'D:\\KSR Guru JI\\'], '', $imagePath);
+            $clean = str_replace('\\', '/', $clean);
+            $idx = stripos($clean, 'images/');
+            if ($idx !== false) {
+                $clean = substr($clean, $idx + 7);
             }
+            $imagePath = '../images/' . ltrim($clean, '/');
         }
 
         $result[] = [
@@ -438,7 +436,8 @@ $cartCount = array_sum(array_column($_SESSION['cart'] ?? [], 'qty'));
       
       let imgHtml = '';
       if (p.image && p.image.trim() !== '') {
-        imgHtml = `<img src="${p.image}" alt="" onerror="this.parentElement.textContent='${p.emoji}'">`;
+        const rootImg = p.image.replace(/^\.\.\//, '/');
+        imgHtml = `<img src="${p.image}" alt="${p.nameEn}" loading="lazy" onerror="if(!this.dataset.fallbackTried){this.dataset.fallbackTried='1';this.src='${rootImg}';}else{this.parentElement.innerHTML='<span style=\\'font-size:3rem;\\'>${p.emoji}</span>';}">`;
       } else {
         imgHtml = `<span style="font-size:3rem;">${p.emoji}</span>`;
       }

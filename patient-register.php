@@ -82,13 +82,33 @@ if (pp_is_post()) {
 
     // --- uniqueness ---
     if (!$errors) {
-        $hasMobile = in_array('mobile', pp_columns('users'), true);
-        $chk = $hasMobile
-            ? pp_db()->prepare("SELECT id FROM users WHERE mobile = ? OR email = ? LIMIT 1")
-            : pp_db()->prepare("SELECT id FROM users WHERE phone = ? OR email = ? LIMIT 1");
-        $chk->execute([$old['mobile'], $old['email'] !== '' ? $old['email'] : '__none__']);
+        $uCols = pp_columns('users');
+        $hasMobile = in_array('mobile', $uCols, true);
+        $hasPhone = in_array('phone', $uCols, true);
+        $whereParts = [];
+        $params = [];
+        if ($hasMobile) {
+            $whereParts[] = "mobile = ?";
+            $params[] = $old['mobile'];
+        }
+        if ($hasPhone) {
+            $whereParts[] = "phone = ?";
+            $params[] = $old['mobile'];
+        }
+        // Always check the exact email value that will be inserted
+        $effectiveEmail = $old['email'] !== '' ? $old['email'] : ($old['mobile'] . '@patient.local');
+        $whereParts[] = "email = ?";
+        $params[] = $effectiveEmail;
+        // Also check the synthetic fallback separately if a real email was given
+        if ($old['email'] !== '') {
+            $whereParts[] = "email = ?";
+            $params[] = $old['mobile'] . '@patient.local';
+        }
+
+        $chk = pp_db()->prepare("SELECT id FROM users WHERE (" . implode(' OR ', $whereParts) . ") LIMIT 1");
+        $chk->execute($params);
         if ($chk->fetch()) {
-            $errors[] = 'An account with this mobile/email already exists.';
+            $errors[] = 'An account with this mobile number or email already exists. Please log in.';
         }
     }
 
@@ -96,46 +116,121 @@ if (pp_is_post()) {
         try {
             pp_db()->beginTransaction();
 
-            $hasMobile = in_array('mobile', pp_columns('users'), true);
+            $uCols = pp_columns('users');
+            $hasMobile = in_array('mobile', $uCols, true);
+            $hasPhone = in_array('phone', $uCols, true);
+            $hasAddress = in_array('address', $uCols, true);
+            $hasStatus = in_array('account_status', $uCols, true);
 
-            $sql = "INSERT INTO users (name, email, phone, password, address, role"
-                . ($hasMobile ? ', mobile, account_status' : '')
-                . ") VALUES (?, ?, ?, ?, ?, 'customer'"
-                . ($hasMobile ? ", ?, 'PENDING_VERIFICATION'" : '')
-                . ")";
-            $base = [
+            $insertCols = ['name', 'email', 'password', 'role'];
+            $insertVals = [
                 $old['full_name'],
-                // `email` is NOT NULL UNIQUE in the base schema
                 $old['email'] !== '' ? $old['email'] : ($old['mobile'] . '@patient.local'),
-                $old['mobile'],
                 password_hash($password, PASSWORD_DEFAULT),
-                $old['address'],
+                'customer',
             ];
+
+            if ($hasPhone) {
+                $insertCols[] = 'phone';
+                $insertVals[] = $old['mobile'];
+            }
             if ($hasMobile) {
-                $base[] = $old['mobile'];
+                $insertCols[] = 'mobile';
+                $insertVals[] = $old['mobile'];
+            }
+            if ($hasAddress) {
+                $insertCols[] = 'address';
+                $insertVals[] = $old['address'];
+            }
+            if ($hasStatus) {
+                $insertCols[] = 'account_status';
+                $insertVals[] = 'PENDING_VERIFICATION';
             }
 
+            $placeholders = implode(', ', array_fill(0, count($insertCols), '?'));
+            $sql = "INSERT INTO users (" . implode(', ', $insertCols) . ") VALUES ($placeholders)";
             $ins = pp_db()->prepare($sql);
-            $ins->execute($base);
+            $ins->execute($insertVals);
             $userId = (int)pp_db()->lastInsertId();
 
             if (!pp_table_exists('patients')) {
-                throw new PDOException('Table "patients" is missing - run migrations/patient_portal.sql');
+                if (pp_driver() === 'sqlite') {
+                    pp_db()->exec("CREATE TABLE IF NOT EXISTS patients (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        user_id INTEGER,
+                        patient_name TEXT NOT NULL DEFAULT '',
+                        date_of_birth TEXT,
+                        gender TEXT,
+                        mobile_number TEXT,
+                        address TEXT,
+                        emergency_contact TEXT,
+                        created_at TEXT DEFAULT (datetime('now', 'localtime'))
+                    )");
+                } else {
+                    pp_db()->exec("CREATE TABLE IF NOT EXISTS `patients` (
+                        `id` int(11) NOT NULL AUTO_INCREMENT,
+                        `user_id` int(11) NOT NULL,
+                        `patient_name` varchar(150) NOT NULL,
+                        `date_of_birth` date DEFAULT NULL,
+                        `gender` ENUM('Male','Female','Other') DEFAULT 'Male',
+                        `mobile_number` varchar(20) DEFAULT NULL,
+                        `address` text DEFAULT NULL,
+                        `emergency_contact` varchar(150) DEFAULT NULL,
+                        `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                        PRIMARY KEY (`id`),
+                        KEY `idx_patient_user` (`user_id`)
+                    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
+                }
             }
 
-            $insP = pp_db()->prepare(
-                "INSERT INTO patients (user_id, patient_name, date_of_birth, gender, mobile_number, address, emergency_contact)
-                 VALUES (?, ?, ?, ?, ?, ?, ?)"
-            );
-            $insP->execute([
-                $userId,
-                $old['full_name'],
-                $old['dob'],
-                $old['gender'],
-                $old['mobile'],
-                $old['address'],
-                $old['emergency_contact'],
-            ]);
+            $pCols = pp_columns('patients');
+            $pInsertCols = ['user_id'];
+            $pInsertVals = [$userId];
+
+            if (in_array('patient_name', $pCols, true)) {
+                $pInsertCols[] = 'patient_name';
+                $pInsertVals[] = $old['full_name'];
+            }
+            if (in_array('name', $pCols, true)) {
+                $pInsertCols[] = 'name';
+                $pInsertVals[] = $old['full_name'];
+            }
+            if (in_array('date_of_birth', $pCols, true)) {
+                $pInsertCols[] = 'date_of_birth';
+                $pInsertVals[] = !empty($old['dob']) ? $old['dob'] : null;
+            }
+            if (in_array('dob', $pCols, true)) {
+                $pInsertCols[] = 'dob';
+                $pInsertVals[] = !empty($old['dob']) ? $old['dob'] : null;
+            }
+            if (in_array('gender', $pCols, true)) {
+                $pInsertCols[] = 'gender';
+                $pInsertVals[] = $old['gender'] ?: 'Male';
+            }
+            if (in_array('mobile_number', $pCols, true)) {
+                $pInsertCols[] = 'mobile_number';
+                $pInsertVals[] = $old['mobile'];
+            }
+            if (in_array('mobile', $pCols, true)) {
+                $pInsertCols[] = 'mobile';
+                $pInsertVals[] = $old['mobile'];
+            }
+            if (in_array('phone', $pCols, true) && !in_array('mobile', $pCols, true)) {
+                $pInsertCols[] = 'phone';
+                $pInsertVals[] = $old['mobile'];
+            }
+            if (in_array('address', $pCols, true)) {
+                $pInsertCols[] = 'address';
+                $pInsertVals[] = $old['address'];
+            }
+            if (in_array('emergency_contact', $pCols, true)) {
+                $pInsertCols[] = 'emergency_contact';
+                $pInsertVals[] = $old['emergency_contact'];
+            }
+
+            $pPlaceholders = implode(', ', array_fill(0, count($pInsertCols), '?'));
+            $insP = pp_db()->prepare("INSERT INTO patients (" . implode(', ', $pInsertCols) . ") VALUES ($pPlaceholders)");
+            $insP->execute($pInsertVals);
 
             pp_db()->commit();
 
@@ -151,7 +246,7 @@ if (pp_is_post()) {
                         "🎉 *Welcome to KSR GURU JI!*\n\n" .
                         "Hello *{$old['full_name']}*,\n" .
                         "Your patient account has been created successfully.\n\n" .
-                        "🛡️ Patient Portal: https://ksrgurujiupload.vercel.app/patient-login.php\n" .
+                        "🛡️ Patient Portal: https://ksrguruji.com/patient-login.php\n" .
                         "📞 Support: 6362079192\n\n" .
                         "Please verify your mobile number to activate your account."
                     );
@@ -163,10 +258,17 @@ if (pp_is_post()) {
             pp_clear_failures('register:' . pp_ip());
             $_SESSION['pending_verify_user'] = $userId;
             pp_redirect('patient-verify.php?purpose=registration');
-        } catch (PDOException $ex) {
-            pp_db()->rollBack();
-            $errors[] = 'Registration could not be saved. Please try again.';
-            error_log('patient-register: ' . $ex->getMessage());
+        } catch (Throwable $ex) {
+            if (pp_db()->inTransaction()) {
+                pp_db()->rollBack();
+            }
+            $msg = $ex->getMessage();
+            if (stripos($msg, 'duplicate') !== false || stripos($msg, 'unique') !== false) {
+                $errors[] = 'An account with this mobile number or email already exists. Please log in.';
+            } else {
+                $errors[] = 'Registration could not be saved. Please try again.';
+                error_log('patient-register error: ' . $msg);
+            }
         }
     }
     pp_log_attempt('register:' . pp_ip(), empty($errors));

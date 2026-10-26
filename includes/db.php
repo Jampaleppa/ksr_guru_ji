@@ -113,6 +113,7 @@ if (!function_exists('_bootstrapSQLiteSchema')) {
                 phone       TEXT,
                 mobile      TEXT,
                 password    TEXT,
+                address     TEXT,
                 role        TEXT    NOT NULL DEFAULT 'user',
                 ksr_id      TEXT,
                 account_status TEXT DEFAULT 'ACTIVE',
@@ -416,6 +417,45 @@ if (!function_exists('_bootstrapSQLiteSchema')) {
                 is_read     INTEGER DEFAULT 0,
                 created_at  TEXT DEFAULT (datetime('now'))
             )",
+
+            // ── Suggestions: Products & Medical ──────────────────────────────
+            "CREATE TABLE IF NOT EXISTS suggestions_products (
+                id          TEXT PRIMARY KEY,
+                user_id     INTEGER NULL,
+                name        TEXT NOT NULL,
+                price       REAL NOT NULL,
+                unit        TEXT NOT NULL,
+                qty         INTEGER NOT NULL DEFAULT 1,
+                note        TEXT,
+                payment     TEXT,
+                payment_status TEXT DEFAULT 'Paid',
+                upi_id      TEXT,
+                image_base64 TEXT,
+                created_at  TEXT DEFAULT (datetime('now')),
+                updated_at  TEXT DEFAULT (datetime('now'))
+            )",
+
+            "CREATE TABLE IF NOT EXISTS suggestions_medical (
+                id          TEXT PRIMARY KEY,
+                user_id     INTEGER NULL,
+                patient_name TEXT NOT NULL,
+                age         INTEGER NOT NULL,
+                gender      TEXT NOT NULL,
+                shop_name   TEXT NOT NULL,
+                symptoms    TEXT,
+                suggested_meds TEXT,
+                diagnosis   TEXT,
+                date        TEXT,
+                doctor_name TEXT,
+                suggestion  TEXT NOT NULL,
+                payment     TEXT,
+                payment_status TEXT DEFAULT 'Paid',
+                upi_id      TEXT,
+                prescription_image TEXT,
+                resolved    INTEGER DEFAULT 0,
+                created_at  TEXT DEFAULT (datetime('now')),
+                updated_at  TEXT DEFAULT (datetime('now'))
+            )",
         ];
 
         foreach ($tables as $sql) {
@@ -457,6 +497,15 @@ if (!function_exists('_bootstrapSQLiteSchema')) {
                 try { $pdo->exec("ALTER TABLE users ADD COLUMN verified_at TEXT"); } catch (Throwable $e) {}
                 try { $pdo->exec("ALTER TABLE users ADD COLUMN failed_logins INTEGER DEFAULT 0"); } catch (Throwable $e) {}
                 try { $pdo->exec("ALTER TABLE users ADD COLUMN last_login_at TEXT"); } catch (Throwable $e) {}
+            }
+            if (!in_array('address', $uCols, true)) {
+                try { $pdo->exec("ALTER TABLE users ADD COLUMN address TEXT"); } catch (Throwable $e) {}
+            }
+            if (!in_array('mobile', $uCols, true)) {
+                try { $pdo->exec("ALTER TABLE users ADD COLUMN mobile TEXT"); } catch (Throwable $e) {}
+            }
+            if (!in_array('account_status', $uCols, true)) {
+                try { $pdo->exec("ALTER TABLE users ADD COLUMN account_status TEXT DEFAULT 'PENDING_VERIFICATION'"); } catch (Throwable $e) {}
             }
         } catch (Throwable $e) {}
 
