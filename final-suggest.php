@@ -572,7 +572,7 @@ $cartCount = array_sum(array_column($_SESSION['cart'] ?? [], 'qty'));
                 'BHIM UPI': 'bhim',
                 'Amazon Pay': 'amazonpay'
             };
-            return map[val] || 'qr';
+            return map[val] || 'upi';
         }
 
         function setCheckoutPaymentMethod(methodVal) {

@@ -519,28 +519,11 @@ function dp_consult_label(string $type): string
 <body>
     <?php $ksr_active = '';
     $ksr_depth = 0;
-    include __DIR__ . '/partials/brandbar.php'; ?>
+    include __DIR__ . '/partials/brandbar.php';
+    $navActive = 'patients';
+    include __DIR__ . '/partials/doctor-nav.php'; ?>
 
-    <nav class="navbar doc-nav">
-        <div class="container" style="display:flex; justify-content:space-between; align-items:center; height:100%;">
-            <div style="display:flex; align-items:center; gap:32px;">
-                <a href="doctor-dashboard.php" class="navbar-brand"><i class="fas fa-heartbeat"></i> DOCTOR PORTAL</a>
-                <div class="navbar-links" style="display:flex; gap:22px;">
-                    <a href="doctor-dashboard.php" style="font-weight:600; text-decoration:none;"><i class="fas fa-th-large"></i> Dashboard</a>
-                    <a href="doctor-appointments.php" style="font-weight:600; text-decoration:none;"><i class="fas fa-calendar-check"></i> Appointments</a>
-                    <a href="doctor-patients.php" class="active" style="font-weight:600;"><i class="fas fa-users"></i> Patients</a>
-                    <a href="doctor-prescriptions.php" style="font-weight:600; text-decoration:none;"><i class="fas fa-file-prescription"></i> Prescriptions</a>
-                </div>
-            </div>
-            <div style="display:flex; align-items:center; gap:18px;">
-                <a href="index.php" style="color:#9FB3BE; font-size:1.05rem; text-decoration:none; font-weight:600;"><i class="fas fa-house"></i></a>
-                <a href="notifications.php" style="color:#9FB3BE; font-size:1.1rem;"><i class="fas fa-bell"></i></a>
-                <a href="doctor-profile-settings.php" class="profile-badge" style="padding:9px 15px; border-radius:20px; text-decoration:none; font-weight:600;">
-                    <i class="fas fa-user-md"></i> <?php echo h($doc['name']); ?>
-                </a>
-            </div>
-        </div>
-    </nav>
+    
 
     <div class="container-main">
         <div class="grid-layout">

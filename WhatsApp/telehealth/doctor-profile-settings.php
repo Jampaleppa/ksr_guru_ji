@@ -400,30 +400,11 @@ $docName = $_SESSION['user_name'] ?? 'DR. D C Rathod';
     <link rel="stylesheet" href="assist-style.css">
     <?php $ksr_active = '';
     $ksr_depth = 0;
-    include __DIR__ . '/partials/brandbar.php'; ?>
+    include __DIR__ . '/partials/brandbar.php';
+    $navActive = 'profile';
+    include __DIR__ . '/partials/doctor-nav.php'; ?>
 
-
-
-
-
-
-    <nav class="navbar doc-nav">
-        <div class="container" style="display: flex; justify-content: space-between; align-items: center; height: 100%;">
-            <div style="display:flex; align-items:center; gap:32px;">
-                <a href="doctor-dashboard.php" class="navbar-brand"><i class="fas fa-heartbeat"></i> DOCTOR PORTAL</a>
-                <div class="navbar-links" style="display: flex; gap: 16px;">
-                    <a href="doctor-dashboard.php" style="font-weight:600;"><i class="fas fa-th-large"></i> Dashboard</a>
-                    <a href="doctor-appointments.php" style="font-weight:600;"><i class="fas fa-calendar-check"></i> Appointments</a>
-                    <a href="doctor-patients.php" style="font-weight:600;"><i class="fas fa-users"></i> Patients</a>
-                    <a href="doctor-earnings.php" style="font-weight:600;"><i class="fas fa-wallet"></i> Earnings</a>
-                    <a href="doctor-profile-settings.php" class="active" style="font-weight:600;"><i class="fas fa-id-card"></i> Profile</a>
-                </div>
-            </div>
-            <div style="display:flex; align-items:center; gap:20px;">
-                <a href="doctor-profile-settings.php" class="profile-badge" style="padding:10px 16px; border-radius:20px; text-decoration:none; font-weight:600;"><i class="fas fa-user-md"></i> <?php echo htmlspecialchars($docName); ?></a>
-            </div>
-        </div>
-    </nav>
+    
 
     <div class="container-main">
 

@@ -44,17 +44,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_banner'])) {
 
     $image_url = '';
     if (!empty($_FILES['image']['name'])) {
-        $target_dir = '../uploads/banners/';
-        if (!is_dir($target_dir)) mkdir($target_dir, 0777, true);
+        $preferredUpload = rtrim(dirname(__DIR__), '/\\') . '/uploads/banners/';
+        if (is_writable(dirname(__DIR__)) || (is_dir($preferredUpload) && is_writable($preferredUpload))) {
+            $target_dir = $preferredUpload;
+        } else {
+            $target_dir = sys_get_temp_dir() . '/ksr_banners/';
+        }
+        if (!is_dir($target_dir)) {
+            @mkdir($target_dir, 0777, true);
+        }
         $ext = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
         $filename = time() . '_' . uniqid() . '.' . $ext;
         $target_file = $target_dir . $filename;
-        if (move_uploaded_file($_FILES['image']['tmp_name'], $target_file)) {
-            $image_url = 'uploads/banners/' . $filename;
+        if (@move_uploaded_file($_FILES['image']['tmp_name'], $target_file)) {
+            // Only expose a public URL when saved inside the project tree
+            if (strpos($target_dir, sys_get_temp_dir()) === false) {
+                $image_url = 'uploads/banners/' . $filename;
+            }
+            // else: banner saved to /tmp — URL will be empty but record still saves
         } else {
-            $error = 'Failed to upload image.';
+            $error = 'Failed to upload image. Please try again.';
         }
     }
+
 
     if (empty($error)) {
         try {

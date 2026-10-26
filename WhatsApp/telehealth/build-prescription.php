@@ -288,7 +288,10 @@ if (!$presetRows) {
     <!-- KSR brand bar (shared) -->
     <link rel="stylesheet" href="partials/brandbar.css">
     <link rel="stylesheet" href="assist-style.css">
-    <?php $ksr_active = 'prescriptions'; $ksr_depth = 0; include __DIR__ . '/partials/brandbar.php'; ?>
+    <?php $ksr_active = ''; $ksr_depth = 0;
+include __DIR__ . '/partials/brandbar.php';
+$navActive = 'new-rx';
+include __DIR__ . '/partials/doctor-nav.php'; ?>
 
 
 
@@ -296,25 +299,7 @@ if (!$presetRows) {
 
 
 <!-- ============================ NAV ============================ -->
-<nav class="navbar doc-nav">
-    <div class="container" style="display:flex; justify-content:space-between; align-items:center; height:100%;">
-        <div style="display:flex; align-items:center; gap:28px;">
-            <a href="doctor-dashboard.php" class="navbar-brand"><i class="fas fa-heartbeat"></i> DOCTOR PORTAL</a>
-            <div class="navbar-links" style="display:flex; gap:22px; align-items:center;">
-                <a href="doctor-dashboard.php"><i class="fas fa-th-large"></i> Dashboard</a>
-                <a href="doctor-appointments.php"><i class="fas fa-calendar-check"></i> Appointments</a>
-                <a href="doctor-patients.php"><i class="fas fa-users"></i> Patients</a>
-                <a href="doctor-prescriptions.php"><i class="fas fa-file-prescription"></i> Prescriptions</a>
-                <a href="build-prescription.php" class="active"><i class="fas fa-plus-circle"></i> New Rx</a>
-                <a href="medicine/tablet.php"><i class="fas fa-capsules"></i> Catalogue</a>
-            </div>
-        </div>
-        <div style="display:flex; align-items:center; gap:14px;">
-            <?= telehealthCallLink('Audio Call') ?>
-            <a href="doctor-profile-settings.php" class="call-chip plain"><i class="fas fa-user-md"></i> <?= h($doctor['name']) ?></a>
-        </div>
-    </div>
-</nav>
+
 
 <div class="wrap">
 

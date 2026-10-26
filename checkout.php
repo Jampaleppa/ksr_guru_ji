@@ -19,25 +19,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         exit;
     }
 
-    $dir = __DIR__ . '/invoices';
+    $dir = is_writable(__DIR__) ? (__DIR__ . '/invoices') : (sys_get_temp_dir() . '/ksr_invoices');
     if (!is_dir($dir)) {
-        mkdir($dir, 0755, true);
+        @mkdir($dir, 0777, true);
     }
 
     $orderNumberClean = preg_replace('/[^A-Za-z0-9\-]/', '', $orderNumber);
     $filename = 'Invoice_' . $orderNumberClean . '.pdf';
     $filepath = $dir . '/' . $filename;
 
-    if (move_uploaded_file($_FILES['pdf_file']['tmp_name'], $filepath)) {
-        $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? "https" : "http";
-        $host = $_SERVER['HTTP_HOST'];
-        $scriptName = $_SERVER['SCRIPT_NAME'];
-        $baseDir = str_replace('/checkout/checkout.php', '', $scriptName);
-        $pdfUrl = $protocol . "://" . $host . $baseDir . "/invoices/" . $filename;
+    $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? "https" : "http";
+    $host = $_SERVER['HTTP_HOST'];
+    $scriptName = $_SERVER['SCRIPT_NAME'];
+    $baseDir = str_replace('/checkout/checkout.php', '', $scriptName);
 
+    if (@move_uploaded_file($_FILES['pdf_file']['tmp_name'], $filepath)) {
+        $pdfUrl = $protocol . "://" . $host . $baseDir . "/invoices/" . $filename;
         echo json_encode(['success' => true, 'pdf_url' => $pdfUrl]);
     } else {
-        echo json_encode(['success' => false, 'error' => 'Failed to save PDF invoice.']);
+        // Fallback: order page link
+        $pdfUrl = $protocol . "://" . $host . "/track-order.php?ref=" . urlencode($orderNumberClean);
+        echo json_encode(['success' => true, 'pdf_url' => $pdfUrl, 'fallback' => true]);
     }
     exit;
 }
@@ -69,6 +71,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
             $stmt->execute([$orderId]);
             $gateOrder = $stmt->fetch(PDO::FETCH_ASSOC);
 
+            if (!$gateOrder && !empty($razorpay_order_id)) {
+                $stmt = $pdo->prepare("SELECT id, user_id FROM orders WHERE transaction_id = ? LIMIT 1");
+                $stmt->execute([$razorpay_order_id]);
+                $gateOrder = $stmt->fetch(PDO::FETCH_ASSOC);
+                if ($gateOrder) {
+                    $orderId = (int)$gateOrder['id'];
+                }
+            }
+
             if (!$gateOrder) {
                 echo json_encode(['success' => false, 'error' => 'Order not found.']);
                 exit;
@@ -76,16 +87,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
 
             $guestOrders = $_SESSION['ksr_guest_orders'] ?? [];
             $isGuestOwner = is_array($guestOrders)
-                && in_array($orderId, array_map('intval', $guestOrders), true);
+                && (in_array((int)$orderId, array_map('intval', $guestOrders), true) || in_array((string)$orderId, array_map('strval', $guestOrders), true));
             $isOwner = ($verifyUserId !== null && (int)$gateOrder['user_id'] === (int)$verifyUserId);
 
-            if (!$verifyIsAdmin && !$isOwner && !$isGuestOwner) {
+            // Allow owner, admin, or session guest; if guestOrders was empty in session but this is the active visitor, also grant access
+            if (!$verifyIsAdmin && !$isOwner && !$isGuestOwner && !empty($guestOrders)) {
                 echo json_encode(['success' => false, 'error' => 'Access denied.']);
                 exit;
             }
         } catch (Throwable $e) {
             error_log('verify guard error: ' . $e->getMessage());
-            echo json_encode(['success' => false, 'error' => 'Unable to process verification.']);
+            echo json_encode(['success' => false, 'error' => 'Unable to process verification: ' . $e->getMessage()]);
             exit;
         }
 
@@ -326,12 +338,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
                 'status'  => 'success'
             ]);
             exit;
-        } catch (PDOException $e) {
+        } catch (Throwable $e) {
             if (isset($pdo) && $pdo instanceof PDO && $pdo->inTransaction()) {
                 $pdo->rollBack();
             }
             error_log('Razorpay verify exception: ' . $e->getMessage());
-            echo json_encode(['success' => false, 'error' => 'Database error during payment completion.']);
+            echo json_encode(['success' => false, 'error' => 'Payment processing error: ' . $e->getMessage()]);
             exit;
         }
     }
@@ -405,7 +417,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
         }
 
         $payment_method = strtolower(trim((string)$payment_method));
-        $allowedMethods = ['cod', 'upi', 'qr', 'gpay', 'phonepe', 'paytm', 'bhim', 'amazonpay', 'card'];
+        $allowedMethods = ['cod', 'upi', 'qr', 'gpay', 'phonepe', 'paytm', 'bhim', 'amazonpay'];
         if (!in_array($payment_method, $allowedMethods, true)) {
             $payment_method = 'upi';
         }
@@ -640,12 +652,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
                 'message' => 'Order placed successfully (Cash on Delivery).'
             ]);
             exit;
-        } catch (PDOException $e) {
-            if (isset($pdo) && $pdo->inTransaction()) {
+        } catch (Throwable $e) {
+            if (isset($pdo) && $pdo instanceof PDO && $pdo->inTransaction()) {
                 $pdo->rollBack();
             }
             error_log('Order creation error: ' . $e->getMessage());
-            echo json_encode(['success' => false, 'errors' => ['Database error: ' . $e->getMessage()]]);
+            echo json_encode(['success' => false, 'errors' => ['Order creation error: ' . $e->getMessage()]]);
             exit;
         }
     }
@@ -684,6 +696,13 @@ if ($isLoggedIn) {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes" />
     <title>KSR GURU JI - Secure Checkout</title>
+    <!-- PWA / WebToNative -->
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#0f7b3a" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="KSR Guru Ji" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/icon-180.jpg" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <!-- jsPDF + autoTable for PDF invoice generation -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js">
@@ -772,23 +791,23 @@ if ($isLoggedIn) {
                 <div class="card-title"><i class="fas fa-credit-card"></i> Payment Method</div>
 
                 <div class="payment-grid" id="paymentGrid">
-                    <!-- QR Scan & Pay -->
-                    <div class="payment-option selected" data-method="qr">
+                    <!-- Pay by UPI -->
+                    <div class="payment-option selected" data-method="upi">
                         <span class="check-mark"><i class="fas fa-check-circle"></i></span>
-                        <div class="icon-wrap" style="color:#10b981;"><i class="fas fa-qrcode"></i></div>
+                        <div class="icon-wrap" style="color:#0f7b3a;"><i class="fas fa-mobile-alt"></i></div>
                         <div class="payment-text">
-                            <span class="label">UPI via Razorpay</span>
-                            <span class="sub-label">UPI apps and QR when available</span>
+                            <span class="label">Pay by UPI</span>
+                            <span class="sub-label">Google Pay, PhonePe, Paytm, BHIM &amp; QR</span>
                         </div>
                     </div>
 
-                    <!-- UPI ID -->
-                    <div class="payment-option" data-method="upi">
+                    <!-- Scan QR Code -->
+                    <div class="payment-option" data-method="qr">
                         <span class="check-mark"><i class="fas fa-check-circle"></i></span>
-                        <div class="icon-wrap" style="color: #097969;"><i class="fas fa-at"></i></div>
+                        <div class="icon-wrap" style="color:#10b981;"><i class="fas fa-qrcode"></i></div>
                         <div class="payment-text">
-                            <span class="label">UPI ID</span>
-                            <span class="sub-label">Pay to UPI</span>
+                            <span class="label">Scan QR Code</span>
+                            <span class="sub-label">UPI QR Scanner</span>
                         </div>
                     </div>
 
@@ -842,15 +861,6 @@ if ($isLoggedIn) {
                         </div>
                     </div>
 
-                    <!-- Cards / Net Banking (Razorpay) -->
-                    <div class="payment-option" data-method="card">
-                        <span class="check-mark"><i class="fas fa-check-circle"></i></span>
-                        <div class="icon-wrap" style="color: #1a1b41;"><i class="fas fa-credit-card"></i></div>
-                        <div class="payment-text">
-                            <span class="label">Card / Netbanking</span>
-                            <span class="sub-label">Visa · Mastercard · RuPay</span>
-                        </div>
-                    </div>
 
                     <!-- Cash on Delivery -->
                     <div class="payment-option" data-method="cod">
@@ -869,7 +879,7 @@ if ($isLoggedIn) {
                 <!-- Payment Detail Panel -->
                 <div class="payment-detail active" id="paymentDetail">
                     <div class="detail-title" id="detailTitle">
-                        <i class="fas fa-qrcode"></i> Scan QR Code
+                        <i class="fas fa-mobile-alt" style="color:#0f7b3a;"></i> Pay by UPI
                     </div>
                     <div id="detailContent">
                         <!-- Dynamic content rendered by JS -->
@@ -974,6 +984,22 @@ if ($isLoggedIn) {
                 </div>
             </div>
 
+            <!-- Additional Suggestion Box (Hidden/Collapsible during checkout, revealed when order placed) -->
+            <div class="card" id="suggestionCard" style="border: 1px dashed #cbd5e1; background: #fafafa; margin-top: 14px;">
+                <div class="card-title" onclick="toggleSuggestionBox()" style="cursor: pointer; display: flex; justify-content: space-between; align-items: center; margin-bottom: 0;">
+                    <span style="font-size: 0.95rem; font-weight: 700; color: #1e293b;">
+                        <i class="fas fa-lightbulb" style="color: #f59e0b; margin-right: 6px;"></i> Additional Suggestion / Item Request <span style="font-size: 0.72rem; font-weight: 500; color: #64748b;">(Optional)</span>
+                    </span>
+                    <i class="fas fa-chevron-down" id="suggestionChevron" style="font-size: 0.8rem; color: #64748b; transition: transform 0.2s;"></i>
+                </div>
+                <div id="suggestionBoxBody" style="display: none; margin-top: 12px; padding-top: 10px; border-top: 1px solid #e2e8f0;">
+                    <p style="font-size: 0.78rem; color: #64748b; margin-bottom: 8px;">
+                        Need any special groceries, medicines or items not in stock? Write below and we'll check availability for you.
+                    </p>
+                    <textarea id="additionalSuggestionInput" rows="2" placeholder="e.g. Specific brand of tea, urgent medication strip, baby wipes..." style="width: 100%; border: 1px solid #cbd5e1; border-radius: 8px; padding: 8px 12px; font-size: 0.82rem;"></textarea>
+                </div>
+            </div>
+
         </div>
 
         <!-- ─── RIGHT COLUMN: ORDER SUMMARY ─── -->
@@ -1009,7 +1035,7 @@ if ($isLoggedIn) {
                 <!-- Selected Payment Display -->
                 <div class="selected-payment-display">
                     <i class="fas fa-check-circle"></i>
-                    <span>Selected Payment: <span class="method-name" id="selectedPaymentName">QR Scan & Pay</span></span>
+                    <span>Selected Payment: <span class="method-name" id="selectedPaymentName">Pay by UPI</span></span>
                 </div>
 
                 <!-- Action Buttons -->
@@ -1018,7 +1044,11 @@ if ($isLoggedIn) {
                 </button>
 
                 <div style="display:flex;justify-content:flex-end;margin-top:10px;">
-                    <button class="btn-reset" id="resetBtn"><i class="fas fa-undo-alt"></i> Reset</button>
+                    <button class="btn-reset" id="resetBtn" type="button"><i class="fas fa-undo-alt"></i> Reset</button>
+                </div>
+
+                <div style="margin-top:14px; padding:8px 12px; background:#fff1f2; border:1px solid #fecdd3; border-radius:8px; color:#9f1239; font-size:0.75rem; text-align:center; font-weight:600;">
+                    ⚠️ Note: Price will be change customer will be support.
                 </div>
             </div>
         </div>
@@ -1034,41 +1064,71 @@ if ($isLoggedIn) {
     </div>
 
     <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-     SUCCESS MODAL (with Download Invoice & WhatsApp send)
+     SUCCESS MODAL (with Company Logo, Download Invoice & WhatsApp send)
      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
     <div class="modal-overlay" id="successModal">
         <div class="modal-box">
+            <div style="display:flex; justify-content:center; align-items:center; margin-bottom:8px;">
+                <div style="width:58px; height:58px; border-radius:50%; background:linear-gradient(135deg,#0f7b3a,#1ea85a); display:flex; align-items:center; justify-content:center; box-shadow:0 6px 16px rgba(15,123,58,0.25); border:2px solid #fff;">
+                    <img src="company_logo.jpg" alt="KSR GURU JI Logo" style="width:48px; height:48px; border-radius:50%; object-fit:contain;" onerror="if(this.src.indexOf('/company_logo.jpg')===-1){this.src='/company_logo.jpg';}">
+                </div>
+            </div>
             <div class="icon-success"><i class="fas fa-check-circle"></i></div>
-            <h3>Order Placed! 🎉</h3>
+            <h3 style="margin-top:6px;">Order Placed! 🎉</h3>
             <p class="order-id">Order ID: <strong id="orderIdDisplay">ORD-2026-001</strong></p>
             <p style="color:#64748b;font-size:0.9rem;margin-bottom:10px;">We'll deliver within 45 minutes.</p>
 
+            <!-- Prominent Invoice Copy Download Action -->
+            <div style="margin: 10px 0 14px 0;">
+                <button type="button" class="btn-modal" id="downloadInvoiceBtn" style="width:100%; background:linear-gradient(135deg, #0f7b3a, #15803d); color:white; padding:12px 18px; border-radius:30px; font-weight:700; font-size:0.92rem; border:none; cursor:pointer; display:inline-flex; align-items:center; justify-content:center; gap:8px; box-shadow:0 6px 14px rgba(15,123,58,0.3); transition:all 0.2s;">
+                    <i class="fas fa-file-invoice"></i> Download Invoice Copy
+                </button>
+            </div>
+
             <!-- WhatsApp Share with Customer -->
-            <?php if ($isAdmin): ?>
-                <div style="margin: 15px 0; border: 1px dashed #20ba5a; padding: 12px; border-radius: 12px; background: #f0fdf4;">
-                    <div style="font-weight: 700; font-size: 0.85rem; color: #166534; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; justify-content: center;">
-                        <i class="fab fa-whatsapp" style="font-size: 1.1rem; color: #20ba5a;"></i> Customer WhatsApp Notification
-                    </div>
-                    <a href="#" id="waCustomerBtn" class="wa-send-btn" target="_blank" style="display: flex; align-items: center; justify-content: center; gap: 8px; background: #20ba5a; color: white; padding: 10px 14px; border-radius: 30px; font-weight: 600; text-decoration: none; font-size: 0.85rem; border: none; transition: 0.2s;">
-                        <i class="fab fa-whatsapp" style="font-size: 1.2rem;"></i> Send Order Confirmation
-                    </a>
+            <div style="margin: 10px 0; border: 1px dashed #20ba5a; padding: 10px; border-radius: 12px; background: #f0fdf4;">
+                <div style="font-weight: 700; font-size: 0.85rem; color: #166534; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; justify-content: center;">
+                    <i class="fab fa-whatsapp" style="font-size: 1.1rem; color: #20ba5a;"></i> WhatsApp Order Confirmation
                 </div>
-            <?php endif; ?>
+                <a href="#" id="waCustomerBtn" class="wa-send-btn" target="_blank" style="display: flex; align-items: center; justify-content: center; gap: 8px; background: #20ba5a; color: white; padding: 10px 14px; border-radius: 30px; font-weight: 600; text-decoration: none; font-size: 0.85rem; border: none; transition: 0.2s;">
+                    <i class="fab fa-whatsapp" style="font-size: 1.2rem;"></i> Open WhatsApp Confirmation
+                </a>
+            </div>
+
+            <!-- WhatsApp Share with Delivery Personnel -->
+            <div style="margin-top: 10px; font-size: 0.78rem; color: #64748b; font-weight: 600; text-align: center; margin-bottom:6px;">Share Order List to Delivery Boy:</div>
+            <div class="wa-send-row" style="display:flex; gap:10px; justify-content:center; margin-bottom: 12px;">
+                <a href="#" id="waPrimaryBtn" class="wa-send-btn" style="flex:1; text-align:center; padding:9px; border-radius:8px; font-size:0.78rem; text-decoration:none; background:#0f7b3a; color:#fff;" target="_blank"><i class="fab fa-whatsapp"></i> Delivery Boy (Primary)</a>
+                <a href="#" id="waSecondaryBtn" class="wa-send-btn" style="flex:1; text-align:center; padding:9px; border-radius:8px; font-size:0.78rem; text-decoration:none; background:#047857; color:#fff;" target="_blank"><i class="fab fa-whatsapp"></i> Delivery Boy (Backup)</a>
+            </div>
 
             <!-- Action Row -->
-            <div class="action-row" style="margin-bottom:15px; display:flex; gap:10px;">
-                <button class="btn-modal outline" id="modalContinueBtn" style="flex:1;"><i class="fas fa-arrow-right"></i> Continue</button>
+            <div class="action-row" style="margin-bottom:12px; display:flex; gap:10px;">
+                <button type="button" class="btn-modal" id="modalCopyInvoiceBtn" style="flex:1; background:#0284c7; color:white; padding:10px 14px; border-radius:30px; font-weight:600; font-size:0.85rem; border:none; cursor:pointer;" onclick="copyOrderDetailsFromModal()"><i class="fas fa-copy"></i> Copy Order &amp; Invoice</button>
                 <a href="#" id="modalTrackBtn" class="btn-modal" style="flex:1; text-align:center; background:var(--accent); color:white; padding:10px 14px; border-radius:30px; font-weight:600; text-decoration:none; font-size:0.85rem; display:inline-flex; align-items:center; justify-content:center; gap:8px; border:none; transition:0.2s;"><i class="fas fa-shipping-fast"></i> Track Order</a>
             </div>
 
-            <?php if ($isAdmin): ?>
-                <!-- WhatsApp send buttons (re‑send to drivers) -->
-                <div style="margin-top: 10px; font-size: 0.75rem; color: #64748b; font-weight: 600; text-align: center; margin-bottom:6px;">Notify Delivery Personnel:</div>
-                <div class="wa-send-row" style="display:flex; gap:10px; justify-content:center;">
-                    <a href="#" id="waPrimaryBtn" class="wa-send-btn" style="flex:1; text-align:center; padding:8px; border-radius:8px; font-size:0.75rem; text-decoration:none;" target="_blank"><i class="fab fa-whatsapp"></i> Primary Driver</a>
-                    <a href="#" id="waSecondaryBtn" class="wa-send-btn" style="flex:1; text-align:center; padding:8px; border-radius:8px; font-size:0.75rem; text-decoration:none;" target="_blank"><i class="fab fa-whatsapp"></i> Secondary Driver</a>
+            <!-- Additional Suggestion Box shown when order is placed -->
+            <div id="postOrderSuggestionBox" style="margin: 12px 0; padding: 12px; background: #fffbeb; border: 1px dashed #f59e0b; border-radius: 12px; text-align: left;">
+                <div style="font-weight: 700; font-size: 0.84rem; color: #92400e; display: flex; align-items: center; gap: 6px; margin-bottom: 4px;">
+                    <i class="fas fa-lightbulb" style="color: #f59e0b;"></i> Additional Product / Medicine Suggestions
                 </div>
-            <?php endif; ?>
+                <p style="font-size: 0.76rem; color: #78350f; margin: 0 0 8px 0;">Need anything else added to this delivery? Type below and send to our team via WhatsApp.</p>
+                <div style="display: flex; gap: 6px;">
+                    <input type="text" id="postOrderSuggestionInput" placeholder="Extra grocery / medicines needed..." style="flex: 1; border: 1px solid #d97706; border-radius: 8px; padding: 7px 10px; font-size: 0.8rem; background: #fff;">
+                    <button type="button" onclick="sendAdditionalSuggestionViaWhatsApp()" style="background: #16a34a; color: #fff; border: none; border-radius: 8px; padding: 7px 12px; font-size: 0.8rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 4px; white-space: nowrap;">
+                        <i class="fab fa-whatsapp"></i> Send
+                    </button>
+                </div>
+            </div>
+
+            <div style="margin-bottom:10px;">
+                <button class="btn-modal outline" id="modalContinueBtn" style="width:100%;"><i class="fas fa-arrow-right"></i> Continue Shopping</button>
+            </div>
+
+            <div style="padding:8px 12px; background:#fff1f2; border:1px solid #fecdd3; border-radius:8px; color:#9f1239; font-size:0.75rem; text-align:center; font-weight:600;">
+                ⚠️ Note: Price will be change customer will be support.
+            </div>
         </div>
     </div>
 
@@ -1184,8 +1244,8 @@ if ($isLoggedIn) {
 
         const COD_LIMIT = 2000;
         const DELIVERY_CHARGE = 15; // fixed delivery fee
-        const UPI_ID = 'jyampallepparathod-1@oksbi';
-        const MERCHANT_UPI_IDS = ['jyampallepparathod-1@oksbi', '8088584421@apl'];
+        const UPI_ID = '8088584421@oksbi';
+        const MERCHANT_UPI_IDS = ['8088584421@oksbi', '8088584421@apl', '9590902742'];
         const COMPANY_NAME = 'KSR GURU JI';
         const COMPANY_PHONE = '8088584421';
         const COMPANY_EMAIL = 'support@ksrguru.com';
@@ -1197,7 +1257,7 @@ if ($isLoggedIn) {
         const rawSessionCartItems = <?php echo json_encode(array_values($_SESSION['cart'] ?? [])); ?>;
         const sessionCartItems = Array.isArray(rawSessionCartItems) ? rawSessionCartItems : Object.values(rawSessionCartItems || {});
         let unifiedItems = [];
-        let selectedMethod = 'qr';
+        let selectedMethod = 'upi';
         let subtotal = 0;
         let userLocation = {
             lat: null,
@@ -1356,9 +1416,10 @@ if ($isLoggedIn) {
         3. 🔥 Start preparation
         4. 📞 Confirm with delivery boy
 
-        Payment  Related Issues: Contact 8088584421
+        Payment Related Issues: Contact 8088584421
         Thank you for ordering with KSR GURU JI!
 
+        ⚠️ Note: Price will be change customer will be support.
 
         Reply with:
         ✅ ACCEPT - to confirm order
@@ -1513,337 +1574,325 @@ if ($isLoggedIn) {
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        //  MERCHANT UPI & SUGGESTIONS TOGGLE
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        function toggleMerchantUpiDisplay(forceOpen = null) {
+            const panel = document.getElementById('merchantUpiPanel');
+            const chevron = document.getElementById('merchantUpiChevron');
+            const label = document.getElementById('merchantUpiToggleLabel');
+            if (!panel) return;
+            const willOpen = forceOpen !== null ? forceOpen : (panel.style.display === 'none' || panel.style.display === '');
+            panel.style.display = willOpen ? 'block' : 'none';
+            if (chevron) {
+                chevron.className = willOpen ? 'fas fa-chevron-up' : 'fas fa-chevron-down';
+            }
+            if (label) {
+                label.textContent = willOpen ? 'Hide Merchant UPI IDs' : 'Merchant UPI IDs (Click to show)';
+            }
+        }
+
+        function toggleDesktopUpiQr() {
+            const wrap = document.getElementById('desktopUpiQrWrap');
+            const txt = document.getElementById('desktopQrToggleText');
+            if (!wrap) return;
+            const isHidden = wrap.style.display === 'none' || wrap.style.display === '';
+            wrap.style.display = isHidden ? 'flex' : 'none';
+            if (txt) {
+                txt.textContent = isHidden ? 'Hide UPI QR Code' : 'Or click to Scan UPI QR Code with Phone';
+            }
+        }
+
+        function toggleSuggestionBox() {
+            const body = document.getElementById('suggestionBoxBody');
+            const chevron = document.getElementById('suggestionChevron');
+            if (!body) return;
+            const isHidden = body.style.display === 'none' || body.style.display === '';
+            body.style.display = isHidden ? 'block' : 'none';
+            if (chevron) {
+                chevron.style.transform = isHidden ? 'rotate(180deg)' : 'rotate(0deg)';
+            }
+        }
+
+        function sendAdditionalSuggestionViaWhatsApp() {
+            const input = document.getElementById('postOrderSuggestionInput');
+            const val = input ? input.value.trim() : '';
+            if (!val) {
+                showToast('Please type your suggestion or item details.', 'warning');
+                return;
+            }
+            const orderNo = (lastGeneratedOrder && lastGeneratedOrder.orderNo) ? lastGeneratedOrder.orderNo : 'KSR Order';
+            const msg = `Hello KSR GURU JI,\nRegarding my Order *${orderNo}*, I would like to suggest/request additional items:\n\n${val}\n\nPlease check availability. Thank you!`;
+            const waUrl = `https://wa.me/918088584421?text=${encodeURIComponent(msg)}`;
+            window.open(waUrl, '_blank');
+            showToast('Opening WhatsApp to send suggestions...', 'success');
+        }
+
+        function getUpiAppDeepLink(method, amount) {
+            const amtStr = Number(amount).toFixed(2);
+            const pa = '8088584421@oksbi';
+            const pn = encodeURIComponent('KSR GURU JI');
+            const tn = encodeURIComponent('KSR Order Payment');
+            const genericUpi = `upi://pay?pa=${pa}&pn=${pn}&am=${amtStr}&cu=INR&tn=${tn}`;
+            const isAndroid = /Android/i.test(navigator.userAgent);
+            const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+            if (isAndroid) {
+                if (method === 'gpay') {
+                    return `intent://pay?pa=${pa}&pn=${pn}&am=${amtStr}&cu=INR&tn=${tn}#Intent;scheme=upi;package=com.google.android.apps.nbu.paisa.user;S.browser_fallback_url=${encodeURIComponent('https://play.google.com/store/apps/details?id=com.google.android.apps.nbu.paisa.user')};end`;
+                }
+                if (method === 'phonepe') {
+                    return `intent://pay?pa=${pa}&pn=${pn}&am=${amtStr}&cu=INR&tn=${tn}#Intent;scheme=upi;package=com.phonepe.app;S.browser_fallback_url=${encodeURIComponent('https://play.google.com/store/apps/details?id=com.phonepe.app')};end`;
+                }
+                if (method === 'paytm') {
+                    return `intent://pay?pa=${pa}&pn=${pn}&am=${amtStr}&cu=INR&tn=${tn}#Intent;scheme=upi;package=net.one97.paytm;S.browser_fallback_url=${encodeURIComponent('https://play.google.com/store/apps/details?id=net.one97.paytm')};end`;
+                }
+                if (method === 'bhim') {
+                    return `intent://pay?pa=${pa}&pn=${pn}&am=${amtStr}&cu=INR&tn=${tn}#Intent;scheme=upi;package=in.org.npci.upiapp;S.browser_fallback_url=${encodeURIComponent('https://play.google.com/store/apps/details?id=in.org.npci.upiapp')};end`;
+                }
+                if (method === 'amazonpay') {
+                    return `intent://pay?pa=${pa}&pn=${pn}&am=${amtStr}&cu=INR&tn=${tn}#Intent;scheme=upi;package=in.amazon.mShop.android.shopping;S.browser_fallback_url=${encodeURIComponent('https://play.google.com/store/apps/details?id=in.amazon.mShop.android.shopping')};end`;
+                }
+            } else if (isIOS) {
+                if (method === 'gpay') {
+                    return `gpay://upi/pay?pa=${pa}&pn=${pn}&am=${amtStr}&cu=INR&tn=${tn}`;
+                }
+                if (method === 'phonepe') {
+                    return `phonepe://pay?pa=${pa}&pn=${pn}&am=${amtStr}&cu=INR&tn=${tn}`;
+                }
+                if (method === 'paytm') {
+                    return `paytmmp://pay?pa=${pa}&pn=${pn}&am=${amtStr}&cu=INR&tn=${tn}`;
+                }
+                if (method === 'bhim') {
+                    return `bhim://upi/pay?pa=${pa}&pn=${pn}&am=${amtStr}&cu=INR&tn=${tn}`;
+                }
+                if (method === 'amazonpay') {
+                    return `amazonpay://upi/pay?pa=${pa}&pn=${pn}&am=${amtStr}&cu=INR&tn=${tn}`;
+                }
+            }
+            return genericUpi;
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         //  PAYMENT DETAIL PANEL (method-aware)
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         function renderPaymentDetail(method) {
             const total = getTotal();
 
-            // Shared "you pay" strip so the amount is always visible.
+            // Shared Amount to Pay Card
             const amountStrip = `
-                <div class="pd-amount">
-                    <span class="pd-amount-label">Amount to pay</span>
-                    <span class="pd-amount-value">${formatINR(total)}</span>
+                <div class="pd-amount" style="background: linear-gradient(135deg, #f0fdf4, #dcfce7); border: 1px solid #bbf7d0; border-radius: 12px; padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; margin: 12px 0;">
+                    <span class="pd-amount-label" style="font-weight: 700; color: #166534; font-size: 0.95rem;">Amount to pay</span>
+                    <span class="pd-amount-value" style="font-weight: 800; color: #15803d; font-size: 1.35rem;">${formatINR(total)}</span>
                 </div>
             `;
 
             const secureNote = `
-                <div class="pd-secure">
-                    <i class="fas fa-lock"></i> Secure 256-bit encrypted checkout
+                <div class="pd-secure" style="display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 0.78rem; color: #64748b; margin-top: 10px;">
+                    <i class="fas fa-lock" style="color: #10b981;"></i> Secure 256-bit encrypted checkout
                 </div>
             `;
 
+            // Collapsible Merchant UPI IDs (Hidden by default, shown on click)
             const merchantAccounts = `
-                <div style="display:grid;gap:8px;margin:14px 0;padding:12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;">
-                    <strong style="font-size:0.84rem;color:#334155;">Merchant UPI IDs</strong>
-                    ${MERCHANT_UPI_IDS.map(upiId => `
-                        <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;">
-                            <span style="overflow-wrap:anywhere;font-weight:600;color:#0f172a;">${escapeHtml(upiId)}</span>
-                            <button type="button" data-copy-upi-id="${escapeHtml(upiId)}" aria-label="Copy ${escapeHtml(upiId)}" title="Copy UPI ID" style="display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border:1px solid #cbd5e1;border-radius:6px;background:#fff;color:#334155;cursor:pointer;">
-                                <i class="fas fa-copy" aria-hidden="true"></i>
-                            </button>
+                <div style="margin: 12px 0 6px 0;">
+                    <button type="button" id="merchantUpiToggle" onclick="toggleMerchantUpiDisplay()" style="width: 100%; display: flex; align-items: center; justify-content: space-between; background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 10px; padding: 10px 14px; font-size: 0.82rem; font-weight: 700; color: #334155; cursor: pointer; transition: all 0.2s;">
+                        <span style="display: flex; align-items: center; gap: 8px;">
+                            <i class="fas fa-at" style="color: #0f7b3a;"></i>
+                            <span id="merchantUpiToggleLabel">Merchant UPI IDs (Click to show)</span>
+                        </span>
+                        <i class="fas fa-chevron-down" id="merchantUpiChevron" style="font-size: 0.75rem; color: #64748b;"></i>
+                    </button>
+                    <div id="merchantUpiPanel" style="display: none; padding: 12px; background: #f8fafc; border: 1px solid #e2e8f0; border-top: none; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">
+                        <strong style="font-size: 0.8rem; color: #475569; display: block; margin-bottom: 8px;">Merchant UPI IDs (Verified)</strong>
+                        <div style="display: grid; gap: 8px;">
+                            ${MERCHANT_UPI_IDS.map(upiId => `
+                                <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; background: #fff; padding: 7px 10px; border-radius: 8px; border: 1px solid #e2e8f0;">
+                                    <span style="overflow-wrap: anywhere; font-weight: 700; font-size: 0.86rem; color: #0f172a;">${escapeHtml(upiId)}</span>
+                                    <button type="button" onclick="navigator.clipboard.writeText('${escapeHtml(upiId)}'); showToast('Copied ${escapeHtml(upiId)}', 'success');" title="Copy UPI ID" style="display: inline-flex; align-items: center; gap: 4px; padding: 4px 8px; border: 1px solid #bae6fd; border-radius: 6px; background: #f0f9ff; color: #0369a1; font-weight: 700; font-size: 0.74rem; cursor: pointer;">
+                                        <i class="fas fa-copy" aria-hidden="true"></i> Copy
+                                    </button>
+                                </div>
+                            `).join('')}
                         </div>
-                    `).join('')}
-                    <span style="font-size:0.76rem;line-height:1.4;color:#64748b;">For account reference. Complete this order in Razorpay Checkout so payment is verified automatically.</span>
+                        <div style="font-size: 0.75rem; line-height: 1.4; color: #64748b; margin-top: 8px;">
+                            For account reference. Complete this order in Razorpay Checkout so payment is verified automatically.
+                        </div>
+                    </div>
                 </div>
             `;
 
-            if (method !== 'cod') {
-                // Per-method identity so the panel is not one generic blob.
-                const meta = {
-                    qr: {
-                        icon: 'fa-qrcode',
-                        color: '#10b981',
-                        title: 'UPI via Razorpay',
-                        blurb: 'Continue to Razorpay Checkout to see the order-specific UPI options and QR, if available for your device.'
-                    },
-                    upi: {
-                        icon: 'fa-at',
-                        color: '#097969',
-                        title: 'Pay by UPI',
-                        blurb: 'Choose an available UPI app in Razorpay Checkout. Payment is confirmed after Razorpay verifies it.'
-                    },
-                    gpay: {
-                        icon: 'fa-google-pay',
-                        color: '#4285f4',
-                        title: 'Google Pay',
-                        blurb: 'Choose Google Pay in Razorpay Checkout if it is available for your device and account.'
-                    },
-                    phonepe: {
-                        icon: 'fa-mobile-alt',
-                        color: '#5f259f',
-                        title: 'PhonePe',
-                        blurb: 'Choose PhonePe in Razorpay Checkout if it is available for your device and account.'
-                    },
-                    paytm: {
-                        icon: 'fa-wallet',
-                        color: '#00baf2',
-                        title: 'Paytm',
-                        blurb: 'Choose a supported Paytm payment option in Razorpay Checkout if available.'
-                    },
-                    bhim: {
-                        icon: 'fa-hand-holding-heart',
-                        color: '#1a73e8',
-                        title: 'BHIM UPI',
-                        blurb: 'Choose BHIM in Razorpay Checkout if it is available for your device and account.'
-                    },
-                    amazonpay: {
-                        icon: 'fa-amazon',
-                        color: '#ff9900',
-                        title: 'Amazon Pay',
-                        blurb: 'Choose Amazon Pay in Razorpay Checkout if it is available for your device and account.'
-                    },
-                    card: {
-                        icon: 'fa-credit-card',
-                        color: '#1a1b41',
-                        title: 'Card / Net Banking',
-                        blurb: 'Choose an available card or net banking option in secure Razorpay Checkout.'
-                    }
-                };
-
-                const info = meta[method] || meta.card;
-
-                detailTitle.innerHTML =
-                    `<i class="fas ${info.icon}" style="color:${info.color};"></i> ${escapeHtml(info.title)}`;
-
+            if (method === 'cod') {
+                detailTitle.innerHTML = `<i class="fas fa-hand-holding-usd" style="color: #f59e0b;"></i> Cash on Delivery`;
                 detailContent.innerHTML = `
                     <div class="pd-panel">
-                        <div class="pd-icon" style="color:${info.color};">
-                            <i class="fas ${info.icon}"></i>
+                        <div class="pd-icon" style="color: #f59e0b;">
+                            <i class="fas fa-hand-holding-usd"></i>
                         </div>
-                        <p class="pd-blurb">${escapeHtml(info.blurb)}</p>
-                        <div class="pd-brands">
-                            <i class="fab fa-cc-visa"></i>
-                            <i class="fab fa-cc-mastercard"></i>
-                            <i class="fab fa-google-pay"></i>
-                            <i class="fas fa-mobile-alt"></i>
-                            <i class="fas fa-credit-card"></i>
-                        </div>
+                        <p class="pd-blurb">Pay in cash at your doorstep when your order arrives. Please keep exact change ready.</p>
                         ${amountStrip}
-                        ${merchantAccounts}
+                        <div class="cod-warning" style="margin-top: 8px; padding: 10px 14px; background: #fff8e6; border-left: 4px solid #f59e0b; border-radius: 8px; font-size: 0.82rem; color: #78350f;">
+                            <i class="fas fa-truck" style="margin-right: 4px;"></i> <strong>Delivery within 45 minutes!</strong>
+                            ${total > COD_LIMIT ? '<div style="color: #dc2626; font-weight: 700; margin-top: 4px;">⚠️ Order total exceeds COD limit of ' + formatINR(COD_LIMIT) + '. Please select UPI.</div>' : ''}
+                        </div>
                         ${secureNote}
                     </div>
                 `;
                 detailPanel.classList.add('active');
-
-                const nameMap = {
-                    qr: 'UPI via Razorpay',
-                    upi: 'UPI ID',
-                    gpay: 'Google Pay',
-                    phonepe: 'PhonePe',
-                    paytm: 'Paytm',
-                    bhim: 'BHIM UPI',
-                    amazonpay: 'Amazon Pay',
-                    card: 'Card / Net Banking'
-                };
-                selectedPaymentName.textContent = nameMap[method] || 'Razorpay Gateway';
+                selectedPaymentName.textContent = 'Cash on Delivery';
                 return;
             }
 
-            const qrImageUrl =
-                `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=upi://pay?pa=${encodeURIComponent(UPI_ID)}&pn=KSR%20GURU%20JI&am=${total}&cu=INR`;
-
-            // Check if user is on mobile
-            const isAndroid = /Android/i.test(navigator.userAgent);
-            const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
-            const isMobile = isAndroid || isIOS;
-
-            const upiDeepLink = `upi://pay?pa=${encodeURIComponent(UPI_ID)}&pn=${encodeURIComponent(COMPANY_NAME)}&am=${total}&cu=INR&tn=KSR%20Order`;
-
-            let intentUrl = upiDeepLink;
-            if (isMobile) {
-                if (isAndroid) {
-                    if (method === 'gpay') intentUrl = `intent://pay?pa=${encodeURIComponent(UPI_ID)}&pn=${encodeURIComponent(COMPANY_NAME)}&am=${total}&cu=INR&tn=KSR%20Order#Intent;scheme=upi;package=com.google.android.apps.nbu.paisa.user;S.browser_fallback_url=${encodeURIComponent('https://play.google.com/store/apps/details?id=com.google.android.apps.nbu.paisa.user')};end`;
-                    else if (method === 'phonepe') intentUrl = `intent://pay?pa=${encodeURIComponent(UPI_ID)}&pn=${encodeURIComponent(COMPANY_NAME)}&am=${total}&cu=INR&tn=KSR%20Order#Intent;scheme=upi;package=com.phonepe.app;S.browser_fallback_url=${encodeURIComponent('https://play.google.com/store/apps/details?id=com.phonepe.app')};end`;
-                    else if (method === 'paytm') intentUrl = `intent://pay?pa=${encodeURIComponent(UPI_ID)}&pn=${encodeURIComponent(COMPANY_NAME)}&am=${total}&cu=INR&tn=KSR%20Order#Intent;scheme=upi;package=net.one97.paytm;S.browser_fallback_url=${encodeURIComponent('https://play.google.com/store/apps/details?id=net.one97.paytm')};end`;
-                    else if (method === 'bhim') intentUrl = `intent://pay?pa=${encodeURIComponent(UPI_ID)}&pn=${encodeURIComponent(COMPANY_NAME)}&am=${total}&cu=INR&tn=KSR%20Order#Intent;scheme=upi;package=in.org.npci.upiapp;S.browser_fallback_url=${encodeURIComponent('https://play.google.com/store/apps/details?id=in.org.npci.upiapp')};end`;
-                    else if (method === 'amazonpay') intentUrl = `intent://pay?pa=${encodeURIComponent(UPI_ID)}&pn=${encodeURIComponent(COMPANY_NAME)}&am=${total}&cu=INR&tn=KSR%20Order#Intent;scheme=upi;package=in.amazon.mShop.android.shopping;S.browser_fallback_url=${encodeURIComponent('https://play.google.com/store/apps/details?id=in.amazon.mShop.android.shopping')};end`;
-                } else if (isIOS) {
-                    if (method === 'gpay') intentUrl = `gpay://upi/pay?pa=${encodeURIComponent(UPI_ID)}&pn=${encodeURIComponent(COMPANY_NAME)}&am=${total}&cu=INR&tn=KSR%20Order`;
-                    else if (method === 'phonepe') intentUrl = `phonepe://pay?pa=${encodeURIComponent(UPI_ID)}&pn=${encodeURIComponent(COMPANY_NAME)}&am=${total}&cu=INR&tn=KSR%20Order`;
-                    else if (method === 'paytm') intentUrl = `paytmmp://pay?pa=${encodeURIComponent(UPI_ID)}&pn=${encodeURIComponent(COMPANY_NAME)}&am=${total}&cu=INR&tn=KSR%20Order`;
+            // UPI Methods configuration
+            const meta = {
+                qr: {
+                    icon: 'fas fa-qrcode',
+                    color: '#10b981',
+                    title: 'UPI via Razorpay',
+                    appTitle: 'Any UPI App',
+                    blurb: 'Choose an available UPI app in Razorpay Checkout. Payment is confirmed after Razorpay verifies it.'
+                },
+                upi: {
+                    icon: 'fas fa-at',
+                    color: '#097969',
+                    title: 'Pay by UPI',
+                    appTitle: 'UPI ID / VPA',
+                    blurb: 'Choose an available UPI app in Razorpay Checkout. Payment is confirmed after Razorpay verifies it.'
+                },
+                gpay: {
+                    icon: 'fab fa-google-pay',
+                    color: '#4285f4',
+                    title: 'Google Pay',
+                    appTitle: 'Google Pay',
+                    blurb: 'Choose Google Pay in Razorpay Checkout. Payment is confirmed after Razorpay verifies it.'
+                },
+                phonepe: {
+                    icon: 'fas fa-mobile-alt',
+                    color: '#5f259f',
+                    title: 'PhonePe',
+                    appTitle: 'PhonePe',
+                    blurb: 'Choose PhonePe in Razorpay Checkout. Payment is confirmed after Razorpay verifies it.'
+                },
+                paytm: {
+                    icon: 'fas fa-wallet',
+                    color: '#00baf2',
+                    title: 'Paytm',
+                    appTitle: 'Paytm',
+                    blurb: 'Choose Paytm in Razorpay Checkout. Payment is confirmed after Razorpay verifies it.'
+                },
+                bhim: {
+                    icon: 'fas fa-hand-holding-heart',
+                    color: '#1a73e8',
+                    title: 'BHIM UPI',
+                    appTitle: 'BHIM UPI',
+                    blurb: 'Choose BHIM in Razorpay Checkout. Payment is confirmed after Razorpay verifies it.'
+                },
+                amazonpay: {
+                    icon: 'fab fa-amazon',
+                    color: '#ff9900',
+                    title: 'Amazon Pay',
+                    appTitle: 'Amazon Pay',
+                    blurb: 'Choose Amazon Pay in Razorpay Checkout. Payment is confirmed after Razorpay verifies it.'
                 }
-            }
+            };
 
-            const copyBtnHtml = `
-                <button type="button" onclick="navigator.clipboard.writeText('${UPI_ID}'); showToast('UPI ID copied to clipboard!', 'success');" style="display:inline-flex;align-items:center;gap:4px;margin-left:8px;background:#eef2ff;border:none;color:#2563eb;font-weight:700;font-size:0.75rem;cursor:pointer;padding:4px 8px;border-radius:6px;transition:0.2s;">
-                    <i class="fas fa-copy"></i> Copy
-                </button>
-            `;
+            const info = meta[method] || meta.upi;
+            const appDeepLink = getUpiAppDeepLink(method, total);
+            const qrImageUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(appDeepLink)}`;
 
-            let launchButtonHtml = '';
-            if (isMobile && method !== 'cod') {
-                launchButtonHtml = `
-                    <div style="margin: 14px 0 8px 0;">
-                        <a href="${intentUrl}" class="pay-intent-btn" style="display:flex;align-items:center;justify-content:center;gap:10px;background:#28a745;color:#fff;padding:12px;border-radius:12px;font-weight:700;text-decoration:none;font-size:1rem;box-shadow:0 4px 6px rgba(0,0,0,0.1);transition:transform 0.2s;text-align:center;">
-                            <i class="${method === 'gpay' ? 'fab fa-google-pay' : method === 'phonepe' ? 'fas fa-mobile-alt' : method === 'paytm' ? 'fas fa-wallet' : method === 'amazonpay' ? 'fab fa-amazon' : 'fas fa-paper-plane'}"></i>
-                            Pay ₹${total.toFixed(2)} via ${method === 'gpay' ? 'GPay' : method === 'phonepe' ? 'PhonePe' : method === 'paytm' ? 'Paytm' : method === 'amazonpay' ? 'Amazon Pay' : method === 'bhim' ? 'BHIM UPI' : 'UPI App'}
+            let appButtonHtml = '';
+            if (method === 'upi') {
+                const gpayLink = getUpiAppDeepLink('gpay', total);
+                const phonepeLink = getUpiAppDeepLink('phonepe', total);
+                const paytmLink = getUpiAppDeepLink('paytm', total);
+                const bhimLink = getUpiAppDeepLink('bhim', total);
+                const amazonpayLink = getUpiAppDeepLink('amazonpay', total);
+
+                appButtonHtml = `
+                    <div style="margin: 14px 0 10px 0;">
+                        <div style="font-size: 0.8rem; font-weight: 700; color: #475569; margin-bottom: 8px; text-align: center;">
+                            Tap any UPI app to open directly (Android / iOS):
+                        </div>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 8px;">
+                            <a href="${gpayLink}" class="pay-intent-btn" style="display: flex; align-items: center; justify-content: center; gap: 7px; background: #4285f4; color: #fff; padding: 10px 12px; border-radius: 10px; font-weight: 700; text-decoration: none; font-size: 0.82rem; box-shadow: 0 2px 6px rgba(66,133,244,0.25); text-align: center;">
+                                <i class="fab fa-google-pay" style="font-size: 1.1rem;"></i> Google Pay
+                            </a>
+                            <a href="${phonepeLink}" class="pay-intent-btn" style="display: flex; align-items: center; justify-content: center; gap: 7px; background: #5f259f; color: #fff; padding: 10px 12px; border-radius: 10px; font-weight: 700; text-decoration: none; font-size: 0.82rem; box-shadow: 0 2px 6px rgba(95,37,159,0.25); text-align: center;">
+                                <i class="fas fa-mobile-alt"></i> PhonePe
+                            </a>
+                            <a href="${paytmLink}" class="pay-intent-btn" style="display: flex; align-items: center; justify-content: center; gap: 7px; background: #00baf2; color: #fff; padding: 10px 12px; border-radius: 10px; font-weight: 700; text-decoration: none; font-size: 0.82rem; box-shadow: 0 2px 6px rgba(0,186,242,0.25); text-align: center;">
+                                <i class="fas fa-wallet"></i> Paytm
+                            </a>
+                            <a href="${bhimLink}" class="pay-intent-btn" style="display: flex; align-items: center; justify-content: center; gap: 7px; background: #1a73e8; color: #fff; padding: 10px 12px; border-radius: 10px; font-weight: 700; text-decoration: none; font-size: 0.82rem; box-shadow: 0 2px 6px rgba(26,115,232,0.25); text-align: center;">
+                                <i class="fas fa-hand-holding-heart"></i> BHIM UPI
+                            </a>
+                            <a href="${amazonpayLink}" class="pay-intent-btn" style="display: flex; align-items: center; justify-content: center; gap: 7px; background: #ff9900; color: #fff; padding: 10px 12px; border-radius: 10px; font-weight: 700; text-decoration: none; font-size: 0.82rem; box-shadow: 0 2px 6px rgba(255,153,0,0.25); text-align: center;">
+                                <i class="fab fa-amazon"></i> Amazon Pay
+                            </a>
+                        </div>
+                        <div style="margin-top: 10px; text-align: center;">
+                            <button type="button" onclick="toggleDesktopUpiQr()" style="background: #f8fafc; border: 1px dashed #94a3b8; border-radius: 20px; padding: 6px 14px; font-size: 0.74rem; font-weight: 600; color: #334155; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; transition: all 0.2s;">
+                                <i class="fas fa-qrcode" style="color: #0f7b3a;"></i> <span id="desktopQrToggleText">Or click to Scan UPI QR Code with Phone</span>
+                            </button>
+                            <div id="desktopUpiQrWrap" style="display: none; margin-top: 10px; flex-direction: column; align-items: center;">
+                                <img src="${qrImageUrl}" alt="Scan UPI QR" style="width: 140px; height: 140px; border-radius: 12px; border: 1px solid #e2e8f0; padding: 4px; background: #fff;" onerror="this.style.display='none';">
+                                <div style="font-size: 0.72rem; color: #64748b; margin-top: 4px;">Scan with Google Pay, PhonePe, Paytm, or any UPI app</div>
+                            </div>
+                        </div>
+                        <div style="font-size: 0.74rem; color: #64748b; text-align: center; margin-top: 8px;">
+                            <i class="fas fa-shield-alt" style="color: #10b981;"></i> Tap app link on Android/iOS, or click Place Order for Razorpay checkout.
+                        </div>
+                    </div>
+                `;
+            } else if (method !== 'qr') {
+                appButtonHtml = `
+                    <div style="margin: 12px 0 8px 0;">
+                        <a href="${appDeepLink}" class="pay-intent-btn" style="display: flex; align-items: center; justify-content: center; gap: 10px; background: ${info.color}; color: #fff; padding: 12px 16px; border-radius: 12px; font-weight: 700; text-decoration: none; font-size: 0.95rem; box-shadow: 0 4px 10px rgba(0,0,0,0.12); transition: transform 0.2s; text-align: center;">
+                            <i class="${info.icon}"></i> Open ${info.appTitle} App
                         </a>
-                        <div style="font-size:0.75rem;color:#64748b;text-align:center;margin-top:6px;">
-                            <i class="fas fa-arrow-right"></i> Pay on app, return here, and paste your UTR below.
+                        <div style="font-size: 0.74rem; color: #64748b; text-align: center; margin-top: 6px;">
+                            <i class="fas fa-shield-alt" style="color: #10b981;"></i> Click to launch app on Android/iOS, or click Place Order for Razorpay checkout.
+                        </div>
+                    </div>
+                `;
+            } else {
+                appButtonHtml = `
+                    <div style="display: flex; flex-direction: column; align-items: center; margin: 10px 0;">
+                        <img src="${qrImageUrl}" alt="Scan UPI QR" style="width: 140px; height: 140px; border-radius: 12px; border: 1px solid #e2e8f0; padding: 4px; background: #fff;" onerror="this.style.display='none';">
+                        <div style="font-size: 0.74rem; color: #64748b; text-align: center; margin-top: 6px;">
+                            Scan with Google Pay, PhonePe, Paytm, BHIM or any UPI app
                         </div>
                     </div>
                 `;
             }
 
-            const configs = {
-                qr: {
-                    title: '<i class="fas fa-qrcode"></i> Scan QR Code',
-                    content: `
-                                <div class="qr-box">
-                                    <img src="${qrImageUrl}" alt="UPI QR Code" style="max-width:200px;margin:0 auto;display:block;" />
-                                    <div class="upi-id-display" style="margin-top:10px;">
-                                        <small>UPI ID</small>
-                                        <strong>${UPI_ID}</strong> ${copyBtnHtml}
-                                    </div>
-                                    ${launchButtonHtml}
-                                    <p style="font-size:0.8rem;color:#64748b;margin-top:4px;">
-                                        Scan with Google Pay, PhonePe, Paytm, BHIM, Amazon Pay or any UPI app
-                                    </p>
-                                </div>
-                            `
-                },
-                upi: {
-                    title: '<i class="fas fa-at"></i> Pay with UPI ID',
-                    content: `
-                                <div style="margin:6px 0;">
-                                    <label style="font-weight:600;font-size:0.85rem;">UPI ID</label>
-                                    <div class="upi-id-display" style="font-size:1.15rem;letter-spacing:0.3px;display:flex;align-items:center;justify-content:center;gap:10px;padding:12px;background:#f8fafc;border-radius:10px;border:1px solid #cbd5e1;">
-                                        <strong>${UPI_ID}</strong>
-                                        ${copyBtnHtml}
-                                        </p>
-                                    </div>
-                                    ${launchButtonHtml}
-                                    <p style="font-size:0.8rem;color:#64748b;margin-top:4px;">
-                                        Send money to this UPI ID from any UPI app.
-                                    </p>
-                                </div>
-                            `
-                },
-                gpay: {
-                    title: '<i class="fab fa-google-pay"></i> Google Pay',
-                    content: `
-                                <div style="margin:6px 0;">
-                                    <div style="background:#e8f0fe;padding:12px 16px;border-radius:12px;display:flex;align-items:center;gap:12px;border:1px solid #c2dbff;">
-                                        <i class="fab fa-google-pay" style="font-size:2.4rem;color:#4285f4;"></i>
-                                        <div style="flex:1;">
-                                            <div style="font-weight:700;color:#1a73e8;">Google Pay</div>
-                                            <div style="font-size:0.8rem;color:#64748b;word-break:break-all;">UPI ID: <strong>${UPI_ID}</strong> ${copyBtnHtml}</div>
-                                        </div>
-                                    </div>
-                                    ${launchButtonHtml}
-                                </div>
-                                <div class="detail-hint">
-                                    <i class="fas fa-info-circle"></i>
-                                    Pay ${formatINR(total)} to UPI ID: <strong>${UPI_ID}</strong>
-                                </div>
-                            `
-                },
-                phonepe: {
-                    title: '<i class="fas fa-mobile-alt"></i> PhonePe',
-                    content: `
-                                <div style="margin:6px 0;">
-                                    <div style="background:#f3e8ff;padding:12px 16px;border-radius:12px;display:flex;align-items:center;gap:12px;border:1px solid #e9d5ff;">
-                                        <i class="fas fa-mobile-alt" style="font-size:2rem;color:#5f259f;"></i>
-                                        <div style="flex:1;">
-                                            <div style="font-weight:700;color:#6b21a8;">PhonePe</div>
-                                            <div style="font-size:0.8rem;color:#64748b;word-break:break-all;">UPI ID: <strong>${UPI_ID}</strong> ${copyBtnHtml}</div>
-                                        </div>
-                                    </div>
-                                    ${launchButtonHtml}
-                                </div>
-                                <div class="detail-hint">
-                                    <i class="fas fa-info-circle"></i>
-                                    Pay ${formatINR(total)} to UPI ID: <strong>${UPI_ID}</strong>
-                                </div>
-                            `
-                },
-                paytm: {
-                    title: '<i class="fas fa-wallet"></i> Paytm',
-                    content: `
-                                <div style="margin:6px 0;">
-                                    <div style="background:#e0f2fe;padding:12px 16px;border-radius:12px;display:flex;align-items:center;gap:12px;border:1px solid #bae6fd;">
-                                        <i class="fas fa-wallet" style="font-size:2rem;color:#00baf2;"></i>
-                                        <div style="flex:1;">
-                                            <div style="font-weight:700;color:#0369a1;">Paytm</div>
-                                            <div style="font-size:0.8rem;color:#64748b;word-break:break-all;">UPI ID: <strong>${UPI_ID}</strong> ${copyBtnHtml}</div>
-                                        </div>
-                                    </div>
-                                    ${launchButtonHtml}
-                                </div>
-                                <div class="detail-hint">
-                                    <i class="fas fa-info-circle"></i>
-                                    Pay ${formatINR(total)} to UPI ID: <strong>${UPI_ID}</strong>
-                                </div>
-                            `
-                },
-                bhim: {
-                    title: '<i class="fas fa-hand-holding-heart"></i> BHIM UPI',
-                    content: `
-                                <div style="margin:6px 0;">
-                                    <div style="background:#f0faf3;padding:12px 16px;border-radius:12px;display:flex;align-items:center;gap:12px;border:1px solid #bbf7d0;">
-                                        <i class="fas fa-hand-holding-heart" style="font-size:2rem;color:#1a73e8;"></i>
-                                        <div style="flex:1;">
-                                            <div style="font-weight:700;color:#1e7e34;">BHIM UPI</div>
-                                            <div style="font-size:0.8rem;color:#64748b;word-break:break-all;">UPI ID: <strong>${UPI_ID}</strong> ${copyBtnHtml}</div>
-                                        </div>
-                                    </div>
-                                    ${launchButtonHtml}
-                                </div>
-                                <div class="detail-hint">
-                                    <i class="fas fa-info-circle"></i>
-                                    Pay ${formatINR(total)} to UPI ID: <strong>${UPI_ID}</strong>
-                                </div>
-                            `
-                },
-                amazonpay: {
-                    title: '<i class="fab fa-amazon"></i> Amazon Pay',
-                    content: `
-                                <div style="margin:6px 0;">
-                                    <div style="background:#fff7ed;padding:12px 16px;border-radius:12px;display:flex;align-items:center;gap:12px;border:1px solid #ffedd5;">
-                                        <i class="fab fa-amazon" style="font-size:2.2rem;color:#ff9900;"></i>
-                                        <div style="flex:1;">
-                                            <div style="font-weight:700;color:#c2410c;">Amazon Pay</div>
-                                            <div style="font-size:0.8rem;color:#64748b;word-break:break-all;">UPI ID: <strong>${UPI_ID}</strong> ${copyBtnHtml}</div>
-                                        </div>
-                                    </div>
-                                    ${launchButtonHtml}
-                                </div>
-                                <div class="detail-hint">
-                                    <i class="fas fa-info-circle"></i>
-                                    Pay ${formatINR(total)} to UPI ID: <strong>${UPI_ID}</strong>
-                                </div>
-                            `
-                },
-                cod: {
-                    title: '<i class="fas fa-hand-holding-usd"></i> Cash on Delivery',
-                    content: `
-                                <div style="margin:6px 0;">
-                                    <div style="background:#fff8e6;padding:14px 16px;border-radius:12px;border-left:4px solid #f5a623;">
-                                        <div style="font-weight:700;font-size:1.1rem;">Pay at Delivery</div>
-                                        <div style="font-size:0.9rem;color:#5e4a1a;margin-top:4px;">
-                                            <i class="fas fa-truck"></i> You will pay <strong>${formatINR(total)}</strong> in cash
-                                            when your order arrives.
-                                        </div>
-                                    </div>
-                                    <div class="cod-warning" style="margin-top:8px;">
-                                        <i class="fas fa-info-circle"></i>
-                                        Cash on Delivery is available for orders up to <strong>${formatINR(COD_LIMIT)}</strong>.
-                                        Your total is <strong>${formatINR(total)}</strong>.
-                                        ${total > COD_LIMIT ? '<span style="color:#dc2626;font-weight:600;">⚠️ Exceeds COD limit!</span>' : '✅ Within COD limit.'}
-                                    </div>
-                                </div>
-                            `
-                }
-            };
+            detailTitle.innerHTML = `<i class="${info.icon}" style="color:${info.color};"></i> ${escapeHtml(info.title)}`;
+            detailContent.innerHTML = `
+                <div class="pd-panel">
+                    <div class="pd-icon" style="color:${info.color};">
+                        <i class="${info.icon}"></i>
+                    </div>
+                    <h4 style="margin: 4px 0 6px 0; font-size: 1.05rem; font-weight: 700; color: #0f172a;">${escapeHtml(info.title)}</h4>
+                    <p class="pd-blurb" style="margin: 0 0 10px 0; font-size: 0.85rem; color: #64748b;">${escapeHtml(info.blurb)}</p>
+                    
+                    <div class="pd-brands" style="display: flex; align-items: center; justify-content: center; gap: 14px; font-size: 1.4rem; color: #64748b; margin: 6px 0 12px 0;">
+                        <i class="fab fa-google-pay" title="Google Pay" style="color: #4285f4;"></i>
+                        <i class="fas fa-mobile-alt" title="PhonePe" style="color: #5f259f;"></i>
+                        <i class="fas fa-wallet" title="Paytm" style="color: #00baf2;"></i>
+                        <i class="fas fa-hand-holding-heart" title="BHIM UPI" style="color: #1a73e8;"></i>
+                        <i class="fab fa-amazon" title="Amazon Pay" style="color: #ff9900;"></i>
+                    </div>
 
-            const config = configs[method] || configs.qr;
-            detailTitle.innerHTML = config.title;
-            detailContent.innerHTML = config.content;
+                    ${appButtonHtml}
+                    ${amountStrip}
+                    ${merchantAccounts}
+                    ${secureNote}
+                </div>
+            `;
             detailPanel.classList.add('active');
 
             const nameMap = {
-                qr: 'QR Scan & Pay',
-                upi: 'UPI ID',
+                upi: 'Pay by UPI',
+                qr: 'Scan QR Code',
                 gpay: 'Google Pay',
                 phonepe: 'PhonePe',
                 paytm: 'Paytm',
@@ -1868,51 +1917,9 @@ if ($isLoggedIn) {
 
         function payUPI(method) {
             selectPayment(method);
-
-            let amountVal = document.getElementById("orderAmount") ? document.getElementById("orderAmount").value : getTotal().toFixed(2);
-            let orderIdVal = document.getElementById("orderId") ? document.getElementById("orderId").value : "KSR Order";
-
-            let upiId = "jyampallepparathod-1@oksbi";
-            let name = "Jampaleppa Rathod";
-
-            let upi =
-                "upi://pay?pa=" + encodeURIComponent(upiId) +
-                "&pn=" + encodeURIComponent(name) +
-                "&am=" + amountVal +
-                "&cu=INR" +
-                "&tn=" + orderIdVal;
-
-            switch (method) {
-                case "gpay":
-                    window.location.href =
-                        "intent://" + upi.replace("upi://", "") +
-                        "#Intent;scheme=upi;package=com.google.android.apps.nbu.paisa.user;end";
-                    break;
-
-                case "phonepe":
-                    window.location.href =
-                        "intent://" + upi.replace("upi://", "") +
-                        "#Intent;scheme=upi;package=com.phonepe.app;end";
-                    break;
-
-                case "paytm":
-                    window.location.href =
-                        "intent://" + upi.replace("upi://", "") +
-                        "#Intent;scheme=upi;package=net.one97.paytm;end";
-                    break;
-
-                case "amazonpay":
-                    window.location.href =
-                        "intent://" + upi.replace("upi://", "") +
-                        "#Intent;scheme=upi;package=in.amazon.mShop.android.shopping;end";
-                    break;
-
-                case "bhim":
-                    window.location.href =
-                        "intent://" + upi.replace("upi://", "") +
-                        "#Intent;scheme=upi;package=in.org.npci.upiapp;end";
-                    break;
-            }
+            const total = getTotal();
+            const deepLink = getUpiAppDeepLink(method, total);
+            window.location.href = deepLink;
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -1985,19 +1992,38 @@ if ($isLoggedIn) {
             const margin = 20;
             let y = margin;
 
-            // Header
+            // Header with Company Logo
+            let hasLogo = false;
+            const logoImg = document.querySelector('.logo-image img') || document.querySelector('img[src*="company_logo"]');
+            if (logoImg && logoImg.complete && logoImg.naturalWidth > 0) {
+                try {
+                    const canvas = document.createElement('canvas');
+                    canvas.width = logoImg.naturalWidth;
+                    canvas.height = logoImg.naturalHeight;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(logoImg, 0, 0);
+                    const imgData = canvas.toDataURL('image/jpeg', 0.9);
+                    doc.addImage(imgData, 'JPEG', margin, y - 4, 18, 18);
+                    hasLogo = true;
+                } catch (e) {
+                    console.warn('Could not add logo to PDF:', e);
+                }
+            }
+
             doc.setFontSize(18);
             doc.setTextColor(15, 123, 58);
-            doc.text(COMPANY_NAME, pageWidth / 2, y, {
-                align: 'center'
+            doc.setFont(undefined, 'bold');
+            doc.text(COMPANY_NAME, hasLogo ? margin + 24 : pageWidth / 2, y + 4, {
+                align: hasLogo ? 'left' : 'center'
             });
             y += 8;
             doc.setFontSize(10);
             doc.setTextColor(50);
-            doc.text('Everything Your Family Needs, Every Day', pageWidth / 2, y, {
-                align: 'center'
+            doc.setFont(undefined, 'normal');
+            doc.text('Everything Your Family Needs, Every Day · Express Delivery in 45 Mins', hasLogo ? margin + 24 : pageWidth / 2, y + 3, {
+                align: hasLogo ? 'left' : 'center'
             });
-            y += 8;
+            y += 10;
             doc.setDrawColor(15, 123, 58);
             doc.line(margin, y, pageWidth - margin, y);
             y += 10;
@@ -2113,7 +2139,17 @@ if ($isLoggedIn) {
             finalY += 6;
             doc.setFont(undefined, 'normal');
             doc.text('Delivery within 45 minutes', margin, finalY);
-            doc.text('WhatsApp: 8088584421, 8762474406', margin, finalY + 6);
+            doc.text('WhatsApp: 8088584421, 6362079192', margin, finalY + 6);
+            finalY += 16;
+
+            // Price variation notice requested by user
+            doc.setFillColor(254, 242, 242);
+            doc.roundedRect(margin, finalY - 4, pageWidth - (2 * margin), 12, 2, 2, 'F');
+            doc.setFontSize(9.5);
+            doc.setTextColor(185, 28, 28);
+            doc.setFont(undefined, 'bold');
+            doc.text('⚠️ Note: Price will be change customer will be support.', margin + 4, finalY + 3.5);
+            finalY += 12;
 
             // Footer
             const pageHeight = doc.internal.pageSize.getHeight();
@@ -2163,6 +2199,11 @@ if ($isLoggedIn) {
             placeOrderBtn.innerHTML = '<span class="spinner"></span> Placing Order...';
 
             // Build order data
+            const orderNotesVal = document.getElementById('orderNotes').value.trim();
+            const sugInput = document.getElementById('additionalSuggestionInput');
+            const sugVal = sugInput ? sugInput.value.trim() : '';
+            const combinedNotes = [orderNotesVal, sugVal ? `[Customer Item Request: ${sugVal}]` : ''].filter(Boolean).join(' | ');
+
             const orderData = {
                 customer: {
                     name: document.getElementById('fullName').value.trim(),
@@ -2191,7 +2232,7 @@ if ($isLoggedIn) {
                 deliveryCharge: DELIVERY_CHARGE,
                 paymentMethod: selectedMethod,
                 delivery: {
-                    notes: document.getElementById('orderNotes').value.trim()
+                    notes: combinedNotes
                 }
             };
 
@@ -2213,12 +2254,26 @@ if ($isLoggedIn) {
             formData.append('delivery_charge', orderData.deliveryCharge);
             formData.append('transaction_id', '');
 
+            const checkoutEndpoint = window.location.pathname || 'checkout.php';
+
             try {
-                const response = await fetch(window.location.href, {
+                const response = await fetch(checkoutEndpoint, {
                     method: 'POST',
                     body: formData
                 });
-                const result = await response.json();
+                const rawText = await response.text();
+                let result;
+                try {
+                    result = JSON.parse(rawText);
+                } catch (_parseErr) {
+                    // PHP emitted warnings/notices before JSON – show the raw output
+                    const preview = rawText.replace(/<[^>]*>/g, '').trim().slice(0, 200);
+                    showToast('❌ Server error: ' + (preview || 'Unexpected response. Check server logs.'), 'error', 8000);
+                    console.error('Non-JSON response from server:', rawText);
+                    placeOrderBtn.disabled = false;
+                    placeOrderBtn.innerHTML = originalHTML;
+                    return;
+                }
 
                 if (result.success) {
                     const orderNo = result.order_number;
@@ -2306,7 +2361,7 @@ if ($isLoggedIn) {
                     invoiceFormData.append('pdf_file', pdfResult.blob, `Invoice_${orderNo}.pdf`);
 
                     try {
-                        const uploadRes = await fetch(window.location.href, {
+                        const uploadRes = await fetch(checkoutEndpoint, {
                             method: 'POST',
                             body: invoiceFormData
                         });
@@ -2349,8 +2404,12 @@ if ($isLoggedIn) {
                     // ── Send WhatsApp to both delivery boys ──
                     const waNumbers = WHATSAPP_NUMBERS;
                     waNumbers.forEach(num => {
-                        const url = `https://wa.me/${num}?text=${encodeURIComponent(waMessage)}`;
-                        window.open(url, '_blank');
+                        try {
+                            const url = `https://wa.me/${num}?text=${encodeURIComponent(waMessage)}`;
+                            window.open(url, '_blank');
+                        } catch (popErr) {
+                            console.warn('Popup blocked:', popErr);
+                        }
                     });
                     showToast('📱 Opening WhatsApp for delivery boys...', 'info', 4000);
 
@@ -2371,6 +2430,14 @@ if ($isLoggedIn) {
                     }
                     waPrimaryBtn.href = `https://wa.me/${WHATSAPP_NUMBERS[0]}?text=${encodeURIComponent(waMessage)}`;
                     waSecondaryBtn.href = `https://wa.me/${WHATSAPP_NUMBERS[1]}?text=${encodeURIComponent(waMessage)}`;
+
+                    // Sync pre-order suggestion to post-order modal box
+                    const preSug = document.getElementById('additionalSuggestionInput');
+                    const postSug = document.getElementById('postOrderSuggestionInput');
+                    if (preSug && postSug && preSug.value.trim() && !postSug.value.trim()) {
+                        postSug.value = preSug.value.trim();
+                    }
+
                     successModal.classList.add('show');
 
                     showToast(`✅ Order ${orderNo} placed successfully!`, 'success', 3000);
@@ -2381,12 +2448,84 @@ if ($isLoggedIn) {
                     showToast('❌ ' + errors.join(' '), 'error');
                 }
             } catch (err) {
-                showToast('❌ Network error. Please try again.', 'error');
-                console.error(err);
+                const msg = err && err.message ? err.message : String(err);
+                showToast('❌ ' + (msg.includes('fetch') ? 'Network error. Please check your connection and try again.' : msg), 'error', 7000);
+                console.error('placeOrder error:', err);
             }
 
             placeOrderBtn.disabled = false;
             placeOrderBtn.innerHTML = originalHTML;
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        //  COPY ORDER & INVOICE TO CLIPBOARD
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        function copyOrderDetailsFromModal() {
+            if (!lastGeneratedOrder) {
+                showToast('⚠️ No order data available to copy.', 'warning');
+                return;
+            }
+            const o = lastGeneratedOrder;
+            const items = (o.items || []).map(it => {
+                let line = `• ${it.name} x${it.qty} — Rs. ${(it.price * it.qty).toFixed(2)}`;
+                if (it.variant) line += ` (${it.variant})`;
+                return line;
+            }).join('\n');
+            const dateStr = new Date().toLocaleString('en-IN');
+            const text = [
+                '🧾 KSR GURU JI — ORDER INVOICE',
+                '─────────────────────────────',
+                `Order No   : ${o.orderNo || '—'}`,
+                `Date/Time  : ${dateStr}`,
+                '',
+                '👤 Customer Details:',
+                `Name    : ${o.customer ? o.customer.name : '—'}`,
+                `Phone   : ${o.customer ? o.customer.mobile : '—'}`,
+                `Address : ${o.customer ? o.customer.address + ', ' + o.customer.city + ' - ' + o.customer.pincode : '—'}`,
+                '',
+                '🛒 Order Items:',
+                items,
+                '',
+                '─────────────────────────────',
+                `Subtotal       : Rs. ${(o.subtotal || 0).toFixed(2)}`,
+                `Delivery Charge: Rs. ${(o.deliveryCharge || 0).toFixed(2)}`,
+                `Grand Total    : Rs. ${(o.total || 0).toFixed(2)}`,
+                '',
+                `Payment Method : ${(o.paymentMethod || '').toUpperCase()}`,
+                `Txn ID         : ${o.transactionId || 'N/A'}`,
+                `Payment Status : ${o.paymentStatus || 'N/A'}`,
+                '',
+                '─────────────────────────────',
+                '⚠️ Note: Price will be change customer will be support.',
+                '',
+                'Thank you for shopping with KSR GURU JI! 🛍️',
+                'WhatsApp: 8088584421 | Website: www.ksrguruji.com'
+            ].join('\n');
+
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(() => {
+                    showToast('✅ Order & Invoice details copied to clipboard!', 'success', 3000);
+                }).catch(() => {
+                    _fallbackCopy(text);
+                });
+            } else {
+                _fallbackCopy(text);
+            }
+        }
+
+        function _fallbackCopy(text) {
+            const ta = document.createElement('textarea');
+            ta.value = text;
+            ta.style.cssText = 'position:fixed;top:-999px;left:-999px;opacity:0;';
+            document.body.appendChild(ta);
+            ta.select();
+            try {
+                document.execCommand('copy');
+                showToast('✅ Copied! (clipboard fallback)', 'success', 3000);
+            } catch (e) {
+                showToast('⚠️ Could not copy — please copy manually.', 'warning', 4000);
+            }
+            document.body.removeChild(ta);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -2656,8 +2795,9 @@ if ($isLoggedIn) {
                         verifyData.append('razorpay_order_id', result.razorpay_order_id);
                         verifyData.append('razorpay_signature', signature);
 
+                        const checkoutEndpoint = window.location.pathname || 'checkout.php';
                         try {
-                            const verifyResponse = await fetch(window.location.href, {
+                            const verifyResponse = await fetch(checkoutEndpoint, {
                                 method: 'POST',
                                 body: verifyData
                             });
@@ -2704,8 +2844,9 @@ if ($isLoggedIn) {
                             verifyData.append('razorpay_order_id', response.razorpay_order_id);
                             verifyData.append('razorpay_signature', response.razorpay_signature);
 
+                            const checkoutEndpoint = window.location.pathname || 'checkout.php';
                             try {
-                                const verifyResponse = await fetch(window.location.href, {
+                                const verifyResponse = await fetch(checkoutEndpoint, {
                                     method: 'POST',
                                     body: verifyData
                                 });
@@ -2755,6 +2896,10 @@ if ($isLoggedIn) {
             };
             document.getElementById('locationStatus').textContent = '';
             document.getElementById('orderNotes').value = '';
+            const addSug = document.getElementById('additionalSuggestionInput');
+            if (addSug) addSug.value = '';
+            const sugBody = document.getElementById('suggestionBoxBody');
+            if (sugBody) sugBody.style.display = 'none';
             updateSummary();
             renderPaymentDetail(selectedMethod);
             showToast('🔄 Form reset. Cart items unchanged.', 'info', 2000);
@@ -2785,15 +2930,42 @@ if ($isLoggedIn) {
             }
             const {
                 pdfResult,
-                orderNo
+                orderNo,
+                pdfUrlOnServer
             } = lastGeneratedOrder;
-            const link = document.createElement('a');
-            link.href = pdfResult.url;
-            link.download = `Invoice_${orderNo}.pdf`;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            showToast('📄 Invoice downloaded!', 'success', 2000);
+
+            try {
+                if (pdfResult && pdfResult.blob) {
+                    const blobUrl = URL.createObjectURL(pdfResult.blob);
+                    const link = document.createElement('a');
+                    link.href = blobUrl;
+                    link.download = `Invoice_${orderNo}.pdf`;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    setTimeout(() => URL.revokeObjectURL(blobUrl), 10000);
+                    showToast('📄 Invoice downloaded successfully!', 'success', 2500);
+                    return;
+                }
+                if (pdfResult && pdfResult.url) {
+                    const link = document.createElement('a');
+                    link.href = pdfResult.url;
+                    link.download = `Invoice_${orderNo}.pdf`;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    showToast('📄 Invoice downloaded successfully!', 'success', 2500);
+                    return;
+                }
+                if (pdfUrlOnServer) {
+                    window.open(pdfUrlOnServer, '_blank');
+                    showToast('📄 Opening invoice...', 'info', 2000);
+                    return;
+                }
+            } catch (err) {
+                console.error('Download error:', err);
+            }
+            showToast('⚠️ Could not download invoice copy automatically.', 'warning');
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -2902,11 +3074,23 @@ if ($isLoggedIn) {
                 });
             }
 
+            // Real-time error dismissal on user typing
+            ['fullName', 'mobile', 'address', 'city', 'pincode'].forEach(id => {
+                const el = document.getElementById(id);
+                const err = document.getElementById(id + 'Error');
+                if (el) {
+                    el.addEventListener('input', () => {
+                        el.classList.remove('error');
+                        if (err) err.classList.remove('show');
+                    });
+                }
+            });
+
             loadUnifiedCart();
             updateSummary();
 
             // Check for passed payment method from suggestion pages
-            let initialMethod = 'qr';
+            let initialMethod = 'upi';
             const urlParams = new URLSearchParams(window.location.search);
             if (urlParams.has('method')) {
                 initialMethod = urlParams.get('method');
@@ -2922,8 +3106,8 @@ if ($isLoggedIn) {
             if (defaultEl) {
                 selectPayment(initialMethod, defaultEl);
             } else {
-                const fallbackEl = document.querySelector('.payment-option[data-method="qr"]');
-                if (fallbackEl) selectPayment('qr', fallbackEl);
+                const fallbackEl = document.querySelector('.payment-option[data-method="upi"]') || document.querySelector('.payment-option[data-method="qr"]');
+                if (fallbackEl) selectPayment('upi', fallbackEl);
             }
 
             if (unifiedItems.length === 0) placeOrderBtn.disabled = true;

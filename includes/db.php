@@ -44,9 +44,10 @@ if (!function_exists('getDBConnection')) {
             return $pdo;
         } catch (Throwable $e) {
             // MySQL unavailable (Vercel serverless / local dev without MySQL).
-            // Fall back to an in-memory SQLite database and bootstrap every
-            // table that any part of the application may need.
-            $pdo = new PDO('sqlite::memory:', null, null, [
+            // Fall back to persistent SQLite database on disk and bootstrap schema.
+            $sqliteDir = is_writable(__DIR__ . '/..') ? (__DIR__ . '/..') : sys_get_temp_dir();
+            $sqliteFile = $sqliteDir . '/ksr_local_database.sqlite';
+            $pdo = new PDO('sqlite:' . $sqliteFile, null, null, [
                 PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
                 PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
             ]);
@@ -115,7 +116,10 @@ if (!function_exists('_bootstrapSQLiteSchema')) {
                 role        TEXT    NOT NULL DEFAULT 'user',
                 ksr_id      TEXT,
                 account_status TEXT DEFAULT 'ACTIVE',
-                created_at  TEXT    DEFAULT (datetime('now'))
+                verified_at TEXT,
+                failed_logins INTEGER DEFAULT 0,
+                last_login_at TEXT,
+                created_at  TEXT    DEFAULT (datetime('now', 'localtime'))
             )",
 
             "CREATE TABLE IF NOT EXISTS patients (
@@ -329,28 +333,42 @@ if (!function_exists('_bootstrapSQLiteSchema')) {
             "CREATE TABLE IF NOT EXISTS patient_otps (
                 id          INTEGER PRIMARY KEY AUTOINCREMENT,
                 user_id     INTEGER NOT NULL,
+                channel     TEXT    DEFAULT 'whatsapp',
+                destination TEXT,
+                code_hash   TEXT,
+                otp_hash    TEXT,
                 purpose     TEXT    NOT NULL,
-                otp_hash    TEXT    NOT NULL,
                 attempts    INTEGER DEFAULT 0,
                 sends       INTEGER DEFAULT 1,
+                is_used     INTEGER DEFAULT 0,
                 consumed    INTEGER DEFAULT 0,
                 created_at  TEXT    DEFAULT (datetime('now')),
-                expires_at  TEXT    NOT NULL
+                expires_at  TEXT    NOT NULL,
+                verified_at TEXT
             )",
 
             "CREATE TABLE IF NOT EXISTS patient_login_attempts (
-                id          INTEGER PRIMARY KEY AUTOINCREMENT,
-                identifier  TEXT    NOT NULL,
-                ip          TEXT,
-                attempt_at  TEXT    DEFAULT (datetime('now'))
+                id              INTEGER PRIMARY KEY AUTOINCREMENT,
+                identifier      TEXT    NOT NULL,
+                ip              TEXT,
+                ip_address      TEXT,
+                user_agent      TEXT,
+                attempt_type    TEXT    DEFAULT 'password',
+                was_successful  INTEGER DEFAULT 0,
+                attempt_at      TEXT    DEFAULT (datetime('now')),
+                attempted_at    TEXT    DEFAULT (datetime('now'))
             )",
 
             "CREATE TABLE IF NOT EXISTS patient_remember_tokens (
-                id          INTEGER PRIMARY KEY AUTOINCREMENT,
-                user_id     INTEGER NOT NULL,
-                token_hash  TEXT    NOT NULL,
-                expires_at  TEXT    NOT NULL,
-                created_at  TEXT    DEFAULT (datetime('now'))
+                id             INTEGER PRIMARY KEY AUTOINCREMENT,
+                user_id        INTEGER NOT NULL,
+                selector       TEXT    UNIQUE,
+                validator_hash TEXT,
+                token_hash     TEXT,
+                user_agent     TEXT,
+                expires_at     TEXT    NOT NULL,
+                last_used_at   TEXT,
+                created_at     TEXT    DEFAULT (datetime('now', 'localtime'))
             )",
 
             // ── Pharmacy / inventory ────────────────────────────────────────
@@ -408,6 +426,39 @@ if (!function_exists('_bootstrapSQLiteSchema')) {
                 error_log('[db.php SQLite bootstrap] ' . $e->getMessage());
             }
         }
+
+        // Migrate missing columns on existing patient tables
+        try {
+            $otpCols = $pdo->query("PRAGMA table_info(patient_otps)")->fetchAll(PDO::FETCH_COLUMN, 1);
+            if (!in_array('code_hash', $otpCols, true)) {
+                try { $pdo->exec("ALTER TABLE patient_otps ADD COLUMN code_hash TEXT"); } catch (Throwable $e) {}
+                try { $pdo->exec("ALTER TABLE patient_otps ADD COLUMN channel TEXT DEFAULT 'whatsapp'"); } catch (Throwable $e) {}
+                try { $pdo->exec("ALTER TABLE patient_otps ADD COLUMN destination TEXT"); } catch (Throwable $e) {}
+                try { $pdo->exec("ALTER TABLE patient_otps ADD COLUMN is_used INTEGER DEFAULT 0"); } catch (Throwable $e) {}
+                try { $pdo->exec("ALTER TABLE patient_otps ADD COLUMN verified_at TEXT"); } catch (Throwable $e) {}
+            }
+            $attCols = $pdo->query("PRAGMA table_info(patient_login_attempts)")->fetchAll(PDO::FETCH_COLUMN, 1);
+            if (!in_array('was_successful', $attCols, true)) {
+                try { $pdo->exec("ALTER TABLE patient_login_attempts ADD COLUMN was_successful INTEGER DEFAULT 0"); } catch (Throwable $e) {}
+                try { $pdo->exec("ALTER TABLE patient_login_attempts ADD COLUMN attempted_at TEXT"); } catch (Throwable $e) {}
+                try { $pdo->exec("ALTER TABLE patient_login_attempts ADD COLUMN ip_address TEXT"); } catch (Throwable $e) {}
+                try { $pdo->exec("ALTER TABLE patient_login_attempts ADD COLUMN user_agent TEXT"); } catch (Throwable $e) {}
+                try { $pdo->exec("ALTER TABLE patient_login_attempts ADD COLUMN attempt_type TEXT DEFAULT 'password'"); } catch (Throwable $e) {}
+            }
+            $remCols = $pdo->query("PRAGMA table_info(patient_remember_tokens)")->fetchAll(PDO::FETCH_COLUMN, 1);
+            if (!in_array('selector', $remCols, true)) {
+                try { $pdo->exec("ALTER TABLE patient_remember_tokens ADD COLUMN selector TEXT"); } catch (Throwable $e) {}
+                try { $pdo->exec("ALTER TABLE patient_remember_tokens ADD COLUMN validator_hash TEXT"); } catch (Throwable $e) {}
+                try { $pdo->exec("ALTER TABLE patient_remember_tokens ADD COLUMN user_agent TEXT"); } catch (Throwable $e) {}
+                try { $pdo->exec("ALTER TABLE patient_remember_tokens ADD COLUMN last_used_at TEXT"); } catch (Throwable $e) {}
+            }
+            $uCols = $pdo->query("PRAGMA table_info(users)")->fetchAll(PDO::FETCH_COLUMN, 1);
+            if (!in_array('verified_at', $uCols, true)) {
+                try { $pdo->exec("ALTER TABLE users ADD COLUMN verified_at TEXT"); } catch (Throwable $e) {}
+                try { $pdo->exec("ALTER TABLE users ADD COLUMN failed_logins INTEGER DEFAULT 0"); } catch (Throwable $e) {}
+                try { $pdo->exec("ALTER TABLE users ADD COLUMN last_login_at TEXT"); } catch (Throwable $e) {}
+            }
+        } catch (Throwable $e) {}
 
         // Seed exactly two approved doctors: Dr. Shivukumar Rathod & Dr. D C Rathod
         $pdo->exec("DELETE FROM doctors WHERE doctor_name NOT LIKE '%Shivukumar%' AND doctor_name NOT LIKE '%D C Rathod%'");

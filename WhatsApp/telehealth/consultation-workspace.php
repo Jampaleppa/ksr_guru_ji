@@ -167,26 +167,10 @@ if ($patientInitials === '') $patientInitials = 'RK';
     <!-- KSR brand bar (shared) -->
     <link rel="stylesheet" href="partials/brandbar.css">
     <link rel="stylesheet" href="assist-style.css">
-    <?php $ksr_active = 'consult'; $ksr_depth = 0; include __DIR__ . '/partials/brandbar.php'; ?>
-
-
-
-
-
-
-<nav class="navbar doc-nav">
-    <div class="container" style="display: flex; justify-content: space-between; align-items: center; height: 100%;">
-        <div style="display:flex; align-items:center; gap:32px;">
-            <a href="doctor-dashboard.php" class="navbar-brand"><i class="fas fa-heartbeat"></i> DOCTOR PORTAL</a>
-            <div class="navbar-links" style="display: flex; gap: 24px;">
-                <a href="#"  style="font-weight:600; text-decoration:none;"><i class="fas fa-arrow-left"></i> Back to Appointments</a>
-            </div>
-        </div>
-        <div style="display:flex; align-items:center; gap:20px;">
-            <a href="#"  class="profile-badge" style="padding:10px 16px; border-radius:20px; text-decoration:none; font-weight:600;"><i class="fas fa-user-md"></i> <?php echo htmlspecialchars($docName); ?></a>
-        </div>
-    </div>
-</nav>
+    <?php $ksr_active = 'consult'; $ksr_depth = 0;
+    include __DIR__ . '/partials/brandbar.php';
+    $navActive = 'appointments';
+    include __DIR__ . '/partials/doctor-nav.php'; ?>
 
 <div class="workspace-header">
     <div class="wh-card">

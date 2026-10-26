@@ -4,7 +4,7 @@ require_once dirname(__DIR__, 2) . '/patient-auth.php';
 
 // Secure session handling: guests are sent to the Patient Portal login
 if (!pp_is_logged_in()) {
-    header('Location: ../../patient-login.php?next=' . urlencode(basename($_SERVER['PHP_SELF'] ?? 'patient-dashboard.php')));
+    header('Location: ../../patient-login.php?next=' . urlencode('WhatsApp/telehealth/patient-dashboard.php'));
     exit;
 }
 

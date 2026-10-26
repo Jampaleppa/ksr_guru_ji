@@ -27,7 +27,9 @@ const TELEHEALTH_RX_VALIDITY_MONTHS = 6;
 
 function getAssistDB()
 {
-    return getDBConnection();
+    $pdo = getDBConnection();
+    telehealthEnsureSchema($pdo);
+    return $pdo;
 }
 
 function logAuditEvent($action, $table, $userId, $details)
@@ -542,63 +544,135 @@ function telehealthEnsureSchema(PDO $pdo): void
     if ($ensured) return;
     $ensured = true;
 
+    $isSqlite = ($pdo->getAttribute(PDO::ATTR_DRIVER_NAME) === 'sqlite');
+
+    if ($isSqlite) {
+        try {
+            $sqliteFuncMethod = 'sqliteCreate' . 'Function';
+            if (method_exists($pdo, $sqliteFuncMethod)) {
+                $reg = function(string $name, callable $fn, int $numArgs = -1) use ($pdo, $sqliteFuncMethod): void {
+                    @call_user_func([$pdo, $sqliteFuncMethod], $name, $fn, $numArgs);
+                };
+                $reg('CURDATE', fn() => date('Y-m-d'), 0);
+                $reg('NOW', fn() => date('Y-m-d H:i:s'), 0);
+                $reg('MONTH', fn($d) => $d ? (int)date('m', strtotime((string)$d)) : (int)date('m'), 1);
+                $reg('YEAR', fn($d) => $d ? (int)date('Y', strtotime((string)$d)) : (int)date('Y'), 1);
+                $reg('CONCAT', fn(...$args) => implode('', $args));
+                $reg('IF', fn($c, $t, $f) => $c ? $t : $f, 3);
+                $reg('CHAR_LENGTH', fn($s) => mb_strlen((string)$s), 1);
+                $reg('DATE_SUB', function($date, $expr = null) {
+                    $d = $date ? strtotime((string)$date) : time();
+                    $days = $expr ? (int)preg_replace('/[^0-9]/', '', (string)$expr) : 0;
+                    return date('Y-m-d', strtotime("-$days days", $d));
+                });
+                $reg('DATE_ADD', function($date, $expr = null) {
+                    $d = $date ? strtotime((string)$date) : time();
+                    $days = $expr ? (int)preg_replace('/[^0-9]/', '', (string)$expr) : 0;
+                    return date('Y-m-d', strtotime("+$days days", $d));
+                });
+                $reg('TIMESTAMPDIFF', function($unit, $dt1, $dt2) {
+                    $t1 = $dt1 ? strtotime((string)$dt1) : 0;
+                    $t2 = $dt2 ? strtotime((string)$dt2) : time();
+                    $diff = $t2 - $t1;
+                    $u = strtoupper((string)$unit);
+                    if ($u === 'MINUTE') return (int)($diff / 60);
+                    if ($u === 'HOUR') return (int)($diff / 3600);
+                    if ($u === 'DAY') return (int)($diff / 86400);
+                    return (int)$diff;
+                }, 3);
+            }
+        } catch (Throwable $e) {}
+    }
+
     try {
-        $sqliteFuncMethod = 'sqliteCreate' . 'Function';
-        if ($pdo->getAttribute(PDO::ATTR_DRIVER_NAME) === 'sqlite' && method_exists($pdo, $sqliteFuncMethod)) {
-            $reg = function(string $name, callable $fn, int $numArgs = -1) use ($pdo, $sqliteFuncMethod): void {
-                @call_user_func([$pdo, $sqliteFuncMethod], $name, $fn, $numArgs);
-            };
-            $reg('CURDATE', fn() => date('Y-m-d'), 0);
-            $reg('NOW', fn() => date('Y-m-d H:i:s'), 0);
-            $reg('MONTH', fn($d) => $d ? (int)date('m', strtotime((string)$d)) : (int)date('m'), 1);
-            $reg('YEAR', fn($d) => $d ? (int)date('Y', strtotime((string)$d)) : (int)date('Y'), 1);
-            $reg('CONCAT', fn(...$args) => implode('', $args));
-            $reg('IF', fn($c, $t, $f) => $c ? $t : $f, 3);
-            $reg('CHAR_LENGTH', fn($s) => mb_strlen((string)$s), 1);
-            $reg('DATE_SUB', function($date, $expr = null) {
-                $d = $date ? strtotime((string)$date) : time();
-                $days = $expr ? (int)preg_replace('/[^0-9]/', '', (string)$expr) : 0;
-                return date('Y-m-d', strtotime("-$days days", $d));
-            });
-            $reg('DATE_ADD', function($date, $expr = null) {
-                $d = $date ? strtotime((string)$date) : time();
-                $days = $expr ? (int)preg_replace('/[^0-9]/', '', (string)$expr) : 0;
-                return date('Y-m-d', strtotime("+$days days", $d));
-            });
+        if ($isSqlite) {
+            $pdo->exec("CREATE TABLE IF NOT EXISTS prescriptions (
+                id                  INTEGER PRIMARY KEY AUTOINCREMENT,
+                consultation_id     INTEGER,
+                patient_id          INTEGER NOT NULL,
+                doctor_id           INTEGER,
+                doctor_name         TEXT,
+                prescription_date   TEXT DEFAULT (date('now')),
+                status              TEXT DEFAULT 'ACTIVE',
+                diagnosis           TEXT,
+                medicines           TEXT,
+                notes               TEXT,
+                verification_status TEXT DEFAULT 'PENDING',
+                verified_at         TEXT,
+                created_at          TEXT DEFAULT (datetime('now'))
+            )");
+            $pdo->exec("CREATE TABLE IF NOT EXISTS prescription_medicines (
+                id                  INTEGER PRIMARY KEY AUTOINCREMENT,
+                prescription_id     INTEGER NOT NULL,
+                medicine_id         INTEGER,
+                medicine_name       TEXT NOT NULL,
+                strength            TEXT,
+                dosage_form         TEXT,
+                frequency           TEXT,
+                duration            TEXT,
+                instructions        TEXT,
+                quantity            INTEGER DEFAULT 1,
+                created_at          TEXT DEFAULT (datetime('now'))
+            )");
+            $pdo->exec("CREATE TABLE IF NOT EXISTS consultations (
+                id                  INTEGER PRIMARY KEY AUTOINCREMENT,
+                patient_id          INTEGER,
+                doctor_id           INTEGER,
+                type                TEXT DEFAULT 'Video',
+                status              TEXT DEFAULT 'scheduled',
+                diagnosis           TEXT,
+                symptoms            TEXT,
+                doctor_assessment   TEXT,
+                consultation_date   TEXT DEFAULT (datetime('now')),
+                notes               TEXT,
+                created_at          TEXT DEFAULT (datetime('now'))
+            )");
+        } else {
+            $pdo->exec("CREATE TABLE IF NOT EXISTS prescriptions (
+                id                  INT AUTO_INCREMENT PRIMARY KEY,
+                consultation_id     INT NULL,
+                patient_id          INT NOT NULL,
+                doctor_id           INT NULL,
+                doctor_name         VARCHAR(255) NULL,
+                prescription_date   DATE NULL,
+                status              VARCHAR(50) DEFAULT 'ACTIVE',
+                diagnosis           TEXT NULL,
+                medicines           TEXT NULL,
+                notes               TEXT NULL,
+                verification_status VARCHAR(50) DEFAULT 'PENDING',
+                verified_at         DATETIME NULL,
+                created_at          DATETIME DEFAULT CURRENT_TIMESTAMP
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
+            $pdo->exec("CREATE TABLE IF NOT EXISTS prescription_medicines (
+                id                  INT AUTO_INCREMENT PRIMARY KEY,
+                prescription_id     INT NOT NULL,
+                medicine_id         INT NULL,
+                medicine_name       VARCHAR(255) NOT NULL,
+                strength            VARCHAR(100) NULL,
+                dosage_form         VARCHAR(100) NULL,
+                frequency           VARCHAR(100) NULL,
+                duration            VARCHAR(100) NULL,
+                instructions        TEXT NULL,
+                quantity            INT DEFAULT 1,
+                created_at          DATETIME DEFAULT CURRENT_TIMESTAMP
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
+            $pdo->exec("CREATE TABLE IF NOT EXISTS consultations (
+                id                  INT AUTO_INCREMENT PRIMARY KEY,
+                patient_id          INT NULL,
+                doctor_id           INT NULL,
+                type                VARCHAR(50) DEFAULT 'Video',
+                status              VARCHAR(50) DEFAULT 'scheduled',
+                diagnosis           TEXT NULL,
+                symptoms            TEXT NULL,
+                doctor_assessment   TEXT NULL,
+                consultation_date   DATETIME DEFAULT CURRENT_TIMESTAMP,
+                notes               TEXT NULL,
+                created_at          DATETIME DEFAULT CURRENT_TIMESTAMP
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
         }
-    } catch (Throwable $e) {}
-
-    try {
-        $pdo->exec("CREATE TABLE IF NOT EXISTS prescription_medicines (
-            id                  INTEGER PRIMARY KEY AUTOINCREMENT,
-            prescription_id     INTEGER NOT NULL,
-            medicine_id         INTEGER,
-            medicine_name       TEXT NOT NULL,
-            strength            TEXT,
-            dosage_form         TEXT,
-            frequency           TEXT,
-            duration            TEXT,
-            instructions        TEXT,
-            quantity            INTEGER DEFAULT 1,
-            created_at          TEXT DEFAULT (datetime('now'))
-        )");
-    } catch (Throwable $e) {}
-
-    try {
-        $pdo->exec("CREATE TABLE IF NOT EXISTS consultations (
-            id                  INTEGER PRIMARY KEY AUTOINCREMENT,
-            patient_id          INTEGER,
-            doctor_id           INTEGER,
-            type                TEXT DEFAULT 'Video',
-            status              TEXT DEFAULT 'scheduled',
-            diagnosis           TEXT,
-            symptoms            TEXT,
-            doctor_assessment   TEXT,
-            consultation_date   TEXT DEFAULT (datetime('now')),
-            notes               TEXT,
-            created_at          TEXT DEFAULT (datetime('now'))
-        )");
-    } catch (Throwable $e) {}
+    } catch (Throwable $e) {
+        error_log('[telehealthEnsureSchema] ' . $e->getMessage());
+    }
 }
 
 /** Human readable prescription code derived from the primary key. */
@@ -667,10 +741,14 @@ function telehealthPrescriptions(PDO $pdo, int $doctorId = 0, string $status = '
         . " ORDER BY p.prescription_date DESC, p.id DESC
              LIMIT " . $limit;
 
-    $st = $pdo->prepare($sql);
-    $st->execute(array_merge($doctorParams, $statusParams));
-
-    $rows = $st->fetchAll();
+    try {
+        $st = $pdo->prepare($sql);
+        $st->execute(array_merge($doctorParams, $statusParams));
+        $rows = $st->fetchAll();
+    } catch (Throwable $e) {
+        error_log('[telehealthPrescriptions] ' . $e->getMessage());
+        $rows = [];
+    }
 
     foreach ($rows as &$row) {
         $row['rx_code']    = telehealthRxCode((int) $row['id']);
@@ -688,41 +766,47 @@ function telehealthPrescription(PDO $pdo, int $rxId): ?array
     if ($rxId <= 0) {
         return null;
     }
+    telehealthEnsureSchema($pdo);
 
-    $st = $pdo->prepare(
-        "SELECT p.*, pt.patient_name, pt.gender, pt.date_of_birth, pt.mobile_number,
-                pt.address, pt.allergies, pt.current_medications, pt.medical_history,
-                d.doctor_name, d.specialty, d.qualification, d.registration_number,
-                d.registration_authority, d.experience_years, d.clinic_hospital_details,
-                c.diagnosis, c.symptoms, c.doctor_assessment, c.consultation_date
-           FROM prescriptions p
-           LEFT JOIN patients pt     ON pt.id = p.patient_id
-           LEFT JOIN doctors  d      ON d.id  = p.doctor_id
-           LEFT JOIN consultations c ON c.id  = p.consultation_id
-          WHERE p.id = ?
-          LIMIT 1"
-    );
-    $st->execute([$rxId]);
-    $row = $st->fetch();
+    try {
+        $st = $pdo->prepare(
+            "SELECT p.*, pt.patient_name, pt.gender, pt.date_of_birth, pt.mobile_number,
+                    pt.address, pt.allergies, pt.current_medications, pt.medical_history,
+                    d.doctor_name, d.specialty, d.qualification, d.registration_number,
+                    d.registration_authority, d.experience_years, d.clinic_hospital_details,
+                    c.diagnosis, c.symptoms, c.doctor_assessment, c.consultation_date
+               FROM prescriptions p
+               LEFT JOIN patients pt     ON pt.id = p.patient_id
+               LEFT JOIN doctors  d      ON d.id  = p.doctor_id
+               LEFT JOIN consultations c ON c.id  = p.consultation_id
+              WHERE p.id = ?
+              LIMIT 1"
+        );
+        $st->execute([$rxId]);
+        $row = $st->fetch();
 
-    if (!$row) {
+        if (!$row) {
+            return null;
+        }
+
+        // Pull the doctor's audio-call number from the linked users row.
+        if ((int) ($row['doctor_id'] ?? 0) > 0) {
+            $doc = telehealthDoctorById($pdo, (int) $row['doctor_id']);
+            if ($doc) {
+                $row['doctor_phone']   = $doc['user_phone'] ?? null;
+                $row['doctor_user_id'] = $doc['user_id'];
+            }
+        }
+
+        $row['rx_code']    = telehealthRxCode((int) $row['id']);
+        $row['is_expired'] = telehealthRxExpired($row);
+        $row['age']        = telehealthAge($row['date_of_birth'] ?? null);
+
+        return $row;
+    } catch (Throwable $e) {
+        error_log('[telehealthPrescription] ' . $e->getMessage());
         return null;
     }
-
-    // Pull the doctor's audio-call number from the linked users row.
-    if ((int) ($row['doctor_id'] ?? 0) > 0) {
-        $doc = telehealthDoctorById($pdo, (int) $row['doctor_id']);
-        if ($doc) {
-            $row['doctor_phone']   = $doc['user_phone'] ?? null;
-            $row['doctor_user_id'] = $doc['user_id'];
-        }
-    }
-
-    $row['rx_code']    = telehealthRxCode((int) $row['id']);
-    $row['is_expired'] = telehealthRxExpired($row);
-    $row['age']        = telehealthAge($row['date_of_birth'] ?? null);
-
-    return $row;
 }
 
 /** Medicines belonging to a prescription. */
@@ -731,16 +815,21 @@ function telehealthPrescriptionItems(PDO $pdo, int $rxId): array
     if ($rxId <= 0) {
         return [];
     }
+    telehealthEnsureSchema($pdo);
 
-    $st = $pdo->prepare(
-        "SELECT id, medicine_id, medicine_name, strength, dosage_form, frequency, duration, instructions
-           FROM prescription_medicines
-          WHERE prescription_id = ?
-       ORDER BY id ASC"
-    );
-    $st->execute([$rxId]);
-
-    return $st->fetchAll();
+    try {
+        $st = $pdo->prepare(
+            "SELECT id, medicine_id, medicine_name, strength, dosage_form, frequency, duration, instructions
+               FROM prescription_medicines
+              WHERE prescription_id = ?
+           ORDER BY id ASC"
+        );
+        $st->execute([$rxId]);
+        return $st->fetchAll();
+    } catch (Throwable $e) {
+        error_log('[telehealthPrescriptionItems] ' . $e->getMessage());
+        return [];
+    }
 }
 
 /** TRUE when a prescription row is past its validity window or flagged EXPIRED. */
@@ -768,6 +857,8 @@ function telehealthRxExpired(array $rx): bool
 /** Dashboard metrics for the prescription screens. */
 function telehealthStats(PDO $pdo, int $doctorId = 0): array
 {
+    telehealthEnsureSchema($pdo);
+
     $doctorSql    = '';
     $doctorParams = [];
 
@@ -777,19 +868,28 @@ function telehealthStats(PDO $pdo, int $doctorId = 0): array
     }
 
     $fetch = function (string $where) use ($pdo, $doctorSql, $doctorParams): int {
-        $st = $pdo->prepare('SELECT COUNT(*) FROM prescriptions WHERE 1 = 1 ' . $doctorSql . $where);
-        $st->execute($doctorParams);
-
-        return (int) $st->fetchColumn();
+        try {
+            $st = $pdo->prepare('SELECT COUNT(*) FROM prescriptions WHERE 1 = 1 ' . $doctorSql . $where);
+            $st->execute($doctorParams);
+            return (int) $st->fetchColumn();
+        } catch (Throwable $e) {
+            return 0;
+        }
     };
 
-    $itemsSt = $pdo->prepare(
-        "SELECT COUNT(*)
-           FROM prescription_medicines pm
-           JOIN prescriptions p ON p.id = pm.prescription_id
-          WHERE 1 = 1 " . ($doctorId > 0 ? ' AND p.doctor_id = ? ' : '')
-    );
-    $itemsSt->execute($doctorParams);
+    $medicineCount = 0;
+    try {
+        $itemsSt = $pdo->prepare(
+            "SELECT COUNT(*)
+               FROM prescription_medicines pm
+               JOIN prescriptions p ON p.id = pm.prescription_id
+              WHERE 1 = 1 " . ($doctorId > 0 ? ' AND p.doctor_id = ? ' : '')
+        );
+        $itemsSt->execute($doctorParams);
+        $medicineCount = (int) $itemsSt->fetchColumn();
+    } catch (Throwable $e) {
+        $medicineCount = 0;
+    }
 
     return [
         'total'     => $fetch(''),
@@ -797,7 +897,7 @@ function telehealthStats(PDO $pdo, int $doctorId = 0): array
         'pending'   => $fetch(" AND verification_status = 'PENDING' "),
         'verified'  => $fetch(" AND verification_status = 'APPROVED' "),
         'reissued'  => $fetch(" AND status = 'REISSUED' "),
-        'medicines' => (int) $itemsSt->fetchColumn(),
+        'medicines' => $medicineCount,
     ];
 }
 

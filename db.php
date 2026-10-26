@@ -63,9 +63,10 @@ class Database {
             $this->error = $e->getMessage();
             error_log('Database connection failed: ' . $this->error);
             // MySQL unavailable (Vercel serverless / local dev without MySQL).
-            // Fall back to in-memory SQLite with the full schema so pages don't
-            // crash with "no such table / no such column" errors.
-            $this->pdo = new PDO('sqlite::memory:', null, null, [
+            // Fall back to persistent SQLite on disk so orders and payments persist across requests!
+            $sqliteDir = is_writable(__DIR__) ? __DIR__ : sys_get_temp_dir();
+            $sqliteFile = $sqliteDir . '/ksr_local_database.sqlite';
+            $this->pdo = new PDO('sqlite:' . $sqliteFile, null, null, [
                 PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
                 PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
             ]);

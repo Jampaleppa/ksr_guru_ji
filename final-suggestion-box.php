@@ -148,52 +148,75 @@
                 $products = json_decode($_POST['products_json'], true);
                 $different_product = trim($_POST['different_product'] ?? '');
                 $product_message = '';
+
                 if (!is_array($products) || count($products) === 0) {
-                    $product_message = "Please add at least one product.";
-                } else {
-                    try {
-                        $pdo->beginTransaction();
-                        $stmt = $pdo->prepare("INSERT INTO product_submissions (different_product) VALUES (?)");
-                        $stmt->execute([$different_product]);
-                        $submission_id = $pdo->lastInsertId();
-                        $itemStmt = $pdo->prepare("INSERT INTO product_submission_items
-                        (submission_id, product_name, category, quantity, unit, current_price, suggested_shop, brand, note, product_image)
-                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-                        $uploadDir = __DIR__ . '/uploads/';
-                        if (!is_dir($uploadDir)) mkdir($uploadDir, 0777, true);
-                        foreach ($products as $product) {
-                            $product_name = trim($product['product_name']);
-                            $category = trim($product['category'] ?? '');
-                            $quantity = floatval($product['quantity'] ?? 0);
-                            $unit = strval($product['unit'] ?? '');
-                            $current_price = floatval($product['current_price'] ?? 0);
-                            $suggested_shop = trim($product['suggested_shop'] ?? '');
-                            $brand = trim($product['brand'] ?? '');
-                            $note = trim($product['note'] ?? '');
-                            $imageName = '';
-                            if (!empty($product['image'])) {
-                                $imageData = $product['image'];
-                                if (preg_match('/^data:image\/(\w+);base64,/', $imageData, $type)) {
-                                    $imageData = substr($imageData, strpos($imageData, ',') + 1);
-                                    $imageData = base64_decode($imageData);
-                                    $extension = strtolower($type[1]);
-                                    if (in_array($extension, ['jpg', 'jpeg', 'png', 'webp'])) {
-                                        $imageName = time() . '_' . uniqid() . '.' . $extension;
-                                        file_put_contents($uploadDir . $imageName, $imageData);
+                    if ($different_product !== '') {
+                        $products = [[
+                            'product_name' => $different_product,
+                            'category' => 'General Suggestion',
+                            'quantity' => 1,
+                            'unit' => 'Item',
+                            'current_price' => 0,
+                            'suggested_shop' => '',
+                            'brand' => '',
+                            'note' => '',
+                            'image' => ''
+                        ]];
+                    } else {
+                        echo json_encode(['success' => false, 'message' => 'Please add at least one product or suggestion.']);
+                        exit;
+                    }
+                }
+
+                try {
+                    $pdo->beginTransaction();
+                    $stmt = $pdo->prepare("INSERT INTO product_submissions (different_product) VALUES (?)");
+                    $stmt->execute([$different_product]);
+                    $submission_id = $pdo->lastInsertId();
+                    $itemStmt = $pdo->prepare("INSERT INTO product_submission_items
+                    (submission_id, product_name, category, quantity, unit, current_price, suggested_shop, brand, note, product_image)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+
+                    $uploadDir = is_writable(__DIR__ . '/uploads') ? (__DIR__ . '/uploads/') : (sys_get_temp_dir() . '/ksr_uploads/');
+                    if (!is_dir($uploadDir)) @mkdir($uploadDir, 0777, true);
+
+                    foreach ($products as $product) {
+                        $product_name = trim($product['product_name'] ?? '');
+                        if ($product_name === '') continue;
+                        $category = trim($product['category'] ?? '');
+                        $quantity = floatval($product['quantity'] ?? 0);
+                        $unit = strval($product['unit'] ?? '');
+                        $current_price = floatval($product['current_price'] ?? 0);
+                        $suggested_shop = trim($product['suggested_shop'] ?? '');
+                        $brand = trim($product['brand'] ?? '');
+                        $note = trim($product['note'] ?? '');
+                        $imageName = '';
+                        if (!empty($product['image'])) {
+                            $imageData = $product['image'];
+                            if (preg_match('/^data:image\/(\w+);base64,/', $imageData, $type)) {
+                                $rawB64 = substr($imageData, strpos($imageData, ',') + 1);
+                                $rawDecoded = base64_decode($rawB64);
+                                $extension = strtolower($type[1]);
+                                if (in_array($extension, ['jpg', 'jpeg', 'png', 'webp'])) {
+                                    $imageName = time() . '_' . uniqid() . '.' . $extension;
+                                    if (!@file_put_contents($uploadDir . $imageName, $rawDecoded)) {
+                                        // On read-only disk, store reference safely
+                                        $imageName = 'data_uploaded';
                                     }
                                 }
                             }
-                            $itemStmt->execute([$submission_id, $product_name, $category, $quantity, $unit, $current_price, $suggested_shop, $brand, $note, $imageName]);
                         }
-                        $pdo->commit();
-                        $product_message = "All " . count($products) . " products submitted successfully!";
-                    } catch (Exception $e) {
-                        $pdo->rollBack();
-                        $product_message = "Submission failed: " . $e->getMessage();
+                        $itemStmt->execute([$submission_id, $product_name, $category, $quantity, $unit, $current_price, $suggested_shop, $brand, $note, $imageName]);
                     }
+                    $pdo->commit();
+                    $product_message = "All " . count($products) . " product(s) submitted successfully!";
+                    echo json_encode(['success' => true, 'message' => $product_message]);
+                    exit;
+                } catch (Exception $e) {
+                    if ($pdo->inTransaction()) $pdo->rollBack();
+                    echo json_encode(['success' => false, 'message' => 'Submission failed: ' . $e->getMessage()]);
+                    exit;
                 }
-                echo json_encode(['success' => true, 'message' => $product_message]);
-                exit;
             }
             // ─── MEDICAL ──────────────────────────────────────────────
             if ($action === 'medical') {
@@ -299,27 +322,53 @@
         } elseif (!preg_match('/^[0-9]{10}$/', $mobile)) {
             $error = "Mobile number must be 10 digits.";
         } else {
-            $targetDir = 'uploads/';
-            if (!is_dir($targetDir)) mkdir($targetDir, 0777, true);
+            // Determine a writable upload directory (Vercel-safe)
+            $preferredDir = rtrim(__DIR__, '/') . '/uploads';
+            if (is_writable(__DIR__) || (is_dir($preferredDir) && is_writable($preferredDir))) {
+                $targetDir = $preferredDir . '/';
+            } else {
+                // Fallback to /tmp on read-only hosts (Vercel, etc.)
+                $targetDir = sys_get_temp_dir() . '/ksr_emergency/';
+            }
+            if (!is_dir($targetDir)) {
+                @mkdir($targetDir, 0777, true);
+            }
+
             $imageFile = $_FILES['prescription'];
-            $fileName = time() . '_' . basename($imageFile['name']);
+            $safeBase  = preg_replace('/[^a-zA-Z0-9_\-.]/', '_', basename($imageFile['name']));
+            $fileName  = time() . '_' . $safeBase;
             $targetPath = $targetDir . $fileName;
+
             $check = getimagesize($imageFile['tmp_name']);
             if ($check === false) {
                 $error = "File is not a valid image.";
-            } elseif (!move_uploaded_file($imageFile['tmp_name'], $targetPath)) {
-                $error = "Failed to upload image.";
             } else {
+                // Try to move; if read-only, encode as data URI so order still saves
+                $storedPath = $targetPath;
+                if (!@move_uploaded_file($imageFile['tmp_name'], $targetPath)) {
+                    // Encode in memory so we can still store the prescription
+                    $rawData    = file_get_contents($imageFile['tmp_name']);
+                    $mime       = mime_content_type($imageFile['tmp_name']) ?: 'image/jpeg';
+                    $storedPath = 'data:' . $mime . ';base64,' . base64_encode($rawData);
+                }
+
                 try {
                     $pdo->beginTransaction();
                     $stmt = $pdo->prepare("INSERT INTO emergency_customers (name, mobile, address) VALUES (?, ?, ?)");
                     $stmt->execute([$name, $mobile, $address]);
                     $customerId = $pdo->lastInsertId();
                     $stmt = $pdo->prepare("INSERT INTO emergency_orders (customer_id, prescription, remarks) VALUES (?, ?, ?)");
-                    $stmt->execute([$customerId, $targetPath, $remarks]);
+                    $stmt->execute([$customerId, $storedPath, $remarks]);
                     $orderId = $pdo->lastInsertId();
                     $pdo->commit();
-                    $imageUrl = "http://{$_SERVER['HTTP_HOST']}/$targetPath";
+
+                    // Build image URL for WhatsApp (skip data URIs — too long)
+                    if (strpos($storedPath, 'data:') === 0) {
+                        $imageUrl = "(prescription stored internally — view in admin)";
+                    } else {
+                        $imageUrl = "http://{$_SERVER['HTTP_HOST']}/" . ltrim(str_replace(__DIR__, '', $storedPath), '/');
+                    }
+
                     $recipients = WHATSAPP_RECIPIENTS;
                     foreach ($recipients as $phone) {
                         sendEmergencyOrderWhatsApp($phone, $orderId, $name, $imageUrl);
@@ -331,6 +380,7 @@
                 }
             }
         }
+
     }
     // ---------- HANDLE ADMIN ACTIONS (Emergency Orders) ----------
     $admin_password = 'admin123'; // change this!
@@ -2221,11 +2271,38 @@
             // Final submit via AJAX
             document.getElementById('finalSubmitBtn').addEventListener('click', function(e) {
                 e.preventDefault();
+
+                // If user filled product fields but didn't click "Add Product" button first
                 if (products.length === 0) {
-                    showToast('Please add at least one product.', true);
+                    const currentName = nameInp ? nameInp.value.trim() : '';
+                    if (currentName !== '') {
+                        addProduct();
+                    } else {
+                        const diffEl = document.getElementById('different_product');
+                        const diffVal = diffEl ? diffEl.value.trim() : '';
+                        if (diffVal !== '') {
+                            products.push({
+                                product_name: diffVal,
+                                category: 'General Suggestion',
+                                quantity: 1,
+                                unit: 'Item',
+                                current_price: 0,
+                                suggested_shop: '',
+                                brand: '',
+                                note: '',
+                                image: ''
+                            });
+                            renderProducts();
+                        }
+                    }
+                }
+
+                if (products.length === 0) {
+                    showToast('Please enter a product name or suggestion.', true);
+                    if (nameInp) nameInp.focus();
                     return;
                 }
-                const diff = document.getElementById('different_product').value.trim();
+                const diff = document.getElementById('different_product') ? document.getElementById('different_product').value.trim() : '';
                 hiddenJson.value = JSON.stringify(products);
                 const form = document.getElementById('productForm');
                 const formData = new FormData(form);

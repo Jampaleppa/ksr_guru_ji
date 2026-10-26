@@ -188,6 +188,33 @@ $bestSellers = array_slice($products, 0, 8);
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes" />
     <title>KSR GURU JI · ನಮ್ಮ ಅಂಗಡಿ</title>
+    <meta name="description" content="KSR GURU JI – Everything Your Family Needs, Every Day. Groceries, medicines & more delivered in 45 minutes." />
+
+    <!-- ═══ PWA / WebToNative ═══ -->
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#0f7b3a" />
+    <meta name="mobile-web-app-capable" content="yes" />
+
+    <!-- Apple iOS (Safari / WebView) -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="KSR Guru Ji" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/icon-180.jpg" />
+    <link rel="apple-touch-icon" sizes="152x152" href="/icon-152.jpg" />
+    <link rel="apple-touch-icon" sizes="144x144" href="/icon-144.jpg" />
+    <link rel="apple-touch-icon" sizes="120x120" href="/icon-120.jpg" />
+    <link rel="icon" type="image/jpeg" sizes="192x192" href="/icon-192.jpg" />
+    <link rel="icon" type="image/jpeg" sizes="512x512" href="/icon-512.jpg" />
+
+    <!-- Open Graph (WhatsApp / social previews) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="KSR GURU JI" />
+    <meta property="og:title" content="KSR GURU JI – Everything Your Family Needs" />
+    <meta property="og:description" content="Groceries, medicines & more delivered in 45 minutes." />
+    <meta property="og:image" content="/icon-512.jpg" />
+    <meta property="og:url" content="https://ksrguruji.com/" />
+
+    <!-- ═══ Fonts & Styles ═══ -->
     <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <!-- Google Fonts: Inter + Poppins -->
@@ -197,6 +224,7 @@ $bestSellers = array_slice($products, 0, 8);
     <!-- Lottie Web Player (self-hosted, ships source maps) -->
     <script src="vendor/lottie-player/lottie-player.js"></script>
 </head>
+
 
 <body>
     <!-- ============================================================

@@ -497,15 +497,18 @@ function whatsappText(
   array $cart,
   ?string $note,
   bool $rx,
-  float $total
+  float $total,
+  ?float $acc = null,
+  ?string $rxFile = null
 ): string {
+  $invUrl  = invoiceUrl($code);
   $lines   = [];
-  $lines[] = "*NEW ORDER — KSR GURU JI Pharmacy*";
+  $lines[] = "*NEW ORDER — " . SHOP_NAME . "*";
   $lines[] = "Order: *{$code}*";
-  $lines[] = "Name: {$name}";
+  $lines[] = "Customer: {$name}";
   $lines[] = "Phone: {$phone}";
   $lines[] = "";
-  $lines[] = "*Medicines & uses*";
+  $lines[] = "*Medicines & uses:*";
   $lines[] = itemsToText($cart['rows']);
   $lines[] = "";
   $lines[] = '*Total tablets: ' . (int)$cart['count'] . '*';
@@ -513,12 +516,65 @@ function whatsappText(
   $lines[] = 'Delivery: ₹' . number_format(DELIVERY_FEE, 2);
   $lines[] = '*Grand Total: ₹' . number_format($total, 2) . '*';
   $lines[] = "";
-  $lines[] = 'Prescription: ' . ($rx ? 'REQUIRED — attached on checkout' : 'Not required');
-  $lines[] = 'Address: ' . $addr;
-  if ($maps) $lines[] = 'Live location: ' . $maps;
-  if ($note !== '') $lines[] = 'Note: ' . $note;
+  $lines[] = 'Prescription: ' . ($rx ? ($rxFile ? 'ATTACHED & VERIFIED ✓' : 'REQUIRED — photo/PDF submitted') : 'Not required');
+  $lines[] = 'Delivery Address: ' . $addr;
+  if ($maps) {
+    $lines[] = 'Live location: ' . $maps . ($acc ? ' (Accuracy: ~' . round($acc) . 'm)' : '');
+  }
+  if ($note !== '') $lines[] = 'Customer Note: ' . $note;
   $lines[] = "";
+  $lines[] = "📄 *Invoice copy:* " . $invUrl;
+  $lines[] = "";
+  $lines[] = "⚠️ *Price vary please customer will support this line.*";
   $lines[] = '_Awaiting pharmacist verification._';
+  return implode("\n", $lines);
+}
+
+function deliveryBoyWhatsAppText(
+  string $code,
+  string $name,
+  string $phone,
+  string $addr,
+  ?string $maps,
+  array $cartRows,
+  ?float $acc,
+  ?string $rxFile,
+  float $total
+): string {
+  $invUrl  = invoiceUrl($code);
+  $totalTabs = 0;
+  foreach ($cartRows as $it) $totalTabs += (int)($it['qty'] ?? 0);
+
+  $lines   = [];
+  $lines[] = "*🚚 DELIVERY ORDER — " . SHOP_NAME . "*";
+  $lines[] = "Delivery Person: *" . DELIVERY_NAME . "*";
+  $lines[] = "Order: *{$code}*";
+  $lines[] = "Customer: {$name}";
+  $lines[] = "Phone: {$phone}";
+  $lines[] = "*Total tablets: {$totalTabs}*";
+  $lines[] = "";
+  $lines[] = "*Items to deliver:*";
+  foreach ($cartRows as $idx => $it) {
+    $lines[] = ($idx + 1) . '. ' . $it['name']
+      . (!empty($it['strength']) ? ' ' . $it['strength'] : '')
+      . ' — Qty: ' . (int)$it['qty'] . ' tablet(s)';
+  }
+  $lines[] = "";
+  $lines[] = "Address: {$addr}";
+  if ($maps) {
+    $lines[] = "Live location: {$maps}" . ($acc ? " (Accuracy: ~" . round($acc) . "m)" : "");
+  }
+  if ($rxFile) {
+    $lines[] = "Prescription: Verified & Attached";
+  }
+  $lines[] = "";
+  $lines[] = "Collect *₹" . number_format($total, 2) . "* from customer.";
+  $lines[] = "";
+  $lines[] = "📄 *Invoice copy:* " . $invUrl;
+  $lines[] = "";
+  $lines[] = "⚠️ *Price vary please customer will support this line.*";
+  $lines[] = "_Thank you JK_ 🙏";
+
   return implode("\n", $lines);
 }
 
@@ -526,6 +582,7 @@ $cart    = cartLines($pdo);
 $errors  = [];
 $placed  = null;
 $waLink  = null;
+$deliveryWaLink = null;
 
 if ($route === 'checkout' && $_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['do'] ?? '') === 'place') {
 
@@ -557,12 +614,38 @@ if ($route === 'checkout' && $_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['d
       if (!isset($ok[$mime])) {
         $errors[] = 'Prescription must be a JPG, PNG, WEBP or PDF.';
       } else {
-        if (!is_dir(UPLOAD_DIR)) @mkdir(UPLOAD_DIR, 0775, true);
+        $uploadDir = UPLOAD_DIR;
         $fn = 'rx_' . date('Ymd_His') . '_' . bin2hex(random_bytes(4)) . '.' . $ok[$mime];
-        if (move_uploaded_file($_FILES['rx']['tmp_name'], UPLOAD_DIR . '/' . $fn)) {
-          $rxFile = UPLOAD_URL . '/' . $fn;
-        } else {
-          $errors[] = 'Could not save the prescription file.';
+        $saved = false;
+
+        // Try code directory if writable
+        if (!is_dir($uploadDir)) @mkdir($uploadDir, 0775, true);
+        if (is_dir($uploadDir) && is_writable($uploadDir)) {
+          if (@move_uploaded_file($_FILES['rx']['tmp_name'], $uploadDir . '/' . $fn)) {
+            $rxFile = UPLOAD_URL . '/' . $fn;
+            $saved = true;
+          }
+        }
+
+        // Serverless / Read-only fallback (Vercel /var/task is read-only; /tmp is writable)
+        if (!$saved) {
+          $tmpDir = sys_get_temp_dir() . '/ksr_prescriptions';
+          if (!is_dir($tmpDir)) @mkdir($tmpDir, 0777, true);
+          if (is_dir($tmpDir) && is_writable($tmpDir) && @move_uploaded_file($_FILES['rx']['tmp_name'], $tmpDir . '/' . $fn)) {
+            $rawContent = @file_get_contents($tmpDir . '/' . $fn);
+            $rxFile = $rawContent ? ('data:' . $mime . ';base64,' . base64_encode($rawContent)) : (UPLOAD_URL . '/' . $fn);
+            $saved = true;
+          } elseif (!empty($_FILES['rx']['tmp_name']) && file_exists($_FILES['rx']['tmp_name'])) {
+            $rawContent = @file_get_contents($_FILES['rx']['tmp_name']);
+            if ($rawContent !== false && strlen($rawContent) > 0) {
+              $rxFile = 'data:' . $mime . ';base64,' . base64_encode($rawContent);
+              $saved = true;
+            }
+          }
+        }
+
+        if (!$saved) {
+          $errors[] = 'Could not save the prescription file. Please try again.';
         }
       }
     }
@@ -609,7 +692,14 @@ if ($route === 'checkout' && $_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['d
 
     $_SESSION['cart'] = [];
     $_SESSION['last_order'] = $code;
-    $placed = ['code' => $code, 'total' => $total, 'maps' => $mapsUrl, 'count' => $cart['count']];
+    $placed = [
+      'code' => $code,
+      'total' => $total,
+      'maps' => $mapsUrl,
+      'count' => $cart['count'],
+      'accuracy_m' => $acc,
+      'rx_file' => $rxFile
+    ];
 
     $waText = whatsappText(
       $placed['code'],
@@ -620,9 +710,24 @@ if ($route === 'checkout' && $_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['d
       $cart,
       $note,
       $cart['needs_rx'],
-      (float)$placed['total']
+      (float)$placed['total'],
+      $acc,
+      $rxFile
     );
     $waLink = 'https://wa.me/' . SHOP_WHATSAPP . '?text=' . rawurlencode($waText);
+
+    $deliveryWaText = deliveryBoyWhatsAppText(
+      $placed['code'],
+      $name,
+      $phone,
+      $addr,
+      $placed['maps'],
+      $cart['rows'],
+      $acc,
+      $rxFile,
+      (float)$placed['total']
+    );
+    $deliveryWaLink = 'https://wa.me/' . DELIVERY_WHATSAPP . '?text=' . rawurlencode($deliveryWaText);
   }
 }
 
@@ -814,15 +919,19 @@ function deliveryWhatsAppLink(array $o): string
       . (!empty($it['strength']) ? ' ' . $it['strength'] : '')
       . ' — Qty: ' . (int)$it['qty'] . ' tablet(s)';
   }
-  $lines[] = "";
   $lines[] = "Address: {$o['address_text']}";
-  if ($o['maps_url']) $lines[] = "Live location: {$o['maps_url']}";
+  if (!empty($o['maps_url'])) {
+    $lines[] = "Live location: {$o['maps_url']}" . (!empty($o['accuracy_m']) ? " (Accuracy: ~" . round((float)$o['accuracy_m']) . "m)" : "");
+  }
+  if (!empty($o['needs_rx'])) {
+    $lines[] = "Prescription: " . (!empty($o['rx_file']) ? "Verified & Attached ✓" : "Required on delivery");
+  }
   $lines[] = "";
   $lines[] = "Collect *₹" . number_format((float)$o['total'], 2) . "* from customer.";
   $lines[] = "";
-  $lines[] = "📄 *Invoice copy:*";
-  $lines[] = $invUrl;
+  $lines[] = "📄 *Invoice copy:* " . $invUrl;
   $lines[] = "";
+  $lines[] = "⚠️ *Price vary please customer will support this line.*";
   $lines[] = "_Thank you JK_ 🙏";
 
   return 'https://wa.me/' . DELIVERY_WHATSAPP . '?text=' . rawurlencode(implode("\n", $lines));
@@ -3080,15 +3189,31 @@ function invoiceUrl(string $code): string
             </p>
           <?php endif; ?>
 
-          <a class="btn btn-line btn-block" style="margin-top:12px"
+          <?php if (!empty($deliveryWaLink)): ?>
+            <a class="btn btn-purple btn-block" style="margin-top:10px;padding:14px"
+              href="<?= e($deliveryWaLink) ?>" target="_blank" rel="noopener">
+              🚚 Share order list with delivery boy JK (<?= e(DELIVERY_PHONE) ?>)
+            </a>
+          <?php endif; ?>
+
+          <button type="button" class="btn btn-teal btn-block" style="margin-top:10px"
+            onclick="copyTabletOrderSummary('<?= e($placed['code']) ?>', '<?= number_format((float)$placed['total'], 2) ?>', '<?= (int)$placed['count'] ?>', '<?= e(invoiceUrl($placed['code'])) ?>')">
+            📋 Copy Order &amp; Invoice Details
+          </button>
+
+          <a class="btn btn-line btn-block" style="margin-top:10px"
             href="<?= PAGE ?>?page=order-status&code=<?= urlencode($placed['code']) ?>">
             🔎 Track this order
           </a>
 
-          <a class="btn btn-teal btn-block" style="margin-top:10px"
+          <a class="btn btn-line btn-block" style="margin-top:8px"
             href="<?= PAGE ?>?page=invoice&code=<?= urlencode($placed['code']) ?>">
             🧾 View / print invoice
           </a>
+
+          <div style="margin-top:14px;padding:12px;background:#fff1f2;border:1px solid #fecdd3;border-radius:10px;color:#9f1239;font-size:.82rem;text-align:center;font-weight:600">
+            ⚠️ Note: Price vary please customer will support this line.
+          </div>
 
           <div class="steps">
             <div class="step"><span class="n">1</span>
@@ -3833,6 +3958,7 @@ function invoiceUrl(string $code): string
               <b>Terms:</b> Medicines once sold are not returnable or exchangeable.
               Prescription medicines dispensed only against a valid prescription.
               Please check batch number, expiry date and pack integrity at delivery.
+              <br><strong style="color:#b91c1c;display:inline-block;margin-top:6px;">* Price vary please customer will support this line.</strong>
             </div>
             <div class="inv-barcode">
               *<?= strtoupper(substr(md5((string)$order['order_code']), 0, 20)) ?>*
@@ -3855,13 +3981,19 @@ function invoiceUrl(string $code): string
         <div class="inv-actions no-print">
           <button class="btn btn-primary" onclick="window.print()">🖨 Print / Save PDF</button>
 
+          <button class="btn btn-teal" type="button"
+            onclick="copyInvoiceText('<?= e($invoiceNo) ?>', '<?= e($order['order_code']) ?>', '<?= (int)$tabTotal ?>', '<?= number_format((float)$order['total'], 2) ?>', '<?= e(invoiceUrl((string)$order['order_code'])) ?>')">
+            📋 Copy Invoice Summary
+          </button>
+
           <a class="btn btn-wa" target="_blank" rel="noopener"
             href="https://wa.me/?text=<?=
                                       rawurlencode('*Invoice ' . $invoiceNo . '* from ' . SHOP_NAME . "\n" .
                                         'Order: ' . $order['order_code'] . "\n" .
                                         'Total tablets: ' . $tabTotal . "\n" .
-                                        'Grand total: ₹' . number_format((float)$order['total'], 2) . "\n\n" .
-                                        'View invoice: ' . invoiceUrl((string)$order['order_code']))
+                                        'Grand total: ₹' . number_format((float)$order['total'], 2) . "\n" .
+                                        'View invoice: ' . invoiceUrl((string)$order['order_code']) . "\n\n" .
+                                        '⚠️ Price vary please customer will support this line.')
                                       ?>">💬 Share on WhatsApp</a>
 
           <a class="btn btn-purple" target="_blank" rel="noopener"
@@ -3869,7 +4001,8 @@ function invoiceUrl(string $code): string
                                                                   rawurlencode('🚚 Invoice ' . $invoiceNo . ' ready for order ' . $order['order_code'] .
                                                                     "\nTotal tablets: " . $tabTotal .
                                                                     "\nCollect ₹" . number_format((float)$order['total'], 2) . ' from customer.' .
-                                                                    "\n" . invoiceUrl((string)$order['order_code']))
+                                                                    "\n" . invoiceUrl((string)$order['order_code']) .
+                                                                    "\n⚠️ Price vary please customer will support this line.")
                                                                   ?>">🚚 Send to JK</a>
 
           <a class="btn btn-line"
@@ -4642,6 +4775,112 @@ function invoiceUrl(string $code): string
       }
     </script>
   <?php endif; ?>
+
+  <script>
+    // Geolocation for Checkout
+    (function initGeo() {
+      const geoBtn = document.getElementById('geoBtn');
+      if (!geoBtn) return;
+      const status = document.getElementById('geoStatus');
+
+      geoBtn.addEventListener('click', () => {
+        if (!navigator.geolocation) {
+          if (status) status.textContent = 'Geolocation is not supported by your browser.';
+          return;
+        }
+        geoBtn.disabled = true;
+        const originalText = geoBtn.innerHTML;
+        geoBtn.innerHTML = '📍 Capturing GPS location...';
+        if (status) {
+          status.textContent = 'Requesting GPS coordinates (high accuracy)...';
+          status.style.color = '#0284c7';
+        }
+
+        navigator.geolocation.getCurrentPosition(
+          pos => {
+            const lat = pos.coords.latitude;
+            const lng = pos.coords.longitude;
+            const acc = pos.coords.accuracy;
+
+            const latInput = document.getElementById('lat');
+            const lngInput = document.getElementById('lng');
+            const accInput = document.getElementById('acc');
+            if (latInput) latInput.value = lat;
+            if (lngInput) lngInput.value = lng;
+            if (accInput) accInput.value = acc;
+
+            geoBtn.innerHTML = '✓ Location shared (' + Math.round(acc) + 'm accuracy)';
+            geoBtn.style.background = '#15803d';
+            geoBtn.disabled = false;
+
+            if (status) {
+              status.innerHTML = '📍 ' + lat.toFixed(5) + ', ' + lng.toFixed(5) + ' (Accuracy: ~' + Math.round(acc) + 'm)';
+              status.style.color = '#15803d';
+            }
+
+            // Auto reverse geocode into address field if empty
+            const addrField = document.getElementById('address');
+            if (addrField && addrField.value.trim() === '') {
+              fetch('https://nominatim.openstreetmap.org/reverse?format=json&lat=' + lat + '&lon=' + lng)
+                .then(r => r.json())
+                .then(d => {
+                  if (d && d.display_name && addrField.value.trim() === '') {
+                    addrField.value = d.display_name;
+                  }
+                }).catch(() => {});
+            }
+          },
+          err => {
+            geoBtn.disabled = false;
+            geoBtn.innerHTML = originalText;
+            if (status) {
+              status.textContent = 'Could not get location (' + err.message + '). Please enter address manually.';
+              status.style.color = '#b91c1c';
+            }
+          },
+          { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
+        );
+      });
+    })();
+
+    // Copy invoice details helper
+    function copyInvoiceText(invNo, code, tabs, total, url) {
+      const text = "📄 INVOICE " + invNo + " — " + <?= json_encode(SHOP_NAME) ?> + "\n" +
+        "Order: " + code + "\n" +
+        "Total Tablets: " + tabs + "\n" +
+        "Grand Total: ₹" + total + "\n" +
+        "Invoice Link: " + url + "\n\n" +
+        "⚠️ Price vary please customer will support this line.";
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(() => {
+          alert("✓ Invoice summary copied to clipboard with price variation notice!");
+        }).catch(() => {
+          prompt("Copy invoice text:", text);
+        });
+      } else {
+        prompt("Copy invoice text:", text);
+      }
+    }
+
+    // Copy order summary helper
+    function copyTabletOrderSummary(code, total, count, url) {
+      const text = "📦 ORDER SUMMARY — " + <?= json_encode(SHOP_NAME) ?> + "\n" +
+        "Order: " + code + "\n" +
+        "Total Tablets: " + count + "\n" +
+        "Grand Total: ₹" + total + "\n" +
+        "Invoice Link: " + url + "\n\n" +
+        "⚠️ Price vary please customer will support this line.";
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(() => {
+          alert("✓ Order details copied to clipboard!");
+        }).catch(() => {
+          prompt("Copy order details:", text);
+        });
+      } else {
+        prompt("Copy order details:", text);
+      }
+    }
+  </script>
 
 </body>
 

@@ -116,34 +116,17 @@ try {
     <!-- KSR brand bar (shared) -->
     <link rel="stylesheet" href="partials/brandbar.css">
     <link rel="stylesheet" href="assist-style.css">
-    <?php $ksr_active = 'prescriptions'; $ksr_depth = 0; include __DIR__ . '/partials/brandbar.php'; ?>
+    <?php $ksr_active = ''; $ksr_depth = 0;
+include __DIR__ . '/partials/brandbar.php';
+$navActive = 'prescriptions';
+include __DIR__ . '/partials/doctor-nav.php'; ?>
 
 
 
 
 
 
-<nav class="navbar doc-nav">
-    <div class="container" style="display: flex; justify-content: space-between; align-items: center; height: 100%;">
-        <div style="display:flex; align-items:center; gap:32px;">
-            <a href="doctor-dashboard.php" class="navbar-brand"><i class="fas fa-heartbeat"></i> DOCTOR PORTAL</a>
-            <div class="navbar-links" style="display: flex; gap: 24px;">
-                <a href="doctor-dashboard.php" style="font-weight:600; text-decoration:none;"><i class="fas fa-th-large"></i> Dashboard</a>
-                <a href="doctor-appointments.php" style="font-weight:600; text-decoration:none;"><i class="fas fa-calendar-check"></i> Appointments</a>
-                <a href="doctor-patients.php" style="font-weight:600; text-decoration:none;"><i class="fas fa-users"></i> Patients</a>
-                <a href="doctor-prescriptions.php" class="active" style="font-weight:600;"><i class="fas fa-file-prescription"></i> Prescriptions</a>
-                <a href="build-prescription.php" style="font-weight:600; text-decoration:none;"><i class="fas fa-plus-circle"></i> New Rx</a>
-                <a href="medicine/tablet.php" style="font-weight:600; text-decoration:none;"><i class="fas fa-capsules"></i> Catalogue</a>
-            </div>
-        </div>
-        <div style="display:flex; align-items:center; gap:20px;">
-            <a href="tel:6362079192" class="call-chip" style="display:inline-flex; align-items:center; gap:8px; background:#16A34A; color:#fff; padding:8px 16px; border-radius:50px; font-weight:800; font-size:.85rem; text-decoration:none;"><i class="fas fa-phone-alt"></i> 6362079192</a>
-            <a href="index.php" style="color:#94A3B8; font-size:1.1rem; text-decoration:none; font-weight:600;"><i class="fas fa-home"></i> Main Site</a>
-            <a href="notifications.php" style="color:#94A3B8; font-size:1.2rem;"><i class="fas fa-bell"></i></a>
-            <a href="doctor-profile-settings.php" class="profile-badge" style="padding:10px 16px; border-radius:20px; text-decoration:none; font-weight:600;"><i class="fas fa-user-md"></i> <?php echo htmlspecialchars($docName); ?></a>
-        </div>
-    </div>
-</nav>
+
 
 <div class="container-main">
     

@@ -33,7 +33,11 @@ define('KDB_PASS', $_ksr_pass !== false && $_ksr_pass !== '' ? $_ksr_pass : DB_P
 define('KDB_NAME', getenv('KSR_DB_NAME') ?: 'ksr_guruji');
 
 $documentRoot = !empty($_SERVER['DOCUMENT_ROOT']) ? (string) $_SERVER['DOCUMENT_ROOT'] : dirname(__DIR__);
-define('STORAGE_DIR', rtrim($documentRoot, '/\\') . '/uploads/medical-documents');
+// On Vercel (read-only /var/task), fall back to the system temp directory
+$_storageBase = (is_writable($documentRoot) || is_writable(dirname(__DIR__)))
+    ? rtrim($documentRoot, '/\\')
+    : sys_get_temp_dir();
+define('STORAGE_DIR', $_storageBase . '/uploads/medical-documents');
 define('MAX_UPLOAD_BYTES', 10 * 1024 * 1024);
 define('APP_NAME', 'KSR GURU JI');
 define('APP_TAG',  'Document & Compliance Center');
@@ -790,7 +794,9 @@ function store_upload(array $file): array
     $safe = bin2hex(random_bytes(16)) . '.' . $ext;
     $dest = STORAGE_DIR . '/' . $safe;
     if (!move_uploaded_file($file['tmp_name'], $dest)) {
-        throw new RuntimeException('Unable to persist uploaded file.');
+        $lastErr = error_get_last();
+        $reason  = $lastErr ? $lastErr['message'] : 'unknown reason';
+        throw new RuntimeException('Unable to persist uploaded file — ' . $reason . ' (dest: ' . $dest . ')');
     }
     @chmod($dest, 0640);
 

@@ -73,12 +73,16 @@ $grandTotal = $cartTotal + $deliveryFee;
 $amountNeededForFreeDelivery = max(0, $freeDeliveryThreshold - $cartTotal);
 $freeDeliveryPercent = min(100, round(($cartTotal / $freeDeliveryThreshold) * 100));
 
-// Build WhatsApp text for direct order
+// Build WhatsApp text for direct order (shop + delivery)
 $waText = "Namaste KSR GURU JI! I would like to order the following items from my cart:%0A";
 foreach ($cartItems as $ci) {
-    $waText .= "• " . urlencode($ci['name']) . " x " . $ci['qty'] . " (₹" . ($ci['price'] * $ci['qty']) . ")%0A";
+    $waText .= "• " . urlencode($ci['name']) . " x " . $ci['qty'] . " (\u20b9" . ($ci['price'] * $ci['qty']) . ")%0A";
 }
-$waText .= "%0ATotal Amount: ₹" . $grandTotal . "%0APlease confirm my order.";
+$waText .= "%0ATotal Amount: \u20b9" . $grandTotal;
+$waText .= "%0ADelivery Charge: " . ($deliveryFee > 0 ? "\u20b9$deliveryFee" : "FREE");
+$waText .= "%0APayment: Cash on Delivery";
+$waText .= "%0A%0A\u26a0\ufe0f Note: Price vary please customer will support this line.";
+$waText .= "%0AKindly confirm and dispatch to Delivery Boy: 8088584421 (Primary) / 6362079192 (Backup)";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -87,6 +91,13 @@ $waText .= "%0ATotal Amount: ₹" . $grandTotal . "%0APlease confirm my order.";
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes" />
     <title>Your Cart (<?php echo $cartCount; ?>) · KSR GURU JI</title>
+    <!-- PWA / WebToNative -->
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#0f7b3a" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="KSR Guru Ji" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/icon-180.jpg" />
     <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <!-- Google Fonts: Inter + Poppins -->
@@ -688,7 +699,7 @@ $waText .= "%0ATotal Amount: ₹" . $grandTotal . "%0APlease confirm my order.";
                     </div>
 
                     <!-- Checkout Button -->
-                    <a href="/checkout.php" class="checkout-main-btn" id="checkoutBtn">
+                    <a href="checkout.php" class="checkout-main-btn" id="checkoutBtn">
                         <i class="fas fa-lock"></i> Proceed to Checkout
                     </a>
 

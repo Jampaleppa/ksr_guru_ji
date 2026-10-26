@@ -15,9 +15,14 @@ $msg = '';
 $msgType = 'error';
 $identifier = pp_post('identifier');
 
-$safeNext = pp_dashboard_url(); // next= only honoured for local php files
-if (isset($_GET['next']) && preg_match('/^[A-Za-z0-9_\-]+\.php$/', (string)$_GET['next'])) {
-    $safeNext = (string)$_GET['next'];
+$safeNext = pp_dashboard_url(); // next= only honoured for valid internal php paths
+if (!empty($_GET['next'])) {
+    $reqNext = trim((string)$_GET['next']);
+    if ($reqNext === 'patient-dashboard.php' || $reqNext === '/patient-dashboard.php') {
+        $safeNext = pp_dashboard_url();
+    } elseif (preg_match('/^[A-Za-z0-9_\-\/]+\.php$/', $reqNext) && !str_contains($reqNext, '..')) {
+        $safeNext = $reqNext;
+    }
 }
 
 if (pp_is_post()) {
@@ -71,6 +76,13 @@ if (pp_is_post()) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Patient Login | KSR GURU JI</title>
     <meta name="description" content="Sign in to the KSR GURU JI Patient Portal to manage appointments, prescriptions, lab reports and pharmacy orders.">
+    <!-- PWA / WebToNative -->
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#0f7b3a" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="KSR Guru Ji" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/icon-180.jpg" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">

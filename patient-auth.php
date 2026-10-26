@@ -68,7 +68,7 @@ function pp_sql_future(int $seconds): string
  */
 function pp_sql_now(): string
 {
-    return pp_driver() === 'sqlite' ? "datetime('now')" : 'NOW()';
+    return pp_driver() === 'sqlite' ? "datetime('now', 'localtime')" : 'NOW()';
 }
 
 /**
@@ -231,19 +231,18 @@ function pp_send_otp(int $userId, string $destination, string $purpose): bool
     }
 
     try {
+        $windowCutoff = date('Y-m-d H:i:s', time() - ((int)PATIENT_OTP_SEND_WINDOW_MINUTES * 60));
         $limitStmt = pp_db()->prepare(
-            "SELECT COUNT(*) AS send_count,
-                TIMESTAMPDIFF(SECOND, MAX(created_at), NOW()) AS seconds_since_latest
+            "SELECT COUNT(*) AS send_count, MAX(created_at) AS latest_created
                FROM patient_otps
               WHERE user_id = ? AND purpose = ?
-                AND created_at >= DATE_SUB(NOW(), INTERVAL " . PATIENT_OTP_SEND_WINDOW_MINUTES . " MINUTE)"
+                AND created_at >= ?"
         );
-        $limitStmt->execute([$userId, $purpose]);
+        $limitStmt->execute([$userId, $purpose, $windowCutoff]);
         $sendWindow = $limitStmt->fetch(PDO::FETCH_ASSOC) ?: [];
         $sendCount = (int)($sendWindow['send_count'] ?? 0);
-        $secondsSinceLast = isset($sendWindow['seconds_since_latest'])
-            ? (int)$sendWindow['seconds_since_latest']
-            : null;
+        $latestCreated = !empty($sendWindow['latest_created']) ? strtotime((string)$sendWindow['latest_created']) : null;
+        $secondsSinceLast = $latestCreated !== null ? (time() - $latestCreated) : null;
 
         if ($sendCount >= PATIENT_OTP_MAX_SENDS_PER_WINDOW
             || ($secondsSinceLast !== null && $secondsSinceLast < PATIENT_OTP_RESEND_COOLDOWN_SECONDS)) {
@@ -258,19 +257,24 @@ function pp_send_otp(int $userId, string $destination, string $purpose): bool
     $pdo = pp_db();
     try {
         $pdo->beginTransaction();
-        $pdo->prepare("UPDATE patient_otps SET is_used = 1 WHERE user_id = ? AND purpose = ? AND is_used = 0")
+        $pdo->prepare("UPDATE patient_otps SET is_used = 1, consumed = 1 WHERE user_id = ? AND purpose = ? AND is_used = 0")
             ->execute([$userId, $purpose]);
 
+        $now = date('Y-m-d H:i:s');
+        $expiresAt = date('Y-m-d H:i:s', time() + (int)PATIENT_OTP_TTL_SECONDS);
+        $hash = password_hash($code, PASSWORD_DEFAULT);
         $stmt = $pdo->prepare(
-            "INSERT INTO patient_otps (user_id, channel, destination, code_hash, purpose, expires_at)
-             VALUES (?, 'whatsapp', ?, ?, ?, DATE_ADD(NOW(), INTERVAL ? SECOND))"
+            "INSERT INTO patient_otps (user_id, channel, destination, code_hash, otp_hash, purpose, created_at, expires_at)
+             VALUES (?, 'whatsapp', ?, ?, ?, ?, ?, ?)"
         );
         $stmt->execute([
             $userId,
             '+' . $digits,
-            password_hash($code, PASSWORD_DEFAULT),
+            $hash,
+            $hash,
             $purpose,
-            PATIENT_OTP_TTL_SECONDS,
+            $now,
+            $expiresAt,
         ]);
         $otpId = (int)$pdo->lastInsertId();
         $pdo->commit();
@@ -309,41 +313,50 @@ function pp_verify_otp(int $userId, string $code, string $purpose): bool
     if (!pp_table_exists('patient_otps')) {
         return false;
     }
+    $nowStr = date('Y-m-d H:i:s');
     $stmt = pp_db()->prepare(
         "SELECT * FROM patient_otps
-          WHERE user_id = ? AND purpose = ? AND is_used = 0 AND expires_at > NOW()
+          WHERE user_id = ? AND purpose = ? AND is_used = 0 AND expires_at > ?
           ORDER BY id DESC LIMIT 1"
     );
-    $stmt->execute([$userId, $purpose]);
+    $stmt->execute([$userId, $purpose, $nowStr]);
     $row = $stmt->fetch();
 
     if (!$row) {
         return false;
     }
     if ((int)$row['attempts'] >= PATIENT_OTP_MAX_ATTEMPTS) {
-        pp_db()->prepare('UPDATE patient_otps SET is_used = 1 WHERE id = ?')->execute([$row['id']]);
+        pp_db()->prepare('UPDATE patient_otps SET is_used = 1, consumed = 1 WHERE id = ?')->execute([$row['id']]);
         return false;
     }
 
-    if (!password_verify(trim($code), $row['code_hash'])) {
+    $hash = $row['code_hash'] ?? ($row['otp_hash'] ?? '');
+    if (!password_verify(trim($code), (string)$hash)) {
         pp_db()->prepare("UPDATE patient_otps SET attempts = attempts + 1 WHERE id = ?")->execute([$row['id']]);
         return false;
     }
 
     $nowExpr = pp_sql_now();
-    pp_db()->prepare("UPDATE patient_otps SET is_used = 1, verified_at = $nowExpr WHERE id = ?")->execute([$row['id']]);
+    pp_db()->prepare("UPDATE patient_otps SET is_used = 1, consumed = 1, verified_at = $nowExpr WHERE id = ?")->execute([$row['id']]);
     return true;
 }
 
 function pp_activate_account(int $userId): void
 {
-    if (!in_array('account_status', pp_columns('users'), true)) {
+    $cols = pp_columns('users');
+    if (!in_array('account_status', $cols, true)) {
         return;
     }
-    $nowExpr = pp_sql_now();
-    pp_db()->prepare(
-        "UPDATE users SET account_status = 'ACTIVE', verified_at = $nowExpr WHERE id = ?"
-    )->execute([$userId]);
+    if (in_array('verified_at', $cols, true)) {
+        $nowExpr = pp_sql_now();
+        pp_db()->prepare(
+            "UPDATE users SET account_status = 'ACTIVE', verified_at = $nowExpr WHERE id = ?"
+        )->execute([$userId]);
+    } else {
+        pp_db()->prepare(
+            "UPDATE users SET account_status = 'ACTIVE' WHERE id = ?"
+        )->execute([$userId]);
+    }
 }
 
 /* ------------------------------------------------------------------
@@ -354,17 +367,23 @@ function pp_log_attempt(string $identifier, bool $success, string $type = 'passw
     if (!pp_table_exists('patient_login_attempts')) {
         return;
     }
-    $stmt = pp_db()->prepare(
-        "INSERT INTO patient_login_attempts (identifier, ip_address, user_agent, attempt_type, was_successful)
-         VALUES (?, ?, ?, ?, ?)"
-    );
-    $stmt->execute([
-        mb_substr($identifier, 0, 120),
-        pp_ip(),
-        mb_substr($_SERVER['HTTP_USER_AGENT'] ?? '', 0, 255),
-        $type,
-        $success ? 1 : 0,
-    ]);
+    try {
+        $now = date('Y-m-d H:i:s');
+        $stmt = pp_db()->prepare(
+            "INSERT INTO patient_login_attempts (identifier, ip, ip_address, user_agent, attempt_type, was_successful, attempt_at, attempted_at)
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
+        );
+        $stmt->execute([
+            mb_substr($identifier, 0, 120),
+            pp_ip(),
+            pp_ip(),
+            mb_substr($_SERVER['HTTP_USER_AGENT'] ?? '', 0, 255),
+            $type,
+            $success ? 1 : 0,
+            $now,
+            $now,
+        ]);
+    } catch (Throwable $e) {}
 }
 
 function pp_is_rate_limited(string $identifier, int $max = PATIENT_MAX_LOGIN_FAILS): bool
@@ -372,13 +391,19 @@ function pp_is_rate_limited(string $identifier, int $max = PATIENT_MAX_LOGIN_FAI
     if (!pp_table_exists('patient_login_attempts')) {
         return false;
     }
-    $stmt = pp_db()->prepare(
-        "SELECT COUNT(*) FROM patient_login_attempts
-          WHERE identifier = ? AND was_successful = 0
-            AND attempted_at > DATE_SUB(NOW(), INTERVAL ? SECOND)"
-    );
-    $stmt->execute([mb_substr($identifier, 0, 120), PATIENT_LOCK_WINDOW]);
-    return (int)$stmt->fetchColumn() >= $max;
+    $windowSeconds = (int)PATIENT_LOCK_WINDOW;
+    $timeCutoff = date('Y-m-d H:i:s', time() - $windowSeconds);
+    try {
+        $stmt = pp_db()->prepare(
+            "SELECT COUNT(*) FROM patient_login_attempts
+              WHERE identifier = ? AND was_successful = 0
+                AND (attempted_at > ? OR attempt_at > ?)"
+        );
+        $stmt->execute([mb_substr($identifier, 0, 120), $timeCutoff, $timeCutoff]);
+        return (int)$stmt->fetchColumn() >= $max;
+    } catch (Throwable $e) {
+        return false;
+    }
 }
 
 /** Clear the failure counter once a flow succeeds (e.g. a completed registration). */
@@ -387,8 +412,10 @@ function pp_clear_failures(string $identifier): void
     if (!pp_table_exists('patient_login_attempts')) {
         return;
     }
-    pp_db()->prepare("DELETE FROM patient_login_attempts WHERE identifier = ? AND was_successful = 0")
-        ->execute([mb_substr($identifier, 0, 120)]);
+    try {
+        pp_db()->prepare("DELETE FROM patient_login_attempts WHERE identifier = ? AND was_successful = 0")
+            ->execute([mb_substr($identifier, 0, 120)]);
+    } catch (Throwable $e) {}
 }
 
 function pp_rate_limit_wait(): int
@@ -396,14 +423,24 @@ function pp_rate_limit_wait(): int
     if (!pp_table_exists('patient_login_attempts')) {
         return 0;
     }
-    $stmt = pp_db()->prepare(
-        "SELECT TIMESTAMPDIFF(SECOND, MIN(attempted_at), NOW()) FROM patient_login_attempts
-          WHERE was_successful = 0 AND attempted_at > DATE_SUB(NOW(), INTERVAL ? SECOND)
-          ORDER BY attempted_at ASC LIMIT 1"
-    );
-    $stmt->execute([PATIENT_LOCK_WINDOW]);
-    $left = (int)$stmt->fetchColumn();
-    return max(0, PATIENT_LOCK_WINDOW - $left);
+    $timeCutoff = date('Y-m-d H:i:s', time() - PATIENT_LOCK_WINDOW);
+    try {
+        $stmt = pp_db()->prepare(
+            "SELECT MIN(COALESCE(attempted_at, attempt_at)) AS earliest
+               FROM patient_login_attempts
+              WHERE was_successful = 0
+                AND (attempted_at > ? OR attempt_at > ?)"
+        );
+        $stmt->execute([$timeCutoff, $timeCutoff]);
+        $earliest = $stmt->fetchColumn();
+        if (!$earliest) {
+            return 0;
+        }
+        $elapsed = time() - strtotime((string)$earliest);
+        return max(0, PATIENT_LOCK_WINDOW - $elapsed);
+    } catch (Throwable $e) {
+        return 0;
+    }
 }
 
 /* ------------------------------------------------------------------
@@ -486,10 +523,21 @@ function pp_login(array $user, bool $remember = false): void
     // Update last_login_at if the column exists (driver-agnostic)
     try {
         $cols = pp_columns('users');
-        if (in_array('last_login_at', $cols, true) || in_array('failed_logins', $cols, true)) {
+        $hasLastLogin = in_array('last_login_at', $cols, true);
+        $hasFailedLogins = in_array('failed_logins', $cols, true);
+        if ($hasLastLogin && $hasFailedLogins) {
             $nowExpr = pp_sql_now();
             pp_db()->prepare(
                 "UPDATE users SET last_login_at = $nowExpr, failed_logins = 0 WHERE id = ?"
+            )->execute([$user['id']]);
+        } elseif ($hasLastLogin) {
+            $nowExpr = pp_sql_now();
+            pp_db()->prepare(
+                "UPDATE users SET last_login_at = $nowExpr WHERE id = ?"
+            )->execute([$user['id']]);
+        } elseif ($hasFailedLogins) {
+            pp_db()->prepare(
+                "UPDATE users SET failed_logins = 0 WHERE id = ?"
             )->execute([$user['id']]);
         }
     } catch (Throwable $e) {
@@ -596,26 +644,31 @@ function pp_remember_create(int $userId): void
     $selector  = bin2hex(random_bytes(8));
     $validator = bin2hex(random_bytes(32));
 
+    $now = date('Y-m-d H:i:s');
+    $expiresAt = date('Y-m-d H:i:s', time() + PATIENT_REMEMBER_DAYS * 86400);
     $stmt = pp_db()->prepare(
-        "INSERT INTO patient_remember_tokens (user_id, selector, validator_hash, user_agent, expires_at)
-         VALUES (?, ?, ?, ?, DATE_ADD(NOW(), INTERVAL ? DAY))"
+        "INSERT INTO patient_remember_tokens (user_id, selector, validator_hash, user_agent, created_at, expires_at)
+         VALUES (?, ?, ?, ?, ?, ?)"
     );
     $stmt->execute([
         $userId,
         $selector,
         hash('sha256', $validator),
         mb_substr($_SERVER['HTTP_USER_AGENT'] ?? '', 0, 255),
-        PATIENT_REMEMBER_DAYS,
+        $now,
+        $expiresAt,
     ]);
 
     // cookie expiry is browser-side; UTC epoch is unambiguous
-    setcookie(pp_cookie_name(), $selector . ':' . $validator, [
-        'expires'  => time() + PATIENT_REMEMBER_DAYS * 86400,
-        'path'     => '/',
-        'httponly' => true,
-        'samesite' => 'Lax',
-        'secure'   => !empty($_SERVER['HTTPS']),
-    ]);
+    if (!headers_sent()) {
+        setcookie(pp_cookie_name(), $selector . ':' . $validator, [
+            'expires'  => time() + PATIENT_REMEMBER_DAYS * 86400,
+            'path'     => '/',
+            'httponly' => true,
+            'samesite' => 'Lax',
+            'secure'   => !empty($_SERVER['HTTPS']),
+        ]);
+    }
 }
 
 function pp_remember_consume(): void
@@ -628,20 +681,24 @@ function pp_remember_consume(): void
     }
 
     $parts = explode(':', (string)$_COOKIE[pp_cookie_name()]);
-    if (count($parts) !== 2) {
+    if (count($parts) !== 2 || strlen($parts[0]) !== 16 || strlen($parts[1]) !== 64 || !ctype_xdigit($parts[0]) || !ctype_xdigit($parts[1])) {
+        pp_remember_clear();
         return;
     }
     [$selector, $validator] = $parts;
 
-    $stmt = pp_db()->prepare("SELECT * FROM patient_remember_tokens WHERE selector = ? AND expires_at > NOW() LIMIT 1");
-    $stmt->execute([$selector]);
+    $nowStr = date('Y-m-d H:i:s');
+    $stmt = pp_db()->prepare("SELECT * FROM patient_remember_tokens WHERE selector = ? AND expires_at > ? LIMIT 1");
+    $stmt->execute([$selector, $nowStr]);
     $row = $stmt->fetch();
     if (!$row) {
+        pp_remember_clear();
         return;
     }
 
     if (!hash_equals((string)$row['validator_hash'], hash('sha256', $validator))) {
         pp_db()->prepare("DELETE FROM patient_remember_tokens WHERE user_id = ?")->execute([$row['user_id']]);
+        pp_remember_clear();
         return;
     }
 
@@ -653,6 +710,8 @@ function pp_remember_consume(): void
     $user = $uStmt->fetch();
     if ($user && pp_user_status($user) === 'ACTIVE') {
         pp_login($user, true);
+    } else {
+        pp_remember_clear();
     }
 }
 
@@ -661,14 +720,20 @@ function pp_remember_clear(): void
     if (!empty($_COOKIE[pp_cookie_name()])) {
         if (pp_table_exists('patient_remember_tokens')) {
             $selector = explode(':', (string)$_COOKIE[pp_cookie_name()])[0];
-            pp_db()->prepare("DELETE FROM patient_remember_tokens WHERE selector = ?")->execute([$selector]);
+            if (strlen($selector) === 16 && ctype_xdigit($selector)) {
+                pp_db()->prepare("DELETE FROM patient_remember_tokens WHERE selector = ?")->execute([$selector]);
+            }
         }
-        setcookie(pp_cookie_name(), '', [
-            'expires' => time() - 3600,
-            'path' => '/',
-            'httponly' => true,
-            'samesite' => 'Lax',
-        ]);
+        if (!headers_sent()) {
+            setcookie(pp_cookie_name(), '', [
+                'expires' => time() - 3600,
+                'path' => '/',
+                'httponly' => true,
+                'samesite' => 'Lax',
+                'secure' => !empty($_SERVER['HTTPS']),
+            ]);
+        }
+        unset($_COOKIE[pp_cookie_name()]);
     }
 }
 
@@ -676,7 +741,7 @@ function pp_destroy_session(): void
 {
     pp_remember_clear();
     $_SESSION = [];
-    if (ini_get('session.use_cookies')) {
+    if (ini_get('session.use_cookies') && !headers_sent()) {
         $p = session_get_cookie_params();
         setcookie(session_name(), '', time() - 42000, $p['path'], $p['domain'], $p['secure'], $p['httponly']);
     }
