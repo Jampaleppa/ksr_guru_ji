@@ -1575,7 +1575,7 @@
             </div>
             <div class="header-actions">
                 <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><i class="fas fa-moon"></i></button>
-                <a href="checkout/checkout.php" class="checkout-link" target="_blank"><i class="fas fa-credit-card"></i> Checkout</a>
+                <a href="checkout.php" class="checkout-link"><i class="fas fa-credit-card"></i> Checkout</a>
                 <a href="https://wa.me/918088584421?text=Hello%20KSR%20GURU%20JI" target="_blank" class="whatsapp-link"><i class="fab fa-whatsapp"></i> 8088584421</a>
                 <a href="#" class="emergency-badge" id="emergencyTrigger" style="text-decoration:none;"><i class="fas fa-triangle-exclamation"></i> Emergency · Doctor</a>
             </div>

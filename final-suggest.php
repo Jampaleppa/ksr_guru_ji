@@ -277,7 +277,7 @@ $cartCount = array_sum(array_column($_SESSION['cart'] ?? [], 'qty'));
             <!-- Right: Actions -->
             <div class="header-actions" style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap;">
                 <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" style="background: rgba(255,255,255,0.75); border: 1px solid rgba(15,123,58,0.15); width: 44px; height: 44px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center;"><i class="fas fa-moon" style="color:#0f7b3a;"></i></button>
-                <a href="checkout/checkout.php" class="checkout-link" target="_blank" style="background: #e85d2c; color: white; padding: 10px 20px; border-radius: 50px; font-weight: 700; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 12px rgba(232,93,44,0.2); transition: all 0.2s ease; text-decoration: none; font-size: 0.9rem;">
+                <a href="checkout.php" class="checkout-link" style="background: #e85d2c; color: white; padding: 10px 20px; border-radius: 50px; font-weight: 700; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 12px rgba(232,93,44,0.2); transition: all 0.2s ease; text-decoration: none; font-size: 0.9rem;">
                     <i class="fas fa-credit-card"></i> Checkout
                 </a>
                 <a href="https://wa.me/918088584421?text=Hello%20KSR%20GURU%20JI" target="_blank" class="whatsapp-link" style="background: #25d366; color: white; padding: 10px 20px; border-radius: 50px; font-weight: 700; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 12px rgba(37,211,102,0.2); transition: all 0.2s ease; text-decoration: none; font-size: 0.9rem;">
@@ -681,19 +681,7 @@ $cartCount = array_sum(array_column($_SESSION['cart'] ?? [], 'qty'));
         //  PAYMENT & CHECKOUT SYNC
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-        function mapPaymentMethod(val) {
-            switch (val) {
-                case 'Cash on Delivery': return 'cod';
-                case 'QR Scan & Pay': return 'qr';
-                case 'UPI ID': return 'upi';
-                case 'Google Pay': return 'gpay';
-                case 'PhonePe': return 'phonepe';
-                case 'Paytm': return 'paytm';
-                case 'BHIM UPI': return 'bhim';
-                case 'Amazon Pay': return 'amazonpay';
-                default: return 'qr';
-            }
-        }
+        // Payment method mapping is defined globally above in mapPaymentMethod() defaulting to 'upi'
 
         function updateCheckoutUrl() {
             // Checkout page payment selection handles the selection directly
@@ -932,9 +920,10 @@ $cartCount = array_sum(array_column($_SESSION['cart'] ?? [], 'qty'));
                         const found = products.find(p => p.id === id);
                         if (found) {
                             addProductToSuggestionCart(found);
+                            setCheckoutPaymentMethod(found.payment || 'upi');
                             showToast('🛒 Added to Cart! Redirecting to checkout...', false);
                             setTimeout(() => {
-                                window.location.href = 'checkout/checkout.php';
+                                window.location.href = 'checkout.php';
                             }, 1000);
                         }
                     });
@@ -1049,7 +1038,7 @@ $cartCount = array_sum(array_column($_SESSION['cart'] ?? [], 'qty'));
 
                         // Redirect to checkout
                         setTimeout(() => {
-                            window.location.href = 'checkout/checkout.php';
+                            window.location.href = 'checkout.php';
                         }, 1800);
                     }
                 });
@@ -1407,9 +1396,10 @@ $cartCount = array_sum(array_column($_SESSION['cart'] ?? [], 'qty'));
                         const rec = records.find(r => r.id === id);
                         if (rec) {
                             addMedicalToSuggestionCart(rec);
+                            setCheckoutPaymentMethod(rec.payment || 'upi');
                             showToast('🩺 Added to Cart! Redirecting to checkout...', false);
                             setTimeout(() => {
-                                window.location.href = 'checkout/checkout.php';
+                                window.location.href = 'checkout.php';
                             }, 1000);
                         }
                     });
@@ -1579,7 +1569,7 @@ $cartCount = array_sum(array_column($_SESSION['cart'] ?? [], 'qty'));
 
                         // Redirect to checkout
                         setTimeout(() => {
-                            window.location.href = 'checkout/checkout.php';
+                            window.location.href = 'checkout.php';
                         }, 1800);
                     }
                 });
