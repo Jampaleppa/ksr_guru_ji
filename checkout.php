@@ -1393,76 +1393,71 @@ if ($isLoggedIn) {
             const customer = orderData.customer;
             const items = orderData.items;
             const total = orderData.total;
+            const subtotal = orderData.subtotal;
+            const deliveryCharge = orderData.deliveryCharge || 15;
             const paymentMethod = orderData.paymentMethod;
             const now = new Date();
             const timeStr = getFormattedTime(now);
             const deadline = new Date(now.getTime() + 45 * 60 * 1000);
             const deadlineStr = getFormattedTime(deadline);
 
-            const locationStatus = (orderData.location.lat && orderData.location.lng) ? 'Live Location' : 'Manual Address';
-            const mapsLink = `https://maps.google.com/?q=${encodeURIComponent(customer.address)}`;
+            const hasLiveLocation = !!(orderData.location && orderData.location.lat && orderData.location.lng);
+            const locationStatus = hasLiveLocation ? '📍 LIVE GPS LOCATION' : '🏠 MANUAL ADDRESS';
+            const mapsLink = hasLiveLocation 
+                ? `https://maps.google.com/?q=${orderData.location.lat},${orderData.location.lng}` 
+                : `https://maps.google.com/?q=${encodeURIComponent(customer.address + ', ' + customer.city + ' ' + customer.pincode)}`;
 
-            let itemsList = items.map(item => {
-                let str = `* ${item.name} x ${item.qty}`;
-                if (item.variant) str += `\n  - Selection: ${item.variant}`;
-                if (item.description) str += `\n  - Details: ${item.description}`;
+            let itemsList = items.map((item, idx) => {
+                let str = `${idx + 1}. *${item.name}* × ${item.qty} (${formatINR(item.price * item.qty)})`;
+                if (item.variant) str += `\n   ▫️ Selection: ${item.variant}`;
+                if (item.description) str += `\n   ▫️ Details: ${item.description}`;
                 return str;
             }).join('\n');
 
-            const primary = WHATSAPP_NUMBERS[0];
-            const secondary = WHATSAPP_NUMBERS[1];
-            const primaryDisplay = primary.slice(-10);
-            const secondaryDisplay = secondary.slice(-10);
+            const primaryDisplay = WHATSAPP_NUMBERS[0].slice(-10);
+            const secondaryDisplay = WHATSAPP_NUMBERS[1].slice(-10);
 
-            let message = `🆕 NEW ORDER - WITH LIVE LOCATION!
+            const isCod = (paymentMethod === 'cod');
+            const payBadge = isCod 
+                ? '💵 CASH ON DELIVERY (Collect ₹' + total.toFixed(2) + ')' 
+                : '✅ ONLINE PAID (Do Not Collect Cash)';
 
-        Order ID: ${orderNo}
-        Time: ${timeStr}
-
-        Customer Information:
-        Name: ${customer.name}
-        Phone: ${customer.mobile}
-        Address: ${customer.address}
-
-        📍 Location Status: ${locationStatus} 📍
-
-        Order Details:
-        ${itemsList}
-
-        Total Amount: ${formatINR(total)}
-        Payment Methods: ${paymentMethod === 'cod' ? 'cash' : paymentMethod}
-
-        🚀Estimated Delivery Time: 45 minutes
-        Deadline: ${deadlineStr}
-
-        Priority Delivery Boy:
-        Primary: ${primaryDisplay}
-        Secondary: ${secondaryDisplay}
-
-        🗺️ Google Maps Link:
-        ${mapsLink}`;
+            let msg = `🛍️ *NEW ORDER — KSR GURU JI EXPRESS* 🛍️\n` +
+                      `━━━━━━━━━━━━━━━━━━━━━━━\n` +
+                      `🆔 *Order ID:* ${orderNo}\n` +
+                      `⏰ *Order Placed:* ${timeStr}\n` +
+                      `⚡ *Delivery Deadline:* ${deadlineStr} (within 45 mins)\n\n` +
+                      `👤 *CUSTOMER DETAILS:*\n` +
+                      `• *Name:* ${customer.name}\n` +
+                      `• *Phone:* ${customer.mobile}\n` +
+                      `• *Address:* ${customer.address}, ${customer.city} - ${customer.pincode}\n` +
+                      `• *Location Status:* ${locationStatus}\n\n` +
+                      `📦 *ITEMS ORDERED (${items.length}):*\n` +
+                      `${itemsList}\n\n` +
+                      `━━━━━━━━━━━━━━━━━━━━━━━\n` +
+                      `💰 *BILL SUMMARY:*\n` +
+                      `• Subtotal: ${formatINR(subtotal)}\n` +
+                      `• Express Delivery (45m): ${formatINR(deliveryCharge)}\n` +
+                      `• *Grand Total: ${formatINR(total)}*\n` +
+                      `• *Payment Status:* ${payBadge}\n\n` +
+                      `🗺️ *Google Maps Navigation Link:*\n${mapsLink}\n`;
 
             if (pdfUploadUrl) {
-                message += `\n\n        📄 Download Invoice PDF:\n        ${pdfUploadUrl}`;
+                msg += `\n📄 *Official Invoice Copy:*\n${pdfUploadUrl}\n`;
             }
 
-            message += `\n\n        Admin Actions Required:
-        1. ✅ Verify order details
-        2. 📦 Check inventory
-        3. 🔥 Start preparation
-        4. 📞 Confirm with delivery boy
+            if (orderData.delivery && orderData.delivery.notes) {
+                msg += `\n📝 *Customer Instructions:* ${orderData.delivery.notes}\n`;
+            }
 
-        Payment Related Issues: Contact 8088584421
-        Thank you for ordering with KSR GURU JI!
+            msg += `\n📞 Support Hotline: ${primaryDisplay} | ${secondaryDisplay}\n` +
+                   `⚠️ *Note: Price will be change customer will be support.*\n` +
+                   `━━━━━━━━━━━━━━━━━━━━━━━\n` +
+                   `Actions:\n` +
+                   `✅ Reply *ACCEPT* to confirm pickup & dispatch\n` +
+                   `❌ Reply *REJECT* to flag issue`;
 
-        ⚠️ Note: Price will be change customer will be support.
-
-        Reply with:
-        ✅ ACCEPT - to confirm order
-        ❌ REJECT - to cancel order
-        🔧 CHANGE - to modify order`;
-
-            return message;
+            return msg;
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -2051,15 +2046,14 @@ if ($isLoggedIn) {
         //  GENERATE PDF INVOICE (same as original)
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         function generateInvoicePDF(orderData, orderNo, transactionId, paymentStatus) {
-            const {
-                jsPDF
-            } = window.jspdf;
+            const { jsPDF } = window.jspdf;
             const doc = new jsPDF('p', 'mm', 'a4');
             const pageWidth = 210;
-            const margin = 20;
+            const pageHeight = 297;
+            const margin = 16;
             let y = margin;
 
-            // Header with Company Logo
+            // Brand Header with Company Logo
             let hasLogo = false;
             const logoImg = document.querySelector('.logo-image img') || document.querySelector('img[src*="company_logo"]');
             if (logoImg && logoImg.complete && logoImg.naturalWidth > 0) {
@@ -2070,64 +2064,128 @@ if ($isLoggedIn) {
                     const ctx = canvas.getContext('2d');
                     ctx.drawImage(logoImg, 0, 0);
                     const imgData = canvas.toDataURL('image/jpeg', 0.9);
-                    doc.addImage(imgData, 'JPEG', margin, y - 4, 18, 18);
+                    doc.addImage(imgData, 'JPEG', margin, y - 2, 20, 20);
                     hasLogo = true;
                 } catch (e) {
                     console.warn('Could not add logo to PDF:', e);
                 }
             }
 
-            doc.setFontSize(18);
+            const headerLeft = hasLogo ? margin + 26 : margin;
+            doc.setFontSize(20);
             doc.setTextColor(15, 123, 58);
             doc.setFont(undefined, 'bold');
-            doc.text(COMPANY_NAME, hasLogo ? margin + 24 : pageWidth / 2, y + 4, {
-                align: hasLogo ? 'left' : 'center'
-            });
-            y += 8;
-            doc.setFontSize(10);
-            doc.setTextColor(50);
+            doc.text(COMPANY_NAME, headerLeft, y + 5);
+
+            doc.setFontSize(9);
+            doc.setTextColor(100, 116, 139);
             doc.setFont(undefined, 'normal');
-            doc.text('Everything Your Family Needs, Every Day · Express Delivery in 45 Mins', hasLogo ? margin + 24 : pageWidth / 2, y + 3, {
-                align: hasLogo ? 'left' : 'center'
-            });
-            y += 10;
-            doc.setDrawColor(15, 123, 58);
+            doc.text('Express 45-Minute Grocery & Daily Essentials Delivery', headerLeft, y + 11);
+            doc.text(`Helpline: ${COMPANY_PHONE}  |  Web: www.ksrguruji.com`, headerLeft, y + 16);
+
+            // Payment Status Stamp / Pill in Header Right
+            const isPaid = (paymentStatus === 'PAID');
+            const pillX = 145;
+            const pillY = y - 1;
+            const pillW = 49;
+            const pillH = 16;
+
+            if (isPaid) {
+                doc.setFillColor(240, 253, 244);
+                doc.setDrawColor(34, 197, 94);
+                doc.roundedRect(pillX, pillY, pillW, pillH, 3, 3, 'FD');
+                doc.setFontSize(10);
+                doc.setFont(undefined, 'bold');
+                doc.setTextColor(21, 128, 61);
+                doc.text('PAID ONLINE', pillX + (pillW / 2), pillY + 6.5, { align: 'center' });
+                doc.setFontSize(7.5);
+                doc.setFont(undefined, 'normal');
+                doc.setTextColor(22, 101, 52);
+                doc.text(transactionId ? `Txn: ${transactionId.slice(-12)}` : 'Verified Gateway', pillX + (pillW / 2), pillY + 12, { align: 'center' });
+            } else {
+                doc.setFillColor(254, 243, 199);
+                doc.setDrawColor(245, 158, 11);
+                doc.roundedRect(pillX, pillY, pillW, pillH, 3, 3, 'FD');
+                doc.setFontSize(10);
+                doc.setFont(undefined, 'bold');
+                doc.setTextColor(180, 83, 9);
+                doc.text('CASH ON DELIVERY', pillX + (pillW / 2), pillY + 6.5, { align: 'center' });
+                doc.setFontSize(7.5);
+                doc.setFont(undefined, 'normal');
+                doc.setTextColor(146, 64, 14);
+                doc.text(`Pay on Arrival: Rs. ${(orderData.total || 0).toFixed(2)}`, pillX + (pillW / 2), pillY + 12, { align: 'center' });
+            }
+
+            y += 24;
+            doc.setDrawColor(226, 232, 240);
+            doc.setLineWidth(0.5);
             doc.line(margin, y, pageWidth - margin, y);
-            y += 10;
-
-            // Invoice details
-            doc.setFontSize(10);
-            doc.setTextColor(50);
-            const dateStr = new Date().toLocaleDateString('en-IN', {
-                day: '2-digit',
-                month: 'short',
-                year: 'numeric'
-            });
-            doc.text(`Invoice No : ${orderNo}`, margin, y);
-            doc.text(`Date       : ${dateStr}`, margin, y + 6);
-            doc.text(`Payment    : ${paymentStatus}`, 140, y);
-            doc.text(`Txn ID     : ${transactionId}`, 140, y + 6);
-            y += 20;
-
-            // Customer
-            doc.setFontSize(11);
-            doc.setFont(undefined, 'bold');
-            doc.text('Customer', margin, y);
             y += 6;
-            doc.setFontSize(10);
-            doc.setFont(undefined, 'normal');
-            doc.text(`Name  : ${orderData.customer.name}`, margin, y);
-            doc.text(`Phone : ${orderData.customer.mobile}`, margin, y + 6);
-            doc.text(`Email : ${orderData.customer.email || '—'}`, margin, y + 12);
-            doc.text(`Address: ${orderData.customer.address}, ${orderData.customer.city}, ${orderData.customer.pincode}`, margin, y +
-                18);
-            y += 30;
 
-            // Items table
-            const tableRows = orderData.items.map(item => {
-                let displayName = item.name;
-                if (item.variant) displayName += `\n(${item.variant})`;
-                if (item.description) displayName += `\nDetails: ${item.description}`;
+            // Invoice Meta Box
+            const dateStr = new Date().toLocaleDateString('en-IN', {
+                day: '2-digit', month: 'short', year: 'numeric',
+                hour: '2-digit', minute: '2-digit'
+            });
+
+            // Customer Info & Order Info Cards
+            const boxW = (pageWidth - (margin * 2) - 6) / 2;
+            doc.setFillColor(248, 250, 252);
+            doc.setDrawColor(226, 232, 240);
+            doc.roundedRect(margin, y, boxW, 30, 2, 2, 'FD');
+            doc.roundedRect(margin + boxW + 6, y, boxW, 30, 2, 2, 'FD');
+
+            // Left Box: Customer
+            doc.setFontSize(9);
+            doc.setFont(undefined, 'bold');
+            doc.setTextColor(15, 123, 58);
+            doc.text('DELIVERY TO', margin + 4, y + 6);
+            doc.setFont(undefined, 'bold');
+            doc.setFontSize(9.5);
+            doc.setTextColor(15, 23, 42);
+            doc.text(orderData.customer.name || 'Valued Customer', margin + 4, y + 12);
+            doc.setFont(undefined, 'normal');
+            doc.setFontSize(8.5);
+            doc.setTextColor(71, 85, 105);
+            doc.text(`Phone: ${orderData.customer.mobile || '—'}`, margin + 4, y + 17);
+            const addr = `${orderData.customer.address}, ${orderData.customer.city} ${orderData.customer.pincode}`;
+            const splitAddr = doc.splitTextToSize(addr, boxW - 8);
+            doc.text(splitAddr.slice(0, 2), margin + 4, y + 22);
+
+            // Right Box: Order Meta
+            const rightBoxX = margin + boxW + 6;
+            doc.setFontSize(9);
+            doc.setFont(undefined, 'bold');
+            doc.setTextColor(15, 123, 58);
+            doc.text('INVOICE DETAILS', rightBoxX + 4, y + 6);
+            doc.setFont(undefined, 'normal');
+            doc.setFontSize(8.5);
+            doc.setTextColor(71, 85, 105);
+            doc.text(`Invoice No :`, rightBoxX + 4, y + 12);
+            doc.setFont(undefined, 'bold');
+            doc.setTextColor(15, 23, 42);
+            doc.text(orderNo, rightBoxX + 26, y + 12);
+
+            doc.setFont(undefined, 'normal');
+            doc.setTextColor(71, 85, 105);
+            doc.text(`Order Date :`, rightBoxX + 4, y + 17);
+            doc.text(dateStr, rightBoxX + 26, y + 17);
+
+            doc.text(`Payment    :`, rightBoxX + 4, y + 22);
+            doc.text(orderData.paymentMethod.toUpperCase(), rightBoxX + 26, y + 22);
+
+            doc.text(`Delivery   :`, rightBoxX + 4, y + 27);
+            doc.setFont(undefined, 'bold');
+            doc.setTextColor(21, 128, 61);
+            doc.text('Express (within 45 mins)', rightBoxX + 26, y + 27);
+
+            y += 36;
+
+            // Items Table
+            const tableRows = orderData.items.map((item, idx) => {
+                let displayName = `${idx + 1}. ${item.name}`;
+                if (item.variant) displayName += ` (${item.variant})`;
+                if (item.description) displayName += ` - ${item.description}`;
                 return [
                     displayName,
                     String(item.qty),
@@ -2135,112 +2193,113 @@ if ($isLoggedIn) {
                     `Rs. ${(item.price * item.qty).toFixed(2)}`
                 ];
             });
+
             doc.autoTable({
                 startY: y,
-                head: [
-                    ['Product', 'Qty', 'Price', 'Total']
-                ],
+                head: [['Item Description', 'Qty', 'Unit Price', 'Total']],
                 body: tableRows,
                 theme: 'striped',
                 headStyles: {
-                    fillColor: [15, 123, 58]
+                    fillColor: [15, 123, 58],
+                    textColor: [255, 255, 255],
+                    fontSize: 9,
+                    fontStyle: 'bold',
+                    cellPadding: 3.5
+                },
+                bodyStyles: {
+                    fontSize: 8.5,
+                    textColor: [15, 23, 42],
+                    cellPadding: 3
+                },
+                alternateRowStyles: {
+                    fillColor: [248, 250, 252]
                 },
                 columnStyles: {
-                    1: {
-                        halign: 'center'
-                    },
-                    2: {
-                        halign: 'right'
-                    },
-                    3: {
-                        halign: 'right'
-                    }
+                    0: { cellWidth: 105 },
+                    1: { halign: 'center', cellWidth: 20 },
+                    2: { halign: 'right', cellWidth: 25 },
+                    3: { halign: 'right', cellWidth: 28 }
                 },
-                margin: {
-                    left: margin,
-                    right: margin
+                margin: { left: margin, right: margin }
+            });
+
+            let finalY = doc.lastAutoTable.finalY + 8;
+
+            // Safe QR Code Canvas Extraction
+            let qrCanvasData = null;
+            const qrDomImg = document.querySelector('img[src*="ksr_upi_qr"]') || document.querySelector('img[alt*="UPI QR"]');
+            if (qrDomImg && qrDomImg.complete && qrDomImg.naturalWidth > 0) {
+                try {
+                    const qrC = document.createElement('canvas');
+                    qrC.width = qrDomImg.naturalWidth;
+                    qrC.height = qrDomImg.naturalHeight;
+                    const qCtx = qrC.getContext('2d');
+                    qCtx.drawImage(qrDomImg, 0, 0);
+                    qrCanvasData = qrC.toDataURL('image/png');
+                } catch (e) {
+                    console.warn('Could not extract QR canvas for PDF:', e);
                 }
-            });
+            }
 
-            // Get final Y after table
-            let finalY = doc.lastAutoTable.finalY + 10;
+            // Left Block: Verification QR or Note
+            if (qrCanvasData) {
+                doc.setDrawColor(226, 232, 240);
+                doc.setFillColor(255, 255, 255);
+                doc.roundedRect(margin, finalY - 2, 28, 28, 2, 2, 'FD');
+                doc.addImage(qrCanvasData, 'PNG', margin + 1.5, finalY - 0.5, 25, 25);
+                doc.setFontSize(7.5);
+                doc.setFont(undefined, 'bold');
+                doc.setTextColor(15, 123, 58);
+                doc.text('KSR Official QR', margin + 14, finalY + 29.5, { align: 'center' });
+            }
 
-            // Totals: subtotal, delivery, grand total
-            const subtotalVal = orderData.subtotal;
-            const delivery = DELIVERY_CHARGE;
-            const grandTotal = subtotalVal + delivery;
+            // Totals on Right
+            const totalsX = 132;
+            const totalsValX = pageWidth - margin - 2;
 
-            doc.setFontSize(10);
+            doc.setFontSize(9);
             doc.setFont(undefined, 'normal');
-            doc.text('Subtotal', 140, finalY);
-            doc.text(`Rs. ${subtotalVal.toFixed(2)}`, 190, finalY, {
-                align: 'right'
-            });
-            finalY += 6;
-            doc.text('Delivery Charge', 140, finalY);
-            doc.text(`Rs. ${delivery.toFixed(2)}`, 190, finalY, {
-                align: 'right'
-            });
-            finalY += 6;
-            finalY += 4;
+            doc.setTextColor(71, 85, 105);
+            doc.text('Subtotal', totalsX, finalY + 2);
+            doc.text(`Rs. ${orderData.subtotal.toFixed(2)}`, totalsValX, finalY + 2, { align: 'right' });
+
+            doc.text('Express Delivery Fee', totalsX, finalY + 8);
+            doc.text(`Rs. ${DELIVERY_CHARGE.toFixed(2)}`, totalsValX, finalY + 8, { align: 'right' });
+
+            doc.setDrawColor(226, 232, 240);
+            doc.line(totalsX, finalY + 12, pageWidth - margin, finalY + 12);
+
             doc.setFont(undefined, 'bold');
-            doc.setFontSize(12);
-            doc.text('Grand Total', 140, finalY);
-            doc.text(`Rs. ${grandTotal.toFixed(2)}`, 190, finalY, {
-                align: 'right'
-            });
-            finalY += 14;
+            doc.setFontSize(11);
+            doc.setTextColor(15, 123, 58);
+            doc.text('Grand Total', totalsX, finalY + 18);
+            doc.text(`Rs. ${(orderData.subtotal + DELIVERY_CHARGE).toFixed(2)}`, totalsValX, finalY + 18, { align: 'right' });
 
-            // Payment info
-            doc.setFontSize(10);
-            doc.setFont(undefined, 'normal');
-            doc.text(`Payment Method : ${orderData.paymentMethod.toUpperCase()}`, margin, finalY);
-            doc.text(`Transaction ID : ${transactionId}`, margin, finalY + 6);
-            doc.text(`Payment Status : ${paymentStatus}`, margin, finalY + 12);
-            finalY += 18;
-
-            // Delivery info
-            doc.setFontSize(10);
-            doc.setFont(undefined, 'bold');
-            doc.text('Delivery', margin, finalY);
-            finalY += 6;
-            doc.setFont(undefined, 'normal');
-            doc.text('Delivery within 45 minutes', margin, finalY);
-            doc.text('WhatsApp: 8088584421, 6362079192', margin, finalY + 6);
-            finalY += 16;
+            finalY += 34;
 
             // Price variation notice requested by user
             doc.setFillColor(254, 242, 242);
-            doc.roundedRect(margin, finalY - 4, pageWidth - (2 * margin), 12, 2, 2, 'F');
-            doc.setFontSize(9.5);
-            doc.setTextColor(185, 28, 28);
+            doc.setDrawColor(254, 205, 211);
+            doc.roundedRect(margin, finalY, pageWidth - (2 * margin), 10, 2, 2, 'FD');
+            doc.setFontSize(8.5);
+            doc.setTextColor(190, 18, 60);
             doc.setFont(undefined, 'bold');
-            doc.text('⚠️ Note: Price will be change customer will be support.', margin + 4, finalY + 3.5);
-            finalY += 12;
+            doc.text('⚠️ Note: Price will be change customer will be support.', margin + 4, finalY + 6.5);
+            finalY += 16;
 
             // Footer
-            const pageHeight = doc.internal.pageSize.getHeight();
-            doc.setFontSize(10);
+            doc.setFontSize(9);
             doc.setTextColor(15, 123, 58);
             doc.setFont(undefined, 'bold');
-            doc.text('Thank You for Shopping with ' + COMPANY_NAME, pageWidth / 2, pageHeight - 14, {
-                align: 'center'
-            });
-            doc.setFontSize(8);
-            doc.setTextColor(80);
+            doc.text('Thank You for Choosing ' + COMPANY_NAME + '!', pageWidth / 2, pageHeight - 12, { align: 'center' });
+            doc.setFontSize(7.5);
+            doc.setTextColor(100, 116, 139);
             doc.setFont(undefined, 'normal');
-            doc.text(`Website: www.ksrguruji.com  |  WhatsApp: ${COMPANY_PHONE}  |  Email: ${COMPANY_EMAIL}`, pageWidth / 2,
-                pageHeight - 6, {
-                    align: 'center'
-                });
+            doc.text(`WhatsApp: ${COMPANY_PHONE}  |  Support: support@ksrguru.com  |  Visit: www.ksrguruji.com`, pageWidth / 2, pageHeight - 7, { align: 'center' });
 
-            // Save PDF
             const pdfBlob = doc.output('blob');
             const pdfUrl = URL.createObjectURL(pdfBlob);
-            return {
-                url: pdfUrl,
-                blob: pdfBlob
-            };
+            return { url: pdfUrl, blob: pdfBlob };
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -2458,12 +2517,15 @@ if ($isLoggedIn) {
                         rawPhone = '91' + rawPhone;
                     }
 
-                    // Customer WhatsApp Template (NO PDF Invoice Link)
-                    const customerMsg = `Hello *${orderData.customer.name}*, thank you for shopping with *KSR GURU JI*! 🛍️\n\n` +
-                        `Your order *${orderNo}* has been successfully placed.\n` +
-                        `Total Amount: *${formatINR(total)}*\n` +
-                        `Payment Method: *${orderData.paymentMethod.toUpperCase()}*\n\n` +
-                        `We are preparing your order and it will be delivered within 45 minutes! Thank you.`;
+                    // Customer WhatsApp Template
+                    const customerPayText = (paymentStatus === 'PAID') ? '✅ Online Paid' : '💵 Cash on Delivery';
+                    const customerMsg = `Hello *${orderData.customer.name}*, thank you for ordering with *KSR GURU JI*! 🛍️✨\n\n` +
+                        `Your order *#${orderNo}* has been successfully confirmed!\n` +
+                        `💰 *Total Amount:* ${formatINR(total)}\n` +
+                        `💳 *Payment Method:* ${customerPayText}\n` +
+                        `⚡ *Estimated Delivery:* Within 45 minutes\n` +
+                        `📍 *Delivery Address:* ${orderData.customer.address}, ${orderData.customer.city}\n\n` +
+                        `We are carefully packing your items and our delivery boy is on the way! Thank you for trusting KSR GURU JI. 🙏`;
 
                     // Set Customer Button href
                     waCustomerBtn.href = `https://wa.me/${rawPhone}?text=${encodeURIComponent(customerMsg)}`;
