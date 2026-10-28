@@ -49,3 +49,4 @@ if ($id !== '') {
 
 echo json_encode(['success' => false, 'error' => 'Missing item id'], JSON_UNESCAPED_UNICODE);
 exit;
+
