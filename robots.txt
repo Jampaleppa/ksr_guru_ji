@@ -1,0 +1,25 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /api/
+Disallow: /includes/
+Disallow: /logs/
+Disallow: /invoices/
+Disallow: /WhatsApp/telehealth/admin-dashboard.php
+Disallow: /WhatsApp/telehealth/pharmacist-dashboard.php
+Disallow: /WhatsApp/telehealth/pharmacy-dashboard.php
+Disallow: /WhatsApp/telehealth/doctor-consultation-room.php
+Disallow: /seed-telehealth-data.php
+Disallow: /*.sql$
+Disallow: /*.log$
+Disallow: /*.sqlite$
+
+# Allow public-facing pages
+Allow: /index.php
+Allow: /WhatsApp/telehealth/find-doctor.php
+Allow: /WhatsApp/telehealth/patient-dashboard.php
+Allow: /WhatsApp/telehealth/pharmacy.php
+Allow: /cart.php
+Allow: /checkout.php
+
+Sitemap: https://ksr-guru-ji-upload.vercel.app/sitemap.xml
+
