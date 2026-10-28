@@ -21,7 +21,8 @@ patient_portal.sql
 payment_lifecycle_migration.sql
 cleaning_product_image_paths.sql
 
-*.sqlite*
+ksr_local_database.sqlite*
+!WhatsApp/telehealth/medicine/medicines.sqlite
 *.err
 logs/
 invoices/
