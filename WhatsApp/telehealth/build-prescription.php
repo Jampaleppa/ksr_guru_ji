@@ -161,6 +161,11 @@ if (!$presetRows) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="icon" type="image/x-icon" href="../../favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../favicon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../../icon-192.png">
+    <link rel="apple-touch-icon" href="../../icon-192.png">
     <title><?= $rx ? h($rx['rx_code']) . ' | Prescription' : 'Prescription Builder' ?> | Doctor Assist</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>

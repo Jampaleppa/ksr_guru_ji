@@ -47,6 +47,31 @@ try {
     // DB or table might not be seeded yet
 }
 
+// Populate from medicine_catalogue (3,689+ medicines)
+if (empty($medicines) || count($medicines) < 10) {
+    try {
+        $catDb = function_exists('getCatalogueDB') ? getCatalogueDB() : $pdo;
+        $catStmt = $catDb->query("SELECT * FROM medicine_catalogue WHERE status = 1 LIMIT 80");
+        $catRows = $catStmt ? $catStmt->fetchAll(PDO::FETCH_ASSOC) : [];
+        foreach ($catRows as $prod) {
+            $pName = trim((string)($prod['medicine_name'] ?? 'Medicine'));
+            $desc = trim((string)($prod['composition'] ?? ($prod['why_used'] ?? '')));
+            $isRx = function_exists('isRx') ? isRx($prod['prescription_status'] ?? '') : (stripos($prod['prescription_status'] ?? '', 'Prescription') !== false);
+            $img = 'https://ui-avatars.com/api/?name=' . urlencode($pName) . '&background=E0F2FE&color=0284C7&size=300&font-size=0.25&bold=true';
+            $medicines[] = [
+                'id' => $prod['id'],
+                'name' => htmlspecialchars($pName),
+                'pack' => htmlspecialchars($prod['dosage_form'] ?: 'Tablet'),
+                'price' => (float)($prod['selling_price'] ?? 0) > 0 ? (float)$prod['selling_price'] : 85.00,
+                'description' => htmlspecialchars($desc),
+                'rx' => $isRx,
+                'image' => $img,
+                'category' => htmlspecialchars($prod['dosage_form'] ?: 'General Medicine')
+            ];
+        }
+    } catch (Throwable $e) {}
+}
+
 // Fallback if no real products found in the medicines table (user hasn't executed SQL yet)
 if (empty($medicines)) {
     // Load from old products table as fallback
