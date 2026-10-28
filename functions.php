@@ -527,6 +527,10 @@ register_shutdown_function(function () {
     $isAjax = !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest';
     if ($isAjax || isset($_GET['ajax'])) return;
 
+    // Skip API endpoints, payment callbacks, webhooks, cron, and AJAX routes
+    $uri = $_SERVER['REQUEST_URI'] ?? '';
+    if (preg_match('#(?:/api/|payment\.php|webhook|razorpay|ajax|cron|status\.php|update_cart\.php|add_cart\.php)#i', $uri)) return;
+
     $isJson = false;
     foreach (headers_list() as $h) {
         if (stripos($h, 'Content-Type: application/json') !== false) {

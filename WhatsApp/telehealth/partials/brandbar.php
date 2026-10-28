@@ -148,3 +148,11 @@ if (!function_exists('telehealth_brandbar')) {
 }
 
 telehealth_brandbar($ksr_active ?? '', $ksr_depth ?? 0);
+
+/* Auto-inject favicon links into <head> for pages that include this partial.
+   Uses output-buffering trick: inject before first </head> if possible,
+   otherwise just include at point of use (browsers tolerate <link> in <body>). */
+if (!defined('KSR_FAVICONS_INCLUDED')) {
+    define('KSR_FAVICONS_INCLUDED', true);
+    include __DIR__ . '/favicons.php';
+}
