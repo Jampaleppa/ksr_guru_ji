@@ -790,6 +790,19 @@ body.dark .tab-btn.active {
     }
 }
 
+@media (max-width: 360px) {
+    .main-content {
+        padding: 8px !important;
+    }
+    .top-header {
+        padding: 8px 10px !important;
+    }
+    .card-header, 
+    .card-body {
+        padding: 10px !important;
+    }
+}
+
 /* Print: strip navigation chrome */
 @media print {
     .sidebar,

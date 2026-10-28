@@ -532,6 +532,60 @@ $docName = $_SESSION['user_name'] ?? 'DR. D C Rathod';
                 gap: 16px;
             }
         }
+        @media (max-width: 768px) {
+            .navbar-links {
+                display: none !important;
+            }
+
+            .dash-layout {
+                margin: 20px auto 60px;
+                padding: 0 12px;
+            }
+
+            .chat-input {
+                padding: 12px;
+            }
+
+            .chat-box {
+                height: 450px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-title {
+                font-size: 1.4rem;
+            }
+
+            .page-sub {
+                font-size: 0.88rem;
+            }
+
+            .filter-bar {
+                overflow-x: auto;
+                flex-wrap: nowrap;
+                padding-bottom: 6px;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .notif-item {
+                padding: 14px 10px;
+            }
+
+            .chat-input input {
+                font-size: 0.9rem;
+            }
+
+            .chat-box {
+                height: 380px;
+                border-radius: var(--radius-md);
+            }
+        }
+
+        @media (max-width: 360px) {
+            .page-title {
+                font-size: 1.25rem;
+            }
+        }
     </style>
 </head>
 

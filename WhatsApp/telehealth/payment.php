@@ -89,8 +89,8 @@ if (!$doctor) {
         .breakdown-total { border-top: 1px dashed var(--clr-border); padding-top: 16px; margin-top: 8px; display: flex; justify-content: space-between; font-weight: 900; font-size: 1.35rem; color: var(--clr-primary-dark); }
         
         /* Sticky Button */
-        .btn-sticky-container { position: fixed; bottom: 0; left: 0; width: 100%; padding: 16px; background: white; border-top: 1px solid var(--clr-border); box-shadow: 0 -4px 16px rgba(0,0,0,0.08); text-align: center; z-index: 50; }
-        .btn-pay { width: 100%; max-width: 680px; padding: 18px; font-size: 1.15rem; font-weight: 800; background: var(--clr-primary); color: white; border: none; border-radius: var(--radius-md); cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 10px; transition: 0.3s; box-shadow: 0 6px 20px rgba(37,99,235,0.3); }
+        .btn-sticky-container { position: fixed; bottom: 0; left: 0; width: 100%; padding: 14px 16px calc(14px + env(safe-area-inset-bottom, 0px)); background: white; border-top: 1px solid var(--clr-border); box-shadow: 0 -4px 16px rgba(0,0,0,0.08); text-align: center; z-index: 50; }
+        .btn-pay { width: 100%; max-width: 680px; padding: 16px; font-size: 1.1rem; font-weight: 800; background: var(--clr-primary); color: white; border: none; border-radius: var(--radius-md); cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 10px; transition: 0.3s; box-shadow: 0 6px 20px rgba(37,99,235,0.3); min-height: 48px; }
         .btn-pay.disabled { background: #94A3B8; cursor: not-allowed; box-shadow: none; }
         .btn-pay:not(.disabled):hover { background: var(--clr-primary-dark); transform: translateY(-2px); }
 
@@ -102,6 +102,33 @@ if (!$doctor) {
         .loader-title { font-size: 1.5rem; font-weight: 800; color: var(--clr-primary-dark); margin-bottom: 10px; }
         .loader-text { font-size: 1rem; color: var(--clr-text-secondary); margin-bottom: 20px; font-weight: 500; }
         .loader-amount { font-size: 1.3rem; font-weight: 800; color: var(--clr-text-primary); }
+
+        @media (max-width: 768px) {
+            html, body { overflow-x: hidden; }
+            .flow-container { margin: 20px auto; padding: 0 14px; margin-bottom: calc(110px + env(safe-area-inset-bottom, 0px)); }
+            .page-title { font-size: 1.5rem; }
+            .card-panel { padding: 20px 16px; border-radius: var(--radius-md); }
+            input[type="text"] { font-size: 16px !important; }
+        }
+
+        @media (max-width: 480px) {
+            .flow-container { padding: 0 10px; margin-bottom: calc(100px + env(safe-area-inset-bottom, 0px)); }
+            .page-title { font-size: 1.3rem; }
+            .card-panel { padding: 16px 12px; }
+            .pay-method-card { padding: 14px 12px; }
+            .pay-title { font-size: 0.98rem; }
+            .pay-desc { font-size: 0.8rem; }
+            .upi-expansion { padding: 16px 12px; }
+            .btn-pay { padding: 14px 16px; font-size: 1rem; }
+            .breakdown-total { font-size: 1.2rem; }
+        }
+
+        @media (max-width: 360px) {
+            .page-title { font-size: 1.15rem; }
+            .pay-left { gap: 10px; }
+            .pay-icon { font-size: 1.3rem; }
+            .btn-pay { font-size: 0.92rem; }
+        }
     </style>
 </head>
 <body>

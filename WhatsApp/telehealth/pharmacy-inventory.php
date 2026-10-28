@@ -131,6 +131,28 @@ if (empty($liveInventory)) {
         .arch-title { font-weight: 900; font-size: 0.8rem; color: var(--clr-text-secondary); text-transform: uppercase; }
         .arch-val { font-weight: 800; font-size: 1.1rem; color: var(--clr-primary-dark); }
         .arch-arrow { text-align: center; color: #CBD5E1; font-size: 1.2rem; padding: 4px 0; }
+        @media (max-width: 1024px) {
+            .kpi-row { grid-template-columns: repeat(2, 1fr); }
+            .app-container { flex-direction: column; }
+        }
+
+        @media (max-width: 768px) {
+            .app-container { padding: 14px; gap: 16px; }
+            .navbar-links { display: none !important; }
+            .panel-body { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+            .data-table { min-width: 580px; }
+        }
+
+        @media (max-width: 480px) {
+            .kpi-row { grid-template-columns: 1fr; gap: 10px; }
+            .kpi-val { font-size: 1.5rem; }
+            .panel-head { flex-direction: column; align-items: flex-start; gap: 8px; }
+            .panel-title { font-size: 0.95rem; }
+        }
+
+        @media (max-width: 360px) {
+            .kpi-val { font-size: 1.3rem; }
+        }
     </style>
 </head>
 <body>

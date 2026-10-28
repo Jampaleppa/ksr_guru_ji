@@ -97,15 +97,37 @@ try {
         .info-row { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; font-size: 1rem; color: var(--clr-text-primary); font-weight: 600; }
         .info-row i { color: var(--clr-primary); width: 24px; text-align: center; font-size: 1.15rem; }
         
-        .app-id-box { background: var(--clr-primary-light); border: 1px dashed var(--clr-primary); padding: 14px; border-radius: var(--radius-sm); margin-top: 20px; }
+        .app-id-box { background: var(--clr-primary-light); border: 1px dashed var(--clr-primary); padding: 14px; border-radius: var(--radius-sm); margin-top: 20px; word-break: break-all; }
         .app-id-label { font-size: 0.8rem; color: var(--clr-primary-dark); font-weight: 700; margin-bottom: 2px; }
-        .app-id-val { font-size: 1.2rem; font-family: monospace; font-weight: 800; color: var(--clr-primary); letter-spacing: 1.5px; }
+        .app-id-val { font-size: 1.2rem; font-family: monospace; font-weight: 800; color: var(--clr-primary); letter-spacing: 1.5px; word-break: break-all; }
 
         .action-flex { display: flex; flex-direction: column; gap: 12px; }
-        .btn-action { display: flex; align-items: center; justify-content: center; gap: 12px; padding: 16px; border-radius: var(--radius-md); font-weight: 700; font-size: 1.05rem; cursor: pointer; text-decoration: none; transition: 0.2s; border: 1px solid var(--clr-border); background: white; color: var(--clr-text-primary); }
+        .btn-action { display: flex; align-items: center; justify-content: center; gap: 12px; padding: 16px; border-radius: var(--radius-md); font-weight: 700; font-size: 1.05rem; cursor: pointer; text-decoration: none; transition: 0.2s; border: 1px solid var(--clr-border); background: white; color: var(--clr-text-primary); min-height: 44px; }
         .btn-action:hover { background: #F8FAFC; }
         .btn-action.primary { background: var(--clr-primary); color: white; border-color: var(--clr-primary); }
         .btn-action.primary:hover { background: var(--clr-primary-dark); }
+
+        @media (max-width: 480px) {
+            html, body { overflow-x: hidden; }
+            .success-container { margin: 20px auto; padding: 0 12px; margin-bottom: 60px; }
+            .success-card { padding: 28px 18px; border-radius: var(--radius-md); }
+            .check-circle { width: 58px; height: 58px; font-size: 1.8rem; margin-bottom: 16px; }
+            .s-title { font-size: 1.35rem; }
+            .s-amount { font-size: 1.05rem; margin-bottom: 18px; }
+            .info-card { padding: 20px 16px; border-radius: var(--radius-md); }
+            .btn-action { font-size: 0.95rem; padding: 14px; }
+            .app-id-val { font-size: 1.05rem; letter-spacing: 1px; }
+        }
+
+        @media (max-width: 360px) {
+            .success-container { padding: 0 8px; }
+            .success-card { padding: 20px 12px; }
+            .s-title { font-size: 1.2rem; }
+            .check-circle { width: 48px; height: 48px; font-size: 1.5rem; }
+            .info-card { padding: 16px 12px; }
+            .info-row { font-size: 0.9rem; gap: 8px; }
+            .app-id-val { font-size: 0.95rem; letter-spacing: 0.5px; }
+        }
         
     </style>
 </head>

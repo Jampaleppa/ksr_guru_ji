@@ -242,6 +242,34 @@
   }
 }
 
+@media (max-width: 480px) {
+  .ksr-brandbar__inner {
+    padding: 8px 10px;
+    gap: 8px;
+  }
+  .ksr-brandbar__brand span {
+    font-size: 0.95rem;
+  }
+  .ksr-brandbar__links a {
+    font-size: 0.74rem;
+    padding: 5px 10px;
+  }
+}
+
+@media (max-width: 360px) {
+  .ksr-brandbar__inner {
+    padding: 6px 8px;
+  }
+  .ksr-brandbar__logo {
+    width: 32px;
+    height: 32px;
+    flex-basis: 32px;
+  }
+  .ksr-brandbar__brand span {
+    font-size: 0.88rem;
+  }
+}
+
 /* ---------- print: keep the brand, lose the chrome ---------- */
 @media print {
   .ksr-brandbar {

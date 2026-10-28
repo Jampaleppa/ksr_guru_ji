@@ -12,7 +12,7 @@
       "dest": "/api/$1"
     },
     {
-      "src": "/(.*\\.(css|js|png|jpg|jpeg|gif|svg|ico|webp|woff|woff2|ttf|eot))",
+      "src": "/(.*\\.(css|js|png|jpg|jpeg|gif|svg|ico|webp|woff|woff2|ttf|eot|json|xml|txt|pdf|webmanifest|mp3|wav))",
       "dest": "/$1"
     },
     {

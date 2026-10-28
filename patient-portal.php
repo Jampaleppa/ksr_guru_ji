@@ -187,6 +187,93 @@ if (pp_is_logged_in()) {
             font-weight: 700;
             text-decoration: none
         }
+
+        /* ── Mobile responsiveness ── */
+        @media (max-width: 640px) {
+            .wrap {
+                padding: 24px 14px 40px;
+            }
+            .hero h1 {
+                font-size: 1.45rem;
+            }
+            .hero p {
+                font-size: 0.9rem;
+            }
+            .cards {
+                grid-template-columns: 1fr;
+            }
+            .card .btn {
+                display: block;
+                text-align: center;
+                width: 100%;
+                min-height: 44px;
+                padding: 12px;
+            }
+            .mods {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            html, body {
+                overflow-x: hidden;
+            }
+            .wrap {
+                padding: 18px 10px 32px;
+            }
+            .hero i {
+                font-size: 2.3rem;
+            }
+            .hero h1 {
+                font-size: 1.25rem;
+            }
+            .flow {
+                gap: 6px;
+                margin: 18px 0 24px;
+            }
+            .step {
+                padding: 6px 12px;
+                font-size: 0.76rem;
+            }
+            .arrow {
+                font-size: 0.7rem;
+            }
+            .card {
+                padding: 18px 16px;
+                border-radius: 14px;
+            }
+            .card h3 {
+                font-size: 0.95rem;
+            }
+            .mods {
+                grid-template-columns: 1fr 1fr;
+                gap: 8px;
+            }
+            .mod {
+                padding: 10px 8px;
+                font-size: 0.78rem;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .wrap {
+                padding: 14px 6px 28px;
+            }
+            .hero h1 {
+                font-size: 1.15rem;
+            }
+            .mods {
+                grid-template-columns: 1fr;
+            }
+            .flow .arrow {
+                display: none;
+            }
+            .step {
+                width: 100%;
+                text-align: center;
+                border-radius: 10px;
+            }
+        }
     </style>
 </head>
 

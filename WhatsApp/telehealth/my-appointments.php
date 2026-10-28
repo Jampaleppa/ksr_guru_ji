@@ -117,8 +117,32 @@ $docName = $_SESSION['user_name'] ?? 'DR. D C Rathod';
         @media (max-width: 768px) {
             .navbar-brand { font-size: 1.25rem; }
             .navbar-links { display: none; } /* Mobile bottom nav takes over */
-            .card-actions { flex-direction: column; align-items: stretch; }
+            .card-actions { flex-direction: column; align-items: stretch; gap: 10px; }
+            .btn-action { min-height: 44px; width: 100%; justify-content: center; }
             .price-badge { margin-left: 0; text-align: center; padding: 12px 0; border-top: 1px dashed var(--clr-border); }
+            .appt-card { padding: 20px 16px; border-radius: var(--radius-md); }
+        }
+
+        @media (max-width: 480px) {
+            .container { padding: 0 12px; }
+            .card-header { flex-direction: column; align-items: flex-start; gap: 12px; }
+            .doc-info { gap: 12px; }
+            .doc-icon { width: 44px; height: 44px; font-size: 1.25rem; }
+            .doc-name { font-size: 1.05rem; }
+            .appt-meta { gap: 12px; font-size: 0.88rem; }
+            .appt-meta div { width: 100%; }
+            .countdown-time { font-size: 1.6rem; }
+            .tab { padding: 10px 16px; font-size: 0.9rem; }
+            .modal-header, .modal-body { padding: 16px; }
+        }
+
+        @media (max-width: 360px) {
+            .container { padding: 0 8px; }
+            .appt-card { padding: 16px 12px; }
+            .doc-name { font-size: 0.98rem; }
+            .countdown-time { font-size: 1.35rem; }
+            .btn-action { font-size: 0.88rem; padding: 8px 14px; }
+            .tab { padding: 8px 12px; font-size: 0.85rem; }
         }
     </style>
 </head>

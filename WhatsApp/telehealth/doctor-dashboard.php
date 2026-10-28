@@ -595,13 +595,141 @@ function dd_queue_style(string $status): string
             }
         }
 
-        @media (max-width: 560px) {
-            .metrics-bar {
-                grid-template-columns: 1fr;
+        @media (max-width: 768px) {
+            html, body {
+                overflow-x: hidden;
+            }
+
+            .dashboard-grid {
+                margin: 16px auto;
+                padding: 0 12px;
+                gap: 20px;
+            }
+
+            .dash-header {
+                padding: 20px 16px;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 16px;
+            }
+
+            .dh-profile {
+                width: 100%;
+                box-sizing: border-box;
             }
 
             .dh-greet {
-                font-size: 1.5rem;
+                font-size: 1.6rem;
+            }
+
+            .dh-sub {
+                font-size: 0.9rem;
+            }
+
+            .metrics-bar {
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+            }
+
+            .c-box {
+                padding: 18px 14px;
+            }
+
+            .btn-primary,
+            .btn-secondary,
+            .btn-action {
+                min-height: 44px;
+            }
+
+            input, select, textarea {
+                font-size: 16px !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .dashboard-grid {
+                padding: 0 8px;
+                margin: 12px auto;
+            }
+
+            .dash-header {
+                padding: 16px 12px;
+                border-radius: var(--radius-md);
+            }
+
+            .dh-greet {
+                font-size: 1.35rem;
+            }
+
+            .dh-profile {
+                padding: 12px;
+                gap: 10px;
+            }
+
+            .dh-avatar {
+                width: 42px;
+                height: 42px;
+                font-size: 1rem;
+                border-radius: 12px;
+            }
+
+            .dh-name {
+                font-size: 0.95rem;
+            }
+
+            .metrics-bar {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            .m-card {
+                padding: 14px 12px;
+            }
+
+            .mc-val {
+                font-size: 1.45rem;
+            }
+
+            .c-box {
+                padding: 14px 10px;
+                border-radius: var(--radius-md);
+            }
+
+            .cb-head {
+                font-size: 0.95rem;
+            }
+
+            .queue-row {
+                padding: 12px 8px;
+                gap: 8px;
+            }
+
+            .pt-row {
+                padding: 10px 8px;
+                gap: 10px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .dh-greet {
+                font-size: 1.2rem;
+            }
+
+            .dash-header {
+                padding: 12px 10px;
+            }
+
+            .mc-val {
+                font-size: 1.3rem;
+            }
+
+            .queue-row {
+                grid-template-columns: 1fr;
+            }
+
+            .queue-row .qr-type,
+            .queue-row .pill {
+                grid-column: 1;
             }
         }
     </style>

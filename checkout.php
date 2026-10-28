@@ -1137,6 +1137,54 @@ if ($isLoggedIn) {
     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
     <script>
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        //  ROBUST MULTI-ENDPOINT CHECKOUT RESOLVER
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        async function postToCheckoutEndpoint(formData) {
+            const currentPath = window.location.pathname || '';
+            const endpoints = [];
+            if (currentPath.endsWith('.php')) {
+                endpoints.push(currentPath);
+            }
+            endpoints.push('/checkout.php');
+            endpoints.push('checkout.php');
+            endpoints.push('/checkout/checkout.php');
+            endpoints.push('checkout/checkout.php');
+
+            const uniqueEndpoints = [...new Set(endpoints)];
+            let lastError = null;
+            let lastText = '';
+
+            for (const endpoint of uniqueEndpoints) {
+                try {
+                    const response = await fetch(endpoint, {
+                        method: 'POST',
+                        body: formData,
+                        headers: { 'Accept': 'application/json' }
+                    });
+                    const text = await response.text();
+                    lastText = text;
+                    try {
+                        const parsed = JSON.parse(text);
+                        return { ok: true, data: parsed, endpoint: endpoint };
+                    } catch (parseErr) {
+                        const match = text.match(/\{[\s\S]*\}/);
+                        if (match) {
+                            try {
+                                const parsed = JSON.parse(match[0]);
+                                return { ok: true, data: parsed, endpoint: endpoint };
+                            } catch (_) {}
+                        }
+                        lastError = new Error(`Server returned non-JSON response from ${endpoint}`);
+                    }
+                } catch (fetchErr) {
+                    lastError = fetchErr;
+                    console.warn(`Checkout request at ${endpoint} failed:`, fetchErr);
+                }
+            }
+            return { ok: false, error: lastError, rawText: lastText };
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         //  CONFIGURATION
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         const STORES = {
@@ -2380,26 +2428,18 @@ if ($isLoggedIn) {
             formData.append('delivery_charge', orderData.deliveryCharge);
             formData.append('transaction_id', '');
 
-            const checkoutEndpoint = window.location.pathname || 'checkout.php';
-
             try {
-                const response = await fetch(checkoutEndpoint, {
-                    method: 'POST',
-                    body: formData
-                });
-                const rawText = await response.text();
-                let result;
-                try {
-                    result = JSON.parse(rawText);
-                } catch (_parseErr) {
-                    // PHP emitted warnings/notices before JSON – show the raw output
-                    const preview = rawText.replace(/<[^>]*>/g, '').trim().slice(0, 200);
-                    showToast('❌ Server error: ' + (preview || 'Unexpected response. Check server logs.'), 'error', 8000);
-                    console.error('Non-JSON response from server:', rawText);
+                const postRes = await postToCheckoutEndpoint(formData);
+                if (!postRes.ok) {
+                    const errMsg = postRes.error ? (postRes.error.message || String(postRes.error)) : 'Could not reach server.';
+                    showToast('❌ Connection error: ' + errMsg + '. Please verify your connection and try again.', 'error', 8000);
                     placeOrderBtn.disabled = false;
                     placeOrderBtn.innerHTML = originalHTML;
                     return;
                 }
+
+                const result = postRes.data;
+                const checkoutEndpoint = postRes.endpoint;
 
                 if (result.success) {
                     const orderNo = result.order_number;
@@ -2487,17 +2527,13 @@ if ($isLoggedIn) {
                     invoiceFormData.append('pdf_file', pdfResult.blob, `Invoice_${orderNo}.pdf`);
 
                     try {
-                        const uploadRes = await fetch(checkoutEndpoint, {
-                            method: 'POST',
-                            body: invoiceFormData
-                        });
-                        const uploadData = await uploadRes.json();
-                        if (uploadData.success) {
-                            pdfUploadUrl = uploadData.pdf_url;
+                        const uploadRes = await postToCheckoutEndpoint(invoiceFormData);
+                        if (uploadRes.ok && uploadRes.data && uploadRes.data.success) {
+                            pdfUploadUrl = uploadRes.data.pdf_url;
                             lastGeneratedOrder.pdfUrlOnServer = pdfUploadUrl;
                         }
                     } catch (uploadError) {
-                        console.error('Invoice upload failed:', uploadError);
+                        console.warn('Invoice upload notice:', uploadError);
                     }
 
                     if (!pdfUploadUrl) {
@@ -2578,8 +2614,11 @@ if ($isLoggedIn) {
                 }
             } catch (err) {
                 const msg = err && err.message ? err.message : String(err);
-                showToast('❌ ' + (msg.includes('fetch') ? 'Network error. Please check your connection and try again.' : msg), 'error', 7000);
                 console.error('placeOrder error:', err);
+                const displayMsg = (msg.includes('fetch') || msg.includes('Failed to fetch'))
+                    ? 'Connection issue detected. Please check your internet or retry.'
+                    : msg;
+                showToast('❌ ' + displayMsg, 'error', 7000);
             }
 
             placeOrderBtn.disabled = false;
@@ -2798,13 +2837,28 @@ if ($isLoggedIn) {
 
             for (let attempt = 0; attempt < maxAttempts; attempt++) {
                 try {
-                    const response = await fetch(
-                        `/api/payment_status.php?order_id=${encodeURIComponent(orderId)}`, {
-                            method: 'GET',
-                            cache: 'no-store',
-                            credentials: 'same-origin'
-                        }
-                    );
+                    let response = null;
+                    const statusEndpoints = [
+                        `/api/payment_status.php?order_id=${encodeURIComponent(orderId)}`,
+                        `/payment_status.php?order_id=${encodeURIComponent(orderId)}`,
+                        `api/payment_status.php?order_id=${encodeURIComponent(orderId)}`
+                    ];
+                    for (const ep of statusEndpoints) {
+                        try {
+                            const r = await fetch(ep, {
+                                method: 'GET',
+                                cache: 'no-store',
+                                credentials: 'same-origin'
+                            });
+                            if (r.ok) {
+                                response = r;
+                                break;
+                            }
+                        } catch (_) {}
+                    }
+                    if (!response) {
+                        throw new Error('Payment status endpoint is unreachable.');
+                    }
 
                     const data = await response.json();
 
@@ -2924,22 +2978,18 @@ if ($isLoggedIn) {
                         verifyData.append('razorpay_order_id', result.razorpay_order_id);
                         verifyData.append('razorpay_signature', signature);
 
-                        const checkoutEndpoint = window.location.pathname || 'checkout.php';
                         try {
-                            const verifyResponse = await fetch(checkoutEndpoint, {
-                                method: 'POST',
-                                body: verifyData
-                            });
-                            const verifyResult = await verifyResponse.json();
+                            const verifyRes = await postToCheckoutEndpoint(verifyData);
                             cleanup();
-                            if (verifyResult.success) {
+                            if (verifyRes.ok && verifyRes.data && verifyRes.data.success) {
                                 resolve({
                                     razorpay_payment_id: paymentId,
                                     razorpay_order_id: result.razorpay_order_id,
                                     razorpay_signature: signature
                                 });
                             } else {
-                                reject(verifyResult.error || 'Verification of simulated signature failed.');
+                                const errDesc = (verifyRes.data && verifyRes.data.error) ? verifyRes.data.error : (verifyRes.error ? verifyRes.error.message : 'Verification failed.');
+                                reject(errDesc);
                             }
                         } catch (err) {
                             cleanup();
@@ -2973,17 +3023,13 @@ if ($isLoggedIn) {
                             verifyData.append('razorpay_order_id', response.razorpay_order_id);
                             verifyData.append('razorpay_signature', response.razorpay_signature);
 
-                            const checkoutEndpoint = window.location.pathname || 'checkout.php';
                             try {
-                                const verifyResponse = await fetch(checkoutEndpoint, {
-                                    method: 'POST',
-                                    body: verifyData
-                                });
-                                const verifyResult = await verifyResponse.json();
-                                if (verifyResult.success) {
+                                const verifyRes = await postToCheckoutEndpoint(verifyData);
+                                if (verifyRes.ok && verifyRes.data && verifyRes.data.success) {
                                     resolve(response);
                                 } else {
-                                    reject(verifyResult.error || 'Signature verification failed.');
+                                    const errDesc = (verifyRes.data && verifyRes.data.error) ? verifyRes.data.error : 'Signature verification failed.';
+                                    reject(errDesc);
                                 }
                             } catch (err) {
                                 reject('Network error during validation.');

@@ -1516,3 +1516,155 @@ body::after {
         max-height: 980px;
     }
 }
+
+/* ─── True Mobile Devices (≤ 480px) ─── */
+@media (max-width: 480px) {
+    html, body {
+        overflow-x: hidden;
+    }
+
+    /* On real phones: no device-frame chrome — full-bleed native feel */
+    body {
+        display: block !important;
+        background: #f2f5f2 !important;
+        min-height: 100vh;
+        overflow: auto !important;
+    }
+
+    .app-container {
+        max-width: 100% !important;
+        width: 100% !important;
+        height: auto !important;
+        min-height: 100vh !important;
+        border-radius: 0 !important;
+        border: none !important;
+        box-shadow: none !important;
+        margin: 0 !important;
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+    }
+
+    /* Prevent iOS Safari auto-zoom on inputs */
+    input,
+    select,
+    textarea {
+        font-size: 16px !important;
+        min-height: 44px;
+    }
+
+    /* Touch-friendly buttons */
+    .btn,
+    button {
+        min-height: 44px;
+    }
+
+    /* Header shrinks slightly */
+    .app-header {
+        padding: 12px 14px;
+        min-height: 60px;
+    }
+    .app-header .title {
+        font-size: 17px;
+    }
+
+    /* Stats grid stays 2-col on phone */
+    .stats-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-bottom: 16px;
+    }
+    .stat-card .stat-value {
+        font-size: 20px;
+    }
+    .stat-card .stat-label {
+        font-size: 11px;
+    }
+
+    /* Bottom nav: edge-to-edge */
+    .bottom-nav {
+        bottom: 0;
+        left: 0;
+        right: 0;
+        border-radius: 0;
+        border-bottom: none;
+        padding: 0 4px;
+        padding-bottom: env(safe-area-inset-bottom);
+    }
+
+    /* Section padding */
+    .view-scroll {
+        padding: 14px 14px calc(var(--nav-height) + 32px + env(safe-area-inset-bottom)) 14px;
+    }
+
+    /* OTP inputs: fit small screens */
+    .otp-input-group {
+        gap: 6px;
+    }
+    .otp-input {
+        width: 40px;
+        height: 46px;
+        font-size: 18px;
+    }
+
+    /* Login card compact */
+    .login-container {
+        max-width: 100%;
+    }
+    #loginView {
+        padding: 20px 14px;
+    }
+    .login-brand h1 {
+        font-size: 22px;
+    }
+    .login-brand .logo-icon {
+        width: 68px;
+        height: 68px;
+        font-size: 28px;
+        margin-bottom: 14px;
+    }
+
+    /* Section title spacing */
+    .section-title {
+        font-size: 16px;
+        margin: 18px 0 10px;
+    }
+
+    /* Emergency SOS button safe on small screens */
+    .emergency-btn {
+        width: 120px;
+        height: 120px;
+        font-size: 32px;
+    }
+}
+
+/* ─── Ultra-compact (≤ 360px) ─── */
+@media (max-width: 360px) {
+    .app-header .title {
+        font-size: 15px;
+    }
+    .stats-grid {
+        gap: 8px;
+    }
+    .stat-card .stat-value {
+        font-size: 18px;
+    }
+    .otp-input {
+        width: 36px;
+        height: 42px;
+        font-size: 16px;
+    }
+    .login-brand h1 {
+        font-size: 19px;
+    }
+    .bottom-nav .nav-item {
+        padding: 8px 10px;
+    }
+    .section-title {
+        font-size: 14px;
+    }
+    .emergency-btn {
+        width: 100px;
+        height: 100px;
+        font-size: 26px;
+    }
+}

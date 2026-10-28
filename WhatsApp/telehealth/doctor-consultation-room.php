@@ -148,6 +148,119 @@ if (!$patientData) {
         .btn-join-room { width: 100%; padding: 16px; background: #2563EB; color: white; border: none; border-radius: var(--radius-md); font-weight: 800; font-size: 1.1rem; margin-top: 24px; cursor: pointer; transition: 0.3s; }
         .btn-join-room:hover { background: #1D4ED8; }
 
+        @media (max-width: 900px) {
+            .room-workspace {
+                grid-template-columns: 1fr;
+                height: auto;
+                min-height: calc(100vh - 75px);
+            }
+
+            body {
+                overflow: auto;
+                height: auto;
+            }
+
+            .main-video {
+                min-height: 50vh;
+            }
+
+            .pip-video {
+                width: 140px;
+                height: 95px;
+                top: 16px;
+                right: 16px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .room-nav {
+                padding: 12px 16px;
+            }
+
+            .rn-right {
+                gap: 12px;
+            }
+
+            .rn-badge {
+                display: none;
+            }
+
+            .timer-badge {
+                font-size: 1rem;
+            }
+
+            .pat-name-overlay {
+                font-size: 1.15rem;
+                bottom: 16px;
+                left: 16px;
+            }
+
+            .video-controls {
+                padding: 16px 12px;
+                gap: 12px;
+            }
+
+            .vc-btn {
+                width: 48px;
+                height: 48px;
+                font-size: 1.15rem;
+            }
+
+            .precall-box {
+                padding: 24px 18px;
+                width: 95%;
+            }
+
+            .m-head,
+            .m-body,
+            .m-foot {
+                padding: 18px 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .pip-video {
+                width: 100px;
+                height: 70px;
+                top: 10px;
+                right: 10px;
+            }
+
+            .vc-btn {
+                width: 42px;
+                height: 42px;
+                font-size: 1rem;
+            }
+
+            .qa-grid {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            .pat-name-overlay {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 6px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .pip-video {
+                width: 80px;
+                height: 55px;
+            }
+
+            .vc-btn {
+                width: 38px;
+                height: 38px;
+                font-size: 0.9rem;
+            }
+
+            .connection-status {
+                font-size: 0.75rem;
+                padding: 6px 10px;
+            }
+        }
     </style>
 </head>
 <body>

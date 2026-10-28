@@ -2,8 +2,8 @@
 // ============================================================
 // api/payment.php - Payment Processing API
 // ============================================================
-require_once '../config.php';
-require_once '../functions.php';
+if (file_exists(__DIR__ . '/config.php')) { require_once __DIR__ . '/config.php'; } elseif (file_exists(__DIR__ . '/../config.php')) { require_once __DIR__ . '/../config.php'; }
+if (file_exists(__DIR__ . '/functions.php')) { require_once __DIR__ . '/functions.php'; } elseif (file_exists(__DIR__ . '/../functions.php')) { require_once __DIR__ . '/../functions.php'; }
 
 // Set JSON response header
 header('Content-Type: application/json');
@@ -76,7 +76,7 @@ try {
         exit;
     }
 
-    require_once 'razorpay_helper.php';
+    if (file_exists(__DIR__ . '/razorpay_helper.php')) { require_once __DIR__ . '/razorpay_helper.php'; } elseif (file_exists(__DIR__ . '/../razorpay_helper.php')) { require_once __DIR__ . '/../razorpay_helper.php'; }
 
     if ($paymentMethod === 'cod') {
         // Direct COD handling
@@ -115,8 +115,8 @@ try {
 
             // Update payments table record
             try {
-                $stmtPayment = $pdo->prepare("UPDATE payments SET status = 'success', transaction_id = ?, paid_at = NOW() WHERE order_id = ?");
-                $stmtPayment->execute([$rzPaymentId, $orderId]);
+                $stmtPayment = $pdo->prepare("UPDATE payments SET status = 'success', gateway_payment_id = ?, transaction_id = ?, gateway_signature = ?, paid_at = NOW() WHERE order_id = ?");
+                $stmtPayment->execute([$rzPaymentId, $rzPaymentId, $rzSignature, $orderId]);
             } catch (Exception $e) {}
 
             echo json_encode([
@@ -147,8 +147,8 @@ try {
 
             // Update payments table record
             try {
-                $stmtPayment = $pdo->prepare("UPDATE payments SET transaction_id = ? WHERE order_id = ?");
-                $stmtPayment->execute([$rzpOrder['id'], $orderId]);
+                $stmtPayment = $pdo->prepare("UPDATE payments SET gateway_order_id = ?, transaction_id = ? WHERE order_id = ?");
+                $stmtPayment->execute([$rzpOrder['id'], $rzpOrder['id'], $orderId]);
             } catch (Exception $e) {}
 
             echo json_encode([

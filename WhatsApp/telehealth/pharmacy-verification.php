@@ -132,6 +132,40 @@ $docName = $_SESSION['user_name'] ?? 'DR. D C Rathod';
         .med-match-row:hover { background: white; transform: scale(1.01); }
         .med-match-head { font-size: 0.75rem; font-weight: 900; color: var(--clr-text-secondary); text-transform: uppercase; margin-bottom: 4px; }
         .med-val { font-weight: 800; color: var(--clr-text-primary); font-size: 1rem; }
+        @media (max-width: 1024px) {
+            .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+            .review-grid { grid-template-columns: 1fr; }
+            .split-modal { flex-direction: column; }
+            .sm-left { width: 100%; height: 260px; border-right: none; border-bottom: 1px solid var(--glass-border); }
+            .sm-right { width: 100%; }
+        }
+
+        @media (max-width: 768px) {
+            .container-main { padding: 0 14px; margin: 20px auto; }
+            .dash-header { flex-direction: column; align-items: flex-start; gap: 14px; }
+            .search-bar { width: 100% !important; }
+            .c-box { padding: 16px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+            .filter-tabs { overflow-x: auto; flex-wrap: nowrap; padding-bottom: 8px; -webkit-overflow-scrolling: touch; }
+            .data-table { min-width: 650px; }
+            .med-match-row { grid-template-columns: 1fr; gap: 10px; }
+            .navbar-links { display: none !important; }
+        }
+
+        @media (max-width: 480px) {
+            .dh-title { font-size: 1.35rem; }
+            .metrics-grid { grid-template-columns: 1fr; gap: 10px; }
+            .metric-card { padding: 16px; }
+            .mc-val { font-size: 1.6rem; }
+            .m-head, .m-body, .m-foot { padding: 16px; }
+            .m-foot { flex-direction: column; }
+            .m-foot button { width: 100%; }
+            .modal-card { border-radius: var(--radius-lg); }
+        }
+
+        @media (max-width: 360px) {
+            .dh-title { font-size: 1.2rem; }
+            .mc-val { font-size: 1.4rem; }
+        }
     </style>
 </head>
 <body>

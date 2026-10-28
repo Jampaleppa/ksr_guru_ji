@@ -96,6 +96,21 @@ if ($order && !empty($order['driver_id'])) {
 
         .tk-form input {
             flex: 1;
+            font-size: 16px; /* prevent iOS auto-zoom */
+        }
+
+        /* ── Extra compact adjustments ── */
+        @media (max-width: 480px) {
+            html, body { overflow-x: hidden; }
+            .tk-wrap { padding: 12px 10px; gap: 12px; }
+            .tk-head h1 { font-size: 1.1rem; }
+            .tk-form { flex-direction: column; }
+            .tk-form input { width: 100%; }
+            .tk-form button { width: 100%; justify-content: center; min-height: 44px; }
+        }
+        @media (max-width: 360px) {
+            .tk-head img { width: 52px; height: 52px; }
+            .tk-head h1 { font-size: 1rem; }
         }
     </style>
 </head>

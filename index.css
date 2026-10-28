@@ -2277,30 +2277,89 @@ a {
   }
   .best-sellers-grid,
   .products-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 14px;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px !important;
   }
   .product-img,
   .card-img {
-    font-size: 2.5rem;
+    font-size: 2.2rem;
   }
   .ai-showcase {
-    padding: 24px 20px;
-    margin: 24px 0;
+    padding: 20px 16px;
+    margin: 20px 0;
   }
   .emergency-banner {
-    padding: 24px 20px;
+    padding: 20px 16px;
+  }
+  .container {
+    padding: 0 14px !important;
   }
 }
 
-@media (max-width: 420px) {
+@media (max-width: 480px) {
+  html, body {
+    overflow-x: hidden !important;
+    width: 100% !important;
+  }
+  .container {
+    padding: 0 10px !important;
+  }
   .best-sellers-grid,
   .products-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 8px !important;
   }
   .best-card,
   .product-card {
-    padding: 14px;
+    padding: 10px 8px !important;
+    border-radius: 14px !important;
+  }
+  .card-title,
+  .product-title {
+    font-size: 0.84rem !important;
+    line-height: 1.25 !important;
+  }
+  .card-price,
+  .product-price {
+    font-size: 0.95rem !important;
+  }
+  .add-btn,
+  .btn-add-cart {
+    padding: 7px 10px !important;
+    font-size: 0.78rem !important;
+    min-height: 36px !important;
+  }
+  .logo-text .logo-brand {
+    font-size: 1.15rem !important;
+  }
+  .logo-text .logo-tagline {
+    font-size: 0.65rem !important;
+  }
+  .header-actions {
+    gap: 6px !important;
+  }
+  .cart-link {
+    padding: 6px 12px !important;
+    font-size: 0.8rem !important;
+  }
+}
+
+@media (max-width: 360px) {
+  .best-sellers-grid,
+  .products-grid {
+    gap: 6px !important;
+  }
+  .best-card,
+  .product-card {
+    padding: 8px 6px !important;
+  }
+  .card-title,
+  .product-title {
+    font-size: 0.76rem !important;
+  }
+  .add-btn,
+  .btn-add-cart {
+    font-size: 0.74rem !important;
+    padding: 6px 6px !important;
   }
 }

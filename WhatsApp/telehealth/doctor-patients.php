@@ -513,6 +513,79 @@ function dp_consult_label(string $type): string
                 grid-template-columns: repeat(2, 1fr);
             }
         }
+
+        @media (max-width: 768px) {
+            .container-main {
+                padding: 16px;
+            }
+
+            .c-box {
+                padding: 18px 14px;
+                border-radius: var(--radius-md);
+            }
+
+            .actions-row {
+                flex-direction: column;
+            }
+
+            .btn-primary,
+            .btn-accent {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .vitals-grid {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            .container-main {
+                padding: 10px;
+            }
+
+            .c-box {
+                padding: 14px 10px;
+            }
+
+            .pat-avatar {
+                width: 64px;
+                height: 64px;
+                font-size: 1.6rem;
+                border-radius: 18px;
+            }
+
+            .pat-name {
+                font-size: 1.25rem;
+            }
+
+            .vc-val {
+                font-size: 1.3rem;
+            }
+
+            .pl-avatar {
+                width: 36px;
+                height: 36px;
+                font-size: 0.85rem;
+            }
+
+            .pl-name {
+                font-size: 0.88rem;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .pat-name {
+                font-size: 1.1rem;
+            }
+
+            .btn-primary,
+            .btn-accent {
+                padding: 10px 14px;
+                font-size: 0.85rem;
+            }
+        }
     </style>
 </head>
 

@@ -100,6 +100,39 @@ $activeTab = isset($_GET['tab']) ? $_GET['tab'] : 'timeline';
         .btn:hover { background: rgba(71, 85, 105, 0.8); transform: translateY(-1px); }
         .btn-primary { background: linear-gradient(135deg, #10B981, #059669); border: none; color: white; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3); }
         .btn-primary:hover { background: linear-gradient(135deg, #059669, #047857); box-shadow: 0 6px 16px rgba(16, 185, 129, 0.4); transform: translateY(-2px); }
+        @media (max-width: 480px) {
+            html, body {
+                overflow-x: hidden;
+            }
+            .categories-grid {
+                grid-template-columns: repeat(3, 1fr) !important;
+                gap: 8px;
+            }
+            .rx-banner {
+                flex-direction: column;
+                gap: 12px;
+            }
+            .rx-banner-content { width: 100%; }
+            .section-title {
+                font-size: 0.95rem;
+            }
+            .product-card {
+                min-width: 140px;
+                max-width: 140px;
+            }
+        }
+        @media (max-width: 360px) {
+            .categories-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+            }
+            .product-card {
+                min-width: 125px;
+                max-width: 125px;
+            }
+            .app-header {
+                padding: 14px 10px;
+            }
+        }
     </style>
 </head>
 <body>

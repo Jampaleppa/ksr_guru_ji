@@ -81,6 +81,114 @@ $docName = $_SESSION['user_name'] ?? 'DR. D C Rathod';
 
         .search-bar { background: white; border: 1px solid var(--clr-border); padding: 10px 16px; border-radius: var(--radius-md); display: flex; align-items: center; gap: 12px; width: 300px; }
         .search-bar input { border: none; outline: none; width: 100%; font-size: 0.95rem; font-family: inherit; }
+        @media (max-width: 1024px) {
+            .metrics-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .metrics-subgrid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .fin-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container-main {
+                padding: 0 14px;
+                margin: 20px auto;
+            }
+
+            .dash-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 16px;
+            }
+
+            .search-bar {
+                width: 100% !important;
+            }
+
+            .c-box {
+                padding: 16px;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .cb-head {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+
+            .data-table {
+                min-width: 600px;
+            }
+
+            .m-head,
+            .m-body,
+            .m-foot {
+                padding: 16px;
+            }
+
+            .m-foot {
+                flex-direction: column;
+            }
+
+            .m-foot button {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .dh-title {
+                font-size: 1.3rem;
+            }
+
+            .dh-sub {
+                font-size: 0.85rem;
+            }
+
+            .metrics-grid,
+            .metrics-subgrid {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            .metric-card {
+                padding: 16px;
+            }
+
+            .mc-val {
+                font-size: 1.5rem;
+            }
+
+            .mc-icon {
+                width: 46px;
+                height: 46px;
+                font-size: 1.3rem;
+            }
+
+            .sub-metric {
+                padding: 12px 16px;
+            }
+
+            .modal-card {
+                border-radius: 14px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .dh-title {
+                font-size: 1.15rem;
+            }
+
+            .mc-val {
+                font-size: 1.35rem;
+            }
+        }
     </style>
 </head>
 <body>

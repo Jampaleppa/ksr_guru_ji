@@ -1095,6 +1095,176 @@ $recentTransactions = $pdo->query("SELECT id as order_id, transaction_id, paymen
         .mb-4 {
             margin-bottom: 24px;
         }
+        /* RESPONSIVE DESIGN */
+        @media (max-width: 1200px) {
+            .stat-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 992px) {
+            .split-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            :root {
+                --sidebar-width: 260px;
+                --header-height: 60px;
+            }
+
+            .sidebar {
+                left: -260px;
+                width: 260px !important;
+                box-shadow: 10px 0 30px rgba(0, 0, 0, 0.3);
+            }
+
+            .sidebar.mobile-open {
+                left: 0;
+            }
+
+            .header {
+                left: 0 !important;
+                width: 100% !important;
+                padding: 0 16px;
+            }
+
+            .main-wrapper {
+                margin-left: 0 !important;
+                padding: 16px;
+                margin-top: var(--header-height);
+            }
+
+            .page-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+
+            .stat-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+
+            .panel {
+                padding: 16px;
+                border-radius: var(--radius-lg);
+            }
+
+            .panel-head {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .table-responsive,
+            .panel {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .data-table {
+                min-width: 600px;
+            }
+
+            .nav-tabs {
+                overflow-x: auto;
+                flex-wrap: nowrap;
+                padding-bottom: 4px;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .nav-tab {
+                white-space: nowrap;
+                padding: 8px 14px;
+                font-size: 0.85rem;
+            }
+
+            .hp-info {
+                display: none;
+            }
+
+            .h-status {
+                display: none;
+            }
+
+            .h-actions {
+                gap: 14px;
+            }
+
+            .action-bar {
+                flex-direction: column;
+                margin: 0 -16px -16px -16px;
+                padding: 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stat-grid {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            .stat-card {
+                padding: 16px;
+            }
+
+            .sc-val {
+                font-size: 1.7rem;
+            }
+
+            .sc-label {
+                font-size: 0.75rem;
+            }
+
+            .pg-title {
+                font-size: 1.35rem;
+            }
+
+            .pg-sub {
+                font-size: 0.85rem;
+            }
+
+            .ph-title {
+                font-size: 0.95rem;
+            }
+
+            .h-title {
+                font-size: 1.05rem;
+            }
+
+            .btn {
+                padding: 8px 12px;
+                font-size: 0.82rem;
+            }
+
+            .info-card {
+                padding: 14px;
+            }
+
+            .rev-val {
+                font-size: 1.8rem;
+            }
+
+            .main-wrapper {
+                padding: 12px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .pg-title {
+                font-size: 1.2rem;
+            }
+
+            .sc-val {
+                font-size: 1.5rem;
+            }
+
+            .h-actions {
+                gap: 10px;
+            }
+        }
     </style>
 </head>
 
@@ -2004,6 +2174,11 @@ $recentTransactions = $pdo->query("SELECT id as order_id, transaction_id, paymen
             const sidebar = document.getElementById('sidebar');
             const mainContent = document.getElementById('main-content');
             const header = document.querySelector('.header');
+
+            if (window.innerWidth <= 768) {
+                sidebar.classList.toggle('mobile-open');
+                return;
+            }
 
             if (sidebar.style.width === '0px') {
                 sidebar.style.width = 'var(--sidebar-width)';

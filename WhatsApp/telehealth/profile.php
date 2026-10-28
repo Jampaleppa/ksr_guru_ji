@@ -94,6 +94,74 @@ $patientBlood = 'O+';
             .mod-grid { grid-template-columns: 1fr; gap: 16px; }
             .stats-grid { grid-template-columns: 1fr; }
         }
+        @media (max-width: 768px) {
+            .profile-layout {
+                margin: 20px auto 60px;
+                padding: 0 12px;
+            }
+
+            .dash-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+
+            .dh-title {
+                font-size: 1.6rem;
+            }
+
+            .dh-sub {
+                font-size: 0.95rem;
+            }
+
+            .m-card {
+                padding: 18px 14px;
+            }
+
+            .stat-card {
+                padding: 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .dh-title {
+                font-size: 1.35rem;
+            }
+
+            .st-num {
+                font-size: 1.7rem;
+            }
+
+            .kv-grid {
+                grid-template-columns: 1fr;
+                gap: 4px;
+            }
+
+            .ac-time {
+                flex-direction: column;
+                gap: 6px;
+            }
+
+            .modal-card {
+                border-radius: 14px;
+                max-height: 95vh;
+            }
+
+            .m-head {
+                padding: 16px;
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .dh-title {
+                font-size: 1.2rem;
+            }
+
+            .st-num {
+                font-size: 1.5rem;
+            }
+        }
     </style>
 </head>
 <body>

@@ -383,6 +383,64 @@ try {
             color: white;
             box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
         }
+        @media (max-width: 992px) {
+            .app-container {
+                flex-direction: column !important;
+                padding: 16px !important;
+            }
+            .app-container > div:last-child {
+                width: 100% !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            html, body {
+                overflow-x: hidden;
+            }
+            .admin-nav > div {
+                flex-direction: column !important;
+                align-items: flex-start !important;
+                gap: 10px !important;
+            }
+            .admin-nav-links {
+                width: 100% !important;
+                overflow-x: auto !important;
+            }
+            .main-content > div:first-child {
+                flex-direction: column !important;
+                align-items: flex-start !important;
+                gap: 8px !important;
+            }
+            .ops-grid {
+                grid-template-columns: 1fr !important;
+            }
+            .alert-row {
+                flex-direction: column !important;
+                align-items: flex-start !important;
+                gap: 8px !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .app-container {
+                padding: 10px !important;
+            }
+            .kpi-grid {
+                grid-template-columns: 1fr !important;
+            }
+            .emergency-grid {
+                grid-template-columns: 1fr !important;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .kpi-val {
+                font-size: 1.3rem !important;
+            }
+            .panel-head {
+                padding: 12px 14px !important;
+            }
+        }
     </style>
 </head>
 

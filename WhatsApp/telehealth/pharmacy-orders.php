@@ -114,6 +114,24 @@ $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
         .empty-state h2 { color: var(--clr-primary-dark); margin: 0 0 8px 0; }
         .navbar-links a { color: #64748B; text-decoration: none; transition: 0.3s; padding: 8px 12px; font-weight: 600; border-radius: 8px; }
         .navbar-links a.active, .navbar-links a:hover { color: #166534; background: rgba(22, 163, 74, 0.1); }
+        @media (max-width: 768px) {
+            .dash-layout { margin: 20px auto 60px; padding: 0 12px; }
+            .page-header { flex-direction: column; align-items: flex-start; gap: 12px; }
+            .order-grid { grid-template-columns: 1fr; gap: 16px; }
+            .navbar-links { display: none !important; }
+        }
+
+        @media (max-width: 480px) {
+            .ph-title { font-size: 1.4rem; }
+            .ph-sub { font-size: 0.9rem; }
+            .order-card { padding: 16px; }
+            .btn-pack { padding: 10px; font-size: 0.9rem; }
+        }
+
+        @media (max-width: 360px) {
+            .ph-title { font-size: 1.25rem; }
+            .oc-id { font-size: 1rem; }
+        }
     </style>
 </head>
 <body>

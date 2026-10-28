@@ -464,10 +464,32 @@ if (pp_is_post()) {
             text-decoration: none;
         }
 
-        @media(max-width:520px) {
+        @media (max-width: 520px) {
             .grid {
                 grid-template-columns: 1fr;
             }
+        }
+
+        @media (max-width: 480px) {
+            html, body { overflow-x: hidden; }
+            body { padding: 16px 10px 48px; }
+            .card {
+                padding: 24px 18px;
+                border-radius: 14px;
+            }
+            .f input,
+            .f select,
+            .f textarea {
+                font-size: 16px; /* prevent iOS auto-zoom */
+            }
+            .btn { font-size: 0.95rem; padding: 13px; min-height: 48px; }
+        }
+
+        @media (max-width: 360px) {
+            body { padding: 12px 8px 40px; }
+            .card { padding: 20px 14px; }
+            .captcha-box { flex-direction: column; align-items: stretch; }
+            .captcha-q { text-align: center; }
         }
     </style>
 </head>

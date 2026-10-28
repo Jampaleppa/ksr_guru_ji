@@ -523,10 +523,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         .trust-row i { color: var(--primary); }
 
         /* ─── Mobile ─── */
+        @media (max-width: 768px) {
+            body { padding: 16px 12px; }
+            .login-card { max-width: 440px; }
+        }
         @media (max-width: 480px) {
-            .login-card { padding: 2rem 1.4rem; }
-            .brand-name { font-size: 1.55rem; }
+            html, body { overflow-x: hidden; }
+            body { padding: 12px 8px; }
+            .login-card { padding: 1.8rem 1.2rem; border-radius: 18px; }
+            .brand-name { font-size: 1.45rem; }
             .role-grid { grid-template-columns: 1fr; }
+            .form-group input { font-size: 16px; padding-left: 2.6rem; }
+            .trust-row { flex-wrap: wrap; gap: 10px; font-size: 0.7rem; }
+        }
+        @media (max-width: 360px) {
+            .login-card { padding: 1.4rem 0.9rem; }
+            .brand-name { font-size: 1.3rem; }
+            .btn-login { font-size: 0.95rem; padding: 0.85rem; }
         }
     </style>
 </head>

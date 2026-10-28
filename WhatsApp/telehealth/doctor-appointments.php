@@ -108,6 +108,116 @@ $docName = !empty($_SESSION['user_name']) ? $_SESSION['user_name'] : $doc['name'
         @media (max-width: 1100px) {
             .layout-grid { grid-template-columns: 1fr; }
         }
+
+        @media (max-width: 768px) {
+            html, body {
+                overflow-x: hidden;
+            }
+            .layout-grid {
+                margin: 20px auto;
+                padding: 0 12px;
+                gap: 20px;
+            }
+            .dash-header {
+                padding: 18px 16px;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 16px;
+            }
+            .metric-pills {
+                flex-wrap: wrap;
+                gap: 8px;
+                width: 100%;
+            }
+            .mp-pill {
+                flex: 1 1 calc(50% - 8px);
+                padding: 8px 12px;
+                font-size: 0.88rem;
+            }
+            .c-box {
+                padding: 18px 14px;
+            }
+            .data-table {
+                display: block;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            .data-table th,
+            .data-table td {
+                padding: 12px 10px;
+                white-space: nowrap;
+            }
+            .btn-action,
+            .btn-primary {
+                min-height: 44px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .layout-grid {
+                padding: 0 8px;
+                margin: 14px auto;
+            }
+            .dash-header {
+                padding: 14px 12px;
+                border-radius: var(--radius-md);
+            }
+            .dh-title {
+                font-size: 1.25rem;
+            }
+            .mp-pill {
+                font-size: 0.82rem;
+                padding: 8px 10px;
+            }
+            .c-box {
+                padding: 14px 10px;
+                border-radius: var(--radius-md);
+            }
+            .cb-head {
+                font-size: 1.05rem;
+                margin-bottom: 16px;
+                padding-bottom: 12px;
+            }
+            .action-flex {
+                flex-direction: column;
+                gap: 8px;
+            }
+            .btn-action {
+                width: 100%;
+                text-align: center;
+                justify-content: center;
+            }
+            .modal-card {
+                max-height: 92vh;
+            }
+            .m-head {
+                padding: 16px 20px;
+                font-size: 1.15rem;
+            }
+            .m-body {
+                padding: 20px 16px;
+            }
+            .m-foot {
+                padding: 16px 20px;
+                flex-direction: column;
+            }
+            .m-foot button {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .dh-title {
+                font-size: 1.1rem;
+            }
+            .mp-pill {
+                flex: 1 1 100%;
+            }
+            .st-btn {
+                padding: 6px 10px;
+                font-size: 0.88rem;
+            }
+        }
     </style>
 </head>
 <body>

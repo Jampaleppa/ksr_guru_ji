@@ -77,6 +77,29 @@ $orders = $stmt ? $stmt->fetchAll(PDO::FETCH_ASSOC) : [];
         @media (max-width: 900px) {
             .oc-body { grid-template-columns: 1fr; gap: 16px; }
         }
+        @media (max-width: 768px) {
+            .dash-layout { margin: 20px auto 60px; padding: 0 12px; }
+            .order-card { padding: 18px 14px; }
+            .oc-header { flex-direction: column; gap: 12px; align-items: flex-start; }
+            .oc-footer { flex-direction: column; gap: 10px; }
+            .btn-action { width: 100%; }
+            .navbar-links { display: none !important; }
+        }
+
+        @media (max-width: 480px) {
+            .page-title { font-size: 1.5rem; }
+            .page-sub { font-size: 0.9rem; }
+            .dash-tabs { margin-bottom: 20px; }
+            .tab { padding: 10px 16px; font-size: 0.85rem; }
+            .oc-id { font-size: 1rem; }
+            .oc-total { font-size: 1.1rem; }
+            .track-box { padding: 14px; }
+        }
+
+        @media (max-width: 360px) {
+            .page-title { font-size: 1.3rem; }
+            .tab { padding: 8px 12px; font-size: 0.8rem; }
+        }
     </style>
 </head>
 <body>

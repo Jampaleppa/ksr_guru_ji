@@ -455,6 +455,41 @@ $waText .= "%0AKindly confirm and dispatch to Delivery Boy: 8088584421 (Primary)
             font-size: 0.78rem;
             color: var(--ksr-text-muted);
         }
+
+        /* ── Cart mobile responsive ── */
+        @media (max-width: 640px) {
+            .cart-item-row {
+                grid-template-columns: 64px 1fr;
+                grid-template-rows: auto auto;
+                gap: 10px;
+            }
+            .cart-item-thumb {
+                width: 64px;
+                height: 64px;
+                border-radius: 10px;
+            }
+            .cart-item-actions {
+                grid-column: 1 / -1;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            html, body { overflow-x: hidden; }
+            .trust-badge-row { grid-template-columns: 1fr; }
+            .cart-checkout-stepper { gap: 4px; font-size: 0.75rem; }
+            .stepper-divider { min-width: 20px; }
+            .qty-stepper button { width: 32px; height: 32px; font-size: 0.95rem; }
+            .quick-cat-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        @media (max-width: 360px) {
+            .cart-item-row { gap: 8px; }
+            .cart-item-thumb { width: 54px; height: 54px; }
+            .quick-cat-grid { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 

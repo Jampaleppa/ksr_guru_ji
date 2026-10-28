@@ -422,6 +422,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action_step']) && $_P
         .btn-secondary-link:hover {
             background: #EEF2FF;
         }
+
+        @media (max-width: 480px) {
+            html, body { overflow-x: hidden; }
+            .auth-panel { padding: 14px 10px; }
+            .auth-card { padding: 20px 14px; border-radius: 14px; }
+            .af-input { font-size: 16px !important; }
+            .btn-wa-submit { min-height: 48px; padding: 14px 18px; }
+            .doc-choice-pill { padding: 10px 12px; }
+        }
+
+        @media (max-width: 360px) {
+            .auth-panel { padding: 10px 6px; }
+            .auth-card { padding: 16px 10px; }
+            .otp-input-large { font-size: 1.35rem; letter-spacing: 0.2em; padding: 12px 10px; }
+            .wa-badge { padding: 10px 12px; gap: 10px; }
+            .wa-badge-icon { width: 36px; height: 36px; font-size: 1.2rem; }
+        }
     </style>
 </head>
 

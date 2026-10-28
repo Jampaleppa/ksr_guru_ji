@@ -722,6 +722,142 @@ function pp_consult_label(string $type): string
                 grid-template-columns: 1fr;
             }
         }
+
+        @media (max-width: 480px) {
+            html, body {
+                overflow-x: hidden;
+            }
+
+            .app-header {
+                padding: 10px 14px;
+            }
+
+            .main-container {
+                padding: 16px 12px;
+            }
+
+            .ws-greet {
+                font-size: 1.35rem;
+            }
+
+            .ws-sub {
+                font-size: 0.85rem;
+                gap: 6px;
+            }
+
+            .universal-search {
+                margin-bottom: 20px;
+            }
+
+            .universal-search input {
+                font-size: 16px; /* prevent iOS auto-zoom */
+                padding: 13px 16px 13px 44px;
+            }
+
+            .universal-search i {
+                left: 16px;
+            }
+
+            .quick-actions {
+                gap: 8px;
+                margin-bottom: 22px;
+            }
+
+            .qa-card {
+                padding: 12px 6px;
+                border-radius: 12px;
+            }
+
+            .qa-icon {
+                width: 38px;
+                height: 38px;
+                font-size: 1.05rem;
+                margin-bottom: 6px;
+            }
+
+            .qa-title {
+                font-size: 0.74rem;
+            }
+
+            .hero-banner {
+                padding: 20px 16px;
+                border-radius: 16px;
+                margin-bottom: 22px;
+            }
+
+            .hb-doc {
+                font-size: 1.15rem;
+            }
+
+            .hb-btn-group {
+                flex-direction: column;
+            }
+
+            .hb-btn {
+                width: 100%;
+                justify-content: center;
+                min-height: 44px;
+            }
+
+            .spec-grid {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+
+            .spec-chip {
+                padding: 11px 14px;
+                font-size: 0.85rem;
+            }
+
+            .appt-row {
+                padding: 12px 14px;
+                gap: 10px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .app-header {
+                padding: 8px 10px;
+            }
+
+            .ah-logo {
+                font-size: 0.95rem;
+            }
+
+            .main-container {
+                padding: 12px 8px;
+            }
+
+            .ws-greet {
+                font-size: 1.2rem;
+            }
+
+            .scroll-tray {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+
+            .health-card {
+                padding: 14px;
+            }
+
+            .hc-val {
+                font-size: 1.4rem;
+            }
+
+            .quick-actions {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 6px;
+            }
+
+            .qa-card {
+                padding: 10px 4px;
+            }
+
+            .qa-title {
+                font-size: 0.68rem;
+            }
+        }
     </style>
 </head>
 

@@ -48,6 +48,62 @@ try { $completedOrders = (int)$pdo->query("SELECT COUNT(*) FROM order_delivery W
         .navbar-links { display: flex; gap: 24px; align-items: center; }
         .navbar-links a { color: var(--clr-text-secondary); text-decoration: none; font-weight: 600; transition: 0.2s; }
         .navbar-links a:hover, .navbar-links a.active { color: #3B82F6; }
+        @media (max-width: 768px) {
+            html, body {
+                overflow-x: hidden;
+            }
+            .dash-layout {
+                margin: 20px auto;
+                padding: 0 12px;
+            }
+            .welcome-card {
+                padding: 24px 18px;
+            }
+            .w-title {
+                font-size: 1.6rem;
+            }
+            .w-sub {
+                font-size: 0.95rem;
+            }
+            .welcome-card::after {
+                display: none;
+            }
+            .navbar-links {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .dash-layout {
+                padding: 0 10px;
+                margin-top: 16px;
+            }
+            .welcome-card {
+                padding: 18px 14px;
+            }
+            .w-title {
+                font-size: 1.35rem;
+            }
+            .dash-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+            .d-card {
+                padding: 16px;
+            }
+            .recent-section {
+                padding: 16px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .w-title {
+                font-size: 1.2rem;
+            }
+            .d-title {
+                font-size: 1.1rem;
+            }
+        }
     </style>
 </head>
 <body>

@@ -711,6 +711,182 @@ $hasRx = isset($_GET['rx']) && $_GET['rx'] == 'true';
                 right: -100%;
             }
         }
+        @media (max-width: 768px) {
+            .hero-banner {
+                padding: 40px 16px;
+                border-bottom-left-radius: 28px;
+                border-bottom-right-radius: 28px;
+                margin-bottom: -24px;
+            }
+
+            .hero-title {
+                font-size: 2.1rem;
+            }
+
+            .hero-sub {
+                font-size: 1rem;
+            }
+
+            .product-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 16px;
+            }
+
+            .search-area {
+                padding: 18px;
+            }
+
+            .navbar-links {
+                display: none !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-banner {
+                padding: 32px 12px;
+                border-bottom-left-radius: 20px;
+                border-bottom-right-radius: 20px;
+                margin-bottom: -16px;
+            }
+
+            .hero-title {
+                font-size: 1.65rem;
+            }
+
+            .hero-sub {
+                font-size: 0.9rem;
+            }
+
+            .layout-container {
+                padding: 0 10px;
+                gap: 20px;
+                margin-bottom: 40px;
+            }
+
+            .rx-upload-box {
+                padding: 20px 14px;
+            }
+
+            .rx-icon {
+                font-size: 2.2rem;
+            }
+
+            .rx-title {
+                font-size: 1.1rem;
+            }
+
+            .search-area {
+                padding: 14px;
+                margin-bottom: 20px;
+            }
+
+            .search-wrap input {
+                padding: 12px 14px 12px 42px;
+                font-size: 0.95rem;
+            }
+
+            .search-wrap i {
+                left: 14px;
+                font-size: 1rem;
+            }
+
+            .category-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+                margin-bottom: 20px;
+            }
+
+            .cat-box {
+                padding: 14px 8px;
+            }
+
+            .cat-emoji {
+                font-size: 1.6rem;
+                margin-bottom: 4px;
+            }
+
+            .cat-name {
+                font-size: 0.8rem;
+            }
+
+            .product-grid {
+                grid-template-columns: 1fr;
+                gap: 14px;
+            }
+
+            .prod-card .prod-img {
+                height: 160px;
+            }
+
+            .prod-body {
+                padding: 14px;
+            }
+
+            .prod-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .mdet-header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                gap: 16px;
+            }
+
+            .mdet-img {
+                width: 100px;
+                height: 100px;
+            }
+
+            .modal-scroll {
+                padding: 18px 14px;
+            }
+
+            .modal-card {
+                border-radius: 14px;
+            }
+
+            .cart-header,
+            .cart-footer {
+                padding: 18px 16px;
+            }
+
+            .cart-items {
+                padding: 16px;
+            }
+
+            .c-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .navbar-brand {
+                font-size: 0.9rem;
+            }
+
+            .cart-toggle {
+                padding: 8px 12px;
+                font-size: 0.85rem;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .hero-title {
+                font-size: 1.4rem;
+            }
+
+            .category-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tag {
+                padding: 4px 10px;
+                font-size: 0.8rem;
+            }
+        }
     </style>
 </head>
 

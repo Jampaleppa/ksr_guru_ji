@@ -8,7 +8,7 @@ header('Access-Control-Allow-Methods: POST');
 header('Access-Control-Allow-Headers: Content-Type, Authorization');
 
 // Include database configuration
-require_once '../config.php';
+if (file_exists(__DIR__ . '/config.php')) { require_once __DIR__ . '/config.php'; } elseif (file_exists(__DIR__ . '/../config.php')) { require_once __DIR__ . '/../config.php'; }
 
 // Connect to Database
 try {

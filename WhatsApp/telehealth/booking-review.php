@@ -480,10 +480,93 @@ if (!$doctor) {
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
+                padding-bottom: calc(14px + env(safe-area-inset-bottom, 0px));
             }
 
             body {
-                padding-bottom: 80px;
+                padding-bottom: calc(90px + env(safe-area-inset-bottom, 0px));
+            }
+        }
+
+        @media (max-width: 768px) {
+            html, body {
+                overflow-x: hidden;
+            }
+
+            .page-title {
+                font-size: 1.55rem;
+            }
+
+            .page-subtitle {
+                font-size: 0.95rem;
+                margin-bottom: 20px;
+            }
+
+            .card-panel {
+                padding: 20px 16px;
+                border-radius: var(--radius-md);
+            }
+
+            .btn-primary,
+            .btn-action {
+                min-height: 44px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-title {
+                font-size: 1.35rem;
+            }
+
+            .card-panel {
+                padding: 16px 12px;
+            }
+
+            .doc-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+
+            .doc-avatar {
+                width: 60px;
+                height: 60px;
+                font-size: 1.8rem;
+            }
+
+            .p-meta {
+                flex-direction: column;
+                gap: 6px;
+            }
+
+            .mobile-bottom-action {
+                padding: 12px 16px calc(12px + env(safe-area-inset-bottom, 0px));
+                gap: 12px;
+            }
+
+            .mobile-bottom-action .btn-primary {
+                padding: 12px 18px;
+                font-size: 0.92rem;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .page-title {
+                font-size: 1.2rem;
+            }
+
+            .card-panel {
+                padding: 14px 10px;
+            }
+
+            .mobile-bottom-action {
+                flex-direction: column;
+                align-items: stretch;
+                text-align: center;
+            }
+
+            .mobile-bottom-action .btn-primary {
+                width: 100%;
             }
         }
     </style>

@@ -653,6 +653,91 @@ $reviewsCount = 250;
                 flex-direction: column;
             }
         }
+
+        @media (max-width: 480px) {
+            .profile-header-card {
+                padding: 18px 14px;
+                border-radius: var(--radius-md);
+            }
+
+            .profile-avatar {
+                width: 80px;
+                height: 80px;
+                font-size: 2.2rem;
+            }
+
+            .doc-name {
+                font-size: 1.4rem;
+            }
+
+            .doc-specialty {
+                font-size: 0.95rem;
+            }
+
+            .doc-meta {
+                flex-direction: column;
+                gap: 6px;
+                font-size: 0.85rem;
+            }
+
+            .doc-badges {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .consult-section {
+                padding: 16px 14px;
+            }
+
+            .time-slot {
+                padding: 8px 12px;
+                font-size: 0.85rem;
+            }
+
+            .date-chip {
+                padding: 10px 14px;
+                min-width: 70px;
+            }
+
+            .mobile-bottom-action {
+                padding: 12px 16px;
+            }
+
+            .mobile-bottom-action .btn {
+                padding: 10px 16px;
+                font-size: 0.9rem;
+            }
+
+            .rating-big {
+                font-size: 2.4rem;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .doc-name {
+                font-size: 1.25rem;
+            }
+
+            .date-chip {
+                padding: 8px 10px;
+                min-width: 60px;
+            }
+
+            .time-slot {
+                padding: 6px 10px;
+                font-size: 0.8rem;
+            }
+
+            .mobile-bottom-action {
+                flex-direction: column;
+                gap: 8px;
+                text-align: center;
+            }
+
+            .mobile-bottom-action .btn {
+                width: 100%;
+            }
+        }
     </style>
 </head>
 

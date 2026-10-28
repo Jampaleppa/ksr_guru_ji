@@ -84,6 +84,47 @@ require_once 'helper.php';
         .otp-inputs { display: flex; gap: 12px; justify-content: center; margin: 24px 0; }
         .otp-inputs input { width: 50px; height: 60px; font-size: 2rem; text-align: center; font-weight: 900; border: 2px solid var(--clr-border); border-radius: 8px; font-family: monospace; }
         .otp-inputs input:focus { border-color: var(--clr-primary); outline: none; }
+        @media (max-width: 480px) {
+            html, body {
+                overflow-x: hidden;
+            }
+            .container-main {
+                padding: 0 10px;
+                margin-top: 14px;
+            }
+            .jc-actions {
+                flex-direction: column;
+                gap: 8px;
+            }
+            .btn-full {
+                width: 100%;
+            }
+            .otp-inputs {
+                gap: 8px;
+            }
+            .otp-inputs input {
+                width: 44px;
+                height: 52px;
+                font-size: 1.5rem;
+            }
+            .modal-card {
+                padding: 18px 16px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .dr-title {
+                font-size: 1.1rem;
+            }
+            .m-val {
+                font-size: 1.25rem;
+            }
+            .otp-inputs input {
+                width: 38px;
+                height: 48px;
+                font-size: 1.3rem;
+            }
+        }
     </style>
 </head>
 <body>

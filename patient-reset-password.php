@@ -143,6 +143,19 @@ if (pp_is_post()) {
             color: #DC2626;
             border: 1px solid #FECACA
         }
+
+        @media (max-width: 480px) {
+            html, body { overflow-x: hidden; }
+            body { padding: 16px 10px; }
+            .card { padding: 24px 16px; border-radius: 14px; }
+            .f input { font-size: 16px; } /* prevent iOS auto-zoom */
+            .btn { font-size: .95rem; padding: 13px; min-height: 48px; }
+        }
+
+        @media (max-width: 360px) {
+            body { padding: 12px 8px; }
+            .card { padding: 18px 12px; }
+        }
     </style>
 </head>
 

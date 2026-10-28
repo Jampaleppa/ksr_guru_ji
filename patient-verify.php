@@ -270,6 +270,27 @@ if (pp_is_post()) {
             color: var(--muted);
             margin-top: 16px;
         }
+
+        @media (max-width: 480px) {
+            html, body { overflow-x: hidden; }
+            body { padding: 16px 10px; }
+            .card { padding: 24px 16px; border-radius: 14px; }
+            .otp-row input {
+                width: 38px;
+                height: 48px;
+                font-size: 16px; /* prevent iOS auto-zoom */
+            }
+            h1 { font-size: 1.15rem; }
+            .sub { font-size: .85rem; }
+        }
+
+        @media (max-width: 360px) {
+            body { padding: 12px 8px; }
+            .card { padding: 18px 12px; }
+            .otp-row { gap: 5px; }
+            .otp-row input { width: 34px; height: 44px; }
+            .wa { width: 64px; height: 64px; font-size: 1.7rem; }
+        }
     </style>
 </head>
 

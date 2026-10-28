@@ -161,6 +161,20 @@ if (pp_is_post()) {
       font-weight: 700;
       text-decoration: none
     }
+
+    @media (max-width: 480px) {
+      html, body { overflow-x: hidden; }
+      body { padding: 16px 10px; }
+      .card { padding: 24px 16px; border-radius: 14px; }
+      .f input { font-size: 16px; } /* prevent iOS auto-zoom */
+      .btn { padding: 13px; font-size: .95rem; min-height: 48px; }
+    }
+
+    @media (max-width: 360px) {
+      body { padding: 12px 8px; }
+      .card { padding: 20px 12px; }
+      .brand h1 { font-size: 1.1rem; }
+    }
   </style>
 </head>
 
@@ -172,10 +186,10 @@ if (pp_is_post()) {
     </div>
     <?php if ($msg): ?><div class="alert alert-<?= $msgType ?>"><?= pp_e($msg) ?></div><?php endif; ?>
     <form method="POST">
-      <div class="f"><label>Mobile / Email</label>
-        <input name="identifier" required placeholder="9876543210 or name@example.com" autofocus>
+      <div class="f"><label for="identifier">Mobile / Email</label>
+        <input type="text" id="identifier" name="identifier" required placeholder="9876543210 or name@example.com" value="<?= pp_e(pp_post('identifier')) ?>" autocomplete="username" autofocus>
       </div>
-      <button class="btn"><i class="fab fa-whatsapp" style="color:#25D366;"></i> Send Reset OTP</button>
+      <button type="submit" class="btn"><i class="fab fa-whatsapp" style="color:#25D366; margin-right: 6px;"></i> Send Reset OTP</button>
     </form>
     <div class="foot"><a class="link" href="patient-login.php"><i class="fas fa-arrow-left"></i> Back to login</a></div>
   </div>

@@ -324,7 +324,7 @@ $bestSellers = array_slice($products, 0, 8);
                     <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle Menu"><i class="fas fa-bars"></i></button>
                 </div>
             </nav>
-        </div>
+        </div>F
     </header>
 
     <!-- ============================================================
@@ -628,7 +628,7 @@ $bestSellers = array_slice($products, 0, 8);
                     <div style="font-size:0.85rem;color:var(--text-muted);font-weight:600;margin-top:4px;">Orders Delivered</div>
                 </div>
                 <div class="stat-item fade-up">
-                    <div class="number" data-target="4">0</div>
+                    <div class="number" data-target="0.4">0</div>
                     <div style="font-size:0.85rem;color:var(--text-muted);font-weight:600;margin-top:4px;">Years of Service</div>
                 </div>
             </div>

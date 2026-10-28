@@ -313,6 +313,10 @@ class RazorpayHelper {
         return hash_equals($generatedSignature, $razorpaySignature);
     }
 
+    public static function verifyPaymentSignature(string $razorpayOrderId, string $razorpayPaymentId, string $razorpaySignature): bool {
+        return self::verifySignature($razorpayOrderId, $razorpayPaymentId, $razorpaySignature);
+    }
+
     /**
      * Process Refund via Razorpay API
      */

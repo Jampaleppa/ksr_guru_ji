@@ -349,16 +349,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         @media (max-width: 480px) {
+            html, body {
+                overflow-x: hidden;
+            }
+            body {
+                padding: 12px 8px;
+            }
             .profile-container {
-                padding: 2rem 1.2rem;
+                padding: 1.8rem 1.2rem;
+                border-radius: 18px;
             }
-
             .profile-header h1 {
-                font-size: 1.5rem;
+                font-size: 1.45rem;
             }
-
+            .form-group input {
+                font-size: 16px;
+            }
             .profile-actions {
                 flex-direction: column;
+                gap: 8px;
+            }
+            .btn-save, .btn-logout, .btn-back {
+                padding: 0.85rem;
+                font-size: 0.95rem;
+            }
+        }
+        @media (max-width: 360px) {
+            .profile-container {
+                padding: 1.4rem 0.9rem;
+            }
+            .profile-header h1 {
+                font-size: 1.3rem;
             }
         }
     </style>

@@ -3084,6 +3084,83 @@ function invoiceUrl(string $code): string
     .summary-box .item.tabs .v {
       color: #5B21B6
     }
+
+    /* ── Mobile responsiveness ── */
+    @media (max-width: 480px) {
+      html, body {
+        overflow-x: hidden;
+      }
+      .wrap, .wrap-mid {
+        padding: 12px 10px;
+      }
+      .filters {
+        grid-template-columns: 1fr;
+        padding: 14px 12px;
+      }
+      .filters .field[style*="grid-column"] {
+        grid-column: 1 / -1 !important;
+      }
+      input[type="text"],
+      input[type="number"],
+      input[type="tel"],
+      input[type="password"],
+      select,
+      textarea {
+        font-size: 16px !important; /* prevent iOS auto-zoom */
+      }
+      .btn {
+        min-height: 44px;
+        padding: 10px 14px;
+        font-size: 0.9rem;
+      }
+      .btn-block {
+        width: 100%;
+      }
+      .cards {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+      .card {
+        padding: 14px 12px;
+      }
+      .detail {
+        grid-template-columns: 1fr;
+      }
+      .inv-two {
+        grid-template-columns: 1fr;
+      }
+      .inv-tot {
+        grid-template-columns: 1fr;
+      }
+      .inv-table {
+        font-size: 0.78rem;
+      }
+      .inv-table th, .inv-table td {
+        padding: 8px 6px;
+      }
+      .acts {
+        flex-direction: column;
+      }
+      .acts .btn {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .wrap, .wrap-mid {
+        padding: 8px 6px;
+      }
+      .card-title {
+        font-size: 0.9rem;
+      }
+      .big-price {
+        font-size: 1.25rem;
+      }
+      .summary-box {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
   </style>
 </head>
 

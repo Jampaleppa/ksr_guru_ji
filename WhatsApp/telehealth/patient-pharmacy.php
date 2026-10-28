@@ -92,6 +92,39 @@ $patientName = $_SESSION['user_name'] ?? 'John Doe';
         .nav-item { display: flex; flex-direction: column; align-items: center; gap: 4px; color: var(--clr-text-muted); text-decoration: none; background: none; border: none; font-family: inherit; font-size: 0.7rem; font-weight: 700; width: 60px; }
         .nav-item i { font-size: 1.25rem; }
         .nav-item.active { color: var(--clr-secondary); }
+        @media (max-width: 480px) {
+            html, body {
+                overflow-x: hidden;
+            }
+            .categories-grid {
+                grid-template-columns: repeat(3, 1fr) !important;
+                gap: 8px;
+            }
+            .rx-banner {
+                flex-direction: column;
+                gap: 12px;
+            }
+            .rx-banner-content { width: 100%; }
+            .section-title {
+                font-size: 0.95rem;
+            }
+            .product-card {
+                min-width: 140px;
+                max-width: 140px;
+            }
+        }
+        @media (max-width: 360px) {
+            .categories-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+            }
+            .product-card {
+                min-width: 125px;
+                max-width: 125px;
+            }
+            .app-header {
+                padding: 14px 10px;
+            }
+        }
     </style>
 </head>
 <body>

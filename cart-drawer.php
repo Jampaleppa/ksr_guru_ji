@@ -22,7 +22,26 @@
 .continue-shopping { background: none; border: 1px solid #e6d9cd; color: #5e4330; }
 .cart-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); backdrop-filter: blur(3px); z-index: 1050; display: none; }
 .cart-overlay.active { display: block; }
-@media (max-width: 640px) { .cart-sidebar { width: 100%; right: -100%; } }
+@media (max-width: 640px) { 
+  .cart-sidebar { width: 100%; right: -100%; } 
+}
+@media (max-width: 480px) {
+  .cart-header { padding: 16px 18px; }
+  .cart-header h3 { font-size: 1.25rem; }
+  .cart-items { padding: 14px; }
+  .cart-item { gap: 10px; margin-bottom: 16px; padding-bottom: 14px; }
+  .cart-item-actions button { width: 36px; height: 36px; font-size: 1rem; }
+  .cart-footer { padding: 16px 18px; padding-bottom: calc(16px + env(safe-area-inset-bottom, 0px)); }
+  .cart-total { font-size: 1.15rem; margin-bottom: 14px; }
+  .checkout-btn, .continue-shopping { padding: 12px; font-size: 0.95rem; min-height: 44px; }
+}
+@media (max-width: 360px) {
+  .cart-header { padding: 12px 14px; }
+  .cart-items { padding: 10px; }
+  .cart-footer { padding: 12px 14px; }
+  .cart-item-name { font-size: 0.85rem; }
+  .cart-item-price { font-size: 0.78rem; }
+}
 </style>
 <div class="cart-sidebar" id="globalCartSidebar">
   <div class="cart-header">

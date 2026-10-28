@@ -1192,3 +1192,278 @@ ul {
     .stat-strip { grid-template-columns: 1fr 1fr; }
     .ss-item + .ss-item { border-left: none; padding-left: 4px; }
 }
+
+@media (max-width: 768px) {
+    html, body {
+        overflow-x: hidden;
+    }
+    .container {
+        padding: 0 16px;
+    }
+    .navbar .container {
+        height: 64px;
+        flex-wrap: nowrap;
+    }
+    .navbar-brand {
+        font-size: 1.2rem;
+    }
+    .navbar-brand i {
+        font-size: 1.4rem;
+    }
+    .navbar-nav {
+        display: none; /* hidden on mobile; JS toggle handles it */
+    }
+    .hero {
+        padding: 48px 0 36px;
+        margin: 12px auto;
+    }
+    .hero-title {
+        font-size: 2.2rem;
+    }
+    .hero-subtitle {
+        font-size: 1rem;
+        margin-bottom: 28px;
+    }
+    .hero-actions {
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 32px;
+    }
+    .trust-indicators {
+        flex-wrap: wrap;
+        gap: 16px;
+        justify-content: center;
+    }
+    .search-container {
+        flex-direction: column;
+        border-radius: var(--radius-lg);
+        padding: 16px;
+        margin: -40px auto 36px;
+        gap: 10px;
+    }
+    .search-input-group {
+        border-right: none;
+        border-bottom: 1px solid var(--clr-border);
+        padding: 0 8px 10px;
+    }
+    .search-input-group:last-of-type {
+        border-bottom: none;
+        padding-bottom: 0;
+    }
+    .btn-search {
+        width: 100%;
+        padding: 14px;
+    }
+    input, select, textarea {
+        font-size: 16px !important;
+    }
+    .btn-primary,
+    .btn-secondary {
+        min-height: 46px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0 12px;
+    }
+    .hero {
+        padding: 36px 0 28px;
+        border-radius: var(--radius-md);
+    }
+    .hero-title {
+        font-size: 1.8rem;
+    }
+    .portal-choice {
+        padding: 14px 16px;
+        gap: 12px;
+    }
+    .pc-icon {
+        width: 42px;
+        height: 42px;
+        font-size: 1.1rem;
+    }
+    .pc-title {
+        font-size: 0.95rem;
+    }
+    .pc-sub {
+        font-size: 0.78rem;
+    }
+    .stat-strip {
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+    }
+    .ss-val {
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 360px) {
+    .hero-title {
+        font-size: 1.55rem;
+    }
+    .hero-subtitle {
+        font-size: 0.9rem;
+    }
+    .navbar-brand {
+        font-size: 1.05rem;
+    }
+    .btn-primary,
+    .btn-secondary {
+        padding: 10px 18px;
+        font-size: 0.88rem;
+    }
+}
+
+
+/* ========================================================
+   UNIVERSAL COMMAND CENTER, TELEMETRY & LOGISTICS RESPONSIVE
+   ======================================================== */
+@media (max-width: 1200px) {
+    .ops-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
+}
+
+@media (max-width: 1024px) {
+    .app-container {
+        flex-direction: column !important;
+        padding: 16px !important;
+        gap: 16px !important;
+    }
+    .grid-layout {
+        grid-template-columns: 1fr !important;
+    }
+    .kpi-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)) !important;
+    }
+    .ops-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+    .app-container > div[style*="width: 320px"],
+    .app-container > div[style*="width:320px"],
+    .app-container > div[style*="width: 300px"],
+    .app-container > div[style*="width:300px"] {
+        width: 100% !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .admin-nav > div,
+    .ed-nav > div,
+    .drv-nav > div {
+        flex-wrap: wrap !important;
+        height: auto !important;
+        padding: 10px 0 !important;
+        gap: 10px !important;
+    }
+    .admin-nav-links,
+    .ed-nav-links {
+        width: 100% !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        padding-bottom: 6px !important;
+    }
+    .kpi-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 12px !important;
+    }
+    .ops-grid {
+        grid-template-columns: 1fr !important;
+    }
+    .panel-body {
+        padding: 14px !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+    .data-table {
+        min-width: 480px !important;
+    }
+    .alert-row {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 8px !important;
+    }
+    .emergency-grid {
+        grid-template-columns: 1fr 1fr !important;
+    }
+    .dash-layout {
+        margin: 20px auto !important;
+        padding: 0 12px !important;
+    }
+    .welcome-card {
+        padding: 24px 18px !important;
+    }
+    .welcome-card .w-title {
+        font-size: 1.6rem !important;
+    }
+    .welcome-card::after {
+        display: none !important;
+    }
+    .jc-actions {
+        flex-direction: column !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .app-container {
+        padding: 10px !important;
+        gap: 12px !important;
+    }
+    .kpi-grid {
+        grid-template-columns: 1fr !important;
+    }
+    .kpi-card {
+        padding: 14px !important;
+    }
+    .kpi-val {
+        font-size: 1.35rem !important;
+    }
+    .panel-head {
+        padding: 12px 14px !important;
+        flex-wrap: wrap !important;
+        gap: 8px !important;
+    }
+    .panel-title {
+        font-size: 0.95rem !important;
+    }
+    .amb-card {
+        padding: 10px !important;
+    }
+    .metrics-grid {
+        grid-template-columns: 1fr !important;
+    }
+    .otp-inputs {
+        gap: 6px !important;
+    }
+    .otp-inputs input {
+        width: 42px !important;
+        height: 50px !important;
+        font-size: 1.5rem !important;
+    }
+    .emergency-grid {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+@media (max-width: 360px) {
+    .app-container {
+        padding: 6px !important;
+    }
+    .welcome-card .w-title {
+        font-size: 1.35rem !important;
+    }
+    .kpi-card {
+        padding: 10px !important;
+    }
+    .kpi-icon {
+        width: 38px !important;
+        height: 38px !important;
+        font-size: 1.1rem !important;
+        margin-right: 10px !important;
+    }
+    .kpi-val {
+        font-size: 1.2rem !important;
+    }
+}

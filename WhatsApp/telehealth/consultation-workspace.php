@@ -161,6 +161,152 @@ if ($patientInitials === '') $patientInitials = 'RK';
         @media (max-width: 1200px) {
             .workspace-grid { grid-template-columns: 1fr; }
         }
+
+        @media (max-width: 768px) {
+            html, body {
+                overflow-x: hidden;
+            }
+            .workspace-header {
+                padding: 0 12px;
+                margin-top: 16px;
+            }
+            .wh-card {
+                padding: 20px;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 16px;
+                text-align: left;
+            }
+            .wh-card > div:last-child {
+                width: 100%;
+                text-align: left;
+            }
+            .wh-card > div:last-child > div:last-child {
+                flex-wrap: wrap;
+            }
+            .workspace-grid {
+                margin: 16px auto;
+                padding: 0 12px;
+                gap: 20px;
+            }
+            .c-box {
+                padding: 20px 16px;
+                position: static !important;
+            }
+            .stepper {
+                overflow-x: auto;
+                padding: 10px 4px;
+                justify-content: flex-start;
+                gap: 18px;
+                -webkit-overflow-scrolling: touch;
+            }
+            .stepper::before {
+                display: none;
+            }
+            .step {
+                min-width: 52px;
+                flex-shrink: 0;
+            }
+            .vitals-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+            .rx-table {
+                display: block;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            .input-box input,
+            .input-box textarea,
+            .input-box select {
+                font-size: 16px !important;
+            }
+            .btn-act,
+            .btn-primary {
+                min-height: 44px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .workspace-header,
+            .workspace-grid {
+                padding: 0 8px;
+            }
+            .wh-card {
+                padding: 16px;
+                border-radius: var(--radius-md);
+            }
+            .wh-card .wh-badge {
+                font-size: 0.8rem;
+                padding: 4px 12px;
+            }
+            .wh-card div[style*="font-size:1.5rem"] {
+                font-size: 1.2rem !important;
+            }
+            .c-box {
+                padding: 16px 12px;
+                border-radius: var(--radius-md);
+            }
+            .cb-head {
+                font-size: 1.05rem;
+                margin-bottom: 16px;
+                padding-bottom: 12px;
+            }
+            .doc-title {
+                font-size: 1.05rem;
+            }
+            .input-box {
+                padding: 16px 12px;
+            }
+            .vitals-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 8px;
+            }
+            .vital-box {
+                padding: 12px 8px;
+            }
+            .vb-val {
+                font-size: 1.15rem;
+            }
+            .btn-act {
+                padding: 14px 14px;
+                font-size: 0.92rem;
+            }
+            .btn-primary {
+                padding: 14px 20px;
+                font-size: 0.95rem;
+            }
+            .modal-card {
+                max-height: 92vh;
+            }
+            .m-head {
+                padding: 16px 20px;
+                font-size: 1.15rem;
+            }
+            .m-body {
+                padding: 20px 16px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .wh-card div[style*="font-size:1.5rem"] {
+                font-size: 1.05rem !important;
+            }
+            .wh-card button {
+                width: 100%;
+                justify-content: center;
+            }
+            .vitals-grid {
+                grid-template-columns: 1fr;
+            }
+            .c-box {
+                padding: 14px 10px;
+            }
+            .btn-primary {
+                font-size: 0.88rem;
+                padding: 12px 14px;
+            }
+        }
     </style>
 </head>
 <body>

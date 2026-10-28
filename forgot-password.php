@@ -320,12 +320,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['password']) && isset(
         }
 
         @media (max-width: 480px) {
-            .container {
-                padding: 2rem 1.2rem;
+            html, body {
+                overflow-x: hidden;
             }
-
+            body {
+                padding: 12px 8px;
+            }
+            .container {
+                padding: 1.8rem 1.2rem;
+                border-radius: 18px;
+            }
             .header h1 {
                 font-size: 1.4rem;
+            }
+            .form-group input {
+                font-size: 16px;
+            }
+            .btn-submit {
+                font-size: 1rem;
+                padding: 0.85rem;
+            }
+        }
+        @media (max-width: 360px) {
+            .container {
+                padding: 1.4rem 0.9rem;
+            }
+            .header h1 {
+                font-size: 1.25rem;
             }
         }
     </style>

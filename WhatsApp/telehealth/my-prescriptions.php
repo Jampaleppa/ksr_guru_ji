@@ -148,7 +148,33 @@ $medicines = [
             .med-grid { grid-template-columns: 1fr; }
             .head-flex { flex-direction: column; align-items: flex-start; }
             .dash-tabs { max-width: 100%; overflow-x: auto; scrollbar-width: none; }
+            .btn-action { min-height: 44px; width: 100%; justify-content: center; }
+            .rx-card { padding: 18px 14px; border-radius: var(--radius-md); }
         }
+
+        @media (max-width: 480px) {
+            html, body { overflow-x: hidden; }
+            .container { padding: 0 12px; }
+            .page-title { font-size: 1.5rem; }
+            .card-header { flex-direction: column; align-items: flex-start; gap: 12px; }
+            .doc-info { gap: 12px; }
+            .doc-icon { width: 44px; height: 44px; font-size: 1.25rem; }
+            .doc-name { font-size: 1.05rem; }
+            .rx-card { padding: 16px 12px; }
+            .tab { padding: 10px 14px; font-size: 0.9rem; }
+            .modal-header, .modal-body { padding: 16px; }
+            #bridge-modal .modal-card { padding: 24px 16px; }
+        }
+
+        @media (max-width: 360px) {
+            .container { padding: 0 8px; }
+            .page-title { font-size: 1.3rem; }
+            .rx-card { padding: 14px 10px; }
+            .doc-name { font-size: 0.98rem; }
+            .btn-action { font-size: 0.88rem; padding: 10px 14px; }
+            .tab { padding: 8px 10px; font-size: 0.82rem; }
+        }
+
     </style>
 </head>
 <body>

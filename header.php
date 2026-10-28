@@ -349,7 +349,20 @@ $activePage = $activePage ?? 'dashboard';
             .header-actions { justify-content: center; }
         }
         @media (max-width: 480px) {
-            .stats-grid { grid-template-columns: 1fr; }
+            html, body { overflow-x: hidden; }
+            .stats-grid { grid-template-columns: 1fr; gap: 12px; }
+            .main-content { padding: 12px 10px; }
+            .filter-bar { flex-direction: column; align-items: stretch; }
+            .filter-bar select, .filter-bar input { width: 100%; font-size: 16px; }
+            .form-group input, .form-group select, .form-group textarea { font-size: 16px; }
+            .modal-content { width: calc(100vw - 20px); margin: 10px auto; }
+            .btn { min-height: 42px; }
+        }
+        @media (max-width: 360px) {
+            .main-content { padding: 8px 6px; }
+            .table-container { padding: 10px 8px; }
+            .stat-card { padding: 14px 12px; }
+            .stat-info h3 { font-size: 1.35rem; }
         }
     </style>
 </head>

@@ -395,8 +395,62 @@ $amount = $order ? (float)$order['total'] : 0.0;
         }
 
         @media (max-width: 480px) {
+            html, body {
+                overflow-x: hidden;
+            }
+            body {
+                padding: 16px 10px;
+            }
+            .card {
+                border-radius: 16px;
+            }
+            .brand {
+                padding: 16px 18px;
+            }
+            .brand h1 {
+                font-size: 1.05rem;
+            }
+            .body {
+                padding: 20px 16px 24px;
+            }
+            .amount {
+                font-size: 1.9rem;
+            }
             .grid {
                 grid-template-columns: 1fr;
+                gap: 10px;
+            }
+            .actions {
+                flex-direction: column;
+            }
+            .btn {
+                width: 100%;
+                min-height: 44px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            body {
+                padding: 10px 6px;
+            }
+            .card {
+                border-radius: 12px;
+            }
+            .brand {
+                padding: 14px 14px;
+            }
+            .body {
+                padding: 16px 12px 20px;
+            }
+            .amount {
+                font-size: 1.65rem;
+            }
+            .badge {
+                font-size: 0.8rem;
+                padding: 6px 12px;
+            }
+            .field .v {
+                font-size: 0.8rem;
             }
         }
     </style>

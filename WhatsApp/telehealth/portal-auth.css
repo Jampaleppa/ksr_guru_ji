@@ -636,3 +636,40 @@ textarea.af-input {
     gap: 20px;
   }
 }
+
+@media (max-width: 480px) {
+  html, body {
+    overflow-x: hidden;
+  }
+  .auth-form {
+    padding: 20px 16px;
+    border-radius: var(--radius-md);
+  }
+  .af-input {
+    font-size: 16px !important; /* prevent iOS auto-zoom */
+  }
+  .af-submit {
+    font-size: 1rem;
+    padding: 13px;
+    min-height: 48px;
+  }
+  .auth-aside {
+    padding: 24px 20px;
+  }
+  .aa-title {
+    font-size: 1.6rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .auth-form {
+    padding: 16px 12px;
+  }
+  .aa-title {
+    font-size: 1.4rem;
+  }
+  .af-submit {
+    font-size: 0.95rem;
+    padding: 12px;
+  }
+}

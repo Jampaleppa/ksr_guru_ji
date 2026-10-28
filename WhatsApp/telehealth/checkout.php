@@ -136,6 +136,79 @@ $issueDate = '05 Sep 2026';
             .summary-card { position: relative; top: 0; }
             .rx-banner { flex-direction: column; gap: 16px; }
         }
+        @media (max-width: 768px) {
+            .navbar-links {
+                display: none !important;
+            }
+
+            .summary-card {
+                padding: 24px 18px;
+            }
+
+            .match-row {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+
+            .cart-item {
+                gap: 14px;
+            }
+
+            .modal-card {
+                padding: 32px 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .cart-item {
+                flex-direction: column;
+            }
+
+            .ci-price-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+
+            .summary-card {
+                padding: 20px 14px;
+                border-radius: var(--radius-lg);
+            }
+
+            .sum-total {
+                font-size: 1.35rem;
+            }
+
+            .btn-place-order {
+                padding: 16px;
+                font-size: 1.05rem;
+                margin-top: 20px;
+            }
+
+            .rx-banner {
+                padding: 16px;
+            }
+
+            .select-box {
+                padding: 14px;
+            }
+
+            .sb-price {
+                position: static;
+                margin-top: 8px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .ci-price {
+                font-size: 1.15rem;
+            }
+
+            .btn-place-order {
+                font-size: 0.95rem;
+                padding: 14px;
+            }
+        }
     </style>
 </head>
 <body>

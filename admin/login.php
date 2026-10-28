@@ -383,6 +383,20 @@ $otpGreetingName = $_SESSION['otp_admin_name'] ?? 'Super Admin';
             .admin-login-card, .admin-features { max-width: 100%; width: 100%; }
             .admin-features { padding: 25px; }
         }
+        @media (max-width: 480px) {
+            .admin-login-card { padding: 24px 18px; border-radius: 14px; }
+            .admin-logo h1 { font-size: 1.5rem; }
+            .logo-icon { width: 60px; height: 60px; }
+            .admin-features { padding: 18px 14px; }
+            .features-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+            .feature-item { padding: 14px 10px; }
+        }
+
+        @media (max-width: 360px) {
+            .admin-logo h1 { font-size: 1.3rem; }
+            .features-grid { grid-template-columns: 1fr; }
+            .admin-login-card { padding: 18px 12px; }
+        }
     </style>
     <link rel="stylesheet" href="css/admin-theme.css?v=1.6">
     <script src="js/admin-theme.js?v=1.6" defer></script>

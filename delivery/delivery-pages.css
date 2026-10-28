@@ -322,7 +322,43 @@ img { max-width: 100%; }
   .dp-stats { grid-template-columns: repeat(4, 1fr); }
   .dp-main { padding: 22px; gap: 18px; }
 }
-@media (max-width: 380px) {
-  .dp-stats { grid-template-columns: 1fr 1fr; }
-  .dp-hero h2 { font-size: 1.25rem; }
+@media (max-width: 480px) {
+  html, body {
+    overflow-x: hidden;
+  }
+  .dp-main {
+    padding: 12px 10px;
+    gap: 12px;
+  }
+  .dp-stats {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .dp-auth-card {
+    padding: 22px 16px;
+    border-radius: 20px;
+  }
+  .dp-auth {
+    padding: 16px 10px calc(16px + env(safe-area-inset-bottom));
+  }
+  input, select, textarea {
+    font-size: 16px !important;
+  }
+  .dp-ord-f .dp-btn {
+    min-width: 100%;
+  }
+}
+@media (max-width: 360px) {
+  .dp-topbar {
+    padding: 10px 12px;
+  }
+  .dp-topbar-t {
+    font-size: 0.85rem;
+  }
+  .dp-hero h2 {
+    font-size: 1.2rem;
+  }
+  .dp-nav {
+    font-size: 0.65rem;
+  }
 }

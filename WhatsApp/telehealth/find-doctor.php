@@ -492,10 +492,129 @@ if (count($doctors) === 0) {
         }
 
         @media (max-width: 768px) {
+            html, body {
+                overflow-x: hidden;
+            }
             .navbar-nav { display: none; }
-            .mobile-bottom-nav { display: flex; }
-            body { padding-bottom: 80px; }
-            .hero-banner h1 { font-size: 2.25rem; }
+            .mobile-bottom-nav { 
+                display: flex;
+                padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+            }
+            body { padding-bottom: calc(80px + env(safe-area-inset-bottom, 0px)); }
+            .hero-banner {
+                padding: 48px 16px 72px;
+            }
+            .hero-banner h1 { font-size: 2.1rem; }
+            .hero-banner p { font-size: 1rem; margin-bottom: 24px; }
+            .search-complex {
+                padding: 18px 14px;
+                margin: 0 12px;
+            }
+            .search-main input,
+            .search-select-group select,
+            .search-select-group input {
+                font-size: 16px !important;
+            }
+            .btn-search-large {
+                width: 100%;
+                justify-content: center;
+                min-height: 46px;
+            }
+            .quick-specialties {
+                padding: 36px 12px 24px;
+                gap: 12px;
+            }
+            .spec-pill {
+                padding: 16px 20px;
+                min-width: 110px;
+                gap: 10px;
+            }
+            .spec-pill .icon {
+                width: 54px;
+                height: 54px;
+                font-size: 1.7rem;
+            }
+            .doc-card {
+                padding: 20px 16px;
+            }
+            .btn-secondary,
+            .btn-primary {
+                min-height: 44px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-banner {
+                padding: 36px 12px 60px;
+            }
+            .hero-banner h1 { font-size: 1.75rem; }
+            .hero-banner p { font-size: 0.92rem; }
+            .search-complex {
+                padding: 14px 10px;
+                margin: 0 8px;
+                border-radius: var(--radius-md);
+            }
+            .search-main {
+                padding: 12px 14px;
+            }
+            .search-select-group {
+                padding: 12px 14px;
+            }
+            .spec-pill {
+                padding: 12px 14px;
+                min-width: 95px;
+            }
+            .spec-pill span {
+                font-size: 0.85rem;
+            }
+            .doc-avatar {
+                width: 90px;
+                height: 90px;
+                font-size: 2.6rem;
+            }
+            .doc-info h3 {
+                font-size: 1.25rem;
+            }
+            .doc-specialty {
+                font-size: 0.92rem;
+            }
+            .doc-stats {
+                gap: 12px;
+                font-size: 0.88rem;
+            }
+            .doc-card {
+                padding: 16px 12px;
+                border-radius: var(--radius-md);
+            }
+            .consult-fee {
+                gap: 10px;
+            }
+            .consult-fee .icon {
+                width: 40px;
+                height: 40px;
+                font-size: 1.05rem;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .hero-banner h1 { font-size: 1.5rem; }
+            .spec-pill {
+                padding: 10px 10px;
+                min-width: 80px;
+                gap: 8px;
+            }
+            .spec-pill .icon {
+                width: 44px;
+                height: 44px;
+                font-size: 1.35rem;
+            }
+            .spec-pill span {
+                font-size: 0.78rem;
+            }
+            .btn-search-large {
+                padding: 12px 16px;
+                font-size: 0.95rem;
+            }
         }
     </style>
 </head>

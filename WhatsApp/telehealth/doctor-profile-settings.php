@@ -391,6 +391,94 @@ $docName = $_SESSION['user_name'] ?? 'DR. D C Rathod';
         .hidden-mask {
             letter-spacing: 2px;
         }
+        @media (max-width: 992px) {
+            .container-main {
+                grid-template-columns: 1fr;
+                gap: 24px;
+                margin: 20px auto;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container-main {
+                padding: 0 14px;
+            }
+
+            .data-grid {
+                grid-template-columns: 1fr;
+                gap: 14px;
+            }
+
+            .fee-breakdown {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .sb-content {
+                padding: 16px;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .sb-titlebar {
+                padding: 14px 16px;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+
+            .data-table {
+                min-width: 550px;
+            }
+
+            .doc-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .doc-row button,
+            .doc-row a {
+                width: 100%;
+                text-align: center;
+            }
+
+            .consult-toggle {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .profile-hero {
+                padding: 18px 14px;
+            }
+
+            .ph-photo {
+                width: 90px;
+                height: 90px;
+                font-size: 2.2rem;
+            }
+
+            .ph-name {
+                font-size: 1.25rem;
+            }
+
+            .sec-box {
+                border-radius: var(--radius-md);
+            }
+        }
+
+        @media (max-width: 360px) {
+            .ph-name {
+                font-size: 1.15rem;
+            }
+
+            .container-main {
+                padding: 0 10px;
+            }
+        }
     </style>
 </head>
 

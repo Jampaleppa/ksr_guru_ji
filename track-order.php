@@ -204,6 +204,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             color: var(--primary-dark);
             text-decoration: underline;
         }
+
+        /* ── Responsive ── */
+        @media (max-width: 480px) {
+            html, body { overflow-x: hidden; }
+            body { padding: 12px 8px; }
+            .tracking-card {
+                padding: 28px 20px;
+                border-radius: 14px;
+            }
+            h2 { font-size: 1.35rem; }
+            p.subtitle { font-size: 0.88rem; margin-bottom: 22px; }
+            .form-group input { font-size: 16px; } /* prevent iOS auto-zoom */
+            .btn-track { font-size: 0.95rem; padding: 13px 16px; min-height: 48px; }
+        }
+        @media (max-width: 360px) {
+            .tracking-card { padding: 22px 14px; }
+            h2 { font-size: 1.2rem; }
+        }
     </style>
 </head>
 <body>

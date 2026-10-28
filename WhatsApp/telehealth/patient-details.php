@@ -155,6 +155,20 @@ if (!$doctor) {
             .form-grid { grid-template-columns: 1fr; gap: 16px; }
             .patient-toggle-wrap { flex-direction: column; }
         }
+        @media (max-width: 768px) {
+            html, body { overflow-x: hidden; }
+            .flow-layout { grid-template-columns: 1fr !important; }
+            .vitals-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 480px) {
+            .vitals-grid { grid-template-columns: 1fr; }
+            .form-grid { grid-template-columns: 1fr; }
+            .patient-header { flex-direction: column; align-items: flex-start; gap: 12px; }
+        }
+        @media (max-width: 360px) {
+            .container { padding: 0 8px; }
+            .vitals-grid { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>

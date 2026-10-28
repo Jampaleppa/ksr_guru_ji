@@ -22,7 +22,7 @@ if (!defined('DB_USER')) {
     define('DB_USER', getenv('DB_USER') ?: 'root');      // e.g. 'if0_38000000'
 }
 if (!defined('DB_PASS')) {
-    define('DB_PASS', getenv('DB_PASS') !== false ? getenv('DB_PASS') : '');
+    define('DB_PASS', getenv('DB_PASS') !== false ? getenv('DB_PASS') : 'JKRathod@406');
 }
 if (!defined('DB_NAME')) {
     define('DB_NAME', getenv('DB_NAME') ?: 'ksr_guru');  // e.g. 'if0_38000000_ksr_guru'

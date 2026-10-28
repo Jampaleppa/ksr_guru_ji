@@ -21,3 +21,7 @@ patient_portal.sql
 payment_lifecycle_migration.sql
 cleaning_product_image_paths.sql
 
+*.sqlite*
+*.err
+logs/
+invoices/

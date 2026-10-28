@@ -110,6 +110,113 @@ try {
         .m-body::-webkit-scrollbar-track { background: transparent; }
         .m-body::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.1); border-radius: 10px; }
         .m-body::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.2); }
+        @media (max-width: 1024px) {
+            .metrics-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container-main {
+                padding: 0 14px;
+                margin: 20px auto;
+            }
+
+            .dash-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 16px;
+            }
+
+            .search-bar {
+                width: 100% !important;
+            }
+
+            .metrics-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+
+            .c-box {
+                padding: 16px;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .data-table {
+                min-width: 650px;
+            }
+
+            .rmc-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+
+            .m-head,
+            .m-foot,
+            .m-body {
+                padding: 16px;
+            }
+
+            .m-foot {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .m-foot .btn-action {
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .dh-title {
+                font-size: 1.4rem;
+            }
+
+            .dh-sub {
+                font-size: 0.88rem;
+            }
+
+            .metrics-grid {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            .metric-card {
+                padding: 16px;
+            }
+
+            .mc-val {
+                font-size: 1.6rem;
+            }
+
+            .rmc-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-card {
+                border-radius: 16px;
+                max-height: 95vh;
+            }
+
+            .kv-grid {
+                grid-template-columns: 1fr;
+                gap: 6px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .dh-title {
+                font-size: 1.25rem;
+            }
+
+            .mc-icon {
+                width: 48px;
+                height: 48px;
+                font-size: 1.3rem;
+            }
+        }
     </style>
 </head>
 <body>

@@ -121,6 +121,20 @@ $consultType = 'Video';
             .btn-end { margin-left: 0; }
             .doc-brand span { display: none; }
         }
+        @media (max-width: 480px) {
+            .pip-video { width: 90px; height: 120px; right: 10px; bottom: 10px; border-radius: 8px; }
+            .ctrl-btn { width: 44px; height: 44px; font-size: 1rem; }
+            .control-bar { padding: 10px 8px; gap: 8px; }
+            .top-bar { padding: 10px 14px; }
+            .timer { font-size: 0.85rem; padding: 4px 10px; }
+            .precall-box { padding: 24px 16px; width: 95%; }
+            #completed-modal .dark-modal { padding: 24px 18px; width: 95%; }
+        }
+
+        @media (max-width: 360px) {
+            .pip-video { width: 75px; height: 100px; }
+            .ctrl-btn { width: 40px; height: 40px; font-size: 0.9rem; }
+        }
     </style>
 </head>
 <body>

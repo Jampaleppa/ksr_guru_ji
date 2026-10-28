@@ -349,9 +349,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         .trust-row span { display: flex; align-items: center; gap: 4px; }
         .trust-row i    { color: var(--primary); }
 
+        @media (max-width: 768px) {
+            body { padding: 16px 12px; }
+            .card { max-width: 460px; }
+            .btn-register { min-height: 46px; }
+        }
         @media (max-width: 480px) {
-            .card { padding: 2rem 1.4rem; }
+            html, body { overflow-x: hidden; }
+            body { padding: 12px 8px; }
+            .card { padding: 1.8rem 1.2rem; border-radius: 18px; }
+            .brand-name { font-size: 1.45rem; }
             .form-row { grid-template-columns: 1fr; }
+            .form-group input { font-size: 16px !important; padding-left: 2.6rem; }
+            .btn-register { min-height: 44px; font-size: 0.98rem; }
+            .trust-row { flex-wrap: wrap; gap: 10px; font-size: 0.7rem; }
+        }
+        @media (max-width: 360px) {
+            .card { padding: 1.4rem 0.9rem; }
+            .brand-name { font-size: 1.3rem; }
+            .btn-register { font-size: 0.92rem; padding: 0.85rem; min-height: 44px; }
         }
     </style>
 </head>
