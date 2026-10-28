@@ -9,7 +9,7 @@ session_start();
 const PAGE             = 'tablet.php';
 const ORDER_TABLE      = 'pharmacy_orders';
 const DB_HOST          = 'localhost';
-const DB_NAME          = 'ksr_guru_ji';
+const DB_NAME          = 'ksr_guru';
 const DB_USER          = 'root';
 const DB_PASS          = 'JKRathod@406';
 const PER_PAGE         = 24;
@@ -953,6 +953,11 @@ function invoiceUrl(string $code): string
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="../../../favicon.ico">
+  <link rel="icon" type="image/x-icon" href="../../../favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="../../../favicon.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="../../../icon-192.png">
+  <link rel="apple-touch-icon" href="../../../icon-192.png">
   <?php if ($route === 'order-status' && $order): ?>
     <meta http-equiv="refresh" content="30">
   <?php endif; ?>
@@ -3083,6 +3088,62 @@ function invoiceUrl(string $code): string
 
     .summary-box .item.tabs .v {
       color: #5B21B6
+    }
+
+    /* ── Tablet & Small Desktop (1024px) ── */
+    @media (max-width: 1024px) {
+      .wrap, .wrap-mid {
+        padding: 16px 20px;
+      }
+      .cards {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 14px;
+      }
+      .filters {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 12px;
+      }
+      .detail {
+        grid-template-columns: 1fr 1fr;
+        gap: 18px;
+      }
+      .inv-two {
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+    }
+
+    /* ── Tablet Portrait (768px) ── */
+    @media (max-width: 768px) {
+      .wrap, .wrap-mid {
+        padding: 14px 14px;
+      }
+      .cards {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+      .filters {
+        grid-template-columns: 1fr 1fr;
+        padding: 14px 12px;
+      }
+      .detail {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+      .inv-two {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+      .topbar-in {
+        padding: 10px 14px;
+      }
+      .summary-box {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .inv-table-wrap {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
     }
 
     /* ── Mobile responsiveness ── */

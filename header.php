@@ -372,7 +372,15 @@ $activePage = $activePage ?? 'dashboard';
 <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
         <div class="admin-logo" style="display: flex; align-items: center; gap: 10px;">
-            <?php $logoPath = file_exists('KSR_GURU_JI.png') ? 'KSR_GURU_JI.png' : (file_exists('../KSR_GURU_JI.png') ? '../KSR_GURU_JI.png' : '../../KSR_GURU_JI.png'); ?>
+            <?php 
+            $logoCandidates = ['KSR_GURU_JI.png', 'company_logo.jpg', 'ksr guru ji.jpg', 'icon-192.png'];
+            $logoPath = '/company_logo.jpg';
+            foreach ($logoCandidates as $cand) {
+                if (file_exists($cand)) { $logoPath = $cand; break; }
+                if (file_exists('../' . $cand)) { $logoPath = '../' . $cand; break; }
+                if (file_exists('../../' . $cand)) { $logoPath = '../../' . $cand; break; }
+            }
+            ?>
             <div class="logo-image" style="width: 32px; height: 32px; background: linear-gradient(135deg, #0f7b3a, #1ea85a); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 8px rgba(15, 123, 58, 0.15); flex-shrink: 0; border: 1px solid rgba(255, 255, 255, 0.8);">
                 <img src="<?php echo $logoPath; ?>" alt="KSR GURU JI Logo" style="max-width: 85%; max-height: 85%; object-fit: contain; border-radius: 50%;" onerror="this.style.display='none';this.parentElement.innerHTML='🛡️';">
             </div>

@@ -199,6 +199,13 @@ $bestSellers = array_slice($products, 0, 8);
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="KSR Guru Ji" />
+    <!-- Favicon & Standard App Icons -->
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png" />
+    <link rel="apple-touch-icon" href="/icon-192.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/icon-180.jpg" />
     <link rel="apple-touch-icon" sizes="152x152" href="/icon-152.jpg" />
     <link rel="apple-touch-icon" sizes="144x144" href="/icon-144.jpg" />

@@ -26,14 +26,17 @@ if (!function_exists('telehealth_logo_candidates')) {
     /** Absolute paths on disk to try, best first. */
     function telehealth_logo_candidates(): array
     {
-        // __DIR__ = <root>/WhatsApp/public/telehealth/partials
-        // 4 levels up = project root.
-        $root = dirname(__DIR__, 4);
+        // __DIR__ = <root>/WhatsApp/telehealth/partials
+        // 3 levels up = project root.
+        $root = dirname(__DIR__, 3);
         return [
             $root . '/company_logo.jpg',
-            $root . '/ksr guru ji.jpg',
             $root . '/KSR_GURU_JI.png',
+            $root . '/ksr guru ji.jpg',
+            $root . '/icon-192.png',
+            $root . '/icon-192.jpg',
             __DIR__ . '/../assets/company_logo.jpg',
+            __DIR__ . '/../assets/KSR_GURU_JI.png',
         ];
     }
 }
@@ -42,13 +45,9 @@ if (!function_exists('telehealth_logo_url')) {
     /**
      * Web path of the first logo that exists on disk.
      *
-     * $ksrDepth = how many folder levels the page sits below the project
-     * root. telehealth/index.php  -> 0, needs no "../"
-     *   telehealth/medicine/x.php -> 1, needs one "../"
-     *
-     * NOTE: the logo lives at <root>/company_logo.jpg, and the module root
-     * is <root>/WhatsApp/public/telehealth. So the correct climb is
-     * $ksrDepth + 3 (telehealth -> public -> WhatsApp -> root).
+     * $ksrDepth = how many folder levels the page sits below the telehealth
+     * root. telehealth/index.php  -> 0, needs 2 climb levels ("../../")
+     *   telehealth/medicine/x.php -> 1, needs 3 climb levels ("../../../")
      */
     function telehealth_logo_url(int $ksrDepth = 0): ?string
     {
@@ -69,7 +68,7 @@ if (!function_exists('telehealth_logo_url')) {
             return null;
         }
 
-        $up = $ksrDepth + 3;   // climb out of the module to the project root
+        $up = $ksrDepth + 2;   // climb out of telehealth and WhatsApp to project root
         return str_repeat('../', $up) . rawurlencode($name);
     }
 }

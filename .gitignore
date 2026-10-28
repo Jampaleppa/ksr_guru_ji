@@ -14,3 +14,5 @@ deploy/
 
 # Local SQLite databases
 *.sqlite
+logs/
+*.log
