@@ -113,6 +113,12 @@ $consultType = 'Video';
         .completed-list div { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; font-weight: 600; color: var(--clr-text-secondary); }
         .completed-list div i { color: #16A34A; }
 
+        @media (max-width: 1024px) {
+            .pip-video { width: 180px; height: 120px; right: 20px; bottom: 20px; }
+            .side-panel { width: 320px; }
+            .control-bar { gap: 16px; }
+            .top-bar { padding: 12px 18px; }
+        }
         @media (max-width: 768px) {
             .pip-video { width: 120px; height: 160px; right: 16px; bottom: 16px; }
             .side-panel { width: 100%; right: -100%; top: 0; bottom: 85px; border-radius: 0; }
