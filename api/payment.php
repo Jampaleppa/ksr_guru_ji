@@ -53,6 +53,8 @@ $upiId = $input['upi_id'] ?? null;          // For UPI
 // --- Connect to Database & Validate order ---
 try {
     $pdo = getDBConnection();
+    $isSqlite = ($pdo->getAttribute(PDO::ATTR_DRIVER_NAME) === 'sqlite');
+    $nowExpr = $isSqlite ? "datetime('now')" : "NOW()";
     $stmt = $pdo->prepare("SELECT id, order_number, total, status, payment_method FROM orders WHERE id = ?");
     $stmt->execute([$orderId]);
     $order = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -81,7 +83,7 @@ try {
     if ($paymentMethod === 'cod') {
         // Direct COD handling
         $transactionId = 'COD-' . time();
-        $stmt = $pdo->prepare("UPDATE orders SET status = 'confirmed', payment_status = 'pending', transaction_id = ?, updated_at = NOW() WHERE id = ?");
+        $stmt = $pdo->prepare("UPDATE orders SET status = 'confirmed', payment_status = 'pending', transaction_id = ?, updated_at = {$nowExpr} WHERE id = ?");
         $stmt->execute([$transactionId, $orderId]);
 
         // Update payment status
@@ -110,12 +112,12 @@ try {
         // Verification phase
         $verified = RazorpayHelper::verifySignature($rzOrderId, $rzPaymentId, $rzSignature);
         if ($verified) {
-            $stmt = $pdo->prepare("UPDATE orders SET status = 'confirmed', payment_status = 'paid', transaction_id = ?, updated_at = NOW() WHERE id = ?");
+            $stmt = $pdo->prepare("UPDATE orders SET status = 'confirmed', payment_status = 'paid', transaction_id = ?, updated_at = {$nowExpr} WHERE id = ?");
             $stmt->execute([$rzPaymentId, $orderId]);
 
             // Update payments table record
             try {
-                $stmtPayment = $pdo->prepare("UPDATE payments SET status = 'success', gateway_payment_id = ?, transaction_id = ?, gateway_signature = ?, paid_at = NOW() WHERE order_id = ?");
+                $stmtPayment = $pdo->prepare("UPDATE payments SET status = 'success', gateway_payment_id = ?, transaction_id = ?, gateway_signature = ?, paid_at = {$nowExpr} WHERE order_id = ?");
                 $stmtPayment->execute([$rzPaymentId, $rzPaymentId, $rzSignature, $orderId]);
             } catch (Exception $e) {}
 
