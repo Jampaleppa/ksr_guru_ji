@@ -5,6 +5,10 @@ Options -Indexes
     RewriteEngine On
     RewriteBase /
 
+    # Explicit routing for checkout and cart directories
+    RewriteRule ^checkout/?$ checkout.php [NC,L]
+    RewriteRule ^cart/?$ cart.php [NC,L]
+
     # Support extensionless PHP URLs (e.g., /cart -> /cart.php, /checkout -> /checkout.php)
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME}\.php -f
