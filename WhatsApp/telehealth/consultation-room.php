@@ -17,7 +17,21 @@ $consultType = 'Video';
     <title>Consultation Room | Doctor Assist</title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Telehealth & Brand Styles -->
+    <link rel="stylesheet" href="partials/brandbar.css">
+    <link rel="stylesheet" href="assist-style.css">
     <style>
+        :root {
+            --clr-primary: #0D9488;
+            --clr-primary-dark: #0F766E;
+            --clr-text-primary: #0F172A;
+            --clr-text-secondary: #64748B;
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 16px;
+            --radius-full: 9999px;
+            --clr-border: #E2E8F0;
+        }
         body, html { margin: 0; padding: 0; height: 100%; background: #0F172A; font-family: 'Inter', sans-serif; overflow: hidden; }
 
         /* PRE-CALL CHECK OVERLAY */
@@ -145,8 +159,6 @@ $consultType = 'Video';
 </head>
 <body>
     <!-- KSR brand bar (shared) -->
-    <link rel="stylesheet" href="partials/brandbar.css">
-    <link rel="stylesheet" href="assist-style.css">
     <?php $ksr_active = ''; $ksr_depth = 0; include __DIR__ . '/partials/brandbar.php'; ?>
 
 
