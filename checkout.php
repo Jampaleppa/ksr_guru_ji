@@ -1716,41 +1716,43 @@ if ($isLoggedIn) {
             const pa = (typeof APP_UPI_IDS !== 'undefined' && APP_UPI_IDS[method]) ? APP_UPI_IDS[method] : (typeof UPI_ID !== 'undefined' ? UPI_ID : 'jyampallepparathod-1@oksbi');
             const pn = encodeURIComponent('KSR GURU JI');
             const tn = encodeURIComponent('KSR Order Payment');
-            const genericUpi = `upi://pay?pa=${pa}&pn=${pn}&am=${amtStr}&cu=INR&tn=${tn}`;
+            const tr = encodeURIComponent('KSR' + Date.now().toString().slice(-8));
+            const mc = '5411'; // Retail & Grocery
+            const genericUpi = `upi://pay?pa=${pa}&pn=${pn}&am=${amtStr}&cu=INR&tn=${tn}&tr=${tr}&mc=${mc}`;
             const isAndroid = /Android/i.test(navigator.userAgent);
             const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
 
             if (isAndroid) {
                 if (method === 'gpay') {
-                    return `intent://pay?pa=${pa}&pn=${pn}&am=${amtStr}&cu=INR&tn=${tn}#Intent;scheme=upi;package=com.google.android.apps.nbu.paisa.user;S.browser_fallback_url=${encodeURIComponent('https://play.google.com/store/apps/details?id=com.google.android.apps.nbu.paisa.user')};end`;
+                    return `intent://pay?pa=${pa}&pn=${pn}&am=${amtStr}&cu=INR&tn=${tn}&tr=${tr}&mc=${mc}#Intent;scheme=upi;package=com.google.android.apps.nbu.paisa.user;S.browser_fallback_url=${encodeURIComponent('https://play.google.com/store/apps/details?id=com.google.android.apps.nbu.paisa.user')};end`;
                 }
                 if (method === 'phonepe') {
-                    return `intent://pay?pa=${pa}&pn=${pn}&am=${amtStr}&cu=INR&tn=${tn}#Intent;scheme=upi;package=com.phonepe.app;S.browser_fallback_url=${encodeURIComponent('https://play.google.com/store/apps/details?id=com.phonepe.app')};end`;
+                    return `intent://pay?pa=${pa}&pn=${pn}&am=${amtStr}&cu=INR&tn=${tn}&tr=${tr}&mc=${mc}#Intent;scheme=upi;package=com.phonepe.app;S.browser_fallback_url=${encodeURIComponent('https://play.google.com/store/apps/details?id=com.phonepe.app')};end`;
                 }
                 if (method === 'paytm') {
-                    return `intent://pay?pa=${pa}&pn=${pn}&am=${amtStr}&cu=INR&tn=${tn}#Intent;scheme=upi;package=net.one97.paytm;S.browser_fallback_url=${encodeURIComponent('https://play.google.com/store/apps/details?id=net.one97.paytm')};end`;
+                    return `intent://pay?pa=${pa}&pn=${pn}&am=${amtStr}&cu=INR&tn=${tn}&tr=${tr}&mc=${mc}#Intent;scheme=upi;package=net.one97.paytm;S.browser_fallback_url=${encodeURIComponent('https://play.google.com/store/apps/details?id=net.one97.paytm')};end`;
                 }
                 if (method === 'bhim') {
-                    return `intent://pay?pa=${pa}&pn=${pn}&am=${amtStr}&cu=INR&tn=${tn}#Intent;scheme=upi;package=in.org.npci.upiapp;S.browser_fallback_url=${encodeURIComponent('https://play.google.com/store/apps/details?id=in.org.npci.upiapp')};end`;
+                    return `intent://pay?pa=${pa}&pn=${pn}&am=${amtStr}&cu=INR&tn=${tn}&tr=${tr}&mc=${mc}#Intent;scheme=upi;package=in.org.npci.upiapp;S.browser_fallback_url=${encodeURIComponent('https://play.google.com/store/apps/details?id=in.org.npci.upiapp')};end`;
                 }
                 if (method === 'amazonpay') {
-                    return `intent://pay?pa=${pa}&pn=${pn}&am=${amtStr}&cu=INR&tn=${tn}#Intent;scheme=upi;package=in.amazon.mShop.android.shopping;S.browser_fallback_url=${encodeURIComponent('https://play.google.com/store/apps/details?id=in.amazon.mShop.android.shopping')};end`;
+                    return `intent://pay?pa=${pa}&pn=${pn}&am=${amtStr}&cu=INR&tn=${tn}&tr=${tr}&mc=${mc}#Intent;scheme=upi;package=in.amazon.mShop.android.shopping;S.browser_fallback_url=${encodeURIComponent('https://play.google.com/store/apps/details?id=in.amazon.mShop.android.shopping')};end`;
                 }
             } else if (isIOS) {
                 if (method === 'gpay') {
-                    return `gpay://upi/pay?pa=${pa}&pn=${pn}&am=${amtStr}&cu=INR&tn=${tn}`;
+                    return `gpay://upi/pay?pa=${pa}&pn=${pn}&am=${amtStr}&cu=INR&tn=${tn}&tr=${tr}&mc=${mc}`;
                 }
                 if (method === 'phonepe') {
-                    return `phonepe://pay?pa=${pa}&pn=${pn}&am=${amtStr}&cu=INR&tn=${tn}`;
+                    return `phonepe://pay?pa=${pa}&pn=${pn}&am=${amtStr}&cu=INR&tn=${tn}&tr=${tr}&mc=${mc}`;
                 }
                 if (method === 'paytm') {
-                    return `paytmmp://pay?pa=${pa}&pn=${pn}&am=${amtStr}&cu=INR&tn=${tn}`;
+                    return `paytmmp://pay?pa=${pa}&pn=${pn}&am=${amtStr}&cu=INR&tn=${tn}&tr=${tr}&mc=${mc}`;
                 }
                 if (method === 'bhim') {
-                    return `bhim://upi/pay?pa=${pa}&pn=${pn}&am=${amtStr}&cu=INR&tn=${tn}`;
+                    return `bhim://upi/pay?pa=${pa}&pn=${pn}&am=${amtStr}&cu=INR&tn=${tn}&tr=${tr}&mc=${mc}`;
                 }
                 if (method === 'amazonpay') {
-                    return `amazonpay://upi/pay?pa=${pa}&pn=${pn}&am=${amtStr}&cu=INR&tn=${tn}`;
+                    return `amazonpay://upi/pay?pa=${pa}&pn=${pn}&am=${amtStr}&cu=INR&tn=${tn}&tr=${tr}&mc=${mc}`;
                 }
             }
             return genericUpi;
@@ -1997,7 +1999,16 @@ if ($isLoggedIn) {
                         <i class="fab fa-amazon" title="Amazon Pay" style="color: #ff9900;"></i>
                     </div>
 
-                    ${appButtonHtml}
+                                        <div style="margin: 10px 0; background: #fffbeb; border: 1px solid #fde68a; border-radius: 10px; padding: 10px 12px; font-size: 0.78rem; color: #92400e; text-align: left; line-height: 1.4;">
+                        <strong><i class="fas fa-info-circle"></i> Bank Limit / "Exceeded limit" note:</strong><br>
+                        If your UPI app shows <em>"Exceeded bank limit"</em>, this is an automated bank security block when sending to your own UPI account or over web links.
+                        <div style="margin-top: 4px; display: flex; flex-wrap: wrap; gap: 6px;">
+                            <span>👉 Try <strong>PhonePe</strong>, <strong>Paytm</strong>, or <strong>Amazon Pay</strong></span> • 
+                            <span>👉 Or scan the <strong>QR Code</strong> below</span> • 
+                            <span>👉 Or choose <strong>Cash on Delivery (COD)</strong></span>
+                        </div>
+                    </div>
+${appButtonHtml}
                     ${amountStrip}
                     ${merchantAccounts}
                     ${secureNote}

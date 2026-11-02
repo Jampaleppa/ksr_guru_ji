@@ -197,21 +197,47 @@ if (!$doctor) {
     <div class="upi-expansion" id="upi-box" style="display:block;">
         <div style="text-align:center; margin-bottom:20px;">
             <div style="font-weight:800; color:var(--clr-primary-dark); font-size:1.1rem; margin-bottom:4px;">Scan QR Code to Pay ₹<?php echo number_format($totalFee, 2); ?></div>
-            <div style="font-size:0.85rem; color:var(--clr-text-secondary); margin-bottom:14px;">Open your favorite UPI app & scan the QR code below</div>
+            <div style="font-size:0.85rem; color:var(--clr-text-secondary); margin-bottom:14px;">Open Google Pay, PhonePe, Paytm, or BHIM & scan the QR code</div>
             
             <div style="display:inline-block; padding:12px; background:white; border-radius:16px; border:2px solid #E2E8F0; box-shadow:0 8px 24px rgba(0,0,0,0.06);">
-                <img src="QR.png" alt="KSR GURU JI UPI QR Code" style="width:210px; height:210px; object-fit:contain; display:block; border-radius:8px;" onerror="this.src='/QR.png';">
+                <img src="QR.png" alt="KSR GURU JI UPI QR Code" style="width:210px; height:210px; object-fit:contain; display:block; border-radius:8px;" onerror="this.src='/images/ksr_upi_qr.png';">
             </div>
             
-            <div style="margin-top:12px;">
-                <a href="upi://pay?pa=jyampallepparathod-1@oksbi&pn=KSR%20GURU%20JI&am=<?php echo $totalFee; ?>&cu=INR" class="btn-pay" style="display:inline-flex; width:auto; padding:10px 22px; font-size:0.9rem; background:#4338CA; color:white; border-radius:50px; text-decoration:none; box-shadow:0 4px 14px rgba(67,56,202,0.3);">
-                    <i class="fas fa-bolt"></i> Tap to Open UPI App
-                </a>
+            <!-- 1-Click UPI App Launchers for Mobile -->
+            <div style="margin-top:16px;">
+                <div style="font-size:0.8rem; font-weight:700; color:#475569; margin-bottom:8px;">Or tap any app to pay directly:</div>
+                <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(130px, 1fr)); gap:8px; max-width:440px; margin:0 auto;">
+                    <a href="intent://pay?pa=jyampallepparathod-1@oksbi&pn=KSR%20GURU%20JI&am=<?php echo $totalFee; ?>&cu=INR&tn=Doctor%20Consultation%20Fee&mc=8011#Intent;scheme=upi;package=com.google.android.apps.nbu.paisa.user;end" 
+                       style="display:flex; align-items:center; justify-content:center; gap:6px; background:#4285F4; color:white; padding:10px 12px; border-radius:10px; font-weight:700; font-size:0.82rem; text-decoration:none; box-shadow:0 2px 6px rgba(66,133,244,0.3);">
+                        <i class="fab fa-google-pay" style="font-size:1.1rem;"></i> Google Pay
+                    </a>
+                    <a href="intent://pay?pa=9590902742@axl&pn=KSR%20GURU%20JI&am=<?php echo $totalFee; ?>&cu=INR&tn=Doctor%20Consultation%20Fee&mc=8011#Intent;scheme=upi;package=com.phonepe.app;end" 
+                       style="display:flex; align-items:center; justify-content:center; gap:6px; background:#5F259F; color:white; padding:10px 12px; border-radius:10px; font-weight:700; font-size:0.82rem; text-decoration:none; box-shadow:0 2px 6px rgba(95,37,159,0.3);">
+                        <i class="fas fa-mobile-alt"></i> PhonePe
+                    </a>
+                    <a href="intent://pay?pa=9590902742@ptyes&pn=KSR%20GURU%20JI&am=<?php echo $totalFee; ?>&cu=INR&tn=Doctor%20Consultation%20Fee&mc=8011#Intent;scheme=upi;package=net.one97.paytm;end" 
+                       style="display:flex; align-items:center; justify-content:center; gap:6px; background:#00BAF2; color:white; padding:10px 12px; border-radius:10px; font-weight:700; font-size:0.82rem; text-decoration:none; box-shadow:0 2px 6px rgba(0,186,242,0.3);">
+                        <i class="fas fa-wallet"></i> Paytm
+                    </a>
+                    <a href="intent://pay?pa=8088584421@apl&pn=KSR%20GURU%20JI&am=<?php echo $totalFee; ?>&cu=INR&tn=Doctor%20Consultation%20Fee&mc=8011#Intent;scheme=upi;package=in.amazon.mShop.android.shopping;end" 
+                       style="display:flex; align-items:center; justify-content:center; gap:6px; background:#FF9900; color:white; padding:10px 12px; border-radius:10px; font-weight:700; font-size:0.82rem; text-decoration:none; box-shadow:0 2px 6px rgba(255,153,0,0.3);">
+                        <i class="fab fa-amazon"></i> Amazon Pay
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bank Limit Notice Banner -->
+        <div style="margin:14px 0; background:#FFFBEB; border:1px solid #FDE68A; border-radius:10px; padding:12px; font-size:0.8rem; color:#92400E; text-align:left; line-height:1.45;">
+            <strong><i class="fas fa-info-circle"></i> Seeing "Exceeded bank limit" in Google Pay?</strong><br>
+            If your bank displays an <em>"exceeded limit"</em> warning, this happens when paying an account linked to the same phone/owner.
+            <div style="margin-top:4px;">
+                💡 <strong>Quick Fix:</strong> Tap <strong>PhonePe</strong> or <strong>Paytm</strong> above, scan the <strong>QR Code</strong>, or choose <strong>Pay on Visit</strong> below.
             </div>
         </div>
 
         <div style="border-top:1px dashed #CBD5E1; padding-top:16px;">
-            <div style="font-size:0.85rem; font-weight:800; color:var(--clr-text-secondary); margin-bottom:12px; text-transform:uppercase; letter-spacing:0.5px;">Registered UPI IDs:</div>
+            <div style="font-size:0.85rem; font-weight:800; color:var(--clr-text-secondary); margin-bottom:12px; text-transform:uppercase; letter-spacing:0.5px;">Registered Merchant UPI IDs:</div>
             
             <!-- UPI ID 1 -->
             <div style="background:#F8FAFC; border:1px solid #E2E8F0; border-radius:12px; padding:12px 14px; display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; gap:8px;">
@@ -224,10 +250,32 @@ if (!$doctor) {
                 </button>
             </div>
 
-            <!-- UPI ID 2 -->
+            <!-- UPI ID 2: PhonePe -->
+            <div style="background:#F8FAFC; border:1px solid #E2E8F0; border-radius:12px; padding:12px 14px; display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; gap:8px;">
+                <div>
+                    <span style="font-size:0.75rem; color:#64748B; font-weight:600; display:block;">PhonePe / Axis UPI</span>
+                    <strong style="font-family:monospace; font-size:1rem; color:#0F172A;" id="upi-val-3">9590902742@axl</strong>
+                </div>
+                <button type="button" onclick="copyUPI('9590902742@axl', this)" style="border:none; background:#E2E8F0; color:#0F172A; padding:7px 14px; border-radius:8px; font-weight:800; font-size:0.85rem; cursor:pointer; display:flex; align-items:center; gap:6px;">
+                    <i class="fas fa-copy"></i> Copy
+                </button>
+            </div>
+
+            <!-- UPI ID 3: Paytm -->
+            <div style="background:#F8FAFC; border:1px solid #E2E8F0; border-radius:12px; padding:12px 14px; display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; gap:8px;">
+                <div>
+                    <span style="font-size:0.75rem; color:#64748B; font-weight:600; display:block;">Paytm UPI</span>
+                    <strong style="font-family:monospace; font-size:1rem; color:#0F172A;" id="upi-val-4">9590902742@ptyes</strong>
+                </div>
+                <button type="button" onclick="copyUPI('9590902742@ptyes', this)" style="border:none; background:#E2E8F0; color:#0F172A; padding:7px 14px; border-radius:8px; font-weight:800; font-size:0.85rem; cursor:pointer; display:flex; align-items:center; gap:6px;">
+                    <i class="fas fa-copy"></i> Copy
+                </button>
+            </div>
+
+            <!-- UPI ID 4: Amazon Pay -->
             <div style="background:#F8FAFC; border:1px solid #E2E8F0; border-radius:12px; padding:12px 14px; display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; gap:8px;">
                 <div>
-                    <span style="font-size:0.75rem; color:#64748B; font-weight:600; display:block;">Owner UPI (Amazon Pay / Axis)</span>
+                    <span style="font-size:0.75rem; color:#64748B; font-weight:600; display:block;">Owner UPI (Amazon Pay)</span>
                     <strong style="font-family:monospace; font-size:1rem; color:#0F172A;" id="upi-val-2">8088584421@apl</strong>
                 </div>
                 <button type="button" onclick="copyUPI('8088584421@apl', this)" style="border:none; background:#E2E8F0; color:#0F172A; padding:7px 14px; border-radius:8px; font-weight:800; font-size:0.85rem; cursor:pointer; display:flex; align-items:center; gap:6px;">

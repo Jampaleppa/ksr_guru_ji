@@ -150,6 +150,12 @@ function ensureOrderTable(PDO $pdo): void
         KEY idx_po_phone (customer_phone)
       ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4"
     );
+    try {
+      $pdo->query("ALTER TABLE pharmacy_orders ADD COLUMN payment_method VARCHAR(40) DEFAULT 'cod'");
+    } catch (Throwable $e) {}
+    try {
+      $pdo->query("ALTER TABLE pharmacy_orders ADD COLUMN payment_txn VARCHAR(100) NULL");
+    } catch (Throwable $e) {}
   } catch (Throwable $ex) {
     /* table already exists or read-only filesystem — queries below will report */
   }
@@ -592,6 +598,9 @@ if ($route === 'checkout' && $_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['d
   $phone = preg_replace('/\D+/', '', (string)($_POST['phone'] ?? ''));
   $addr  = trim((string)($_POST['address'] ?? ''));
   $note  = trim((string)($_POST['note'] ?? ''));
+  $paymentMethod = trim((string)($_POST['payment_method'] ?? 'cod'));
+  $paymentTxn    = trim((string)($_POST['payment_txn'] ?? ''));
+  if ($paymentMethod === '') $paymentMethod = 'cod';
   $lat   = ($_POST['lat'] ?? '') !== '' ? (float)$_POST['lat'] : null;
   $lng   = ($_POST['lng'] ?? '') !== '' ? (float)$_POST['lng'] : null;
   $acc   = ($_POST['acc'] ?? '') !== '' ? (float)$_POST['acc'] : null;
@@ -663,34 +672,79 @@ if ($route === 'checkout' && $_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['d
     $itemsTxt = itemsToText($cart['rows']);
     $code     = makeOrderCode($pdo);
 
-    $st = $pdo->prepare(
-      "INSERT INTO pharmacy_orders
-        (order_code, customer_name, customer_phone, address_text,
-         latitude, longitude, accuracy_m, maps_url,
-         items_json, items_text, subtotal, delivery, total,
-         needs_rx, rx_file, customer_note, status)
-       VALUES
-        (:code, :nm, :ph, :ad, :lat, :lng, :acc, :maps,
-         :ij, :it, :sub, :dl, :tot, :rx, :rxf, :note, 'pending')"
-    );
-    $st->execute([
-      ':code' => $code,
-      ':nm' => $name,
-      ':ph' => $phone,
-      ':ad' => $addr,
-      ':lat' => $lat,
-      ':lng' => $lng,
-      ':acc' => $acc,
-      ':maps' => $mapsUrl,
-      ':ij' => json_encode($cart['rows'], JSON_UNESCAPED_UNICODE),
-      ':it' => $itemsTxt,
-      ':sub' => $cart['subtotal'],
-      ':dl' => $delivery,
-      ':tot' => $total,
-      ':rx' => $cart['needs_rx'] ? 1 : 0,
-      ':rxf' => $rxFile,
-      ':note' => $note !== '' ? mb_substr($note, 0, 500) : null,
-    ]);
+    $hasPaymentCols = false;
+    try {
+      $stCheck = $pdo->query("SELECT payment_method FROM pharmacy_orders LIMIT 1");
+      if ($stCheck !== false) $hasPaymentCols = true;
+    } catch (Throwable $e) {
+      try {
+        $pdo->query("ALTER TABLE pharmacy_orders ADD COLUMN payment_method VARCHAR(40) DEFAULT 'cod'");
+        $pdo->query("ALTER TABLE pharmacy_orders ADD COLUMN payment_txn VARCHAR(100) NULL");
+        $hasPaymentCols = true;
+      } catch (Throwable $e2) {}
+    }
+
+    if ($hasPaymentCols) {
+      $st = $pdo->prepare(
+        "INSERT INTO pharmacy_orders
+          (order_code, customer_name, customer_phone, address_text,
+           latitude, longitude, accuracy_m, maps_url,
+           items_json, items_text, subtotal, delivery, total,
+           needs_rx, rx_file, customer_note, status, payment_method, payment_txn)
+         VALUES
+          (:code, :nm, :ph, :ad, :lat, :lng, :acc, :maps,
+           :ij, :it, :sub, :dl, :tot, :rx, :rxf, :note, 'pending', :pm, :ptxn)"
+      );
+      $st->execute([
+        ':code' => $code,
+        ':nm' => $name,
+        ':ph' => $phone,
+        ':ad' => $addr,
+        ':lat' => $lat,
+        ':lng' => $lng,
+        ':acc' => $acc,
+        ':maps' => $mapsUrl,
+        ':ij' => json_encode($cart['rows'], JSON_UNESCAPED_UNICODE),
+        ':it' => $itemsTxt,
+        ':sub' => $cart['subtotal'],
+        ':dl' => $delivery,
+        ':tot' => $total,
+        ':rx' => $cart['needs_rx'] ? 1 : 0,
+        ':rxf' => $rxFile,
+        ':note' => $note !== '' ? mb_substr($note, 0, 500) : null,
+        ':pm' => $paymentMethod,
+        ':ptxn' => $paymentTxn !== '' ? $paymentTxn : null,
+      ]);
+    } else {
+      $st = $pdo->prepare(
+        "INSERT INTO pharmacy_orders
+          (order_code, customer_name, customer_phone, address_text,
+           latitude, longitude, accuracy_m, maps_url,
+           items_json, items_text, subtotal, delivery, total,
+           needs_rx, rx_file, customer_note, status)
+         VALUES
+          (:code, :nm, :ph, :ad, :lat, :lng, :acc, :maps,
+           :ij, :it, :sub, :dl, :tot, :rx, :rxf, :note, 'pending')"
+      );
+      $st->execute([
+        ':code' => $code,
+        ':nm' => $name,
+        ':ph' => $phone,
+        ':ad' => $addr,
+        ':lat' => $lat,
+        ':lng' => $lng,
+        ':acc' => $acc,
+        ':maps' => $mapsUrl,
+        ':ij' => json_encode($cart['rows'], JSON_UNESCAPED_UNICODE),
+        ':it' => $itemsTxt,
+        ':sub' => $cart['subtotal'],
+        ':dl' => $delivery,
+        ':tot' => $total,
+        ':rx' => $cart['needs_rx'] ? 1 : 0,
+        ':rxf' => $rxFile,
+        ':note' => $note !== '' ? mb_substr($note, 0, 500) : null,
+      ]);
+    }
 
     $_SESSION['cart'] = [];
     $_SESSION['last_order'] = $code;
@@ -700,7 +754,9 @@ if ($route === 'checkout' && $_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['d
       'maps' => $mapsUrl,
       'count' => $cart['count'],
       'accuracy_m' => $acc,
-      'rx_file' => $rxFile
+      'rx_file' => $rxFile,
+      'payment_method' => $paymentMethod,
+      'payment_txn' => $paymentTxn
     ];
 
     $waText = whatsappText(
@@ -3317,6 +3373,9 @@ function invoiceUrl(string $code): string
               Send the order on WhatsApp so the pharmacist can verify your prescription.
             </p>
             <div class="tabscount">💊 Total tablets ordered: <?= (int)$placed['count'] ?></div>
+            <div style="margin-top:10px; font-size:0.85rem; font-weight:700; color:#0F766E;">
+              Payment Method: <?= ($placed['payment_method'] ?? 'cod') === 'upi' ? '📱 Instant UPI / Online' : '💵 Cash on Delivery (COD)' ?>
+            </div>
           </div>
 
           <?php if ($waLink): ?>
@@ -3486,6 +3545,106 @@ function invoiceUrl(string $code): string
                   placeholder="e.g. Please call before delivery">
               </div>
             </div>
+
+            <!-- PAYMENT METHOD SELECTION -->
+            <div style="margin-top:20px; border-top:1px dashed #CBD5E1; padding-top:18px;">
+              <h3 style="font-size:1.05rem; font-weight:800; color:#0F172A; margin:0 0 12px 0;">
+                💳 Select Payment Method
+              </h3>
+              
+              <!-- Option 1: Cash on Delivery -->
+              <label style="display:flex; align-items:flex-start; gap:12px; background:#F0FDF4; border:2px solid #0D9488; border-radius:12px; padding:14px; margin-bottom:10px; cursor:pointer; transition:0.2s;" id="label-cod">
+                <input type="radio" name="payment_method" value="cod" checked onchange="toggleTabletPayment('cod')" style="margin-top:3px; accent-color:#0D9488;">
+                <div style="flex:1;">
+                  <div style="font-weight:800; font-size:0.95rem; color:#0F172A;">💵 Cash on Delivery (COD)</div>
+                  <div style="font-size:0.8rem; color:#64748B;">Pay with cash to delivery partner (JK) upon doorstep delivery</div>
+                </div>
+              </label>
+
+              <!-- Option 2: Instant UPI Payment -->
+              <label style="display:flex; align-items:flex-start; gap:12px; background:#F8FAFC; border:2px solid #CBD5E1; border-radius:12px; padding:14px; margin-bottom:10px; cursor:pointer; transition:0.2s;" id="label-upi">
+                <input type="radio" name="payment_method" value="upi" onchange="toggleTabletPayment('upi')" style="margin-top:3px; accent-color:#0D9488;">
+                <div style="flex:1;">
+                  <div style="font-weight:800; font-size:0.95rem; color:#0F172A;">📱 Instant UPI / QR Code Payment</div>
+                  <div style="font-size:0.8rem; color:#64748B;">Google Pay • PhonePe • Paytm • BHIM • Amazon Pay</div>
+                </div>
+              </label>
+
+              <!-- UPI Drawer -->
+              <div id="tablet-upi-panel" style="display:none; background:#FFFFFF; border:2px solid #0D9488; border-radius:12px; padding:16px; margin-bottom:14px;">
+                <div style="text-align:center; margin-bottom:16px;">
+                  <div style="font-weight:800; font-size:0.95rem; color:#0F766E; margin-bottom:4px;">
+                    Scan QR Code to Pay ₹<?= number_format($cart['subtotal'] + DELIVERY_FEE, 2) ?>
+                  </div>
+                  <div style="display:inline-block; padding:8px; background:#FFF; border:1.5px solid #0D9488; border-radius:12px; box-shadow:0 4px 12px rgba(13,148,136,0.12);">
+                    <img src="/images/ksr_upi_qr.png" alt="UPI QR Code" style="width:170px; height:170px; object-fit:contain; border-radius:8px; display:block;" onerror="this.src='/QR.png';">
+                  </div>
+                  
+                  <div style="margin-top:12px;">
+                    <div style="font-size:0.78rem; font-weight:700; color:#475569; margin-bottom:6px;">Tap any app to pay directly:</div>
+                    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(120px, 1fr)); gap:6px; max-width:380px; margin:0 auto;">
+                      <a href="intent://pay?pa=jyampallepparathod-1@oksbi&pn=KSR%20GURU%20JI&am=<?= $cart['subtotal'] + DELIVERY_FEE ?>&cu=INR&tn=Pharmacy%20Medicines%20Payment&mc=5912#Intent;scheme=upi;package=com.google.android.apps.nbu.paisa.user;end" 
+                         style="display:flex; align-items:center; justify-content:center; gap:5px; background:#4285F4; color:white; padding:8px 10px; border-radius:8px; font-weight:700; font-size:0.78rem; text-decoration:none;">
+                        Google Pay
+                      </a>
+                      <a href="intent://pay?pa=9590902742@axl&pn=KSR%20GURU%20JI&am=<?= $cart['subtotal'] + DELIVERY_FEE ?>&cu=INR&tn=Pharmacy%20Medicines%20Payment&mc=5912#Intent;scheme=upi;package=com.phonepe.app;end" 
+                         style="display:flex; align-items:center; justify-content:center; gap:5px; background:#5F259F; color:white; padding:8px 10px; border-radius:8px; font-weight:700; font-size:0.78rem; text-decoration:none;">
+                        PhonePe
+                      </a>
+                      <a href="intent://pay?pa=9590902742@ptyes&pn=KSR%20GURU%20JI&am=<?= $cart['subtotal'] + DELIVERY_FEE ?>&cu=INR&tn=Pharmacy%20Medicines%20Payment&mc=5912#Intent;scheme=upi;package=net.one97.paytm;end" 
+                         style="display:flex; align-items:center; justify-content:center; gap:5px; background:#00BAF2; color:white; padding:8px 10px; border-radius:8px; font-weight:700; font-size:0.78rem; text-decoration:none;">
+                        Paytm
+                      </a>
+                      <a href="intent://pay?pa=8088584421@apl&pn=KSR%20GURU%20JI&am=<?= $cart['subtotal'] + DELIVERY_FEE ?>&cu=INR&tn=Pharmacy%20Medicines%20Payment&mc=5912#Intent;scheme=upi;package=in.amazon.mShop.android.shopping;end" 
+                         style="display:flex; align-items:center; justify-content:center; gap:5px; background:#FF9900; color:white; padding:8px 10px; border-radius:8px; font-weight:700; font-size:0.78rem; text-decoration:none;">
+                        Amazon Pay
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Bank Limit Note -->
+                <div style="margin:10px 0; background:#FFFBEB; border:1px solid #FDE68A; border-radius:8px; padding:10px; font-size:0.76rem; color:#92400E; line-height:1.4;">
+                  <strong><i class="fas fa-info-circle"></i> Bank Limit Warning?</strong><br>
+                  If Google Pay shows <em>"Exceeded bank limit"</em>, this is an automated self-transfer block.
+                  Tap <strong>PhonePe</strong>, <strong>Paytm</strong>, or select <strong>Cash on Delivery</strong> instead.
+                </div>
+
+                <div style="font-size:0.78rem; font-weight:700; color:#475569; margin-bottom:6px;">Registered UPI IDs:</div>
+                <div style="display:flex; align-items:center; justify-content:space-between; background:#F8FAFC; border:1px solid #E2E8F0; border-radius:8px; padding:8px 12px; margin-bottom:6px;">
+                  <span style="font-family:monospace; font-weight:700; font-size:0.85rem; color:#0F172A;">jyampallepparathod-1@oksbi</span>
+                  <button type="button" onclick="navigator.clipboard.writeText('jyampallepparathod-1@oksbi'); alert('Copied SBI UPI ID');" style="border:1px solid #CBD5E1; background:white; padding:4px 10px; border-radius:6px; font-size:0.75rem; font-weight:700; cursor:pointer;">Copy</button>
+                </div>
+                <div style="display:flex; align-items:center; justify-content:space-between; background:#F8FAFC; border:1px solid #E2E8F0; border-radius:8px; padding:8px 12px; margin-bottom:10px;">
+                  <span style="font-family:monospace; font-weight:700; font-size:0.85rem; color:#0F172A;">9590902742@axl</span>
+                  <button type="button" onclick="navigator.clipboard.writeText('9590902742@axl'); alert('Copied PhonePe UPI ID');" style="border:1px solid #CBD5E1; background:white; padding:4px 10px; border-radius:6px; font-size:0.75rem; font-weight:700; cursor:pointer;">Copy</button>
+                </div>
+
+                <label for="payment_txn" style="font-size:0.78rem; font-weight:700; color:#475569; display:block; margin-bottom:4px;">UPI Reference / UTR Number (Optional)</label>
+                <input type="text" id="payment_txn" name="payment_txn" placeholder="12-digit UTR from your payment app" maxlength="50" style="width:100%; padding:10px; border:1px solid #CBD5E1; border-radius:8px; font-size:0.85rem;">
+              </div>
+            </div>
+
+            <script>
+            function toggleTabletPayment(m) {
+              var p = document.getElementById('tablet-upi-panel');
+              var lCod = document.getElementById('label-cod');
+              var lUpi = document.getElementById('label-upi');
+              if (m === 'upi') {
+                p.style.display = 'block';
+                lUpi.style.borderColor = '#0D9488';
+                lUpi.style.background = '#F0FDF4';
+                lCod.style.borderColor = '#CBD5E1';
+                lCod.style.background = '#F8FAFC';
+              } else {
+                p.style.display = 'none';
+                lCod.style.borderColor = '#0D9488';
+                lCod.style.background = '#F0FDF4';
+                lUpi.style.borderColor = '#CBD5E1';
+                lUpi.style.background = '#F8FAFC';
+              }
+            }
+            </script>
 
             <button type="submit" class="btn btn-primary btn-block" style="margin-top:18px;padding:15px">
               ✅ Place order &amp; notify owner (<?= e(SHOP_PHONE) ?>)
