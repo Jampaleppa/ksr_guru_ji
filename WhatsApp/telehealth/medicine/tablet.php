@@ -507,7 +507,9 @@ function whatsappText(
   bool $rx,
   float $total,
   ?float $acc = null,
-  ?string $rxFile = null
+  ?string $rxFile = null,
+  string $payMethod = 'cod',
+  ?string $payTxn = null
 ): string {
   $invUrl  = invoiceUrl($code);
   $lines   = [];
@@ -523,6 +525,10 @@ function whatsappText(
   $lines[] = 'Subtotal: ₹' . number_format($cart['subtotal'], 2);
   $lines[] = 'Delivery: ₹' . number_format(DELIVERY_FEE, 2);
   $lines[] = '*Grand Total: ₹' . number_format($total, 2) . '*';
+  $lines[] = 'Payment Method: *' . (($payMethod === 'upi') ? 'Instant UPI / Online' : 'Cash on Delivery (COD)') . '*';
+  if ($payMethod === 'upi' && !empty($payTxn)) {
+    $lines[] = 'UPI Ref/UTR: *' . $payTxn . '*';
+  }
   $lines[] = "";
   $lines[] = 'Prescription: ' . ($rx ? ($rxFile ? 'ATTACHED & VERIFIED ✓' : 'REQUIRED — photo/PDF submitted') : 'Not required');
   $lines[] = 'Delivery Address: ' . $addr;
@@ -547,7 +553,9 @@ function deliveryBoyWhatsAppText(
   array $cartRows,
   ?float $acc,
   ?string $rxFile,
-  float $total
+  float $total,
+  string $payMethod = 'cod',
+  ?string $payTxn = null
 ): string {
   $invUrl  = invoiceUrl($code);
   $totalTabs = 0;
@@ -576,7 +584,14 @@ function deliveryBoyWhatsAppText(
     $lines[] = "Prescription: Verified & Attached";
   }
   $lines[] = "";
-  $lines[] = "Collect *₹" . number_format($total, 2) . "* from customer.";
+  if ($payMethod === 'upi') {
+    $lines[] = "💳 *PAID VIA UPI / ONLINE* — DO NOT collect cash from customer.";
+    if (!empty($payTxn)) {
+      $lines[] = "UPI Ref/UTR: {$payTxn}";
+    }
+  } else {
+    $lines[] = "💵 *Cash on Delivery* — Collect *₹" . number_format($total, 2) . "* from customer.";
+  }
   $lines[] = "";
   $lines[] = "📄 *Invoice copy:* " . $invUrl;
   $lines[] = "";
@@ -770,7 +785,9 @@ if ($route === 'checkout' && $_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['d
       $cart['needs_rx'],
       (float)$placed['total'],
       $acc,
-      $rxFile
+      $rxFile,
+      $paymentMethod,
+      $paymentTxn
     );
     $waLink = 'https://wa.me/' . SHOP_WHATSAPP . '?text=' . rawurlencode($waText);
 
@@ -783,7 +800,9 @@ if ($route === 'checkout' && $_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['d
       $cart['rows'],
       $acc,
       $rxFile,
-      (float)$placed['total']
+      (float)$placed['total'],
+      $paymentMethod,
+      $paymentTxn
     );
     $deliveryWaLink = 'https://wa.me/' . DELIVERY_WHATSAPP . '?text=' . rawurlencode($deliveryWaText);
   }
@@ -3376,6 +3395,20 @@ function invoiceUrl(string $code): string
             <div style="margin-top:10px; font-size:0.85rem; font-weight:700; color:#0F766E;">
               Payment Method: <?= ($placed['payment_method'] ?? 'cod') === 'upi' ? '📱 Instant UPI / Online' : '💵 Cash on Delivery (COD)' ?>
             </div>
+            <?php if (($placed['payment_method'] ?? 'cod') === 'upi'): ?>
+              <div style="background:#F0FDF4; border:1px solid #BBF7D0; border-radius:10px; padding:12px; margin-top:12px; text-align:left; font-size:0.85rem; color:#166534;">
+                <strong><i class="fas fa-check-circle"></i> UPI Payment Recorded</strong><br>
+                Please tap <strong>Send order to medical shop</strong> below so the pharmacist receives your order and matches your UPI payment.
+                <?php if (!empty($placed['payment_txn'])): ?>
+                  <div style="margin-top:6px; font-family:monospace; background:white; padding:4px 8px; border-radius:6px; display:inline-block;">UTR / Ref: <strong><?= e($placed['payment_txn']) ?></strong></div>
+                <?php endif; ?>
+              </div>
+            <?php else: ?>
+              <div style="background:#FEF3C7; border:1px solid #FDE68A; border-radius:10px; padding:12px; margin-top:12px; text-align:left; font-size:0.85rem; color:#92400E;">
+                <strong><i class="fas fa-money-bill-wave"></i> Cash on Delivery (COD)</strong><br>
+                Please keep <strong>₹<?= number_format((float)$placed['total'], 2) ?></strong> cash ready at the time of delivery.
+              </div>
+            <?php endif; ?>
           </div>
 
           <?php if ($waLink): ?>
