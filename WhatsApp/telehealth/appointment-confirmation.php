@@ -30,6 +30,19 @@ if (!$doctor) {
     $doctor = ['doctor_name' => $docNameFallback];
 }
 
+// Persist consultation record to database
+try {
+    $consultDateStr = date('Y-m-d H:i:s', strtotime($appDate . ' ' . $appTime));
+    if (!$consultDateStr || $consultDateStr === '1970-01-01 00:00:00') {
+        $consultDateStr = date('Y-m-d H:i:s');
+    }
+    $consultNotes = "Appointment: {$appointId} | Patient: {$patientName} ({$patientMobile}) | Method: {$paymentMethod} | Txn: {$txnId} | Total: ₹" . number_format($totalFee, 2);
+    $stmtConsult = $pdo->prepare("INSERT INTO consultations (doctor_id, type, status, consultation_date, notes) VALUES (?, ?, 'scheduled', ?, ?)");
+    $stmtConsult->execute([(int)$docId, ucfirst($consultType), $consultDateStr, $consultNotes]);
+} catch (\Throwable $dbErr) {
+    error_log('[appointment-confirmation DB] ' . $dbErr->getMessage());
+}
+
 $patientMobile = !empty($_POST['patient_mobile']) ? trim((string)$_POST['patient_mobile']) : (!empty($_SESSION['user_mobile']) ? $_SESSION['user_mobile'] : '6362079192');
 
 // ── WhatsApp appointment confirmation ─────────────────────────────────

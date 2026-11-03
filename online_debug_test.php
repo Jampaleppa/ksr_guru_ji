@@ -231,6 +231,26 @@ foreach ($targets as $envName => $baseUrl) {
         ]
     ]);
 
+    // ── TEST 10: Doctor Appointment Booking & Confirmation Flow
+    $res = runReq($baseUrl . '/WhatsApp/telehealth/appointment-confirmation.php', [
+        'post' => [
+            'doc_id' => 1,
+            'type' => 'video',
+            'date' => '2026-11-05',
+            'time' => '10:30 AM',
+            'amount' => '140.00',
+            'patient_name' => 'Online Tester',
+            'patient_mobile' => '8088584421',
+            'payment_method' => 'UPI',
+            'txn_id' => 'TEST-UPI-' . time()
+        ]
+    ], $cookieFile);
+    $assert('10. Appointment Confirmation & DB Persistence Flow', $res, [
+        'status' => 200,
+        'contains' => ['Appointment Confirmed', 'UPI Payment'],
+        'not_contains' => ['Fatal error:', 'Parse error:']
+    ]);
+
     // ── TEST 9: Telehealth Order Creation API (Cross-DB Verification)
     $res = runReq($baseUrl . '/WhatsApp/telehealth/api_place_order.php', [
         'post' => [
