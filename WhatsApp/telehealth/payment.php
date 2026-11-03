@@ -374,7 +374,7 @@ if (!$doctor) {
                 box.style.borderBottomLeftRadius = '0';
                 box.style.borderBottomRightRadius = '0';
                 document.getElementById('upi-box').style.display = 'block';
-                document.getElementById('form-pay-method').value = 'UPI (jyampallepparathod-1@oksbi)';
+                document.getElementById('form-pay-method').value = 'UPI';
                 document.getElementById('main-pay-btn').innerHTML = '🔒 Confirm UPI Payment — ₹<?php echo number_format($totalFee, 2); ?>';
             } else if (method === 'cod') {
                 document.getElementById('form-pay-method').value = 'Cash and Delivery';
