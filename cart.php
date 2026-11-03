@@ -108,7 +108,7 @@ $waText .= "%0AKindly confirm and dispatch to Delivery Boy: 8088584421 (Primary)
     <!-- Google Fonts: Inter + Poppins -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/index.css?v=1.5" />
-    <link rel="stylesheet" href="/cart-checkout.css?v=1.1" />
+    <link rel="stylesheet" href="/cart-checkout.css?v=1.2" />
 
     <style>
         :root {

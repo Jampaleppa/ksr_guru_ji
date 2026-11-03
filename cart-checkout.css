@@ -479,6 +479,9 @@ body {
 }
 
 @media (max-width: 480px) {
+    .cart-title {
+        font-size: 1.3rem !important;
+    }
     .form-row-2 {
         grid-template-columns: 1fr;
     }
@@ -1575,6 +1578,11 @@ body {
 
 /* ─── Mobile Viewports (320px to 767px) ─── */
 @media (max-width: 767px) {
+    .cart-title {
+        font-size: 1.5rem !important;
+        margin-top: 1rem !important;
+        margin-bottom: 1rem !important;
+    }
     body {
         overflow-x: hidden !important;
     }
@@ -1938,6 +1946,10 @@ body {
 
 /* ─── Extra Compact (<= 360px) ─── */
 @media (max-width: 360px) {
+    .cart-title {
+        font-size: 1.15rem !important;
+        gap: 8px !important;
+    }
     .checkout-wrapper {
         padding: 0 4px !important;
     }

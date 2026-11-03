@@ -717,7 +717,7 @@ if ($isLoggedIn) {
     <!-- Razorpay Checkout SDK -->
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <link rel="stylesheet" href="/index.css?v=1.5" />
-    <link rel="stylesheet" href="/cart-checkout.css?v=1.1" />
+    <link rel="stylesheet" href="/cart-checkout.css?v=1.2" />
 </head>
 
 <body>
