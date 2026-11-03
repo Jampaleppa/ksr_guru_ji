@@ -730,6 +730,9 @@ $issueDate = '05 Sep 2026';
             const formData = new FormData();
             formData.append('payment_method', currentPaymentMethod === 'cod' ? 'Cash and Delivery' : 'UPI');
             formData.append('total', liveCartTotal.toFixed(2));
+            formData.append('name', 'Jampaleppa Rathod');
+            formData.append('phone', '8088584421');
+            formData.append('address', '#42 Healthcare Layout, Main Road, Gajendragad, Karnataka - 582114');
             const refVal = document.getElementById('chk-upi-ref')
                 ? document.getElementById('chk-upi-ref').value.trim() : '';
             if (refVal) formData.append('transaction_id', refVal);

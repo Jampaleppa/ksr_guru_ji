@@ -9,31 +9,58 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 try {
     $pdo = getAssistDB();
+    $isSqlite = ($pdo->getAttribute(PDO::ATTR_DRIVER_NAME) === 'sqlite');
     
-    // Check if orders table exists, if not, create it
-    $sqlSchema = "
-    CREATE TABLE IF NOT EXISTS orders (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        order_number VARCHAR(50) NOT NULL UNIQUE,
-        user_id INT NULL,
-        name VARCHAR(100) NOT NULL,
-        email VARCHAR(100) NOT NULL,
-        phone VARCHAR(20) NOT NULL,
-        address TEXT NOT NULL,
-        city VARCHAR(100) NULL,
-        state VARCHAR(100) NULL,
-        pincode VARCHAR(10) NULL,
-        total DECIMAL(10,2) NOT NULL,
-        payment_method VARCHAR(50) NOT NULL,
-        transaction_id VARCHAR(100) NULL,
-        payment_status VARCHAR(50) DEFAULT 'pending',
-        notes TEXT NULL,
-        status VARCHAR(50) DEFAULT 'pending',
-        driver_id INT NULL,
-        delivery_boy_id INT NULL,
-        placed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-    ";
+    // Check if orders table exists, if not, create it (cross-db compatible)
+    if ($isSqlite) {
+        $sqlSchema = "
+        CREATE TABLE IF NOT EXISTS orders (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            order_number VARCHAR(50) NOT NULL UNIQUE,
+            user_id INT NULL,
+            name VARCHAR(100) NOT NULL,
+            email VARCHAR(100) NOT NULL,
+            phone VARCHAR(20) NOT NULL,
+            address TEXT NOT NULL,
+            city VARCHAR(100) NULL,
+            state VARCHAR(100) NULL,
+            pincode VARCHAR(10) NULL,
+            total DECIMAL(10,2) NOT NULL,
+            payment_method VARCHAR(50) NOT NULL,
+            transaction_id VARCHAR(100) NULL,
+            payment_status VARCHAR(50) DEFAULT 'pending',
+            notes TEXT NULL,
+            status VARCHAR(50) DEFAULT 'pending',
+            driver_id INT NULL,
+            delivery_boy_id INT NULL,
+            placed_at DATETIME DEFAULT CURRENT_TIMESTAMP
+        );
+        ";
+    } else {
+        $sqlSchema = "
+        CREATE TABLE IF NOT EXISTS orders (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            order_number VARCHAR(50) NOT NULL UNIQUE,
+            user_id INT NULL,
+            name VARCHAR(100) NOT NULL,
+            email VARCHAR(100) NOT NULL,
+            phone VARCHAR(20) NOT NULL,
+            address TEXT NOT NULL,
+            city VARCHAR(100) NULL,
+            state VARCHAR(100) NULL,
+            pincode VARCHAR(10) NULL,
+            total DECIMAL(10,2) NOT NULL,
+            payment_method VARCHAR(50) NOT NULL,
+            transaction_id VARCHAR(100) NULL,
+            payment_status VARCHAR(50) DEFAULT 'pending',
+            notes TEXT NULL,
+            status VARCHAR(50) DEFAULT 'pending',
+            driver_id INT NULL,
+            delivery_boy_id INT NULL,
+            placed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+        ";
+    }
     $pdo->exec($sqlSchema);
     
     // Generate secure order ID
@@ -46,6 +73,11 @@ try {
     }
     $payStatus = (stripos($payMethod, 'Cash') !== false || stripos($payMethod, 'COD') !== false) ? 'pending' : 'completed';
     $total = isset($_POST['total']) ? (float)$_POST['total'] : 315.00;
+
+    $custName = trim($_POST['name'] ?? ($_SESSION['user_name'] ?? 'Jampaleppa Rathod'));
+    $custEmail = trim($_POST['email'] ?? ($_SESSION['user_email'] ?? 'support@ksrguru.com'));
+    $custPhone = trim($_POST['phone'] ?? ($_SESSION['user_mobile'] ?? '8088584421'));
+    $custAddress = trim($_POST['address'] ?? '#42 Healthcare Layout, Main Road, Gajendragad');
     
     $stmt = $pdo->prepare("INSERT INTO orders (
         order_number, name, email, phone, address, total, payment_method, transaction_id, payment_status, status
@@ -53,10 +85,10 @@ try {
     
     $stmt->execute([
         $order_num,
-        'Jampaleppa Rathod', 
-        'patient@example.com', 
-        '8088584421', 
-        '#42 Healthcare Layout, Main Road, Gajendragad', 
+        $custName, 
+        $custEmail, 
+        $custPhone, 
+        $custAddress, 
         $total,
         $payMethod, 
         $txnId,
