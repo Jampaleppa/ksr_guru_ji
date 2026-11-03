@@ -274,52 +274,22 @@ $issueDate = '05 Sep 2026';
         </div>
         <?php endif; ?>
 
-        <!-- 4. Cart Mod -->
+        <!-- 4. Cart Mod — rendered from localStorage(da_pharmacy_cart) -->
         <div class="c-card">
-            <div class="c-title"><i class="fas fa-shopping-basket"></i> Your Medicines <span style="margin-left:auto; font-weight:600; font-size:0.9rem; color:var(--clr-text-secondary);">3 Items</span></div>
-            
-            <div class="cart-item">
-                <div class="ci-icon"><i class="fas fa-pills"></i></div>
-                <div class="ci-main">
-                    <div class="ci-name">Paracetamol 500 mg</div>
-                    <div class="ci-meta">Tablet · Strip of 10</div>
-                    <div class="ci-rx"><i class="fas fa-prescription"></i> Prescription Required</div>
-                    
-                    <div class="ci-price-row">
-                        <div class="ci-price">₹35</div>
-                        <div class="qty-ctrl"><button>-</button><span>1</span><button>+</button></div>
-                        <button class="btn-rem"><i class="fas fa-trash-alt"></i> Remove</button>
-                    </div>
+            <div class="c-title">
+                <i class="fas fa-shopping-basket"></i> Your Medicines
+                <span id="chk-item-count" style="margin-left:auto; font-weight:600; font-size:0.9rem; color:var(--clr-text-secondary);">Loading...</span>
+            </div>
+            <div id="chk-cart-items">
+                <div style="text-align:center; padding:32px; color:#94A3B8;">
+                    <i class="fas fa-spinner fa-spin fa-2x"></i><br>
+                    <div style="margin-top:12px; font-weight:600;">Loading cart...</div>
                 </div>
             </div>
-
-            <div class="cart-item">
-                <div class="ci-icon"><i class="fas fa-pills"></i></div>
-                <div class="ci-main">
-                    <div class="ci-name">Medicine Name 2</div>
-                    <div class="ci-meta">10 tablets · Pharma Ltd</div>
-                    <div class="ci-rx"><i class="fas fa-prescription"></i> Prescription Required</div>
-                    
-                    <div class="ci-price-row">
-                        <div class="ci-price">₹120</div>
-                        <div class="qty-ctrl"><button>-</button><span>2</span><button>+</button></div>
-                        <button class="btn-rem"><i class="fas fa-trash-alt"></i> Remove</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="cart-item">
-                <div class="ci-icon" style="color: #16A34A;"><i class="fas fa-pump-medical"></i></div>
-                <div class="ci-main">
-                    <div class="ci-name">Vitamin / OTC Product</div>
-                    <div class="ci-meta">Pack of 30 Gummies</div>
-                    
-                    <div class="ci-price-row">
-                        <div class="ci-price">₹180</div>
-                        <div class="qty-ctrl"><button>-</button><span>1</span><button>+</button></div>
-                        <button class="btn-rem"><i class="fas fa-trash-alt"></i> Remove</button>
-                    </div>
-                </div>
+            <div id="chk-empty-cart" style="display:none; text-align:center; padding:32px; color:#94A3B8;">
+                <i class="fas fa-shopping-cart fa-2x"></i><br>
+                <div style="margin-top:12px; font-weight:700;">Your cart is empty</div>
+                <a href="pharmacy.php" style="display:inline-block; margin-top:16px; background:var(--clr-primary); color:white; padding:10px 24px; border-radius:20px; font-weight:700; text-decoration:none;">Browse Medicines</a>
             </div>
         </div>
 
@@ -427,19 +397,19 @@ $issueDate = '05 Sep 2026';
                     <div style="margin-top:14px;">
                         <div style="font-size:0.8rem; font-weight:700; color:#475569; margin-bottom:6px;">Tap any app to pay directly:</div>
                         <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(110px, 1fr)); gap:6px; max-width:380px; margin:0 auto;">
-                            <a href="intent://pay?pa=jyampallepparathod-1@oksbi&pn=KSR%20GURU%20JI&am=<?php echo $total; ?>&cu=INR&tn=Pharmacy%20Order%20Payment&mc=5912#Intent;scheme=upi;package=com.google.android.apps.nbu.paisa.user;end" 
+                            <a href="intent://pay?pa=9590902742@axl&pn=KSR%20GURU%20JI&am=<?php echo $total; ?>&cu=INR&tn=Pharmacy%20Order%20Payment&tr=KSR<?php echo substr(time(),-7); ?>&mc=5912#Intent;scheme=upi;package=com.google.android.apps.nbu.paisa.user;end" id="gpay-intent-link" 
                                style="display:flex; align-items:center; justify-content:center; gap:5px; background:#4285F4; color:white; padding:8px 10px; border-radius:8px; font-weight:700; font-size:0.78rem; text-decoration:none;">
                                 <i class="fab fa-google-pay"></i> GPay
                             </a>
-                            <a href="intent://pay?pa=9590902742@axl&pn=KSR%20GURU%20JI&am=<?php echo $total; ?>&cu=INR&tn=Pharmacy%20Order%20Payment&mc=5912#Intent;scheme=upi;package=com.phonepe.app;end" 
+                            <a href="intent://pay?pa=9590902742@axl&pn=KSR%20GURU%20JI&am=<?php echo $total; ?>&cu=INR&tn=Pharmacy%20Order%20Payment&tr=KSR<?php echo substr(time(),-7); ?>&mc=5912#Intent;scheme=upi;package=com.phonepe.app;end" id="phonepe-intent-link" 
                                style="display:flex; align-items:center; justify-content:center; gap:5px; background:#5F259F; color:white; padding:8px 10px; border-radius:8px; font-weight:700; font-size:0.78rem; text-decoration:none;">
                                 <i class="fas fa-mobile-alt"></i> PhonePe
                             </a>
-                            <a href="intent://pay?pa=9590902742@ptyes&pn=KSR%20GURU%20JI&am=<?php echo $total; ?>&cu=INR&tn=Pharmacy%20Order%20Payment&mc=5912#Intent;scheme=upi;package=net.one97.paytm;end" 
+                            <a href="intent://pay?pa=9590902742@ptyes&pn=KSR%20GURU%20JI&am=<?php echo $total; ?>&cu=INR&tn=Pharmacy%20Order%20Payment&tr=KSR<?php echo substr(time(),-7); ?>&mc=5912#Intent;scheme=upi;package=net.one97.paytm;end" id="paytm-intent-link" 
                                style="display:flex; align-items:center; justify-content:center; gap:5px; background:#00BAF2; color:white; padding:8px 10px; border-radius:8px; font-weight:700; font-size:0.78rem; text-decoration:none;">
                                 <i class="fas fa-wallet"></i> Paytm
                             </a>
-                            <a href="intent://pay?pa=8088584421@apl&pn=KSR%20GURU%20JI&am=<?php echo $total; ?>&cu=INR&tn=Pharmacy%20Order%20Payment&mc=5912#Intent;scheme=upi;package=in.amazon.mShop.android.shopping;end" 
+                            <a href="intent://pay?pa=8088584421@apl&pn=KSR%20GURU%20JI&am=<?php echo $total; ?>&cu=INR&tn=Pharmacy%20Order%20Payment&tr=KSR<?php echo substr(time(),-7); ?>&mc=5912#Intent;scheme=upi;package=in.amazon.mShop.android.shopping;end" id="amazon-intent-link" 
                                style="display:flex; align-items:center; justify-content:center; gap:5px; background:#FF9900; color:white; padding:8px 10px; border-radius:8px; font-weight:700; font-size:0.78rem; text-decoration:none;">
                                 <i class="fab fa-amazon"></i> Amazon
                             </a>
@@ -448,11 +418,13 @@ $issueDate = '05 Sep 2026';
                 </div>
 
                 <!-- Bank Limit Advisory Note -->
-                <div style="margin:12px 0; background:#FFFBEB; border:1px solid #FDE68A; border-radius:8px; padding:10px 12px; font-size:0.78rem; color:#92400E; line-height:1.45;">
-                    <strong><i class="fas fa-info-circle"></i> Bank Limit / "Exceeded limit" note:</strong><br>
-                    If your bank displays an <em>"exceeded limit"</em> error in Google Pay, this is an automated self-transfer block.
-                    <div style="margin-top:3px;">
-                        👉 Tap <strong>PhonePe</strong> or <strong>Paytm</strong> above, scan the <strong>QR Code</strong>, or choose <strong>Cash on Delivery (COD)</strong> below.
+                <div style="margin:12px 0; background:#FFF7ED; border:1px solid #FED7AA; border-radius:8px; padding:10px 12px; font-size:0.78rem; color:#92400E; line-height:1.45;">
+                    <strong><i class="fas fa-exclamation-triangle"></i> ICICI / SBI Bank Limit Error?</strong><br>
+                    If Google Pay shows <em>&quot;Exceeded bank limit&quot;</em>, ICICI/SBI blocks cross-bank transfers.
+                    <div style="margin-top:4px; font-weight:600;">
+                        &#x2705; Use <strong>PhonePe</strong> (Axis VPA &mdash; ICICI-safe) &nbsp;|&nbsp;
+                        &#x2705; Use <strong>Paytm</strong> or <strong>Amazon Pay</strong> &nbsp;|&nbsp;
+                        &#x2705; Or choose <strong>Cash on Delivery</strong>
                     </div>
                 </div>
 
@@ -501,7 +473,7 @@ $issueDate = '05 Sep 2026';
                     <span id="radio-cod">○</span> Cash on Delivery (Cash and Delivery)
                     <span style="background:#FEF3C7; color:#B45309; font-size:0.75rem; padding:2px 8px; border-radius:10px; font-weight:800; margin-left:auto;">Available</span>
                 </div>
-                <div class="sb-meta" style="margin-left:20px;">Pay ₹<?php echo number_format($total, 2); ?> with cash when medicines are delivered to your doorstep.</div>
+                <div class="sb-meta" style="margin-left:20px;">Pay <span id="cod-total-display">₹0.00</span> with cash when medicines are delivered to your doorstep.</div>
             </div>
         </div>
 
@@ -513,12 +485,8 @@ $issueDate = '05 Sep 2026';
             <h2 style="font-size:1.25rem; font-weight:800; color:var(--clr-primary-dark); margin-bottom:24px; border-bottom:1px solid var(--clr-border); padding-bottom:12px;">ORDER SUMMARY</h2>
             
             <div class="sum-row">
-                <span>Medicines (3)</span>
-                <span>₹<?php echo number_format($cartSubtotal, 2); ?></span>
-            </div>
-            <div class="sum-row" style="color:#16A34A;">
-                <span>Discount</span>
-                <span>-₹<?php echo number_format($discount, 2); ?></span>
+                <span id="sum-item-label">Medicines (0)</span>
+                <span id="sum-subtotal">₹0.00</span>
             </div>
             <div class="sum-row">
                 <span>Delivery</span>
@@ -528,12 +496,12 @@ $issueDate = '05 Sep 2026';
                 <span>Platform / Service Fee</span>
                 <span>₹<?php echo number_format($platformFee, 2); ?></span>
             </div>
-            
+
             <div class="sum-divider"></div>
-            
+
             <div class="sum-total">
                 <span>TOTAL</span>
-                <span>₹<?php echo number_format($total, 2); ?></span>
+                <span id="sum-total">₹0.00</span>
             </div>
 
             <div style="background:#EEF2FF; padding:16px; border-radius:var(--radius-sm); margin-top:24px;">
@@ -559,7 +527,7 @@ $issueDate = '05 Sep 2026';
 
             <div style="text-align:center; margin-top:16px; font-weight:600; color:#166534; font-size:0.9rem;"><i class="fas fa-lock"></i> Secure Checkout</div>
             
-            <button class="btn-place-order" onclick="triggerCheckout()">🛒 PLACE ORDER &mdash; ₹<?php echo number_format($total, 2); ?></button>
+            <button class="btn-place-order" id="place-order-btn" onclick="triggerCheckout()">🛒 PLACE ORDER &mdash; ₹0.00</button>
 
         </div>
     </div>
@@ -609,36 +577,133 @@ $issueDate = '05 Sep 2026';
 </div>
 
 <script>
-    let currentPaymentMethod = 'upi';
+    // ── Cart constants (match pharmacy.php) ──────────────────────────────
+    const DELIVERY_FEE = <?php echo (int)$deliveryFee; ?>;
+    const PLATFORM_FEE = <?php echo (int)$platformFee; ?>;
+    const CART_KEY     = 'da_pharmacy_cart';
 
+    let currentPaymentMethod = 'upi';
+    let liveCartTotal = 0;
+
+    // ── Render cart items from localStorage ──────────────────────────────
+    function renderCheckoutCart() {
+        const cartState  = JSON.parse(localStorage.getItem(CART_KEY)) || {};
+        const container  = document.getElementById('chk-cart-items');
+        const emptyEl    = document.getElementById('chk-empty-cart');
+        const countEl    = document.getElementById('chk-item-count');
+        const sumLabel   = document.getElementById('sum-item-label');
+        const sumSubEl   = document.getElementById('sum-subtotal');
+        const sumTotalEl = document.getElementById('sum-total');
+        const codDisp    = document.getElementById('cod-total-display');
+
+        const keys = Object.keys(cartState);
+
+        if (keys.length === 0) {
+            if (container) container.style.display = 'none';
+            if (emptyEl)   emptyEl.style.display   = 'block';
+            if (countEl)   countEl.textContent      = '0 Items';
+            updatePlaceBtn(0);
+            return;
+        }
+
+        let totalCount = 0, subtotal = 0, html = '';
+
+        keys.forEach(k => {
+            const item = cartState[k];
+            totalCount += item.qty;
+            subtotal   += item.price * item.qty;
+            const rxBadge = item.rx
+                ? '<div class="ci-rx"><i class="fas fa-prescription"></i> Prescription Required</div>'
+                : '';
+            html += `
+            <div class="cart-item" id="ci-${item.id}">
+                <div class="ci-icon"><i class="fas fa-pills"></i></div>
+                <div class="ci-main">
+                    <div class="ci-name">${item.name}</div>
+                    <div class="ci-meta">₹${item.price} × ${item.qty}</div>
+                    ${rxBadge}
+                    <div class="ci-price-row">
+                        <div class="ci-price">₹${(item.price * item.qty).toFixed(2)}</div>
+                        <div class="qty-ctrl">
+                            <button onclick="chkUpdateQty(${item.id},-1)">-</button>
+                            <span>${item.qty}</span>
+                            <button onclick="chkUpdateQty(${item.id},1)">+</button>
+                        </div>
+                        <button class="btn-rem" onclick="chkRemoveItem(${item.id})">
+                            <i class="fas fa-trash-alt"></i> Remove
+                        </button>
+                    </div>
+                </div>
+            </div>`;
+        });
+
+        if (container) { container.innerHTML = html; container.style.display = 'block'; }
+        if (emptyEl)   emptyEl.style.display = 'none';
+
+        const grandTotal = subtotal + DELIVERY_FEE + PLATFORM_FEE;
+        liveCartTotal = grandTotal;
+
+        if (countEl)    countEl.textContent  = `${totalCount} Item${totalCount !== 1 ? 's' : ''}`;
+        if (sumLabel)   sumLabel.textContent  = `Medicines (${totalCount})`;
+        if (sumSubEl)   sumSubEl.textContent  = `₹${subtotal.toFixed(2)}`;
+        if (sumTotalEl) sumTotalEl.textContent = `₹${grandTotal.toFixed(2)}`;
+        if (codDisp)    codDisp.textContent   = `₹${grandTotal.toFixed(2)}`;
+
+        updatePlaceBtn(grandTotal);
+
+        // Update UPI intent link amounts dynamically
+        ['gpay-intent-link','phonepe-intent-link','paytm-intent-link','amazon-intent-link'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.href = el.href.replace(/am=[\d.]+/, `am=${grandTotal.toFixed(2)}`);
+        });
+    }
+
+    function updatePlaceBtn(total) {
+        const btn = document.getElementById('place-order-btn');
+        if (!btn) return;
+        const icon   = currentPaymentMethod === 'cod' ? '💵' : '🛒';
+        const method = currentPaymentMethod === 'cod' ? ' (CASH & DELIVERY)' : ' (UPI)';
+        btn.innerHTML = `${icon} PLACE ORDER &mdash; ₹${total.toFixed(2)}${method}`;
+        btn.disabled  = (total <= 0);
+    }
+
+    function chkUpdateQty(id, delta) {
+        const cs = JSON.parse(localStorage.getItem(CART_KEY)) || {};
+        if (!cs[id]) return;
+        cs[id].qty += delta;
+        if (cs[id].qty <= 0) delete cs[id];
+        localStorage.setItem(CART_KEY, JSON.stringify(cs));
+        renderCheckoutCart();
+    }
+
+    function chkRemoveItem(id) {
+        const cs = JSON.parse(localStorage.getItem(CART_KEY)) || {};
+        delete cs[id];
+        localStorage.setItem(CART_KEY, JSON.stringify(cs));
+        renderCheckoutCart();
+    }
+
+    // ── Payment method selector ───────────────────────────────────────────
     function choosePayment(method) {
         currentPaymentMethod = method;
-        const boxUpi = document.getElementById('sb-upi');
-        const boxCod = document.getElementById('sb-cod');
+        const boxUpi     = document.getElementById('sb-upi');
+        const boxCod     = document.getElementById('sb-cod');
         const upiDetails = document.getElementById('checkout-upi-box');
-        const radioUpi = document.getElementById('radio-upi');
-        const radioCod = document.getElementById('radio-cod');
-        const placeBtn = document.querySelector('.btn-place-order');
+        const radioUpi   = document.getElementById('radio-upi');
+        const radioCod   = document.getElementById('radio-cod');
 
         if (method === 'upi') {
-            boxUpi.classList.add('active');
-            boxCod.classList.remove('active');
+            boxUpi.classList.add('active');    boxCod.classList.remove('active');
             upiDetails.style.display = 'block';
-            radioUpi.innerText = '●';
-            radioUpi.style.color = 'var(--clr-primary)';
-            radioCod.innerText = '○';
-            radioCod.style.color = 'inherit';
-            if (placeBtn) placeBtn.innerHTML = '🛒 PLACE ORDER &mdash; ₹<?php echo number_format($total, 2); ?> (UPI)';
+            radioUpi.innerText = '●'; radioUpi.style.color = 'var(--clr-primary)';
+            radioCod.innerText = '○'; radioCod.style.color = 'inherit';
         } else {
-            boxCod.classList.add('active');
-            boxUpi.classList.remove('active');
+            boxCod.classList.add('active');    boxUpi.classList.remove('active');
             upiDetails.style.display = 'none';
-            radioCod.innerText = '●';
-            radioCod.style.color = 'var(--clr-primary)';
-            radioUpi.innerText = '○';
-            radioUpi.style.color = 'inherit';
-            if (placeBtn) placeBtn.innerHTML = '💵 PLACE ORDER &mdash; ₹<?php echo number_format($total, 2); ?> (CASH & DELIVERY)';
+            radioCod.innerText = '●'; radioCod.style.color = 'var(--clr-primary)';
+            radioUpi.innerText = '○'; radioUpi.style.color = 'inherit';
         }
+        updatePlaceBtn(liveCartTotal);
     }
 
     function copyUPI(text, btn) {
@@ -646,13 +711,8 @@ $issueDate = '05 Sep 2026';
             const original = btn.innerHTML;
             btn.innerHTML = '<i class="fas fa-check" style="color:#16A34A"></i> Copied!';
             btn.style.background = '#DCFCE7';
-            setTimeout(() => {
-                btn.innerHTML = original;
-                btn.style.background = '#F1F5F9';
-            }, 2000);
-        }).catch(function() {
-            prompt('Copy UPI ID:', text);
-        });
+            setTimeout(() => { btn.innerHTML = original; btn.style.background = '#F1F5F9'; }, 2000);
+        }).catch(function() { prompt('Copy UPI ID:', text); });
     }
 
     async function triggerCheckout() {
@@ -662,35 +722,36 @@ $issueDate = '05 Sep 2026';
 
         const procTitle = document.querySelector('#mc-processing h2');
         if (procTitle) {
-            procTitle.innerText = currentPaymentMethod === 'cod' ? '⏳ Registering Order...' : '⏳ Processing Payment...';
+            procTitle.innerText = currentPaymentMethod === 'cod'
+                ? '⏳ Registering Order...' : '⏳ Processing Payment...';
         }
 
         try {
             const formData = new FormData();
             formData.append('payment_method', currentPaymentMethod === 'cod' ? 'Cash and Delivery' : 'UPI');
-            formData.append('total', '<?php echo $total; ?>');
-            const refVal = document.getElementById('chk-upi-ref') ? document.getElementById('chk-upi-ref').value.trim() : '';
+            formData.append('total', liveCartTotal.toFixed(2));
+            const refVal = document.getElementById('chk-upi-ref')
+                ? document.getElementById('chk-upi-ref').value.trim() : '';
             if (refVal) formData.append('transaction_id', refVal);
 
-            const res = await fetch('api_place_order.php', { 
-                method: 'POST',
-                body: formData
-            });
+            const res  = await fetch('api_place_order.php', { method: 'POST', body: formData });
             const data = await res.json();
-            
+
             if (data.success) {
+                // Clear the cart after successful order
+                localStorage.removeItem(CART_KEY);
                 setTimeout(() => {
                     document.getElementById('mc-processing').classList.remove('active');
                     document.getElementById('mc-success').classList.add('active');
-                    
+
                     const successModal = document.getElementById('mc-success');
                     const orderIdEl = successModal.querySelector('div[style*="font-family:monospace"]');
                     if (orderIdEl) orderIdEl.innerText = 'Order ID: ' + data.order_number;
 
                     const payItem = successModal.querySelector('.pl-list .pl-item');
                     if (payItem) {
-                        payItem.innerHTML = currentPaymentMethod === 'cod' 
-                            ? '<i class="fas fa-money-bill-wave"></i> Payment: Cash and Delivery (₹<?php echo number_format($total, 2); ?>)' 
+                        payItem.innerHTML = currentPaymentMethod === 'cod'
+                            ? '<i class="fas fa-money-bill-wave"></i> Payment: Cash and Delivery (₹' + liveCartTotal.toFixed(2) + ')'
                             : '<i class="fas fa-check"></i> Payment Successful (UPI)';
                     }
                 }, 1200);
@@ -698,10 +759,13 @@ $issueDate = '05 Sep 2026';
                 throw new Error(data.message);
             }
         } catch (e) {
-            alert("Order Processing Failed: " + e.message);
+            alert('Order Processing Failed: ' + e.message);
             document.getElementById('checkout-modal').classList.remove('active');
         }
     }
+
+    // ── Init ─────────────────────────────────────────────────────────────
+    document.addEventListener('DOMContentLoaded', renderCheckoutCart);
 </script>
 
 </body>
