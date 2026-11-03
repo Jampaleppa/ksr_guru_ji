@@ -180,10 +180,22 @@ function buildWhatsAppMessage(array $row): string
   if (!empty($row['description'])) $msg .= "• Notes: " . $row['description'] . "\n";
   $msg .= "\n";
 
-  $msg .= "💵 *PAYMENT:*\n";
-  $msg .= "• Method: *CASH ON DELIVERY (COD)*\n";
-  $msg .= "• Total Charge: " . money((float)$row['amount']) . " (Pay upon pickup/delivery)\n";
-  $msg .= "• Payment Status: " . label($row['payment_status']) . "\n\n";
+  $isUpi = (($row['payment_method'] ?? '') === 'UPI');
+  if ($isUpi) {
+    $msg .= "💳 *PAYMENT:*\n";
+    $msg .= "• Method: *INSTANT UPI / ONLINE (PREPAID)*\n";
+    $msg .= "• Total Charge: " . money((float)$row['amount']) . " — ✅ PREPAID\n";
+    $msg .= "• Note for Driver: *DO NOT collect cash from customer*\n";
+    if (!empty($row['payment_ref'])) {
+      $msg .= "• UPI Ref/UTR: *" . $row['payment_ref'] . "*\n";
+    }
+    $msg .= "\n";
+  } else {
+    $msg .= "💵 *PAYMENT:*\n";
+    $msg .= "• Method: *CASH ON DELIVERY (COD)*\n";
+    $msg .= "• Total Charge: " . money((float)$row['amount']) . " (Pay upon pickup/delivery)\n";
+    $msg .= "• Payment Status: " . label($row['payment_status']) . "\n\n";
+  }
 
   $msg .= "🚚 *DELIVERY STATUS:* " . label($row['delivery_status']) . "\n";
   if (!empty($row['driver_name'])) $msg .= "• Driver Assigned: " . $row['driver_name'] . "\n";
@@ -387,7 +399,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
   csrf_verify();
   $action = $_POST['action'] ?? '';
 
-  /* ---------- 1. CREATE REQUEST (ONLY CASH AND DELIVERY) ---------- */
+  /* ---------- 1. CREATE REQUEST (COD OR INSTANT UPI) ---------- */
   if ($action === 'create_request') {
     $f = [
       'pickup_name'       => trim($_POST['pickup_name'] ?? ''),
@@ -403,6 +415,8 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
       'parcel_type'       => $_POST['parcel_type'] ?? 'Document',
       'weight'            => trim($_POST['weight'] ?? ''),
       'description'       => trim($_POST['description'] ?? ''),
+      'payment_method'    => trim($_POST['payment_method'] ?? 'CASH_ON_DELIVERY'),
+      'payment_ref'       => trim($_POST['payment_ref'] ?? ''),
     ];
 
     foreach (
@@ -421,6 +435,10 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
     if (!in_array($f['parcel_type'], PARCEL_TYPES, true)) $f['parcel_type'] = 'Other';
     if ($f['weight'] !== '' && !is_numeric($f['weight'])) $errors['weight'] = 'Weight must be a number.';
 
+    $payMethod = ($f['payment_method'] === 'UPI') ? 'UPI' : 'CASH_ON_DELIVERY';
+    $payRef    = ($payMethod === 'UPI') ? ($f['payment_ref'] !== '' ? $f['payment_ref'] : 'UPI-PREPAID') : '';
+    $payStatus = ($payMethod === 'UPI') ? 'CONFIRMED' : 'PENDING';
+
     if ($errors) {
       $page = 'home';
       $form = $f;
@@ -431,8 +449,8 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
       $sql = "INSERT INTO parcel_requests
                 (order_code, access_token, pickup_name, pickup_mobile, pickup_address, pickup_landmark, pickup_coords,
                  receiver_name, receiver_mobile, delivery_address, delivery_landmark, delivery_coords,
-                 parcel_type, weight, description, amount, payment_method, payment_status, delivery_status)
-                VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?," . PARCEL_CHARGE . ", 'CASH_ON_DELIVERY', 'PENDING', 'REQUESTED')";
+                 parcel_type, weight, description, amount, payment_method, payment_status, delivery_status, payment_ref)
+                VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?," . PARCEL_CHARGE . ", ?, ?, 'REQUESTED', ?)";
       db()->prepare($sql)->execute([
         $code,
         $token,
@@ -449,9 +467,13 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
         $f['parcel_type'],
         $f['weight'],
         $f['description'],
+        $payMethod,
+        $payStatus,
+        $payRef,
       ]);
 
-      flash('Parcel booked successfully! Payment Method: Cash on Delivery (' . money(PARCEL_CHARGE) . '). Share details on WhatsApp below.', 'ok');
+      $methodLabel = ($payMethod === 'UPI') ? 'Instant UPI (' . money(PARCEL_CHARGE) . ')' : 'Cash on Delivery (' . money(PARCEL_CHARGE) . ')';
+      flash("Parcel booked successfully! Payment Method: $methodLabel. Share details on WhatsApp below.", 'ok');
       redirect('?page=track&code=' . urlencode($code) . '&m=' . urlencode($f['pickup_mobile']) . '&booked=1');
     }
   }
@@ -960,6 +982,73 @@ if ($page === 'admin' && is_staff()) {
       font-weight: 500;
     }
 
+    /* ---------- Payment Selector & UPI ---------- */
+    .pay-methods-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 14px 0 12px;
+    }
+    @media (max-width: 480px) {
+      .pay-methods-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .pay-method-card {
+      border: 2px solid #E2E8F0;
+      border-radius: 12px;
+      padding: 12px 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #FFFFFF;
+      transition: all .2s ease;
+      user-select: none;
+    }
+    .pay-method-card:hover {
+      border-color: #CBD5E1;
+      background: #F8FAFC;
+    }
+    .pay-method-card.active {
+      border-color: #0284C7;
+      background: #F0F9FF;
+      box-shadow: 0 0 0 1px #0284C7;
+    }
+    .pay-method-card.active.cod {
+      border-color: #16A34A;
+      background: #F0FDF4;
+      box-shadow: 0 0 0 1px #16A34A;
+    }
+    .pm-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+    .pm-title {
+      font-weight: 700;
+      font-size: 14px;
+      color: #0F172A;
+      display: block;
+    }
+    .pm-desc {
+      font-size: 11.5px;
+      color: #64748B;
+      display: block;
+    }
+    .upi-box-highlight {
+      background: linear-gradient(135deg, #F0F9FF 0%, #E0F2FE 100%);
+      border: 2px solid #7DD3FC;
+      border-radius: 14px;
+      padding: 16px 18px;
+      margin: 12px 0 16px;
+    }
+
     /* ---------- Buttons ---------- */
     .btn {
       display: inline-flex;
@@ -1460,8 +1549,8 @@ if ($page === 'admin' && is_staff()) {
 
         <!-- PARCEL INFO & PAYMENT -->
         <div class="card">
-          <h2><i class="fas fa-boxes" style="color:#D97706"></i> 3. Parcel Information & Payment</h2>
-          <p class="sub">Specify the contents. Only Cash on Delivery accepted.</p>
+          <h2><i class="fas fa-boxes" style="color:#D97706"></i> 3. Parcel Information &amp; Payment</h2>
+          <p class="sub">Specify the contents and choose your preferred payment method (Cash on Delivery or Instant UPI).</p>
           
           <div class="grid2">
             <div>
@@ -1489,24 +1578,110 @@ if ($page === 'admin' && is_staff()) {
             </div>
           </div>
 
-          <!-- Highlight: ONLY Cash and Delivery -->
-          <div class="cod-box-highlight">
-            <div class="cod-box-icon"><i class="fas fa-hand-holding-usd"></i></div>
-            <div class="cod-box-text">
-              <strong>Payment Method: Cash on Delivery Only (<?= money(PARCEL_CHARGE) ?>)</strong>
-              <span>No online payment needed! Pay <?= money(PARCEL_CHARGE) ?> in cash when our driver collects or delivers the parcel.</span>
+          <!-- Payment Selector Tabs -->
+          <div style="margin-top:20px;">
+            <label style="font-weight:700; font-size:14px; color:var(--ink); display:block; margin-bottom:8px;">
+              Choose Payment Method
+            </label>
+            <input type="hidden" name="payment_method" id="parcel-pay-method" value="<?= h($form['payment_method'] ?? 'CASH_ON_DELIVERY') ?>">
+            
+            <div class="pay-methods-grid">
+              <div class="pay-method-card cod <?= ($form['payment_method'] ?? 'CASH_ON_DELIVERY') === 'CASH_ON_DELIVERY' ? 'active' : '' ?>" id="tab-cod" onclick="selectParcelPayment('CASH_ON_DELIVERY')">
+                <div class="pm-icon" style="background:#DCFCE7; color:#16A34A;">
+                  <i class="fas fa-hand-holding-usd"></i>
+                </div>
+                <div>
+                  <span class="pm-title">Cash on Delivery</span>
+                  <span class="pm-desc">Pay <?= money(PARCEL_CHARGE) ?> cash to driver</span>
+                </div>
+              </div>
+
+              <div class="pay-method-card <?= ($form['payment_method'] ?? '') === 'UPI' ? 'active' : '' ?>" id="tab-upi" onclick="selectParcelPayment('UPI')">
+                <div class="pm-icon" style="background:#E0F2FE; color:#0284C7;">
+                  <i class="fas fa-qrcode"></i>
+                </div>
+                <div>
+                  <span class="pm-title">Instant UPI / Online</span>
+                  <span class="pm-desc">GPay, PhonePe, Paytm (Prepaid)</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- COD Highlight Box -->
+            <div class="cod-box-highlight" id="cod-box-panel" style="display:<?= ($form['payment_method'] ?? 'CASH_ON_DELIVERY') === 'CASH_ON_DELIVERY' ? 'flex' : 'none' ?>;">
+              <div class="cod-box-icon"><i class="fas fa-hand-holding-usd"></i></div>
+              <div class="cod-box-text">
+                <strong>Payment Method: Cash on Delivery (<?= money(PARCEL_CHARGE) ?>)</strong>
+                <span>Pay <?= money(PARCEL_CHARGE) ?> in cash when our driver collects or delivers the parcel.</span>
+              </div>
+            </div>
+
+            <!-- UPI Highlight Box -->
+            <?php
+            $trParcel = 'KSRP' . substr((string)time(), -7);
+            ?>
+            <div class="upi-box-highlight" id="upi-box-panel" style="display:<?= ($form['payment_method'] ?? '') === 'UPI' ? 'block' : 'none' ?>;">
+              <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px;">
+                <div style="width:36px; height:36px; border-radius:10px; background:#0284C7; color:white; display:flex; align-items:center; justify-content:center; font-size:18px;">
+                  <i class="fas fa-bolt"></i>
+                </div>
+                <div>
+                  <strong style="color:#0369A1; font-size:15px; display:block;">Instant UPI Payment (<?= money(PARCEL_CHARGE) ?>)</strong>
+                  <span style="color:#0284C7; font-size:12.5px;">Fast &bull; ICICI/SBI Bank-limit bypass &bull; Direct Driver Dispatch</span>
+                </div>
+              </div>
+
+              <!-- 1-Click Mobile Launchers -->
+              <div style="font-size:12px; font-weight:700; color:#475569; margin-bottom:6px;">Tap any app to pay directly:</div>
+              <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(130px, 1fr)); gap:8px; margin-bottom:14px;">
+                <a href="intent://pay?pa=9590902742@axl&pn=KSR%20GURU%20JI&am=<?= PARCEL_CHARGE ?>&cu=INR&tn=Parcel%20Delivery%20Fee&tr=<?= $trParcel ?>&mc=5411#Intent;scheme=upi;package=com.google.android.apps.nbu.paisa.user;end"
+                   style="display:flex; align-items:center; justify-content:center; gap:6px; background:#4285F4; color:white; padding:8px 10px; border-radius:8px; font-weight:700; font-size:12.5px; text-decoration:none;">
+                  <i class="fab fa-google-pay" style="font-size:16px;"></i> Google Pay
+                </a>
+                <a href="intent://pay?pa=9590902742@axl&pn=KSR%20GURU%20JI&am=<?= PARCEL_CHARGE ?>&cu=INR&tn=Parcel%20Delivery%20Fee&tr=<?= $trParcel ?>&mc=5411#Intent;scheme=upi;package=com.phonepe.app;end"
+                   style="display:flex; align-items:center; justify-content:center; gap:6px; background:#5F259F; color:white; padding:8px 10px; border-radius:8px; font-weight:700; font-size:12.5px; text-decoration:none;">
+                  <i class="fas fa-mobile-alt"></i> PhonePe
+                </a>
+                <a href="intent://pay?pa=9590902742@ptyes&pn=KSR%20GURU%20JI&am=<?= PARCEL_CHARGE ?>&cu=INR&tn=Parcel%20Delivery%20Fee&tr=<?= $trParcel ?>&mc=5411#Intent;scheme=net.one97.paytm;end"
+                   style="display:flex; align-items:center; justify-content:center; gap:6px; background:#00BAF2; color:white; padding:8px 10px; border-radius:8px; font-weight:700; font-size:12.5px; text-decoration:none;">
+                  <i class="fas fa-wallet"></i> Paytm
+                </a>
+                <a href="intent://pay?pa=8088584421@apl&pn=KSR%20GURU%20JI&am=<?= PARCEL_CHARGE ?>&cu=INR&tn=Parcel%20Delivery%20Fee&tr=<?= $trParcel ?>&mc=5411#Intent;scheme=in.amazon.mShop.android.shopping;end"
+                   style="display:flex; align-items:center; justify-content:center; gap:6px; background:#FF9900; color:#111; padding:8px 10px; border-radius:8px; font-weight:700; font-size:12.5px; text-decoration:none;">
+                  <i class="fab fa-amazon"></i> Amazon Pay
+                </a>
+              </div>
+
+              <!-- QR Code & Manual Copy -->
+              <div style="display:flex; align-items:center; gap:14px; background:white; border:1px solid #BAE6FD; border-radius:10px; padding:12px; margin-bottom:12px; flex-wrap:wrap;">
+                <img src="/images/ksr_upi_qr.png" alt="Scan UPI QR" style="width:110px; height:110px; border-radius:8px; border:1px solid #E2E8F0; object-fit:contain; background:white; padding:4px;" onerror="this.onerror=null;this.src='https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=upi%3A%2F%2Fpay%3Fpa%3D9590902742%40axl%26pn%3DKSR%2520GURU%2520JI%26am%3D50%26cu%3DINR%26tn%3DParcel%2520Delivery%2520Fee';">
+                <div style="flex:1; min-width:180px;">
+                  <span style="font-size:11px; text-transform:uppercase; color:#64748B; font-weight:700; display:block;">Or scan QR &amp; pay ₹50 to:</span>
+                  <div style="font-family:monospace; font-weight:800; font-size:14px; color:#0F172A; margin:3px 0;">9590902742@axl</div>
+                  <button type="button" onclick="copyUpiVpa('9590902742@axl', this)" style="border:1px solid #CBD5E1; background:#F8FAFC; padding:4px 10px; border-radius:6px; font-size:12px; font-weight:700; cursor:pointer;">
+                    <i class="fas fa-copy"></i> Copy UPI ID
+                  </button>
+                </div>
+              </div>
+
+              <!-- UTR Reference Input -->
+              <div class="field" style="margin-bottom:0;">
+                <label style="font-size:12px; color:#0369A1; font-weight:700;">12-Digit UPI Transaction Reference / UTR <span style="color:#64748B; font-weight:500;">(Optional)</span></label>
+                <input type="text" name="payment_ref" maxlength="32" placeholder="e.g. 423589123456" value="<?= h($form['payment_ref'] ?? '') ?>" style="background:white; border-color:#7DD3FC;">
+                <div style="font-size:11px; color:#64748B; margin-top:3px;">Helps us instantly tag your parcel as Prepaid in the driver app.</div>
+              </div>
             </div>
           </div>
 
           <div class="totals">
             <div class="trow"><span>Fixed Door Delivery Charge</span><span><?= money(PARCEL_CHARGE) ?></span></div>
-            <div class="trow"><span>Payment Mode</span><span style="font-weight:800;color:#16A34A;">Cash on Delivery (COD)</span></div>
-            <div class="trow big"><span>Total Payable on Delivery</span><span><?= money(PARCEL_CHARGE) ?></span></div>
+            <div class="trow"><span>Payment Mode</span><span id="summary-pay-mode" style="font-weight:800;color:<?= ($form['payment_method'] ?? 'CASH_ON_DELIVERY') === 'UPI' ? '#0284C7' : '#16A34A' ?>;"><?= ($form['payment_method'] ?? 'CASH_ON_DELIVERY') === 'UPI' ? 'Instant UPI / Online' : 'Cash on Delivery (COD)' ?></span></div>
+            <div class="trow big"><span>Total Payable</span><span><?= money(PARCEL_CHARGE) ?></span></div>
           </div>
 
           <div style="margin-top:20px">
-            <button type="submit" class="btn btn-primary">
-              🚚 Confirm Parcel Request — Pay <?= money(PARCEL_CHARGE) ?> Cash on Delivery
+            <button type="submit" id="btn-submit-parcel" class="btn btn-primary">
+              <?= ($form['payment_method'] ?? 'CASH_ON_DELIVERY') === 'UPI' ? '🚚 Confirm Parcel Request — Prepaid ' . money(PARCEL_CHARGE) . ' via UPI' : '🚚 Confirm Parcel Request — Pay ' . money(PARCEL_CHARGE) . ' Cash on Delivery' ?>
             </button>
             <div style="text-align:center; font-size:13px; color:var(--muted); margin-top:8px;">
               Your order will be booked immediately and you can share full details to WhatsApp with 1 tap.
@@ -1528,8 +1703,8 @@ if ($page === 'admin' && is_staff()) {
         </div>
         <div class="f">
           <div class="ic">💵</div>
-          <div class="t">Cash on Delivery</div>
-          <div class="d">Pay on door delivery</div>
+          <div class="t">Cash or Instant UPI</div>
+          <div class="d">Pay online or on delivery</div>
         </div>
         <div class="f">
           <div class="ic">📍</div>
@@ -1592,7 +1767,7 @@ if ($page === 'admin' && is_staff()) {
         <!-- WHATSAPP SHARE SHOWCASE CARD -->
         <div class="wa-share-card no-print">
           <h3><i class="fab fa-whatsapp" style="font-size:24px;"></i> Share All Details via WhatsApp</h3>
-          <p>Instantly notify the Owner and Delivery Partner with complete pickup, drop, GPS location, and COD details:</p>
+          <p>Instantly notify the Owner and Delivery Partner with complete pickup, drop, GPS location, and payment details:</p>
           
           <div class="btn-row">
             <!-- Share with Owner (8088584421) -->
@@ -1632,9 +1807,15 @@ if ($page === 'admin' && is_staff()) {
               </div>
             </div>
             <div style="display:flex; gap:8px; flex-wrap:wrap;">
-              <span class="badge b-<?= status_slug($trackRow['payment_status']) ?>">
-                <i class="fas fa-money-bill-wave"></i> Payment: <?= h(label($trackRow['payment_status'])) ?> (COD)
-              </span>
+              <?php if (($trackRow['payment_method'] ?? '') === 'UPI'): ?>
+                <span class="badge b-<?= status_slug($trackRow['payment_status']) ?>">
+                  <i class="fas fa-qrcode"></i> Payment: <?= h(label($trackRow['payment_status'])) ?> (UPI Online)
+                </span>
+              <?php else: ?>
+                <span class="badge b-<?= status_slug($trackRow['payment_status']) ?>">
+                  <i class="fas fa-money-bill-wave"></i> Payment: <?= h(label($trackRow['payment_status'])) ?> (COD)
+                </span>
+              <?php endif; ?>
               <span class="badge b-<?= status_slug($trackRow['delivery_status']) ?>">
                 <i class="fas fa-truck"></i> <?= h(label($trackRow['delivery_status'])) ?>
               </span>
@@ -1695,10 +1876,20 @@ if ($page === 'admin' && is_staff()) {
             <div class="key-value">
               <div class="k">Payment Method</div>
               <div class="v">
-                <b style="color:#15803D;">Cash on Delivery (COD) &bull; <?= money((float)$trackRow['amount']) ?></b>
-                <span style="font-size:12.5px; color:var(--muted); font-weight:normal; display:block;">
-                  <?= $trackRow['payment_status'] === 'CONFIRMED' ? '✅ Paid in cash upon delivery' : '⏳ To be collected in cash upon pickup/delivery' ?>
-                </span>
+                <?php if (($trackRow['payment_method'] ?? '') === 'UPI'): ?>
+                  <b style="color:#0284C7;"><i class="fas fa-qrcode"></i> Instant UPI / Online &bull; <?= money((float)$trackRow['amount']) ?></b>
+                  <span style="font-size:12.5px; color:var(--muted); font-weight:normal; display:block;">
+                    <?= $trackRow['payment_status'] === 'CONFIRMED' ? '✅ Prepaid via UPI — Do not collect cash' : '⏳ UPI Payment Processing' ?>
+                    <?php if (!empty($trackRow['payment_ref'])): ?>
+                      &bull; Ref: <code style="background:#f1f5f9; padding:2px 6px; border-radius:4px;"><?= h($trackRow['payment_ref']) ?></code>
+                    <?php endif; ?>
+                  </span>
+                <?php else: ?>
+                  <b style="color:#15803D;">Cash on Delivery (COD) &bull; <?= money((float)$trackRow['amount']) ?></b>
+                  <span style="font-size:12.5px; color:var(--muted); font-weight:normal; display:block;">
+                    <?= $trackRow['payment_status'] === 'CONFIRMED' ? '✅ Paid in cash upon delivery' : '⏳ To be collected in cash upon pickup/delivery' ?>
+                  </span>
+                <?php endif; ?>
               </div>
             </div>
 
@@ -1814,7 +2005,7 @@ if ($page === 'admin' && is_staff()) {
           </div>
           <div class="stat">
             <div class="k">COD Cash to Collect</div>
-            <div class="v" style="color:#16A34A"><?= money((float)array_sum(array_map(fn($r) => $r['payment_status'] === 'PENDING' ? (float)$r['amount'] : 0, $driverRows))) ?></div>
+            <div class="v" style="color:#16A34A"><?= money((float)array_sum(array_map(fn($r) => ($r['payment_status'] === 'PENDING' && ($r['payment_method'] ?? '') !== 'UPI') ? (float)$r['amount'] : 0, $driverRows))) ?></div>
           </div>
         </div>
 
@@ -1897,7 +2088,7 @@ if ($page === 'admin' && is_staff()) {
                 </form>
               <?php endif; ?>
 
-              <?php if ($r['payment_status'] === 'PENDING'): ?>
+              <?php if ($r['payment_status'] === 'PENDING' && ($r['payment_method'] ?? '') !== 'UPI'): ?>
                 <form method="post" style="flex:1; min-width:180px;">
                   <input type="hidden" name="csrf" value="<?= h(csrf_token()) ?>">
                   <input type="hidden" name="action" value="mark_cash_paid">
@@ -1907,6 +2098,13 @@ if ($page === 'admin' && is_staff()) {
                     <i class="fas fa-check-double"></i> Mark <?= money((float)$r['amount']) ?> Cash Received
                   </button>
                 </form>
+              <?php elseif (($r['payment_method'] ?? '') === 'UPI'): ?>
+                <div style="flex:1; min-width:180px; padding:6px 12px; border-radius:8px; background:#F0FDF4; border:1px solid #86EFAC; font-size:12px; font-weight:700; color:#166534; text-align:center; display:flex; align-items:center; justify-content:center; gap:6px;">
+                  <i class="fas fa-check-circle" style="color:#16A34A;"></i> Prepaid via UPI &bull; Do NOT collect cash
+                  <?php if (!empty($r['payment_ref'])): ?>
+                    <span style="font-size:11px; font-family:monospace; color:#15803D;">(<?= h($r['payment_ref']) ?>)</span>
+                  <?php endif; ?>
+                </div>
               <?php endif; ?>
 
               <a class="btn-wa-owner" style="padding:8px 12px; font-size:12px;" target="_blank" rel="noopener"
@@ -2050,11 +2248,20 @@ if ($page === 'admin' && is_staff()) {
                         <?= $r['weight'] !== '' ? '<br><span style="font-size:12px; color:var(--muted);">' . h($r['weight']) . ' kg</span>' : '' ?>
                       </td>
                       <td>
-                        <span class="badge b-<?= status_slug($r['payment_status']) ?>">
-                          COD: <?= h(label($r['payment_status'])) ?>
-                        </span>
+                        <?php if (($r['payment_method'] ?? '') === 'UPI'): ?>
+                          <span class="badge b-<?= status_slug($r['payment_status']) ?>">
+                            UPI: <?= h(label($r['payment_status'])) ?>
+                          </span>
+                          <?php if (!empty($r['payment_ref'])): ?>
+                            <div style="font-size:10px; font-family:monospace; color:var(--muted);"><?= h($r['payment_ref']) ?></div>
+                          <?php endif; ?>
+                        <?php else: ?>
+                          <span class="badge b-<?= status_slug($r['payment_status']) ?>">
+                            COD: <?= h(label($r['payment_status'])) ?>
+                          </span>
+                        <?php endif; ?>
                         <div style="font-weight:800; margin-top:3px;"><?= money((float)$r['amount']) ?></div>
-                        <?php if ($r['payment_status'] === 'PENDING'): ?>
+                        <?php if ($r['payment_status'] === 'PENDING' && ($r['payment_method'] ?? '') !== 'UPI'): ?>
                           <form method="post" style="margin-top:4px;">
                             <input type="hidden" name="csrf" value="<?= h(csrf_token()) ?>">
                             <input type="hidden" name="action" value="mark_cash_paid">
@@ -2238,6 +2445,54 @@ if ($page === 'admin' && is_staff()) {
         alert('All parcel details copied to clipboard! You can paste directly into WhatsApp.');
       }).catch(function() {
         prompt('Copy details:', text);
+      });
+    }
+
+    /* Switch Payment Method (COD vs UPI) */
+    function selectParcelPayment(method) {
+      var input = document.getElementById('parcel-pay-method');
+      var codTab = document.getElementById('tab-cod');
+      var upiTab = document.getElementById('tab-upi');
+      var codBox = document.getElementById('cod-box-panel');
+      var upiBox = document.getElementById('upi-box-panel');
+      var modeSpan = document.getElementById('summary-pay-mode');
+      var btn = document.getElementById('btn-submit-parcel');
+
+      if (!input || !btn) return;
+
+      if (method === 'UPI') {
+        input.value = 'UPI';
+        if (codTab) codTab.classList.remove('active');
+        if (upiTab) upiTab.classList.add('active');
+        if (codBox) codBox.style.display = 'none';
+        if (upiBox) upiBox.style.display = 'block';
+        if (modeSpan) {
+          modeSpan.textContent = 'Instant UPI / Online';
+          modeSpan.style.color = '#0284C7';
+        }
+        btn.innerHTML = '🚚 Confirm Parcel Request — Prepaid <?= money(PARCEL_CHARGE) ?> via UPI';
+      } else {
+        input.value = 'CASH_ON_DELIVERY';
+        if (upiTab) upiTab.classList.remove('active');
+        if (codTab) codTab.classList.add('active');
+        if (upiBox) upiBox.style.display = 'none';
+        if (codBox) codBox.style.display = 'flex';
+        if (modeSpan) {
+          modeSpan.textContent = 'Cash on Delivery (COD)';
+          modeSpan.style.color = '#16A34A';
+        }
+        btn.innerHTML = '🚚 Confirm Parcel Request — Pay <?= money(PARCEL_CHARGE) ?> Cash on Delivery';
+      }
+    }
+
+    /* Copy UPI VPA */
+    function copyUpiVpa(vpa, btn) {
+      navigator.clipboard.writeText(vpa).then(function() {
+        var old = btn.innerHTML;
+        btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+        setTimeout(function() { btn.innerHTML = old; }, 2000);
+      }).catch(function() {
+        prompt('Copy UPI ID:', vpa);
       });
     }
   </script>

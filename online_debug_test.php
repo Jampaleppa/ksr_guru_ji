@@ -268,6 +268,52 @@ foreach ($targets as $envName => $baseUrl) {
         'not_contains' => ['"success":false', 'Database error', 'AUTO_INCREMENT']
     ]);
 
+    // ── TEST 11a: Express Parcel Booking Page & Payment UI
+    $res = runReq($baseUrl . '/categories/parcels.php', [], $cookieFile);
+    $assert('11a. Express Parcel Booking & UPI Selector', $res, [
+        'status' => 200,
+        'contains' => [
+            'Choose Payment Method',
+            '9590902742@axl',                // Axis VPA
+            'mc=5411',                       // Retail & Courier MCC
+            'Cash on Delivery',
+            'Instant UPI'
+        ],
+        'not_contains' => ['Fatal error:', 'Parse error:']
+    ]);
+
+    // ── TEST 11b: Express Parcel Booking Flow with UPI
+    $csrf = '';
+    if (preg_match('/name="csrf"\s+value="([a-f0-9]+)"/i', $res['body'], $m)) {
+        $csrf = $m[1];
+    }
+    $testUtr = 'UTR' . substr((string)time(), -8);
+    $res = runReq($baseUrl . '/categories/parcels.php', [
+        'post' => [
+            'action' => 'create_request',
+            'csrf' => $csrf,
+            'pickup_name' => 'Debug Sender',
+            'pickup_mobile' => '8088584421',
+            'pickup_address' => 'Bus Stand Main Road, Gajendragad',
+            'receiver_name' => 'Debug Receiver',
+            'receiver_mobile' => '8762474406',
+            'delivery_address' => 'Station Road, Gajendragad',
+            'parcel_type' => 'Document',
+            'payment_method' => 'UPI',
+            'payment_ref' => $testUtr
+        ]
+    ], $cookieFile);
+    $assert('11b. Express Parcel UPI Booking & Tracking Verification', $res, [
+        'status' => 200,
+        'contains' => [
+            'Parcel booked successfully',
+            'INSTANT UPI',
+            'PREPAID',
+            $testUtr
+        ],
+        'not_contains' => ['Fatal error:', 'Parse error:']
+    ]);
+
     @unlink($cookieFile);
 
     $totalTests = $passed + $failed;
