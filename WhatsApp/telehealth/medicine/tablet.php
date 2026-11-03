@@ -3616,19 +3616,19 @@ function invoiceUrl(string $code): string
                   <div style="margin-top:12px;">
                     <div style="font-size:0.78rem; font-weight:700; color:#475569; margin-bottom:6px;">Tap any app to pay directly:</div>
                     <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(120px, 1fr)); gap:6px; max-width:380px; margin:0 auto;">
-                      <a href="intent://pay?pa=9590902742@axl&pn=KSR%20GURU%20JI&am=<?= $cart['subtotal'] + DELIVERY_FEE ?>&cu=INR&tn=Pharmacy%20Medicines%20Payment&tr=KSR<?= substr(time(),-7) ?>&mc=5912#Intent;scheme=upi;package=com.google.android.apps.nbu.paisa.user;end" 
+                      <a href="intent://pay?pa=9590902742@axl&pn=KSR%20GURU%20JI&am=<?= $cart['subtotal'] + DELIVERY_FEE ?>&cu=INR&tn=Pharmacy%20Medicines%20Payment&tr=KSR<?= substr((string)time(),-7) ?>&mc=5912#Intent;scheme=upi;package=com.google.android.apps.nbu.paisa.user;end" 
                          style="display:flex; align-items:center; justify-content:center; gap:5px; background:#4285F4; color:white; padding:8px 10px; border-radius:8px; font-weight:700; font-size:0.78rem; text-decoration:none;">
                         Google Pay
                       </a>
-                      <a href="intent://pay?pa=9590902742@axl&pn=KSR%20GURU%20JI&am=<?= $cart['subtotal'] + DELIVERY_FEE ?>&cu=INR&tn=Pharmacy%20Medicines%20Payment&tr=KSR<?= substr(time(),-7) ?>&mc=5912#Intent;scheme=upi;package=com.phonepe.app;end" 
+                      <a href="intent://pay?pa=9590902742@axl&pn=KSR%20GURU%20JI&am=<?= $cart['subtotal'] + DELIVERY_FEE ?>&cu=INR&tn=Pharmacy%20Medicines%20Payment&tr=KSR<?= substr((string)time(),-7) ?>&mc=5912#Intent;scheme=upi;package=com.phonepe.app;end" 
                          style="display:flex; align-items:center; justify-content:center; gap:5px; background:#5F259F; color:white; padding:8px 10px; border-radius:8px; font-weight:700; font-size:0.78rem; text-decoration:none;">
                         PhonePe
                       </a>
-                      <a href="intent://pay?pa=9590902742@ptyes&pn=KSR%20GURU%20JI&am=<?= $cart['subtotal'] + DELIVERY_FEE ?>&cu=INR&tn=Pharmacy%20Medicines%20Payment&tr=KSR<?= substr(time(),-7) ?>&mc=5912#Intent;scheme=upi;package=net.one97.paytm;end" 
+                      <a href="intent://pay?pa=9590902742@ptyes&pn=KSR%20GURU%20JI&am=<?= $cart['subtotal'] + DELIVERY_FEE ?>&cu=INR&tn=Pharmacy%20Medicines%20Payment&tr=KSR<?= substr((string)time(),-7) ?>&mc=5912#Intent;scheme=upi;package=net.one97.paytm;end" 
                          style="display:flex; align-items:center; justify-content:center; gap:5px; background:#00BAF2; color:white; padding:8px 10px; border-radius:8px; font-weight:700; font-size:0.78rem; text-decoration:none;">
                         Paytm
                       </a>
-                      <a href="intent://pay?pa=8088584421@apl&pn=KSR%20GURU%20JI&am=<?= $cart['subtotal'] + DELIVERY_FEE ?>&tr=KSR<?= substr(time(),-7) ?>&cu=INR&tn=Pharmacy%20Medicines%20Payment ?>&cu=INR&tn=Pharmacy%20Medicines%20Payment&mc=5912#Intent;scheme=upi;package=in.amazon.mShop.android.shopping;end" 
+                      <a href="intent://pay?pa=8088584421@apl&pn=KSR%20GURU%20JI&am=<?= $cart['subtotal'] + DELIVERY_FEE ?>&cu=INR&tn=Pharmacy%20Medicines%20Payment&tr=KSR<?= substr((string)time(),-7) ?>&mc=5912#Intent;scheme=upi;package=in.amazon.mShop.android.shopping;end" 
                          style="display:flex; align-items:center; justify-content:center; gap:5px; background:#FF9900; color:white; padding:8px 10px; border-radius:8px; font-weight:700; font-size:0.78rem; text-decoration:none;">
                         Amazon Pay
                       </a>

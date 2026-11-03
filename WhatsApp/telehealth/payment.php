@@ -207,19 +207,19 @@ if (!$doctor) {
             <div style="margin-top:16px;">
                 <div style="font-size:0.8rem; font-weight:700; color:#475569; margin-bottom:8px;">Or tap any app to pay directly:</div>
                 <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(130px, 1fr)); gap:8px; max-width:440px; margin:0 auto;">
-                    <a href="intent://pay?pa=9590902742@axl&pn=KSR%20GURU%20JI&am=<?php echo $totalFee; ?>&cu=INR&tn=Doctor%20Consultation%20Fee&tr=KSR<?php echo substr(time(),-7); ?>&mc=8011#Intent;scheme=upi;package=com.google.android.apps.nbu.paisa.user;end" 
+                    <a href="intent://pay?pa=9590902742@axl&pn=KSR%20GURU%20JI&am=<?php echo $totalFee; ?>&cu=INR&tn=Doctor%20Consultation%20Fee&tr=KSR<?php echo substr((string)time(),-7); ?>&mc=8011#Intent;scheme=upi;package=com.google.android.apps.nbu.paisa.user;end" 
                        style="display:flex; align-items:center; justify-content:center; gap:6px; background:#4285F4; color:white; padding:10px 12px; border-radius:10px; font-weight:700; font-size:0.82rem; text-decoration:none; box-shadow:0 2px 6px rgba(66,133,244,0.3);">
                         <i class="fab fa-google-pay" style="font-size:1.1rem;"></i> Google Pay
                     </a>
-                    <a href="intent://pay?pa=9590902742@axl&pn=KSR%20GURU%20JI&am=<?php echo $totalFee; ?>&cu=INR&tn=Doctor%20Consultation%20Fee&tr=KSR<?php echo substr(time(),-7); ?>&mc=8011#Intent;scheme=upi;package=com.phonepe.app;end" 
+                    <a href="intent://pay?pa=9590902742@axl&pn=KSR%20GURU%20JI&am=<?php echo $totalFee; ?>&cu=INR&tn=Doctor%20Consultation%20Fee&tr=KSR<?php echo substr((string)time(),-7); ?>&mc=8011#Intent;scheme=upi;package=com.phonepe.app;end" 
                        style="display:flex; align-items:center; justify-content:center; gap:6px; background:#5F259F; color:white; padding:10px 12px; border-radius:10px; font-weight:700; font-size:0.82rem; text-decoration:none; box-shadow:0 2px 6px rgba(95,37,159,0.3);">
                         <i class="fas fa-mobile-alt"></i> PhonePe
                     </a>
-                    <a href="intent://pay?pa=9590902742@ptyes&pn=KSR%20GURU%20JI&am=<?php echo $totalFee; ?>&cu=INR&tn=Doctor%20Consultation%20Fee&tr=KSR<?php echo substr(time(),-7); ?>&mc=8011#Intent;scheme=upi;package=net.one97.paytm;end" 
+                    <a href="intent://pay?pa=9590902742@ptyes&pn=KSR%20GURU%20JI&am=<?php echo $totalFee; ?>&cu=INR&tn=Doctor%20Consultation%20Fee&tr=KSR<?php echo substr((string)time(),-7); ?>&mc=8011#Intent;scheme=upi;package=net.one97.paytm;end" 
                        style="display:flex; align-items:center; justify-content:center; gap:6px; background:#00BAF2; color:white; padding:10px 12px; border-radius:10px; font-weight:700; font-size:0.82rem; text-decoration:none; box-shadow:0 2px 6px rgba(0,186,242,0.3);">
                         <i class="fas fa-wallet"></i> Paytm
                     </a>
-                    <a href="intent://pay?pa=8088584421@apl&pn=KSR%20GURU%20JI&am=<?php echo $totalFee; ?>&tr=KSR<?php echo substr(time(),-7); ?>&cu=INR&tn=Doctor%20Consultation%20Fee&mc=8011#Intent;scheme=upi;package=in.amazon.mShop.android.shopping;end" 
+                    <a href="intent://pay?pa=8088584421@apl&pn=KSR%20GURU%20JI&am=<?php echo $totalFee; ?>&tr=KSR<?php echo substr((string)time(),-7); ?>&cu=INR&tn=Doctor%20Consultation%20Fee&mc=8011#Intent;scheme=upi;package=in.amazon.mShop.android.shopping;end" 
                        style="display:flex; align-items:center; justify-content:center; gap:6px; background:#FF9900; color:white; padding:10px 12px; border-radius:10px; font-weight:700; font-size:0.82rem; text-decoration:none; box-shadow:0 2px 6px rgba(255,153,0,0.3);">
                         <i class="fab fa-amazon"></i> Amazon Pay
                     </a>
