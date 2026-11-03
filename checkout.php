@@ -1299,8 +1299,8 @@ if ($isLoggedIn) {
         const DELIVERY_CHARGE = 15; // fixed delivery fee
         const UPI_ID = 'jyampallepparathod-1@oksbi';
         const APP_UPI_IDS = {
-            gpay: 'jyampallepparathod-1@oksbi',
-            phonepe: '959090274@axl',
+            gpay: '9590902742@axl',          // Axis — avoids ICICI→SBI cross-bank block
+            phonepe: '9590902742@axl',
             paytm: '9590902742@ptyes',
             amazonpay: '8088584421@apl',
             bhim: '9590902742@upi',
