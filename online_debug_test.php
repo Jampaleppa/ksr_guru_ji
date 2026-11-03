@@ -6,7 +6,8 @@
  */
 
 $targets = [
-    'Live Vercel' => 'https://ksrgurujiupload.vercel.app',
+    'Live Vercel (ksrguruji-3rpi)' => 'https://ksrguruji-3rpi.vercel.app',
+    'Live Vercel (ksrgurujiupload)' => 'https://ksrgurujiupload.vercel.app',
     'Local WAMP'  => 'http://localhost:8090'
 ];
 
