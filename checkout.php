@@ -2055,19 +2055,22 @@ if ($isLoggedIn) {
 
                         // Direct UPI / UTR Submission Card definition
             const utrBoxHtml = `
-                <div class="upi-utr-box" style="margin: 12px 0; padding: 14px; background: #f0fdf4; border: 1.5px dashed #22c55e; border-radius: 12px; text-align: left;">
-                    <div style="font-weight: 700; font-size: 0.86rem; color: #166534; display: flex; align-items: center; justify-content: space-between;">
-                        <span><i class="fas fa-check-double" style="color: #16a34a; margin-right: 4px;"></i> Already Paid via UPI / QR? (0% Fee)</span>
-                        <span style="font-size: 0.68rem; background: #dcfce7; color: #15803d; font-weight: 700; padding: 2px 8px; border-radius: 12px;">Direct UPI</span>
+                <div class="upi-utr-box" style="margin: 14px 0 2px 0; padding: 14px 16px; background: #f0fdf4; border: 1.5px dashed #22c55e; border-radius: 14px; text-align: left;">
+                    <div style="font-weight: 700; font-size: 0.88rem; color: #166534; display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
+                        <span><i class="fas fa-check-double" style="color: #16a34a; margin-right: 5px;"></i> Already paid via UPI / QR? Enter UTR below (0% fee)</span>
+                        <span style="font-size: 0.68rem; background: #dcfce7; color: #15803d; font-weight: 700; padding: 2px 9px; border-radius: 12px; white-space:nowrap;">Direct UPI</span>
                     </div>
-                    <p style="font-size: 0.75rem; color: #166534; margin: 4px 0 8px 0; line-height: 1.4;">
-                        After paying via your UPI app or scanning QR, enter your <strong>12-digit UPI Ref / UTR number</strong>:
+                    <p style="font-size: 0.76rem; color: #166534; margin: 0 0 8px 0; line-height: 1.5;">
+                        Open your UPI app &rarr; go to <strong>Transaction History</strong> &rarr; find this payment &rarr; copy the
+                        <strong>12-digit UTR / UPI Ref No.</strong> and paste it here:
                     </p>
-                    <div style="display: flex; gap: 8px;">
-                        <input type="text" id="upiUtrInput" maxlength="24" placeholder="e.g. 412345678901 (from payment details)" style="flex: 1; padding: 8px 12px; border: 1px solid #86efac; border-radius: 8px; font-size: 0.84rem; font-weight: 600; font-family: monospace; letter-spacing: 0.5px; background: #fff;" />
-                    </div>
-                    <div style="font-size: 0.72rem; color: #64748b; margin-top: 6px;">
-                        💡 If you haven't paid yet, click <strong>Place Order</strong> below to open Razorpay Gateway for instant online verification.
+                    <input type="text" id="upiUtrInput" maxlength="24"
+                        placeholder="e.g. 412345678901 &mdash; find in app Transaction History"
+                        style="width: 100%; box-sizing: border-box; padding: 9px 13px; border: 1.5px solid #86efac; border-radius: 9px; font-size: 0.88rem; font-weight: 700; font-family: monospace; letter-spacing: 0.5px; background: #fff; color: #0f172a;" />
+                    <div style="font-size: 0.72rem; color: #64748b; margin-top: 7px; display:flex; align-items:flex-start; gap:5px;">
+                        <i class="fas fa-info-circle" style="color:#22c55e; margin-top:1px; flex-shrink:0;"></i>
+                        <span>Enter UTR to confirm your Direct UPI payment (0% fee). Our team will verify and approve your order.
+                        If you <strong>haven't paid yet</strong>, leave this empty and click <strong>Place Order</strong> to pay via Razorpay.</span>
                     </div>
                 </div>
             `;
@@ -2089,16 +2092,20 @@ if ($isLoggedIn) {
                         <i class="fab fa-amazon" title="Amazon Pay" style="color: #ff9900;"></i>
                     </div>
 
-                                        <div style="margin: 10px 0; background: #fffbeb; border: 1px solid #fde68a; border-radius: 10px; padding: 10px 12px; font-size: 0.78rem; color: #92400e; text-align: left; line-height: 1.4;">
-                        <strong><i class="fas fa-info-circle"></i> Bank Limit / "Exceeded limit" note:</strong><br>
-                        If your UPI app shows <em>"Exceeded bank limit"</em>, this is an automated bank security block when sending to your own UPI account or over web links.
-                        <div style="margin-top: 4px; display: flex; flex-wrap: wrap; gap: 6px;">
-                            <span>👉 Try <strong>PhonePe</strong>, <strong>Paytm</strong>, or <strong>Amazon Pay</strong></span> • 
-                            <span>👉 Or scan the <strong>QR Code</strong> below</span> • 
-                            <span>👉 Or choose <strong>Cash on Delivery (COD)</strong></span>
-                        </div>
-                    </div>
+                                        ${(['upi','gpay'].includes(method)) ? `
+                     <div style="margin: 10px 0; background: #fffbeb; border: 1px solid #fde68a; border-radius: 10px; padding: 10px 12px; font-size: 0.78rem; color: #92400e; text-align: left; line-height: 1.5;">
+                         <strong><i class="fas fa-exclamation-triangle" style="color:#d97706;"></i> Google Pay &ldquo;Bank Limit&rdquo; Note:</strong><br>
+                         If Google Pay shows <em>&ldquo;Exceeded bank limit&rdquo;</em>, this is an automated bank security rule &mdash; <strong>not a KSR error</strong>. Your money is safe.
+                         <div style="margin-top: 7px; padding: 8px 10px; background:#fff8; border-radius:8px; border:1px solid #fde68a;">
+                             <div style="font-weight:700; color:#92400e; margin-bottom:5px;">&#x2705; Try any of these instead:</div>
+                             <div style="margin-bottom:3px;">&#x1F449; <strong>PhonePe</strong> &mdash; works without bank limits</div>
+                             <div style="margin-bottom:3px;">&#x1F449; <strong>Paytm</strong> or <strong>Amazon Pay</strong> &mdash; also no limits</div>
+                             <div style="margin-bottom:3px;">&#x1F449; Scan the <strong>QR Code</strong> with any app</div>
+                             <div>&#x1F449; Or choose <strong>Cash on Delivery (COD)</strong></div>
+                         </div>
+                     </div>` : ''} 
 ${appButtonHtml}
+                    ${utrBoxHtml}
                     ${amountStrip}
                     ${merchantAccounts}
                     ${secureNote}
