@@ -6,10 +6,32 @@ $userId = $_SESSION['user_id'] ?? 5;
 
 $driverName = $_SESSION['user_name'] ?? 'JK (Delivery Partner - 8088584421)';
 
-// Stats queries
-try { $assignedOrders = (int)$pdo->query("SELECT COUNT(*) FROM order_delivery WHERE delivery_user_id = " . (int)$userId . " AND delivery_time IS NULL")->fetchColumn(); } catch (Throwable $e) { $assignedOrders = 0; }
-try { $completedOrders = (int)$pdo->query("SELECT COUNT(*) FROM order_delivery WHERE delivery_user_id = " . (int)$userId . " AND delivery_time IS NOT NULL")->fetchColumn(); } catch (Throwable $e) { $completedOrders = 0; }
+// Live stats queries from pharmacy_orders and parcel_requests
+$assignedOrders = 0;
+$completedOrders = 0;
+try {
+    $pharmActive = (int)$pdo->query("SELECT COUNT(*) FROM pharmacy_orders WHERE status = 'dispatched'")->fetchColumn();
+    $parcelActive = (int)$pdo->query("SELECT COUNT(*) FROM parcel_requests WHERE delivery_status NOT IN ('DELIVERED','CANCELLED','FAILED')")->fetchColumn();
+    $assignedOrders = $pharmActive + $parcelActive;
+} catch (Throwable $e) {
+    try {
+        $assignedOrders = (int)$pdo->query("SELECT COUNT(*) FROM order_delivery WHERE delivery_time IS NULL")->fetchColumn();
+    } catch (Throwable $e2) {
+        $assignedOrders = 0;
+    }
+}
 
+try {
+    $pharmDone = (int)$pdo->query("SELECT COUNT(*) FROM pharmacy_orders WHERE status = 'delivered'")->fetchColumn();
+    $parcelDone = (int)$pdo->query("SELECT COUNT(*) FROM parcel_requests WHERE delivery_status = 'DELIVERED'")->fetchColumn();
+    $completedOrders = $pharmDone + $parcelDone;
+} catch (Throwable $e) {
+    try {
+        $completedOrders = (int)$pdo->query("SELECT COUNT(*) FROM order_delivery WHERE delivery_time IS NOT NULL")->fetchColumn();
+    } catch (Throwable $e2) {
+        $completedOrders = 0;
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -112,11 +134,6 @@ try { $completedOrders = (int)$pdo->query("SELECT COUNT(*) FROM order_delivery W
     <link rel="stylesheet" href="assist-style.css">
     <?php $ksr_active = ''; $ksr_depth = 0; include __DIR__ . '/partials/brandbar.php'; ?>
 
-
-
-
-
-
 <?php renderRoleSwitcher(); ?>
 
 <nav class="navbar">
@@ -131,7 +148,7 @@ try { $completedOrders = (int)$pdo->query("SELECT COUNT(*) FROM order_delivery W
         </div>
         <div class="navbar-links">
             <a href="#" ><i class="fas fa-bell"></i></a>
-            <a href="profile.php" style="background:#DBEAFE; color:#1D4ED8; padding:8px 16px; border-radius:20px;"><i class="fas fa-motorcycle"></i> Courier Profile</a>
+            <a href="driver-dashboard.php" style="background:#DBEAFE; color:#1D4ED8; padding:8px 16px; border-radius:20px; text-decoration:none; font-weight:700;"><i class="fas fa-motorcycle"></i> Courier Profile</a>
         </div>
     </div>
 </nav>
@@ -150,11 +167,11 @@ try { $completedOrders = (int)$pdo->query("SELECT COUNT(*) FROM order_delivery W
                 <?php if($assignedOrders > 0): ?><div class="badge-count"><?php echo $assignedOrders; ?> Active Trips</div><?php endif; ?>
             </div>
             <div class="d-title">Active Manifest</div>
-            <div class="d-desc">View currently assigned logistics requests from verified dispensaries. Addresses and Maps are provided.</div>
+            <div class="d-desc">View currently assigned logistics requests from verified dispensaries and express parcels. Addresses and Maps are provided.</div>
             <div class="d-action">Open Fleet Manifest <i class="fas fa-arrow-right"></i></div>
         </a>
 
-        <a href="pharmacy-orders.php" class="d-card">
+        <a href="driver-dashboard.php" class="d-card">
             <div style="display:flex; align-items:flex-start;">
                 <div class="d-icon" style="color: #10B981; background: #D1FAE5;"><i class="fas fa-clipboard-check"></i></div>
                 <?php if($completedOrders > 0): ?><div class="badge-count" style="background:#D1FAE5; color:#065F46;"><?php echo $completedOrders; ?> Deliveries</div><?php endif; ?>
@@ -173,17 +190,17 @@ try { $completedOrders = (int)$pdo->query("SELECT COUNT(*) FROM order_delivery W
             <div style="background: #EFF6FF; border: 1px solid #BFDBFE; padding: 16px; border-radius: var(--radius-sm); margin-bottom: 16px; color: #1D4ED8; font-weight: 600;">
                 <i class="fas fa-motorcycle"></i> Dispatch Assigned
                 <p style="font-weight: 500; font-size: 0.95rem; margin-top: 8px; color: var(--clr-text-primary);">
-                    You have <strong><?php echo $assignedOrders; ?></strong> active packages loaded. Please proceed to the drop-off locations mapped in your system.
+                    You have <strong><?php echo $assignedOrders; ?></strong> active packages loaded across pharmacy and express parcel networks.
                 </p>
                 <div style="margin-top: 16px;">
-                    <a href="delivery-dashboard.php" class="btn-action" style="border-color:#1D4ED8; color:#1D4ED8; margin-right:8px;"><i class="fas fa-map-marker-alt"></i> View Navigation Data</a>
+                    <a href="driver-dashboard.php" class="btn-action" style="border: 2px solid #1D4ED8; background: #1D4ED8; color: white; padding: 8px 16px; border-radius: 8px; text-decoration: none; font-weight: 700; display: inline-block;"><i class="fas fa-map-marker-alt"></i> Open Driver Manifest & Navigation</a>
                 </div>
             </div>
         <?php else: ?>
             <div class="empty-state">
                 <i class="fas fa-road"></i>
                 <h4>Fleet is Dormant</h4>
-                <p>You have no current dispatches. Wait for pharmacy assignments.</p>
+                <p>You have no current dispatches. Wait for pharmacy or express parcel assignments.</p>
             </div>
         <?php endif; ?>
     </div>

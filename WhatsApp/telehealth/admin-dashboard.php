@@ -32,12 +32,42 @@ $t_orders = $safeCount("SELECT COUNT(*) FROM orders");
 $t_orders_pending = $safeCount("SELECT COUNT(*) FROM orders WHERE status = 'pending'");
 $t_orders_shipped = $safeCount("SELECT COUNT(*) FROM orders WHERE status = 'shipped'");
 
+// Pharmacy orders live telemetry
+$t_pharm_orders = $safeCount("SELECT COUNT(*) FROM pharmacy_orders");
+$t_pharm_pending = $safeCount("SELECT COUNT(*) FROM pharmacy_orders WHERE status = 'pending'");
+$t_pharm_dispatched = $safeCount("SELECT COUNT(*) FROM pharmacy_orders WHERE status = 'dispatched'");
+$t_pharm_delivered = $safeCount("SELECT COUNT(*) FROM pharmacy_orders WHERE status = 'delivered'");
+
+// Parcel requests live telemetry
+$t_parcels = $safeCount("SELECT COUNT(*) FROM parcel_requests");
+$t_parcels_active = $safeCount("SELECT COUNT(*) FROM parcel_requests WHERE delivery_status NOT IN ('DELIVERED','CANCELLED','FAILED')");
+$t_parcels_delivered = $safeCount("SELECT COUNT(*) FROM parcel_requests WHERE delivery_status = 'DELIVERED'");
+$t_parcels_upi = $safeCount("SELECT COUNT(*) FROM parcel_requests WHERE payment_method = 'UPI' OR payment_method LIKE '%UPI%'");
+$t_parcels_cod = $safeCount("SELECT COUNT(*) FROM parcel_requests WHERE payment_method = 'CASH_ON_DELIVERY' OR payment_method LIKE '%COD%'");
+
+// Aggregated orders count
+$t_all_orders = $t_orders + $t_pharm_orders + $t_parcels;
+
+// Multi-stream revenue
+$t_ecom_revenue = 0.0;
 try {
-    $t_revenue = $pdo->query("SELECT SUM(total) FROM orders")->fetchColumn();
-    $t_revenue = $t_revenue !== false && $t_revenue !== null ? (float)$t_revenue : 0;
-} catch (Throwable $e) {
-    $t_revenue = 0;
-}
+    $r = $pdo->query("SELECT SUM(total) FROM orders WHERE status != 'cancelled'")->fetchColumn();
+    if ($r !== false && $r !== null) $t_ecom_revenue = (float)$r;
+} catch (Throwable $e) {}
+
+$t_pharm_revenue = 0.0;
+try {
+    $r = $pdo->query("SELECT SUM(total) FROM pharmacy_orders WHERE status != 'rejected' AND status != 'cancelled'")->fetchColumn();
+    if ($r !== false && $r !== null) $t_pharm_revenue = (float)$r;
+} catch (Throwable $e) {}
+
+$t_parcel_revenue = 0.0;
+try {
+    $r = $pdo->query("SELECT SUM(amount) FROM parcel_requests WHERE payment_status = 'CONFIRMED' OR delivery_status = 'DELIVERED'")->fetchColumn();
+    if ($r !== false && $r !== null) $t_parcel_revenue = (float)$r;
+} catch (Throwable $e) {}
+
+$t_revenue = $t_ecom_revenue + $t_pharm_revenue + $t_parcel_revenue;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -536,8 +566,8 @@ try {
                 <div class="kpi-card" style="border-left-color: #EA580C;">
                     <div class="kpi-icon" style="background: #FFF7ED; color: #EA580C;"><i class="fas fa-box-open"></i></div>
                     <div class="kpi-data">
-                        <div class="kpi-label">Pharmacy Orders</div>
-                        <div class="kpi-val"><?php echo number_format($t_orders); ?></div>
+                        <div class="kpi-label">Orders & Parcels</div>
+                        <div class="kpi-val"><?php echo number_format($t_all_orders); ?></div>
                         <div class="kpi-trend trend-up"><i class="fas fa-satellite-dish"></i> Live Sync</div>
                     </div>
                 </div>
@@ -629,22 +659,22 @@ try {
                         </div>
 
                         <div class="ops-col">
-                            <div class="ops-col-head"><i class="fas fa-box-open" style="color:#EA580C;"></i> Pharmacy Fulfillment</div>
+                            <div class="ops-col-head"><i class="fas fa-box-open" style="color:#EA580C;"></i> Pharmacy Orders</div>
                             <ul class="ops-list">
-                                <li><span>Total Orders</span> <span class="ops-num"><?php echo $t_orders; ?></span></li>
-                                <li><span>Pending Setup</span> <span class="ops-num text-primary"><?php echo $t_orders_pending; ?></span></li>
-                                <li><span>Shipped</span> <span class="ops-num" style="color:#16A34A;"><?php echo $t_orders_shipped; ?></span></li>
-                                <li><span>Delivered</span> <span class="ops-num">0</span></li>
+                                <li><span>Total Pharmacy</span> <span class="ops-num"><?php echo $t_pharm_orders; ?></span></li>
+                                <li><span>Pending Prep</span> <span class="ops-num text-primary"><?php echo $t_pharm_pending; ?></span></li>
+                                <li><span>Dispatched</span> <span class="ops-num" style="color:#F59E0B;"><?php echo $t_pharm_dispatched; ?></span></li>
+                                <li><span>Delivered</span> <span class="ops-num" style="color:#16A34A;"><?php echo $t_pharm_delivered; ?></span></li>
                             </ul>
                         </div>
 
                         <div class="ops-col">
-                            <div class="ops-col-head"><i class="fas fa-motorcycle" style="color:#0F172A;"></i> Delivery Logistics</div>
+                            <div class="ops-col-head"><i class="fas fa-truck" style="color:#7C3AED;"></i> Express Parcels</div>
                             <ul class="ops-list">
-                                <li><span>Active Fleets</span> <span class="ops-num">126</span></li>
-                                <li><span>Out for Delivery</span> <span class="ops-num text-primary">89</span></li>
-                                <li><span>Attempted</span> <span class="ops-num" style="color:#F59E0B;">7</span></li>
-                                <li><span>Returns Req.</span> <span class="ops-num" style="color:#DC2626;">4</span></li>
+                                <li><span>Total Booked</span> <span class="ops-num"><?php echo $t_parcels; ?></span></li>
+                                <li><span>Active In-Transit</span> <span class="ops-num text-primary"><?php echo $t_parcels_active; ?></span></li>
+                                <li><span>Delivered</span> <span class="ops-num" style="color:#16A34A;"><?php echo $t_parcels_delivered; ?></span></li>
+                                <li><span>Instant UPI</span> <span class="ops-num" style="color:#10B981;"><?php echo $t_parcels_upi; ?></span></li>
                             </ul>
                         </div>
                     </div>

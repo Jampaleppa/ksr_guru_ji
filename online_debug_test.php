@@ -315,6 +315,44 @@ foreach ($targets as $envName => $baseUrl) {
         'not_contains' => ['Fatal error:', 'Parse error:']
     ]);
 
+    // ── TEST 12: Driver Operations Portal (Live Manifest)
+    $res = runReq($baseUrl . '/WhatsApp/telehealth/driver-dashboard.php', [], $cookieFile);
+    $assert('12. Driver Operations Portal (Live Shift & Telemetry)', $res, [
+        'status' => 200,
+        'contains' => [
+            'DRIVER PORTAL',
+            "Today's Shift",
+            'Active Delivery',
+            'Delivered Today'
+        ],
+        'not_contains' => ['Fatal error:', 'Parse error:', 'Warning:']
+    ]);
+
+    // ── TEST 13: Admin Control Center (Live Cross-Module Telemetry)
+    $res = runReq($baseUrl . '/WhatsApp/telehealth/admin-dashboard.php', [], $cookieFile);
+    $assert('13. Admin Control Center & Multi-Stream GMV', $res, [
+        'status' => 200,
+        'contains' => [
+            'DOCTOR ASSIST ADMIN',
+            'Orders & Parcels',
+            'Express Parcels',
+            'Revenue (Live)'
+        ],
+        'not_contains' => ['Fatal error:', 'Parse error:', 'Warning:']
+    ]);
+
+    // ── TEST 14: Courier Logistics Fleet Dashboard
+    $res = runReq($baseUrl . '/WhatsApp/telehealth/delivery-dashboard.php', [], $cookieFile);
+    $assert('14. Courier Logistics Fleet Dashboard', $res, [
+        'status' => 200,
+        'contains' => [
+            'Courier Outpost',
+            'Active Manifest',
+            'Delivery Logs'
+        ],
+        'not_contains' => ['Fatal error:', 'Parse error:', 'Warning:']
+    ]);
+
     @unlink($cookieFile);
 
     $totalTests = $passed + $failed;
