@@ -142,7 +142,7 @@ foreach ([sys_get_temp_dir(), $appRoot, "$appRoot/logs", "$appRoot/uploads", "$a
 }
 echo "</table>";
 
-// ── 6. Router Test ───────────────────────────────────────────
+// ── 6. Router & Server Info ──────────────────────────────────
 echo "<h2>6. Router &amp; Server Info</h2><table>";
 foreach ([
     'HTTP_HOST',
@@ -150,18 +150,11 @@ foreach ([
     'SCRIPT_NAME',
     'PHP_SELF',
     'SERVER_SOFTWARE',
-    'HTTP_X_FORWARDED_PROTO',
-    'VERCEL_GIT_COMMIT_SHA',
-    'VERCEL_GIT_COMMIT_MESSAGE',
-    'VERCEL_ENV'
+    'HTTP_X_FORWARDED_PROTO'
 ] as $k) {
     $val = $_SERVER[$k] ?? (getenv($k) ?: '(not set)');
     echo "<tr><td><code>$k</code></td><td>" . htmlspecialchars((string)$val) . "</td></tr>";
 }
-$chkSize = file_exists(dirname(__DIR__) . '/checkout.php') ? filesize(dirname(__DIR__) . '/checkout.php') : 'not found';
-echo "<tr><td><code>CHECKOUT_PHP_SIZE</code></td><td>" . htmlspecialchars((string)$chkSize) . "</td></tr>";
-$upiEx = file_exists(__DIR__ . '/upi_verify.php') ? 'yes' : 'no';
-echo "<tr><td><code>UPI_VERIFY_EXISTS</code></td><td>" . htmlspecialchars((string)$upiEx) . "</td></tr>";
 echo "</table>";
 
 echo "<hr><p style='color:#666;font-size:12px'>⚠️ Delete or disable <code>api/debug.php</code> after debugging is complete.</p></body></html>";
