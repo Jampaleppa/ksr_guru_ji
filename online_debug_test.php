@@ -11,7 +11,13 @@ $targets = [
     'Local WAMP'  => 'http://localhost:8090'
 ];
 
-function runReq($url, $opts = [], $cookieJar = null) {
+/**
+ * @param string $url
+ * @param array<string, mixed> $opts
+ * @param string|null $cookieJar
+ * @return array<string, mixed>
+ */
+function runReq(string $url, array $opts = [], ?string $cookieJar = null): array {
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -67,7 +73,13 @@ foreach ($targets as $envName => $baseUrl) {
     $passed = 0;
     $failed = 0;
 
-    $assert = function($title, $res, $checks = []) use (&$passed, &$failed) {
+    /**
+     * @param string $title
+     * @param array<string, mixed> $res
+     * @param array<string, mixed> $checks
+     * @return bool
+     */
+    $assert = function(string $title, array $res, array $checks = []) use (&$passed, &$failed): bool {
         $ok = true;
         $reasons = [];
 
