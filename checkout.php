@@ -1985,6 +1985,25 @@ if ($isLoggedIn) {
                 `;
             }
 
+                        // Direct UPI / UTR Submission Card definition
+            const utrBoxHtml = `
+                <div class="upi-utr-box" style="margin: 12px 0; padding: 14px; background: #f0fdf4; border: 1.5px dashed #22c55e; border-radius: 12px; text-align: left;">
+                    <div style="font-weight: 700; font-size: 0.86rem; color: #166534; display: flex; align-items: center; justify-content: space-between;">
+                        <span><i class="fas fa-check-double" style="color: #16a34a; margin-right: 4px;"></i> Already Paid via UPI / QR? (0% Fee)</span>
+                        <span style="font-size: 0.68rem; background: #dcfce7; color: #15803d; font-weight: 700; padding: 2px 8px; border-radius: 12px;">Direct UPI</span>
+                    </div>
+                    <p style="font-size: 0.75rem; color: #166534; margin: 4px 0 8px 0; line-height: 1.4;">
+                        After paying via your UPI app or scanning QR, enter your <strong>12-digit UPI Ref / UTR number</strong>:
+                    </p>
+                    <div style="display: flex; gap: 8px;">
+                        <input type="text" id="upiUtrInput" maxlength="24" placeholder="e.g. 412345678901 (from payment details)" style="flex: 1; padding: 8px 12px; border: 1px solid #86efac; border-radius: 8px; font-size: 0.84rem; font-weight: 600; font-family: monospace; letter-spacing: 0.5px; background: #fff;" />
+                    </div>
+                    <div style="font-size: 0.72rem; color: #64748b; margin-top: 6px;">
+                        💡 If you haven't paid yet, click <strong>Place Order</strong> below to open Razorpay Gateway for instant online verification.
+                    </div>
+                </div>
+            `;
+
             detailTitle.innerHTML = `<i class="${info.icon}" style="color:${info.color};"></i> ${escapeHtml(info.title)}`;
             detailContent.innerHTML = `
                 <div class="pd-panel">
