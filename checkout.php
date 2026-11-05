@@ -2092,19 +2092,7 @@ if ($isLoggedIn) {
                         <i class="fab fa-amazon" title="Amazon Pay" style="color: #ff9900;"></i>
                     </div>
 
-                                        ${(['upi','gpay'].includes(method)) ? `
-                     <div style="margin: 10px 0; background: #fffbeb; border: 1px solid #fde68a; border-radius: 10px; padding: 10px 12px; font-size: 0.78rem; color: #92400e; text-align: left; line-height: 1.5;">
-                         <strong><i class="fas fa-exclamation-triangle" style="color:#d97706;"></i> Google Pay &ldquo;Bank Limit&rdquo; Note:</strong><br>
-                         If Google Pay shows <em>&ldquo;Exceeded bank limit&rdquo;</em>, this is an automated bank security rule &mdash; <strong>not a KSR error</strong>. Your money is safe.
-                         <div style="margin-top: 7px; padding: 8px 10px; background:#fff8; border-radius:8px; border:1px solid #fde68a;">
-                             <div style="font-weight:700; color:#92400e; margin-bottom:5px;">&#x2705; Try any of these instead:</div>
-                             <div style="margin-bottom:3px;">&#x1F449; <strong>PhonePe</strong> &mdash; works without bank limits</div>
-                             <div style="margin-bottom:3px;">&#x1F449; <strong>Paytm</strong> or <strong>Amazon Pay</strong> &mdash; also no limits</div>
-                             <div style="margin-bottom:3px;">&#x1F449; Scan the <strong>QR Code</strong> with any app</div>
-                             <div>&#x1F449; Or choose <strong>Cash on Delivery (COD)</strong></div>
-                         </div>
-                     </div>` : ''} 
-${appButtonHtml}
+                                        ${appButtonHtml}
                     ${utrBoxHtml}
                     ${amountStrip}
                     ${merchantAccounts}
