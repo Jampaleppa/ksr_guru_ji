@@ -547,6 +547,74 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
                 $_SESSION['cart'] = [];
             }
 
+            // Direct UPI (Customer paid via UPI and entered UTR)
+            if ($payment_method !== 'cod' && !empty($utr)) {
+                $utrClean = preg_replace('/[^A-Za-z0-9]/', '', $utr);
+                $stmt = $pdo->prepare("
+                    UPDATE orders
+                    SET payment_method = 'upi_direct',
+                        transaction_id = ?,
+                        payment_status = 'upi_awaiting',
+                        status = 'confirmed'
+                    WHERE id = ?
+                ");
+                $stmt->execute([$utrClean, $orderId]);
+
+                $stmt = $pdo->prepare("
+                    UPDATE payments
+                    SET transaction_id = ?,
+                        gateway_payment_id = ?,
+                        gateway = 'upi_direct',
+                        status = 'upi_awaiting'
+                    WHERE order_id = ?
+                ");
+                $stmt->execute([$utrClean, $utrClean, $orderId]);
+
+                $stmt = $pdo->prepare("
+                    INSERT INTO order_timeline (order_id, status, notes, created_by)
+                    VALUES (?, 'confirmed', ?, ?)
+                ");
+                $stmt->execute([
+                    $orderId,
+                    'Customer submitted Direct UPI payment (UTR: ' . $utrClean . '). Awaiting admin verification.',
+                    $userId
+                ]);
+
+                if (function_exists('recordPaymentEvent')) {
+                    recordPaymentEvent(
+                        $pdo,
+                        $paymentRecordId,
+                        $orderId,
+                        'UPI_UTR_SUBMITTED',
+                        'initiated',
+                        'upi_awaiting',
+                        null,
+                        null,
+                        ['utr' => $utrClean, 'gateway' => 'upi_direct'],
+                        'checkout'
+                    );
+                }
+
+                if (!isset($_SESSION['ksr_guest_orders']) || !is_array($_SESSION['ksr_guest_orders'])) {
+                    $_SESSION['ksr_guest_orders'] = [];
+                }
+                $_SESSION['ksr_guest_orders'][] = $orderId;
+
+                echo json_encode([
+                    'success' => true,
+                    'order_id' => $orderId,
+                    'order_number' => $orderNumber,
+                    'upi_direct' => true,
+                    'utr' => $utrClean,
+                    'amount' => round($total * 100),
+                    'customer_name' => $name,
+                    'customer_email' => $email,
+                    'customer_phone' => $phone,
+                    'message' => 'Order placed successfully! We received your UPI UTR reference and are verifying your payment.'
+                ]);
+                exit;
+            }
+
             // Generate Razorpay Order if not COD
             if ($payment_method !== 'cod') {
                 if (file_exists(__DIR__ . '/razorpay_helper.php')) {
@@ -2505,6 +2573,9 @@ ${appButtonHtml}
                     if (selectedMethod === 'cod') {
                         transactionId = result.transaction_id || ('COD' + Date.now().toString().slice(-8));
                         paymentStatus = 'COD_PENDING';
+                    } else if (result.upi_direct) {
+                        transactionId = result.utr || '';
+                        paymentStatus = 'UPI_AWAITING_VERIFICATION';
                     } else {
                         // ── Step 1: open the gateway and collect the response ──
                         try {
@@ -2596,7 +2667,7 @@ ${appButtonHtml}
                     }
 
                     // Customer WhatsApp Template
-                    const customerPayText = (paymentStatus === 'PAID') ? '✅ Online Paid' : '💵 Cash on Delivery';
+                    const customerPayText = (paymentStatus === 'PAID') ? '✅ Online Paid' : ((paymentStatus === 'UPI_AWAITING_VERIFICATION') ? '⚡ Direct UPI (Awaiting Verification - UTR: ' + transactionId + ')' : '💵 Cash on Delivery');
                     const customerMsg = `Hello *${orderData.customer.name}*, thank you for ordering with *KSR GURU JI*! 🛍️✨\n\n` +
                         `Your order *#${orderNo}* has been successfully confirmed!\n` +
                         `💰 *Total Amount:* ${formatINR(total)}\n` +
