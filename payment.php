@@ -80,6 +80,28 @@ try {
 
     if (file_exists(__DIR__ . '/razorpay_helper.php')) { require_once __DIR__ . '/razorpay_helper.php'; } elseif (file_exists(__DIR__ . '/../razorpay_helper.php')) { require_once __DIR__ . '/../razorpay_helper.php'; }
 
+        $utr = trim((string)($input['utr'] ?? ($input['upi_utr'] ?? '')));
+    if (!empty($utr)) {
+        $utrClean = preg_replace('/[^A-Za-z0-9]/', '', $utr);
+        $stmt = $pdo->prepare("UPDATE orders SET status = 'pending', payment_status = 'upi_awaiting', transaction_id = ?, updated_at = {$nowExpr} WHERE id = ?");
+        $stmt->execute([$utrClean, $orderId]);
+
+        try {
+            $stmtPayment = $pdo->prepare("UPDATE payments SET status = 'upi_awaiting', gateway = 'upi_direct', gateway_payment_id = ?, transaction_id = ? WHERE order_id = ?");
+            $stmtPayment->execute([$utrClean, $utrClean, $orderId]);
+        } catch (Exception $e) {}
+
+        echo json_encode([
+            'success' => true,
+            'message' => 'Direct UPI UTR submitted successfully.',
+            'order_id' => $orderId,
+            'order_number' => $order['order_number'],
+            'transaction_id' => $utrClean,
+            'status' => 'upi_awaiting'
+        ]);
+        exit;
+    }
+
     if ($paymentMethod === 'cod') {
         // Direct COD handling
         $transactionId = 'COD-' . time();

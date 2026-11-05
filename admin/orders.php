@@ -372,6 +372,7 @@ if (isset($_GET['err'])) $error = $_GET['err'];
             <select name="status">
                 <option value="">All Status</option>
                 <option value="pending" <?= isset($_GET['status']) && $_GET['status'] === 'pending' ? 'selected' : '' ?>>Pending</option>
+                <option value="upi_awaiting" <?= isset($_GET['payment_status']) && $_GET['payment_status'] === 'upi_awaiting' ? 'selected' : '' ?>>UPI Awaiting Verify</option>
                 <option value="pending_verification" <?= isset($_GET['status']) && $_GET['status'] === 'pending_verification' ? 'selected' : '' ?>>Pending Verification</option>
                 <option value="confirmed" <?= isset($_GET['status']) && $_GET['status'] === 'confirmed' ? 'selected' : '' ?>>Confirmed</option>
                 <option value="processing" <?= isset($_GET['status']) && $_GET['status'] === 'processing' ? 'selected' : '' ?>>Processing</option>
@@ -383,6 +384,7 @@ if (isset($_GET['err'])) $error = $_GET['err'];
             <select name="payment_status">
                 <option value="">All Payment</option>
                 <option value="paid" <?= isset($_GET['payment_status']) && $_GET['payment_status'] === 'paid' ? 'selected' : '' ?>>Paid</option>
+                <option value="upi_awaiting" <?= isset($_GET['payment_status']) && $_GET['payment_status'] === 'upi_awaiting' ? 'selected' : '' ?>>UPI Awaiting Verify</option>
                 <option value="pending_verification" <?= isset($_GET['payment_status']) && $_GET['payment_status'] === 'pending_verification' ? 'selected' : '' ?>>Pending Verification</option>
                 <option value="pending" <?= isset($_GET['payment_status']) && $_GET['payment_status'] === 'pending' ? 'selected' : '' ?>>Pending</option>
                 <option value="failed" <?= isset($_GET['payment_status']) && $_GET['payment_status'] === 'failed' ? 'selected' : '' ?>>Failed</option>
@@ -433,6 +435,9 @@ if (isset($_GET['err'])) $error = $_GET['err'];
                                 <td><span class="status-badge <?= $o['status'] ?>"><?= ucfirst(str_replace('_', ' ', $o['status'])) ?></span></td>
                                 <td><?= htmlspecialchars($o['driver_name'] ?? '—') ?></td>
                                 <td>
+                                    <?php if (($o['payment_status'] ?? '') === 'upi_awaiting'): ?>
+                                        <a href="payments.php?f_order=<?= urlencode((string)$o['order_number']) ?>" class="action-btn success" title="Verify UPI Payment" style="display:inline-flex;align-items:center;justify-content:center;text-decoration:none;"><i class="fas fa-check-circle"></i></a>
+                                    <?php endif; ?>
                                     <button class="action-btn primary view-order" data-id="<?= $o['id'] ?>" title="View Details"><i class="fas fa-eye"></i></button>
                                     <button class="action-btn primary status-btn" data-id="<?= $o['id'] ?>" data-status="<?= $o['status'] ?>" title="Update Status"><i class="fas fa-edit"></i></button>
                                     <button class="action-btn success assign-btn" data-id="<?= $o['id'] ?>" title="Assign Delivery"><i class="fas fa-truck"></i></button>
@@ -483,7 +488,8 @@ if (isset($_GET['err'])) $error = $_GET['err'];
                         <label>Status</label>
                         <select name="status" id="statusSelect">
                             <option value="pending">Pending</option>
-                            <option value="pending_verification">Pending Verification</option>
+                            <option value="upi_awaiting" <?= isset($_GET['payment_status']) && $_GET['payment_status'] === 'upi_awaiting' ? 'selected' : '' ?>>UPI Awaiting Verify</option>
+                <option value="pending_verification">Pending Verification</option>
                             <option value="confirmed">Confirmed</option>
                             <option value="processing">Processing</option>
                             <option value="shipped">Shipped</option>

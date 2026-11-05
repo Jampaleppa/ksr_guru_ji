@@ -208,6 +208,101 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['collect_cod'])) {
     exit;
 }
 
+// --- UPI DIRECT: verify or reject payment ---
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['verify_upi_direct'])) {
+    if (!isset($_POST['csrf_token']) || !hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'])) {
+        header('Location: payments.php?err=' . urlencode('CSRF token validation failed.'));
+        exit;
+    }
+
+    $payment_id = (int)($_POST['payment_id'] ?? 0);
+    $decision   = ($_POST['upi_decision'] ?? '') === 'approve' ? 'success' : 'failed';
+    $utr        = trim($_POST['utr_reference'] ?? '');
+    $notes      = trim($_POST['verification_notes'] ?? '');
+
+    try {
+        $stmt = $pdo->prepare("SELECT p.*, o.order_number FROM payments p LEFT JOIN orders o ON p.order_id = o.id WHERE p.id = ? LIMIT 1");
+        $stmt->execute([$payment_id]);
+        $pay = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (!$pay) {
+            throw new Exception('Payment record not found.');
+        }
+
+        $orderId = (int)$pay['order_id'];
+        $adminName = $_SESSION['admin_name'] ?? ('Admin #' . $adminUserId);
+
+        $pdo->beginTransaction();
+
+        if ($decision === 'success') {
+            applyPaymentStatus($pdo, $payment_id, 'processing', [
+                'event_type' => 'ADMIN_UPI_VERIFYING',
+                'source'     => 'admin',
+            ]);
+
+            applyPaymentStatus($pdo, $payment_id, 'success', [
+                'event_type'         => 'ADMIN_UPI_CONFIRMED',
+                'gateway_payment_id' => $utr ?: ($pay['transaction_id'] ?? 'UPI' . date('YmdHis')),
+                'transaction_id'     => $utr ?: ($pay['transaction_id'] ?? 'UPI' . date('YmdHis')),
+                'source'             => 'admin',
+                'gateway_response'   => [
+                    'verified_by' => $adminName,
+                    'verified_at' => date('Y-m-d H:i:s'),
+                    'utr'         => $utr,
+                    'notes'       => $notes
+                ]
+            ]);
+
+            $upd = $pdo->prepare("UPDATE orders SET status = 'processing', payment_status = 'paid' WHERE id = ?");
+            $upd->execute([$orderId]);
+
+            $stmt = $pdo->prepare("
+                INSERT INTO order_timeline (order_id, status, notes, created_by)
+                VALUES (?, 'processing', ?, ?)
+            ");
+            $stmt->execute([
+                $orderId,
+                "UPI Payment (₹" . number_format((float)$pay['amount'], 2) . ") verified by {$adminName}." . ($utr ? " UTR: {$utr}." : "") . ($notes ? " Notes: {$notes}" : ""),
+                $adminUserId,
+            ]);
+
+            $pdo->commit();
+            $message = '✅ UPI Direct payment verified and order marked as paid.';
+        } else {
+            applyPaymentStatus($pdo, $payment_id, 'failed', [
+                'event_type'     => 'ADMIN_UPI_REJECTED',
+                'failure_code'   => 'UPI_REJECTED_BY_ADMIN',
+                'failure_reason' => $notes ?: 'Payment rejected during bank verification.',
+                'source'         => 'admin',
+            ]);
+
+            $upd = $pdo->prepare("UPDATE orders SET payment_status = 'failed' WHERE id = ?");
+            $upd->execute([$orderId]);
+
+            $stmt = $pdo->prepare("
+                INSERT INTO order_timeline (order_id, status, notes, created_by)
+                VALUES (?, 'pending', ?, ?)
+            ");
+            $stmt->execute([
+                $orderId,
+                "UPI Payment rejected by {$adminName}. Reason: " . ($notes ?: 'Bank verification mismatch.'),
+                $adminUserId,
+            ]);
+
+            $pdo->commit();
+            $message = '⚠️ UPI payment marked as failed.';
+        }
+    } catch (Exception $e) {
+        if (isset($pdo) && $pdo instanceof PDO && $pdo->inTransaction()) {
+            $pdo->rollBack();
+        }
+        $error = 'UPI Verification failed: ' . $e->getMessage();
+    }
+
+    header('Location: payments.php?msg=' . urlencode($message ?? '') . '&err=' . urlencode($error ?? ''));
+    exit;
+}
+
 // --- DELETE PAYMENT ---
 if (isset($_GET['action']) && $_GET['action'] === 'delete' && isset($_GET['id'])) {
     if (!isset($_GET['csrf_token']) || !hash_equals($_SESSION['csrf_token'], $_GET['csrf_token'])) {
@@ -353,7 +448,7 @@ function ksrStatusBadgeClass(string $status): string {
         'failed'                   => 'failed',
         'refunded', 'refund_pending' => 'refunded',
         'cancelled', 'expired'     => 'failed',
-        'cod_pending'              => 'pending_verification',
+        'cod_pending', 'upi_awaiting' => 'pending_verification',
         'initiated'                => 'initiated',
         default                    => 'pending',
     };
@@ -554,6 +649,7 @@ function ksrStatusBadgeClass(string $status): string {
                         <option value="">All</option>
                         <option value="razorpay" <?= $fGateway === 'razorpay' ? 'selected' : '' ?>>Razorpay</option>
                         <option value="cod" <?= $fGateway === 'cod' ? 'selected' : '' ?>>COD</option>
+                        <option value="upi_direct" <?= $fGateway === 'upi_direct' ? 'selected' : '' ?>>Direct UPI (0% Fee)</option>
                     </select>
                 </div>
                 <div class="form-group" style="margin:0;">
@@ -612,6 +708,9 @@ function ksrStatusBadgeClass(string $status): string {
                             <?php if (in_array($pStatus, ['success', 'cod_collected'], true)): ?>
                                 <button class="view-btn refund-btn" data-id="<?= (int)$p['id'] ?>" data-amount="<?= (float)$p['amount'] ?>" title="Refund" style="color:var(--warning);border:none;background:none;cursor:pointer;"><i class="fas fa-undo-alt"></i></button>
                             <?php endif; ?>
+                            <?php if (in_array($pStatus, ['upi_awaiting', 'pending'], true) && ($p['method'] === 'upi' || ($p['gateway'] ?? '') === 'upi_direct')): ?>
+                                <button class="view-btn verify-upi-btn" data-id="<?= (int)$p['id'] ?>" data-amount="<?= (float)$p['amount'] ?>" data-utr="<?= htmlspecialchars((string)($p['gateway_payment_id'] ?: $p['transaction_id'])) ?>" data-order="<?= htmlspecialchars((string)$p['order_number']) ?>" title="Verify UPI Direct Payment" style="color:#0f7b3a;border:none;background:none;cursor:pointer;"><i class="fas fa-check-circle"></i></button>
+                            <?php endif; ?>
                             <?php if ($pStatus === 'cod_pending'): ?>
                                 <button class="view-btn collect-btn" data-id="<?= (int)$p['id'] ?>" data-amount="<?= (float)$p['amount'] ?>" title="Collect Cash" style="color:var(--success);border:none;background:none;cursor:pointer;"><i class="fas fa-hand-holding-usd"></i></button>
                             <?php endif; ?>
@@ -655,6 +754,46 @@ function ksrStatusBadgeClass(string $status): string {
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline" onclick="closeModal('refundModal')">Cancel</button>
                     <button type="submit" name="refund_payment" class="btn btn-danger">Process Refund</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- UPI Direct Verification Modal -->
+    <div class="modal-overlay" id="upiVerifyModal">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h3><i class="fas fa-shield-alt" style="color:#0f7b3a;"></i> Verify Direct UPI Payment</h3>
+                <button class="modal-close" onclick="closeModal('upiVerifyModal')"><i class="fas fa-times"></i></button>
+            </div>
+            <form method="POST">
+                <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token'] ?? '') ?>">
+                <input type="hidden" name="payment_id" id="upiVerifyPaymentId">
+                <div class="modal-body">
+                    <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;padding:14px;margin-bottom:14px;text-align:center;">
+                        <div style="font-size:0.75rem;color:#166534;font-weight:700;text-transform:uppercase;">Order #<span id="upiVerifyOrderNo">—</span></div>
+                        <div id="upiVerifyAmount" style="font-size:1.8rem;font-weight:800;color:#15803d;margin:4px 0;">₹0.00</div>
+                        <div style="font-size:0.8rem;color:#334155;">Customer Submitted Ref: <strong id="upiVerifyUtrDisplay" style="font-family:monospace;background:#fff;padding:2px 8px;border-radius:6px;border:1px solid #cbd5e1;">—</strong></div>
+                    </div>
+                    <div class="form-group">
+                        <label>Bank Confirmed UTR (12-Digit Reference)</label>
+                        <input type="text" name="utr_reference" id="upiVerifyUtrInput" placeholder="Confirm UTR from bank statement / UPI app" style="font-family:monospace;">
+                    </div>
+                    <div class="form-group">
+                        <label>Decision</label>
+                        <select name="upi_decision" id="upiDecisionSelect" style="font-weight:600;">
+                            <option value="approve" style="color:#15803d;">✅ Approve & Mark Order as Paid</option>
+                            <option value="reject" style="color:#dc2626;">❌ Reject / Not Received (Mark Failed)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Verification Notes (Optional)</label>
+                        <textarea name="verification_notes" rows="2" placeholder="e.g. Received in SBI / Mismatch in bank statement"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline" onclick="closeModal('upiVerifyModal')">Cancel</button>
+                    <button type="submit" name="verify_upi_direct" class="btn btn-primary" style="background:#0f7b3a;"><i class="fas fa-check"></i> Submit Verification</button>
                 </div>
             </form>
         </div>

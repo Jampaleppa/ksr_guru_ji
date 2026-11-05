@@ -361,6 +361,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
         $pincode = trim($_POST['pincode'] ?? '');
         $payment_method = $_POST['payment_method'] ?? 'cod';
         $notes = trim($_POST['notes'] ?? '');
+        $utr = trim($_POST['utr'] ?? '');
 
         // Cart items from client (JSON)
         $cartItems = isset($_POST['items']) ? json_decode($_POST['items'], true) : [];
@@ -1150,7 +1151,9 @@ if ($isLoggedIn) {
             if (currentPath.endsWith('.php')) {
                 endpoints.push(currentPath);
             }
+            if (currentPath && currentPath !== '/') { endpoints.push(currentPath); }
             endpoints.push('/checkout.php');
+            endpoints.push('/checkout');
             endpoints.push('checkout.php');
             endpoints.push('/checkout/checkout.php');
             endpoints.push('checkout/checkout.php');
@@ -2443,6 +2446,10 @@ ${appButtonHtml}
             formData.append('total', orderData.total);
             formData.append('delivery_charge', orderData.deliveryCharge);
             formData.append('transaction_id', '');
+            const upiUtrField = document.getElementById('upiUtrInput');
+            if (upiUtrField && upiUtrField.value.trim()) {
+                formData.append('utr', upiUtrField.value.trim());
+            }
 
             try {
                 const postRes = await postToCheckoutEndpoint(formData);

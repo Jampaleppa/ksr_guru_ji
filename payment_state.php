@@ -39,6 +39,7 @@ if (!function_exists('ksrPaymentStates')) {
             'refund_failed',
             'cod_pending',
             'cod_collected',
+            'upi_awaiting',
         ];
     }
 
@@ -91,6 +92,10 @@ if (!function_exists('ksrPaymentStates')) {
             return 'refunded';
         }
 
+        if ($status === 'upi_awaiting' || $status === 'awaiting_upi') {
+            return 'upi_awaiting';
+        }
+
         return $status;
     }
 
@@ -108,11 +113,13 @@ if (!function_exists('ksrPaymentStates')) {
         }
 
         $allowed = [
-            'initiated' => ['pending', 'processing', 'cancelled', 'expired', 'failed'],
+            'initiated' => ['pending', 'processing', 'upi_awaiting', 'cancelled', 'expired', 'failed'],
 
-            'pending' => ['processing', 'success', 'failed', 'cancelled', 'expired'],
+            'pending' => ['processing', 'upi_awaiting', 'success', 'failed', 'cancelled', 'expired'],
 
             'processing' => ['success', 'failed', 'cancelled', 'expired'],
+
+            'upi_awaiting' => ['processing', 'success', 'failed', 'cancelled', 'expired'],
 
             'success' => ['refund_pending'],
 
@@ -162,6 +169,7 @@ if (!function_exists('ksrPaymentStates')) {
             'success'        => 'paid',
             'cod_collected'  => 'cod_collected',
             'cod_pending'    => 'cod_pending',
+            'upi_awaiting'   => 'upi_awaiting',
             'refund_pending' => 'refund_pending',
             'refunded'       => 'refunded',
             'refund_failed'  => 'refund_failed',
@@ -462,6 +470,7 @@ if (!function_exists('ksrPaymentStates')) {
             'refund_failed'  => 'Refund could not be completed. Our team will contact you.',
             'cod_pending'    => 'Cash will be collected on delivery.',
             'cod_collected'  => 'Cash has been collected.',
+            'upi_awaiting'   => 'UPI payment submitted. Awaiting merchant confirmation.',
             default          => 'Payment status is being updated.',
         };
     }

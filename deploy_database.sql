@@ -180,7 +180,7 @@ CREATE TABLE IF NOT EXISTS `payments` (
       'pending','success','failed','refunded',
       'initiated','processing','cancelled','expired',
       'refund_pending','refund_failed',
-      'cod_pending','cod_collected'
+      'cod_pending','cod_collected','upi_awaiting'
   ) NOT NULL DEFAULT 'pending',
   `failure_code` varchar(100) DEFAULT NULL,
   `failure_reason` text DEFAULT NULL,

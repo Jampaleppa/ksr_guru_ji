@@ -158,7 +158,21 @@ if ($order && !empty($order['driver_id'])) {
                         <b><?= e(trim(($order['address'] ?? '') . ', ' . ($order['city'] ?? '') . ' ' . ($order['pincode'] ?? ''))) ?></b>
                     </div>
                     <div class="dp-kv"><span>Order value</span><b><?= e(delivery_money($order['total'])) ?></b></div>
-                    <div class="dp-kv"><span>Payment</span><b><?= e(strtoupper((string) $order['payment_method'])) ?></b></div>
+                    <div class="dp-kv"><span>Payment</span>
+                        <b>
+                            <?= e(strtoupper((string) $order['payment_method'])) ?>
+                            <?php if (($order['payment_status'] ?? '') === 'upi_awaiting'): ?>
+                                <span style="font-size:0.72rem;background:#dcfce7;color:#15803d;padding:2px 8px;border-radius:12px;margin-left:6px;"><i class="fa-solid fa-clock"></i> UPI Awaiting Verify</span>
+                            <?php elseif (($order['payment_status'] ?? '') === 'paid'): ?>
+                                <span style="font-size:0.72rem;background:#dcfce7;color:#15803d;padding:2px 8px;border-radius:12px;margin-left:6px;"><i class="fa-solid fa-check-circle"></i> Paid</span>
+                            <?php elseif (($order['payment_status'] ?? '') === 'cod_pending'): ?>
+                                <span style="font-size:0.72rem;background:#fef3c7;color:#b45309;padding:2px 8px;border-radius:12px;margin-left:6px;"><i class="fa-solid fa-hand-holding-dollar"></i> Pay Cash</span>
+                            <?php endif; ?>
+                        </b>
+                    </div>
+                    <?php if (!empty($order['transaction_id'])): ?>
+                        <div class="dp-kv"><span>Reference / UTR</span><b style="font-family:monospace;font-size:0.85rem;"><?= e((string)$order['transaction_id']) ?></b></div>
+                    <?php endif; ?>
                     <div class="dp-kv"><span>Placed on</span>
                         <b><?= e(date('d M Y, h:i A', strtotime($order['placed_at'] ?: $order['created_at']))) ?></b>
                     </div>
@@ -169,6 +183,30 @@ if ($order && !empty($order['driver_id'])) {
                     <?php endif; ?>
                 </div>
             </section>
+
+            <?php if (strtolower((string)$order['payment_method']) !== 'cod' && ($order['payment_status'] ?? '') !== 'paid'): ?>
+                <section class="dp-card" style="background:#f0fdf4;border:1.5px dashed #22c55e;">
+                    <div class="dp-card-h" style="border-bottom:none;padding-bottom:0;">
+                        <h3 style="color:#166534;"><i class="fa-solid fa-mobile-screen-button"></i> Direct UPI Payment Status</h3>
+                    </div>
+                    <div class="dp-sec" style="padding-top:8px;">
+                        <p style="font-size:0.82rem;color:#166534;margin-bottom:10px;line-height:1.4;">
+                            <?php if (($order['payment_status'] ?? '') === 'upi_awaiting'): ?>
+                                ✅ We have received your UPI Ref / UTR: <strong style="font-family:monospace;"><?= e((string)$order['transaction_id']) ?></strong>. Our team is verifying it with our bank and will confirm shortly.
+                            <?php else: ?>
+                                Paid via Google Pay, PhonePe, Paytm, BHIM or QR? Submit your 12-digit UTR number below to confirm your payment:
+                            <?php endif; ?>
+                        </p>
+                        <?php if (($order['payment_status'] ?? '') !== 'upi_awaiting'): ?>
+                            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                                <input type="text" id="tkUtrInput" placeholder="Enter 12-digit UPI UTR / Ref Number" maxlength="24" style="flex:1;min-width:200px;padding:8px 12px;border:1px solid #86efac;border-radius:8px;font-family:monospace;font-size:0.85rem;" required>
+                                <button type="button" onclick="submitTrackingUtr(<?= (int)$order['id'] ?>)" class="dp-btn dp-btn-primary" style="background:#0f7b3a;"><i class="fa-solid fa-check"></i> Submit UTR</button>
+                            </div>
+                            <div id="tkUtrMsg" style="font-size:0.75rem;margin-top:6px;"></div>
+                        <?php endif; ?>
+                    </div>
+                </section>
+            <?php endif; ?>
 
             <section class="dp-card">
                 <div class="dp-card-h">
