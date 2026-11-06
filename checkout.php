@@ -1542,9 +1542,13 @@ if ($isLoggedIn) {
             const secondaryDisplay = WHATSAPP_NUMBERS[1].slice(-10);
 
             const isCod = (paymentMethod === 'cod');
-            const payBadge = isCod 
-                ? '💵 CASH ON DELIVERY (Collect ₹' + total.toFixed(2) + ')' 
-                : '✅ ONLINE PAID (Do Not Collect Cash)';
+            const utrNumber = orderData.utr || (document.getElementById('upiUtrInput') ? document.getElementById('upiUtrInput').value.trim() : '');
+            let payBadge = '✅ ONLINE PAID (Do Not Collect Cash)';
+            if (isCod) {
+                payBadge = '💵 CASH ON DELIVERY (Collect ' + formatINR(total) + ')';
+            } else if (utrNumber) {
+                payBadge = '⚡ DIRECT UPI PAID (UTR: ' + utrNumber + ' - Do Not Collect Cash)';
+            }
 
             let msg = `🛍️ *NEW ORDER — KSR GURU JI EXPRESS* 🛍️\n` +
                       `━━━━━━━━━━━━━━━━━━━━━━━\n` +
@@ -1564,6 +1568,7 @@ if ($isLoggedIn) {
                       `• Express Delivery (45m): ${formatINR(deliveryCharge)}\n` +
                       `• *Grand Total: ${formatINR(total)}*\n` +
                       `• *Payment Status:* ${payBadge}\n\n` +
+                      `🚀 *Live Delivery Tracking:*\n${window.location.origin}/delivery/tracking.php?ref=${orderNo}\n\n` +
                       `🗺️ *Google Maps Navigation Link:*\n${mapsLink}\n`;
 
             if (pdfUploadUrl) {
@@ -2669,6 +2674,9 @@ if ($isLoggedIn) {
                         `💳 *Payment Method:* ${customerPayText}\n` +
                         `⚡ *Estimated Delivery:* Within 45 minutes\n` +
                         `📍 *Delivery Address:* ${orderData.customer.address}, ${orderData.customer.city}\n\n` +
+                        `🚀 *Live Tracking:* ${window.location.origin}/delivery/tracking.php?ref=${orderNo}
+
+` +
                         `We are carefully packing your items and our delivery boy is on the way! Thank you for trusting KSR GURU JI. 🙏`;
 
                     // Set Customer Button href

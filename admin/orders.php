@@ -438,6 +438,7 @@ if (isset($_GET['err'])) $error = $_GET['err'];
                                     <?php if (($o['payment_status'] ?? '') === 'upi_awaiting'): ?>
                                         <a href="payments.php?f_order=<?= urlencode((string)$o['order_number']) ?>" class="action-btn success" title="Verify UPI Payment" style="display:inline-flex;align-items:center;justify-content:center;text-decoration:none;"><i class="fas fa-check-circle"></i></a>
                                     <?php endif; ?>
+                                    <button class="action-btn success wa-dispatch-btn" data-id="<?= $o['id'] ?>" title="WhatsApp Dispatch / Customer" style="background:#22c55e;color:#fff;"><i class="fab fa-whatsapp"></i></button>
                                     <button class="action-btn primary view-order" data-id="<?= $o['id'] ?>" title="View Details"><i class="fas fa-eye"></i></button>
                                     <button class="action-btn primary status-btn" data-id="<?= $o['id'] ?>" data-status="<?= $o['status'] ?>" title="Update Status"><i class="fas fa-edit"></i></button>
                                     <button class="action-btn success assign-btn" data-id="<?= $o['id'] ?>" title="Assign Delivery"><i class="fas fa-truck"></i></button>
@@ -626,6 +627,30 @@ if (isset($_GET['err'])) $error = $_GET['err'];
                     const resp = await fetch(`ajax/order-details.php?id=${id}`);
                     const html = await resp.text();
                     body.innerHTML = html;
+                } catch (e) {
+                    body.innerHTML = '<div style="color:var(--danger);">Failed to load order details.</div>';
+                }
+            });
+        });
+
+        // ===== WHATSAPP DISPATCH FROM TABLE =====
+        document.querySelectorAll('.wa-dispatch-btn').forEach(btn => {
+            btn.addEventListener('click', async function() {
+                const id = this.dataset.id;
+                const body = document.getElementById('viewModalBody');
+                body.innerHTML = '<div style="text-align:center;padding:20px;"><i class="fab fa-whatsapp fa-2x" style="color:#22c55e;"></i><br>Loading WhatsApp Dispatch Center...</div>';
+                openModal('viewModal');
+                
+                try {
+                    const resp = await fetch(`ajax/order-details.php?id=${id}`);
+                    const html = await resp.text();
+                    body.innerHTML = html;
+                    setTimeout(() => {
+                        const waSec = body.querySelector('.fa-motorcycle') || body.querySelector('.fa-whatsapp');
+                        if (waSec) {
+                            waSec.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }
+                    }, 150);
                 } catch (e) {
                     body.innerHTML = '<div style="color:var(--danger);">Failed to load order details.</div>';
                 }

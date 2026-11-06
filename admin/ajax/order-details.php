@@ -49,6 +49,8 @@ $scriptName = $_SERVER['SCRIPT_NAME']; // e.g. /admin/ajax/order-details.php
 $baseDir = str_replace('/admin/ajax/order-details.php', '', $scriptName);
 $pdfFilename = 'Invoice_' . preg_replace('/[^A-Za-z0-9\-]/', '', $order['order_number']) . '.pdf';
 $pdfUrl = $protocol . "://" . $host . $baseDir . "/invoices/" . $pdfFilename;
+$trackingUrl = $protocol . "://" . $host . $baseDir . "/delivery/tracking.php?ref=" . urlencode($order['order_number']);
+$mapsUrl = "https://maps.google.com/?q=" . urlencode(($order['address'] ?? '') . ', ' . ($order['city'] ?? '') . ' ' . ($order['pincode'] ?? ''));
 
 // Prepare WhatsApp numbers
 $customerPhone = preg_replace('/[^0-9]/', '', $order['customer_phone'] ?? $order['phone']);
@@ -63,6 +65,7 @@ $placedText = "Hello *" . $order['customer_name'] . "*, thank you for shopping w
               "Total Amount: *₹" . number_format($order['total'], 2) . "*\n" .
               "Payment Method: *" . strtoupper($order['payment_method']) . "*\n\n" .
               "📄 *View/Download PDF Invoice:* \n" . $pdfUrl . "\n\n" .
+              "🚀 *Live Order Tracking:* \n" . $trackingUrl . "\n\n" .
               "We are preparing your order and will deliver it super fast!";
 $waPlacedUrl = "https://wa.me/" . $customerPhone . "?text=" . urlencode($placedText);
 
@@ -74,6 +77,7 @@ $deliveryText = "Hello *" . $order['customer_name'] . "*!\n\n" .
                 "Our team will arrive shortly within 45 minutes.\n\n" .
                 "Total Payable: *₹" . number_format($order['total'], 2) . "*\n" .
                 "Payment Method: *" . strtoupper($order['payment_method']) . "*\n\n" .
+                "🚀 *Live Tracking Link:* \n" . $trackingUrl . "\n\n" .
                 "Need help? Contact: 8088584421.";
 $waDeliveryUrl = "https://wa.me/" . $customerPhone . "?text=" . urlencode($deliveryText);
 
@@ -83,6 +87,41 @@ $completedText = "Dear *" . $order['customer_name'] . "*,\n\n" .
                  "Payment of *₹" . number_format($order['total'], 2) . "* is confirmed.\n\n" .
                  "Thank you for shopping with KSR GURU JI! Come back soon! 🙏";
 $waCompletedUrl = "https://wa.me/" . $customerPhone . "?text=" . urlencode($completedText);
+
+// 4. Delivery Boy Dispatch Payload
+$isCod = (strtolower($order['payment_method']) === 'cod');
+$payStatusBadge = $isCod 
+    ? "💵 CASH ON DELIVERY (Collect ₹" . number_format($order['total'], 2) . ")"
+    : (!empty($order['transaction_id']) 
+        ? "⚡ DIRECT UPI PAID (UTR: " . $order['transaction_id'] . " - Do Not Collect Cash)"
+        : "✅ ONLINE PAID (Do Not Collect Cash)");
+
+$itemsSummary = "";
+foreach ($items as $idx => $it) {
+    $itemsSummary .= ($idx + 1) . ". *" . $it['product_name'] . "* × " . $it['quantity'] . " (₹" . number_format($it['price'] * $it['quantity'], 2) . ")\n";
+}
+
+$dispatchText = "🛍️ *NEW ORDER DISPATCH — KSR GURU JI* 🛍️\n" .
+                "━━━━━━━━━━━━━━━━━━━━━━━\n" .
+                "🆔 *Order ID:* #" . $order['order_number'] . "\n" .
+                "⏰ *Time:* " . date('d M Y, h:i A', strtotime($order['created_at'])) . "\n" .
+                "⚡ *Delivery Window:* Within 45 minutes\n\n" .
+                "👤 *CUSTOMER DETAILS:*\n" .
+                "• *Name:* " . $order['customer_name'] . "\n" .
+                "• *Phone:* " . $order['customer_phone'] . "\n" .
+                "• *Address:* " . $order['address'] . ", " . $order['city'] . " - " . $order['pincode'] . "\n\n" .
+                "📦 *ITEMS ORDERED:*\n" .
+                $itemsSummary . "\n" .
+                "💰 *GRAND TOTAL:* ₹" . number_format($order['total'], 2) . "\n" .
+                "💳 *PAYMENT:* " . $payStatusBadge . "\n\n" .
+                "🗺️ *Google Maps Navigation Link:*\n" . $mapsUrl . "\n\n" .
+                "📄 *Official Invoice Copy:*\n" . $pdfUrl . "\n\n" .
+                "🚀 *Live Order Status:*\n" . $trackingUrl . "\n" .
+                "━━━━━━━━━━━━━━━━━━━━━━━\n" .
+                "✅ Reply *ACCEPT* to confirm pickup & dispatch";
+
+$waBoy1Url = "https://wa.me/918088584421?text=" . urlencode($dispatchText);
+$waBoy2Url = "https://wa.me/918762474406?text=" . urlencode($dispatchText);
 ?>
 
 <div style="font-family:inherit;">
@@ -163,6 +202,22 @@ $waCompletedUrl = "https://wa.me/" . $customerPhone . "?text=" . urlencode($comp
             <?php endif; ?>
         </div>
     <?php endif; ?>
+
+    <!-- Delivery Boy WhatsApp Dispatch -->
+    <h4 style="margin:20px 0 10px 0;color:#1e293b;border-bottom:1px solid #e2e8f0;padding-bottom:6px;">
+        <i class="fas fa-motorcycle" style="color:#0f7b3a;"></i> Delivery Partner Dispatch (WhatsApp)
+    </h4>
+    <div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:20px;">
+        <a href="<?= $waBoy1Url ?>" target="_blank" style="background:#0f7b3a;color:white;text-decoration:none;padding:9px 18px;border-radius:20px;font-size:0.82rem;font-weight:700;display:inline-flex;align-items:center;gap:8px;box-shadow:0 2px 6px rgba(15,123,58,0.25);">
+            <i class="fab fa-whatsapp" style="font-size:1.1rem;"></i> Dispatch to Delivery Boy 1 (8088584421)
+        </a>
+        <a href="<?= $waBoy2Url ?>" target="_blank" style="background:#16a34a;color:white;text-decoration:none;padding:9px 18px;border-radius:20px;font-size:0.82rem;font-weight:700;display:inline-flex;align-items:center;gap:8px;box-shadow:0 2px 6px rgba(22,163,74,0.25);">
+            <i class="fab fa-whatsapp" style="font-size:1.1rem;"></i> Dispatch to Delivery Boy 2 (8762474406)
+        </a>
+        <a href="<?= htmlspecialchars($mapsUrl) ?>" target="_blank" style="background:#e0f2fe;color:#0369a1;border:1px solid #bae6fd;text-decoration:none;padding:9px 18px;border-radius:20px;font-size:0.82rem;font-weight:700;display:inline-flex;align-items:center;gap:8px;">
+            <i class="fas fa-location-arrow"></i> Google Maps Navigation
+        </a>
+    </div>
 
     <!-- WhatsApp Share Panel -->
     <h4 style="margin-bottom:10px;color:#1e293b;border-bottom:1px solid #e2e8f0;padding-bottom:6px;"><i class="fab fa-whatsapp" style="color:#25d366;"></i> WhatsApp Notifications Center</h4>
