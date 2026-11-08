@@ -456,6 +456,105 @@ if (!function_exists('_bootstrapSQLiteSchema')) {
                 created_at  TEXT DEFAULT (datetime('now')),
                 updated_at  TEXT DEFAULT (datetime('now'))
             )",
+
+            "CREATE TABLE IF NOT EXISTS admin_roles (
+                id            INTEGER PRIMARY KEY AUTOINCREMENT,
+                role_key      TEXT UNIQUE NOT NULL,
+                role_name     TEXT NOT NULL,
+                description   TEXT,
+                is_system     INTEGER DEFAULT 0,
+                created_at    TEXT DEFAULT (datetime('now')),
+                updated_at    TEXT DEFAULT (datetime('now'))
+            )",
+
+            "CREATE TABLE IF NOT EXISTS admin_permissions (
+                id            INTEGER PRIMARY KEY AUTOINCREMENT,
+                permission_key TEXT UNIQUE NOT NULL,
+                module        TEXT NOT NULL,
+                action        TEXT NOT NULL,
+                label         TEXT NOT NULL,
+                created_at    TEXT DEFAULT (datetime('now'))
+            )",
+
+            "CREATE TABLE IF NOT EXISTS admin_role_permissions (
+                role_id       INTEGER NOT NULL,
+                permission_id INTEGER NOT NULL,
+                created_at    TEXT DEFAULT (datetime('now')),
+                PRIMARY KEY (role_id, permission_id)
+            )",
+
+            "CREATE TABLE IF NOT EXISTS admin_users (
+                id            INTEGER PRIMARY KEY AUTOINCREMENT,
+                username      TEXT UNIQUE NOT NULL,
+                email         TEXT UNIQUE NOT NULL,
+                password_hash TEXT NOT NULL,
+                full_name     TEXT NOT NULL,
+                phone         TEXT,
+                role_id       INTEGER NOT NULL,
+                status        TEXT DEFAULT 'active',
+                is_super_admin INTEGER DEFAULT 0,
+                must_change_password INTEGER DEFAULT 0,
+                last_login_at TEXT,
+                last_login_ip TEXT,
+                failed_logins INTEGER DEFAULT 0,
+                locked_until  TEXT,
+                created_by    INTEGER,
+                created_at    TEXT DEFAULT (datetime('now')),
+                updated_at    TEXT DEFAULT (datetime('now'))
+            )",
+
+            "CREATE TABLE IF NOT EXISTS admin_sessions (
+                id            INTEGER PRIMARY KEY AUTOINCREMENT,
+                admin_id      INTEGER NOT NULL,
+                session_id    TEXT UNIQUE NOT NULL,
+                ip_address    TEXT,
+                user_agent    TEXT,
+                csrf_token    TEXT,
+                is_otp_verified INTEGER DEFAULT 0,
+                last_activity TEXT DEFAULT (datetime('now')),
+                created_at    TEXT DEFAULT (datetime('now')),
+                expires_at    TEXT
+            )",
+
+            "CREATE TABLE IF NOT EXISTS admin_otp (
+                id            INTEGER PRIMARY KEY AUTOINCREMENT,
+                admin_id      INTEGER NOT NULL,
+                otp_hash      TEXT NOT NULL,
+                purpose       TEXT DEFAULT 'login',
+                channel       TEXT DEFAULT 'whatsapp',
+                destination   TEXT,
+                attempts      INTEGER DEFAULT 0,
+                max_attempts  INTEGER DEFAULT 5,
+                resend_count  INTEGER DEFAULT 0,
+                is_used       INTEGER DEFAULT 0,
+                expires_at    TEXT NOT NULL,
+                created_at    TEXT DEFAULT (datetime('now'))
+            )",
+
+            "CREATE TABLE IF NOT EXISTS admin_login_attempts (
+                id            INTEGER PRIMARY KEY AUTOINCREMENT,
+                identifier    TEXT,
+                admin_id      INTEGER,
+                ip_address    TEXT NOT NULL,
+                user_agent    TEXT,
+                successful    INTEGER DEFAULT 0,
+                stage         TEXT DEFAULT 'password',
+                attempted_at  TEXT DEFAULT (datetime('now'))
+            )",
+
+            "CREATE TABLE IF NOT EXISTS admin_audit_logs (
+                id            INTEGER PRIMARY KEY AUTOINCREMENT,
+                admin_id      INTEGER,
+                admin_name    TEXT,
+                action        TEXT NOT NULL,
+                module        TEXT,
+                target_table  TEXT,
+                record_id     INTEGER,
+                details       TEXT,
+                ip_address    TEXT,
+                user_agent    TEXT,
+                created_at    TEXT DEFAULT (datetime('now'))
+            )",
         ];
 
         foreach ($tables as $sql) {
@@ -508,6 +607,33 @@ if (!function_exists('_bootstrapSQLiteSchema')) {
                 try { $pdo->exec("ALTER TABLE users ADD COLUMN account_status TEXT DEFAULT 'PENDING_VERIFICATION'"); } catch (Throwable $e) {}
             }
         } catch (Throwable $e) {}
+
+        // Seed default admin roles
+        try {
+            $pdo->exec("INSERT OR IGNORE INTO admin_roles (id, role_key, role_name, description, is_system) VALUES
+                (1, 'SUPER_ADMIN', 'Super Admin', 'Full unrestricted system access', 1),
+                (2, 'ADMIN', 'Admin', 'Permission-based operational access', 1)");
+            
+            // Seed Super Admin & Admin accounts
+            $superHash = password_hash('KSRParvatiGauri', PASSWORD_DEFAULT);
+            $adminHash = password_hash('JKRathod@KSRGURUJI', PASSWORD_DEFAULT);
+
+            $hasSuper = (int)$pdo->query("SELECT COUNT(*) FROM admin_users WHERE username = 'KSR GURU JI'")->fetchColumn();
+            if ($hasSuper === 0) {
+                $pdo->prepare("INSERT INTO admin_users (username, email, password_hash, full_name, phone, role_id, status, is_super_admin)
+                               VALUES ('KSR GURU JI', 'ksrguruji.owner@ksrguruji.in', ?, 'KSR GURU JI - Owner', '918088584421', 1, 'active', 1)")
+                    ->execute([$superHash]);
+            }
+
+            $hasAdmin = (int)$pdo->query("SELECT COUNT(*) FROM admin_users WHERE username = 'ksr-guru-ji-admin' OR email = 'admin@ksrguruji.com'")->fetchColumn();
+            if ($hasAdmin === 0) {
+                $pdo->prepare("INSERT INTO admin_users (username, email, password_hash, full_name, phone, role_id, status, is_super_admin)
+                               VALUES ('ksr-guru-ji-admin', 'admin@ksrguruji.com', ?, 'KSR GURU JI - Admin', '918088584421', 2, 'active', 0)")
+                    ->execute([$adminHash]);
+            }
+        } catch (Throwable $e) {
+            error_log('[db.php admin seed error] ' . $e->getMessage());
+        }
 
         // Seed exactly two approved doctors: Dr. Shivukumar Rathod & Dr. D C Rathod
         $pdo->exec("DELETE FROM doctors WHERE doctor_name NOT LIKE '%Shivukumar%' AND doctor_name NOT LIKE '%D C Rathod%'");

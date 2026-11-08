@@ -144,28 +144,33 @@ if (!class_exists('AdminAuth')) {
          */
         public function countRecentAttempts(string $ip, ?string $identifier = null): int
         {
-            $isSqlite = ($this->pdo->getAttribute(PDO::ATTR_DRIVER_NAME) === 'sqlite');
-            $mins = (int) self::LOGIN_WINDOW_MIN;
-            $cutoffExpr = $isSqlite
-                ? "datetime('now', '-" . $mins . " minutes')"
-                : "DATE_SUB(NOW(), INTERVAL " . $mins . " MINUTE)";
+            try {
+                $isSqlite = ($this->pdo->getAttribute(PDO::ATTR_DRIVER_NAME) === 'sqlite');
+                $mins = (int) self::LOGIN_WINDOW_MIN;
+                $cutoffExpr = $isSqlite
+                    ? "datetime('now', '-" . $mins . " minutes')"
+                    : "DATE_SUB(NOW(), INTERVAL " . $mins . " MINUTE)";
 
-            $sql = "SELECT COUNT(*) FROM admin_login_attempts
-                    WHERE ip_address = :ip
-                      AND successful = 0
-                      AND attempted_at > {$cutoffExpr}";
+                $sql = "SELECT COUNT(*) FROM admin_login_attempts
+                        WHERE ip_address = :ip
+                          AND successful = 0
+                          AND attempted_at > {$cutoffExpr}";
 
-            if ($identifier !== null) {
-                $sql .= " AND identifier = :ident";
+                if ($identifier !== null) {
+                    $sql .= " AND identifier = :ident";
+                }
+
+                $stmt = $this->pdo->prepare($sql);
+                $stmt->bindValue(':ip', $ip);
+                if ($identifier !== null) {
+                    $stmt->bindValue(':ident', $identifier);
+                }
+                $stmt->execute();
+                return (int) $stmt->fetchColumn();
+            } catch (Throwable $e) {
+                error_log('countRecentAttempts notice: ' . $e->getMessage());
+                return 0;
             }
-
-            $stmt = $this->pdo->prepare($sql);
-            $stmt->bindValue(':ip', $ip);
-            if ($identifier !== null) {
-                $stmt->bindValue(':ident', $identifier);
-            }
-            $stmt->execute();
-            return (int) $stmt->fetchColumn();
         }
 
         public function isRateLimited(string $ip, ?string $identifier = null): bool
@@ -180,19 +185,23 @@ if (!class_exists('AdminAuth')) {
             bool $successful,
             string $stage = 'password'
         ): void {
-            $stmt = $this->pdo->prepare(
-                "INSERT INTO admin_login_attempts
-                    (identifier, admin_id, ip_address, user_agent, successful, stage)
-                 VALUES (:ident, :aid, :ip, :ua, :ok, :stage)"
-            );
-            $stmt->execute([
-                'ident' => $identifier,
-                'aid'   => $adminId,
-                'ip'    => $ip,
-                'ua'    => substr($_SERVER['HTTP_USER_AGENT'] ?? '', 0, 255),
-                'ok'    => $successful ? 1 : 0,
-                'stage' => $stage,
-            ]);
+            try {
+                $stmt = $this->pdo->prepare(
+                    "INSERT INTO admin_login_attempts
+                        (identifier, admin_id, ip_address, user_agent, successful, stage)
+                     VALUES (:ident, :aid, :ip, :ua, :ok, :stage)"
+                );
+                $stmt->execute([
+                    'ident' => $identifier,
+                    'aid'   => $adminId,
+                    'ip'    => $ip,
+                    'ua'    => substr($_SERVER['HTTP_USER_AGENT'] ?? '', 0, 255),
+                    'ok'    => $successful ? 1 : 0,
+                    'stage' => $stage,
+                ]);
+            } catch (Throwable $e) {
+                error_log('logAttempt notice: ' . $e->getMessage());
+            }
         }
 
         public function clearAttempts(string $ip): void
