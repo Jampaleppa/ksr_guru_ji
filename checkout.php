@@ -1794,41 +1794,41 @@ if ($isLoggedIn) {
             const tn = encodeURIComponent('KSR Order Payment');
             const tr = encodeURIComponent('KSR' + Date.now().toString().slice(-8));
             const mc = '5411'; // Retail & Grocery
-            const genericUpi = `upi://pay?pa=${pa}&pn=${pn}&am=${amtStr}&cu=INR&tn=${tn}&tr=${tr}&mc=${mc}`;
+            const genericUpi = `upi://pay?pa=${pa}&pn=${pn}&am=${amtStr}&cu=INR&tn=${tn}&tr=${tr}`;
             const isAndroid = /Android/i.test(navigator.userAgent);
             const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
 
             if (isAndroid) {
                 if (method === 'gpay') {
-                    return `intent://pay?pa=${pa}&pn=${pn}&am=${amtStr}&cu=INR&tn=${tn}&tr=${tr}&mc=${mc}#Intent;scheme=upi;package=com.google.android.apps.nbu.paisa.user;S.browser_fallback_url=${encodeURIComponent('https://play.google.com/store/apps/details?id=com.google.android.apps.nbu.paisa.user')};end`;
+                    return `intent://pay?pa=${pa}&pn=${pn}&am=${amtStr}&cu=INR&tn=${tn}&tr=${tr}#Intent;scheme=upi;package=com.google.android.apps.nbu.paisa.user;S.browser_fallback_url=${encodeURIComponent('https://play.google.com/store/apps/details?id=com.google.android.apps.nbu.paisa.user')};end`;
                 }
                 if (method === 'phonepe') {
-                    return `intent://pay?pa=${pa}&pn=${pn}&am=${amtStr}&cu=INR&tn=${tn}&tr=${tr}&mc=${mc}#Intent;scheme=upi;package=com.phonepe.app;S.browser_fallback_url=${encodeURIComponent('https://play.google.com/store/apps/details?id=com.phonepe.app')};end`;
+                    return `intent://pay?pa=${pa}&pn=${pn}&am=${amtStr}&cu=INR&tn=${tn}&tr=${tr}#Intent;scheme=upi;package=com.phonepe.app;S.browser_fallback_url=${encodeURIComponent('https://play.google.com/store/apps/details?id=com.phonepe.app')};end`;
                 }
                 if (method === 'paytm') {
-                    return `intent://pay?pa=${pa}&pn=${pn}&am=${amtStr}&cu=INR&tn=${tn}&tr=${tr}&mc=${mc}#Intent;scheme=upi;package=net.one97.paytm;S.browser_fallback_url=${encodeURIComponent('https://play.google.com/store/apps/details?id=net.one97.paytm')};end`;
+                    return `intent://pay?pa=${pa}&pn=${pn}&am=${amtStr}&cu=INR&tn=${tn}&tr=${tr}#Intent;scheme=upi;package=net.one97.paytm;S.browser_fallback_url=${encodeURIComponent('https://play.google.com/store/apps/details?id=net.one97.paytm')};end`;
                 }
                 if (method === 'bhim') {
-                    return `intent://pay?pa=${pa}&pn=${pn}&am=${amtStr}&cu=INR&tn=${tn}&tr=${tr}&mc=${mc}#Intent;scheme=upi;package=in.org.npci.upiapp;S.browser_fallback_url=${encodeURIComponent('https://play.google.com/store/apps/details?id=in.org.npci.upiapp')};end`;
+                    return `intent://pay?pa=${pa}&pn=${pn}&am=${amtStr}&cu=INR&tn=${tn}&tr=${tr}#Intent;scheme=upi;package=in.org.npci.upiapp;S.browser_fallback_url=${encodeURIComponent('https://play.google.com/store/apps/details?id=in.org.npci.upiapp')};end`;
                 }
                 if (method === 'amazonpay') {
-                    return `intent://pay?pa=${pa}&pn=${pn}&am=${amtStr}&cu=INR&tn=${tn}&tr=${tr}&mc=${mc}#Intent;scheme=upi;package=in.amazon.mShop.android.shopping;S.browser_fallback_url=${encodeURIComponent('https://play.google.com/store/apps/details?id=in.amazon.mShop.android.shopping')};end`;
+                    return `intent://pay?pa=${pa}&pn=${pn}&am=${amtStr}&cu=INR&tn=${tn}&tr=${tr}#Intent;scheme=upi;package=in.amazon.mShop.android.shopping;S.browser_fallback_url=${encodeURIComponent('https://play.google.com/store/apps/details?id=in.amazon.mShop.android.shopping')};end`;
                 }
             } else if (isIOS) {
                 if (method === 'gpay') {
-                    return `gpay://upi/pay?pa=${pa}&pn=${pn}&am=${amtStr}&cu=INR&tn=${tn}&tr=${tr}&mc=${mc}`;
+                    return `gpay://upi/pay?pa=${pa}&pn=${pn}&am=${amtStr}&cu=INR&tn=${tn}&tr=${tr}`;
                 }
                 if (method === 'phonepe') {
-                    return `phonepe://pay?pa=${pa}&pn=${pn}&am=${amtStr}&cu=INR&tn=${tn}&tr=${tr}&mc=${mc}`;
+                    return `phonepe://pay?pa=${pa}&pn=${pn}&am=${amtStr}&cu=INR&tn=${tn}&tr=${tr}`;
                 }
                 if (method === 'paytm') {
-                    return `paytmmp://pay?pa=${pa}&pn=${pn}&am=${amtStr}&cu=INR&tn=${tn}&tr=${tr}&mc=${mc}`;
+                    return `paytmmp://pay?pa=${pa}&pn=${pn}&am=${amtStr}&cu=INR&tn=${tn}&tr=${tr}`;
                 }
                 if (method === 'bhim') {
-                    return `bhim://upi/pay?pa=${pa}&pn=${pn}&am=${amtStr}&cu=INR&tn=${tn}&tr=${tr}&mc=${mc}`;
+                    return `bhim://upi/pay?pa=${pa}&pn=${pn}&am=${amtStr}&cu=INR&tn=${tn}&tr=${tr}`;
                 }
                 if (method === 'amazonpay') {
-                    return `amazonpay://upi/pay?pa=${pa}&pn=${pn}&am=${amtStr}&cu=INR&tn=${tn}&tr=${tr}&mc=${mc}`;
+                    return `amazonpay://upi/pay?pa=${pa}&pn=${pn}&am=${amtStr}&cu=INR&tn=${tn}&tr=${tr}`;
                 }
             }
             return genericUpi;
