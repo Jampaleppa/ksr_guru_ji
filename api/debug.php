@@ -107,7 +107,30 @@ if ($connected && !$mysqli->connect_errno) {
     echo "<p>Host: <code>$host:$port</code> | DB: <code>$name</code> | User: <code>$user</code></p>";
 }
 
-// ── 3. PDO Connection Test ────────────────────────────────────
+// ── 3. Application Database Engine (includes/db.php) ──────
+echo "<h2>3. Application Database Engine (includes/db.php)</h2>";
+try {
+    require_once __DIR__ . '/../includes/db.php';
+    $appPdo = getDBConnection();
+    $driver = $appPdo->getAttribute(PDO::ATTR_DRIVER_NAME);
+    if ($driver === 'sqlite') {
+        echo "<p class='ok'>✅ Active Engine: <strong>SQLite Serverless Storage</strong> (/tmp/ksr_local_database.sqlite)</p>";
+        $tbls = $appPdo->query("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%' ORDER BY name")->fetchAll(PDO::FETCH_COLUMN);
+        echo "<p>Bootstrapped Tables: <strong>" . count($tbls) . "</strong></p>";
+        if (count($tbls) > 0) {
+            echo "<details><summary style='cursor:pointer;color:#60a5fa'>View SQLite Tables (" . count($tbls) . ")</summary><ul>";
+            foreach ($tbls as $t) echo "<li>" . htmlspecialchars($t) . "</li>";
+            echo "</ul></details>";
+        }
+    } else {
+        $v = $appPdo->query('SELECT VERSION()')->fetchColumn();
+        echo "<p class='ok'>✅ Connected to MySQL/TiDB: <strong>" . htmlspecialchars($v) . "</strong></p>";
+    }
+} catch (Throwable $e) {
+    echo "<p class='err'>❌ Application DB error: " . htmlspecialchars($e->getMessage()) . "</p>";
+}
+
+// ── 3b. Direct MySQL PDO Raw Connection Test ──────────────────
 echo "<h2>3. PDO Connection Test</h2>";
 try {
     $dsn = "mysql:host=$host;port=$port;dbname=$name;charset=utf8mb4";
