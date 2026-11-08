@@ -43,12 +43,17 @@ foreach ($dbVars as $v) {
 }
 echo "</table>";
 if (!$allSet) {
-    echo "<div class='box'><span class='err'>⚠️ One or more DB variables are missing.</span><br>
-    Go to <strong>Vercel → ksr-guru-ji → Settings → Environment Variables</strong> and add them.</div>";
+    echo "<div class='box'><span class='ok'>ℹ️ Notice: Cloud MySQL variables are not configured.</span><br>
+    The application is currently operating using the built-in <strong>SQLite Serverless Storage</strong> engine.<br>
+    <em>Optional:</em> To connect a persistent Cloud MySQL database (e.g. TiDB Cloud Serverless or Aiven), add <code>DB_HOST</code>, <code>DB_PORT</code>, <code>DB_USER</code>, <code>DB_NAME</code>, and <code>DB_PASS</code> in <strong>Vercel → Settings → Environment Variables</strong>.</div>";
 }
 
-// ── 2. MySQLi Connection (what the app actually uses) ─────────
-echo "<h2>2. MySQLi Connection Test (App Connection)</h2>";
+// ── 2. MySQLi Connection Test ────────────────────────────────
+echo "<h2>2. MySQLi Connection Test (Cloud MySQL)</h2>";
+$hasCustomHost = (bool) getenv('DB_HOST');
+if (!$hasCustomHost) {
+    echo "<p class='warn'>ℹ️ Skipped: <code>DB_HOST</code> is not configured. The app uses the internal SQLite storage engine on Vercel.</p>";
+} else {
 $host = getenv('DB_HOST') ?: '127.0.0.1';
 $port = (int)(getenv('DB_PORT') ?: 3306);
 $user = getenv('DB_USER') ?: 'root';
@@ -107,6 +112,8 @@ if ($connected && !$mysqli->connect_errno) {
     echo "<p>Host: <code>$host:$port</code> | DB: <code>$name</code> | User: <code>$user</code></p>";
 }
 
+}
+
 // ── 3. Application Database Engine (includes/db.php) ──────
 echo "<h2>3. Application Database Engine (includes/db.php)</h2>";
 try {
@@ -131,7 +138,8 @@ try {
 }
 
 // ── 3b. Direct MySQL PDO Raw Connection Test ──────────────────
-echo "<h2>3. PDO Connection Test</h2>";
+if ($hasCustomHost) {
+echo "<h2>3b. Direct MySQL PDO Raw Connection Test</h2>";
 try {
     $dsn = "mysql:host=$host;port=$port;dbname=$name;charset=utf8mb4";
     $opts = [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, PDO::ATTR_TIMEOUT => 5];
@@ -145,6 +153,7 @@ try {
     echo "<p class='ok'>✅ PDO connected! Server: <strong>$v</strong></p>";
 } catch (Throwable $e) {
     echo "<p class='err'>❌ PDO failed: " . htmlspecialchars($e->getMessage()) . "</p>";
+}
 }
 
 // ── 4. PHP Extensions ────────────────────────────────────────
