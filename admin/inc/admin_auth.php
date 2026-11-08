@@ -144,22 +144,25 @@ if (!class_exists('AdminAuth')) {
          */
         public function countRecentAttempts(string $ip, ?string $identifier = null): int
         {
+            $isSqlite = ($this->pdo->getAttribute(PDO::ATTR_DRIVER_NAME) === 'sqlite');
+            $mins = (int) self::LOGIN_WINDOW_MIN;
+            $cutoffExpr = $isSqlite
+                ? "datetime('now', '-" . $mins . " minutes')"
+                : "DATE_SUB(NOW(), INTERVAL " . $mins . " MINUTE)";
+
             $sql = "SELECT COUNT(*) FROM admin_login_attempts
                     WHERE ip_address = :ip
                       AND successful = 0
-                      AND attempted_at > (NOW() - INTERVAL :mins MINUTE)";
-            $params = ['ip' => $ip, 'mins' => self::LOGIN_WINDOW_MIN];
+                      AND attempted_at > {$cutoffExpr}";
 
             if ($identifier !== null) {
                 $sql .= " AND identifier = :ident";
-                $params['ident'] = $identifier;
             }
 
             $stmt = $this->pdo->prepare($sql);
-            $stmt->bindValue(':ip', $params['ip']);
-            $stmt->bindValue(':mins', $params['mins'], PDO::PARAM_INT);
-            if (isset($params['ident'])) {
-                $stmt->bindValue(':ident', $params['ident']);
+            $stmt->bindValue(':ip', $ip);
+            if ($identifier !== null) {
+                $stmt->bindValue(':ident', $identifier);
             }
             $stmt->execute();
             return (int) $stmt->fetchColumn();
@@ -327,14 +330,26 @@ if (!class_exists('AdminAuth')) {
 
         private function bumpFailedLogins(int $adminId): void
         {
-            $this->pdo->prepare(
-                "UPDATE admin_users
-                 SET failed_logins = failed_logins + 1,
-                     locked_until = IF(failed_logins + 1 >= 10,
-                                      DATE_ADD(NOW(), INTERVAL 30 MINUTE),
-                                      locked_until)
-                 WHERE id = ?"
-            )->execute([$adminId]);
+            $isSqlite = ($this->pdo->getAttribute(PDO::ATTR_DRIVER_NAME) === 'sqlite');
+            if ($isSqlite) {
+                $this->pdo->prepare(
+                    "UPDATE admin_users
+                     SET failed_logins = failed_logins + 1,
+                         locked_until = CASE WHEN failed_logins + 1 >= 10
+                                            THEN datetime('now', '+30 minutes')
+                                            ELSE locked_until END
+                     WHERE id = ?"
+                )->execute([$adminId]);
+            } else {
+                $this->pdo->prepare(
+                    "UPDATE admin_users
+                     SET failed_logins = failed_logins + 1,
+                         locked_until = IF(failed_logins + 1 >= 10,
+                                          DATE_ADD(NOW(), INTERVAL 30 MINUTE),
+                                          locked_until)
+                     WHERE id = ?"
+                )->execute([$adminId]);
+            }
         }
 
         private function resetFailedLogins(int $adminId): void
@@ -390,8 +405,10 @@ if (!class_exists('AdminAuth')) {
 
             $this->recordSession($admin, $ip, $otpVerified);
 
+            $isSqlite = ($this->pdo->getAttribute(PDO::ATTR_DRIVER_NAME) === 'sqlite');
+            $nowExpr = $isSqlite ? "datetime('now')" : "NOW()";
             $this->pdo->prepare(
-                "UPDATE admin_users SET last_login_at = NOW(), last_login_ip = ? WHERE id = ?"
+                "UPDATE admin_users SET last_login_at = {$nowExpr}, last_login_ip = ? WHERE id = ?"
             )->execute([$ip, (int) $admin['id']]);
 
             $this->logAttempt(
@@ -409,27 +426,52 @@ if (!class_exists('AdminAuth')) {
 
         private function recordSession(array $admin, string $ip, bool $otpVerified): void
         {
-            $stmt = $this->pdo->prepare(
-                "INSERT INTO admin_sessions
-                    (admin_id, session_id, ip_address, user_agent, csrf_token, is_otp_verified, expires_at)
-                 VALUES (:aid, :sid, :ip, :ua, :csrf, :otp, DATE_ADD(NOW(), INTERVAL :ttl SECOND))
-                 ON DUPLICATE KEY UPDATE
-                    ip_address = VALUES(ip_address),
-                    user_agent = VALUES(user_agent),
-                    csrf_token = VALUES(csrf_token),
-                    is_otp_verified = VALUES(is_otp_verified),
-                    last_activity = NOW(),
-                    expires_at = VALUES(expires_at)"
-            );
-            $stmt->execute([
-                'aid'  => (int) $admin['id'],
-                'sid'  => session_id(),
-                'ip'   => $ip,
-                'ua'   => substr($_SERVER['HTTP_USER_AGENT'] ?? '', 0, 255),
-                'csrf' => $_SESSION['admin_csrf_token'] ?? null,
-                'otp'  => $otpVerified ? 1 : 0,
-                'ttl'  => self::SESSION_TTL,
-            ]);
+            $isSqlite = ($this->pdo->getAttribute(PDO::ATTR_DRIVER_NAME) === 'sqlite');
+            $ttl = (int) self::SESSION_TTL;
+            if ($isSqlite) {
+                $stmt = $this->pdo->prepare(
+                    "INSERT INTO admin_sessions
+                        (admin_id, session_id, ip_address, user_agent, csrf_token, is_otp_verified, expires_at)
+                     VALUES (:aid, :sid, :ip, :ua, :csrf, :otp, datetime('now', '+{$ttl} seconds'))
+                     ON CONFLICT(session_id) DO UPDATE SET
+                        ip_address = excluded.ip_address,
+                        user_agent = excluded.user_agent,
+                        csrf_token = excluded.csrf_token,
+                        is_otp_verified = excluded.is_otp_verified,
+                        last_activity = datetime('now'),
+                        expires_at = excluded.expires_at"
+                );
+                $stmt->execute([
+                    'aid'  => (int) $admin['id'],
+                    'sid'  => session_id(),
+                    'ip'   => $ip,
+                    'ua'   => substr($_SERVER['HTTP_USER_AGENT'] ?? '', 0, 255),
+                    'csrf' => $_SESSION['admin_csrf_token'] ?? null,
+                    'otp'  => $otpVerified ? 1 : 0,
+                ]);
+            } else {
+                $stmt = $this->pdo->prepare(
+                    "INSERT INTO admin_sessions
+                        (admin_id, session_id, ip_address, user_agent, csrf_token, is_otp_verified, expires_at)
+                     VALUES (:aid, :sid, :ip, :ua, :csrf, :otp, DATE_ADD(NOW(), INTERVAL :ttl SECOND))
+                     ON DUPLICATE KEY UPDATE
+                        ip_address = VALUES(ip_address),
+                        user_agent = VALUES(user_agent),
+                        csrf_token = VALUES(csrf_token),
+                        is_otp_verified = VALUES(is_otp_verified),
+                        last_activity = NOW(),
+                        expires_at = VALUES(expires_at)"
+                );
+                $stmt->execute([
+                    'aid'  => (int) $admin['id'],
+                    'sid'  => session_id(),
+                    'ip'   => $ip,
+                    'ua'   => substr($_SERVER['HTTP_USER_AGENT'] ?? '', 0, 255),
+                    'csrf' => $_SESSION['admin_csrf_token'] ?? null,
+                    'otp'  => $otpVerified ? 1 : 0,
+                    'ttl'  => $ttl,
+                ]);
+            }
         }
 
         private function fingerprint(): string

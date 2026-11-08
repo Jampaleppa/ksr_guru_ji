@@ -92,20 +92,26 @@ if (!class_exists('AdminOtpService')) {
 
             $resendCount = $last ? ((int) $last['resend_count'] + 1) : 0;
 
+            $isSqlite = ($this->pdo->getAttribute(PDO::ATTR_DRIVER_NAME) === 'sqlite');
+            $ttl = (int) self::OTP_TTL;
+            $expiresExpr = $isSqlite ? "datetime('now', '+{$ttl} seconds')" : "DATE_ADD(NOW(), INTERVAL :ttl SECOND)";
             $stmt = $this->pdo->prepare(
                 "INSERT INTO admin_otp
                     (admin_id, otp_hash, purpose, channel, destination, attempts, max_attempts, resend_count, is_used, expires_at)
-                 VALUES (:aid, :hash, :purpose, 'whatsapp', :dest, 0, :max, :resend, 0, DATE_ADD(NOW(), INTERVAL :ttl SECOND))"
+                 VALUES (:aid, :hash, :purpose, 'whatsapp', :dest, 0, :max, :resend, 0, {$expiresExpr})"
             );
-            $stmt->execute([
+            $params = [
                 'aid'     => $adminId,
                 'hash'    => password_hash($otp, PASSWORD_DEFAULT),
                 'purpose' => $purpose,
                 'dest'    => $destination,
                 'max'     => self::MAX_ATTEMPTS,
                 'resend'  => $resendCount,
-                'ttl'     => self::OTP_TTL,
-            ]);
+            ];
+            if (!$isSqlite) {
+                $params['ttl'] = $ttl;
+            }
+            $stmt->execute($params);
             $otpId = (int)$this->pdo->lastInsertId();
 
             // OTPs must use an approved authentication template.
@@ -209,10 +215,13 @@ if (!class_exists('AdminOtpService')) {
         /** Include failed deliveries in the resend cooldown/count window. */
         private function latestRecent(int $adminId, string $purpose): ?array
         {
+            $isSqlite = ($this->pdo->getAttribute(PDO::ATTR_DRIVER_NAME) === 'sqlite');
+            $ttl = (int) self::OTP_TTL;
+            $cutoff = $isSqlite ? "datetime('now', '-{$ttl} seconds')" : "DATE_SUB(NOW(), INTERVAL {$ttl} SECOND)";
             $stmt = $this->pdo->prepare(
                 "SELECT * FROM admin_otp
                  WHERE admin_id = ? AND purpose = ?
-                   AND created_at >= DATE_SUB(NOW(), INTERVAL " . self::OTP_TTL . " SECOND)
+                   AND created_at >= {$cutoff}
                  ORDER BY id DESC LIMIT 1"
             );
             $stmt->execute([$adminId, $purpose]);
