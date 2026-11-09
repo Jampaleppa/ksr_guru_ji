@@ -631,6 +631,66 @@ if (!function_exists('_bootstrapSQLiteSchema')) {
                                VALUES ('ksr-guru-ji-admin', 'admin@ksrguruji.com', ?, 'KSR GURU JI - Admin', '918088584421', 2, 'active', 0)")
                     ->execute([$adminHash]);
             }
+            // Seed admin permissions & role assignments
+            $permCount = (int)$pdo->query("SELECT COUNT(*) FROM admin_permissions")->fetchColumn();
+            if ($permCount === 0) {
+                $permissions = [
+                    ['dashboard.view',    'dashboard',    'view',    'View Dashboard'],
+                    ['products.view',     'products',     'view',    'View Products'],
+                    ['products.create',   'products',     'create',  'Create Products'],
+                    ['products.edit',     'products',     'edit',    'Edit Products'],
+                    ['products.delete',   'products',     'delete',  'Delete Products'],
+                    ['categories.view',   'categories',   'view',    'View Categories'],
+                    ['categories.create', 'categories',   'create',  'Create Categories'],
+                    ['categories.edit',   'categories',   'edit',    'Edit Categories'],
+                    ['categories.delete', 'categories',   'delete',  'Delete Categories'],
+                    ['orders.view',       'orders',       'view',    'View Orders'],
+                    ['orders.edit',       'orders',       'edit',    'Update Orders'],
+                    ['orders.approve',    'orders',       'approve', 'Approve Orders'],
+                    ['orders.export',     'orders',       'export',  'Export Orders'],
+                    ['payments.view',     'payments',     'view',    'View Payments'],
+                    ['payments.edit',     'payments',     'edit',    'Edit Payments'],
+                    ['payments.approve',  'payments',     'approve', 'Approve Payments'],
+                    ['payments.export',   'payments',     'export',  'Export Payments'],
+                    ['customers.view',    'customers',    'view',    'View Customers'],
+                    ['customers.edit',    'customers',    'edit',    'Edit Customers'],
+                    ['customers.delete',  'customers',    'delete',  'Delete Customers'],
+                    ['pharmacy.view',     'pharmacy',     'view',    'View Pharmacy / Medicines'],
+                    ['pharmacy.create',   'pharmacy',     'create',  'Create Medicines'],
+                    ['pharmacy.edit',     'pharmacy',     'edit',    'Edit Medicines'],
+                    ['doctors.view',      'doctors',      'view',    'View Doctors'],
+                    ['appointments.view', 'appointments', 'view',    'View Appointments'],
+                    ['appointments.edit', 'appointments', 'edit',    'Manage Appointments'],
+                    ['prescriptions.view','prescriptions','view',    'View Prescriptions'],
+                    ['prescriptions.approve','prescriptions','approve','Approve Prescriptions'],
+                    ['delivery.view',     'delivery',     'view',    'View Delivery Partners'],
+                    ['delivery.edit',     'delivery',     'edit',    'Manage Delivery'],
+                    ['reports.view',      'reports',      'view',    'View Reports'],
+                    ['reports.export',    'reports',      'export',  'Export Reports'],
+                    ['settings.view',     'settings',     'view',    'View Settings'],
+                    ['settings.edit',     'settings',     'edit',    'Edit Settings'],
+                    ['notifications.view','notifications','view',    'View Notifications'],
+                    ['inventory.view',    'inventory',    'view',    'View Inventory'],
+                    ['inventory.create',  'inventory',    'create',  'Create Inventory Items'],
+                    ['inventory.edit',    'inventory',    'edit',    'Edit Inventory Items'],
+                    ['whatsapp.view',     'whatsapp',     'view',    'View WhatsApp Command Center'],
+                    ['maintenance.view',  'maintenance',  'view',    'View Maintenance Tools'],
+                    ['medical.view',      'medical',      'view',    'View Medical Records'],
+                    ['medical.approve',   'medical',      'approve', 'Approve Medical Verification'],
+                    ['admins.view',       'admins',       'view',    'View Admin Accounts'],
+                ];
+
+                $insP = $pdo->prepare("INSERT OR IGNORE INTO admin_permissions (permission_key, module, action, label) VALUES (?, ?, ?, ?)");
+                foreach ($permissions as $p) {
+                    $insP->execute($p);
+                }
+
+                // Super Admin gets all permissions
+                $pdo->exec("INSERT OR IGNORE INTO admin_role_permissions (role_id, permission_id) SELECT 1, id FROM admin_permissions");
+
+                // Admin gets operational permissions
+                $pdo->exec("INSERT OR IGNORE INTO admin_role_permissions (role_id, permission_id) SELECT 2, id FROM admin_permissions WHERE permission_key NOT IN ('admins.delete', 'settings.edit')");
+            }
         } catch (Throwable $e) {
             error_log('[db.php admin seed error] ' . $e->getMessage());
         }
