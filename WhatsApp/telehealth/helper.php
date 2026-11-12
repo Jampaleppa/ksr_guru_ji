@@ -1,6 +1,6 @@
 <?php
 // helper.php  —  shared services for the Doctor Assist (telehealth) module
-if (session_status() === PHP_SESSION_NONE) {
+if (session_status() === PHP_SESSION_NONE && !headers_sent()) {
     session_start();
 }
 require_once __DIR__ . '/../../includes/db.php';
