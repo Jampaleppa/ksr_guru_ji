@@ -3,19 +3,24 @@
 // api/index.php - Vercel Serverless PHP Router / Front-Controller
 // ============================================================
 
-// Enable detailed error reporting immediately so any runtime issues can be seen
-ini_set('display_errors', '1');
-error_reporting(E_ALL);
+// In production, disable display_errors to prevent leaking server details
+$isDev = (getenv('APP_ENV') === 'development' || getenv('KSR_ENV') === 'development');
+ini_set('display_errors', $isDev ? '1' : '0');
+error_reporting($isDev ? E_ALL : (E_ALL & ~E_NOTICE & ~E_DEPRECATED));
 
-// Catch any fatal shutdown errors (E_ERROR, E_PARSE, compile errors)
-register_shutdown_function(function() {
+// Catch any fatal shutdown errors
+register_shutdown_function(function() use ($isDev) {
     $err = error_get_last();
     if ($err && in_array($err['type'], [E_ERROR, E_PARSE, E_CORE_ERROR, E_COMPILE_ERROR])) {
         http_response_code(500);
         echo "<!DOCTYPE html><html><body style='font-family:sans-serif;padding:30px;background:#0f172a;color:#f87171;'>";
-        echo "<h2>PHP Fatal Error</h2>";
-        echo "<p><strong>Message:</strong> " . htmlspecialchars($err['message']) . "</p>";
-        echo "<p><strong>File:</strong> <code>" . htmlspecialchars($err['file']) . "</code> line " . $err['line'] . "</p>";
+        echo "<h2>System Error</h2>";
+        if ($isDev) {
+            echo "<p><strong>Message:</strong> " . htmlspecialchars($err['message']) . "</p>";
+            echo "<p><strong>File:</strong> <code>" . htmlspecialchars($err['file']) . "</code> line " . $err['line'] . "</p>";
+        } else {
+            echo "<p>An unexpected server error occurred. Please contact customer support if this issue persists.</p>";
+        }
         echo "</body></html>";
     }
 });
@@ -67,13 +72,31 @@ if (isset($aliases[$cleanPath])) {
     $cleanPath = $aliases[$cleanPath];
 }
 
+// Block direct access to sensitive extensions and paths
+$blockedPattern = '/(\.(sql|env|log|md|json|bat|ps1|sh|yml|yaml|ini|sqlite|lock|git|bak|conf|txt)$|^(\.|\/|\.env|logs\/|scratch\/|\.vercel\/|includes\/|admin\/database\/|WhatsApp\/telehealth\/seed|delivery\/seed|api\/debug))/i';
+if (preg_match($blockedPattern, $cleanPath)) {
+    http_response_code(403);
+    echo "<!DOCTYPE html><html><head><meta charset='utf-8'><title>403 Forbidden</title></head>";
+    echo "<body style='font-family:sans-serif;padding:40px;background:#0f172a;color:#f1f5f9;'>";
+    echo "<h2>403 Forbidden</h2><p>Direct access to this resource is protected.</p>";
+    echo "<p><a href='/' style='color:#38bdf8;'>&larr; Return to Home</a></p>";
+    echo "</body></html>";
+    exit(0);
+}
+
 // Route resolution
 if ($cleanPath === '' || $cleanPath === 'index.php') {
     $targetFile = $rootDir . '/index.php';
 } else {
     $candidate = $rootDir . '/' . $cleanPath;
     if (is_file($candidate)) {
-        $targetFile = $candidate;
+        if (substr($candidate, -4) === '.php') {
+            $targetFile = $candidate;
+        } else {
+            http_response_code(403);
+            echo "<!DOCTYPE html><html><body style='font-family:sans-serif;padding:40px;background:#0f172a;color:#f1f5f9;'><h2>403 Forbidden</h2></body></html>";
+            exit(0);
+        }
     } elseif (is_file($candidate . '.php')) {
         // Pretty URL: /cart -> /cart.php
         $targetFile = $candidate . '.php';
@@ -133,11 +156,15 @@ try {
     echo ".links a{color:#38bdf8;text-decoration:none;font-weight:500;}.links a:hover{text-decoration:underline;}";
     echo "</style></head><body><div class='card'>";
     echo "<h1>⚠️ Application Runtime Error</h1>";
-    echo "<p><strong>Error:</strong> " . htmlspecialchars($e->getMessage()) . "</p>";
-    echo "<p><strong>Location:</strong> <code>" . htmlspecialchars($e->getFile()) . "</code> on line <strong>" . $e->getLine() . "</strong></p>";
-    echo "<details><summary style='cursor:pointer;color:#38bdf8;margin:12px 0;'>View Stack Trace</summary>";
-    echo "<pre>" . htmlspecialchars($e->getTraceAsString()) . "</pre></details>";
-    echo "<div class='links'><a href='/api/debug.php?key=ksrdebug2024'>👉 Open Vercel Diagnostic Page (/api/debug.php)</a></div>";
+    if ($isDev) {
+        echo "<p><strong>Error:</strong> " . htmlspecialchars($e->getMessage()) . "</p>";
+        echo "<p><strong>Location:</strong> <code>" . htmlspecialchars($e->getFile()) . "</code> on line <strong>" . $e->getLine() . "</strong></p>";
+        echo "<details><summary style='cursor:pointer;color:#38bdf8;margin:12px 0;'>View Stack Trace</summary>";
+        echo "<pre>" . htmlspecialchars($e->getTraceAsString()) . "</pre></details>";
+    } else {
+        echo "<p>We encountered an unexpected error while processing your request. Please try refreshing or return to the home page.</p>";
+    }
+    echo "<div class='links'><a href='/'>&larr; Return to Home</a></div>";
     echo "</div></body></html>";
     exit(0);
 }

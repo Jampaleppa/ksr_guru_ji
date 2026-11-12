@@ -1,0 +1,99 @@
+name: Security & Quality CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  lint-and-security:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: mbstring, pdo, pdo_mysql, mysqli, json, fileinfo
+
+      - name: PHP Syntax Check (Lint all PHP files)
+        run: |
+          echo "Linting all PHP files..."
+          error_count=0
+          while IFS= read -r -d '' file; do
+            if ! php -l "$file" > /dev/null 2>&1; then
+              echo "::error file=$file::Syntax error in $file"
+              php -l "$file"
+              error_count=$((error_count + 1))
+            fi
+          done < <(find . -type f -name "*.php" -not -path "./vendor/*" -not -path "./.git/*" -print0)
+          if [ $error_count -ne 0 ]; then
+            echo "Linting failed with $error_count error(s)."
+            exit 1
+          fi
+          echo "All PHP files passed syntax check."
+
+      - name: Hardcoded Credential & Leak Scan
+        run: |
+          echo "Scanning for known credential fallbacks and test secrets..."
+          leaks_found=0
+          
+          # List of forbidden patterns that previously existed in codebase
+          PATTERNS=(
+            "JKRathod@406"
+            "KSRParvatiGauri"
+            "JKRathod@KSRGURUJI"
+            "ksrdebug2024"
+            "rzp_test_KSRGuruJi"
+            "KSRGuruJiSecret5678"
+            "KSRGuruJiWebhookSecret"
+            "ksrg_apikey_7f3b2d8a"
+          )
+
+          for pattern in "${PATTERNS[@]}"; do
+            matches=$(grep -rn "$pattern" --exclude-dir={.git,vendor,node_modules,scratch} . || true)
+            if [ -n "$matches" ]; then
+              echo "::error::Detected forbidden secret pattern: $pattern"
+              echo "$matches"
+              leaks_found=$((leaks_found + 1))
+            fi
+          done
+
+          if [ $leaks_found -ne 0 ]; then
+            echo "Credential scan failed! Remove leaked credentials from source code."
+            exit 1
+          fi
+          echo "Zero forbidden credential patterns detected."
+
+      - name: Verify Web-Accessible Maintenance Script Guards
+        run: |
+          echo "Verifying CLI-only guards on maintenance and seed scripts..."
+          scripts=(
+            "admin/database/seed_admin_accounts.php"
+            "admin/database/install_admin_rbac.php"
+            "delivery/seed_agents.php"
+            "WhatsApp/telehealth/seed-telehealth-data.php"
+          )
+
+          for script in "${scripts[@]}"; do
+            if [ -f "$script" ]; then
+              if ! grep -q "PHP_SAPI !== 'cli'" "$script"; then
+                echo "::error file=$script::Missing PHP_SAPI !== 'cli' guard in $script"
+                exit 1
+              fi
+              echo "Confirmed CLI guard in $script"
+            fi
+          done
+
+      - name: Verify Environment Variable Templates
+        run: |
+          if [ ! -f ".env.example" ]; then
+            echo "::error::Missing .env.example template."
+            exit 1
+          fi
+          echo ".env.example is present."
+

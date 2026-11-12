@@ -95,11 +95,14 @@ function ksrCalculateCartTotal(array $cartItems): array
             $name      = $dbPrices[$productId]['name'];
             $matched++;
         } else {
-            // Product not found / not active — fall back to the submitted
-            // price but flag the line so callers can decide to reject.
-            $unitPrice = (float)($item['price'] ?? 0);
+            // Product not found in DB or not active.
+            // We do NOT use client-submitted prices as fallback for safety.
+            // Mark as unmatched so the checkout layer can reject this cart.
+            $unitPrice = 0.0;
             $name      = $item['name'] ?? 'Item';
             $unmatched++;
+            // Skip this line from totals — do not add zero-price ghost items
+            continue;
         }
 
         if ($unitPrice < 0) {

@@ -24,11 +24,13 @@ $quantity = isset($_POST['qty']) ? (int)$_POST['qty'] : (isset($_GET['qty']) ? (
 // Optional variant (e.g., weight, size)
 $variant = isset($_POST['variant']) ? trim($_POST['variant']) : (isset($_GET['variant']) ? trim($_GET['variant']) : null);
 
-// Optional custom price (if you want to override the DB price)
-$customPrice = isset($_POST['custom_price']) ? (float)$_POST['custom_price'] : (isset($_GET['custom_price']) ? (float)$_GET['custom_price'] : 0);
+// custom_price from client input is intentionally NOT accepted — price must come from DB
+$customPrice = 0; // Always zero; DB price is authoritative
 
-// Redirect URL (for non‑AJAX requests)
-$redirectUrl = isset($_POST['redirect']) ? $_POST['redirect'] : (isset($_GET['redirect']) ? $_GET['redirect'] : null);
+// Redirect URL (for non-AJAX requests) — must be a local relative path
+$redirectRaw = isset($_POST['redirect']) ? $_POST['redirect'] : (isset($_GET['redirect']) ? $_GET['redirect'] : null);
+// Only allow local relative paths (must start with / but not //) to prevent open redirect
+$redirectUrl = ($redirectRaw && preg_match('#^/[^/]#', $redirectRaw)) ? $redirectRaw : null;
 
 // --- Validate product ID ---
 if ($productIdRaw === '') {
@@ -39,13 +41,15 @@ if ($productIdRaw === '') {
     $clientName = isset($_POST['name']) ? trim($_POST['name']) : (isset($_GET['name']) ? trim($_GET['name']) : '');
     $clientKn = isset($_POST['kn']) ? trim($_POST['kn']) : (isset($_GET['kn']) ? trim($_GET['kn']) : '');
     $clientImage = isset($_POST['image']) ? trim($_POST['image']) : (isset($_GET['image']) ? trim($_GET['image']) : '');
-    $clientPrice = $customPrice > 0 ? $customPrice : (isset($_POST['price']) ? (float)$_POST['price'] : (isset($_GET['price']) ? (float)$_GET['price'] : 0.0));
+    // clientPrice is only used for catalogue/virtual products that cannot be matched by DB id.
+    // It is NOT used when a DB product record is found (DB price is authoritative).
+    $clientPrice = isset($_POST['price']) ? (float)$_POST['price'] : (isset($_GET['price']) ? (float)$_GET['price'] : 0.0);
 
     $product = null;
     try {
         $pdo = getDBConnection();
         if ($pdo) {
-            $stmt = $pdo->prepare("SELECT id, name, kn_name, price FROM products WHERE id = ?");
+            $stmt = $pdo->prepare("SELECT id, name, kn_name, price, stock, image_url FROM products WHERE id = ? AND status = 1");
             $stmt->execute([is_numeric($productId) ? (int)$productId : $productId]);
             $product = $stmt->fetch(PDO::FETCH_ASSOC);
         }
@@ -92,8 +96,8 @@ if ($productIdRaw === '') {
             if ($product['stock'] !== null && $product['stock'] < $quantity) {
                 $error = 'Not enough stock available. Maximum: ' . $product['stock'];
             } else {
-                // Determine final price (custom price overrides DB price)
-                $finalPrice = ($customPrice > 0) ? $customPrice : $product['price'];
+                // Always use DB-authoritative price. customPrice override is disabled.
+                $finalPrice = $product['price'];
 
                 // --- Build item identifier (handle variant) ---
                 // If a variant is provided, append it to the ID so different variants are separate in cart

@@ -13,7 +13,7 @@ const ORDER_TABLE      = 'pharmacy_orders';
 const DB_HOST          = 'localhost';
 const DB_NAME          = 'ksr_guru';
 const DB_USER          = 'root';
-const DB_PASS          = 'JKRathod@406';
+const DB_PASS          = '';
 const PER_PAGE         = 24;
 
 const SHOP_WHATSAPP    = '919606597558';   // medical shop owner (primary)

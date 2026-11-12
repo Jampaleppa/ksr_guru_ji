@@ -15,21 +15,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($order_ref)) {
         $error = 'Please enter a valid Order Number or ID.';
     } else {
-        try {
-            $pdo = getDBConnection();
-            $stmt = $pdo->prepare("SELECT id, order_number FROM orders WHERE id = ? OR order_number = ?");
-            $stmt->execute([$order_ref, $order_ref]);
-            $order = $stmt->fetch();
-            
-            if ($order) {
-                // Redirect to delivery/tracking page
-                header("Location: /delivery/tracking.php?order=" . urlencode($order['order_number']));
-                exit;
-            } else {
-                $error = 'No order found with that Number or ID. Please check and try again.';
-            }
-        } catch (PDOException $e) {
-            $error = 'Database error code: ' . $e->getCode();
+        // F-07: Do NOT look up the order here — doing so reveals whether an order exists
+        // to any visitor. Redirect directly to tracking.php which enforces ownership.
+        $safeRef = preg_replace('/[^A-Za-z0-9\-]/', '', $order_ref);
+        if (!empty($safeRef)) {
+            header('Location: /delivery/tracking.php?order=' . urlencode($safeRef));
+            exit;
+        } else {
+            $error = 'Please enter a valid Order Number or ID.';
         }
     }
 }

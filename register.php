@@ -39,8 +39,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!empty($phone) && !preg_match('/^[0-9]{10,15}$/', $phone)) {
         $errors[] = 'Phone number must be 10-15 digits.';
     }
-    if (empty($password) || strlen($password) < 6) {
-        $errors[] = 'Password must be at least 6 characters.';
+    if (empty($password) || strlen($password) < 8) {
+        $errors[] = 'Password must be at least 8 characters.';
     }
     if ($password !== $confirm_password) {
         $errors[] = 'Passwords do not match.';
@@ -61,6 +61,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $stmt->execute([$name, $email, $phone, $hashed, 'customer']);
 
                 $userId = $pdo->lastInsertId();
+                // Regenerate session ID after account creation to prevent session fixation
+                session_regenerate_id(true);
                 $_SESSION['user_id']    = $userId;
                 $_SESSION['user_name']  = $name;
                 $_SESSION['user_email'] = $email;

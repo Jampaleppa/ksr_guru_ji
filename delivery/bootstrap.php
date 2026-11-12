@@ -449,6 +449,9 @@ function delivery_page_start(string $title, string $active = 'dashboard'): void
                 <a href="orders.php" class="dp-nav-i <?= $GLOBALS['dp_active'] === 'orders' ? 'on' : '' ?>">
                     <i class="fa-solid fa-receipt"></i><span>Orders</span>
                 </a>
+                <a href="suggestions.php" class="dp-nav-i <?= $GLOBALS['dp_active'] === 'suggestions' ? 'on' : '' ?>">
+                    <i class="fa-solid fa-lightbulb"></i><span>Sourcing</span>
+                </a>
                 <a href="earnings.php" class="dp-nav-i <?= $GLOBALS['dp_active'] === 'earnings' ? 'on' : '' ?>">
                     <i class="fa-solid fa-wallet"></i><span>Earnings</span>
                 </a>

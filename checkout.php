@@ -9,22 +9,69 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// --- Handle PDF Upload ---
+// --- Handle PDF Upload (Secured with Ownership & Magic-Byte MIME Validation) ---
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'upload_invoice') {
     header('Content-Type: application/json');
     $orderNumber = trim($_POST['order_number'] ?? '');
 
-    if (empty($orderNumber) || !isset($_FILES['pdf_file'])) {
-        echo json_encode(['success' => false, 'error' => 'Missing data.']);
+    if (empty($orderNumber) || !isset($_FILES['pdf_file']) || !$_FILES['pdf_file']['tmp_name']) {
+        echo json_encode(['success' => false, 'error' => 'Missing order reference or PDF file.']);
+        exit;
+    }
+
+    // 1. Verify caller owns the referenced order
+    $orderNumberClean = preg_replace('/[^A-Za-z0-9\-]/', '', $orderNumber);
+    $isAuthorized = false;
+    try {
+        $pdoCheck = getDBConnection();
+        $stmtCheck = $pdoCheck->prepare("SELECT id, user_id FROM orders WHERE order_number = ? LIMIT 1");
+        $stmtCheck->execute([$orderNumberClean]);
+        $ord = $stmtCheck->fetch(PDO::FETCH_ASSOC);
+        if ($ord) {
+            $curUser = $_SESSION['user_id'] ?? null;
+            $guestOrds = $_SESSION['ksr_guest_orders'] ?? [];
+            if ($curUser !== null && (int)$ord['user_id'] === (int)$curUser) {
+                $isAuthorized = true;
+            } elseif (in_array((int)$ord['id'], array_map('intval', (array)$guestOrds), true)) {
+                $isAuthorized = true;
+            }
+        }
+    } catch (Throwable $e) {
+        $isAuthorized = false;
+    }
+
+    if (!$isAuthorized) {
+        http_response_code(403);
+        echo json_encode(['success' => false, 'error' => 'Unauthorized: Order ownership verification failed.']);
+        exit;
+    }
+
+    // 2. Validate file format using MIME inspection and PDF magic bytes (%PDF-)
+    $tmpFile = $_FILES['pdf_file']['tmp_name'];
+    if (!is_uploaded_file($tmpFile) || filesize($tmpFile) > 10 * 1024 * 1024) {
+        echo json_encode(['success' => false, 'error' => 'File upload error or file exceeds 10MB limit.']);
+        exit;
+    }
+
+    $finfo = finfo_open(FILEINFO_MIME_TYPE);
+    $mime = finfo_file($finfo, $tmpFile);
+    finfo_close($finfo);
+
+    $fh = fopen($tmpFile, 'rb');
+    $magic = fread($fh, 5);
+    fclose($fh);
+
+    if ($mime !== 'application/pdf' || $magic !== '%PDF-') {
+        echo json_encode(['success' => false, 'error' => 'Invalid file format. Only genuine PDF documents are permitted.']);
         exit;
     }
 
     $dir = is_writable(__DIR__) ? (__DIR__ . '/invoices') : (sys_get_temp_dir() . '/ksr_invoices');
     if (!is_dir($dir)) {
-        @mkdir($dir, 0777, true);
+        @mkdir($dir, 0755, true);
+        @file_put_contents($dir . '/.htaccess', "Deny from all");
     }
 
-    $orderNumberClean = preg_replace('/[^A-Za-z0-9\-]/', '', $orderNumber);
     $filename = 'Invoice_' . $orderNumberClean . '.pdf';
     $filepath = $dir . '/' . $filename;
 
@@ -33,11 +80,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     $scriptName = $_SERVER['SCRIPT_NAME'];
     $baseDir = str_replace('/checkout/checkout.php', '', $scriptName);
 
-    if (@move_uploaded_file($_FILES['pdf_file']['tmp_name'], $filepath)) {
+    if (@move_uploaded_file($tmpFile, $filepath)) {
         $pdfUrl = $protocol . "://" . $host . $baseDir . "/invoices/" . $filename;
         echo json_encode(['success' => true, 'pdf_url' => $pdfUrl]);
     } else {
-        // Fallback: order page link
         $pdfUrl = $protocol . "://" . $host . "/track-order.php?ref=" . urlencode($orderNumberClean);
         echo json_encode(['success' => true, 'pdf_url' => $pdfUrl, 'fallback' => true]);
     }
@@ -409,6 +455,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
             exit;
         }
 
+        // SECURITY: Reject orders that contain products not found in the active database.
+        // This prevents price manipulation via cart items with no matching DB product.
+        if (!$priced['validated']) {
+            error_log(
+                "create_order BLOCKED: {$priced['unmatched']} cart item(s) could not be matched to active products. " .
+                "Possible tampering. User: " . ($_SESSION['user_id'] ?? 'guest')
+            );
+            echo json_encode(['success' => false, 'errors' => [
+                'One or more items in your cart are no longer available. Please refresh your cart and try again.'
+            ]]);
+            exit;
+        }
+
         // If the browser's number disagrees materially with the server, warn
         // in the log but proceed with the server figure.
         if ($clientTotal > 0 && abs($clientTotal - $total) > 1.00) {
@@ -431,15 +490,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
             // Get user ID if logged in
             $userId = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
 
-            // Generate order number
+            // Generate order number — collision-safe: random suffix + DB unique constraint
             $year = date('Y');
             $isSqlite = ($pdo->getAttribute(PDO::ATTR_DRIVER_NAME) === 'sqlite');
-            $countSql = $isSqlite
-                ? "SELECT COUNT(*) FROM orders WHERE strftime('%Y', created_at) = '$year'"
-                : "SELECT COUNT(*) FROM orders WHERE YEAR(created_at) = $year";
-            $stmt = $pdo->query($countSql);
-            $count = $stmt ? (int)$stmt->fetchColumn() : 0;
-            $orderNumber = 'KSR-' . $year . '-' . str_pad($count + 1, 4, '0', STR_PAD_LEFT);
+            $orderNumber = '';
+            for ($_attempt = 0; $_attempt < 10; $_attempt++) {
+                $countSql = $isSqlite
+                    ? "SELECT COUNT(*) FROM orders WHERE strftime('%Y', created_at) = '$year'"
+                    : "SELECT COUNT(*) FROM orders WHERE YEAR(created_at) = $year";
+                $_st = $pdo->query($countSql);
+                $_count = $_st ? (int)$_st->fetchColumn() : 0;
+                $_suffix = ($_attempt === 0) ? '' : ('-' . strtoupper(bin2hex(random_bytes(2))));
+                $orderNumber = 'KSR-' . $year . '-' . str_pad($_count + 1, 4, '0', STR_PAD_LEFT) . $_suffix;
+                // Check for collision (unique constraint on order_number)
+                $_chk = $pdo->prepare('SELECT 1 FROM orders WHERE order_number = ? LIMIT 1');
+                $_chk->execute([$orderNumber]);
+                if (!$_chk->fetchColumn()) { break; }
+            }
+            if (empty($orderNumber)) {
+                $pdo->rollBack();
+                echo json_encode(['success' => false, 'errors' => ['Order reference generation failed; please try again.']]);
+                exit;
+            }
 
             // Determine payment status
             $payment_status = 'pending';
@@ -471,6 +543,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
             ]);
             $orderId = $pdo->lastInsertId();
 
+            // ---- Phase 5: Stock enforcement (transactional) ----
+            // Lock each product row, verify sufficient stock, then decrement.
+            $isMysql = ($pdo->getAttribute(PDO::ATTR_DRIVER_NAME) !== 'sqlite');
+            $stockErrors = [];
+            foreach ($priced['line_items'] as $line) {
+                $lockSql = $isMysql
+                    ? 'SELECT stock FROM products WHERE id = ? AND status = 1 FOR UPDATE'
+                    : 'SELECT stock FROM products WHERE id = ? AND status = 1';
+                $stk = $pdo->prepare($lockSql);
+                $stk->execute([$line['id']]);
+                $prod = $stk->fetch(PDO::FETCH_ASSOC);
+                if ($prod === false) {
+                    $stockErrors[] = $line['name'] . ' is no longer available.';
+                } elseif ((int)$prod['stock'] < (int)$line['qty']) {
+                    $stockErrors[] = $line['name'] . ': only ' . (int)$prod['stock'] . ' left in stock (you requested ' . (int)$line['qty'] . ').';
+                }
+            }
+            if (!empty($stockErrors)) {
+                $pdo->rollBack();
+                error_log('create_order STOCK FAIL: ' . implode(' | ', $stockErrors) . ' User: ' . ($_SESSION['user_id'] ?? 'guest'));
+                echo json_encode(['success' => false, 'errors' => array_merge(
+                    ['Some items are out of stock or unavailable:'],
+                    $stockErrors
+                )]);
+                exit;
+            }
+
             // Insert order items (server-resolved unit prices)
             $stmt = $pdo->prepare("
                 INSERT INTO order_items (order_id, product_id, product_name, quantity, price, total)
@@ -485,6 +584,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
                     $line['unit_price'],
                     $line['total'],
                 ]);
+                // Decrement stock atomically
+                if ($isMysql) {
+                    $pdo->prepare('UPDATE products SET stock = GREATEST(0, stock - ?) WHERE id = ?')
+                        ->execute([$line['qty'], $line['id']]);
+                } else {
+                    $pdo->prepare('UPDATE products SET stock = MAX(0, stock - ?) WHERE id = ?')
+                        ->execute([$line['qty'], $line['id']]);
+                }
             }
 
             // Insert payment record with explicit lifecycle state.
@@ -542,10 +649,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
 
             $pdo->commit();
 
-            // Clear server-side session cart
-            if (isset($_SESSION['cart'])) {
-                $_SESSION['cart'] = [];
-            }
+            // Note: cart is cleared only after successful payment initiation (see each branch below)
 
             // Direct UPI (Customer paid via UPI and entered UTR)
             if ($payment_method !== 'cod' && !empty($utr)) {
@@ -555,7 +659,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
                     SET payment_method = 'upi_direct',
                         transaction_id = ?,
                         payment_status = 'upi_awaiting',
-                        status = 'confirmed'
+                        status = 'pending'
                     WHERE id = ?
                 ");
                 $stmt->execute([$utrClean, $orderId]);
@@ -572,11 +676,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
 
                 $stmt = $pdo->prepare("
                     INSERT INTO order_timeline (order_id, status, notes, created_by)
-                    VALUES (?, 'confirmed', ?, ?)
+                    VALUES (?, 'pending', ?, ?)
                 ");
                 $stmt->execute([
                     $orderId,
-                    'Customer submitted Direct UPI payment (UTR: ' . $utrClean . '). Awaiting admin verification.',
+                    'Customer submitted Direct UPI payment (UTR: ' . $utrClean . '). Awaiting admin verification before confirmation.',
                     $userId
                 ]);
 
@@ -599,6 +703,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
                     $_SESSION['ksr_guest_orders'] = [];
                 }
                 $_SESSION['ksr_guest_orders'][] = $orderId;
+
+                // Clear cart now that UPI reference is submitted successfully
+                $_SESSION['cart'] = [];
 
                 echo json_encode([
                     'success' => true,
@@ -665,6 +772,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
                     }
                     $_SESSION['ksr_guest_orders'][] = $orderId;
 
+                    // Clear cart now that gateway order is created successfully
+                    $_SESSION['cart'] = [];
+
                     echo json_encode([
                         'success' => true,
                         'order_id' => $orderId,
@@ -710,6 +820,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
                 $_SESSION['ksr_guest_orders'] = [];
             }
             $_SESSION['ksr_guest_orders'][] = $orderId;
+
+            // Clear cart only after COD order is fully committed
+            $_SESSION['cart'] = [];
 
             echo json_encode([
                 'success' => true,

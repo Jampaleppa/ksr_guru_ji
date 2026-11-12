@@ -26,7 +26,7 @@ return [
     [
         'username'        => 'KSR GURU JI',
         'email'           => 'ksrguruji.owner@ksrguruji.in',
-        'password'        => 'KSRParvatiGauri',
+        'password'        => getenv('ADMIN_SUPER_PASS') ?: '',
         'full_name'       => 'KSR GURU JI - Owner',
         'phone'           => '918088584421',   // WhatsApp OTP: 8088584421
         'role_key'        => 'SUPER_ADMIN',
@@ -40,7 +40,7 @@ return [
     [
         'username'        => 'ksr-guru-ji-admin',
         'email'           => 'KSR GURU JI',
-        'password'        => 'JKRathod@KSRGURUJI',
+        'password'        => getenv('ADMIN_DEFAULT_PASS') ?: '',
         'full_name'       => 'KSR GURU JI - Admin',
         'phone'           => null,
         'role_key'        => 'ADMIN',

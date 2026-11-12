@@ -383,6 +383,13 @@ if (!function_exists('e')) {
             </a>
             <?php endif; ?>
 
+            <a
+                href="suggestions.php"
+                class="nav-item <?= sidebarActive('suggestions', $currentPage) ?>">
+                <i class="fas fa-lightbulb"></i>
+                <span>Product Suggestions</span>
+            </a>
+
 
             <?php if ($adminCan('notification')): ?>
             <a

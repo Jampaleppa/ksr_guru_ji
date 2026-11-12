@@ -14,22 +14,38 @@ class Database
     private function __construct(array $config)
     {
         $this->config = $config;
-        $dsn = sprintf(
-            'mysql:host=%s;port=%d;dbname=%s;charset=%s',
-            $config['host'],
-            $config['port'],
-            $config['name'],
-            $config['charset']
-        );
-        $this->pdo = new \PDO($dsn, $config['user'], $config['pass'], $config['options']);
+        try {
+            $dsn = sprintf(
+                'mysql:host=%s;port=%d;dbname=%s;charset=%s',
+                $config['host'],
+                $config['port'],
+                $config['name'],
+                $config['charset']
+            );
+            $this->pdo = new \PDO($dsn, $config['user'], $config['pass'], $config['options']);
+        } catch (\Throwable $e) {
+            // Fallback to SQLite if MySQL is unavailable
+            $sqliteFile = is_writable(dirname(__DIR__)) ? dirname(__DIR__) . '/ksr_ai.sqlite' : sys_get_temp_dir() . '/ksr_ai.sqlite';
+            $this->pdo = new \PDO('sqlite:' . $sqliteFile, null, null, [
+                \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
+                \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC
+            ]);
+        }
     }
 
     public static function getInstance(?array $config = null): self
     {
         if (self::$instance === null) {
             if ($config === null) {
-                $allConfig = require __DIR__ . '/../../config/app.php';
-                $config = $allConfig['database'];
+                $configFile = file_exists(__DIR__ . '/../app.php') ? __DIR__ . '/../app.php' : __DIR__ . '/../../config/app.php';
+                $allConfig = file_exists($configFile) ? require $configFile : [];
+                $config = $allConfig['database'] ?? [
+                    'host' => '127.0.0.1', 'port' => 3306, 'name' => 'ksr_guru',
+                    'user' => getenv('DB_USER') ?: 'root',
+                    'pass' => getenv('DB_PASS') !== false ? getenv('DB_PASS') : '',
+                    'charset' => 'utf8mb4',
+                    'options' => [\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION]
+                ];
             }
             self::$instance = new self($config);
         }

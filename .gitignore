@@ -16,3 +16,13 @@ deploy/
 *.sqlite
 logs/
 *.log
+
+# Scratch / temporary agent files
+scratch/
+
+# Seed & diagnostic scripts — sensitive, untracked
+admin/database/seed_admin_accounts.php
+admin/database/install_admin_rbac.php
+delivery/seed_agents.php
+WhatsApp/telehealth/seed-telehealth-data.php
+api/debug.php

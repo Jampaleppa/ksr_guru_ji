@@ -43,9 +43,10 @@ class SearchEngine
     public function __construct()
     {
         $this->db = Database::getInstance();
-        $allConfig = require __DIR__ . '/../../config/app.php';
-        $this->config = $allConfig['search'];
-        $this->aiConfig = $allConfig['ai'];
+        $configFile = file_exists(__DIR__ . '/../app.php') ? __DIR__ . '/../app.php' : __DIR__ . '/../../config/app.php';
+        $allConfig = file_exists($configFile) ? require $configFile : [];
+        $this->config = $allConfig['search'] ?? [];
+        $this->aiConfig = $allConfig['ai'] ?? [];
     }
 
     /**

@@ -251,12 +251,20 @@ $bestSellers = array_slice($products, 0, 8);
                     </div>
                 </div>
 
-                <!-- Search -->
-                <div class="search-bar">
-                    <input type="text" placeholder="Search for products..." id="globalSearchInput"
-                        value="<?php echo htmlspecialchars($searchTerm, ENT_QUOTES, 'UTF-8'); ?>" />
-                    <button class="search-btn" id="searchBtn"><i class="fas fa-search"></i></button>
-                </div>
+                <!-- Search Form (Global across all 36+ categories) -->
+                <form class="search-bar" action="/search.php" method="GET">
+                    <input
+                        type="text"
+                        placeholder="Search products across all categories..."
+                        id="globalSearchInput"
+                        name="q"
+                        value="<?php echo htmlspecialchars($searchTerm ?? '', ENT_QUOTES, 'UTF-8'); ?>"
+                        autocomplete="off"
+                        required />
+                    <button type="submit" class="search-btn" id="searchBtn" title="Search">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
 
                 <!-- Nav Links -->
                 <div class="nav-links" id="navLinks">
@@ -316,11 +324,21 @@ $bestSellers = array_slice($products, 0, 8);
                         <div class="dropdown-content">
                             <?php if ($isLoggedIn): ?>
                                 <a href="/profile.php"><i class="fas fa-user-circle"></i> My Profile</a>
+                                <a href="/orders.php"><i class="fas fa-box"></i> My Orders</a>
                                 <a href="/logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                            <?php else: ?>
+                                <a href="/login.php"><i class="fas fa-sign-in-alt"></i> Customer Login</a>
+                                <a href="/register.php"><i class="fas fa-user-plus"></i> Register</a>
                             <?php endif; ?>
-                            <a href="/admin/index.php"><i class="fas fa-user-cog"></i> Admin</a>
-                            <a href="/delivery/index.php"><i class="fas fa-truck"></i> Delivery</a>
-                            <a href="/patient-portal.php"><i class="fas fa-heart-pulse"></i> Patient Portal</a>
+                            <?php if (!empty($_SESSION['admin_auth_id']) || !empty($_SESSION['admin_user_id'])): ?>
+                                <a href="/admin/index.php"><i class="fas fa-user-cog"></i> Admin Dashboard</a>
+                            <?php endif; ?>
+                            <?php if (!empty($_SESSION['delivery_boy_id'])): ?>
+                                <a href="/delivery/index.php"><i class="fas fa-truck"></i> Delivery Portal</a>
+                            <?php endif; ?>
+                            <?php if (!empty($_SESSION['is_patient']) || !empty($_SESSION['patient_id'])): ?>
+                                <a href="/patient-portal.php"><i class="fas fa-heart-pulse"></i> Patient Portal</a>
+                            <?php endif; ?>
                         </div>
                     </div>
 
@@ -706,22 +724,49 @@ $bestSellers = array_slice($products, 0, 8);
         </div>
     </div>
 
-    <!-- ============================================================
-    NEWSLETTER / NOTIFICATIONS SIGNUP
-    ============================================================ -->
+
+    <!-- ============================================================ -->
+    <!-- WHATSAPP NEWSLETTER / DAILY DEALS SUBSCRIPTION -->
+    <!-- ============================================================ -->
     <div class="container">
         <div class="newsletter fade-up">
             <h2>🔔 Get Daily Deals Alerts · ಡೀಲ್ ಅಲರ್ಟ್</h2>
-            <p style="color:var(--text-muted);margin-top:8px;">Subscribe via WhatsApp for exclusive discounts, fresh stock alerts, and special offers.</p>
+
+            <p style="color:var(--text-muted);margin-top:8px;">
+                Subscribe to our WhatsApp Channel for exclusive discounts,
+                fresh stock alerts, and special offers.
+            </p>
+
             <div class="input-group" style="margin-top:20px;">
-                <input type="tel" id="newsletterPhone" placeholder="Enter your mobile number" maxlength="10" />
-                <button onclick="subscribeNewsletter()" style="background:var(--gradient-primary);color:white;border:none;padding:12px 28px;border-radius:var(--radius-btn);font-weight:700;cursor:pointer;transition:var(--transition);">
-                    <i class="fab fa-whatsapp"></i> Subscribe
-                </button>
+                <a href="https://whatsapp.com/channel/0029VbDOEMf90x326ph4Yc14"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style="
+                   display:inline-flex;
+                   align-items:center;
+                   justify-content:center;
+                   gap:10px;
+                   background:var(--gradient-primary);
+                   color:white;
+                   border:none;
+                   padding:12px 28px;
+                   border-radius:var(--radius-btn);
+                   font-weight:700;
+                   text-decoration:none;
+                   cursor:pointer;
+                   transition:var(--transition);
+               ">
+                    <i class="fab fa-whatsapp"></i>
+                    Join WhatsApp Channel
+                </a>
             </div>
-            <p style="font-size:0.75rem;color:var(--text-muted);margin-top:10px;">We respect your privacy. Unsubscribe anytime.</p>
+
+            <p style="font-size:0.75rem;color:var(--text-muted);margin-top:10px;">
+                Follow KSR GURU JI for daily updates. Your privacy is respected.
+            </p>
         </div>
     </div>
+
 
     <!-- ============================================================
     PRODUCT GRID WITH PAGINATION
@@ -1186,8 +1231,22 @@ $bestSellers = array_slice($products, 0, 8);
                     .then(res => res.json())
                     .then(data => {
                         if (data.length === 0) {
+                            const searchedTerm = search ? encodeURIComponent(search) : '';
+                            const waText = encodeURIComponent(`Hello KSR GURU JI! I searched for "${search || 'products'}" but could not find it. Can you check availability and source it for me?`);
                             productsGrid.innerHTML =
-                                `<div style="grid-column:1/-1; text-align:center; padding:40px 0; color:var(--text-muted);"><i class="fas fa-box-open" style="font-size:2.4rem;display:block;margin-bottom:12px;color:var(--text-light);"></i>ಯಾವುದೇ ಉತ್ಪನ್ನಗಳಿಲ್ಲ · No products</div>`;
+                                `<div style="grid-column:1/-1; text-align:center; padding:50px 20px; background:#fff; border-radius:16px; border:1px solid #e2e8f0; margin:20px 0;">
+                                    <i class="fas fa-box-open" style="font-size:3rem;display:block;margin-bottom:14px;color:#94a3b8;"></i>
+                                    <h3 style="font-size:1.2rem; color:#1e293b; margin-bottom:8px;">ಯಾವುದೇ ಉತ್ಪನ್ನಗಳಿಲ್ಲ · No Products Found</h3>
+                                    <p style="color:#64748b; font-size:0.95rem; margin-bottom:20px;">We couldn't find matches for "${search || 'this category'}" in our current stock.</p>
+                                    <div style="display:flex; justify-content:center; gap:12px; flex-wrap:wrap;">
+                                        <a href="/suggestion-box.php?product=${searchedTerm}&not_found=1" style="display:inline-flex; align-items:center; gap:8px; background:#0F7B3A; color:#fff; padding:12px 24px; border-radius:30px; text-decoration:none; font-weight:700; font-size:0.95rem; box-shadow:0 4px 12px rgba(15,123,58,0.25);">
+                                            <i class="fas fa-lightbulb"></i> Suggest Missing Product
+                                        </a>
+                                        <a href="https://wa.me/918762474406?text=${waText}" target="_blank" style="display:inline-flex; align-items:center; gap:8px; background:#25d366; color:#fff; padding:12px 24px; border-radius:30px; text-decoration:none; font-weight:700; font-size:0.95rem; box-shadow:0 4px 12px rgba(37,211,102,0.25);">
+                                            <i class="fab fa-whatsapp"></i> WhatsApp Us (8762474406)
+                                        </a>
+                                    </div>
+                                </div>`;
                             return;
                         }
                         let html = '';

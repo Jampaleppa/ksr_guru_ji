@@ -21,8 +21,8 @@ return [
         'host'    => '127.0.0.1',
         'port'    => 3306,
         'name'    => 'ksr_guru',
-        'user'    => 'root',
-        'pass'    => 'JKRathod@406',
+        'user'    => getenv('DB_USER') ?: 'root',
+        'pass'    => getenv('DB_PASS') !== false ? getenv('DB_PASS') : '',
         'charset' => 'utf8mb4',
         'options' => [
             PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,

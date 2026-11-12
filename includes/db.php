@@ -12,7 +12,7 @@ if (!defined('DB_USER')) {
     define('DB_USER', getenv('DB_USER') ?: 'root');
 }
 if (!defined('DB_PASS')) {
-    define('DB_PASS', getenv('DB_PASS') !== false ? getenv('DB_PASS') : 'JKRathod@406');
+    define('DB_PASS', getenv('DB_PASS') !== false ? getenv('DB_PASS') : '');
 }
 if (!defined('DB_CHARSET')) {
     define('DB_CHARSET', 'utf8mb4');
@@ -372,6 +372,28 @@ if (!function_exists('_bootstrapSQLiteSchema')) {
                 created_at     TEXT    DEFAULT (datetime('now', 'localtime'))
             )",
 
+            "CREATE TABLE IF NOT EXISTS product_suggestions (
+                id                   INTEGER PRIMARY KEY AUTOINCREMENT,
+                request_id           TEXT UNIQUE NOT NULL,
+                user_id              INTEGER,
+                product_name         TEXT NOT NULL,
+                category_id          INTEGER,
+                category_name        TEXT,
+                details              TEXT,
+                preferred_price      REAL,
+                customer_name        TEXT,
+                customer_phone       TEXT NOT NULL,
+                customer_email       TEXT,
+                status               TEXT DEFAULT 'pending',
+                admin_notes          TEXT,
+                reviewed_by          INTEGER,
+                reviewed_at          TEXT,
+                assigned_delivery_id INTEGER,
+                supplier_info        TEXT,
+                created_at           TEXT DEFAULT (datetime('now')),
+                updated_at           TEXT DEFAULT (datetime('now'))
+            )",
+
             // ── Pharmacy / inventory ────────────────────────────────────────
             "CREATE TABLE IF NOT EXISTS pharmacy_inventory (
                 id          INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -615,8 +637,10 @@ if (!function_exists('_bootstrapSQLiteSchema')) {
                 (2, 'ADMIN', 'Admin', 'Permission-based operational access', 1)");
             
             // Seed Super Admin & Admin accounts
-            $superHash = password_hash('KSRParvatiGauri', PASSWORD_DEFAULT);
-            $adminHash = password_hash('JKRathod@KSRGURUJI', PASSWORD_DEFAULT);
+            $superPass = getenv('ADMIN_SUPER_PASS') ?: bin2hex(random_bytes(12));
+            $adminPass = getenv('ADMIN_DEFAULT_PASS') ?: bin2hex(random_bytes(12));
+            $superHash = password_hash($superPass, PASSWORD_DEFAULT);
+            $adminHash = password_hash($adminPass, PASSWORD_DEFAULT);
 
             $hasSuper = (int)$pdo->query("SELECT COUNT(*) FROM admin_users WHERE username = 'KSR GURU JI'")->fetchColumn();
             if ($hasSuper === 0) {

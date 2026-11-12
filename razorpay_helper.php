@@ -14,22 +14,22 @@ class RazorpayHelper {
     private static function init(): void {
         if (self::$keyId !== null) return;
 
-        // Default test keys
-        self::$keyId = 'rzp_test_KSRGuruJi1234';
-        self::$keySecret = 'KSRGuruJiSecret5678App';
-        self::$webhookSecret = 'KSRGuruJiWebhookSecret9012';
-        self::$enabled = true;
+        // Load credentials from environment first, then database
+        self::$keyId = getenv('RAZORPAY_KEY_ID') ?: null;
+        self::$keySecret = getenv('RAZORPAY_KEY_SECRET') ?: null;
+        self::$webhookSecret = getenv('RAZORPAY_WEBHOOK_SECRET') ?: null;
+        self::$enabled = !empty(self::$keyId) && !empty(self::$keySecret);
 
         try {
             $pdo = getDBConnection();
             $stmt = $pdo->prepare("SELECT setting_key, setting_value FROM settings WHERE category = 'payment'");
             $stmt->execute();
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                if ($row['setting_key'] === 'razorpay_key_id') {
+                if ($row['setting_key'] === 'razorpay_key_id' && !empty($row['setting_value'])) {
                     self::$keyId = $row['setting_value'];
-                } elseif ($row['setting_key'] === 'razorpay_key_secret') {
+                } elseif ($row['setting_key'] === 'razorpay_key_secret' && !empty($row['setting_value'])) {
                     self::$keySecret = $row['setting_value'];
-                } elseif ($row['setting_key'] === 'razorpay_webhook_secret') {
+                } elseif ($row['setting_key'] === 'razorpay_webhook_secret' && !empty($row['setting_value'])) {
                     self::$webhookSecret = $row['setting_value'];
                 } elseif ($row['setting_key'] === 'razorpay_enabled') {
                     self::$enabled = ($row['setting_value'] == '1' || $row['setting_value'] === 'true' || $row['setting_value'] === true);
@@ -37,6 +37,11 @@ class RazorpayHelper {
             }
         } catch (Exception $e) {
             error_log("RazorpayHelper init database query error: " . $e->getMessage());
+        }
+
+        // If keys are empty or test placeholders, disable gateway unless configured
+        if (empty(self::$keyId) || empty(self::$keySecret)) {
+            self::$enabled = false;
         }
     }
 
@@ -62,31 +67,26 @@ class RazorpayHelper {
 
     public static function isMockMode() {
         self::init();
-        return (strpos(self::$keyId, 'rzp_test_KSR') === 0 || empty(self::$keySecret));
+        if (empty(self::$keyId) || empty(self::$keySecret)) {
+            return false;
+        }
+        return (strpos((string)self::$keyId, 'rzp_test_') === 0);
     }
 
     /**
      * Is this a production environment?
-     *
-     * The browser-side simulated payment path must NEVER be able to
-     * create a genuine SUCCESS payment in production. Set
-     * KSR_ENV=production in config.php (or the server env) to disable
-     * the simulation fallback entirely.
+     * Defaults to true unless explicitly configured as development.
      */
     public static function isProduction() {
-        $env = getenv('KSR_ENV');
-        if ($env === false && defined('KSR_ENV')) {
-            $env = KSR_ENV;
-        }
-        return is_string($env) && strtolower($env) === 'production';
+        $env = getenv('KSR_ENV') ?: (getenv('APP_ENV') ?: (defined('KSR_ENV') ? KSR_ENV : 'production'));
+        return strtolower((string)$env) !== 'development';
     }
 
     /**
-     * True when the mock/simulated path is permitted at all.
-     * In production this is always false.
+     * True ONLY when explicitly in local development mode AND mock payments enabled.
      */
     public static function simulationAllowed() {
-        return !self::isProduction() && self::isMockMode();
+        return !self::isProduction() && getenv('ALLOW_MOCK_PAYMENTS') === 'true';
     }
 
     /**

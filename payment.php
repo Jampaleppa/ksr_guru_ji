@@ -5,12 +5,25 @@
 if (file_exists(__DIR__ . '/config.php')) { require_once __DIR__ . '/config.php'; } elseif (file_exists(__DIR__ . '/../config.php')) { require_once __DIR__ . '/../config.php'; }
 if (file_exists(__DIR__ . '/functions.php')) { require_once __DIR__ . '/functions.php'; } elseif (file_exists(__DIR__ . '/../functions.php')) { require_once __DIR__ . '/../functions.php'; }
 
+// Start session for order authorization
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 // Set JSON response header
 header('Content-Type: application/json');
 
-// --- Enable CORS (adjust for production) ---
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
+// --- Restrict CORS to authorized origins ---
+$origin = $_SERVER['HTTP_ORIGIN'] ?? '';
+$host = $_SERVER['HTTP_HOST'] ?? '';
+if (!empty($origin)) {
+    $parsedHost = parse_url($origin, PHP_URL_HOST);
+    if ($parsedHost && ($parsedHost === $host || str_ends_with($parsedHost, 'ksrguruji.in') || $parsedHost === 'localhost' || $parsedHost === '127.0.0.1')) {
+        header("Access-Control-Allow-Origin: $origin");
+        header('Access-Control-Allow-Credentials: true');
+    }
+}
+header('Access-Control-Allow-Methods: POST, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With');
 
 // Handle preflight OPTIONS request
@@ -55,13 +68,28 @@ try {
     $pdo = getDBConnection();
     $isSqlite = ($pdo->getAttribute(PDO::ATTR_DRIVER_NAME) === 'sqlite');
     $nowExpr = $isSqlite ? "datetime('now')" : "NOW()";
-    $stmt = $pdo->prepare("SELECT id, order_number, total, status, payment_method FROM orders WHERE id = ?");
+    $stmt = $pdo->prepare("SELECT id, order_number, user_id, total, status, payment_method FROM orders WHERE id = ?");
     $stmt->execute([$orderId]);
     $order = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if (!$order) {
-        http_response_code(404);
-        echo json_encode(['success' => false, 'error' => 'Order not found.']);
+    if (!$order) {
+        http_response_code(404);
+        echo json_encode(['success' => false, 'error' => 'Order not found.']);
+        exit;
+    }
+
+    // Verify customer owns this order
+    $currentUserId = $_SESSION['user_id'] ?? null;
+    $guestOrders = $_SESSION['ksr_guest_orders'] ?? [];
+    $isOwner = false;
+    if ($currentUserId !== null && (int)$order['user_id'] === (int)$currentUserId) {
+        $isOwner = true;
+    } elseif (in_array((int)$orderId, array_map('intval', (array)$guestOrders), true)) {
+        $isOwner = true;
+    }
+    if (!$isOwner) {
+        http_response_code(403);
+        echo json_encode(['success' => false, 'error' => 'Unauthorized: You do not have permission to modify this order.']);
         exit;
     }
 

@@ -34,7 +34,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email    = trim($_POST['email'] ?? '');
     $password = $_POST['password'] ?? '';
 
-    if (empty($email) || empty($password)) {
+    // Enforce rate-limit lockout before any processing
+    $lockedUntil = $_SESSION['login_locked_until'] ?? 0;
+    if ($lockedUntil > time()) {
+        $remaining = ceil(($lockedUntil - time()) / 60);
+        $error = "Too many failed login attempts. Please wait {$remaining} minute(s) before trying again.";
+    } elseif (empty($email) || empty($password)) {
         $error = 'Please enter both email and password.';
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $error = 'Please enter a valid email address.';
@@ -48,6 +53,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
             if ($user && password_verify($password, $user['password'])) {
+                // Regenerate session ID to prevent session fixation attacks
+                session_regenerate_id(true);
+                // Reset failed login counter on success
+                unset($_SESSION['login_attempts'], $_SESSION['login_locked_until']);
                 // Set session
                 $_SESSION['user_id']    = $user['id'];
                 $_SESSION['user_name']  = $user['name'];
@@ -63,10 +72,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     // Audit log table may not exist yet — silently ignore
                 }
 
-                // Role-based redirect
+                // Role-based redirect — sanitize to prevent open redirect
                 $redirect = $_GET['redirect'] ?? '';
-                if (!empty($redirect)) {
-                    header('Location: ' . urldecode($redirect));
+                // Only allow local relative paths (must start with / but not //)
+                if (!empty($redirect) && preg_match('#^/[^/]#', $redirect)) {
+                    header('Location: ' . $redirect);
                     exit;
                 }
 
@@ -93,11 +103,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             } else {
                 $error = 'Invalid email or password. Please try again.';
-                // Track failed logins (optional throttle)
+                // Track failed logins and enforce throttle lockout
                 if (!isset($_SESSION['login_attempts'])) {
                     $_SESSION['login_attempts'] = 0;
                 }
                 $_SESSION['login_attempts']++;
+                // Lock account for 15 minutes after 5 failed attempts
+                if ($_SESSION['login_attempts'] >= 5) {
+                    $_SESSION['login_locked_until'] = time() + 900;
+                    $error = 'Too many failed attempts. Please wait 15 minutes before trying again.';
+                }
             }
         } catch (PDOException $e) {
             error_log('Login DB error: ' . $e->getMessage());

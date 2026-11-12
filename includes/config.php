@@ -33,7 +33,7 @@ if (!defined('DB_USER')) {
     define('DB_USER', getenv('DB_USER') ?: 'root');
 }
 if (!defined('DB_PASS')) {
-    define('DB_PASS', getenv('DB_PASS') ?: 'JKRathod@406');
+    define('DB_PASS', getenv('DB_PASS') !== false ? getenv('DB_PASS') : '');
 }
 if (!defined('DB_CHARSET')) {
     define('DB_CHARSET', 'utf8mb4');

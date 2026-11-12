@@ -1464,11 +1464,11 @@ if (isset($_GET['err'])) $error = $_GET['err'];
                                 <h4>Your API Key</h4>
                                 <p style="font-size:0.85rem;color:var(--text-secondary);margin-bottom:8px;">Use this key to authenticate API requests</p>
                                 <div class="api-key-value">
-                                    <code><?= htmlspecialchars($currentSettings['api_key'] ?? 'ksrg_apikey_7f3b2d8a5c1e9f6a4b7d2c8e5f9a3b6d') ?></code>
+                                    <code><?= htmlspecialchars($currentSettings['api_key'] ?? '') ?></code>
                                 </div>
                             </div>
                         </div>
-                        <input type="hidden" name="settings[api_key]" value="<?= htmlspecialchars($currentSettings['api_key'] ?? 'ksrg_apikey_7f3b2d8a5c1e9f6a4b7d2c8e5f9a3b6d') ?>">
+                        <input type="hidden" name="settings[api_key]" value="<?= htmlspecialchars($currentSettings['api_key'] ?? '') ?>">
                         <div class="form-actions">
                             <a href="settings.php?action=reset&tab=integrations" class="btn btn-secondary" onclick="return confirm('Reset integrations key to default?')"><i class="fas fa-undo"></i> Reset</a>
                                     <button type="submit" name="test_whatsapp_config" value="1" class="btn btn-secondary"><i class="fas fa-plug"></i> Check credentials and template</button>

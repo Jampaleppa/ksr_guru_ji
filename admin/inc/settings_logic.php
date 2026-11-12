@@ -51,10 +51,10 @@ if (!function_exists('getDefaultSettings')) {
                 'card_payment' => true,
                 'upi_payment' => true,
                 'wallet_payment' => true,
-                'razorpay_enabled' => true,
-                'razorpay_key_id' => 'rzp_test_KSRGuruJi1234',
-                'razorpay_key_secret' => 'KSRGuruJiSecret5678App',
-                'razorpay_webhook_secret' => 'KSRGuruJiWebhookSecret9012',
+                'razorpay_enabled' => false,
+                'razorpay_key_id' => getenv('RAZORPAY_KEY_ID') ?: '',
+                'razorpay_key_secret' => getenv('RAZORPAY_KEY_SECRET') ?: '',
+                'razorpay_webhook_secret' => getenv('RAZORPAY_WEBHOOK_SECRET') ?: '',
                 'payment_instructions' => 'Please keep exact change ready for cash payments. UPI payments should be completed before delivery.',
             ],
             'notifications' => [
@@ -83,7 +83,7 @@ if (!function_exists('getDefaultSettings')) {
                 'sms_integration' => true,
                 'email_integration' => true,
                 'payment_integration' => true,
-                'api_key' => 'ksrg_apikey_7f3b2d8a5c1e9f6a4b7d2c8e5f9a3b6d',
+                'api_key' => getenv('KSR_INTERNAL_API_KEY') ?: '',
             ],
             'staff' => [
                 'staff_list' => [

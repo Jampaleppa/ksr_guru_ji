@@ -121,3 +121,4 @@ window.showFastCartToast = function(msg) {
     };
 })();
 </script>
+<script src="/assets/js/category-search.js" defer></script>

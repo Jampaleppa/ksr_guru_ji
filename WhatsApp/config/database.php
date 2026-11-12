@@ -15,13 +15,17 @@ class Database {
     private ?PDO $connection = null;
 
     // Load natively from environment or secure config defaults
-    private $host = '127.0.0.1';
-    private $db   = 'ksr_guru'; // The target SQL map we constructed
-    private $user = 'root';
-    private $pass = 'JKRathod@406'; // Production root credentials bridged
+    private $host;
+    private $db;
+    private $user;
+    private $pass;
     private $charset = 'utf8mb4';
 
     private function __construct() {
+        $this->host = getenv('DB_HOST') ?: '127.0.0.1';
+        $this->db   = getenv('DB_NAME') ?: 'ksr_guru';
+        $this->user = getenv('DB_USER') ?: 'root';
+        $this->pass = getenv('DB_PASS') !== false ? getenv('DB_PASS') : '';
         $dsn = "mysql:host={$this->host};dbname={$this->db};charset={$this->charset}";
         $options = [
             PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION, // Throw strict errors for instant debugging

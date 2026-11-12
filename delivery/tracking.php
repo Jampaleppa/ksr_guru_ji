@@ -6,10 +6,18 @@
 // ============================================================
 require_once __DIR__ . '/bootstrap.php';
 
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 $ref   = trim((string) ($_GET['ref'] ?? $_GET['order'] ?? ''));
+$verifyPhone = trim((string) ($_POST['verify_phone'] ?? $_GET['phone'] ?? ''));
+$token = trim((string) ($_GET['token'] ?? ''));
 $order = null;
 $items = [];
 $timeline = [];
+$isAuthorized = false;
+$phoneError = '';
 
 if ($ref !== '') {
     $stmt = delivery_db()->prepare('SELECT * FROM orders WHERE id = ? OR order_number = ? LIMIT 1');
@@ -17,9 +25,37 @@ if ($ref !== '') {
     $order = $stmt->fetch() ?: null;
 
     if ($order) {
-        $s = delivery_db()->prepare('SELECT product_name, quantity, price, total FROM order_items WHERE order_id = ?');
-        $s->execute([(int) $order['id']]);
-        $items = $s->fetchAll();
+        $curUser = $_SESSION['user_id'] ?? null;
+        $guestOrders = $_SESSION['ksr_guest_orders'] ?? [];
+        $orderId = (int)$order['id'];
+
+        if ($curUser !== null && (int)$order['user_id'] === (int)$curUser) {
+            $isAuthorized = true;
+        } elseif (in_array($orderId, array_map('intval', (array)$guestOrders), true)) {
+            $isAuthorized = true;
+        } elseif (!empty($_SESSION['admin_logged_in']) || !empty($_SESSION['delivery_logged_in'])) {
+            $isAuthorized = true;
+        } elseif (!empty($_SESSION['verified_tracking_' . $orderId])) {
+            $isAuthorized = true;
+        } elseif ($token !== '' && hash_equals(hash_hmac('sha256', (string)$order['order_number'], (string)getenv('DB_PASS')), $token)) {
+            $isAuthorized = true;
+            $_SESSION['verified_tracking_' . $orderId] = true;
+        } elseif ($verifyPhone !== '') {
+            $cleanVerify = preg_replace('/\D/', '', $verifyPhone);
+            $cleanOrderPhone = preg_replace('/\D/', '', (string)$order['phone']);
+            if (strlen($cleanVerify) >= 4 && (str_ends_with($cleanOrderPhone, $cleanVerify) || $cleanOrderPhone === $cleanVerify)) {
+                $isAuthorized = true;
+                $_SESSION['verified_tracking_' . $orderId] = true;
+            } else {
+                $phoneError = 'The phone number entered did not match this order. Please try again.';
+            }
+        }
+
+        if ($isAuthorized) {
+            $s = delivery_db()->prepare('SELECT product_name, quantity, price, total FROM order_items WHERE order_id = ?');
+            $s->execute([(int) $order['id']]);
+            $items = $s->fetchAll();
+        }
 
         $s = delivery_db()->prepare('SELECT status, notes, created_at FROM order_timeline WHERE order_id = ? ORDER BY created_at ASC');
         $s->execute([(int) $order['id']]);
@@ -140,7 +176,26 @@ if ($order && !empty($order['driver_id'])) {
             </section>
         <?php endif; ?>
 
-        <?php if ($order):
+        <?php if ($order && !$isAuthorized): ?>
+            <section class="dp-card" style="background:#f8fafc;border:1.5px solid #cbd5e1;">
+                <div class="dp-card-h" style="border-bottom:none;padding-bottom:0;">
+                    <h3 style="color:#334155;font-size:0.95rem;"><i class="fa-solid fa-user-shield" style="color:#0f7b3a;"></i> Customer Privacy Verification</h3>
+                </div>
+                <div class="dp-sec" style="padding-top:8px;">
+                    <p style="font-size:0.82rem;color:#64748b;margin-bottom:12px;line-height:1.4;">
+                        To protect customer addresses, phone numbers, and items, enter the mobile number (or last 4 digits) used when placing this order:
+                    </p>
+                    <form method="post" action="tracking.php?ref=<?= urlencode($ref) ?>" style="display:flex;gap:8px;flex-wrap:wrap;">
+                        <input type="tel" name="verify_phone" placeholder="Enter Registered Phone Number" maxlength="15" style="flex:1;min-width:180px;padding:8px 12px;border:1px solid #cbd5e1;border-radius:8px;font-size:0.9rem;" required>
+                        <button type="submit" class="dp-btn dp-btn-primary" style="background:#0f7b3a;"><i class="fa-solid fa-lock-open"></i> Verify Details</button>
+                    </form>
+                    <?php if (!empty($phoneError)): ?>
+                        <div style="color:#dc2626;font-size:0.8rem;margin-top:8px;font-weight:600;">⚠️ <?= e($phoneError) ?></div>
+                    <?php endif; ?>
+                </div>
+            </section>
+        <?php endif; ?>
+<?php if ($order):
             $steps = ['pending', 'accepted', 'picked_up', 'in_transit', 'delivered'];
             $cur = array_search($order['status'], $steps, true);
             $curIdx = $cur === false ? 0 : $cur;
@@ -153,10 +208,15 @@ if ($order && !empty($order['driver_id'])) {
                 </div>
                 <div class="dp-sec" style="padding-top:12px">
                     <div class="dp-kv"><span>Status</span><b><?= e($m['label']) ?></b></div>
+                    <?php if ($isAuthorized): ?>
                     <div class="dp-kv"><span>Customer</span><b><?= e($order['name']) ?></b></div>
                     <div class="dp-kv"><span>Delivering to</span>
                         <b><?= e(trim(($order['address'] ?? '') . ', ' . ($order['city'] ?? '') . ' ' . ($order['pincode'] ?? ''))) ?></b>
                     </div>
+                    <?php else: ?>
+                    <div class="dp-kv"><span>Customer</span><b><?= e(substr($order['name'] ?? 'Customer', 0, 1) . '*** (Privacy Protected)') ?></b></div>
+                    <div class="dp-kv"><span>Delivery City</span><b><?= e(($order['city'] ?? '') . ' ' . ($order['pincode'] ?? '')) ?></b></div>
+                    <?php endif; ?>
                     <div class="dp-kv"><span>Order value</span><b><?= e(delivery_money($order['total'])) ?></b></div>
                     <div class="dp-kv"><span>Payment</span>
                         <b>
