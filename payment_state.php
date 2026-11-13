@@ -40,6 +40,8 @@ if (!function_exists('ksrPaymentStates')) {
             'cod_pending',
             'cod_collected',
             'upi_awaiting',
+            'upi_pending_verification',
+            'bank_credit_imported',
         ];
     }
 
@@ -119,7 +121,11 @@ if (!function_exists('ksrPaymentStates')) {
 
             'processing' => ['success', 'failed', 'cancelled', 'expired'],
 
-            'upi_awaiting' => ['processing', 'success', 'failed', 'cancelled', 'expired'],
+            'upi_awaiting' => ['upi_pending_verification', 'processing', 'success', 'failed', 'cancelled', 'expired'],
+
+            'upi_pending_verification' => ['bank_credit_imported', 'success', 'failed', 'cancelled'],
+
+            'bank_credit_imported' => ['success', 'failed'],
 
             'success' => ['refund_pending'],
 
@@ -169,8 +175,10 @@ if (!function_exists('ksrPaymentStates')) {
             'success'        => 'paid',
             'cod_collected'  => 'cod_collected',
             'cod_pending'    => 'cod_pending',
-            'upi_awaiting'   => 'upi_awaiting',
-            'refund_pending' => 'refund_pending',
+            'upi_awaiting'             => 'upi_awaiting',
+            'upi_pending_verification' => 'upi_awaiting',
+            'bank_credit_imported'     => 'upi_awaiting',
+            'refund_pending'           => 'refund_pending',
             'refunded'       => 'refunded',
             'refund_failed'  => 'refund_failed',
             'cancelled'      => 'cancelled',
@@ -470,8 +478,10 @@ if (!function_exists('ksrPaymentStates')) {
             'refund_failed'  => 'Refund could not be completed. Our team will contact you.',
             'cod_pending'    => 'Cash will be collected on delivery.',
             'cod_collected'  => 'Cash has been collected.',
-            'upi_awaiting'   => 'UPI payment submitted. Awaiting merchant confirmation.',
-            default          => 'Payment status is being updated.',
+            'upi_awaiting'             => 'UPI payment submitted. Awaiting merchant confirmation.',
+            'upi_pending_verification' => 'Your UTR is being reviewed by our team.',
+            'bank_credit_imported'     => 'Matching bank credit found. Confirming payment.',
+            default                    => 'Payment status is being updated.',
         };
     }
 }
