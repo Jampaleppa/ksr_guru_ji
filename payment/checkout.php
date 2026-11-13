@@ -93,7 +93,6 @@ $csrfToken = SecurityManager::generateCSRFToken();
         .amount-row { display: flex; justify-content: space-between; padding: .45rem 0; font-size: .93rem; color: #495057; }
         .amount-row.total { font-size: 1.1rem; font-weight: 700; color: #212529; border-top: 2px solid var(--border); padding-top: .75rem; margin-top: .4rem; }
         .discount-val { color: var(--success); }
-        .amount-label { }
 
         /* Customer info */
         .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem 1.5rem; font-size: .9rem; color: #495057; }
@@ -245,3 +244,4 @@ $csrfToken = SecurityManager::generateCSRFToken();
 </div>
 </body>
 </html>
+

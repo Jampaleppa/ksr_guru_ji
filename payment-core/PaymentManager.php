@@ -18,7 +18,6 @@ require_once __DIR__ . '/PaymentStateMachine.php';
 class PaymentManager
 {
     private AuditLogger        $audit;
-    private AmountCalculator   $calc;
     private IdempotencyManager $idempotency;
     private TransactionManager $txMgr;
     private PaymentStateMachine $stateMachine;
@@ -26,7 +25,6 @@ class PaymentManager
     public function __construct(private \PDO $pdo)
     {
         $this->audit        = new AuditLogger($pdo);
-        $this->calc         = new AmountCalculator();
         $this->idempotency  = new IdempotencyManager($pdo);
         $this->txMgr        = new TransactionManager($pdo);
         $this->stateMachine = new PaymentStateMachine($pdo, $this->audit);
@@ -63,7 +61,7 @@ class PaymentManager
                     'db_id'        => (int)$row['id'],
                     'status'       => $row['status'],
                     'amount_paise' => (int)$row['amount_paise'],
-                    'amount_inr'   => $this->calc->formatINR((int)$row['amount_paise']),
+                    'amount_inr'   => AmountCalculator::formatINR((int)$row['amount_paise']),
                     'idempotent'   => true,
                 ];
             }
@@ -76,7 +74,7 @@ class PaymentManager
         }
 
         // Convert existing decimal amount to paise
-        $amountPaise = $this->calc->toPaise((float)$order['net_amount']);
+        $amountPaise = AmountCalculator::toPaise((float)$order['net_amount']);
 
         // Generate unique payment_id
         $paymentId = $this->generatePaymentId();
@@ -124,7 +122,7 @@ class PaymentManager
             'db_id'        => $dbId,
             'status'       => 'initiated',
             'amount_paise' => $amountPaise,
-            'amount_inr'   => $this->calc->formatINR($amountPaise),
+            'amount_inr'   => AmountCalculator::formatINR($amountPaise),
             'idempotent'   => false,
         ];
     }
@@ -148,10 +146,10 @@ class PaymentManager
         return $this->stateMachine->transition($paymentId, $newStatus, $context);
     }
 
-    /** Expose AmountCalculator for controllers. */
+    /** Use AmountCalculator static methods directly: AmountCalculator::formatINR(), etc. */
     public function calc(): AmountCalculator
     {
-        return $this->calc;
+        return new AmountCalculator();
     }
 
     // ── Private helpers ──────────────────────────────────────────────

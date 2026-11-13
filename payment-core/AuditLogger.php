@@ -17,10 +17,20 @@ class AuditLogger
     /**
      * Insert a row into payment_audit_logs. Throws on failure (immutable).
      */
-    public function log(array $data): void
-    {
-        $ip        = $_SERVER['REMOTE_ADDR']    ?? 'cli';
-        $userAgent = $_SERVER['HTTP_USER_AGENT'] ?? '';
+    public function log(
+        string  $eventType,
+        ?int    $paymentTransactionId = null,
+        ?int    $orderId              = null,
+        ?string $oldStatus            = null,
+        ?string $newStatus            = null,
+        string  $actorType            = 'system',
+        ?int    $actorId              = null,
+        ?string $notes                = null,
+        ?string $ipAddress            = null,
+        ?string $userAgent            = null,
+    ): void {
+        $ip        = $ipAddress ?? ($_SERVER['REMOTE_ADDR']    ?? 'cli');
+        $ua        = $userAgent ?? ($_SERVER['HTTP_USER_AGENT'] ?? '');
 
         $sql = "
             INSERT INTO payment_audit_logs
@@ -36,16 +46,16 @@ class AuditLogger
         try {
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute([
-                ':payment_transaction_id' => $data['payment_transaction_id'] ?? null,
-                ':order_id'               => $data['order_id']               ?? null,
-                ':event_type'             => $data['event_type']             ?? 'UNKNOWN',
-                ':old_status'             => $data['old_status']             ?? null,
-                ':new_status'             => $data['new_status']             ?? null,
-                ':actor_type'             => $data['actor_type']             ?? 'system',
-                ':actor_id'               => $data['actor_id']               ?? null,
-                ':ip_address'             => $data['ip_address']             ?? $ip,
-                ':user_agent'             => $data['user_agent']             ?? $userAgent,
-                ':notes'                  => $data['notes']                  ?? null,
+                ':payment_transaction_id' => $paymentTransactionId,
+                ':order_id'               => $orderId,
+                ':event_type'             => $eventType,
+                ':old_status'             => $oldStatus,
+                ':new_status'             => $newStatus,
+                ':actor_type'             => $actorType,
+                ':actor_id'               => $actorId,
+                ':ip_address'             => $ip,
+                ':user_agent'             => $ua,
+                ':notes'                  => $notes,
             ]);
         } catch (\Throwable $e) {
             throw new \RuntimeException(

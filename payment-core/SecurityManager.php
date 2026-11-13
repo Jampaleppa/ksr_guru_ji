@@ -18,7 +18,7 @@ class SecurityManager
     ];
 
     /** Generate a CSRF token and store it in session. */
-    public function generateCSRFToken(): string
+    public static function generateCSRFToken(): string
     {
         if (session_status() !== PHP_SESSION_ACTIVE) {
             session_start();
@@ -30,7 +30,7 @@ class SecurityManager
     }
 
     /** Validate a submitted CSRF token against the session token (constant-time). */
-    public function validateCSRFToken(string $token): bool
+    public static function validateCSRFToken(string $token): bool
     {
         if (session_status() !== PHP_SESSION_ACTIVE) {
             session_start();
