@@ -39,6 +39,10 @@
   ],
   "routes": [
     {
+      "src": "/api/payment/(.*)",
+      "dest": "/api/index.php"
+    },
+    {
       "src": "/api/(.*)",
       "dest": "/api/$1"
     },
