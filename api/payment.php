@@ -8,10 +8,23 @@ if (file_exists(__DIR__ . '/functions.php')) { require_once __DIR__ . '/function
 // Set JSON response header
 header('Content-Type: application/json');
 
-// --- Enable CORS (adjust for production) ---
-header('Access-Control-Allow-Origin: *');
+// --- Safe CORS policy (no wildcard *) ---
+$allowedOrigins = [
+    'https://ksrguruji.vercel.app',
+    'https://ksrguruji-3rpi.vercel.app',
+    'http://localhost',
+    'http://localhost:80',
+    'http://localhost:8090',
+    'http://127.0.0.1',
+    'http://127.0.0.1:8090',
+];
+$origin = $_SERVER['HTTP_ORIGIN'] ?? '';
+$corsOrigin = in_array($origin, $allowedOrigins, true) ? $origin : $allowedOrigins[0];
+header("Access-Control-Allow-Origin: {$corsOrigin}");
 header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With');
+header('Access-Control-Allow-Credentials: true');
+header('Vary: Origin');
 
 // Handle preflight OPTIONS request
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {

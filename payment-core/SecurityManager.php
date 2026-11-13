@@ -14,7 +14,9 @@ class SecurityManager
         'https://ksrguruji-3rpi.vercel.app',
         'http://localhost',
         'http://localhost:80',
+        'http://localhost:8090',
         'http://127.0.0.1',
+        'http://127.0.0.1:8090',
     ];
 
     /** Generate a CSRF token and store it in session. */

@@ -570,6 +570,7 @@ function ksrStatusBadgeClass(string $status): string {
                 <div class="breadcrumb">Admin / Payments</div>
             </div>
             <div class="header-right">
+                <a href="/admin/payments/dashboard.php" style="background:#ff6b35;color:#ffffff;border-radius:8px;padding:8px 16px;text-decoration:none;font-weight:600;font-size:0.85rem;display:inline-flex;align-items:center;gap:8px;box-shadow:0 2px 4px rgba(255,107,53,0.3);transition:0.2s;"><i class="fas fa-shield-alt"></i> KSR GURU JI PAY Center</a>
                 <div class="search-box"><i class="fas fa-search"></i><input type="text" placeholder="Search transactions..." id="searchInput"></div>
                 <div class="user-menu">
                     <div class="user-avatar"><i class="fas fa-user-circle"></i></div>
