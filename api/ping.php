@@ -1,3 +1,3 @@
 <?php
 header('Content-Type: text/plain; charset=utf-8');
-echo "PONG - PHP " . phpversion() . " OK\n";
+echo "PONG - PHP " . phpversion() . " - RELEASE 1 READY\n";
