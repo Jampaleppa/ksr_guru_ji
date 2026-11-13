@@ -73,7 +73,7 @@ if (isset($aliases[$cleanPath])) {
 }
 
 // Block direct access to sensitive extensions and paths
-$blockedPattern = '/(\.(sql|env|log|md|json|bat|ps1|sh|yml|yaml|ini|sqlite|lock|git|bak|conf|txt)$|^(\.|\/|\.env|logs\/|scratch\/|\.vercel\/|includes\/|admin\/database\/|WhatsApp\/telehealth\/seed|delivery\/seed|api\/debug))/i';
+$blockedPattern = '/(\.(sql|env|log|md|json|bat|ps1|sh|yml|yaml|ini|sqlite|lock|git|bak|conf|txt)$|^(\.|\/|\.env|logs\/|scratch\/|\.vercel\/|includes\/|payment-core\/|database\/|admin\/database\/|WhatsApp\/telehealth\/seed|delivery\/seed|api\/debug))/i';
 if (preg_match($blockedPattern, $cleanPath)) {
     http_response_code(403);
     echo "<!DOCTYPE html><html><head><meta charset='utf-8'><title>403 Forbidden</title></head>";
