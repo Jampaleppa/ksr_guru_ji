@@ -75,11 +75,13 @@ class ReconciliationManager
     }
 
     /** Fetch all unmatched bank credits. */
-    public function getPendingCredits(): array
+    public function getPendingCredits(?int $limit = null): array
     {
-        $stmt = $this->pdo->query(
-            "SELECT * FROM payment_bank_credits WHERE match_status = 'unmatched' ORDER BY credit_date DESC"
-        );
+        $sql = "SELECT * FROM payment_bank_credits WHERE match_status = 'unmatched' ORDER BY credit_date DESC";
+        if ($limit !== null && $limit > 0) {
+            $sql .= " LIMIT " . (int)$limit;
+        }
+        $stmt = $this->pdo->query($sql);
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
