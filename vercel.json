@@ -4,12 +4,7 @@
       "runtime": "vercel-php@0.9.0",
       "maxDuration": 30,
       "memory": 1024,
-      "excludeFiles": "{images/**,WhatsApp/vendor/**,WhatsApp/composer.phar}"
-    },
-    "api/**/*.php": {
-      "runtime": "vercel-php@0.9.0",
-      "maxDuration": 30,
-      "memory": 1024,
+      "includeFiles": "{payment/**,payment-core/**,payment-methods/**,admin/**,api/**,includes/**,database/**,*.php}",
       "excludeFiles": "{images/**,WhatsApp/vendor/**,WhatsApp/composer.phar}"
     }
   },
@@ -38,14 +33,6 @@
     }
   ],
   "routes": [
-    {
-      "src": "/api/payment/(.*)",
-      "dest": "/api/index.php"
-    },
-    {
-      "src": "/api/(.*)",
-      "dest": "/api/$1"
-    },
     {
       "src": "/(images|assets|uploads/products)/(.*)",
       "dest": "/$1/$2"
