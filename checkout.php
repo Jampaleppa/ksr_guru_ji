@@ -802,7 +802,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
                     } catch (Throwable $ignore) {
                     }
 
-                    echo json_encode(['success' => false, 'errors' => ['Failed to initiate online payment via Razorpay. Please try again.']]);
+                    $_SESSION['cart'] = [];
+echo json_encode([
+    'success' => true,
+    'order_id' => $orderId,
+    'order_number' => $orderNumber,
+    'redirect_url' => '/payment/index.php?oid=' . $orderId,
+    'message' => 'Proceeding to KSR GURU JI PAY...'
+]);
                     exit;
                 }
             }
@@ -2678,6 +2685,11 @@ if ($isLoggedIn) {
                             const paymentAmount = detailContent.querySelector('.pd-amount-value');
                             if (paymentAmount) paymentAmount.textContent = formatINR(authoritativeTotal);
                         }
+                    }
+
+                    if (result.redirect_url) {
+                        window.location.href = result.redirect_url;
+                        return;
                     }
 
                     let transactionId = '';
