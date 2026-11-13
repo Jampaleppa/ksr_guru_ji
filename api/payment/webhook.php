@@ -46,11 +46,15 @@ try {
     $eventType = $payload['event'] ?? $payload['type'] ?? 'unknown';
 
     // Store the event (idempotent via UNIQUE event_id)
-    $insertStmt = $pdo->prepare(
-        "INSERT IGNORE INTO payment_webhook_events
+    $isSqlite = ($pdo->getAttribute(\PDO::ATTR_DRIVER_NAME) === 'sqlite');
+    $sql = $isSqlite
+        ? "INSERT OR IGNORE INTO payment_webhook_events
             (gateway_code, event_id, event_type, payload, signature, processed, error)
-         VALUES (?, ?, ?, ?, ?, 0, ?)"
-    );
+           VALUES (?, ?, ?, ?, ?, 0, ?)"
+        : "INSERT IGNORE INTO payment_webhook_events
+            (gateway_code, event_id, event_type, payload, signature, processed, error)
+           VALUES (?, ?, ?, ?, ?, 0, ?)";
+    $insertStmt = $pdo->prepare($sql);
     $insertStmt->execute([
         $gateway,
         $eventId,

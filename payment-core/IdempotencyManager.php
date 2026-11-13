@@ -32,11 +32,15 @@ class IdempotencyManager
     public function register(string $key, int $paymentTransactionId, int $ttlSeconds = 86400): void
     {
         $expires = date('Y-m-d H:i:s', time() + $ttlSeconds);
-        $stmt = $this->pdo->prepare(
-            "INSERT IGNORE INTO payment_idempotency_keys
+        $isSqlite = ($this->pdo->getAttribute(\PDO::ATTR_DRIVER_NAME) === 'sqlite');
+        $sql = $isSqlite
+            ? "INSERT OR IGNORE INTO payment_idempotency_keys
                 (idempotency_key, payment_transaction_id, expires_at)
-             VALUES (?, ?, ?)"
-        );
+               VALUES (?, ?, ?)"
+            : "INSERT IGNORE INTO payment_idempotency_keys
+                (idempotency_key, payment_transaction_id, expires_at)
+               VALUES (?, ?, ?)";
+        $stmt = $this->pdo->prepare($sql);
         $stmt->execute([$key, $paymentTransactionId, $expires]);
     }
 

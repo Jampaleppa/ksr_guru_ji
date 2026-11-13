@@ -577,6 +577,178 @@ if (!function_exists('_bootstrapSQLiteSchema')) {
                 user_agent    TEXT,
                 created_at    TEXT DEFAULT (datetime('now'))
             )",
+
+            // ── KSR GURU JI PAY tables ─────────────────────────────────────
+            "CREATE TABLE IF NOT EXISTS payment_methods (
+                id            INTEGER PRIMARY KEY AUTOINCREMENT,
+                code          TEXT NOT NULL UNIQUE,
+                label         TEXT NOT NULL,
+                description   TEXT,
+                icon          TEXT DEFAULT 'fa-credit-card',
+                is_enabled    INTEGER NOT NULL DEFAULT 1,
+                display_order INTEGER NOT NULL DEFAULT 10,
+                created_at    TEXT DEFAULT (datetime('now')),
+                updated_at    TEXT DEFAULT (datetime('now'))
+            )",
+
+            "CREATE TABLE IF NOT EXISTS payment_gateway_settings (
+                id            INTEGER PRIMARY KEY AUTOINCREMENT,
+                gateway_code  TEXT NOT NULL,
+                setting_key   TEXT NOT NULL,
+                setting_value TEXT,
+                is_secret     INTEGER NOT NULL DEFAULT 0,
+                updated_at    TEXT DEFAULT (datetime('now')),
+                updated_by    INTEGER,
+                UNIQUE (gateway_code, setting_key)
+            )",
+
+            "CREATE TABLE IF NOT EXISTS payment_transactions (
+                id                   INTEGER PRIMARY KEY AUTOINCREMENT,
+                payment_id           TEXT NOT NULL UNIQUE,
+                order_id             INTEGER NOT NULL,
+                user_id              INTEGER,
+                method               TEXT NOT NULL,
+                gateway_code         TEXT,
+                amount_paise         INTEGER NOT NULL,
+                currency             TEXT NOT NULL DEFAULT 'INR',
+                status               TEXT NOT NULL DEFAULT 'initiated',
+                customer_utr         TEXT,
+                bank_confirmed_ref   TEXT,
+                idempotency_key      TEXT UNIQUE,
+                failure_reason       TEXT,
+                metadata             TEXT,
+                created_at           TEXT DEFAULT (datetime('now')),
+                updated_at           TEXT DEFAULT (datetime('now')),
+                verified_at          TEXT,
+                verification_source  TEXT,
+                verified_by_admin_id INTEGER,
+                expires_at           TEXT
+            )",
+
+            "CREATE TABLE IF NOT EXISTS payment_attempts (
+                id                     INTEGER PRIMARY KEY AUTOINCREMENT,
+                payment_transaction_id INTEGER NOT NULL,
+                attempt_number         INTEGER NOT NULL DEFAULT 1,
+                status                 TEXT NOT NULL,
+                gateway_response       TEXT,
+                failure_reason         TEXT,
+                attempted_at           TEXT DEFAULT (datetime('now'))
+            )",
+
+            "CREATE TABLE IF NOT EXISTS payment_references (
+                id                     INTEGER PRIMARY KEY AUTOINCREMENT,
+                payment_transaction_id INTEGER NOT NULL,
+                ref_type               TEXT NOT NULL,
+                ref_value              TEXT NOT NULL,
+                submitted_at           TEXT DEFAULT (datetime('now')),
+                submitted_by           INTEGER,
+                source                 TEXT
+            )",
+
+            "CREATE TABLE IF NOT EXISTS payment_bank_credits (
+                id                 INTEGER PRIMARY KEY AUTOINCREMENT,
+                credit_date        TEXT NOT NULL,
+                bank_ref           TEXT NOT NULL UNIQUE,
+                utr                TEXT,
+                narration          TEXT,
+                amount_paise       INTEGER NOT NULL,
+                matched_payment_id INTEGER,
+                match_status       TEXT NOT NULL DEFAULT 'unmatched',
+                imported_at        TEXT DEFAULT (datetime('now')),
+                imported_by        INTEGER,
+                notes              TEXT
+            )",
+
+            "CREATE TABLE IF NOT EXISTS payment_reconciliations (
+                id                     INTEGER PRIMARY KEY AUTOINCREMENT,
+                payment_transaction_id INTEGER NOT NULL,
+                bank_credit_id         INTEGER NOT NULL,
+                reconciled_at          TEXT DEFAULT (datetime('now')),
+                reconciled_by          INTEGER,
+                outcome                TEXT NOT NULL,
+                notes                  TEXT
+            )",
+
+            "CREATE TABLE IF NOT EXISTS payment_refunds (
+                id                     INTEGER PRIMARY KEY AUTOINCREMENT,
+                payment_transaction_id INTEGER NOT NULL,
+                order_id               INTEGER NOT NULL,
+                requested_by           INTEGER,
+                approved_by            INTEGER,
+                amount_paise           INTEGER NOT NULL,
+                reason                 TEXT,
+                status                 TEXT NOT NULL DEFAULT 'pending',
+                provider_refund_id     TEXT,
+                bank_ref               TEXT,
+                requested_at           TEXT DEFAULT (datetime('now')),
+                approved_at            TEXT,
+                completed_at           TEXT,
+                failure_reason         TEXT
+            )",
+
+            "CREATE TABLE IF NOT EXISTS payment_disputes (
+                id                     INTEGER PRIMARY KEY AUTOINCREMENT,
+                payment_transaction_id INTEGER,
+                order_id               INTEGER NOT NULL,
+                user_id                INTEGER,
+                subject                TEXT NOT NULL,
+                description            TEXT,
+                status                 TEXT NOT NULL DEFAULT 'open',
+                resolution             TEXT,
+                opened_at              TEXT DEFAULT (datetime('now')),
+                resolved_at            TEXT,
+                resolved_by            INTEGER
+            )",
+
+            "CREATE TABLE IF NOT EXISTS payment_webhook_events (
+                id           INTEGER PRIMARY KEY AUTOINCREMENT,
+                gateway_code TEXT NOT NULL,
+                event_id     TEXT NOT NULL UNIQUE,
+                event_type   TEXT,
+                payload      TEXT,
+                signature    TEXT,
+                processed    INTEGER NOT NULL DEFAULT 0,
+                error        TEXT,
+                received_at  TEXT DEFAULT (datetime('now')),
+                processed_at TEXT
+            )",
+
+            "CREATE TABLE IF NOT EXISTS payment_audit_logs (
+                id                     INTEGER PRIMARY KEY AUTOINCREMENT,
+                payment_transaction_id INTEGER,
+                order_id               INTEGER,
+                event_type             TEXT NOT NULL,
+                old_status             TEXT,
+                new_status             TEXT,
+                actor_type             TEXT NOT NULL DEFAULT 'system',
+                actor_id               INTEGER,
+                ip_address             TEXT,
+                user_agent             TEXT,
+                notes                  TEXT,
+                created_at             TEXT DEFAULT (datetime('now'))
+            )",
+
+            "CREATE TABLE IF NOT EXISTS payment_idempotency_keys (
+                id                     INTEGER PRIMARY KEY AUTOINCREMENT,
+                idempotency_key        TEXT NOT NULL UNIQUE,
+                payment_transaction_id INTEGER,
+                created_at             TEXT DEFAULT (datetime('now')),
+                expires_at             TEXT NOT NULL
+            )",
+
+            "CREATE TABLE IF NOT EXISTS payment_settlement_reports (
+                id                    INTEGER PRIMARY KEY AUTOINCREMENT,
+                report_date           TEXT NOT NULL UNIQUE,
+                total_collected_paise INTEGER NOT NULL DEFAULT 0,
+                total_refunded_paise  INTEGER NOT NULL DEFAULT 0,
+                net_paise             INTEGER NOT NULL DEFAULT 0,
+                upi_count             INTEGER NOT NULL DEFAULT 0,
+                cod_count             INTEGER NOT NULL DEFAULT 0,
+                bank_transfer_count   INTEGER NOT NULL DEFAULT 0,
+                generated_at          TEXT DEFAULT (datetime('now')),
+                generated_by          INTEGER,
+                notes                 TEXT
+            )",
         ];
 
         foreach ($tables as $sql) {
@@ -627,6 +799,17 @@ if (!function_exists('_bootstrapSQLiteSchema')) {
             }
             if (!in_array('account_status', $uCols, true)) {
                 try { $pdo->exec("ALTER TABLE users ADD COLUMN account_status TEXT DEFAULT 'PENDING_VERIFICATION'"); } catch (Throwable $e) {}
+            }
+
+            // Migrate missing columns on orders table
+            $oCols = $pdo->query("PRAGMA table_info(orders)")->fetchAll(PDO::FETCH_COLUMN, 1);
+            if (!in_array('net_amount', $oCols, true)) {
+                try { $pdo->exec("ALTER TABLE orders ADD COLUMN net_amount REAL DEFAULT 0"); } catch (Throwable $e) {}
+                try { $pdo->exec("ALTER TABLE orders ADD COLUMN subtotal REAL DEFAULT 0"); } catch (Throwable $e) {}
+                try { $pdo->exec("ALTER TABLE orders ADD COLUMN delivery_charge REAL DEFAULT 0"); } catch (Throwable $e) {}
+                try { $pdo->exec("ALTER TABLE orders ADD COLUMN discount REAL DEFAULT 0"); } catch (Throwable $e) {}
+                try { $pdo->exec("ALTER TABLE orders ADD COLUMN tax REAL DEFAULT 0"); } catch (Throwable $e) {}
+                try { $pdo->exec("ALTER TABLE orders ADD COLUMN delivery_address TEXT"); } catch (Throwable $e) {}
             }
         } catch (Throwable $e) {}
 
@@ -783,5 +966,23 @@ if (!function_exists('_bootstrapSQLiteSchema')) {
         }
         $pdo->prepare("UPDATE doctors SET user_id = ?, phone = '6362079192' WHERE doctor_name LIKE '%D C Rathod%'")
             ->execute([$dcUserId]);
+
+        // Seed default payment methods & gateway settings
+        try {
+            $pdo->exec("INSERT OR IGNORE INTO payment_methods (id, code, label, description, icon, is_enabled, display_order) VALUES
+                (1, 'upi', 'UPI / QR Code', 'Pay instantly via Google Pay, PhonePe, Paytm, or BHIM', 'fa-qrcode', 1, 10),
+                (2, 'cod', 'Cash on Delivery', 'Pay with cash or UPI upon delivery', 'fa-money-bill-wave', 1, 20),
+                (3, 'bank_transfer', 'Bank Transfer (NEFT/IMPS)', 'Transfer directly to our SBI current account', 'fa-university', 1, 30)");
+
+            $pdo->exec("INSERT OR IGNORE INTO payment_gateway_settings (gateway_code, setting_key, setting_value, is_secret) VALUES
+                ('upi', 'vpa', 'PLACEHOLDER_UPI_ID@sbi', 0),
+                ('upi', 'merchant_name', 'KSR GURU JI', 0),
+                ('upi', 'mcc', '5411', 0),
+                ('bank_transfer', 'bank_name', 'State Bank of India', 0),
+                ('bank_transfer', 'account_number', 'PLACEHOLDER_ACCOUNT_NUMBER', 0),
+                ('bank_transfer', 'ifsc', 'SBIN0000000', 0),
+                ('bank_transfer', 'account_name', 'KSR GURU JI', 0),
+                ('bank_transfer', 'branch', 'Main Branch', 0)");
+        } catch (Throwable $e) {}
     }
 }

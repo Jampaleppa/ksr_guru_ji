@@ -46,7 +46,8 @@ $iStmt->execute([$orderId]);
 $items = $iStmt->fetchAll(PDO::FETCH_ASSOC);
 
 // Server-calculated amounts (paise) — never trust client
-$netAmountPaise   = (int)$order['net_amount'];        // authoritative total
+$rawTotal         = $order['net_amount'] ?? $order['total'] ?? 0;
+$netAmountPaise   = is_numeric($rawTotal) && (float)$rawTotal > 0 && strpos((string)$rawTotal, '.') === false && (int)$rawTotal > 1000 ? (int)$rawTotal : AmountCalculator::toPaise((float)$rawTotal);
 $subtotalPaise    = (int)($order['subtotal']       ?? 0);
 $deliveryPaise    = (int)($order['delivery_charge'] ?? 0);
 $discountPaise    = (int)($order['discount']        ?? 0);

@@ -73,8 +73,11 @@ class PaymentManager
             throw new \InvalidArgumentException("Order #{$orderId} not found or does not belong to this user.");
         }
 
-        // Convert existing decimal amount to paise
-        $amountPaise = AmountCalculator::toPaise((float)$order['net_amount']);
+        // Convert existing decimal amount to paise (support net_amount with total fallback)
+        $rawAmount   = (!empty($order['net_amount']) && (float)$order['net_amount'] > 0)
+            ? $order['net_amount']
+            : ($order['total'] ?? 0);
+        $amountPaise = AmountCalculator::toPaise((float)$rawAmount);
 
         // Generate unique payment_id
         $paymentId = $this->generatePaymentId();
