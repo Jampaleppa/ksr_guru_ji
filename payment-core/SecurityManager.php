@@ -75,9 +75,9 @@ class SecurityManager
     }
 
     /** Check if the request's HTTP_ORIGIN is from an allowed domain. */
-    public function validateOrigin(): bool
+    public function validateOrigin(?string $origin = null): bool
     {
-        $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
+        $origin = $origin ?? ($_SERVER['HTTP_ORIGIN'] ?? '');
         if ($origin === '') {
             return true; // same-origin requests don't send Origin
         }
