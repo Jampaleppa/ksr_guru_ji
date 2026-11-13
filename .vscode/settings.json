@@ -1,0 +1,6 @@
+{
+    "php.validate.executablePath": "c:\\wamp64\\bin\\php\\php8.3.14\\php.exe",
+    "intelephense.environment.phpVersion": "8.3.14",
+    "intelephense.compatibility.correctDeprecation": true,
+    "php.version": "8.3"
+}
