@@ -2101,6 +2101,12 @@ $bestSellers = array_slice($products, 0, 8);
                 searchTerm = search;
                 if (globalSearchInput) globalSearchInput.value = search;
                 if (categoryFilterSelect) categoryFilterSelect.value = cat;
+                // Sync suggestion-box button href with restored search term
+                const headerSuggestBtn = document.getElementById('headerSuggestBtn');
+                if (headerSuggestBtn) {
+                    headerSuggestBtn.href = '/suggestion-box.php' + (search ? '?product=' + encodeURIComponent(search) + '&not_found=1' : '');
+                    headerSuggestBtn.title = search ? 'Suggest "' + search + '" in Suggestion Box' : 'Can\'t find what you need? Suggest it in Suggestion Box';
+                }
                 loadProducts(cat, search);
             });
 
