@@ -65,7 +65,9 @@ $aliases = [
     'checkout/checkout.php' => 'checkout.php',
     'cart/checkout.php' => 'checkout.php',
     'checkout' => 'checkout.php',
-    'checkout/' => 'checkout.php'
+    'checkout/' => 'checkout.php',
+    'final-suggestion-box.php' => 'suggestion-box.php',
+    'final-suggestion-box' => 'suggestion-box.php'
 ];
 
 if (isset($aliases[$cleanPath])) {
