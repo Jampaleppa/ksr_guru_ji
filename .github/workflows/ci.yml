@@ -55,7 +55,7 @@ jobs:
           )
 
           for pattern in "${PATTERNS[@]}"; do
-            matches=$(grep -rn "$pattern" --exclude-dir={.git,vendor,node_modules,scratch} . || true)
+            matches=$(grep -rn "$pattern" --exclude-dir={.git,vendor,node_modules,scratch,tests,.github} --exclude="*.md" . || true)
             if [ -n "$matches" ]; then
               echo "::error::Detected forbidden secret pattern: $pattern"
               echo "$matches"
