@@ -1,5 +1,19 @@
 {
   "functions": {
+    "api/**/*.php": {
+      "runtime": "vercel-php@0.9.0",
+      "maxDuration": 30,
+      "memory": 1024,
+      "includeFiles": "**/*.php",
+      "excludeFiles": "{images/**,WhatsApp/vendor/**,WhatsApp/composer.phar}"
+    },
+    "api/payment/*.php": {
+      "runtime": "vercel-php@0.9.0",
+      "maxDuration": 30,
+      "memory": 1024,
+      "includeFiles": "**/*.php",
+      "excludeFiles": "{images/**,WhatsApp/vendor/**,WhatsApp/composer.phar}"
+    },
     "api/*.php": {
       "runtime": "vercel-php@0.9.0",
       "maxDuration": 30,
@@ -47,6 +61,14 @@
     {
       "src": "/(.*\\.(css|js|png|jpg|jpeg|gif|svg|ico|webp|woff|woff2|ttf|eot|webmanifest|mp3|wav))",
       "dest": "/$1"
+    },
+    {
+      "src": "/api/payment/(.*)",
+      "dest": "/api/index.php"
+    },
+    {
+      "src": "/payment-methods/(.*)",
+      "dest": "/api/index.php"
     },
     {
       "src": "/(.*)",

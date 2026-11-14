@@ -252,7 +252,7 @@ $bestSellers = array_slice($products, 0, 8);
                 </div>
 
                 <!-- Search Form (Global across all 36+ categories) -->
-                <form class="search-bar" action="/search.php" method="GET">
+                <form class="search-bar" action="/search.php" method="GET" id="globalSearchForm">
                     <input
                         type="text"
                         placeholder="Search products across all categories..."
@@ -261,7 +261,10 @@ $bestSellers = array_slice($products, 0, 8);
                         value="<?php echo htmlspecialchars($searchTerm ?? '', ENT_QUOTES, 'UTF-8'); ?>"
                         autocomplete="off"
                         required />
-                    <button type="submit" class="search-btn" id="searchBtn" title="Search">
+                    <a href="/suggestion-box.php" class="search-suggest-btn" id="headerSuggestBtn" title="Can't find what you need? Suggest it in Suggestion Box">
+                        <i class="fas fa-lightbulb"></i>
+                    </a>
+                    <button type="submit" class="search-btn" id="searchBtn" title="Search across all categories">
                         <i class="fas fa-search"></i>
                     </button>
                 </form>
@@ -299,7 +302,7 @@ $bestSellers = array_slice($products, 0, 8);
                     <a href="/categories/vegetables-fruits.php" class="nav-link"><i class="fas fa-carrot"></i> Vegetables & Fruits</a>
                     <!-- ★ Product & Medical Suggest Box -->
                     <a href="/WhatsApp/telehealth/medicine/tablet.php" class="nav-link"><i class="fas fa-medkit"></i> Medicines</a>
-                    <a href="/final-suggestion-box.php" class="nav-link"><i class="fas fa-lightbulb"></i> Suggestion Box</a>
+                    <a href="/suggestion-box.php" class="nav-link"><i class="fas fa-lightbulb"></i> Suggestion Box</a>
                     <a href="/categories/parcels.php" class="nav-link"><i class="fas fa-box"></i> Parcel Delivery</a>
                     <a href="/WhatsApp/telehealth/index.php" class="nav-link" style="color: #059669; font-weight:700;"><i class="fas fa-stethoscope"></i> Doctor Assist</a>
                 </div>
@@ -1592,6 +1595,19 @@ $bestSellers = array_slice($products, 0, 8);
                     mobileMenuBtn.addEventListener('click', function() {
                         navLinks.classList.toggle('show');
                     });
+                }
+
+                // Connect search input to Suggestion Box button
+                const headerSuggestBtn = document.getElementById('headerSuggestBtn');
+                if (headerSuggestBtn && globalSearchInput) {
+                    globalSearchInput.addEventListener('input', function() {
+                        const term = this.value.trim();
+                        headerSuggestBtn.href = '/suggestion-box.php' + (term ? '?product=' + encodeURIComponent(term) + '&not_found=1' : '');
+                        headerSuggestBtn.title = term ? 'Suggest "' + term + '" in Suggestion Box' : 'Can\'t find what you need? Suggest it in Suggestion Box';
+                    });
+                    if (searchTerm) {
+                        headerSuggestBtn.href = '/suggestion-box.php?product=' + encodeURIComponent(searchTerm) + '&not_found=1';
+                    }
                 }
 
                 // Search
