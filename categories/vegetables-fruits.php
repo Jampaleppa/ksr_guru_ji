@@ -918,7 +918,8 @@ if (empty($productsData)) {
                 if (sidebar) sidebar.classList.add('open');
                 if (overlay) overlay.classList.add('active');
                 document.body.style.overflow = 'hidden';
-                if (typeof renderCartItems === "function") {
+                if (typeof renderCartItems === "function") 
+                    {
                     renderCartItems();
                 }
             }
