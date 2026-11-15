@@ -105,18 +105,26 @@ if (!function_exists('getFallbackProducts')) {
 function getCategories(): array
 {
     global $conn;
-    if (!$conn) {
-        return getFallbackCategories();
+    if ($conn) {
+        $sql = "SELECT id, name, kn_name, icon FROM categories ORDER BY name ASC";
+        $result = @$conn->query($sql);
+        if ($result) {
+            $rows = [];
+            while ($row = $result->fetch_assoc()) {
+                $rows[] = $row;
+            }
+            if (!empty($rows)) return $rows;
+        }
     }
-    $sql = "SELECT id, name, kn_name, icon FROM categories ORDER BY name ASC";
-    $result = $conn->query($sql);
-    if (!$result)
-        return getFallbackCategories();
-    $rows = [];
-    while ($row = $result->fetch_assoc()) {
-        $rows[] = $row;
+    if (function_exists('getDBConnection')) {
+        try {
+            $pdo = getDBConnection();
+            $stmt = $pdo->query("SELECT id, name, kn_name, icon, emoji FROM categories ORDER BY sort_order ASC, name ASC");
+            $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            if (!empty($rows)) return $rows;
+        } catch (Throwable $e) {}
     }
-    return !empty($rows) ? $rows : getFallbackCategories();
+    return getFallbackCategories();
 }
 
 /**
@@ -127,20 +135,32 @@ function getCategories(): array
 function getCategoryById(string $id): ?array
 {
     global $conn;
-    if (!$conn) {
-        foreach (getFallbackCategories() as $c) {
-            if ((string)$c['id'] === (string)$id) return $c;
-        }
-        return null;
+    if ($conn) {
+        try {
+            $stmt = $conn->prepare("SELECT id, name, kn_name, icon FROM categories WHERE id = ?");
+            if ($stmt) {
+                $stmt->bind_param("s", $id);
+                $stmt->execute();
+                $result = $stmt->get_result();
+                $row = $result ? $result->fetch_assoc() : null;
+                $stmt->close();
+                if ($row) return $row;
+            }
+        } catch (Throwable $e) {}
     }
-    $stmt = $conn->prepare("SELECT id, name, kn_name, icon FROM categories WHERE id = ?");
-    if (!$stmt) return null;
-    $stmt->bind_param("s", $id);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $row = $result->fetch_assoc();
-    $stmt->close();
-    return $row ?: null;
+    if (function_exists('getDBConnection')) {
+        try {
+            $pdo = getDBConnection();
+            $stmt = $pdo->prepare("SELECT id, name, kn_name, icon, emoji FROM categories WHERE id = ?");
+            $stmt->execute([$id]);
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            if ($row) return $row;
+        } catch (Throwable $e) {}
+    }
+    foreach (getFallbackCategories() as $c) {
+        if ((string)$c['id'] === (string)$id) return $c;
+    }
+    return null;
 }
 
 /**
@@ -150,18 +170,26 @@ function getCategoryById(string $id): ?array
 function getMainCategories(): array
 {
     global $conn;
-    if (!$conn) {
-        return getFallbackMainCategories();
+    if ($conn) {
+        $sql = "SELECT id, name, kn, emoji, sub_ids FROM main_categories ORDER BY name ASC";
+        $result = @$conn->query($sql);
+        if ($result) {
+            $rows = [];
+            while ($row = $result->fetch_assoc()) {
+                $rows[] = $row;
+            }
+            if (!empty($rows)) return $rows;
+        }
     }
-    $sql = "SELECT id, name, kn, emoji, sub_ids FROM main_categories ORDER BY name ASC";
-    $result = $conn->query($sql);
-    if (!$result)
-        return getFallbackMainCategories();
-    $rows = [];
-    while ($row = $result->fetch_assoc()) {
-        $rows[] = $row;
+    if (function_exists('getDBConnection')) {
+        try {
+            $pdo = getDBConnection();
+            $stmt = $pdo->query("SELECT id, name, kn, emoji, sub_ids FROM main_categories ORDER BY sort_order ASC, name ASC");
+            $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            if (!empty($rows)) return $rows;
+        } catch (Throwable $e) {}
     }
-    return !empty($rows) ? $rows : getFallbackMainCategories();
+    return getFallbackMainCategories();
 }
 
 /**
@@ -173,50 +201,80 @@ function getMainCategories(): array
 function getProducts(string $category = '', string $search = ''): array
 {
     global $conn;
-    if (!$conn) {
-        return getStoreFallbackProducts($category, $search);
+    if ($conn) {
+        $sql = "SELECT p.*, c.name AS category_name
+                FROM products p
+                LEFT JOIN categories c ON p.category_id = c.id
+                WHERE 1=1";
+        $types = '';
+        $params = [];
+
+        if ($category !== '') {
+            $sql .= " AND (p.category_id = ? OR p.category = ?)";
+            $types .= 'ss';
+            $params[] = $category;
+            $params[] = $category;
+        }
+
+        if ($search !== '') {
+            $sql .= " AND (p.name LIKE ? OR p.kn_name LIKE ?)";
+            $types .= 'ss';
+            $searchWild = '%' . $search . '%';
+            $params[] = $searchWild;
+            $params[] = $searchWild;
+        }
+
+        $sql .= " ORDER BY p.name ASC";
+
+        $stmt = $conn->prepare($sql);
+        if ($stmt) {
+            if ($types !== '') {
+                $stmt->bind_param($types, ...$params);
+            }
+            $stmt->execute();
+            $result = $stmt->get_result();
+            if ($result) {
+                $rows = [];
+                while ($row = $result->fetch_assoc()) {
+                    $rows[] = $row;
+                }
+                $stmt->close();
+                if (!empty($rows)) return $rows;
+            } else {
+                $stmt->close();
+            }
+        }
     }
 
-    $sql = "SELECT p.*, c.name AS category_name
-            FROM products p
-            LEFT JOIN categories c ON p.category_id = c.id
-            WHERE 1=1";
-    $types = '';
-    $params = [];
-
-    if ($category !== '') {
-        $sql .= " AND p.category_id = ?";
-        $types .= 's';
-        $params[] = $category;
+    // PDO Fallback (SQLite / cloud DB)
+    if (function_exists('getDBConnection')) {
+        try {
+            $pdo = getDBConnection();
+            $sql = "SELECT p.*, c.name AS category_name
+                    FROM products p
+                    LEFT JOIN categories c ON p.category_id = c.id
+                    WHERE 1=1";
+            $params = [];
+            if ($category !== '') {
+                $sql .= " AND (p.category_id = ? OR p.category = ?)";
+                $params[] = $category;
+                $params[] = $category;
+            }
+            if ($search !== '') {
+                $sql .= " AND (p.name LIKE ? OR p.kn_name LIKE ?)";
+                $searchWild = '%' . $search . '%';
+                $params[] = $searchWild;
+                $params[] = $searchWild;
+            }
+            $sql .= " ORDER BY p.name ASC";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute($params);
+            $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            if (!empty($rows)) return $rows;
+        } catch (Throwable $e) {}
     }
 
-    if ($search !== '') {
-        $sql .= " AND (p.name LIKE ? OR p.kn_name LIKE ?)";
-        $types .= 'ss';
-        $searchWild = '%' . $search . '%';
-        $params[] = $searchWild;
-        $params[] = $searchWild;
-    }
-
-    $sql .= " ORDER BY p.name ASC";
-
-    $stmt = $conn->prepare($sql);
-    if (!$stmt) {
-        return getStoreFallbackProducts($category, $search);
-    }
-
-    if ($types !== '') {
-        $stmt->bind_param($types, ...$params);
-    }
-
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $rows = [];
-    while ($row = $result->fetch_assoc()) {
-        $rows[] = $row;
-    }
-    $stmt->close();
-    return !empty($rows) ? $rows : getStoreFallbackProducts($category, $search);
+    return getStoreFallbackProducts($category, $search);
 }
 
 /**
@@ -227,25 +285,40 @@ function getProducts(string $category = '', string $search = ''): array
 function getProductById(int $id): ?array
 {
     global $conn;
-    if (!$conn) {
-        foreach (getStoreFallbackProducts() as $p) {
-            if ((int)$p['id'] === (int)$id) return $p;
+    if ($conn) {
+        $stmt = $conn->prepare(
+            "SELECT p.*, c.name AS category_name
+             FROM products p
+             LEFT JOIN categories c ON p.category_id = c.id
+             WHERE p.id = ?"
+        );
+        if ($stmt) {
+            $stmt->bind_param("i", $id);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $row = $result ? $result->fetch_assoc() : null;
+            $stmt->close();
+            if ($row) return $row;
         }
-        return null;
     }
-    $stmt = $conn->prepare(
-        "SELECT p.*, c.name AS category_name
-         FROM products p
-         LEFT JOIN categories c ON p.category_id = c.id
-         WHERE p.id = ?"
-    );
-    if (!$stmt) return null;
-    $stmt->bind_param("i", $id);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $row = $result->fetch_assoc();
-    $stmt->close();
-    return $row ?: null;
+    if (function_exists('getDBConnection')) {
+        try {
+            $pdo = getDBConnection();
+            $stmt = $pdo->prepare(
+                "SELECT p.*, c.name AS category_name
+                 FROM products p
+                 LEFT JOIN categories c ON p.category_id = c.id
+                 WHERE p.id = ? LIMIT 1"
+            );
+            $stmt->execute([$id]);
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            if ($row) return $row;
+        } catch (Throwable $e) {}
+    }
+    foreach (getStoreFallbackProducts() as $p) {
+        if ((int)$p['id'] === (int)$id) return $p;
+    }
+    return null;
 }
 
 /**
@@ -255,22 +328,31 @@ function getProductById(int $id): ?array
 function getFeaturedProduct(): ?array
 {
     global $conn;
-    if (!$conn) {
-        $prods = getStoreFallbackProducts();
-        return $prods[0] ?? null;
+    if ($conn) {
+        $sql = "SELECT p.*, c.name AS category_name
+                FROM products p
+                LEFT JOIN categories c ON p.category_id = c.id
+                WHERE p.is_featured = 1
+                LIMIT 1";
+        $result = @$conn->query($sql);
+        if ($result) {
+            $row = $result->fetch_assoc();
+            if ($row) return $row;
+        }
     }
-    $sql = "SELECT p.*, c.name AS category_name
-            FROM products p
-            LEFT JOIN categories c ON p.category_id = c.id
-            WHERE p.is_featured = 1
-            LIMIT 1";
-    $result = $conn->query($sql);
-    if (!$result) {
-        $prods = getStoreFallbackProducts();
-        return $prods[0] ?? null;
+    if (function_exists('getDBConnection')) {
+        try {
+            $pdo = getDBConnection();
+            $sql = "SELECT p.*, c.name AS category_name
+                    FROM products p
+                    LEFT JOIN categories c ON p.category_id = c.id
+                    WHERE p.is_featured = 1
+                    LIMIT 1";
+            $stmt = $pdo->query($sql);
+            $row = $stmt ? $stmt->fetch(PDO::FETCH_ASSOC) : null;
+            if ($row) return $row;
+        } catch (Throwable $e) {}
     }
-    $row = $result->fetch_assoc();
-    if ($row) return $row;
     $prods = getStoreFallbackProducts();
     return $prods[0] ?? null;
 }
@@ -357,9 +439,9 @@ function getCategoryBySlug(string $slug): ?array
     global $conn;
     if ($conn) {
         try {
-            $stmt = $conn->prepare("SELECT id, name, kn_name, icon FROM categories WHERE id = ?");
+            $stmt = $conn->prepare("SELECT id, name, kn_name, icon FROM categories WHERE id = ? OR slug = ? LIMIT 1");
             if ($stmt) {
-                $stmt->bind_param("s", $slug);
+                $stmt->bind_param("ss", $slug, $slug);
                 $stmt->execute();
                 $result = $stmt->get_result();
                 $row = $result ? $result->fetch_assoc() : null;
@@ -369,6 +451,15 @@ function getCategoryBySlug(string $slug): ?array
         } catch (Throwable $e) {
             // fallback below
         }
+    }
+    if (function_exists('getDBConnection')) {
+        try {
+            $pdo = getDBConnection();
+            $stmt = $pdo->prepare("SELECT id, name, kn_name, icon, emoji FROM categories WHERE id = ? OR slug = ? LIMIT 1");
+            $stmt->execute([$slug, $slug]);
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            if ($row) return $row;
+        } catch (Throwable $e) {}
     }
     foreach (getFallbackCategories() as $c) {
         if ((string)$c['id'] === (string)$slug || strtolower(str_replace(' ', '-', $c['name'])) === strtolower($slug)) {
