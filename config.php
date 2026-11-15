@@ -4,8 +4,10 @@
 // ============================================================
 
 require_once __DIR__ . '/logger.php';
-// Shared DB layer — provides _bootstrapSQLiteSchema() used by the SQLite fallback.
+// Shared DB layer â€” provides _bootstrapSQLiteSchema() used by the SQLite fallback.
 require_once __DIR__ . '/includes/db.php';
+require_once __DIR__ . '/includes/app_constants.php';
+
 
 // ============================================================
 // Database credentials
@@ -37,7 +39,7 @@ if (!defined('MYSQLI_CLIENT_SSL_DONT_VERIFY_SERVER_CERT')) {
 // Disable automatic exception throwing so we can catch & display connection errors gracefully
 mysqli_report(MYSQLI_REPORT_OFF);
 
-// Create connection — supports both local MySQL and cloud (TiDB / Aiven) with SSL
+// Create connection â€” supports both local MySQL and cloud (TiDB / Aiven) with SSL
 $conn = mysqli_init();
 if (!$conn) {
     http_response_code(500);
@@ -55,14 +57,14 @@ $connError = '';
 
 try {
     if (DB_HOST !== '127.0.0.1' && DB_HOST !== 'localhost') {
-        // Cloud MySQL (TiDB Cloud, Aiven, etc.) — enable SSL with optional CA cert verification
+        // Cloud MySQL (TiDB Cloud, Aiven, etc.) â€” enable SSL with optional CA cert verification
         $_dbSslCa = getenv('DB_SSL_CA') ?: '';
         if (!empty($_dbSslCa) && is_readable($_dbSslCa)) {
-            // Verified TLS: CA cert provided — recommended for production
+            // Verified TLS: CA cert provided â€” recommended for production
             $conn->ssl_set(NULL, NULL, $_dbSslCa, NULL, NULL);
             $flags = defined('MYSQLI_CLIENT_SSL') ? MYSQLI_CLIENT_SSL : 0;
         } else {
-            // Unverified TLS: no CA cert configured — log warning in production
+            // Unverified TLS: no CA cert configured â€” log warning in production
             if (getenv('KSR_ENV') === 'production' || getenv('APP_ENV') === 'production') {
                 error_log('SECURITY WARNING: DB_SSL_CA not set; connecting to cloud MySQL without certificate verification.');
             }
@@ -81,7 +83,7 @@ try {
     $connError = $e->getMessage();
 }
 
-// Check connection — if not connected, set $conn = null so application can use graceful fallback
+// Check connection â€” if not connected, set $conn = null so application can use graceful fallback
 if (!$connected || $conn->connect_errno) {
     $dbErrMsg = $connError ?: ($conn->connect_error ?? 'Unable to connect to database');
     $conn = null;

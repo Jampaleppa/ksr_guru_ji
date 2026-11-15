@@ -31,8 +31,8 @@ $apiKey = $_SERVER['HTTP_X_API_KEY'] ?? $_GET['api_key'] ?? '';
 $isAuthenticated = false;
 
 // 1. Check API key (should be stored in config or database)
-$validApiKey = 'YOUR_SECRET_API_KEY'; // Replace with a secure key, store in config
-if ($apiKey === $validApiKey) {
+$validApiKey = defined('KSR_API_KEY') ? KSR_API_KEY : ''; // Set KSR_API_KEY env var in production
+if (!empty($validApiKey) && $apiKey === $validApiKey) {
     $isAuthenticated = true;
 }
 

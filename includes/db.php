@@ -952,6 +952,47 @@ if (!function_exists('_bootstrapSQLiteSchema')) {
             }
         } catch (Throwable $e) {}
 
+        // Seed sample products (20 essential grocery items) so admin/pricing.php
+        // shows real data on a fresh SQLite DB. Only runs when products table is empty.
+        try {
+            $prodCount = (int)$pdo->query("SELECT COUNT(*) FROM products")->fetchColumn();
+            if ($prodCount === 0) {
+                $sampleProducts = [
+                    // [name, kn_name, category_id, category, market_price, unit, description]
+                    ['Tomato',           'ಟಮಾಟೊ',        'vegetables-fruits', 'Vegetables',   25.00, '500g', 'Fresh farm tomatoes'],
+                    ['Onion',            'ಈರುಳ್ಳಿ',       'vegetables-fruits', 'Vegetables',   30.00, '1kg',  'Premium quality onions'],
+                    ['Potato',           'ಆಲೂಗಡ್ಡೆ',      'vegetables-fruits', 'Vegetables',   22.00, '1kg',  'Fresh potatoes'],
+                    ['Carrot',           'ಗಜ್ಜರಿ',        'vegetables-fruits', 'Vegetables',   35.00, '500g', 'Fresh carrots'],
+                    ['Basmati Rice',     'ಬಾಸ್ಮತಿ ಅಕ್ಕಿ', 'grains-cereals',   'Grains',       65.00, '1kg',  'Premium basmati rice'],
+                    ['Toor Dal',         'ತೊಗರಿ ಬೇಳೆ',    'pules-lentils',    'Pulses',       90.00, '500g', 'Toor dal split'],
+                    ['Sunflower Oil',    'ಸೂರ್ಯಕಾಂತಿ ಎಣ್ಣೆ','cooking-oil',    'Oils',        110.00, '1L',   'Refined sunflower oil'],
+                    ['Full Cream Milk',  'ಹಾಲು',          'dairy',            'Dairy',         28.00, '500ml','Fresh full cream milk'],
+                    ['Curd',             'ಮೊಸರು',          'dairy',            'Dairy',         22.00, '400g', 'Fresh set curd'],
+                    ['Whole Wheat Bread','ಗೋಧಿ ಬ್ರೆಡ್',   'bakery',           'Bakery',        47.00, '400g', 'Whole wheat sliced bread'],
+                    ['Biscuits - Marie', 'ಮೇರಿ ಬಿಸ್ಕಿಟ್', 'snacks',          'Snacks',        22.00, '200g', 'Marie biscuits pack'],
+                    ['Maggi Noodles',    'ಮ್ಯಾಗಿ',         'ready-to-eat',    'Ready-to-Eat',  13.00, '70g',  '2-minute noodles'],
+                    ['Coconut Oil',      'ತೆಂಗಿನ ಎಣ್ಣೆ',  'cooking-oil',     'Oils',         120.00, '500ml','Pure coconut oil'],
+                    ['Red Chilli Powder','ಕೆಂಪು ಮೆಣಸಿನ ಪುಡಿ','spices-masalas','Spices',       55.00, '200g', 'Hot red chilli powder'],
+                    ['Turmeric Powder',  'ಅರಿಶಿನ ಪುಡಿ',   'spices-masalas',  'Spices',        32.00, '100g', 'Pure turmeric powder'],
+                    ['Salt',             'ಉಪ್ಪು',          'spices-masalas',  'Spices',        18.00, '1kg',  'Iodized table salt'],
+                    ['Surf Excel',       'ಸರ್ಫ್ ಎಕ್ಸೆಲ್', 'laundry',         'Laundry',       48.00, '500g', 'Surf Excel washing powder'],
+                    ['Vim Bar',          'ವಿಮ್ ಬಾರ್',      'dishwash',        'Dishwash',      22.00, '300g', 'Vim dishwash bar'],
+                    ['Colgate Paste',    'ಕೋಲ್ಗೇಟ್',       'bath-body',       'Bath & Body',   75.00, '200g', 'Colgate total toothpaste'],
+                    ['Lifebuoy Soap',    'ಲೈಫ್‌ಬಾಯ್',      'bath-body',       'Bath & Body',   28.00, '100g', 'Lifebuoy soap bar'],
+                ];
+                $ins = $pdo->prepare(
+                    "INSERT OR IGNORE INTO products
+                        (name, kn_name, category_id, category, price, market_price, unit, description, stock, status)
+                     VALUES (?,?,?,?,?,?,?,?,50,1)"
+                );
+                foreach ($sampleProducts as $p) {
+                    $market = $p[4];
+                    $selling = $market + 3.00; // KSR_DEFAULT_PRICE_MARGIN
+                    $ins->execute([$p[0], $p[1], $p[2], $p[3], $selling, $market, $p[5], $p[6]]);
+                }
+            }
+        } catch (Throwable $e) {}
+
         // Seed default admin roles
         try {
             $pdo->exec("INSERT OR IGNORE INTO admin_roles (id, role_key, role_name, description, is_system) VALUES
