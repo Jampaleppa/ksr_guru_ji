@@ -52,6 +52,9 @@ if (!defined('ADMIN_PAGE_PERMISSION_MAP')) {
         'orders'       => 'orders.view',
         'payments'     => 'payments.view',
         'delivery'     => 'delivery.view',
+        'refunds'      => 'payments.view',
+        'suppliers'    => 'customers.view',
+        'inventory'    => 'inventory.view',
 
         // ---------------------------------------------------------
         // People
