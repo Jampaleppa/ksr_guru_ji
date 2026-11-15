@@ -232,15 +232,22 @@ if (!function_exists('_bootstrapSQLiteSchema')) {
 
             // ── E-commerce: products / orders / cart ───────────────────────
             "CREATE TABLE IF NOT EXISTS products (
-                id          INTEGER PRIMARY KEY AUTOINCREMENT,
-                name        TEXT    NOT NULL DEFAULT '',
-                category    TEXT,
-                price       REAL    DEFAULT 0,
-                mrp         REAL    DEFAULT 0,
-                stock       INTEGER DEFAULT 0,
-                description TEXT,
-                image       TEXT,
-                created_at  TEXT DEFAULT (datetime('now'))
+                id           INTEGER PRIMARY KEY AUTOINCREMENT,
+                name         TEXT    NOT NULL DEFAULT '',
+                kn_name      TEXT,
+                slug         TEXT,
+                category     TEXT,
+                category_id  INTEGER,
+                price        REAL    DEFAULT 0,
+                market_price REAL    DEFAULT 0,
+                mrp          REAL    DEFAULT 0,
+                unit         TEXT    DEFAULT 'kg',
+                stock        INTEGER DEFAULT 0,
+                status       INTEGER DEFAULT 1,
+                description  TEXT,
+                image        TEXT,
+                updated_at   TEXT DEFAULT (datetime('now')),
+                created_at   TEXT DEFAULT (datetime('now'))
             )",
 
             "CREATE TABLE IF NOT EXISTS orders (
@@ -856,6 +863,25 @@ if (!function_exists('_bootstrapSQLiteSchema')) {
             if (!in_array('order_status', $oCols, true)) {
                 try { $pdo->exec("ALTER TABLE orders ADD COLUMN order_status TEXT DEFAULT 'pending'"); } catch (Throwable $e) {}
             }
+
+            // Migrate missing columns on products table
+            try {
+                $pCols = $pdo->query("PRAGMA table_info(products)")->fetchAll(PDO::FETCH_COLUMN, 1);
+                $productMigrations = [
+                    'kn_name'      => "ALTER TABLE products ADD COLUMN kn_name TEXT",
+                    'slug'         => "ALTER TABLE products ADD COLUMN slug TEXT",
+                    'category_id'  => "ALTER TABLE products ADD COLUMN category_id INTEGER",
+                    'market_price' => "ALTER TABLE products ADD COLUMN market_price REAL DEFAULT 0",
+                    'unit'         => "ALTER TABLE products ADD COLUMN unit TEXT DEFAULT 'kg'",
+                    'status'       => "ALTER TABLE products ADD COLUMN status INTEGER DEFAULT 1",
+                    'updated_at'   => "ALTER TABLE products ADD COLUMN updated_at TEXT DEFAULT (datetime('now'))",
+                ];
+                foreach ($productMigrations as $col => $sql) {
+                    if (!in_array($col, $pCols, true)) {
+                        try { $pdo->exec($sql); } catch (Throwable $e) {}
+                    }
+                }
+            } catch (Throwable $e) {}
         } catch (Throwable $e) {}
 
         // Seed default admin roles
