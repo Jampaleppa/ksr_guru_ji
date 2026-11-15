@@ -74,6 +74,11 @@ function completedAtCol(PDO $pdo): string
     return detectCol($pdo, 'orders', ['delivered_at', 'completed_at', 'updated_at']);
 }
 
+function createdAtCol(PDO $pdo): string
+{
+    return detectCol($pdo, 'orders', ['created_at', 'placed_at']);
+}
+
 // Map delivery page status names → DB status values
 function mapStatus(string $status): array
 {
@@ -98,6 +103,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'GET') {
     $totalCol  = totalAmountCol($pdo);
     $addrCol   = addressCol($pdo);
     $completedCol = completedAtCol($pdo);
+    $createdCol   = createdAtCol($pdo);
 
     // Build WHERE clauses
     $params  = [];
@@ -126,7 +132,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'GET') {
 
     // Filter by date (for delivered page)
     if ($dateFilter) {
-        $clauses[] = "DATE(o.placed_at) = ?";
+        $clauses[] = "DATE(o.$createdCol) = ?";
         $params[]  = $dateFilter;
     }
 
@@ -139,7 +145,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'GET') {
                 o.$totalCol   AS total_amount,
                 o.$addrCol    AS delivery_address,
                 o.$completedCol AS completed_at,
-                o.placed_at,
+                o.$createdCol AS placed_at,
                 o.payment_method,
                 o.payment_status,
                 o.delivery_boy_id,
@@ -149,7 +155,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'GET') {
             FROM orders o
             LEFT JOIN users u ON u.id = o.user_id
             $where
-            ORDER BY o.placed_at DESC
+            ORDER BY o.$createdCol DESC
             LIMIT 100";
 
     try {
