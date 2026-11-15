@@ -53,8 +53,8 @@ function getCleaningProducts(string $search = ''): array {
         $schema = getProductSchemaInfo();
         $hasSlug = $schema["has_cat_slug"];
         if ($hasSlug) {
-            $stmt = $pdo->prepare("SELECT id FROM categories WHERE slug = ?");
-            $stmt->execute(['cleaning-supplies']);
+            $stmt = $pdo->prepare("SELECT id FROM categories WHERE slug = ? OR slug = ? OR slug = ? LIMIT 1");
+            $stmt->execute(['cleaning-products', 'cleaning', 'cleaning-supplies']);
             $category = $stmt->fetch(PDO::FETCH_ASSOC);
             if ($category) {
                 $categoryId = $category['id'];
