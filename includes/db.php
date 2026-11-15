@@ -846,6 +846,16 @@ if (!function_exists('_bootstrapSQLiteSchema')) {
                 try { $pdo->exec("ALTER TABLE orders ADD COLUMN tax REAL DEFAULT 0"); } catch (Throwable $e) {}
                 try { $pdo->exec("ALTER TABLE orders ADD COLUMN delivery_address TEXT"); } catch (Throwable $e) {}
             }
+            // Delivery columns (always try — idempotent)
+            if (!in_array('delivery_boy_id', $oCols, true)) {
+                try { $pdo->exec("ALTER TABLE orders ADD COLUMN delivery_boy_id INTEGER DEFAULT NULL"); } catch (Throwable $e) {}
+            }
+            if (!in_array('delivered_at', $oCols, true)) {
+                try { $pdo->exec("ALTER TABLE orders ADD COLUMN delivered_at TEXT DEFAULT NULL"); } catch (Throwable $e) {}
+            }
+            if (!in_array('order_status', $oCols, true)) {
+                try { $pdo->exec("ALTER TABLE orders ADD COLUMN order_status TEXT DEFAULT 'pending'"); } catch (Throwable $e) {}
+            }
         } catch (Throwable $e) {}
 
         // Seed default admin roles
