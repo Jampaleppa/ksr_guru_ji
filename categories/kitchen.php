@@ -139,7 +139,7 @@ function getKitchenProducts(string $search = ''): array
         // Dynamic column check for categories table
         $schema = getProductSchemaInfo();
         $hasSlug = $schema["has_cat_slug"];
-        $whereCategory = $hasSlug ? "(c.slug = 'kitchenware' OR c.id = 'kitchenware' OR c.name LIKE '%kitchen%')" : "(c.name LIKE '%kitchen%')";
+        $whereCategory = $hasSlug ? "(c.slug = 'kitchen-essentials' OR c.slug = 'kitchenware' OR c.id = 'kitchen-essentials' OR c.id = 'kitchenware' OR c.name LIKE '%kitchen%')" : "(c.name LIKE '%kitchen%')";
         $sql = "SELECT p.id, p.name, p.kn_name, p.price, p.category_id, p.icon, p.emoji, p.is_featured,
                        c.name AS category_name, c.kn_name AS category_kn,
                        {$descCol} AS description_en,
