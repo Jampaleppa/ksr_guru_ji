@@ -46,6 +46,7 @@ if ($productIdRaw === '') {
     $clientPrice = isset($_POST['price']) ? (float)$_POST['price'] : (isset($_POST['custom_price']) ? (float)$_POST['custom_price'] : (isset($_GET['price']) ? (float)$_GET['price'] : 0.0));
 
     $product = null;
+    $pdo = null;
     try {
         $pdo = getDBConnection();
         if ($pdo) {
