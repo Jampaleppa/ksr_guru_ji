@@ -1,11 +1,11 @@
-﻿<?php
+<?php
 // ============================================================
 // track-order.php - Customer Order Tracking Search Page
 // ============================================================
 require_once 'config.php';
 require_once 'functions.php';
 
-session_start();
+if (session_status() === PHP_SESSION_NONE) { session_start(); }
 
 $error = '';
 $order_ref = trim($_GET['order_ref'] ?? '');
