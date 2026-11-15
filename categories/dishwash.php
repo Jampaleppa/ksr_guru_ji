@@ -133,7 +133,7 @@ function getDishwashProducts(string $search = ''): array
                        {$imgCol} AS image
                 FROM products p
                 JOIN categories c ON p.category_id = c.id
-                WHERE c.slug = 'dishwash' OR c.id = 'dishwash'";
+                WHERE (c.slug = 'dishwash' OR c.id = 'dishwash' OR c.name LIKE '%Dish%')";
     $params = [];
     if ($search !== '') {
       $sql .= " AND (p.name LIKE ? OR p.kn_name LIKE ? OR {$descCol} LIKE ?)";

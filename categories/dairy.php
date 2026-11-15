@@ -137,7 +137,7 @@ function getDairyProducts(string $search = ''): array {
                        {$imgCol} AS image
                 FROM products p
                 JOIN categories c ON p.category_id = c.id
-                WHERE c.slug = 'dairy'";
+                WHERE (c.slug = 'dairy' OR c.id = 'dairy' OR c.name LIKE '%Dairy%')";
         $params = [];
         if ($search !== '') {
             $sql .= " AND (p.name LIKE ? OR p.kn_name LIKE ? OR {$descCol} LIKE ?)";

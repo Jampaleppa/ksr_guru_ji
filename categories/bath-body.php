@@ -37,16 +37,16 @@ if (isset($_GET['ajax'])) {
 // ============================================================
 function getBathBodyProducts(string $search = ''): array
 {
-    global $pdo;
-    // If $pdo is not available (e.g., not configured), return empty
-    if (!isset($pdo)) {
+    try {
+        $pdo = getDBConnection();
+    } catch (Throwable $e) {
         return [];
     }
     $sql = "SELECT p.id, p.name, p.kn_name, p.price, p.category_id, p.icon, p.emoji, p.is_featured,
                    c.name AS category_name, c.kn_name AS category_kn
             FROM products p
             JOIN categories c ON p.category_id = c.id
-            WHERE c.id = 'bath-body'";
+            WHERE (c.slug = 'bath-body' OR c.id = 'bath-body' OR c.name LIKE '%Bath%')";
     $params = [];
     if ($search !== '') {
         $sql .= " AND (p.name LIKE ? OR p.kn_name LIKE ?)";
@@ -650,11 +650,7 @@ if (!function_exists('getFallbackProducts')) {
 // ============================================================
 // Get products: Try DB first, then fallback to static
 // ============================================================
-$products = [];
-// If DB connection exists, try to fetch
-if (isset($pdo)) {
-    $products = getBathBodyProducts();
-}
+$products = getBathBodyProducts();
 if (empty($products)) {
     $products = getFallbackBathBodyProducts();
 }

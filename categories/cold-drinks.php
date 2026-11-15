@@ -43,7 +43,7 @@ function getColdDrinksProducts(string $search = ''): array {
                        c.name AS category_name, c.kn_name AS category_kn
                 FROM products p
                 JOIN categories c ON p.category_id = c.id
-                WHERE c.id = 'cold-drinks' OR c.name LIKE '%Cold%' OR c.name LIKE '%Drink%'";
+                WHERE (c.slug = 'cold-drinks' OR c.id = 'cold-drinks' OR c.name LIKE '%Cold%' OR c.name LIKE '%Drink%')";
         $params = [];
         if ($search !== '') {
             $sql .= " AND (p.name LIKE ? OR p.kn_name LIKE ?)";

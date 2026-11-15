@@ -136,7 +136,7 @@ function getCookingOilProducts(string $search = ''): array
                        {$imgCol} AS image
                 FROM products p
                 JOIN categories c ON p.category_id = c.id
-                WHERE c.slug = 'cooking-oil' OR c.name LIKE '%Oil%' OR c.name LIKE '%oil%'";
+                WHERE (c.slug = 'cooking-oil' OR c.id = 'cooking-oil' OR c.name LIKE '%Oil%' OR c.name LIKE '%oil%')";
     $params = [];
     if ($search !== '') {
       $sql .= " AND (p.name LIKE ? OR p.kn_name LIKE ? OR {$descCol} LIKE ?)";
