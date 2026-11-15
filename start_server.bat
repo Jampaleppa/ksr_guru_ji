@@ -11,9 +11,14 @@ echo.
 echo [1/3] Checking MySQL Service...
 net start MYSQL80 >nul 2>&1
 if %errorlevel% equ 0 (
-    echo       MySQL service is RUNNING.
+    echo       MySQL (MYSQL80) service is RUNNING.
 ) else (
-    echo       MySQL service is already active.
+    net start wampmysqld64 >nul 2>&1
+    if %errorlevel% equ 0 (
+        echo       MySQL (wampmysqld64) service is RUNNING.
+    ) else (
+        echo       MySQL service is active or running.
+    )
 )
 
 :: 2. Check if Apache is already running on port 8090
