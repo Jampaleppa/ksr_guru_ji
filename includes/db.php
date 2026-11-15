@@ -269,6 +269,9 @@ if (!function_exists('_bootstrapSQLiteSchema')) {
                 status       INTEGER DEFAULT 1,
                 description  TEXT,
                 image        TEXT,
+                icon         TEXT DEFAULT '',
+                emoji        TEXT DEFAULT '',
+                is_featured  INTEGER DEFAULT 0,
                 updated_at   TEXT DEFAULT (datetime('now')),
                 created_at   TEXT DEFAULT (datetime('now'))
             )",
@@ -897,6 +900,9 @@ if (!function_exists('_bootstrapSQLiteSchema')) {
                     'market_price' => "ALTER TABLE products ADD COLUMN market_price REAL DEFAULT 0",
                     'unit'         => "ALTER TABLE products ADD COLUMN unit TEXT DEFAULT 'kg'",
                     'status'       => "ALTER TABLE products ADD COLUMN status INTEGER DEFAULT 1",
+                    'icon'         => "ALTER TABLE products ADD COLUMN icon TEXT DEFAULT ''",
+                    'emoji'        => "ALTER TABLE products ADD COLUMN emoji TEXT DEFAULT ''",
+                    'is_featured'  => "ALTER TABLE products ADD COLUMN is_featured INTEGER DEFAULT 0",
                     'updated_at'   => "ALTER TABLE products ADD COLUMN updated_at TEXT DEFAULT (datetime('now'))",
                 ];
                 foreach ($productMigrations as $col => $sql) {

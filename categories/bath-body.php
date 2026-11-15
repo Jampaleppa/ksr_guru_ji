@@ -39,31 +39,31 @@ function getBathBodyProducts(string $search = ''): array
 {
     try {
         $pdo = getDBConnection();
+        $sql = "SELECT p.id, p.name, p.kn_name, p.price, p.category_id, p.icon, p.emoji, p.is_featured,
+                       c.name AS category_name, c.kn_name AS category_kn
+                FROM products p
+                JOIN categories c ON p.category_id = c.id
+                WHERE (c.slug = 'bath-body' OR c.id = 'bath-body' OR c.name LIKE '%Bath%')";
+        $params = [];
+        if ($search !== '') {
+            $sql .= " AND (p.name LIKE ? OR p.kn_name LIKE ?)";
+            $searchWild = '%' . $search . '%';
+            $params[] = $searchWild;
+            $params[] = $searchWild;
+        }
+        $sql .= " ORDER BY p.name ASC";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute($params);
+        $rows = [];
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $row['description_en'] = '';
+            $row['variants'] = null;
+            $rows[] = $row;
+        }
+        return $rows;
     } catch (Throwable $e) {
         return [];
     }
-    $sql = "SELECT p.id, p.name, p.kn_name, p.price, p.category_id, p.icon, p.emoji, p.is_featured,
-                   c.name AS category_name, c.kn_name AS category_kn
-            FROM products p
-            JOIN categories c ON p.category_id = c.id
-            WHERE (c.slug = 'bath-body' OR c.id = 'bath-body' OR c.name LIKE '%Bath%')";
-    $params = [];
-    if ($search !== '') {
-        $sql .= " AND (p.name LIKE ? OR p.kn_name LIKE ?)";
-        $searchWild = '%' . $search . '%';
-        $params[] = $searchWild;
-        $params[] = $searchWild;
-    }
-    $sql .= " ORDER BY p.name ASC";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute($params);
-    $rows = [];
-    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-        $row['description_en'] = '';
-        $row['variants'] = null;
-        $rows[] = $row;
-    }
-    return $rows;
 }
 // ============================================================
 // FALLBACK: Load all 550+ products from the provided JSON
