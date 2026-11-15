@@ -449,15 +449,20 @@ function delivery_page_start(string $title, string $active = 'dashboard'): void
                 <a href="orders.php" class="dp-nav-i <?= $GLOBALS['dp_active'] === 'orders' ? 'on' : '' ?>">
                     <i class="fa-solid fa-receipt"></i><span>Orders</span>
                 </a>
-                <a href="suggestions.php" class="dp-nav-i <?= $GLOBALS['dp_active'] === 'suggestions' ? 'on' : '' ?>">
-                    <i class="fa-solid fa-lightbulb"></i><span>Sourcing</span>
+                <a href="navigation.php" class="dp-nav-i <?= $GLOBALS['dp_active'] === 'navigation' ? 'on' : '' ?>">
+                    <i class="fa-solid fa-route"></i><span>Navigate</span>
                 </a>
                 <a href="earnings.php" class="dp-nav-i <?= $GLOBALS['dp_active'] === 'earnings' ? 'on' : '' ?>">
                     <i class="fa-solid fa-wallet"></i><span>Earnings</span>
                 </a>
-                <a href="notifications.php" class="dp-nav-i <?= $GLOBALS['dp_active'] === 'notifications' ? 'on' : '' ?>">
-                    <i class="fa-solid fa-bell"></i><span>Alerts</span>
+                <a href="history.php" class="dp-nav-i <?= $GLOBALS['dp_active'] === 'history' ? 'on' : '' ?>">
+                    <i class="fa-solid fa-clock-rotate-left"></i><span>History</span>
                 </a>
+                <a href="support.php" class="dp-nav-i <?= $GLOBALS['dp_active'] === 'support' ? 'on' : '' ?>">
+                    <i class="fa-solid fa-headset"></i><span>Support</span>
+                </a>
+                <!-- Sourcing / Suggestions link (accessible but not shown in primary nav) -->
+                <a href="suggestions.php" class="dp-nav-i" style="display:none" aria-hidden="true"></a>
                 <a href="profile.php" class="dp-nav-i <?= $GLOBALS['dp_active'] === 'profile' ? 'on' : '' ?>">
                     <i class="fa-solid fa-user"></i><span>Profile</span>
                 </a>

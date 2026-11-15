@@ -359,6 +359,24 @@ if (!function_exists('e')) {
             </a>
             <?php endif; ?>
 
+            <?php if ($isSuperAdmin || $adminCan('customers')): ?>
+            <a
+                href="suppliers.php"
+                class="nav-item <?= sidebarActive('suppliers', $currentPage) ?>">
+                <i class="fas fa-truck-loading"></i>
+                <span>Suppliers</span>
+            </a>
+            <?php endif; ?>
+
+            <?php if ($adminCan('payments')): ?>
+            <a
+                href="refunds.php"
+                class="nav-item <?= sidebarActive('refunds', $currentPage) ?>">
+                <i class="fas fa-rotate-left"></i>
+                <span>Refunds</span>
+            </a>
+            <?php endif; ?>
+
         </div>
 
 

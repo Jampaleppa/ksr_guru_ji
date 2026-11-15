@@ -1157,6 +1157,63 @@ require_once __DIR__ . '/session.php';
         </div>
 
       </div><!-- /privacy view -->
+
+      <!-- ============================================================= -->
+      <!-- VIEW: RETURN & REFUND POLICY                                  -->
+      <!-- ============================================================= -->
+      <div class="view-section" id="viewRefund">
+        <section class="privacy-hero" style="background:linear-gradient(135deg,#2e7d32,#43a047);">
+          <div class="container">
+            <h1>Return &amp; Refund Policy</h1>
+            <p>We want you to shop with confidence. Here is everything you need to know about returns and refunds.</p>
+          </div>
+        </section>
+        <div class="privacy-content">
+          <h2>1. Return Eligibility</h2>
+          <p>You may return most items within <strong>7 days of delivery</strong>, provided they are unused, unopened, and in original packaging with all tags/labels intact.</p>
+          <h2>2. Non-Returnable Items</h2>
+          <p>The following items <strong>cannot be returned</strong>:</p>
+          <ul>
+            <li>Fresh vegetables, fruits, dairy, and perishable foods (unless damaged/spoiled on arrival)</li>
+            <li>Opened personal care or hygiene products</li>
+            <li>Medicines and pharmaceutical products once opened</li>
+            <li>Items purchased on clearance / final-sale</li>
+          </ul>
+          <h2>3. How to Initiate a Return</h2>
+          <p>To start a return:</p>
+          <ol>
+            <li>Go to <strong>My Orders</strong> and select the order.</li>
+            <li>Click <strong>"Return / Report Issue"</strong> within 7 days of delivery.</li>
+            <li>Choose the reason and upload a photo (required for damaged / wrong items).</li>
+            <li>Our team reviews your request within 24 hours.</li>
+          </ol>
+          <h2>4. Damaged or Wrong Items</h2>
+          <p>If you receive a damaged, spoiled, or incorrect item, please contact us within <strong>24 hours of delivery</strong> via WhatsApp at <a href="https://wa.me/918088584421">8088584421</a> or email <a href="mailto:support@ksrguru.com">support@ksrguru.com</a> with your order ID and a photo.</p>
+          <h2>5. Refund Process</h2>
+          <p>Once your return is approved:</p>
+          <ul>
+            <li><strong>Online payments (UPI / Card / Net Banking):</strong> Refund credited to original source within <strong>5–7 business days</strong>.</li>
+            <li><strong>Wallet balance:</strong> Refund credited to your KSR GURU JI wallet instantly after approval.</li>
+            <li><strong>Cash on Delivery:</strong> Refund issued as store credit / wallet balance.</li>
+          </ul>
+          <h2>6. Partial Refunds</h2>
+          <p>Partial refunds may be granted when only part of a multi-item order is returned, or when items show signs of use but are eligible under special circumstances.</p>
+          <h2>7. Delivery Charge Refund</h2>
+          <p>Delivery charges are non-refundable unless the return is due to our error (wrong item, damaged product).</p>
+          <h2>8. Cancellations</h2>
+          <p>Orders can be cancelled <strong>before dispatch</strong> for a full refund. Once out for delivery, cancellation is not possible — please use the return process instead.</p>
+          <h2>9. Contact Us</h2>
+          <p>For refund queries, contact our support team:</p>
+          <ul>
+            <li><strong>WhatsApp:</strong> <a href="https://wa.me/918088584421">8088584421</a></li>
+            <li><strong>Email:</strong> <a href="mailto:support@ksrguru.com">support@ksrguru.com</a></li>
+            <li><strong>Hours:</strong> Mon–Sat, 9 AM – 7 PM</li>
+          </ul>
+          <div class="last-updated">
+            <p><strong>Last Updated:</strong> Nov 15, 2026</p>
+          </div>
+        </div>
+      </div><!-- /refund view -->
     </div><!-- /container -->
   </main>
 
@@ -1178,12 +1235,13 @@ require_once __DIR__ . '/session.php';
       const viewSupport = document.getElementById('viewSupport');
       const viewTerms = document.getElementById('viewTerms');
       const viewPrivacy = document.getElementById('viewPrivacy');
+      const viewRefund = document.getElementById('viewRefund');
 
       function setActiveView(view) {
         // remove active from all buttons
         document.querySelectorAll('.view-toggle-bar button').forEach(b => b.classList.remove('active'));
         // hide all views
-        [viewSupport, viewTerms, viewPrivacy].forEach(v => v.classList.remove('active'));
+        [viewSupport, viewTerms, viewPrivacy, viewRefund].forEach(v => { if (v) v.classList.remove('active'); });
 
         if (view === 'support') {
           toggleSupport.classList.add('active');
@@ -1194,6 +1252,8 @@ require_once __DIR__ . '/session.php';
         } else if (view === 'privacy') {
           togglePrivacy.classList.add('active');
           viewPrivacy.classList.add('active');
+        } else if (view === 'refund') {
+          if (viewRefund) viewRefund.classList.add('active');
         }
       }
       toggleSupport.addEventListener('click', () => setActiveView('support'));
@@ -1293,6 +1353,7 @@ require_once __DIR__ . '/session.php';
       const viewParam = urlParams.get('view');
       if (viewParam === 'terms') setActiveView('terms');
       else if (viewParam === 'privacy') setActiveView('privacy');
+      else if (viewParam === 'refund') setActiveView('refund');
       // else keep support as default
     })();
   </script>

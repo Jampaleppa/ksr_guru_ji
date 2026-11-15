@@ -9,7 +9,7 @@ ini_set('display_errors', $isDev ? '1' : '0');
 error_reporting($isDev ? E_ALL : (E_ALL & ~E_NOTICE & ~E_DEPRECATED));
 
 // Catch any fatal shutdown errors
-register_shutdown_function(function() use ($isDev) {
+register_shutdown_function(function () use ($isDev) {
     $err = error_get_last();
     if ($err && in_array($err['type'], [E_ERROR, E_PARSE, E_CORE_ERROR, E_COMPILE_ERROR])) {
         http_response_code(500);
@@ -67,7 +67,34 @@ $aliases = [
     'checkout' => 'checkout.php',
     'checkout/' => 'checkout.php',
     'final-suggestion-box.php' => 'suggestion-box.php',
-    'final-suggestion-box' => 'suggestion-box.php'
+    'final-suggestion-box' => 'suggestion-box.php',
+    // ── Canonical category URL aliases ──────────────────────────────────────
+    'categories/air-fresheners' => 'categories/air-fresheners.php',
+    'categories/cleaning-products' => 'categories/cleaning-products.php',
+    'categories/grains-cereals' => 'categories/grains-cereals.php',
+    'categories/kitchen-essentials' => 'categories/kitchen-essentials.php',
+    'categories/pickles-sauces' => 'categories/pickles-sauces.php',
+    'categories/pooja-items' => 'categories/pooja-items.php',
+    'categories/seasonal-items' => 'categories/seasonal-items.php',
+    'categories/spices-masalas' => 'categories/spices-masalas.php',
+    // ── Main website page aliases ────────────────────────────────────────────
+    'about' => 'about.php',
+    'about-us' => 'about.php',
+    'contact' => 'contact.php',
+    'contact-us' => 'contact.php',
+    'account' => 'account.php',
+    'my-account' => 'account.php',
+    'orders' => 'orders.php',
+    'my-orders' => 'orders.php',
+    'wishlist' => 'wishlist.php',
+    'privacy' => 'privacy.php',
+    'privacy-policy' => 'privacy.php',
+    'terms' => 'terms.php',
+    'terms-conditions' => 'terms.php',
+    'terms-and-conditions' => 'terms.php',
+    'refund-policy' => 'refund-policy.php',
+    'return-refund-policy' => 'refund-policy.php',
+    'return-policy' => 'refund-policy.php',
 ];
 
 if (isset($aliases[$cleanPath])) {
