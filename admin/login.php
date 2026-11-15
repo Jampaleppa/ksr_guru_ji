@@ -11,7 +11,9 @@
 // login rate limiting, OTP expiry + attempt limits, audit logging.
 // ============================================================
 
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 require_once __DIR__ . '/../config.php';
 require_once __DIR__ . '/inc/admin_auth.php';

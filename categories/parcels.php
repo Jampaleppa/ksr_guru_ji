@@ -1,7 +1,9 @@
 <?php
 
 declare(strict_types=1);
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 /* ============================================================
    KSR GURU JI  •  PARCEL TO DOOR  •  ₹50 FIXED (CASH ON DELIVERY)

@@ -1,5 +1,7 @@
 <?php
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 ?>
 <h1>DOCTOR Administrative Module</h1>
 <p>Isolated portal entry. Verified RBAC session required.</p>
