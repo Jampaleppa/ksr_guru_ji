@@ -230,6 +230,29 @@ if (!function_exists('_bootstrapSQLiteSchema')) {
                 created_at          TEXT DEFAULT (datetime('now'))
             )",
 
+            // ── E-commerce: categories ─────────────────────────────────────
+            "CREATE TABLE IF NOT EXISTS categories (
+                id           TEXT    PRIMARY KEY,
+                name         TEXT    NOT NULL DEFAULT '',
+                kn_name      TEXT    DEFAULT '',
+                slug         TEXT,
+                icon         TEXT    DEFAULT '',
+                emoji        TEXT    DEFAULT '',
+                description  TEXT    DEFAULT '',
+                sort_order   INTEGER DEFAULT 0,
+                created_at   TEXT    DEFAULT (datetime('now'))
+            )",
+
+            "CREATE TABLE IF NOT EXISTS main_categories (
+                id           INTEGER PRIMARY KEY AUTOINCREMENT,
+                name         TEXT    NOT NULL DEFAULT '',
+                kn           TEXT    DEFAULT '',
+                emoji        TEXT    DEFAULT '',
+                sub_ids      TEXT    DEFAULT '',
+                sort_order   INTEGER DEFAULT 0,
+                created_at   TEXT    DEFAULT (datetime('now'))
+            )",
+
             // ── E-commerce: products / orders / cart ───────────────────────
             "CREATE TABLE IF NOT EXISTS products (
                 id           INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -882,6 +905,51 @@ if (!function_exists('_bootstrapSQLiteSchema')) {
                     }
                 }
             } catch (Throwable $e) {}
+        } catch (Throwable $e) {}
+
+        // Seed default categories (27 KSR categories) if table is empty
+        try {
+            $catCount = (int)$pdo->query("SELECT COUNT(*) FROM categories")->fetchColumn();
+            if ($catCount === 0) {
+                $cats = [
+                    ['air-fresheners',   'Air Fresheners',    'ಏರ್ ಫ್ರೆಶ್ನರ್ಸ್',  '🌸'],
+                    ['bakery',           'Bakery',            'ಬೇಕರಿ',             '🍞'],
+                    ['bath-body',        'Bath & Body',       'ಸ್ನಾನ ಮತ್ತು ಶರೀರ', '🛁'],
+                    ['breakfast',        'Breakfast',         'ಬ್ರೇಕ್‌ಫಾಸ್ಟ್',    '🌅'],
+                    ['cleaning',         'Cleaning Products', 'ಸ್ವಚ್ಛತೆ ಉತ್ಪನ್ನಗಳು','🧹'],
+                    ['cold-drinks',      'Cold Drinks',       'ಕೋಲ್ಡ್ ಡ್ರಿಂಕ್ಸ್', '🥤'],
+                    ['cooking-oil',      'Cooking Oil',       'ಅಡಿಗೆ ಎಣ್ಣೆ',      '🫙'],
+                    ['dairy',            'Dairy',             'ಡೇರಿ',              '🥛'],
+                    ['dishwash',         'Dishwash',          'ಪಾತ್ರೆ ತೊಳೆಯುವ',   '🍽️'],
+                    ['dry-fruits',       'Dry Fruits',        'ಒಣ ಹಣ್ಣುಗಳು',      '🥜'],
+                    ['grains-cereals',   'Grains & Cereals',  'ಧಾನ್ಯಗಳು',         '🌾'],
+                    ['hair-care',        'Hair Care',         'ಕೂದಲಿನ ಆರೈಕೆ',     '💆'],
+                    ['health-pharmacy',  'Health & Pharmacy', 'ಆರೋಗ್ಯ ಮತ್ತು ಔಷಧ','💊'],
+                    ['home-care',        'Home Care',         'ಮನೆ ಆರೈಕೆ',        '🏠'],
+                    ['kitchen-essentials','Kitchen Essentials','ಅಡಿಗೆ ಸಾಮಾನು',    '🍳'],
+                    ['laundry',          'Laundry',           'ಬಟ್ಟೆ ತೊಳೆಯುವ',    '👕'],
+                    ['paper-products',   'Paper Products',    'ಕಾಗದ ಉತ್ಪನ್ನಗಳು',  '📄'],
+                    ['parcels',          'Parcels',           'ಪಾರ್ಸೆಲ್ಸ್',       '📦'],
+                    ['personal-care',    'Personal Care',     'ವೈಯಕ್ತಿಕ ಆರೈಕೆ',  '🪥'],
+                    ['pet-supplies',     'Pet Supplies',      'ಸಾಕುಪ್ರಾಣಿ ಸಾಮಾನು','🐾'],
+                    ['pickles-sauces',   'Pickles & Sauces',  'ಉಪ್ಪಿನಕಾಯಿ ಮತ್ತು ಸಾಸ್','🥒'],
+                    ['plastic-household','Plastic Household',  'ಪ್ಲಾಸ್ಟಿಕ್ ಸಾಮಾನು','🪣'],
+                    ['pooja-items',      'Pooja Items',       'ಪೂಜಾ ಸಾಮಗ್ರಿ',    '🪔'],
+                    ['pules-lentils',    'Pulses & Lentils',  'ಬೇಳೆ ಕಾಳುಗಳು',    '🫘'],
+                    ['ready-to-eat',     'Ready to Eat',      'ರೆಡಿ ಟು ಈಟ್',     '🍱'],
+                    ['seasonal-items',   'Seasonal Items',    'ಋತು ವಸ್ತುಗಳು',    '🎁'],
+                    ['snacks',           'Snacks',            'ತಿಂಡಿಗಳು',         '🍿'],
+                    ['spices-masalas',   'Spices & Masalas',  'ಮಸಾಲೆ ಪದಾರ್ಥಗಳು', '🌶️'],
+                    ['stationery',       'Stationery',        'ಸ್ಟೇಷನರಿ',         '✏️'],
+                    ['vegetables-fruits','Vegetables & Fruits','ತರಕಾರಿ ಮತ್ತು ಹಣ್ಣುಗಳು','🥦'],
+                ];
+                $ins = $pdo->prepare(
+                    "INSERT OR IGNORE INTO categories (id, name, kn_name, slug, emoji, sort_order) VALUES (?,?,?,?,?,?)"
+                );
+                foreach ($cats as $i => $c) {
+                    $ins->execute([$c[0], $c[1], $c[2], $c[0], $c[3], $i + 1]);
+                }
+            }
         } catch (Throwable $e) {}
 
         // Seed default admin roles
