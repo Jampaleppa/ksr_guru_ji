@@ -1,4 +1,4 @@
--- ============================================================
+﻿-- ============================================================
 -- [OBSOLETE / LEGACY SCHEMA - DO NOT IMPORT IN PRODUCTION]
 -- Use `deploy_database.sql` as the canonical production schema!
 -- This legacy file is retained strictly for backward compatibility reference.
@@ -265,47 +265,47 @@ CREATE TABLE `settings` (
 
 -- Insert categories (slugs match your .php filenames)
 INSERT INTO `categories` (`name`, `kn_name`, `slug`, `icon`, `status`) VALUES
-('Air Freshener', 'ಏರ್ ಫ್ರೆಶ್ನರ್', 'air-freshner', 'fa-wind', 1),
+('Air Freshener', 'ಏರ್ ಫ್ರೆಶ್ನರ್', 'air-fresheners', 'fa-wind', 1),
 ('Bakery', 'ಬೇಕರಿ', 'bakery', 'fa-bread-slice', 1),
 ('Bath & Body', 'ಸ್ನಾನ ಮತ್ತು ದೇಹ', 'bath-body', 'fa-bath', 1),
-('Cleaning Supplies', 'ಶುಚಿಗೊಳಿಸುವ ಸರಬರಾಜು', 'cleaning', 'fa-soap', 1),
+('Cleaning Supplies', 'ಶುಚಿಗೊಳಿಸುವ ಸರಬರಾಜು', 'cleaning-products', 'fa-soap', 1),
 ('Cold Drinks', 'ಪಾನೀಯಗಳು', 'cold-drinks', 'fa-mug-hot', 1),
 ('Cooking Oil', 'ಅಡುಗೆ ಎಣ್ಣೆ', 'cooking-oil', 'fa-oil-can', 1),
 ('Dairy', 'ಡೈರಿ', 'dairy', 'fa-cheese', 1),
 ('Dishwash', 'ಡಿಶ್ವಾಶ್', 'dishwash', 'fa-hand-sparkles', 1),
 ('Dry Fruits', 'ಒಣ ಹಣ್ಣುಗಳು', 'dry-fruits', 'fa-seedling', 1),
-('Grains & Cereals', 'ಧಾನ್ಯಗಳು', 'grains', 'fa-wheat-alt', 1),
+('Grains & Cereals', 'ಧಾನ್ಯಗಳು', 'grains-cereals', 'fa-wheat-alt', 1),
 ('Hair Care', 'ಹೇರ್ ಕೇರ್', 'hair-care', 'fa-user-tie', 1),
 ('Health & Pharmacy', 'ಆರೋಗ್ಯ ಮತ್ತು ಔಷಧ', 'health-pharmacy', 'fa-capsules', 1),
 ('Home Care', 'ಮನೆ ಆರೈಕೆ', 'home-care', 'fa-home', 1),
-('Kitchenware', 'ಅಡುಗೆ ಸಾಮಾನು', 'kitchen', 'fa-utensils', 1),
+('Kitchenware', 'ಅಡುಗೆ ಸಾಮಾನು', 'kitchen-essentials', 'fa-utensils', 1),
 ('Laundry', 'ಲಾಂಡ್ರಿ', 'laundry', 'fa-jug-detergent', 1),
 ('Paper Products', 'ಪೇಪರ್ ಉತ್ಪನ್ನಗಳು', 'paper-products', 'fa-toilet-paper', 1),
 ('Personal Care', 'ವೈಯಕ್ತಿಕ ಆರೈಕೆ', 'personal-care', 'fa-hand-holding-heart', 1),
 ('Pet Supplies', 'ಪಿಇಟಿ ಸರಬರಾಜು', 'pet-supplies', 'fa-dog', 1),
-('Pickles', 'ಉಪ್ಪಿನಕಾಯಿ', 'pickles', 'fa-jar', 1),
+('Pickles & Sauces', 'ಉಪ್ಪಿನಕಾಯಿ ಮತ್ತು ಸಾಸ್', 'pickles-sauces', 'fa-jar', 1),
 ('Plastic Household', 'ಪ್ಲಾಸ್ಟಿಕ್ ಗೃಹೋಪಯೋಗಿ', 'plastic-household', 'fa-cube', 1),
-('Pooja Items', 'ಪೂಜಾ ಸಾಮಗ್ರಿಗಳು', 'pooja', 'fa-pray', 1),
+('Pooja Items', 'ಪೂಜಾ ಸಾಮಗ್ರಿಗಳು', 'pooja-items', 'fa-pray', 1),
 ('Ready to Eat', 'ಸಿದ್ಧ ಊಟ', 'ready-to-eat', 'fa-utensil-spoon', 1),
-('Seasonal Items', 'ಋತುಮಾನದ ವಸ್ತುಗಳು', 'seasonal', 'fa-calendar-alt', 1),
+('Seasonal Items', 'ಋತುಮಾನದ ವಸ್ತುಗಳು', 'seasonal-items', 'fa-calendar-alt', 1),
 ('Snacks', 'ತಿಂಡಿಗಳು', 'snacks', 'fa-cookie', 1),
-('Spices', 'ಮಸಾಲೆಗಳು', 'spices', 'fa-mortar-pestle', 1),
+('Spices & Masalas', 'ಮಸಾಲೆಗಳು', 'spices-masalas', 'fa-mortar-pestle', 1),
 ('Stationery', 'ಸ್ಟೇಷನರಿ', 'stationery', 'fa-pen', 1),
 ('Vegetables & Fruits', 'ಹಣ್ಣುಗಳು ಮತ್ತು ತರಕಾರಿಗಳು', 'vegetables-fruits', 'fa-carrot', 1);
 
 -- Insert main categories (groupings)
 INSERT INTO `main_categories` (`id`, `name`, `kn`, `emoji`, `sub_ids`) VALUES
-('fruits-veg', 'Fruits & Vegetables', 'ಹಣ್ಣುಗಳು ಮತ್ತು ತರಕಾರಿಗಳು', '🍎', 'vegetables-fruits,seasonal'),
-('grains-pulses', 'Grains, Pulses & Staples', 'ಧಾನ್ಯಗಳು, ಬೇಳೆಗಳು ಮತ್ತು ಸ್ಟೇಪಲ್ಸ್', '🌾', 'grains,ready-to-eat'),
-('spices-oils', 'Spices, Oils & Essentials', 'ಮಸಾಲೆಗಳು, ಎಣ್ಣೆ ಮತ್ತು ಅಗತ್ಯಗಳು', '🧂', 'spices,cooking-oil,pickles'),
+('fruits-veg', 'Fruits & Vegetables', 'ಹಣ್ಣುಗಳು ಮತ್ತು ತರಕಾರಿಗಳು', '🍎', 'vegetables-fruits,seasonal-items'),
+('grains-pulses', 'Grains, Pulses & Staples', 'ಧಾನ್ಯಗಳು, ಬೇಳೆಗಳು ಮತ್ತು ಸ್ಟೇಪಲ್ಸ್', '🌾', 'grains-cereals,ready-to-eat'),
+('spices-oils', 'Spices, Oils & Essentials', 'ಮಸಾಲೆಗಳು, ಎಣ್ಣೆ ಮತ್ತು ಅಗತ್ಯಗಳು', '🧂', 'spices-masalas,cooking-oil,pickles-sauces'),
 ('dairy-bakery', 'Dairy & Bakery', 'ಡೈರಿ ಮತ್ತು ಬೇಕರಿ', '🥛', 'dairy,bakery'),
 ('snacks-beverages', 'Snacks & Beverages', 'ತಿಂಡಿಗಳು ಮತ್ತು ಪಾನೀಯಗಳು', '🍪', 'snacks,cold-drinks,dry-fruits'),
 ('personal-beauty', 'Personal Care & Beauty', 'ವೈಯಕ್ತಿಕ ಆರೈಕೆ ಮತ್ತು ಸೌಂದರ್ಯ', '🧴', 'bath-body,hair-care,personal-care'),
 ('health-baby', 'Baby & Health Care', 'ಬೇಬಿ ಮತ್ತು ಆರೋಗ್ಯ ಆರೈಕೆ', '👶', 'health-pharmacy'), -- baby-care not in list, keep simple
-('home-cleaning', 'Home Cleaning & Laundry', 'ಮನೆ ಶುಚಿಗೊಳಿಸುವಿಕೆ ಮತ್ತು ಲಾಂಡ್ರಿ', '🧹', 'cleaning,dishwash,laundry,air-freshner'),
-('household-kitchen', 'Household & Kitchen', 'ಗೃಹೋಪಯೋಗಿ ಮತ್ತು ಅಡುಗೆಮನೆ', '🏠', 'kitchen,plastic-household,paper-products'),
+('home-cleaning', 'Home Cleaning & Laundry', 'ಮನೆ ಶುಚಿಗೊಳಿಸುವಿಕೆ ಮತ್ತು ಲಾಂಡ್ರಿ', '🧹', 'cleaning-products,dishwash,laundry,air-fresheners'),
+('household-kitchen', 'Household & Kitchen', 'ಗೃಹೋಪಯೋಗಿ ಮತ್ತು ಅಡುಗೆಮನೆ', '🏠', 'kitchen-essentials,plastic-household,paper-products'),
 ('pet-supplies', 'Pet Supplies', 'ಪಿಇಟಿ ಸರಬರಾಜು', '🐕', 'pet-supplies'),
-('pooja', 'Pooja & Religious Items', 'ಪೂಜಾ ಮತ್ತು ಧಾರ್ಮಿಕ ವಸ್ತುಗಳು', '🪔', 'pooja'),
+('pooja-items', 'Pooja & Religious Items', 'ಪೂಜಾ ಮತ್ತು ಧಾರ್ಮಿಕ ವಸ್ತುಗಳು', '🪔', 'pooja-items'),
 ('office-school', 'Office & School', 'ಕಚೇರಿ ಮತ್ತು ಶಾಲೆ', '✏️', 'stationery');
 
 
