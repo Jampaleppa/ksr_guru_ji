@@ -16,7 +16,38 @@ if (!isset($_SESSION['cart'])) {
 $cartCount = array_sum(array_column($_SESSION['cart'], 'qty'));
 $cartTotal = array_sum(array_map(fn($i) => $i['price'] * $i['qty'], $_SESSION['cart']));
 // ============================================================
-// COMPLETE PRODUCT DATA - All 210 items
+// DB-FIRST: Try to load bakery products from database
+// Falls back to embedded static data if DB returns nothing.
+// Applies KSR pricing rule: Selling = Market + ₹3
+// ============================================================
+$_bakeryDbProducts = [];
+if (function_exists('getCategoryProducts')) {
+    $_bakeryDbProducts = getCategoryProducts('bakery');
+} else {
+    // Load helper if not already included
+    $helperPath = __DIR__ . '/../includes/category_products.php';
+    if (file_exists($helperPath) && function_exists('getDBConnection')) {
+        require_once $helperPath;
+        $_bakeryDbProducts = getCategoryProducts('bakery');
+    }
+}
+// Map DB products to the same format as the static $bakeryProducts array
+if (!empty($_bakeryDbProducts)) {
+    $bakeryProducts = array_map(function($p) {
+        $price = (float)($p['price'] ?? 0);
+        return [
+            'id'          => (int)($p['id'] ?? 0),
+            'name'        => $p['name'] ?? '',
+            'nameKn'      => $p['kn_name'] ?? '',
+            'category'    => $p['category'] ?? 'Bakery',
+            'description' => $p['description'] ?? '',
+            'image'       => $p['image'] ?? '',
+            'weights'     => [['label' => $p['unit'] ?? '1pc', 'price' => $price]],
+        ];
+    }, $_bakeryDbProducts);
+} else {
+// ============================================================
+// COMPLETE PRODUCT DATA - All 210 items (static fallback)
 // ============================================================
 $bakeryProducts = [
     ["id"=>1,"name"=>"Whole Wheat Bread","nameKn"=>"","category"=>"Bakery","description"=>"Delicious Whole Wheat Bread","image"=>"images\\Whole Wheat Bread.jpg","weights"=>[["label"=>"400g","price"=>50]]],
@@ -229,9 +260,10 @@ $bakeryProducts = [
     ["id"=>208,"name"=>"Peanut Butter Cookies","nameKn"=>"","category"=>"Bakery","description"=>"Delicious Peanut Butter Cookies","image"=>"images\\Peanut Butter Cookies.jpg","weights"=>[["label"=>"200g","price"=>120]]],
     ["id"=>209,"name"=>"Almond Cookies","nameKn"=>"","category"=>"Bakery","description"=>"Delicious Almond Cookies","image"=>"images\\Almond Cookies.jpg","weights"=>[["label"=>"200g","price"=>140]]],
     ["id"=>210,"name"=>"Cashew Cookies","nameKn"=>"","category"=>"Bakery","description"=>"Delicious Cashew Cookies","image"=>"images\\Cashew Cookies.jpg","weights"=>[["label"=>"200g","price"=>150]]]
-];
+]; // end $bakeryProducts static array
+} // end else (DB was empty, using static fallback)
 // ============================================================
-// USE PRODUCTS - From array (skip DB to ensure all display)
+// USE PRODUCTS - From array (DB or static fallback)
 // ============================================================
 $products = [];
 foreach ($bakeryProducts as $item) {

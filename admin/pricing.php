@@ -106,7 +106,18 @@ require_once 'inc/header.php';
                         </thead>
                         <tbody>
                         <?php if (empty($products)): ?>
-                            <tr><td colspan="7" class="text-center text-muted py-4">No products found. Add products first.</td></tr>
+                            <tr>
+                                <td colspan="7" class="text-center py-5">
+                                    <div class="text-muted mb-3">
+                                        <i class="fas fa-box-open fa-3x mb-2 d-block opacity-50"></i>
+                                        <strong>No products found.</strong><br>
+                                        <small>Add products via Product Management, then set market prices here.</small>
+                                    </div>
+                                    <a href="products.php" class="btn btn-primary btn-sm">
+                                        <i class="fas fa-plus"></i> Go to Product Management
+                                    </a>
+                                </td>
+                            </tr>
                         <?php else: ?>
                             <?php foreach ($products as $i => $p):
                                 $mp = (float) ($p['market_price'] ?? $p['price'] ?? 0);
