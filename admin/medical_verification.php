@@ -844,7 +844,7 @@ function stream_document(int $docId): void
    ========================================================================== */
 $page   = isset($_GET['page']) ? preg_replace('/[^a-z_]/', '', (string)$_GET['page']) : 'dashboard';
 $action = isset($_POST['action']) ? preg_replace('/[^a-z_]/', '', (string)$_POST['action']) : '';
-$isPost = ($_SERVER['REQUEST_METHOD'] === 'POST');
+$isPost = (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST');
 
 /* ---- First-run setup ---- */
 $needsSetup = false;

@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 // ============================================================
 // track-order.php - Customer Order Tracking Search Page
 // ============================================================
@@ -10,7 +10,7 @@ session_start();
 $error = '';
 $order_ref = trim($_GET['order_ref'] ?? '');
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
     $order_ref = trim($_POST['order_ref'] ?? '');
     if (empty($order_ref)) {
         $error = 'Please enter a valid Order Number or ID.';

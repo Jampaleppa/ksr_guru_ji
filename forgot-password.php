@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 // ============================================================
 // forgot-password.php - Forgot Password Request and Reset Flow
 // ============================================================
@@ -30,7 +30,7 @@ if (!empty($token)) {
 }
 
 // Phase 1: Request Reset Link (POST)
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email']) && empty($token)) {
+if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && isset($_POST['email']) && empty($token)) {
     $email = trim($_POST['email']);
     if (empty($email)) {
         $error = 'Please enter your email address.';
@@ -78,7 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email']) && empty($to
 }
 
 // Phase 2: Handle Password Update (POST)
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['password']) && isset($_POST['confirm_password']) && $user && !empty($token)) {
+if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && isset($_POST['password']) && isset($_POST['confirm_password']) && $user && !empty($token)) {
     $password = $_POST['password'];
     $confirm = $_POST['confirm_password'];
 

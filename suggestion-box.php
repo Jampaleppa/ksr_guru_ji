@@ -28,7 +28,7 @@ try {
 } catch (Throwable $ignore) {}
 
 // Handle Submission
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'submit_suggestion') {
+if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && isset($_POST['action']) && $_POST['action'] === 'submit_suggestion') {
     $productName = trim((string)($_POST['product_name'] ?? ''));
     $categoryId = !empty($_POST['category_id']) ? (int)$_POST['category_id'] : null;
     $details = trim((string)($_POST['details'] ?? ''));

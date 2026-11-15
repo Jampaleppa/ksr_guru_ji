@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 // ============================================================
 // cart.php - Shopping Cart Page (KSR GURU JI - Premium UI)
 // ============================================================
@@ -28,7 +28,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
 $userName = $isLoggedIn ? ($_SESSION['user_name'] ?? 'User') : '';
 
 // Handle POST actions (form submissions for fallback when JS is off)
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
     $action = $_POST['action'] ?? '';
 
     if ($action === 'update_qty' && isset($_POST['id'], $_POST['qty'])) {

@@ -262,7 +262,7 @@ foreach ($bakeryProducts as $item) {
 // CUSTOM CAKE FORM HANDLING
 // ============================================================
 $cakeMessage = '';
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cake_submit'])) {
+if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && isset($_POST['cake_submit'])) {
     $cakeName = trim($_POST['cake_name'] ?? '');
     $cakeShape = trim($_POST['cake_shape'] ?? '');
     $cakeWeight = trim($_POST['cake_weight'] ?? '');

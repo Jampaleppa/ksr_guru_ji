@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 // ============================================================
 // profile.php - User profile management
 // ============================================================
@@ -12,7 +12,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
 // Check if user is logged in
 if (!isset($_SESSION['user_id'])) {
-    header('Location: login.php?redirect=' . urlencode($_SERVER['REQUEST_URI']));
+    header('Location: login.php?redirect=' . urlencode(($_SERVER['REQUEST_URI'] ?? '')));
     exit;
 }
 

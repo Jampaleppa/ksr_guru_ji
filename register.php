@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 // ============================================================
 // register.php - Customer Registration · KSR GURU JI
 // Uses PDO — consistent with platform architecture
@@ -20,7 +20,7 @@ $success = '';
 $formData = ['name' => '', 'email' => '', 'phone' => ''];
 
 // Handle registration form submission
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
     $name             = trim($_POST['name'] ?? '');
     $email            = trim($_POST['email'] ?? '');
     $phone            = trim($_POST['phone'] ?? '');

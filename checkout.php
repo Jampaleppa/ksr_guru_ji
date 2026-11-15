@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 // ============================================================
 // checkout.php - Unified Checkout (Backend + Frontend)
 // ============================================================
@@ -10,7 +10,7 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 // --- Handle PDF Upload (Secured with Ownership & Magic-Byte MIME Validation) ---
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'upload_invoice') {
+if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && isset($_POST['action']) && $_POST['action'] === 'upload_invoice') {
     header('Content-Type: application/json');
     $orderNumber = trim($_POST['order_number'] ?? '');
 
@@ -91,7 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
 }
 
 // --- Handle AJAX requests ---
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
+if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && isset($_POST['action'])) {
     if ($_POST['action'] === 'verify_razorpay_payment') {
         header('Content-Type: application/json');
         $orderId = (int)($_POST['order_id'] ?? 0);

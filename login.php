@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 // ============================================================
 // login.php - Unified Login Page · KSR GURU JI
 // Role-based routing: admin → admin/, delivery_boy → delivery/, customer → index.php
@@ -30,7 +30,7 @@ $error = '';
 $successMsg = '';
 
 // Handle login form submission
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
     $email    = trim($_POST['email'] ?? '');
     $password = $_POST['password'] ?? '';
 
