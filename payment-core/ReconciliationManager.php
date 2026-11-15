@@ -77,7 +77,7 @@ class ReconciliationManager
     /** Fetch all unmatched bank credits. */
     public function getPendingCredits(?int $limit = null): array
     {
-        $sql = "SELECT * FROM payment_bank_credits WHERE match_status = 'unmatched' ORDER BY credit_date DESC";
+        $sql = "SELECT * FROM payment_bank_credits WHERE match_status = 'unmatched' ORDER BY credit_date DESC, id DESC";
         if ($limit !== null && $limit > 0) {
             $sql .= " LIMIT " . (int)$limit;
         }

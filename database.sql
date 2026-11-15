@@ -1,4 +1,4 @@
-﻿-- ============================================================
+-- ============================================================
 -- [OBSOLETE / LEGACY SCHEMA - DO NOT IMPORT IN PRODUCTION]
 -- Use `deploy_database.sql` as the canonical production schema!
 -- This legacy file is retained strictly for backward compatibility reference.
