@@ -261,6 +261,12 @@ if (!function_exists('e')) {
                     <i class="fas fa-box"></i>
                     <span>Products</span>
                 </a>
+                <a
+                    href="daily_prices.php"
+                    class="nav-item <?= sidebarActive('daily_prices', $currentPage) ?>">
+                    <i class="fas fa-carrot"></i>
+                    <span>Daily Market Rates</span>
+                </a>
             <?php endif; ?>
 
 

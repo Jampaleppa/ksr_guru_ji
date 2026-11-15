@@ -42,6 +42,7 @@ if (!defined('ADMIN_PAGE_PERMISSION_MAP')) {
         // Catalogue
         // ---------------------------------------------------------
         'products'     => 'products.view',
+        'daily_prices' => 'products.view',
         'categories'   => 'categories.view',
         'management'   => 'inventory.view',
 

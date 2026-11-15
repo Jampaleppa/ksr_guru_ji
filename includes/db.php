@@ -749,6 +749,41 @@ if (!function_exists('_bootstrapSQLiteSchema')) {
                 generated_by          INTEGER,
                 notes                 TEXT
             )",
+
+            // ── Daily Market Rates for Vegetables & Fruits ─────────────────
+            "CREATE TABLE IF NOT EXISTS daily_market_prices (
+                id             INTEGER PRIMARY KEY AUTOINCREMENT,
+                product_code   TEXT UNIQUE,
+                name           TEXT NOT NULL,
+                name_kn        TEXT,
+                category       TEXT DEFAULT 'indianMain',
+                description    TEXT,
+                image          TEXT,
+                unit_type      TEXT DEFAULT 'kg',
+                packet_sizes   TEXT DEFAULT '100g,250g,500g,1kg',
+                market_price   REAL NOT NULL DEFAULT 0.00,
+                profit_margin  REAL NOT NULL DEFAULT 3.00,
+                selling_price  REAL NOT NULL DEFAULT 3.00,
+                price_date     TEXT DEFAULT (date('now', 'localtime')),
+                is_available   INTEGER DEFAULT 1,
+                notes          TEXT,
+                created_at     TEXT DEFAULT (datetime('now', 'localtime')),
+                updated_at     TEXT DEFAULT (datetime('now', 'localtime'))
+            )",
+
+            "CREATE TABLE IF NOT EXISTS market_price_history (
+                id             INTEGER PRIMARY KEY AUTOINCREMENT,
+                product_id     INTEGER,
+                product_name   TEXT NOT NULL,
+                unit_type      TEXT DEFAULT 'kg',
+                market_price   REAL NOT NULL,
+                profit_margin  REAL NOT NULL DEFAULT 3.00,
+                selling_price  REAL NOT NULL,
+                effective_date TEXT NOT NULL,
+                updated_by     TEXT DEFAULT 'Admin',
+                notes          TEXT,
+                created_at     TEXT DEFAULT (datetime('now', 'localtime'))
+            )",
         ];
 
         foreach ($tables as $sql) {
@@ -983,6 +1018,12 @@ if (!function_exists('_bootstrapSQLiteSchema')) {
                 ('bank_transfer', 'ifsc', 'SBIN0000000', 0),
                 ('bank_transfer', 'account_name', 'KSR GURU JI', 0),
                 ('bank_transfer', 'branch', 'Main Branch', 0)");
+        } catch (Throwable $e) {}
+
+        // Seed Daily Market Prices for Vegetables & Fruits
+        try {
+            require_once __DIR__ . '/market_prices.php';
+            seedDailyMarketPrices($pdo);
         } catch (Throwable $e) {}
     }
 }

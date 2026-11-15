@@ -41,9 +41,9 @@ if ($productIdRaw === '') {
     $clientName = isset($_POST['name']) ? trim($_POST['name']) : (isset($_GET['name']) ? trim($_GET['name']) : '');
     $clientKn = isset($_POST['kn']) ? trim($_POST['kn']) : (isset($_GET['kn']) ? trim($_GET['kn']) : '');
     $clientImage = isset($_POST['image']) ? trim($_POST['image']) : (isset($_GET['image']) ? trim($_GET['image']) : '');
-    // clientPrice is only used for catalogue/virtual products that cannot be matched by DB id.
-    // It is NOT used when a DB product record is found (DB price is authoritative).
-    $clientPrice = isset($_POST['price']) ? (float)$_POST['price'] : (isset($_GET['price']) ? (float)$_GET['price'] : 0.0);
+    // clientPrice is used for catalogue/virtual products or variant weight/packet calculations.
+    // It is NOT used when an exact un-varianted DB product record is found.
+    $clientPrice = isset($_POST['price']) ? (float)$_POST['price'] : (isset($_POST['custom_price']) ? (float)$_POST['custom_price'] : (isset($_GET['price']) ? (float)$_GET['price'] : 0.0));
 
     $product = null;
     try {
@@ -55,6 +55,27 @@ if ($productIdRaw === '') {
         }
     } catch (Throwable $e) {
         $product = null;
+    }
+
+    // Check daily_market_prices table for authoritative daily vegetable & fruit rates
+    if (!$product && $pdo && (!empty($clientName) || !empty($productId))) {
+        try {
+            $stmtMarket = $pdo->prepare("SELECT id, name, name_kn, selling_price, image, unit_type FROM daily_market_prices WHERE (id = ? OR name = ?) AND is_available = 1");
+            $stmtMarket->execute([is_numeric($productId) ? (int)$productId : 0, $clientName ?: $productId]);
+            $marketItem = $stmtMarket->fetch(PDO::FETCH_ASSOC);
+            if ($marketItem) {
+                $vegPrice = ($clientPrice > 0) ? $clientPrice : (float)$marketItem['selling_price'];
+                $product = [
+                    'id' => 'veg_' . $marketItem['id'],
+                    'name' => $marketItem['name'],
+                    'kn_name' => $marketItem['name_kn'] ?? '',
+                    'price' => $vegPrice,
+                    'stock' => 999,
+                    'image_url' => $marketItem['image'] ?? ''
+                ];
+                $productId = $product['id'];
+            }
+        } catch (Throwable $e) {}
     }
 
     if (!$product || ($clientName !== '' && strcasecmp($product['name'], $clientName) !== 0)) {
