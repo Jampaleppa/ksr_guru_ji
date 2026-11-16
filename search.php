@@ -24,8 +24,7 @@ if (isset($_GET['ajax']) && $_GET['ajax'] === '1') {
 
     try {
         $pdo = getDBConnection();
-        $sql = "SELECT p.id, p.name, p.kn_name, p.price, p.stock, p.category_id,
-                       p.images, p.image_url, c.name AS category_name
+        $sql = "SELECT p.*, c.name AS category_name
                 FROM products p
                 LEFT JOIN categories c ON p.category_id = c.id
                 WHERE (p.name LIKE ? OR p.kn_name LIKE ? OR c.name LIKE ?)";
@@ -38,22 +37,39 @@ if (isset($_GET['ajax']) && $_GET['ajax'] === '1') {
 
         $stmt = $pdo->prepare($sql);
         $stmt->execute($params);
-        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $results = [];
+        foreach ($rows as $r) {
+            $img = $r['images'] ?? $r['image'] ?? $r['image_url'] ?? '';
+            $results[] = [
+                'id' => (int)($r['id'] ?? 0),
+                'name' => (string)($r['name'] ?? ''),
+                'kn_name' => (string)($r['kn_name'] ?? ''),
+                'price' => (float)($r['price'] ?? 0),
+                'stock' => (int)($r['stock'] ?? 10),
+                'category_id' => (int)($r['category_id'] ?? 0),
+                'images' => $img,
+                'image_url' => $img,
+                'category_name' => (string)($r['category_name'] ?? 'General')
+            ];
+        }
 
         // Fallback search if DB yields 0 or in fallback mode
         if (empty($results) && function_exists('getStoreFallbackProducts')) {
             $fb = getStoreFallbackProducts($categoryFilter, $query);
             foreach ($fb as $f) {
+                $img = $f['images'] ?? $f['image'] ?? $f['image_url'] ?? '';
                 $results[] = [
-                    'id' => $f['id'] ?? 0,
-                    'name' => $f['name'] ?? '',
-                    'kn_name' => $f['kn_name'] ?? '',
-                    'price' => $f['price'] ?? 0,
-                    'stock' => $f['stock'] ?? 10,
-                    'category_id' => $f['category_id'] ?? 0,
-                    'images' => $f['images'] ?? ($f['image_url'] ?? ''),
-                    'image_url' => $f['images'] ?? ($f['image_url'] ?? ''),
-                    'category_name' => $f['category_name'] ?? 'General'
+                    'id' => (int)($f['id'] ?? 0),
+                    'name' => (string)($f['name'] ?? ''),
+                    'kn_name' => (string)($f['kn_name'] ?? ''),
+                    'price' => (float)($f['price'] ?? 0),
+                    'stock' => (int)($f['stock'] ?? 10),
+                    'category_id' => (int)($f['category_id'] ?? 0),
+                    'images' => $img,
+                    'image_url' => $img,
+                    'category_name' => (string)($f['category_name'] ?? 'General')
                 ];
             }
         }
