@@ -146,6 +146,31 @@ runTest("patient-auth.php is rate-limited and session-secured", function() use (
 });
 
 // -------------------------------------------------------------
+// Test Group 6: Admin Layout & Database Schema Resiliency
+// -------------------------------------------------------------
+echo "\n6. Testing Admin Layout & Database Schema Resiliency...\n";
+
+runTest("admin/inc/header.php and footer.php exist", function() use ($baseDir) {
+    return file_exists($baseDir . '/admin/inc/header.php') &&
+           file_exists($baseDir . '/admin/inc/footer.php');
+});
+
+runTest("Database bootstrap initializes settings and inventory tables", function() use ($baseDir) {
+    require_once $baseDir . '/config.php';
+    $pdo = getDBConnection();
+    $stmt1 = $pdo->query("SELECT 1 FROM settings LIMIT 1");
+    $stmt2 = $pdo->query("SELECT 1 FROM inventory LIMIT 1");
+    return ($stmt1 !== false) && ($stmt2 !== false);
+});
+
+runTest("KSR Guru JI compatibility wrapper routes to root index.php", function() use ($baseDir) {
+    $wrapper = $baseDir . '/KSR Guru JI/index.php';
+    if (!file_exists($wrapper)) return false;
+    $content = file_get_contents($wrapper);
+    return strpos($content, '/../index.php') !== false;
+});
+
+// -------------------------------------------------------------
 // Summary
 // -------------------------------------------------------------
 echo "\n====================================================================\n";
