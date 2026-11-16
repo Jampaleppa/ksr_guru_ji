@@ -159,9 +159,13 @@ if (isset($_SESSION['doctor_action_msg'])) {
 }
 
 // Fetch current policy threshold setting
-$settingsStmt = $pdo->prepare("SELECT setting_value FROM settings WHERE setting_key = 'prescription_recency_threshold_days'");
-$settingsStmt->execute();
-$currentThreshold = (int)($settingsStmt->fetchColumn() ?: 180);
+try {
+    $settingsStmt = $pdo->prepare("SELECT setting_value FROM settings WHERE setting_key = 'prescription_recency_threshold_days'");
+    $settingsStmt->execute();
+    $currentThreshold = (int)($settingsStmt->fetchColumn() ?: 180);
+} catch (Throwable $e) {
+    $currentThreshold = 180;
+}
 
 // Fetch doctors — wrapped in try/catch (table may not exist yet)
 try { $doctorsList = $pdo->query("SELECT * FROM doctors ORDER BY verification_status DESC")->fetchAll(); } catch(Exception $e) { $doctorsList = []; }
@@ -186,12 +190,12 @@ try {
 try { $notificationLogs = $pdo->query("SELECT n.*, u.name as patient_user_name FROM notifications_log n LEFT JOIN users u ON n.user_id = u.id ORDER BY n.sent_at DESC LIMIT 20")->fetchAll(); } catch(Exception $e) { $notificationLogs = []; }
 
 // --- FETCH STATS ---
-$totalOrders = $pdo->query("SELECT COUNT(*) FROM orders")->fetchColumn();
-$pendingOrders = $pdo->query("SELECT COUNT(*) FROM orders WHERE status = 'pending'")->fetchColumn();
-$totalRevenue = $pdo->query("SELECT SUM(total) FROM orders WHERE payment_status = 'paid'")->fetchColumn() ?: 0;
-$totalCustomers = $pdo->query("SELECT COUNT(*) FROM users WHERE role = 'customer'")->fetchColumn();
-$lowStock = $pdo->query("SELECT COUNT(*) FROM inventory WHERE quantity < 5")->fetchColumn();
-$totalProducts = $pdo->query("SELECT COUNT(*) FROM products")->fetchColumn();
+try { $totalOrders = (int)$pdo->query("SELECT COUNT(*) FROM orders")->fetchColumn(); } catch(Throwable $e) { $totalOrders = 0; }
+try { $pendingOrders = (int)$pdo->query("SELECT COUNT(*) FROM orders WHERE status = 'pending'")->fetchColumn(); } catch(Throwable $e) { $pendingOrders = 0; }
+try { $totalRevenue = (float)($pdo->query("SELECT SUM(total) FROM orders WHERE payment_status = 'paid'")->fetchColumn() ?: 0); } catch(Throwable $e) { $totalRevenue = 0.0; }
+try { $totalCustomers = (int)$pdo->query("SELECT COUNT(*) FROM users WHERE role = 'customer'")->fetchColumn(); } catch(Throwable $e) { $totalCustomers = 0; }
+try { $lowStock = (int)$pdo->query("SELECT COUNT(*) FROM inventory WHERE quantity < 5")->fetchColumn(); } catch(Throwable $e) { $lowStock = 0; }
+try { $totalProducts = (int)$pdo->query("SELECT COUNT(*) FROM products")->fetchColumn(); } catch(Throwable $e) { $totalProducts = 0; }
 
 // --- CHART DATA: Last 7 days revenue ---
 $chartData = [];
@@ -204,14 +208,18 @@ for ($i = 6; $i >= 0; $i--) {
 $startDate = min(array_keys($days)) . ' 00:00:00';
 $endDate = max(array_keys($days)) . ' 23:59:59';
 
-$stmt = $pdo->prepare("
-    SELECT DATE(created_at) as order_date, COALESCE(SUM(total), 0) as total 
-    FROM orders 
-    WHERE created_at BETWEEN ? AND ? AND payment_status = 'paid'
-    GROUP BY DATE(created_at)
-");
-$stmt->execute([$startDate, $endDate]);
-$results = $stmt->fetchAll(PDO::FETCH_KEY_PAIR);
+try {
+    $stmt = $pdo->prepare("
+        SELECT DATE(created_at) as order_date, COALESCE(SUM(total), 0) as total 
+        FROM orders 
+        WHERE created_at BETWEEN ? AND ? AND payment_status = 'paid'
+        GROUP BY DATE(created_at)
+    ");
+    $stmt->execute([$startDate, $endDate]);
+    $results = $stmt->fetchAll(PDO::FETCH_KEY_PAIR);
+} catch (Throwable $e) {
+    $results = [];
+}
 
 foreach ($days as $date => $dayName) {
     $chartData['labels'][] = $dayName;
@@ -219,16 +227,24 @@ foreach ($days as $date => $dayName) {
 }
 
 // --- RECENT ORDERS ---
-$recentOrders = $pdo->query("SELECT o.*, COALESCE(u.name, o.name, 'Guest') as customer FROM orders o LEFT JOIN users u ON o.user_id = u.id ORDER BY o.id DESC LIMIT 6")->fetchAll();
+try {
+    $recentOrders = $pdo->query("SELECT o.*, COALESCE(u.name, o.name, 'Guest') as customer FROM orders o LEFT JOIN users u ON o.user_id = u.id ORDER BY o.id DESC LIMIT 6")->fetchAll();
+} catch (Throwable $e) {
+    $recentOrders = [];
+}
 
 // --- TOP PRODUCTS ---
-$topProducts = $pdo->query("
-    SELECT p.name, SUM(oi.quantity) as total_sold 
-    FROM order_items oi 
-    JOIN products p ON oi.product_id = p.id 
-    GROUP BY p.id 
-    ORDER BY total_sold DESC LIMIT 5
-")->fetchAll();
+try {
+    $topProducts = $pdo->query("
+        SELECT p.name, SUM(oi.quantity) as total_sold 
+        FROM order_items oi 
+        JOIN products p ON oi.product_id = p.id 
+        GROUP BY p.id 
+        ORDER BY total_sold DESC LIMIT 5
+    ")->fetchAll();
+} catch (Throwable $e) {
+    $topProducts = [];
+}
 
 // --- RECENT ACTIVITY (simulated, you can replace with real logs) ---
 $recentActivity = [

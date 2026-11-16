@@ -80,9 +80,7 @@ if (isset($_GET['edit'])) {
 
 $pageTitle  = 'Supplier / Seller Management';
 require_once 'inc/header.php';
-require_once 'inc/sidebar.php';
 ?>
-<main class="main-content">
     <div class="page-header">
         <h1><?= htmlspecialchars($pageTitle) ?></h1>
         <p class="subtitle">Manage your vendors and suppliers for all product categories.</p>
@@ -174,5 +172,4 @@ require_once 'inc/sidebar.php';
             <?php endif; ?>
         </div>
     </div>
-</main>
 <?php require_once 'inc/footer.php'; ?>

@@ -45,9 +45,7 @@ try {
 
 $pageTitle  = 'Refund Management';
 require_once 'inc/header.php';
-require_once 'inc/sidebar.php';
 ?>
-<main class="main-content">
     <div class="page-header">
         <h1><?= htmlspecialchars($pageTitle) ?></h1>
         <p class="subtitle">Review and process customer refund requests.</p>
@@ -109,5 +107,4 @@ require_once 'inc/sidebar.php';
             <?php endif; ?>
         </div>
     </div>
-</main>
 <?php require_once 'inc/footer.php'; ?>

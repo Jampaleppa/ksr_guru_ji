@@ -152,7 +152,7 @@ if (isset($_GET['date_to']) && !empty($_GET['date_to'])) {
 
 $sql = "SELECT o.*, 
                o.name as customer_name, o.email as customer_email, o.phone as customer_phone,
-               d.fullname as driver_name, d.phone as driver_phone
+               COALESCE(d.name, '') as driver_name, d.phone as driver_phone
         FROM orders o
         LEFT JOIN users d ON o.driver_id = d.id";
 
@@ -180,7 +180,7 @@ $codRevenue = array_sum(array_column(array_filter($orders, fn($o) => $o['payment
 $onlineRevenue = $totalRevenue - $codRevenue;
 
 // Fetch drivers for assignment dropdown
-$drivers = $pdo->query("SELECT id, fullname AS name, phone FROM users WHERE role = 'delivery' ORDER BY fullname")->fetchAll();
+$drivers = $pdo->query("SELECT id, name, phone FROM users WHERE role IN ('delivery', 'delivery_boy') ORDER BY name")->fetchAll();
 
 // Handle messages
 if (isset($_GET['msg'])) $message = $_GET['msg'];

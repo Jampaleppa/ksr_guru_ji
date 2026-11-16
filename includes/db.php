@@ -817,6 +817,21 @@ if (!function_exists('_bootstrapSQLiteSchema')) {
                 notes          TEXT,
                 created_at     TEXT DEFAULT (datetime('now', 'localtime'))
             )",
+
+            "CREATE TABLE IF NOT EXISTS settings (
+                id            INTEGER PRIMARY KEY AUTOINCREMENT,
+                setting_key   TEXT NOT NULL UNIQUE,
+                setting_value TEXT DEFAULT NULL,
+                category      TEXT DEFAULT 'general',
+                updated_at    TEXT DEFAULT (datetime('now', 'localtime'))
+            )",
+
+            "CREATE TABLE IF NOT EXISTS inventory (
+                id         INTEGER PRIMARY KEY AUTOINCREMENT,
+                product_id INTEGER NOT NULL UNIQUE,
+                quantity   INTEGER NOT NULL DEFAULT 10,
+                updated_at TEXT DEFAULT (datetime('now', 'localtime'))
+            )",
         ];
 
         foreach ($tables as $sql) {
@@ -888,6 +903,15 @@ if (!function_exists('_bootstrapSQLiteSchema')) {
             }
             if (!in_array('order_status', $oCols, true)) {
                 try { $pdo->exec("ALTER TABLE orders ADD COLUMN order_status TEXT DEFAULT 'pending'"); } catch (Throwable $e) {}
+            }
+            if (!in_array('driver_id', $oCols, true)) {
+                try { $pdo->exec("ALTER TABLE orders ADD COLUMN driver_id INTEGER DEFAULT NULL"); } catch (Throwable $e) {}
+            }
+            if (!in_array('tracking_number', $oCols, true)) {
+                try { $pdo->exec("ALTER TABLE orders ADD COLUMN tracking_number TEXT DEFAULT NULL"); } catch (Throwable $e) {}
+            }
+            if (!in_array('assigned_at', $oCols, true)) {
+                try { $pdo->exec("ALTER TABLE orders ADD COLUMN assigned_at TEXT DEFAULT NULL"); } catch (Throwable $e) {}
             }
 
             // Migrate missing columns on products table
@@ -1169,6 +1193,23 @@ if (!function_exists('_bootstrapSQLiteSchema')) {
                 ('bank_transfer', 'ifsc', 'SBIN0000000', 0),
                 ('bank_transfer', 'account_name', 'KSR GURU JI', 0),
                 ('bank_transfer', 'branch', 'Main Branch', 0)");
+        } catch (Throwable $e) {}
+
+        // Seed default system settings
+        try {
+            $pdo->exec("INSERT OR IGNORE INTO settings (setting_key, setting_value, category) VALUES
+                ('prescription_recency_threshold_days', '180', 'telehealth'),
+                ('store_name', 'KSR GURU JI', 'general'),
+                ('store_tagline', 'Daily Groceries & Essentials', 'general'),
+                ('store_phone', '+91 99800 00000', 'general'),
+                ('currency', 'INR', 'general'),
+                ('currency_symbol', '₹', 'general'),
+                ('price_margin', '3.00', 'pricing')");
+        } catch (Throwable $e) {}
+
+        // Seed default inventory for products
+        try {
+            $pdo->exec("INSERT OR IGNORE INTO inventory (product_id, quantity) SELECT id, 10 FROM products");
         } catch (Throwable $e) {}
 
         // Seed Daily Market Prices for Vegetables & Fruits

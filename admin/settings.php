@@ -87,9 +87,13 @@ $activeTab = $_GET['tab'] ?? 'general';
 
 // Load all settings from DB
 $allSettings = [];
-$stmt = $pdo->query("SELECT setting_key, setting_value, category FROM settings");
-while ($row = $stmt->fetch()) {
-    $allSettings[$row['category']][$row['setting_key']] = $row['setting_value'];
+try {
+    $stmt = $pdo->query("SELECT setting_key, setting_value, category FROM settings");
+    while ($row = $stmt->fetch()) {
+        $allSettings[$row['category']][$row['setting_key']] = $row['setting_value'];
+    }
+} catch (Throwable $e) {
+    $allSettings = [];
 }
 unset($allSettings['integrations']['whatsapp_access_token']);
 
