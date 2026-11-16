@@ -20,6 +20,9 @@ logs/
 # Scratch / temporary agent files
 scratch/
 
+# Local alias folder for IDE compatibility
+/KSR Guru JI/
+
 # Seed & diagnostic scripts — sensitive, untracked
 admin/database/seed_admin_accounts.php
 admin/database/install_admin_rbac.php
