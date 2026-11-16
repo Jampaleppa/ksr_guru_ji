@@ -37,10 +37,21 @@ class Database {
         try {
             $this->connection = new PDO($dsn, $this->user, $this->pass, $options);
         } catch (PDOException $e) {
-            // In a production environment, never output the direct SQL error to the UI
-            // Log to `admin_logs` realistically.
-            error_log("Secure DB Connection Error: " . $e->getMessage());
-            die(json_encode(['status' => 'critical', 'message' => 'System Database Error. Check administrative logs.']));
+            // Fallback to shared application getDBConnection() (handles SQLite & cloud)
+            if (function_exists('getDBConnection')) {
+                $this->connection = getDBConnection();
+            } else {
+                $rootConfig = dirname(__DIR__, 2) . '/config.php';
+                if (file_exists($rootConfig)) {
+                    require_once $rootConfig;
+                    if (function_exists('getDBConnection')) {
+                        $this->connection = getDBConnection();
+                        return;
+                    }
+                }
+                error_log("Secure DB Connection Error: " . $e->getMessage());
+                die(json_encode(['status' => 'critical', 'message' => 'System Database Error. Check administrative logs.']));
+            }
         }
     }
 
