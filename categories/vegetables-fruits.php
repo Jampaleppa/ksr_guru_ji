@@ -37,20 +37,27 @@ try {
             $marketPrice = (float)$row['market_price'];
             $margin = (float)($row['profit_margin'] ?? 3.00);
             $unitType = $row['unit_type'] ?? 'kg';
+            $baseQuantity = (float)($row['base_quantity'] ?? ($unitType === 'gram' ? 250 : 1));
+            $displayUnit = !empty($row['display_unit']) ? $row['display_unit'] : ($unitType === 'gram' ? '250 g' : ucfirst($unitType));
             $packetSizes = $row['packet_sizes'] ?? '100g,250g,500g,1kg';
 
             // Generate flexible measurement options for this product
-            $options = getPurchaseOptionsForUnit($unitType, $sellingPrice, $packetSizes);
+            $options = getPurchaseOptionsForUnit($unitType, $sellingPrice, $packetSizes, $baseQuantity, $displayUnit);
 
             $productsData[] = [
                 'id' => (int)$row['id'],
                 'name' => $row['name'],
+                'productName' => $row['product_name'] ?? $row['name'],
                 'kannada' => $row['name_kn'] ?: $row['name'],
                 'desc' => $row['description'] ?: 'Fresh farm produce',
                 'marketPrice' => $marketPrice,
                 'profitMargin' => $margin,
                 'sellingPrice' => $sellingPrice,
                 'unitType' => $unitType,
+                'baseQuantity' => $baseQuantity,
+                'displayUnit' => $displayUnit,
+                'stockStatus' => $row['stock_status'] ?? 'Available',
+                'isActive' => (int)($row['is_active'] ?? 1),
                 'packetSizes' => $packetSizes,
                 'category' => $row['category'] ?: 'indianMain',
                 'imageUrl' => $row['image'] ?: '',
@@ -70,18 +77,25 @@ if (empty($productsData)) {
         $market = (float)$item['market_price'];
         $selling = round($market + 3.00, 2);
         $unitType = $item['unit_type'] ?? 'kg';
+        $baseQuantity = (float)($item['base_quantity'] ?? ($unitType === 'gram' ? 250 : 1));
+        $displayUnit = !empty($item['display_unit']) ? $item['display_unit'] : ($unitType === 'gram' ? '250 g' : ucfirst($unitType));
         $packetSizes = $item['packet_sizes'] ?? '100g,250g,500g,1kg';
-        $options = getPurchaseOptionsForUnit($unitType, $selling, $packetSizes);
+        $options = getPurchaseOptionsForUnit($unitType, $selling, $packetSizes, $baseQuantity, $displayUnit);
 
         $productsData[] = [
             'id' => $idx + 1,
             'name' => $item['name'],
+            'productName' => $item['product_name'] ?? $item['name'],
             'kannada' => $item['name_kn'],
             'desc' => $item['desc'],
             'marketPrice' => $market,
             'profitMargin' => 3.00,
             'sellingPrice' => $selling,
             'unitType' => $unitType,
+            'baseQuantity' => $baseQuantity,
+            'displayUnit' => $displayUnit,
+            'stockStatus' => 'Available',
+            'isActive' => 1,
             'packetSizes' => $packetSizes,
             'category' => $item['category'],
             'imageUrl' => $item['image'],
@@ -407,6 +421,7 @@ if (empty($productsData)) {
             color: #0369a1;
         }
         .unit-pill.kg { background: #dcfce7; color: #166534; }
+        .unit-pill.gram { background: #e0f2fe; color: #0369a1; }
         .unit-pill.piece { background: #fef3c7; color: #92400e; }
         .unit-pill.bunch { background: #ecfdf5; color: #065f46; }
         .unit-pill.dozen { background: #fee2e2; color: #991b1b; }
@@ -784,18 +799,18 @@ if (empty($productsData)) {
                     const defaultOption = p.options.find(o => o.is_default) || p.options[0];
                     const defaultPrice = defaultOption ? defaultOption.price : p.sellingPrice;
                     const unitPillClass = p.unitType || 'kg';
-                    const unitLabel = p.unitType === 'piece' ? 'pc' : p.unitType;
+                    const displayUnit = p.displayUnit || (p.unitType === 'gram' ? '250 g' : (p.unitType === 'piece' ? 'Piece' : (p.unitType === 'packet' ? 'Packet' : (p.unitType === 'bunch' ? 'Bunch' : (p.unitType === 'dozen' ? 'Dozen' : 'kg')))));
 
                     html += `
                     <div class="product-card" data-pid="${p.id}">
-                        <span class="unit-pill ${unitPillClass}">${unitLabel}</span>
+                        <span class="unit-pill ${unitPillClass}">${displayUnit}</span>
                         <img src="${p.imageUrl}" alt="${p.name}" class="product-image" onerror="this.src='https://placehold.co/180x180?text=${encodeURIComponent(p.name)}'">
                         <h4>${p.name}</h4>
                         <span class="product-kannada">${p.kannada}</span>
                         <p class="product-desc">${p.desc}</p>
 
                         <div class="base-price-hint">
-                            <span>₹${p.sellingPrice.toFixed(2)} / ${unitLabel}</span>
+                            <span>₹${p.sellingPrice.toFixed(2)} / ${displayUnit}</span>
                             <span class="market-sub">Mkt: ₹${p.marketPrice.toFixed(2)} + ₹3.00</span>
                         </div>
 

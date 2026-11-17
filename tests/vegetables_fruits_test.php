@@ -2,6 +2,7 @@
 // ============================================================
 // tests/vegetables_fruits_test.php
 // Unit & Integration Test Suite for Vegetables & Fruits Daily Rates System
+// KSR GURU JI: Selling price = Market price + ₹3.00
 // ============================================================
 declare(strict_types=1);
 
@@ -30,13 +31,20 @@ $pdo = getDBConnection();
 ensureMarketPriceTables($pdo);
 
 // ------------------------------------------------------------
-// 1. Database Schema & Tables
+// 1. Database Schema & Tables & Recommended Columns
 // ------------------------------------------------------------
-echo "1. Testing Database Schema & Tables...\n";
+echo "1. Testing Database Schema & Recommended Fields...\n";
 $stmtTables = $pdo->query("SELECT name FROM sqlite_master WHERE type='table' AND name IN ('daily_market_prices', 'market_price_history')");
 $foundTables = $stmtTables->fetchAll(PDO::FETCH_COLUMN);
 assertTest(in_array('daily_market_prices', $foundTables), "daily_market_prices table exists in database");
 assertTest(in_array('market_price_history', $foundTables), "market_price_history table exists in database");
+
+$cols = array_map(fn($c) => strtolower($c['name']), $pdo->query("PRAGMA table_info(daily_market_prices)")->fetchAll(PDO::FETCH_ASSOC));
+assertTest(in_array('product_name', $cols), "Column 'product_name' exists in daily_market_prices");
+assertTest(in_array('base_quantity', $cols), "Column 'base_quantity' exists in daily_market_prices");
+assertTest(in_array('display_unit', $cols), "Column 'display_unit' exists in daily_market_prices");
+assertTest(in_array('stock_status', $cols), "Column 'stock_status' exists in daily_market_prices");
+assertTest(in_array('is_active', $cols), "Column 'is_active' exists in daily_market_prices");
 
 // ------------------------------------------------------------
 // 2. Catalog Seeding & Structure
@@ -47,11 +55,12 @@ $items = getDailyMarketPrices();
 assertTest(count($items) >= 50, "At least 50 produce items loaded in daily_market_prices", "Found " . count($items));
 
 $unitTypes = array_unique(array_column($items, 'unit_type'));
+assertTest(in_array('gram', $unitTypes), "Supports 'gram' (250g base) unit");
 assertTest(in_array('kg', $unitTypes), "Supports 'kg' (weight) unit");
-assertTest(in_array('piece', $unitTypes), "Supports 'piece' unit (e.g. Pineapple, Lime)");
+assertTest(in_array('piece', $unitTypes), "Supports 'piece' unit (e.g. Radish, Pumpkin)");
 assertTest(in_array('dozen', $unitTypes), "Supports 'dozen' unit (e.g. Banana)");
-assertTest(in_array('bunch', $unitTypes), "Supports 'bunch' unit (e.g. Spinach, Coriander)");
-assertTest(in_array('packet', $unitTypes), "Supports 'packet' unit (e.g. Frozen Veg)");
+assertTest(in_array('bunch', $unitTypes), "Supports 'bunch' unit (e.g. Tulsi, Mint)");
+assertTest(in_array('packet', $unitTypes), "Supports 'packet' unit (e.g. Leafy Veg, Winged Bean)");
 
 // ------------------------------------------------------------
 // 3. Automatic Pricing Rule: Selling Price = Market Price + ₹3.00
@@ -72,12 +81,42 @@ assertTest($allFormulaMatch, "Selling price equals Market price + ₹3.00 for al
 // 4. Flexible Measurement & Fractional Option Calculations
 // ------------------------------------------------------------
 echo "\n4. Testing Flexible Measurement & Variant Pricing...\n";
-// Weight: Tomato (Market: 32 -> Selling: 35)
-$tomatoOptions = getPurchaseOptionsForUnit('kg', 35.00);
-$tomato250 = array_values(array_filter($tomatoOptions, fn($o) => $o['label'] === '250g'))[0] ?? null;
-$tomato1kg = array_values(array_filter($tomatoOptions, fn($o) => $o['label'] === '1 kg'))[0] ?? null;
-assertTest($tomato250 && abs($tomato250['price'] - 8.75) < 0.01, "250g calculation: (35 * 250)/1000 = ₹8.75");
-assertTest($tomato1kg && abs($tomato1kg['price'] - 35.00) < 0.01, "1 kg calculation: ₹35.00");
+
+// 250 Gram Base Unit: Tomato (Market: 15 -> Selling: 18 / 250 g)
+// Rule: base_quantity = 250. Customer selects 500 g -> calculate ₹36.
+$tomato250Options = getPurchaseOptionsForUnit('gram', 18.00, '', 250, '250 g');
+$t250 = array_values(array_filter($tomato250Options, fn($o) => $o['label'] === '250g'))[0] ?? null;
+$t500 = array_values(array_filter($tomato250Options, fn($o) => $o['label'] === '500g'))[0] ?? null;
+$t1kg = array_values(array_filter($tomato250Options, fn($o) => $o['label'] === '1 kg'))[0] ?? null;
+assertTest($t250 && abs($t250['price'] - 18.00) < 0.01, "Tomato 250g base calculation: ₹18.00");
+assertTest($t500 && abs($t500['price'] - 36.00) < 0.01, "Tomato 500g calculation: 2 × ₹18 = ₹36.00");
+assertTest($t1kg && abs($t1kg['price'] - 72.00) < 0.01, "Tomato 1 kg calculation: 4 × ₹18 = ₹72.00");
+
+// Leafy Vegetables – Packet: Coriander Leaves (Market: 15 -> Selling: 18 / Packet)
+$corianderOptions = getPurchaseOptionsForUnit('packet', 18.00, '', 1, 'Packet');
+$c1pkt = array_values(array_filter($corianderOptions, fn($o) => str_starts_with($o['label'], '1 packet')))[0] ?? null;
+$c2pkt = array_values(array_filter($corianderOptions, fn($o) => str_starts_with($o['label'], '2 packet')))[0] ?? null;
+assertTest($c1pkt && abs($c1pkt['price'] - 18.00) < 0.01, "Coriander 1 packet calculation: ₹18.00");
+assertTest($c2pkt && abs($c2pkt['price'] - 36.00) < 0.01, "Coriander 2 packets calculation: ₹36.00");
+
+// Vegetables – Piece: Radish (Market: 10 -> Selling: 13 / Piece)
+$radishOptions = getPurchaseOptionsForUnit('piece', 13.00, '', 1, 'Piece');
+$r1pc = array_values(array_filter($radishOptions, fn($o) => str_starts_with($o['label'], '1 piece')))[0] ?? null;
+$r2pc = array_values(array_filter($radishOptions, fn($o) => str_starts_with($o['label'], '2 piece')))[0] ?? null;
+assertTest($r1pc && abs($r1pc['price'] - 13.00) < 0.01, "Radish 1 piece calculation: ₹13.00");
+assertTest($r2pc && abs($r2pc['price'] - 26.00) < 0.01, "Radish 2 pieces calculation: ₹26.00");
+
+// Special Vegetables – Packet: Winged Bean (Market: 50 -> Selling: 53 / Packet)
+$wingedOptions = getPurchaseOptionsForUnit('packet', 53.00, '', 1, 'Packet');
+$w1pkt = array_values(array_filter($wingedOptions, fn($o) => str_starts_with($o['label'], '1 packet')))[0] ?? null;
+assertTest($w1pkt && abs($w1pkt['price'] - 53.00) < 0.01, "Winged Bean 1 packet calculation: ₹53.00");
+
+// Weight per kg: (e.g. 35/kg)
+$kgOptions = getPurchaseOptionsForUnit('kg', 35.00);
+$kg250 = array_values(array_filter($kgOptions, fn($o) => $o['label'] === '250g'))[0] ?? null;
+$kg1kg = array_values(array_filter($kgOptions, fn($o) => $o['label'] === '1 kg'))[0] ?? null;
+assertTest($kg250 && abs($kg250['price'] - 8.75) < 0.01, "250g per kg calculation: (35 * 250)/1000 = ₹8.75");
+assertTest($kg1kg && abs($kg1kg['price'] - 35.00) < 0.01, "1 kg calculation: ₹35.00");
 
 // Dozen: Banana (Market: 47 -> Selling: 50)
 $bananaOptions = getPurchaseOptionsForUnit('dozen', 50.00);
@@ -90,15 +129,15 @@ assertTest($oneDozen && abs($oneDozen['price'] - 50.00) < 0.01, "1 dozen calcula
 $pineappleOptions = getPurchaseOptionsForUnit('piece', 80.00);
 $onePiece = array_values(array_filter($pineappleOptions, fn($o) => $o['label'] === '1 piece'))[0] ?? null;
 $twoPieces = array_values(array_filter($pineappleOptions, fn($o) => $o['label'] === '2 pieces'))[0] ?? null;
-assertTest($onePiece && abs($onePiece['price'] - 80.00) < 0.01, "1 piece calculation: ₹80.00");
-assertTest($twoPieces && abs($twoPieces['price'] - 160.00) < 0.01, "2 pieces calculation: ₹160.00");
+assertTest($onePiece && abs($onePiece['price'] - 80.00) < 0.01, "Pineapple 1 piece calculation: ₹80.00");
+assertTest($twoPieces && abs($twoPieces['price'] - 160.00) < 0.01, "Pineapple 2 pieces calculation: ₹160.00");
 
-// Bunch: Spinach (Market: 17 -> Selling: 20)
-$spinachOptions = getPurchaseOptionsForUnit('bunch', 20.00);
-$oneBunch = array_values(array_filter($spinachOptions, fn($o) => str_starts_with($o['label'], '1 bunch')))[0] ?? null;
+// Bunch: Mint / Tulsi (Market: 17 -> Selling: 20)
+$bunchOptions = getPurchaseOptionsForUnit('bunch', 20.00);
+$oneBunch = array_values(array_filter($bunchOptions, fn($o) => str_starts_with($o['label'], '1 bunch')))[0] ?? null;
 assertTest($oneBunch && abs($oneBunch['price'] - 20.00) < 0.01, "1 bunch (ಕಟ್ಟು) calculation: ₹20.00");
 
-// Packet: Frozen Veg Mix (Market: 117 -> Selling: 120, sizes: 250g, 500g, 1kg)
+// Packet with custom weights: Frozen Veg Mix (Selling: 120, sizes: 250g, 500g, 1kg)
 $packetOptions = getPurchaseOptionsForUnit('packet', 120.00, '250g,500g,1kg');
 $pkt250 = array_values(array_filter($packetOptions, fn($o) => str_contains($o['label'], '250g')))[0] ?? null;
 $pkt1kg = array_values(array_filter($packetOptions, fn($o) => str_contains($o['label'], '1kg')))[0] ?? null;

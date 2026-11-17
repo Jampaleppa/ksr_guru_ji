@@ -584,11 +584,12 @@ $pendingUpdateCount = $totalItems - $updatedTodayCount;
                                         <td><span style="font-size:0.8rem; color:#64748b;"><?= htmlspecialchars($item['category']) ?></span></td>
                                         <td>
                                             <select name="unit_types[<?= $item['id'] ?>]" class="form-select" style="padding:4px 8px; border-radius:6px; font-size:0.8rem; border:1px solid #cbd5e1;">
-                                                <option value="kg" <?= $item['unit_type'] === 'kg' ? 'selected' : '' ?>>kg (Weight)</option>
+                                                <option value="gram" <?= $item['unit_type'] === 'gram' ? 'selected' : '' ?>>gram (250 g)</option>
+                                                <option value="packet" <?= $item['unit_type'] === 'packet' ? 'selected' : '' ?>>packet (ಪ್ಯಾಕೆಟ್)</option>
                                                 <option value="piece" <?= $item['unit_type'] === 'piece' ? 'selected' : '' ?>>piece (ತುಂಡು)</option>
                                                 <option value="bunch" <?= $item['unit_type'] === 'bunch' ? 'selected' : '' ?>>bunch (ಕಟ್ಟು)</option>
                                                 <option value="dozen" <?= $item['unit_type'] === 'dozen' ? 'selected' : '' ?>>dozen (ಡಜನ್)</option>
-                                                <option value="packet" <?= $item['unit_type'] === 'packet' ? 'selected' : '' ?>>packet (ಪ್ಯಾಕೆಟ್)</option>
+                                                <option value="kg" <?= $item['unit_type'] === 'kg' ? 'selected' : '' ?>>kg (Weight)</option>
                                             </select>
                                         </td>
                                         <td>
@@ -610,7 +611,7 @@ $pendingUpdateCount = $totalItems - $updatedTodayCount;
                                             <span class="selling-display" id="selling_<?= $item['id'] ?>">
                                                 ₹<?= number_format((float)$item['selling_price'], 2) ?>
                                             </span>
-                                            <span style="font-size:0.75rem; color:#64748b;">/ <?= htmlspecialchars($item['unit_type']) ?></span>
+                                            <span style="font-size:0.75rem; color:#64748b;">/ <?= htmlspecialchars(!empty($item['display_unit']) ? $item['display_unit'] : $item['unit_type']) ?></span>
                                         </td>
                                         <td>
                                             <?php if ($isToday): ?>
@@ -714,11 +715,12 @@ $pendingUpdateCount = $totalItems - $updatedTodayCount;
                     <div>
                         <label style="font-size:0.8rem; font-weight:600; color:#475569;">Unit Type *</label>
                         <select name="unit_type" style="width:100%; padding:8px 12px; border:1px solid #cbd5e1; border-radius:8px;">
-                            <option value="kg">kg (Weight by gram/kg)</option>
+                            <option value="gram">gram (250 g)</option>
+                            <option value="packet">packet (ಪ್ಯಾಕೆಟ್)</option>
                             <option value="piece">piece (ಪ್ರತಿ ಕಾಯಿ / ತುಂಡು)</option>
                             <option value="bunch">bunch (ಕಟ್ಟು)</option>
                             <option value="dozen">dozen (ಡಜನ್)</option>
-                            <option value="packet">packet (ಪ್ಯಾಕೆಟ್)</option>
+                            <option value="kg">kg (Weight by gram/kg)</option>
                         </select>
                     </div>
                 </div>
