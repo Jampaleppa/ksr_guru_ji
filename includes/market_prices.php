@@ -348,8 +348,21 @@ function updateDailyMarketPrice(
     }
 
     $unit = $unitType ?: $item['unit_type'];
-    $baseQty = $baseQuantity !== null ? $baseQuantity : (float)($item['base_quantity'] ?? ($unit === 'gram' ? 250 : 1));
-    $dispUnit = $displayUnit !== null ? $displayUnit : ($item['display_unit'] ?: ($unit === 'gram' ? '250 g' : ucfirst($unit)));
+    if ($baseQuantity !== null) {
+        $baseQty = $baseQuantity;
+    } elseif ($unitType !== null && $unitType !== $item['unit_type']) {
+        $baseQty = ($unit === 'gram') ? 250.0 : 1.0;
+    } else {
+        $baseQty = (float)($item['base_quantity'] ?? ($unit === 'gram' ? 250.0 : 1.0));
+    }
+
+    if ($displayUnit !== null) {
+        $dispUnit = $displayUnit;
+    } elseif ($unitType !== null && $unitType !== $item['unit_type']) {
+        $dispUnit = ($unit === 'gram') ? '250 g' : ucfirst($unit);
+    } else {
+        $dispUnit = !empty($item['display_unit']) ? $item['display_unit'] : ($unit === 'gram' ? '250 g' : ucfirst($unit));
+    }
 
     $sellingPrice = round($marketPrice + $profitMargin, 2);
     $today = date('Y-m-d');

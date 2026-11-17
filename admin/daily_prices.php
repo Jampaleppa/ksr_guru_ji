@@ -125,17 +125,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if (!empty($name)) {
             $code = 'VEG_' . strtoupper(preg_replace('/[^A-Za-z0-9]/', '', $name));
+            $baseQty = ($unitType === 'gram') ? 250.0 : 1.0;
+            $displayUnit = ($unitType === 'gram') ? '250 g' : ucfirst($unitType);
+
             $stmt = $pdo->prepare("INSERT INTO daily_market_prices 
-                (product_code, name, name_kn, category, description, unit_type, packet_sizes, market_price, profit_margin, selling_price, price_date, is_available)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1)");
-            $stmt->execute([$code, $name, $nameKn, $category, $desc, $unitType, $packetSizes, $marketPrice, $margin, $sellingPrice, $today]);
+                (product_code, name, product_name, name_kn, category, description, unit_type, base_quantity, display_unit, packet_sizes, market_price, profit_margin, selling_price, price_date, stock_status, is_active, is_available)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'Available', 1, 1)");
+            $stmt->execute([$code, $name, $name, $nameKn, $category, $desc, $unitType, $baseQty, $displayUnit, $packetSizes, $marketPrice, $margin, $sellingPrice, $today]);
             $newId = (int)$pdo->lastInsertId();
 
             // Record initial history
-            $stmtHist = $pdo->prepare("INSERT INTO market_price_history 
-                (product_id, product_name, unit_type, market_price, profit_margin, selling_price, effective_date, updated_by, notes)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'Initial listing')");
-            $stmtHist->execute([$newId, $name, $unitType, $marketPrice, $margin, $sellingPrice, $today, $adminUser]);
+            try {
+                $stmtHist = $pdo->prepare("INSERT INTO market_price_history 
+                    (product_id, product_name, unit_type, base_quantity, display_unit, market_price, profit_margin, selling_price, effective_date, updated_by, notes)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'Initial listing')");
+                $stmtHist->execute([$newId, $name, $unitType, $baseQty, $displayUnit, $marketPrice, $margin, $sellingPrice, $today, $adminUser]);
+            } catch (Throwable $e) {
+                $stmtHistLegacy = $pdo->prepare("INSERT INTO market_price_history 
+                    (product_id, product_name, unit_type, market_price, profit_margin, selling_price, effective_date, updated_by, notes)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'Initial listing')");
+                $stmtHistLegacy->execute([$newId, $name, $unitType, $marketPrice, $margin, $sellingPrice, $today, $adminUser]);
+            }
 
             $message = "Product '{$name}' added with market price ₹{$marketPrice} and selling price ₹{$sellingPrice} (+₹3).";
         } else {
