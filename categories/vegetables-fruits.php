@@ -714,7 +714,8 @@ if (empty($productsData)) {
             // Add Product to Cart via AJAX with exact calculated unit price and variant
             function addToCart(productId, variantLabel, unitPrice, productName, description, imageUrl, kannadaName) {
                 const formData = new FormData();
-                formData.append('id', productId);
+                const cartId = String(productId).startsWith('veg_') ? productId : ('veg_' + productId);
+                formData.append('id', cartId);
                 formData.append('qty', 1);
                 formData.append('variant', variantLabel);
                 formData.append('price', unitPrice);

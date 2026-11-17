@@ -61,8 +61,14 @@ if ($productIdRaw === '') {
     // Check daily_market_prices table for authoritative daily vegetable & fruit rates
     if (!$product && $pdo && (!empty($clientName) || !empty($productId))) {
         try {
-            $stmtMarket = $pdo->prepare("SELECT id, name, name_kn, selling_price, image, unit_type FROM daily_market_prices WHERE (id = ? OR name = ?) AND is_available = 1");
-            $stmtMarket->execute([is_numeric($productId) ? (int)$productId : 0, $clientName ?: $productId]);
+            $marketId = 0;
+            if (str_starts_with((string)$productId, 'veg_')) {
+                $marketId = (int)substr((string)$productId, 4);
+            } elseif (is_numeric($productId)) {
+                $marketId = (int)$productId;
+            }
+            $stmtMarket = $pdo->prepare("SELECT id, name, name_kn, selling_price, image, unit_type FROM daily_market_prices WHERE (id = ? OR name = ?) AND (is_available = 1 OR is_active = 1)");
+            $stmtMarket->execute([$marketId, $clientName ?: $productId]);
             $marketItem = $stmtMarket->fetch(PDO::FETCH_ASSOC);
             if ($marketItem) {
                 $vegPrice = ($clientPrice > 0) ? $clientPrice : (float)$marketItem['selling_price'];
