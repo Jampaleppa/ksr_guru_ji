@@ -8,6 +8,7 @@ echo ===================================================
 echo.
 
 echo Stopping Apache HTTP Server...
+net stop wampapache64 >nul 2>&1
 taskkill /F /IM httpd.exe >nul 2>&1
 if %errorlevel% equ 0 (
     echo Apache server has been stopped.

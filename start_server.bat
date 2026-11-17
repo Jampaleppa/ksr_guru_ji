@@ -29,9 +29,14 @@ if %errorlevel% equ 0 (
     echo       Apache is ALREADY RUNNING on port 8090.
 ) else (
     echo       Starting Apache HTTP Server on Port 8090...
-    set INSTALL_DIR=c:/wamp64
-    start "" /B "c:\wamp64\bin\apache\apache2.4.62.1\bin\httpd.exe"
-    timeout /t 2 /nobreak >nul
+    net start wampapache64 >nul 2>&1
+    timeout /t 1 /nobreak >nul
+    netstat -ano | findstr ":8090 " | findstr "LISTENING" >nul 2>&1
+    if %errorlevel% neq 0 (
+        set INSTALL_DIR=c:/wamp64
+        start "" /B "c:\wamp64\bin\apache\apache2.4.62.1\bin\httpd.exe"
+        timeout /t 2 /nobreak >nul
+    )
 )
 
 :: 3. Open browser
