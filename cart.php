@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 // ============================================================
 // cart.php - Shopping Cart Page (KSR GURU JI - Premium UI)
 // ============================================================
@@ -76,7 +76,8 @@ $freeDeliveryPercent = min(100, round(($cartTotal / $freeDeliveryThreshold) * 10
 // Build WhatsApp text for direct order (shop + delivery)
 $waText = "Namaste KSR GURU JI! I would like to order the following items from my cart:%0A";
 foreach ($cartItems as $ci) {
-    $waText .= "• " . urlencode($ci['name']) . " x " . $ci['qty'] . " (\u20b9" . ($ci['price'] * $ci['qty']) . ")%0A";
+    $variantPart = !empty($ci['variant']) ? " (" . $ci['variant'] . ")" : "";
+    $waText .= "• " . urlencode($ci['name'] . $variantPart) . " x " . $ci['qty'] . " (\u20b9" . ($ci['price'] * $ci['qty']) . ")%0A";
 }
 $waText .= "%0ATotal Amount: \u20b9" . $grandTotal;
 $waText .= "%0ADelivery Charge: " . ($deliveryFee > 0 ? "\u20b9$deliveryFee" : "FREE");

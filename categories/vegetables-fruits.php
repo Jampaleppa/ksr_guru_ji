@@ -982,6 +982,7 @@ if (empty($productsData)) {
                         </div>
                         <div class="cart-item-details">
                             <div class="cart-item-name">${item.name}</div>
+                            ${item.variant ? `<div class="cart-item-variant" style="font-size:0.75rem;background:rgba(15,123,58,0.1);color:#0f7b3a;padding:2px 6px;border-radius:4px;display:inline-block;margin:2px 0 4px;font-weight:600;">${item.variant}</div>` : ''}
                             <div class="cart-item-price">₹${price.toFixed(2)} × ${qty} = ₹${itemTotal.toFixed(2)}</div>
                             <div class="cart-item-actions">
                                 <button onclick="window.changeQty('${item.id}', ${qty - 1})">-</button>
