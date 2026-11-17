@@ -34,7 +34,7 @@ if %errorlevel% equ 0 (
     netstat -ano | findstr ":8090 " | findstr "LISTENING" >nul 2>&1
     if %errorlevel% neq 0 (
         set INSTALL_DIR=c:/wamp64
-        start "" /B "c:\wamp64\bin\apache\apache2.4.62.1\bin\httpd.exe"
+        start /min "" "c:\wamp64\bin\apache\apache2.4.62.1\bin\httpd.exe"
         timeout /t 2 /nobreak >nul
     )
 )
@@ -47,6 +47,7 @@ start http://localhost:8090/
 echo.
 echo ===================================================
 echo   KSR GURU JI is live at: http://localhost:8090/
+echo   WAMP Dashboard is at:   http://localhost:8090/wamp/
 echo   To stop the server, double-click stop_server.bat
 echo ===================================================
 echo.
