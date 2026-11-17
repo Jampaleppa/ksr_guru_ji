@@ -9,12 +9,6 @@
 
 declare(strict_types=1);
 
-$rootDir = dirname(__DIR__);
-require_once $rootDir . '/config.php';
-require_once $rootDir . '/includes/db.php';
-require_once $rootDir . '/payment_state.php';
-require_once $rootDir . '/payment-core/bootstrap.php';
-
 use KsrPay\AmountCalculator;
 use KsrPay\AuditLogger;
 use KsrPay\IdempotencyManager;
@@ -25,6 +19,15 @@ use KsrPay\ReconciliationManager;
 use KsrPay\RefundManager;
 use KsrPay\SecurityManager;
 use KsrPay\TransactionManager;
+
+$rootDir = dirname(__DIR__);
+require_once $rootDir . '/config.php';
+require_once $rootDir . '/includes/db.php';
+require_once $rootDir . '/payment_state.php';
+require_once $rootDir . '/payment-core/bootstrap.php';
+
+/** @var \PDO $pdo */
+$pdo = getDBConnection();
 
 $passCount = 0;
 $failCount = 0;
