@@ -1,12 +1,12 @@
 <?php
 // ============================================================
-// api/pricing.php - Server-side authoritative price calculation
+// pricing.php - Server-side authoritative price calculation
 // ============================================================
 //
 // The browser's submitted `total` must NEVER be trusted. This
 // recalculates the payable amount from database product prices
-// whenever the cart lines reference real product ids, and reports
-// whether it could fully validate the cart.
+// whenever the cart lines reference real product ids or active
+// catalog produce, and reports whether it could fully validate the cart.
 // ============================================================
 
 declare(strict_types=1);
@@ -22,8 +22,10 @@ if (!defined('KSR_DELIVERY_CHARGE')) {
 }
 
 /**
- * Recalculate a cart total from authoritative product rows.
- * Supports both standard catalog products and daily produce (Vegetables & Fruits).
+ * Recalculate a cart total from authoritative sources:
+ *  1. daily_market_prices table (Produce: Vegetables & Fruits)
+ *  2. products table (Standard grocery catalog)
+ *  3. $_SESSION['cart'] (Validated server-side session items)
  *
  * @param  array $cartItems  [['id'=>int|string,'qty'=>int,'price'=>float,'name'=>...], ...]
  * @return array{
@@ -43,131 +45,248 @@ function ksrCalculateCartTotal(array $cartItems): array
     $unmatched  = 0;
     $lineItems  = [];
 
+    if (empty($cartItems)) {
+        return [
+            'subtotal'        => 0.0,
+            'delivery_charge' => (float)KSR_DELIVERY_CHARGE,
+            'total'           => (float)KSR_DELIVERY_CHARGE,
+            'validated'       => false,
+            'matched'         => 0,
+            'unmatched'       => 0,
+            'line_items'      => [],
+        ];
+    }
+
+    $pdo = getDBConnection();
+
+    // 1. Parse IDs, names, and variants
     $productIds = [];
+    $productNames = [];
     $vegIds = [];
+    $vegNames = [];
 
     foreach ($cartItems as $item) {
         $rawId = (string)($item['product_id'] ?? $item['id'] ?? '');
-        if (str_starts_with($rawId, 'veg_')) {
-            $cleaned = explode(':', substr($rawId, 4))[0];
-            if (is_numeric($cleaned) && (int)$cleaned > 0) {
-                $vegIds[] = (int)$cleaned;
+        $name = trim((string)($item['name'] ?? ''));
+        $cleanId = explode(':', $rawId)[0];
+
+        if (str_starts_with($cleanId, 'veg_')) {
+            $vid = (int)substr($cleanId, 4);
+            if ($vid > 0) $vegIds[] = $vid;
+            if ($name !== '') $vegNames[] = $name;
+        } else {
+            if (preg_match('/^[a-zA-Z0-9\-]+_(\d+)$/', $cleanId, $m)) {
+                $pid = (int)$m[1];
+            } elseif (is_numeric($cleanId)) {
+                $pid = (int)$cleanId;
+            } else {
+                $pid = 0;
             }
-        } elseif (is_numeric($rawId) && (int)$rawId > 0) {
-            $productIds[] = (int)$rawId;
+            if ($pid > 0) $productIds[] = $pid;
+            if ($name !== '') $productNames[] = $name;
         }
     }
-    $productIds = array_values(array_unique($productIds));
-    $vegIds = array_values(array_unique($vegIds));
 
-    // 1. Batch-load authoritative catalog prices (products table)
-    $dbPrices = [];
-    if (!empty($productIds)) {
+    $productIds = array_values(array_unique($productIds));
+    $productNames = array_values(array_unique($productNames));
+    $vegIds = array_values(array_unique($vegIds));
+    $vegNames = array_values(array_unique($vegNames));
+
+    // 2. Batch-load authoritative catalog prices (products table)
+    $dbPricesById = [];
+    $dbPricesByName = [];
+    if (!empty($productIds) || !empty($productNames)) {
         try {
-            $pdo = getDBConnection();
-            $placeholders = implode(',', array_fill(0, count($productIds), '?'));
-            $stmt = $pdo->prepare(
-                "SELECT id, name, price, discount, status FROM products WHERE id IN ({$placeholders})"
-            );
-            $stmt->execute($productIds);
+            $whereParts = [];
+            $params = [];
+            if (!empty($productIds)) {
+                $ph = implode(',', array_fill(0, count($productIds), '?'));
+                $whereParts[] = "id IN ($ph)";
+                $params = array_merge($params, $productIds);
+            }
+            if (!empty($productNames)) {
+                $ph = implode(',', array_fill(0, count($productNames), '?'));
+                $whereParts[] = "name IN ($ph)";
+                $params = array_merge($params, $productNames);
+            }
+
+            // Safe column selection checking discount column presence
+            $hasDiscount = false;
+            try {
+                $chk = $pdo->query("SELECT discount FROM products LIMIT 1");
+                $hasDiscount = ($chk !== false);
+            } catch (Throwable $e) {}
+
+            $sql = $hasDiscount
+                ? "SELECT id, name, price, discount, status FROM products WHERE (" . implode(' OR ', $whereParts) . ")"
+                : "SELECT id, name, price, 0 as discount, status FROM products WHERE (" . implode(' OR ', $whereParts) . ")";
+
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute($params);
             foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $row) {
-                // Effective price honours a discount column when present.
                 $price = (float)$row['price'];
                 $disc  = (float)($row['discount'] ?? 0);
                 if ($disc > 0 && $disc < $price) {
-                    $price = $price - $disc;
+                    $price -= $disc;
                 }
-                $dbPrices[(int)$row['id']] = [
+                $entry = [
+                    'id'     => (int)$row['id'],
                     'name'   => $row['name'],
                     'price'  => $price,
                     'status' => (int)$row['status'],
                 ];
+                $dbPricesById[(int)$row['id']] = $entry;
+                $dbPricesByName[strtolower(trim($row['name']))] = $entry;
             }
         } catch (Throwable $e) {
-            error_log('ksrCalculateCartTotal DB error: ' . $e->getMessage());
+            error_log('ksrCalculateCartTotal catalog DB error: ' . $e->getMessage());
         }
     }
 
-    // 2. Batch-load authoritative produce rates (daily_market_prices table)
-    $vegPrices = [];
-    if (!empty($vegIds)) {
+    // 3. Batch-load authoritative produce rates (daily_market_prices table)
+    $vegPricesById = [];
+    $vegPricesByName = [];
+    if (!empty($vegIds) || !empty($vegNames)) {
         try {
-            $pdo = getDBConnection();
             ensureMarketPriceTables($pdo);
-            $placeholders = implode(',', array_fill(0, count($vegIds), '?'));
-            $stmt = $pdo->prepare(
-                "SELECT id, name, selling_price, unit_type, base_quantity, display_unit FROM daily_market_prices WHERE id IN ({$placeholders}) AND (is_available = 1 OR is_active = 1)"
-            );
-            $stmt->execute($vegIds);
+            $whereParts = [];
+            $params = [];
+            if (!empty($vegIds)) {
+                $ph = implode(',', array_fill(0, count($vegIds), '?'));
+                $whereParts[] = "id IN ($ph)";
+                $params = array_merge($params, $vegIds);
+            }
+            if (!empty($vegNames)) {
+                $ph = implode(',', array_fill(0, count($vegNames), '?'));
+                $whereParts[] = "name IN ($ph)";
+                $params = array_merge($params, $vegNames);
+            }
+            $sql = "SELECT id, name, selling_price, unit_type, base_quantity, display_unit FROM daily_market_prices WHERE (" . implode(' OR ', $whereParts) . ") AND (is_available = 1 OR is_active = 1)";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute($params);
             foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $row) {
-                $vegPrices[(int)$row['id']] = $row;
+                $vegPricesById[(int)$row['id']] = $row;
+                $vegPricesByName[strtolower(trim($row['name']))] = $row;
             }
         } catch (Throwable $e) {
             error_log('ksrCalculateCartTotal veg DB error: ' . $e->getMessage());
         }
     }
 
+    // 4. Batch-load session cart for server-accepted items (e.g. category fallbacks, tablets)
+    if (session_status() === PHP_SESSION_NONE) {
+        @session_start();
+    }
+    $sessionCart = (isset($_SESSION['cart']) && is_array($_SESSION['cart'])) ? $_SESSION['cart'] : [];
+    $sessionItemsById = [];
+    $sessionItemsByName = [];
+    foreach ($sessionCart as $sItem) {
+        $sid = (string)($sItem['id'] ?? $sItem['product_id'] ?? '');
+        $sname = strtolower(trim((string)($sItem['name'] ?? '')));
+        if ($sid !== '') $sessionItemsById[$sid] = $sItem;
+        if ($sname !== '') $sessionItemsByName[$sname] = $sItem;
+    }
+
+    // 5. Evaluate each line item
     foreach ($cartItems as $item) {
         $qty = (int)($item['qty'] ?? $item['quantity'] ?? 1);
-        if ($qty < 1) {
-            $qty = 1;
-        }
-        // Cap quantity to something sane to prevent overflow abuse.
-        if ($qty > 999) {
-            $qty = 999;
-        }
+        if ($qty < 1) $qty = 1;
+        if ($qty > 999) $qty = 999;
 
         $rawId = (string)($item['product_id'] ?? $item['id'] ?? '');
-        $productId = (is_numeric($rawId) && (int)$rawId > 0) ? (int)$rawId : null;
+        $name = trim((string)($item['name'] ?? 'Item'));
+        $lowerName = strtolower($name);
+        $cleanId = explode(':', $rawId)[0];
         $unitPrice = 0.0;
-        $name = $item['name'] ?? 'Item';
         $isMatched = false;
 
-        // Check standard catalog products
-        if ($productId !== null && isset($dbPrices[$productId]) && $dbPrices[$productId]['status'] === 1) {
-            $unitPrice = $dbPrices[$productId]['price'];
-            $name      = $dbPrices[$productId]['name'];
-            $matched++;
-            $isMatched = true;
-        }
-        // Check produce items from daily_market_prices
-        elseif (str_starts_with($rawId, 'veg_')) {
-            $cleaned = explode(':', substr($rawId, 4))[0];
-            $vegId = (is_numeric($cleaned) && (int)$cleaned > 0) ? (int)$cleaned : 0;
-            if ($vegId > 0 && isset($vegPrices[$vegId])) {
-                $row = $vegPrices[$vegId];
-                $baseSelling = (float)$row['selling_price'];
+        // Check produce items first (if veg_ prefix)
+        if (str_starts_with($cleanId, 'veg_')) {
+            $vid = (int)substr($cleanId, 4);
+            $vegRow = $vegPricesById[$vid] ?? $vegPricesByName[$lowerName] ?? null;
+            if ($vegRow) {
+                $baseSelling = (float)$vegRow['selling_price'];
                 $submittedPrice = (float)($item['price'] ?? $item['unit_price'] ?? 0);
-                $unitType = (string)($row['unit_type'] ?? 'kg');
-                $baseQty = (float)($row['base_quantity'] ?? 1);
-                $dispUnit = (string)($row['display_unit'] ?? '');
+                $unitType = (string)($vegRow['unit_type'] ?? 'kg');
+                $baseQty = (float)($vegRow['base_quantity'] ?? 1);
+                $dispUnit = (string)($vegRow['display_unit'] ?? '');
 
-                // Verify submitted unit price against valid authoritative variant options
                 $validOptions = getPurchaseOptionsForUnit($unitType, $baseSelling, '', $baseQty, $dispUnit);
-                $isPriceValid = false;
                 foreach ($validOptions as $opt) {
                     if (abs($opt['price'] - $submittedPrice) < 0.05) {
-                        $isPriceValid = true;
                         $unitPrice = $opt['price'];
+                        $isMatched = true;
                         break;
                     }
                 }
-                if (!$isPriceValid && abs($baseSelling - $submittedPrice) < 0.05) {
-                    $isPriceValid = true;
+                if (!$isMatched && abs($baseSelling - $submittedPrice) < 0.05) {
                     $unitPrice = $baseSelling;
-                }
-
-                if ($isPriceValid) {
-                    $name = $item['name'] ?? $row['name'];
-                    $matched++;
                     $isMatched = true;
+                }
+                if ($isMatched) {
+                    $name = $vegRow['name'];
+                    $matched++;
                 }
             }
         }
 
+        // Check standard catalog products (by ID or name)
         if (!$isMatched) {
-            // Product not found in DB or not active or price tampered.
-            // Mark as unmatched so the checkout layer can reject this cart.
+            $pid = 0;
+            if (preg_match('/^[a-zA-Z0-9\-]+_(\d+)$/', $cleanId, $m)) {
+                $pid = (int)$m[1];
+            } elseif (is_numeric($cleanId)) {
+                $pid = (int)$cleanId;
+            }
+            $prodRow = ($pid > 0 && isset($dbPricesById[$pid])) ? $dbPricesById[$pid] : ($dbPricesByName[$lowerName] ?? null);
+            if ($prodRow && ($prodRow['status'] ?? 1) === 1) {
+                $unitPrice = (float)$prodRow['price'];
+                $name = $prodRow['name'];
+                $matched++;
+                $isMatched = true;
+            }
+        }
+
+        // Check produce by name if ID was not veg_ prefixed
+        if (!$isMatched && isset($vegPricesByName[$lowerName])) {
+            $vegRow = $vegPricesByName[$lowerName];
+            $baseSelling = (float)$vegRow['selling_price'];
+            $submittedPrice = (float)($item['price'] ?? $item['unit_price'] ?? 0);
+            $unitType = (string)($vegRow['unit_type'] ?? 'kg');
+            $baseQty = (float)($vegRow['base_quantity'] ?? 1);
+            $dispUnit = (string)($vegRow['display_unit'] ?? '');
+
+            $validOptions = getPurchaseOptionsForUnit($unitType, $baseSelling, '', $baseQty, $dispUnit);
+            foreach ($validOptions as $opt) {
+                if (abs($opt['price'] - $submittedPrice) < 0.05) {
+                    $unitPrice = $opt['price'];
+                    $isMatched = true;
+                    break;
+                }
+            }
+            if (!$isMatched && abs($baseSelling - $submittedPrice) < 0.05) {
+                $unitPrice = $baseSelling;
+                $isMatched = true;
+            }
+            if ($isMatched) {
+                $name = $vegRow['name'];
+                $matched++;
+            }
+        }
+
+        // Check verified session cart items (category fallbacks, tablets, etc.)
+        if (!$isMatched) {
+            $sessRow = $sessionItemsById[$rawId] ?? $sessionItemsById[$cleanId] ?? ($sessionItemsByName[$lowerName] ?? null);
+            if ($sessRow && isset($sessRow['price']) && (float)$sessRow['price'] > 0) {
+                $unitPrice = (float)$sessRow['price'];
+                $name = $sessRow['name'] ?? $name;
+                $matched++;
+                $isMatched = true;
+            }
+        }
+
+        if (!$isMatched) {
+            // Product not found in DB or active session cart or price tampered.
             $unmatched++;
             continue;
         }
@@ -197,7 +316,7 @@ function ksrCalculateCartTotal(array $cartItems): array
         'delivery_charge' => $deliveryCharge,
         'total'           => $total,
         // Fully validated only when every line mapped to a real product.
-        'validated'       => ($unmatched === 0),
+        'validated'       => ($unmatched === 0 && !empty($lineItems)),
         'matched'         => $matched,
         'unmatched'       => $unmatched,
         'line_items'      => $lineItems,

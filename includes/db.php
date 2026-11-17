@@ -272,6 +272,7 @@ if (!function_exists('_bootstrapSQLiteSchema')) {
                 icon         TEXT DEFAULT '',
                 emoji        TEXT DEFAULT '',
                 is_featured  INTEGER DEFAULT 0,
+                discount     REAL DEFAULT 0,
                 updated_at   TEXT DEFAULT (datetime('now')),
                 created_at   TEXT DEFAULT (datetime('now'))
             )",
@@ -928,6 +929,7 @@ if (!function_exists('_bootstrapSQLiteSchema')) {
                     'icon'         => "ALTER TABLE products ADD COLUMN icon TEXT DEFAULT ''",
                     'emoji'        => "ALTER TABLE products ADD COLUMN emoji TEXT DEFAULT ''",
                     'is_featured'  => "ALTER TABLE products ADD COLUMN is_featured INTEGER DEFAULT 0",
+                    'discount'     => "ALTER TABLE products ADD COLUMN discount REAL DEFAULT 0",
                     'updated_at'   => "ALTER TABLE products ADD COLUMN updated_at TEXT DEFAULT (datetime('now'))",
                 ];
                 foreach ($productMigrations as $col => $sql) {
