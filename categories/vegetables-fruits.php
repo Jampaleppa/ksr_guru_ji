@@ -523,30 +523,6 @@ if (empty($productsData)) {
             transform: scale(1.02);
         }
 
-        footer {
-            background: var(--footer-bg);
-            color: white;
-            padding: 2rem 1.8rem;
-            border-radius: 44px 44px 0 0;
-            margin-top: 3rem;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: center;
-            gap: 14px;
-        }
-
-        .footer-links {
-            display: flex;
-            gap: 2rem;
-        }
-
-        .footer-links a {
-            color: white;
-            text-decoration: none;
-            font-size: 0.95rem;
-        }
-
         @media (max-width: 600px) {
             .products-grid {
                 grid-template-columns: repeat(2, 1fr);
