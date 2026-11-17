@@ -145,9 +145,34 @@ assertTest($pkt250 && abs($pkt250['price'] - 30.00) < 0.01, "250g packet: ₹30.
 assertTest($pkt1kg && abs($pkt1kg['price'] - 120.00) < 0.01, "1kg packet: ₹120.00");
 
 // ------------------------------------------------------------
-// 5. Price Update & Price History Tracking
+// 5. Authoritative Server Pricing Validation for Produce Cart
 // ------------------------------------------------------------
-echo "\n5. Testing Price Updates & History Recording...\n";
+echo "\n5. Testing Server-Authoritative Produce Cart Validation (pricing.php)...\n";
+require_once __DIR__ . '/../pricing.php';
+
+$stmtTomato = $pdo->query("SELECT id FROM daily_market_prices WHERE name = 'Tomato'");
+$tomatoId = (int)$stmtTomato->fetchColumn();
+
+$produceCart = [
+    ['id' => 'veg_' . $tomatoId . ':500g', 'product_id' => 'veg_' . $tomatoId, 'name' => 'Tomato (500g)', 'qty' => 1, 'price' => 36.00]
+];
+$cartValidation = ksrCalculateCartTotal($produceCart);
+assertTest($cartValidation['validated'] === true, "Produce cart with Tomato 500g validated=true");
+assertTest($cartValidation['subtotal'] == 36.00, "Subtotal is authoritative ₹36.00");
+assertTest($cartValidation['total'] == 51.00, "Total is ₹36.00 + ₹15 delivery = ₹51.00");
+
+// Test tampered price rejection
+$tamperedCart = [
+    ['id' => 'veg_' . $tomatoId, 'product_id' => 'veg_' . $tomatoId, 'name' => 'Tomato', 'qty' => 1, 'price' => 1.00]
+];
+$tamperedValidation = ksrCalculateCartTotal($tamperedCart);
+assertTest($tamperedValidation['validated'] === false, "Tampered produce price rejected (validated=false)");
+assertTest($tamperedValidation['unmatched'] > 0, "Tampered item counted as unmatched");
+
+// ------------------------------------------------------------
+// 6. Price Update & Price History Tracking
+// ------------------------------------------------------------
+echo "\n6. Testing Price Updates & History Recording...\n";
 $firstItem = $items[0];
 $newMarketPrice = (float)$firstItem['market_price'] + 5.00;
 $updateResult = updateDailyMarketPrice((int)$firstItem['id'], $newMarketPrice, null, 3.00, 'Test update', 'AutomatedTest');
@@ -168,9 +193,9 @@ assertTest(abs((float)$history[0]['selling_price'] - ($newMarketPrice + 3.00)) <
 updateDailyMarketPrice((int)$firstItem['id'], (float)$firstItem['market_price'], null, 3.00, 'Revert test', 'System');
 
 // ------------------------------------------------------------
-// 6. Page Syntax & File Integrity
+// 7. Page Syntax & File Integrity
 // ------------------------------------------------------------
-echo "\n6. Testing Page Syntax & Compilation...\n";
+echo "\n7. Testing Page Syntax & Compilation...\n";
 $catPageOutput = shell_exec("C:\\wamp64\\bin\\php\\php8.3.14\\php.exe -l categories/vegetables-fruits.php 2>&1");
 assertTest(str_contains((string)$catPageOutput, 'No syntax errors detected'), "categories/vegetables-fruits.php passes PHP lint");
 
