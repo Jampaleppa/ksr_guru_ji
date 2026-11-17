@@ -10,7 +10,7 @@ use KsrPay\SecurityManager;
 // ── Auth ─────────────────────────────────────────────────────────────────────
 if (session_status() === PHP_SESSION_NONE) { session_start(); }
 if (empty($_SESSION['user_id'])) {
-    header('Location: /login.php?redirect=' . urlencode($_SERVER['REQUEST_URI']));
+    header('Location: /login.php?redirect=' . urlencode($_SERVER['REQUEST_URI'] ?? '/'));
     exit;
 }
 
@@ -24,7 +24,7 @@ if ($paymentId === '' || $orderId < 1) {
 
 // ── Load payment + order ─────────────────────────────────────────────────────
 $ptStmt = $pdo->prepare(
-    "SELECT pt.*, o.order_number, o.net_amount, o.total_amount, o.created_at AS order_date
+    "SELECT pt.*, o.order_number, o.created_at AS order_date
      FROM payment_transactions pt
      JOIN orders o ON o.id = pt.order_id
      WHERE pt.payment_id = ? AND pt.order_id = ? AND (pt.user_id = ? OR o.user_id = ?)

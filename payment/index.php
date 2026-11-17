@@ -8,7 +8,7 @@ use KsrPay\SecurityManager;
 
 if (session_status() === PHP_SESSION_NONE) { session_start(); }
 if (empty($_SESSION['user_id'])) {
-    header('Location: /login.php?redirect=' . urlencode($_SERVER['REQUEST_URI'])); exit;
+    header('Location: /login.php?redirect=' . urlencode($_SERVER['REQUEST_URI'] ?? '/')); exit;
 }
 
 $userId  = (int)$_SESSION['user_id'];

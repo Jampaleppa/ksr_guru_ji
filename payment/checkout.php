@@ -8,7 +8,7 @@ use KsrPay\SecurityManager;
 
 if (session_status() === PHP_SESSION_NONE) { session_start(); }
 if (empty($_SESSION['user_id'])) {
-    header('Location: /login.php?redirect=' . urlencode($_SERVER['REQUEST_URI'])); exit;
+    header('Location: /login.php?redirect=' . urlencode($_SERVER['REQUEST_URI'] ?? '/')); exit;
 }
 
 $userId  = (int)$_SESSION['user_id'];
@@ -62,7 +62,6 @@ $csrfToken = SecurityManager::generateCSRFToken();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Order Review – KSR GURU JI</title>
-    <?php include __DIR__ . '/../global-header.php'; ?>
     <style>
         :root {
             --primary: #ff6b35;
@@ -120,6 +119,7 @@ $csrfToken = SecurityManager::generateCSRFToken();
     </style>
 </head>
 <body>
+<?php if (file_exists(__DIR__ . '/../global-header.php')) include __DIR__ . '/../global-header.php'; ?>
 <div class="checkout-wrapper">
     <h1 class="page-title">Review Your Order &amp; <span>Proceed to Pay</span></h1>
 

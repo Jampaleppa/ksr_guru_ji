@@ -13,10 +13,6 @@ $page   = max(1, (int)($_GET['page'] ?? 1));
 $limit  = 10;
 $offset = ($page - 1) * $limit;
 
-$total = (int)$pdo->prepare(
-    "SELECT COUNT(*) FROM payment_transactions WHERE user_id = ?"
-)->execute([$userId]) ? $pdo->query("SELECT FOUND_ROWS()")->fetchColumn() : 0;
-
 $countStmt = $pdo->prepare("SELECT COUNT(*) FROM payment_transactions WHERE user_id = ?");
 $countStmt->execute([$userId]);
 $total = (int)$countStmt->fetchColumn();

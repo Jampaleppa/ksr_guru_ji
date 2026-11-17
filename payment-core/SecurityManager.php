@@ -22,8 +22,8 @@ class SecurityManager
     /** Generate a CSRF token and store it in session. */
     public static function generateCSRFToken(): string
     {
-        if (session_status() !== PHP_SESSION_ACTIVE) {
-            session_start();
+        if (session_status() === PHP_SESSION_NONE && !headers_sent()) {
+            @session_start();
         }
         if (empty($_SESSION['ksr_csrf_token'])) {
             $_SESSION['ksr_csrf_token'] = bin2hex(random_bytes(32));
@@ -34,8 +34,8 @@ class SecurityManager
     /** Validate a submitted CSRF token against the session token (constant-time). */
     public static function validateCSRFToken(string $token): bool
     {
-        if (session_status() !== PHP_SESSION_ACTIVE) {
-            session_start();
+        if (session_status() === PHP_SESSION_NONE && !headers_sent()) {
+            @session_start();
         }
         $expected = $_SESSION['ksr_csrf_token'] ?? '';
         return hash_equals($expected, $token);

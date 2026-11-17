@@ -115,9 +115,9 @@ if (!function_exists('ksrPaymentStates')) {
         }
 
         $allowed = [
-            'initiated' => ['pending', 'processing', 'upi_awaiting', 'cancelled', 'expired', 'failed'],
+            'initiated' => ['pending', 'processing', 'upi_awaiting', 'cod_pending', 'cod_collected', 'cancelled', 'expired', 'failed'],
 
-            'pending' => ['processing', 'upi_awaiting', 'success', 'failed', 'cancelled', 'expired'],
+            'pending' => ['processing', 'upi_awaiting', 'cod_pending', 'cod_collected', 'success', 'failed', 'cancelled', 'expired'],
 
             'processing' => ['success', 'failed', 'cancelled', 'expired'],
 

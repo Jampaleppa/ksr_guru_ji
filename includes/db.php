@@ -892,6 +892,7 @@ if (!function_exists('_bootstrapSQLiteSchema')) {
                 try { $pdo->exec("ALTER TABLE orders ADD COLUMN delivery_charge REAL DEFAULT 0"); } catch (Throwable $e) {}
                 try { $pdo->exec("ALTER TABLE orders ADD COLUMN discount REAL DEFAULT 0"); } catch (Throwable $e) {}
                 try { $pdo->exec("ALTER TABLE orders ADD COLUMN tax REAL DEFAULT 0"); } catch (Throwable $e) {}
+                try { $pdo->exec("ALTER TABLE orders ADD COLUMN total_amount REAL DEFAULT 0"); } catch (Throwable $e) {}
                 try { $pdo->exec("ALTER TABLE orders ADD COLUMN delivery_address TEXT"); } catch (Throwable $e) {}
             }
             // Delivery columns (always try — idempotent)
