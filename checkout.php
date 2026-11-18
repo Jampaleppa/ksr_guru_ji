@@ -583,16 +583,20 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && isset($_POST['action']))
 
                 if ($pid > 0) {
                     $lockSql = $isMysql
-                        ? 'SELECT id, stock FROM products WHERE id = ? AND status = 1 FOR UPDATE'
-                        : 'SELECT id, stock FROM products WHERE id = ? AND status = 1';
+                        ? 'SELECT id, name, stock FROM products WHERE id = ? AND status = 1 FOR UPDATE'
+                        : 'SELECT id, name, stock FROM products WHERE id = ? AND status = 1';
                     $stk = $pdo->prepare($lockSql);
                     $stk->execute([$pid]);
                     $prod = $stk->fetch(PDO::FETCH_ASSOC);
                     if ($prod !== false) {
-                        if ((int)$prod['stock'] < (int)$line['qty']) {
-                            $stockErrors[] = $line['name'] . ': only ' . (int)$prod['stock'] . ' left in stock (you requested ' . (int)$line['qty'] . ').';
+                        $dbProdName = strtolower(trim((string)($prod['name'] ?? '')));
+                        $lineProdName = strtolower(trim((string)preg_replace('/\s*\([^)]*\)\s*$/', '', $line['name'])));
+                        if ($dbProdName === $lineProdName || str_contains($lineProdName, $dbProdName) || str_contains($dbProdName, $lineProdName)) {
+                            if ((int)$prod['stock'] < (int)$line['qty']) {
+                                $stockErrors[] = $line['name'] . ': only ' . (int)$prod['stock'] . ' left in stock (you requested ' . (int)$line['qty'] . ').';
+                            }
+                            continue;
                         }
-                        continue;
                     }
                 }
 
@@ -634,17 +638,22 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && isset($_POST['action']))
                     $line['unit_price'],
                     $line['total'],
                 ]);
-                // Decrement stock atomically only for items in products table
+                // Decrement stock atomically only for items in products table whose name matches
                 if ($pid > 0) {
-                    $chk = $pdo->prepare('SELECT id FROM products WHERE id = ?');
+                    $chk = $pdo->prepare('SELECT id, name FROM products WHERE id = ?');
                     $chk->execute([$pid]);
-                    if ($chk->fetch()) {
-                        if ($isMysql) {
-                            $pdo->prepare('UPDATE products SET stock = GREATEST(0, stock - ?) WHERE id = ?')
-                                ->execute([$line['qty'], $pid]);
-                        } else {
-                            $pdo->prepare('UPDATE products SET stock = MAX(0, stock - ?) WHERE id = ?')
-                                ->execute([$line['qty'], $pid]);
+                    $pRow = $chk->fetch(PDO::FETCH_ASSOC);
+                    if ($pRow) {
+                        $dbProdName = strtolower(trim((string)($pRow['name'] ?? '')));
+                        $lineProdName = strtolower(trim((string)preg_replace('/\s*\([^)]*\)\s*$/', '', $line['name'])));
+                        if ($dbProdName === $lineProdName || str_contains($lineProdName, $dbProdName) || str_contains($dbProdName, $lineProdName)) {
+                            if ($isMysql) {
+                                $pdo->prepare('UPDATE products SET stock = GREATEST(0, stock - ?) WHERE id = ?')
+                                    ->execute([$line['qty'], $pid]);
+                            } else {
+                                $pdo->prepare('UPDATE products SET stock = MAX(0, stock - ?) WHERE id = ?')
+                                    ->execute([$line['qty'], $pid]);
+                            }
                         }
                     }
                 }

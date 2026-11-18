@@ -86,6 +86,24 @@ foreach ($files as $file) {
     }
 }
 
+// 4. Index store fallback products from functions.php (including Fresh Bread Loaf, etc.)
+require_once __DIR__ . '/../functions.php';
+if (function_exists('getStoreFallbackProducts')) {
+    foreach (getStoreFallbackProducts() as $fb) {
+        $name = trim($fb['name']);
+        $lower = strtolower($name);
+        if (!isset($catalog[$lower])) {
+            $catalog[$lower] = [
+                'id'       => (int)$fb['id'],
+                'name'     => $name,
+                'price'    => (float)$fb['price'],
+                'category' => $fb['category_name'] ?? 'general',
+                'weights'  => [],
+            ];
+        }
+    }
+}
+
 // Save to includes/category_catalog_data.php
 $outPath = __DIR__ . '/../includes/category_catalog_data.php';
 $export = var_export($catalog, true);

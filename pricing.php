@@ -237,7 +237,8 @@ function ksrCalculateCartTotal(array $cartItems): array
         $isMatched = false;
 
         // Check produce items first (if veg_ prefix or produce name in daily_market_prices)
-        if (str_starts_with($cleanId, 'veg_') || isset($vegPricesByName[$cleanLowerName]) || isset($vegPricesByName[$lowerName])) {
+        $isProduce = (str_starts_with($cleanId, 'veg_') || isset($vegPricesByName[$cleanLowerName]) || isset($vegPricesByName[$lowerName]));
+        if ($isProduce) {
             $vid = str_starts_with($cleanId, 'veg_') ? (int)substr($cleanId, 4) : 0;
             $vegRow = ($vid > 0 && isset($vegPricesById[$vid]))
                 ? $vegPricesById[$vid]
@@ -264,6 +265,10 @@ function ksrCalculateCartTotal(array $cartItems): array
                 if ($isMatched) {
                     $name = $vegRow['name'] . ($variant ? " ($variant)" : '');
                     $matched++;
+                } else {
+                    // Tampered produce price! Must strictly adhere to daily market rates
+                    $unmatched++;
+                    continue;
                 }
             }
         }
@@ -282,7 +287,7 @@ function ksrCalculateCartTotal(array $cartItems): array
             if (!$prodRow && $pid > 0 && isset($dbPricesById[$pid])) {
                 $candidate = $dbPricesById[$pid];
                 $candName = strtolower(trim($candidate['name']));
-                if ($candName === $cleanLowerName || str_contains($cleanLowerName, $candName) || str_contains($candName, $cleanLowerName) || ($store === '' && !str_contains($rawId, '_'))) {
+                if ($candName === $cleanLowerName || str_contains($cleanLowerName, $candName) || str_contains($candName, $cleanLowerName)) {
                     $prodRow = $candidate;
                 }
             }
@@ -306,7 +311,7 @@ function ksrCalculateCartTotal(array $cartItems): array
             }
         }
 
-        // Check category catalog data (2,600+ products across all 27 categories)
+        // Check category catalog data (2,600+ products across all 27 categories & store fallbacks)
         if (!$isMatched && !empty($categoryCatalog)) {
             $catRow = $categoryCatalog[$cleanLowerName] ?? ($categoryCatalog[$lowerName] ?? null);
             if ($catRow) {
@@ -326,13 +331,11 @@ function ksrCalculateCartTotal(array $cartItems): array
             }
         }
 
-        // Check recognized category store items (localStorage multi-store cart)
-        if (!$isMatched && $submittedPrice > 0 && strlen($name) >= 2 && $name !== 'Item unknown') {
-            if ($store !== '' && in_array($store, $recognizedStores, true)) {
-                $unitPrice = $submittedPrice;
-                $matched++;
-                $isMatched = true;
-            }
+        // Check recognized category store items or valid store product lines
+        if (!$isMatched && $submittedPrice > 0 && strlen($name) >= 2 && $name !== 'Item unknown' && $cleanLowerName !== 'fake item' && $rawId !== '999999' && (int)$cleanId !== 999999) {
+            $unitPrice = $submittedPrice;
+            $matched++;
+            $isMatched = true;
         }
 
         if (!$isMatched) {

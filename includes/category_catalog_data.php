@@ -1,5 +1,5 @@
 <?php
-// Auto-generated category catalog cache. Generated 2026-11-18 06:22:48.
+// Auto-generated category catalog cache. Generated 2026-11-18 08:00:08.
 declare(strict_types=1);
 
 return array (
@@ -26119,6 +26119,126 @@ return array (
     'name' => 'Mexican Nachos',
     'price' => 65.0,
     'category' => 'snacks',
+    'weights' => 
+    array (
+    ),
+  ),
+  'floor cleaner 1l' => 
+  array (
+    'id' => 1,
+    'name' => 'Floor Cleaner 1L',
+    'price' => 140.0,
+    'category' => 'Cleaning Supplies',
+    'weights' => 
+    array (
+    ),
+  ),
+  'toilet cleaner 750ml' => 
+  array (
+    'id' => 2,
+    'name' => 'Toilet Cleaner 750ml',
+    'price' => 160.0,
+    'category' => 'Cleaning Supplies',
+    'weights' => 
+    array (
+    ),
+  ),
+  'glass cleaner 500ml' => 
+  array (
+    'id' => 3,
+    'name' => 'Glass Cleaner 500ml',
+    'price' => 75.0,
+    'category' => 'Cleaning Supplies',
+    'weights' => 
+    array (
+    ),
+  ),
+  'surface disinfectant cleaner' => 
+  array (
+    'id' => 4,
+    'name' => 'Surface Disinfectant Cleaner',
+    'price' => 130.0,
+    'category' => 'Cleaning Supplies',
+    'weights' => 
+    array (
+    ),
+  ),
+  'disinfectant liquid 1l' => 
+  array (
+    'id' => 5,
+    'name' => 'Disinfectant Liquid 1L',
+    'price' => 170.0,
+    'category' => 'Cleaning Supplies',
+    'weights' => 
+    array (
+    ),
+  ),
+  'white phenyl 1l' => 
+  array (
+    'id' => 6,
+    'name' => 'White Phenyl 1L',
+    'price' => 150.0,
+    'category' => 'Cleaning Supplies',
+    'weights' => 
+    array (
+    ),
+  ),
+  'fresh bread loaf' => 
+  array (
+    'id' => 7,
+    'name' => 'Fresh Bread Loaf',
+    'price' => 45.0,
+    'category' => 'Bakery',
+    'weights' => 
+    array (
+    ),
+  ),
+  'pure sunflower cooking oil 1l' => 
+  array (
+    'id' => 8,
+    'name' => 'Pure Sunflower Cooking Oil 1L',
+    'price' => 135.0,
+    'category' => 'Cooking Oil',
+    'weights' => 
+    array (
+    ),
+  ),
+  'royal sona masoori rice 5kg' => 
+  array (
+    'id' => 9,
+    'name' => 'Royal Sona Masoori Rice 5kg',
+    'price' => 310.0,
+    'category' => 'Grains & Cereals',
+    'weights' => 
+    array (
+    ),
+  ),
+  'farm fresh premium apples 1kg' => 
+  array (
+    'id' => 10,
+    'name' => 'Farm Fresh Premium Apples 1kg',
+    'price' => 180.0,
+    'category' => 'Vegetables & Fruits',
+    'weights' => 
+    array (
+    ),
+  ),
+  'fresh dairy milk 1l' => 
+  array (
+    'id' => 11,
+    'name' => 'Fresh Dairy Milk 1L',
+    'price' => 54.0,
+    'category' => 'Dairy',
+    'weights' => 
+    array (
+    ),
+  ),
+  'premium almonds badam 250g' => 
+  array (
+    'id' => 12,
+    'name' => 'Premium Almonds Badam 250g',
+    'price' => 220.0,
+    'category' => 'Dry Fruits',
     'weights' => 
     array (
     ),
