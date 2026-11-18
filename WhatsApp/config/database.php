@@ -1,4 +1,5 @@
 <?php
+
 namespace Config;
 
 use PDO;
@@ -9,19 +10,22 @@ use PDOException;
  * Implements strict connection pooling, PDO prepared statement enforcement,
  * and robust error exception handling mapped to the v1.0 architecture.
  */
-class Database {
+class Database
+{
 
     private static ?Database $instance = null;
     private ?PDO $connection = null;
 
     // Load natively from environment or secure config defaults
-    private $host;
-    private $db;
-    private $user;
-    private $pass;
-    private $charset = 'utf8mb4';
+    private string $host;
+    private string $db;
 
-    private function __construct() {
+    private string $user;
+    private string $pass;
+    private string $charset = 'utf8mb4';
+
+    private function __construct()
+    {
         $this->host = getenv('DB_HOST') ?: '127.0.0.1';
         $this->db   = getenv('DB_NAME') ?: 'ksr_guru';
         $this->user = getenv('DB_USER') ?: 'root';
@@ -58,7 +62,8 @@ class Database {
     /**
      * Singleton Instance Generator
      */
-    public static function getInstance() {
+    public static function getInstance(): self
+    {
         if (self::$instance === null) {
             self::$instance = new Database();
         }
@@ -68,13 +73,15 @@ class Database {
     /**
      * Extracts the raw active PDO object
      */
-    public function getConnection() {
+    public function getConnection(): ?PDO
+    {
         return $this->connection;
     }
 
     // Prevent physical duplication of the singleton pointer
     private function __clone() {}
-    public function __wakeup() {
+    public function __wakeup()
+    {
         throw new \Exception("Cannot unserialize a singleton.");
     }
 }
