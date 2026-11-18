@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 // ============================================================
 // support.php - Support, Terms & Privacy (Dynamic)
 // ============================================================
@@ -951,6 +951,7 @@ require_once __DIR__ . '/session.php';
       }
     }
   </style>
+    <link rel="stylesheet" href="/mobile-app.css?v=3.0" />
 </head>
 
 <body>
@@ -1357,6 +1358,10 @@ require_once __DIR__ . '/session.php';
       // else keep support as default
     })();
   </script>
+
+    <!-- Mobile Bottom Navigation -->
+    <?php if (file_exists(__DIR__ . '/mobile-bottom-nav.php')) require_once __DIR__ . '/mobile-bottom-nav.php'; ?>
+    <script src="/assets/js/mobile-app.js?v=3.0" defer></script>
 </body>
 
 </html>

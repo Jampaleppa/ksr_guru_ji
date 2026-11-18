@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 // ============================================================
 // bath-body.php - Dynamic Bath & Body product page
 // ============================================================
@@ -773,6 +773,7 @@ $cartTotal = array_sum(array_map(fn($i) => $i['price'] * $i['qty'], $_SESSION['c
     </style>
   <link rel="stylesheet" href="category-style.css">
     <link rel="stylesheet" href="../index.css">
+    <link rel="stylesheet" href="../mobile-app.css?v=3.0" />
 </head>
 <body>
 <?php
@@ -1215,6 +1216,10 @@ $cartTotal = array_sum(array_map(fn($i) => $i['price'] * $i['qty'], $_SESSION['c
 
 <?php include __DIR__ . '/../includes/user-footer.php'; ?>
 <script src="sorting.js"></script>
+
+    <!-- Mobile Bottom Navigation -->
+    <?php if (file_exists(__DIR__ . '/../mobile-bottom-nav.php')) require_once __DIR__ . '/../mobile-bottom-nav.php'; ?>
+    <script src="/assets/js/mobile-app.js?v=3.0" defer></script>
 </body>
 </html>
 

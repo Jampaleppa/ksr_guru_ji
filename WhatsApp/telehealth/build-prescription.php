@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * build-prescription.php
  * ---------------------------------------------------------------------
@@ -315,6 +315,7 @@ if (!$presetRows) {
             .wrap { margin: 0; padding: 0; }
         }
     </style>
+    <link rel="stylesheet" href="/mobile-app.css?v=3.0" />
 </head>
 <body>
     <!-- KSR brand bar (shared) -->
@@ -805,5 +806,9 @@ include __DIR__ . '/partials/doctor-nav.php'; ?>
 <?php endif; ?>
 </script>
 
+
+    <!-- Mobile Bottom Navigation -->
+    <?php if (file_exists(__DIR__ . '/../../mobile-bottom-nav.php')) require_once __DIR__ . '/../../mobile-bottom-nav.php'; ?>
+    <script src="/assets/js/mobile-app.js?v=3.0" defer></script>
 </body>
 </html>

@@ -383,6 +383,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
     </style>
+    <link rel="stylesheet" href="/mobile-app.css?v=3.0" />
 </head>
 
 <body>
@@ -461,6 +462,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <a href="logout.php" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
         </div>
     </div>
+
+    <!-- Mobile Bottom Navigation -->
+    <?php if (file_exists(__DIR__ . '/mobile-bottom-nav.php')) require_once __DIR__ . '/mobile-bottom-nav.php'; ?>
+    <script src="/assets/js/mobile-app.js?v=3.0" defer></script>
 </body>
 
 </html>

@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 // ============================================================
 // track-order.php - Customer Order Tracking Search Page
 // ============================================================
@@ -216,6 +216,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
             h2 { font-size: 1.2rem; }
         }
     </style>
+    <link rel="stylesheet" href="/mobile-app.css?v=3.0" />
 </head>
 <body>
     <div class="tracking-card">
@@ -248,5 +249,9 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
         
         <a href="index.php" class="back-home"><i class="fas fa-arrow-left"></i> Back to Homepage</a>
     </div>
+
+    <!-- Mobile Bottom Navigation -->
+    <?php if (file_exists(__DIR__ . '/mobile-bottom-nav.php')) require_once __DIR__ . '/mobile-bottom-nav.php'; ?>
+    <script src="/assets/js/mobile-app.js?v=3.0" defer></script>
 </body>
 </html>

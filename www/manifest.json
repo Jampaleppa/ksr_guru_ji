@@ -1,0 +1,96 @@
+{
+  "name": "KSR GURU JI – ನಮ್ಮ ಅಂಗಡಿ",
+  "short_name": "KSR Guru Ji",
+  "description": "Everything Your Family Needs, Every Day — groceries, medicines & more delivered fast. Gajendragad's #1 delivery app.",
+  "start_url": "/index.php?source=pwa",
+  "scope": "/",
+  "id": "/index.php",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui", "browser"],
+  "orientation": "portrait-primary",
+  "background_color": "#ffffff",
+  "theme_color": "#0f7b3a",
+  "lang": "en-IN",
+  "dir": "ltr",
+  "categories": ["shopping", "food", "health", "lifestyle"],
+  "prefer_related_applications": false,
+  "related_applications": [
+    {
+      "platform": "play",
+      "url": "https://play.google.com/store/apps/details?id=com.ksrguruji.app",
+      "id": "com.ksrguruji.app"
+    }
+  ],
+  "icons": [
+    { "src": "/icon-72.jpg",  "sizes": "72x72",   "type": "image/jpeg", "purpose": "any" },
+    { "src": "/icon-96.jpg",  "sizes": "96x96",   "type": "image/jpeg", "purpose": "any" },
+    { "src": "/icon-120.jpg", "sizes": "120x120", "type": "image/jpeg", "purpose": "any" },
+    { "src": "/icon-144.jpg", "sizes": "144x144", "type": "image/jpeg", "purpose": "any" },
+    { "src": "/icon-152.jpg", "sizes": "152x152", "type": "image/jpeg", "purpose": "any" },
+    { "src": "/icon-180.jpg", "sizes": "180x180", "type": "image/jpeg", "purpose": "any" },
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png",  "purpose": "any maskable" },
+    { "src": "/icon-192.jpg", "sizes": "192x192", "type": "image/jpeg", "purpose": "any maskable" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png",  "purpose": "any maskable" },
+    { "src": "/icon-512.jpg", "sizes": "512x512", "type": "image/jpeg", "purpose": "any maskable" },
+    { "src": "/favicon.png",  "sizes": "32x32",   "type": "image/png",  "purpose": "any" }
+  ],
+  "screenshots": [
+    {
+      "src": "/Banner.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "platform": "wide",
+      "label": "KSR Guru Ji – Home Page"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "platform": "narrow",
+      "label": "KSR Guru Ji – App Icon"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Shop Now",
+      "short_name": "Shop",
+      "description": "Browse all products & categories",
+      "url": "/index.php?source=shortcut",
+      "icons": [{ "src": "/icon-96.jpg", "sizes": "96x96" }]
+    },
+    {
+      "name": "My Cart",
+      "short_name": "Cart",
+      "description": "View your shopping cart",
+      "url": "/cart.php?source=shortcut",
+      "icons": [{ "src": "/icon-96.jpg", "sizes": "96x96" }]
+    },
+    {
+      "name": "Track Order",
+      "short_name": "Track",
+      "description": "Track your delivery",
+      "url": "/track-order.php?source=shortcut",
+      "icons": [{ "src": "/icon-96.jpg", "sizes": "96x96" }]
+    },
+    {
+      "name": "Doctor Assist",
+      "short_name": "Doctor",
+      "description": "Get medical assistance",
+      "url": "/WhatsApp/telehealth/index.php?source=shortcut",
+      "icons": [{ "src": "/icon-96.jpg", "sizes": "96x96" }]
+    }
+  ],
+  "share_target": {
+    "action": "/search.php",
+    "method": "GET",
+    "params": {
+      "text": "q",
+      "title": "q",
+      "url": "q"
+    }
+  },
+  "protocol_handlers": [],
+  "edge_side_panel": {
+    "preferred_width": 400
+  }
+}

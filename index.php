@@ -228,6 +228,8 @@ $bestSellers = array_slice($products, 0, 8);
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet" />
     <link rel="stylesheet" href="index.css?v=2.0" />
+    <!-- ═══ Mobile App Enhancement CSS ═══ -->
+    <link rel="stylesheet" href="/mobile-app.css?v=3.0" />
     <!-- Lottie Web Player (self-hosted, ships source maps) -->
     <script src="vendor/lottie-player/lottie-player.js"></script>
 </head>
@@ -305,6 +307,7 @@ $bestSellers = array_slice($products, 0, 8);
                     <a href="/suggestion-box.php" class="nav-link"><i class="fas fa-lightbulb"></i> Suggestion Box</a>
                     <a href="/categories/parcels.php" class="nav-link"><i class="fas fa-box"></i> Parcel Delivery</a>
                     <a href="/WhatsApp/telehealth/index.php" class="nav-link" style="color: #059669; font-weight:700;"><i class="fas fa-stethoscope"></i> Doctor Assist</a>
+                    <a href="/download-app.php" class="nav-link" style="color: var(--color-primary); font-weight:700;"><i class="fas fa-mobile-screen"></i> Download App</a>
                 </div>
 
                 <!-- Header Actions (Visible on Mobile & Desktop) -->
@@ -342,6 +345,7 @@ $bestSellers = array_slice($products, 0, 8);
                             <?php if (!empty($_SESSION['is_patient']) || !empty($_SESSION['patient_id'])): ?>
                                 <a href="/patient-portal.php"><i class="fas fa-heart-pulse"></i> Patient Portal</a>
                             <?php endif; ?>
+                            <a href="/download-app.php"><i class="fas fa-download"></i> Download App (APK)</a>
                         </div>
                     </div>
 
@@ -708,20 +712,33 @@ $bestSellers = array_slice($products, 0, 8);
     </section>
 
     <!-- ============================================================
-    APP DOWNLOAD BANNER
+    APP DOWNLOAD BANNER (Enhanced with PWA + Android/iOS)
     ============================================================ -->
     <div class="container">
-        <div class="app-banner fade-up">
-            <div>
-                <h2>📱 Order via WhatsApp · ಸುಲಭ ಆದೇಶ</h2>
-                <p style="margin-top:8px;opacity:.9;">Chat with us on WhatsApp and place your order in seconds. No app download needed!</p>
-            </div>
-            <div class="app-buttons">
-                <a href="https://wa.me/918088584421?text=Hi%20KSR%20GURU%20JI%2C%20I%20want%20to%20place%20an%20order" target="_blank" rel="noopener">
-                    <i class="fab fa-whatsapp"></i> Order on WhatsApp
+        <div class="mobile-download-section fade-up">
+            <h2>📱 Get the KSR Guru Ji App</h2>
+            <p>Install our app for faster ordering, offline access, and delivery tracking. No Play Store needed — install directly from your browser!</p>
+            <div class="download-btn-row">
+                <a href="/download-app.php" class="dl-btn">
+                    <i class="fab fa-android"></i>
+                    <span class="btn-label">
+                        <small>Get it on</small>
+                        <strong>Android App</strong>
+                    </span>
                 </a>
-                <a href="tel:8088584421">
-                    <i class="fas fa-phone"></i> Call Us Now
+                <a href="/download-app.php#ios-steps" class="dl-btn">
+                    <i class="fab fa-apple"></i>
+                    <span class="btn-label">
+                        <small>Download on</small>
+                        <strong>iPhone / iPad</strong>
+                    </span>
+                </a>
+                <a href="https://wa.me/918088584421?text=Hi%20KSR%20GURU%20JI%2C%20I%20want%20to%20place%20an%20order" target="_blank" rel="noopener" class="dl-btn">
+                    <i class="fab fa-whatsapp"></i>
+                    <span class="btn-label">
+                        <small>Order via</small>
+                        <strong>WhatsApp</strong>
+                    </span>
                 </a>
             </div>
         </div>
@@ -2125,6 +2142,13 @@ $bestSellers = array_slice($products, 0, 8);
             window.open('https://wa.me/918088584421?text=' + msg, '_blank');
         }
     </script>
+
+    <!-- ═══ Mobile Bottom Navigation Bar ═══ -->
+    <?php require_once __DIR__ . '/mobile-bottom-nav.php'; ?>
+
+    <!-- ═══ Mobile App JS ═══ -->
+    <script src="/assets/js/mobile-app.js?v=3.0" defer></script>
+
 </body>
 
 </html>

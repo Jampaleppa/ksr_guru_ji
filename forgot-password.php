@@ -350,6 +350,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && isset($_POST['password']
             }
         }
     </style>
+    <link rel="stylesheet" href="/mobile-app.css?v=3.0" />
 </head>
 
 <body>
@@ -416,6 +417,10 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && isset($_POST['password']
             <a href="index.php" class="back-home"><i class="fas fa-store"></i> Return to Store</a>
         </div>
     </div>
+
+    <!-- Mobile Bottom Navigation -->
+    <?php if (file_exists(__DIR__ . '/mobile-bottom-nav.php')) require_once __DIR__ . '/mobile-bottom-nav.php'; ?>
+    <script src="/assets/js/mobile-app.js?v=3.0" defer></script>
 </body>
 
 </html>

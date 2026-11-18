@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 require_once 'helper.php';
 
 if (session_status() === PHP_SESSION_NONE) { session_start(); }
@@ -101,6 +101,7 @@ $orders = $stmt ? $stmt->fetchAll(PDO::FETCH_ASSOC) : [];
             .tab { padding: 8px 12px; font-size: 0.8rem; }
         }
     </style>
+    <link rel="stylesheet" href="/mobile-app.css?v=3.0" />
 </head>
 <body>
     <!-- KSR brand bar (shared) -->
@@ -203,5 +204,9 @@ $orders = $stmt ? $stmt->fetchAll(PDO::FETCH_ASSOC) : [];
     <?php endif; ?>
 
 </div>
+
+    <!-- Mobile Bottom Navigation -->
+    <?php if (file_exists(__DIR__ . '/../../mobile-bottom-nav.php')) require_once __DIR__ . '/../../mobile-bottom-nav.php'; ?>
+    <script src="/assets/js/mobile-app.js?v=3.0" defer></script>
 </body>
 </html>

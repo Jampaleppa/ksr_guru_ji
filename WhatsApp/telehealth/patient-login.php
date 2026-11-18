@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 // ============================================================
 // patient-login.php - MOVED
 // The full Patient Portal login now lives at /patient-login.php
@@ -78,6 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login_patient'])) {
         .alert { padding: 12px; border-radius: var(--radius-md); font-size: 0.9rem; font-weight: 600; margin-bottom: 20px; display: flex; align-items: center; gap: 8px; }
         .alert-error { background: #FEF2F2; color: #DC2626; border: 1px solid #FECACA; }
     </style>
+    <link rel="stylesheet" href="/mobile-app.css?v=3.0" />
 </head>
 <body>
     <!-- KSR brand bar (shared) -->
@@ -121,6 +122,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login_patient'])) {
     </div>
     </div>
 
+
+    <!-- Mobile Bottom Navigation -->
+    <?php if (file_exists(__DIR__ . '/../../mobile-bottom-nav.php')) require_once __DIR__ . '/../../mobile-bottom-nav.php'; ?>
+    <script src="/assets/js/mobile-app.js?v=3.0" defer></script>
 </body>
 </html>
 */

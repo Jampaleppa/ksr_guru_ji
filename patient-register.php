@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 // ============================================================
 // patient-register.php - Patient Portal Registration
 // Step 1: details + CAPTCHA + Terms consent
@@ -492,6 +492,7 @@ if (pp_is_post()) {
             .captcha-q { text-align: center; }
         }
     </style>
+    <link rel="stylesheet" href="/mobile-app.css?v=3.0" />
 </head>
 
 <body>
@@ -575,6 +576,10 @@ if (pp_is_post()) {
             <a href="index.php">Back to home</a>
         </div>
     </div>
+
+    <!-- Mobile Bottom Navigation -->
+    <?php if (file_exists(__DIR__ . '/mobile-bottom-nav.php')) require_once __DIR__ . '/mobile-bottom-nav.php'; ?>
+    <script src="/assets/js/mobile-app.js?v=3.0" defer></script>
 </body>
 
 </html>

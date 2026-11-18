@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 require_once 'helper.php';
 
 $pdo = getAssistDB();
@@ -617,6 +617,7 @@ if (count($doctors) === 0) {
             }
         }
     </style>
+    <link rel="stylesheet" href="/mobile-app.css?v=3.0" />
 </head>
 <body>
     <!-- KSR brand bar (shared) -->

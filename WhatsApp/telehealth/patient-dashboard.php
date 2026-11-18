@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 require_once 'helper.php';
 require_once dirname(__DIR__, 2) . '/patient-auth.php';
 
@@ -859,6 +859,7 @@ function pp_consult_label(string $type): string
             }
         }
     </style>
+    <link rel="stylesheet" href="/mobile-app.css?v=3.0" />
 </head>
 
 <body>
@@ -1089,6 +1090,10 @@ function pp_consult_label(string $type): string
             <i class="fas fa-user"></i><span>Profile</span>
         </a>
     </nav>
+
+    <!-- Mobile Bottom Navigation -->
+    <?php if (file_exists(__DIR__ . '/../../mobile-bottom-nav.php')) require_once __DIR__ . '/../../mobile-bottom-nav.php'; ?>
+    <script src="/assets/js/mobile-app.js?v=3.0" defer></script>
 </body>
 
 </html>

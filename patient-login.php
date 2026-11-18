@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 // ============================================================
 // patient-login.php - Patient Portal Login
 // Password login | OTP login | Remember Me | Forgot Password
@@ -93,6 +93,7 @@ if (pp_is_post()) {
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="WhatsApp/telehealth/portal-auth.css">
+    <link rel="stylesheet" href="/mobile-app.css?v=3.0" />
 </head>
 
 <body>
@@ -225,6 +226,10 @@ if (pp_is_post()) {
             });
         });
     </script>
+
+    <!-- Mobile Bottom Navigation -->
+    <?php if (file_exists(__DIR__ . '/mobile-bottom-nav.php')) require_once __DIR__ . '/mobile-bottom-nav.php'; ?>
+    <script src="/assets/js/mobile-app.js?v=3.0" defer></script>
 </body>
 
 </html>

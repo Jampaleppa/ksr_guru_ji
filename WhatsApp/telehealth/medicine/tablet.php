@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 declare(strict_types=1);
 if (session_status() === PHP_SESSION_NONE) {
@@ -3300,6 +3300,7 @@ function invoiceUrl(string $code): string
       }
     }
   </style>
+    <link rel="stylesheet" href="/mobile-app.css?v=3.0" />
 </head>
 
 <body>
@@ -5214,6 +5215,9 @@ function invoiceUrl(string $code): string
     }
   </script>
 
+
+    <?php if (file_exists(__DIR__ . '/../../../mobile-bottom-nav.php')) require_once __DIR__ . '/../../../mobile-bottom-nav.php'; ?>
+    <script src="/assets/js/mobile-app.js?v=3.0" defer></script>
 </body>
 
 </html>

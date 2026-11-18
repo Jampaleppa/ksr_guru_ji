@@ -22,6 +22,7 @@ $base_url = '/';
             <a href="<?= $base_url ?>categories/cleaning.php" style="background:var(--bg-card,#fff);border:1px solid var(--border-color,#eee);padding:8px 16px;border-radius:30px;font-size:0.8rem;font-weight:600;color:var(--text-primary,#333);transition:all 0.2s;display:inline-flex;align-items:center;gap:6px;"><i class="fas fa-broom" style="color:var(--color-primary,#0f7b3a);"></i>Cleaning</a>
             <a href="<?= $base_url ?>categories/personal-care.php" style="background:var(--bg-card,#fff);border:1px solid var(--border-color,#eee);padding:8px 16px;border-radius:30px;font-size:0.8rem;font-weight:600;color:var(--text-primary,#333);transition:all 0.2s;display:inline-flex;align-items:center;gap:6px;"><i class="fas fa-spa" style="color:var(--color-primary,#0f7b3a);"></i>Personal Care</a>
             <a href="<?= $base_url ?>WhatsApp/telehealth/index.php" style="background:linear-gradient(135deg,rgba(232,93,44,0.04),rgba(232,93,44,0.08));border:1px solid rgba(232,93,44,0.15);padding:8px 16px;border-radius:30px;font-size:0.8rem;font-weight:700;color:var(--color-accent,#e85d2c);transition:all 0.2s;display:inline-flex;align-items:center;gap:6px;"><i class="fas fa-stethoscope"></i>Doctor Assist</a>
+            <a href="<?= $base_url ?>download-app.php" style="background:linear-gradient(135deg,rgba(15,123,58,0.08),rgba(15,123,58,0.18));border:1px solid rgba(15,123,58,0.3);padding:8px 16px;border-radius:30px;font-size:0.8rem;font-weight:700;color:var(--color-primary,#0f7b3a);transition:all 0.2s;display:inline-flex;align-items:center;gap:6px;"><i class="fas fa-mobile-screen"></i>Download App (APK/iOS)</a>
         </div>
     </div>
 </section>
@@ -59,6 +60,7 @@ $base_url = '/';
                     <li><a href="<?= $base_url ?>WhatsApp/telehealth/index.php">Doctor Assist</a></li>
                     <li><a href="<?= $base_url ?>track-order.php">Track Order</a></li>
                     <li><a href="<?= $base_url ?>final-suggest.php">Suggestion Box</a></li>
+                    <li><a href="<?= $base_url ?>download-app.php" style="color:var(--color-primary,#0f7b3a);font-weight:700;"><i class="fas fa-download"></i> Download App (APK/AAB)</a></li>
                 </ul>
             </div>
             <div class="footer-section">
@@ -122,3 +124,9 @@ window.showFastCartToast = function(msg) {
 })();
 </script>
 <script src="/assets/js/category-search.js" defer></script>
+
+<!-- ═══ Mobile Bottom Navigation (all customer pages) ═══ -->
+<?php if (file_exists(__DIR__ . '/mobile-bottom-nav.php')) require_once __DIR__ . '/mobile-bottom-nav.php'; ?>
+
+<!-- ═══ Mobile App JS ═══ -->
+<script src="/assets/js/mobile-app.js?v=3.0" defer></script>

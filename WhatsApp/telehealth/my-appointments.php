@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 require_once 'helper.php';
 
 // Mock Patient session
@@ -145,6 +145,7 @@ $docName = $_SESSION['user_name'] ?? 'DR. D C Rathod';
             .tab { padding: 8px 12px; font-size: 0.85rem; }
         }
     </style>
+    <link rel="stylesheet" href="/mobile-app.css?v=3.0" />
 </head>
 <body>
     <!-- KSR brand bar (shared) -->
@@ -461,5 +462,9 @@ $docName = $_SESSION['user_name'] ?? 'DR. D C Rathod';
     });
 </script>
 
+
+    <!-- Mobile Bottom Navigation -->
+    <?php if (file_exists(__DIR__ . '/../../mobile-bottom-nav.php')) require_once __DIR__ . '/../../mobile-bottom-nav.php'; ?>
+    <script src="/assets/js/mobile-app.js?v=3.0" defer></script>
 </body>
 </html>

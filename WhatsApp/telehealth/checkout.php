@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 require_once 'helper.php';
 
 // Configurable Admin fees
@@ -210,6 +210,7 @@ $issueDate = '05 Sep 2026';
             }
         }
     </style>
+    <link rel="stylesheet" href="/mobile-app.css?v=3.0" />
 </head>
 <body>
     <!-- KSR brand bar (shared) -->
@@ -771,5 +772,9 @@ $issueDate = '05 Sep 2026';
     document.addEventListener('DOMContentLoaded', renderCheckoutCart);
 </script>
 
+
+    <!-- Mobile Bottom Navigation -->
+    <?php if (file_exists(__DIR__ . '/../../mobile-bottom-nav.php')) require_once __DIR__ . '/../../mobile-bottom-nav.php'; ?>
+    <script src="/assets/js/mobile-app.js?v=3.0" defer></script>
 </body>
 </html>

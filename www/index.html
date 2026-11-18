@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>KSR GURU JI</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0f7b3a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="icon" type="image/png" href="icon-192.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: linear-gradient(135deg, #0f7b3a 0%, #1ea85a 60%, #0a5e2c 100%);
+            color: #ffffff;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 24px;
+            overflow: hidden;
+        }
+        .logo-wrap {
+            width: 110px;
+            height: 110px;
+            border-radius: 28px;
+            background: #ffffff;
+            padding: 8px;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
+            margin-bottom: 22px;
+            animation: bounceIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .logo-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 20px;
+        }
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 6px;
+        }
+        .tagline {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+        .spinner {
+            width: 38px;
+            height: 38px;
+            border: 3px solid rgba(255, 255, 255, 0.25);
+            border-top-color: #ffffff;
+            border-radius: 50%;
+            animation: spin 0.9s linear infinite;
+            margin-bottom: 16px;
+        }
+        .status-txt {
+            font-size: 0.85rem;
+            opacity: 0.85;
+            min-height: 20px;
+        }
+        .offline-btn {
+            display: none;
+            margin-top: 24px;
+            background: #ffffff;
+            color: #0f7b3a;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="logo-wrap">
+        <img src="company_logo.jpg" alt="KSR GURU JI" onerror="this.src='icon-192.png'">
+    </div>
+
+    <h1>KSR GURU JI</h1>
+    <p class="tagline">ನಮ್ಮ ಅಂಗಡಿ &bull; Everything Your Family Needs</p>
+
+    <div class="spinner" id="spinner"></div>
+    <div class="status-txt" id="status">Connecting to KSR Guru Ji...</div>
+
+    <button class="offline-btn" id="retryBtn" onclick="tryConnect()">Retry Connection</button>
+
+    <script>
+        const TARGET_URL = 'https://ksrguruji.com/';
+
+        function tryConnect() {
+            const statusEl = document.getElementById('status');
+            const spinnerEl = document.getElementById('spinner');
+            const retryBtn = document.getElementById('retryBtn');
+
+            statusEl.textContent = 'Loading store...';
+            spinnerEl.style.display = 'block';
+            retryBtn.style.display = 'none';
+
+            if (navigator.onLine) {
+                // If device is online, redirect to live app backend
+                window.location.replace(TARGET_URL);
+            } else {
+                setTimeout(() => {
+                    spinnerEl.style.display = 'none';
+                    statusEl.textContent = 'No internet connection detected. Please check Wi-Fi or mobile data.';
+                    retryBtn.style.display = 'inline-block';
+                }, 1500);
+            }
+        }
+
+        window.addEventListener('online', tryConnect);
+        window.addEventListener('load', () => {
+            // Small initial delay for smooth transition
+            setTimeout(tryConnect, 600);
+        });
+    </script>
+</body>
+</html>

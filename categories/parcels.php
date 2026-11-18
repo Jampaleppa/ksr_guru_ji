@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 declare(strict_types=1);
 if (session_status() === PHP_SESSION_NONE) {
@@ -1366,6 +1366,7 @@ if ($page === 'admin' && is_staff()) {
       .slip { display: block !important; }
     }
   </style>
+    <link rel="stylesheet" href="../mobile-app.css?v=3.0" />
 </head>
 
 <body>
@@ -2498,6 +2499,10 @@ if ($page === 'admin' && is_staff()) {
       });
     }
   </script>
+
+    <!-- Mobile Bottom Navigation -->
+    <?php if (file_exists(__DIR__ . '/../mobile-bottom-nav.php')) require_once __DIR__ . '/../mobile-bottom-nav.php'; ?>
+    <script src="/assets/js/mobile-app.js?v=3.0" defer></script>
 </body>
 
 </html>

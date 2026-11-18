@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 require_once 'helper.php';
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -913,6 +913,7 @@ $hasRx = isset($_GET['rx']) && $_GET['rx'] == 'true';
             }
         }
     </style>
+    <link rel="stylesheet" href="/mobile-app.css?v=3.0" />
 </head>
 
 <body>
@@ -1280,6 +1281,10 @@ $hasRx = isset($_GET['rx']) && $_GET['rx'] == 'true';
         document.addEventListener('DOMContentLoaded', renderCart);
     </script>
 
+
+    <!-- Mobile Bottom Navigation -->
+    <?php if (file_exists(__DIR__ . '/../../mobile-bottom-nav.php')) require_once __DIR__ . '/../../mobile-bottom-nav.php'; ?>
+    <script src="/assets/js/mobile-app.js?v=3.0" defer></script>
 </body>
 
 </html>

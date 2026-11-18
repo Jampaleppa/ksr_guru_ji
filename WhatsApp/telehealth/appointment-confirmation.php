@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 require_once 'helper.php';
 
 // Generate simulated data from POST
@@ -143,6 +143,7 @@ try {
         }
         
     </style>
+    <link rel="stylesheet" href="/mobile-app.css?v=3.0" />
 </head>
 <body>
     <!-- KSR brand bar (shared) -->
@@ -252,13 +253,22 @@ try {
     function generateInvoice() {
         const content = document.getElementById('invoice-template').innerHTML;
         const printWindow = window.open('', '', 'width=800,height=600');
-        printWindow.document.write('<html><head><title>Invoice - ' + '<?php echo $appointId; ?>' + '</title></head><body style="padding:20px;">');
+        printWindow.document.write('<html><head><title>Invoice - ' + '<?php echo $appointId; ?>' + '</title>    <link rel="stylesheet" href="/mobile-app.css?v=3.0" />
+</head><body style="padding:20px;">');
         printWindow.document.write(content);
-        printWindow.document.write('</body></html>');
+        printWindow.document.write('
+    <!-- Mobile Bottom Navigation -->
+    <?php if (file_exists(__DIR__ . '/../../mobile-bottom-nav.php')) require_once __DIR__ . '/../../mobile-bottom-nav.php'; ?>
+    <script src="/assets/js/mobile-app.js?v=3.0" defer></script>
+</body></html>');
         printWindow.document.close();
         printWindow.print();
     }
 </script>
 
+
+    <!-- Mobile Bottom Navigation -->
+    <?php if (file_exists(__DIR__ . '/../../mobile-bottom-nav.php')) require_once __DIR__ . '/../../mobile-bottom-nav.php'; ?>
+    <script src="/assets/js/mobile-app.js?v=3.0" defer></script>
 </body>
 </html>

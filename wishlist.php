@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 // ============================================================
 // wishlist.php – Customer Wishlist (session-based)
 // ============================================================
@@ -150,6 +150,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
         }
         .wl-remove-top:hover { background: #fee2e2; }
     </style>
+    <link rel="stylesheet" href="/mobile-app.css?v=3.0" />
 </head>
 <body>
 <nav class="topbar">
@@ -247,5 +248,9 @@ function addToCart(id, name, price) {
     .catch(() => alert('Added to cart!'));
 }
 </script>
+
+    <!-- Mobile Bottom Navigation -->
+    <?php if (file_exists(__DIR__ . '/mobile-bottom-nav.php')) require_once __DIR__ . '/mobile-bottom-nav.php'; ?>
+    <script src="/assets/js/mobile-app.js?v=3.0" defer></script>
 </body>
 </html>

@@ -110,6 +110,7 @@ $waText .= "%0AKindly confirm and dispatch to Delivery Boy: 8088584421 (Primary)
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/index.css?v=1.5" />
     <link rel="stylesheet" href="/cart-checkout.css?v=1.2" />
+    <link rel="stylesheet" href="/mobile-app.css?v=3.0" />
 
     <style>
         :root {
@@ -1046,6 +1047,10 @@ $waText .= "%0AKindly confirm and dispatch to Delivery Boy: 8088584421 (Primary)
             }
         })();
     </script>
+
+    <!-- ═══ Mobile Bottom Navigation ═══ -->
+    <?php require_once __DIR__ . '/mobile-bottom-nav.php'; ?>
+    <script src="/assets/js/mobile-app.js?v=3.0" defer></script>
 </body>
 
 </html>

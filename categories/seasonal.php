@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 // ============================================================
 // seasonal-items.php - Dynamic Seasonal Items page
 // ============================================================
@@ -448,6 +448,7 @@ $uniqueCategories = array_unique(array_column($productsData, 'category'));
   </style>
   <link rel="stylesheet" href="category-style.css">
   <link rel="stylesheet" href="../index.css">
+    <link rel="stylesheet" href="../mobile-app.css?v=3.0" />
 </head>
 
 <body>
@@ -808,6 +809,10 @@ $uniqueCategories = array_unique(array_column($productsData, 'category'));
   <div class="overlay" id="overlay"></div>
   <?php include __DIR__ . '/../includes/user-footer.php'; ?>
   <script src="sorting.js"></script>
+
+    <!-- Mobile Bottom Navigation -->
+    <?php if (file_exists(__DIR__ . '/../mobile-bottom-nav.php')) require_once __DIR__ . '/../mobile-bottom-nav.php'; ?>
+    <script src="/assets/js/mobile-app.js?v=3.0" defer></script>
 </body>
 
 </html>

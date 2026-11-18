@@ -1,8 +1,35 @@
 {
-  "name": "ksr-guru-ji",
-  "version": "1.0.0",
+  "name": "ksr-guru-ji-app",
+  "version": "3.0.0",
+  "description": "KSR Guru Ji – Mobile App (PWA + Capacitor Android/iOS)",
+  "main": "index.js",
+  "scripts": {
+    "build": "echo 'Building KSR Guru Ji PWA...' && npm run copy-www",
+    "copy-www": "xcopy /E /I /Y . www /EXCLUDE:exclude-list.txt 2>nul || rsync -av --exclude=node_modules --exclude=www --exclude=android --exclude=ios . www/",
+    "cap:add:android": "npx cap add android",
+    "cap:add:ios": "npx cap add ios",
+    "cap:sync": "npx cap sync",
+    "cap:open:android": "npx cap open android",
+    "cap:open:ios": "npx cap open ios",
+    "build:apk": "npm run build && npm run cap:sync && cd android && gradlew assembleDebug",
+    "build:apk:release": "npm run build && npm run cap:sync && cd android && gradlew assembleRelease",
+    "build:aab": "npm run build && npm run cap:sync && cd android && gradlew bundleRelease",
+    "lint": "echo 'No linting configured'"
+  },
+  "keywords": ["grocery", "delivery", "pwa", "mobile", "capacitor", "android", "ios"],
+  "author": "KSR Guru Ji",
+  "license": "UNLICENSED",
   "private": true,
-  "engines": {
-    "node": "22.x"
+  "dependencies": {
+    "@capacitor/android": "^6.0.0",
+    "@capacitor/core": "^6.0.0",
+    "@capacitor/ios": "^6.0.0",
+    "@capacitor/keyboard": "^6.0.0",
+    "@capacitor/push-notifications": "^6.0.0",
+    "@capacitor/splash-screen": "^6.0.0",
+    "@capacitor/status-bar": "^6.0.0"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^6.0.0"
   }
 }

@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 // ============================================================
 // patient-dashboard.php - Root forwarder to Telehealth Patient Dashboard
 // ============================================================

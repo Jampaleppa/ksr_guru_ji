@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 // ============================================================
 // final-suggest.php - Product & Medical Suggestion Box
 // ============================================================
@@ -281,6 +281,7 @@ $cartCount = array_sum(array_column($_SESSION['cart'] ?? [], 'qty'));
         rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <link rel="stylesheet" href="suggestion-box-style.css?v=1.2" />
+    <link rel="stylesheet" href="/mobile-app.css?v=3.0" />
 </head>
 
 <body>
@@ -1178,7 +1179,12 @@ $cartCount = array_sum(array_column($_SESSION['cart'] ?? [], 'qty'));
                 });
                 content += '</ul>';
                 const win = window.open('', '_blank');
-                win.document.write(`<html><head><title>Products</title></head><body>${content}</body></html>`);
+                win.document.write(`<html><head><title>Products</title>    <link rel="stylesheet" href="/mobile-app.css?v=3.0" />
+</head><body>${content}
+    <!-- Mobile Bottom Navigation -->
+    <?php if (file_exists(__DIR__ . '/mobile-bottom-nav.php')) require_once __DIR__ . '/mobile-bottom-nav.php'; ?>
+    <script src="/assets/js/mobile-app.js?v=3.0" defer></script>
+</body></html>`);
                 win.document.close();
                 win.print();
             }
@@ -1784,7 +1790,12 @@ $cartCount = array_sum(array_column($_SESSION['cart'] ?? [], 'qty'));
                 });
                 content += '</ul>';
                 const win = window.open('', '_blank');
-                win.document.write(`<html><head><title>Medical Records</title></head><body>${content}</body></html>`);
+                win.document.write(`<html><head><title>Medical Records</title>    <link rel="stylesheet" href="/mobile-app.css?v=3.0" />
+</head><body>${content}
+    <!-- Mobile Bottom Navigation -->
+    <?php if (file_exists(__DIR__ . '/mobile-bottom-nav.php')) require_once __DIR__ . '/mobile-bottom-nav.php'; ?>
+    <script src="/assets/js/mobile-app.js?v=3.0" defer></script>
+</body></html>`);
                 win.document.close();
                 win.print();
             }
@@ -1831,6 +1842,10 @@ $cartCount = array_sum(array_column($_SESSION['cart'] ?? [], 'qty'));
             if (e.key === 'Escape') closeImageViewer();
         });
     </script>
+
+    <!-- Mobile Bottom Navigation -->
+    <?php if (file_exists(__DIR__ . '/mobile-bottom-nav.php')) require_once __DIR__ . '/mobile-bottom-nav.php'; ?>
+    <script src="/assets/js/mobile-app.js?v=3.0" defer></script>
 </body>
 
 </html>

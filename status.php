@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 // ============================================================
 // payment/status.php - Customer Payment Status Page
 // ============================================================
@@ -454,6 +454,7 @@ $amount = $order ? (float)$order['total'] : 0.0;
             }
         }
     </style>
+    <link rel="stylesheet" href="/mobile-app.css?v=3.0" />
 </head>
 
 <body>
@@ -599,6 +600,10 @@ $amount = $order ? (float)$order['total'] : 0.0;
             })();
         </script>
     <?php endif; ?>
+
+    <!-- Mobile Bottom Navigation -->
+    <?php if (file_exists(__DIR__ . '/mobile-bottom-nav.php')) require_once __DIR__ . '/mobile-bottom-nav.php'; ?>
+    <script src="/assets/js/mobile-app.js?v=3.0" defer></script>
 </body>
 
 </html>

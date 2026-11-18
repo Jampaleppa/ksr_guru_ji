@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 // ============================================================
 // patient-portal.php - Patient Portal landing (before login)
 // ============================================================
@@ -275,6 +275,7 @@ if (pp_is_logged_in()) {
             }
         }
     </style>
+    <link rel="stylesheet" href="/mobile-app.css?v=3.0" />
 </head>
 
 <body>
@@ -335,6 +336,10 @@ if (pp_is_logged_in()) {
             <a href="WhatsApp/telehealth/index.php">Doctor Assist Platform</a>
         </div>
     </div>
+
+    <!-- Mobile Bottom Navigation -->
+    <?php if (file_exists(__DIR__ . '/mobile-bottom-nav.php')) require_once __DIR__ . '/mobile-bottom-nav.php'; ?>
+    <script src="/assets/js/mobile-app.js?v=3.0" defer></script>
 </body>
 
 </html>

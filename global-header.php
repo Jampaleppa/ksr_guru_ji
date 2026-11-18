@@ -30,6 +30,7 @@
                 <a href="/categories/ready-to-eat.php" class="nav-link"><i class="fas fa-bowl-food"></i> Ready to Eat</a>
                 <a href="/WhatsApp/telehealth/medicine/tablet.php" class="nav-link"><i class="fas fa-medkit"></i> Medicines</a>
                 <a href="/categories/parcels.php" class="nav-link"><i class="fas fa-box"></i> Parcel Delivery</a>
+                <a href="/download-app.php" class="nav-link" style="color:var(--color-primary,#0f7b3a);font-weight:700;"><i class="fas fa-mobile-screen"></i> Download App</a>
             </div>
 
             <!-- Header Actions (Visible on Mobile & Desktop) -->
@@ -57,6 +58,7 @@
                         <a href="/admin/index.php"><i class="fas fa-user-cog"></i> Admin</a>
                         <a href="/delivery/index.php"><i class="fas fa-truck"></i> Delivery</a>
                         <a href="/WhatsApp/telehealth/index.php"><i class="fas fa-stethoscope"></i> Doctor Assist</a>
+                        <a href="/download-app.php"><i class="fas fa-download"></i> Download App (APK)</a>
                     </div>
                 </div>
 

@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 // ============================================================
 // orders.php – My Orders (Customer View)
 // ============================================================
@@ -129,6 +129,7 @@ $cartCount = isset($_SESSION['cart']) ? array_sum(array_column($_SESSION['cart']
         .btn-sm-outline { border: 1.5px solid var(--border); color: var(--text-muted); background: #fff; }
         .btn-sm-outline:hover { border-color: var(--primary); color: var(--primary); }
     </style>
+    <link rel="stylesheet" href="/mobile-app.css?v=3.0" />
 </head>
 <body>
 
@@ -194,5 +195,9 @@ $cartCount = isset($_SESSION['cart']) ? array_sum(array_column($_SESSION['cart']
     <?php endif; ?>
 </div>
 
+
+    <!-- Mobile Bottom Navigation -->
+    <?php if (file_exists(__DIR__ . '/mobile-bottom-nav.php')) require_once __DIR__ . '/mobile-bottom-nav.php'; ?>
+    <script src="/assets/js/mobile-app.js?v=3.0" defer></script>
 </body>
 </html>

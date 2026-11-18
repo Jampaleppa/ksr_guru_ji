@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 // ============================================================
 // search.php - Global Product Search Across All Categories
 // ============================================================
@@ -402,6 +402,7 @@ if (!empty($_SESSION['cart']) && is_array($_SESSION['cart'])) {
             margin-top: 40px;
         }
     </style>
+    <link rel="stylesheet" href="/mobile-app.css?v=3.0" />
 </head>
 <body>
     <header class="header">
@@ -521,6 +522,10 @@ if (!empty($_SESSION['cart']) && is_array($_SESSION['cart'])) {
     <footer>
         <p>&copy; <?php echo date('Y'); ?> KSR GURU JI · Direct farm & daily essentials sourcing</p>
     </footer>
+
+    <!-- Mobile Bottom Navigation -->
+    <?php if (file_exists(__DIR__ . '/mobile-bottom-nav.php')) require_once __DIR__ . '/mobile-bottom-nav.php'; ?>
+    <script src="/assets/js/mobile-app.js?v=3.0" defer></script>
 </body>
 </html>
 

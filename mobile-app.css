@@ -1,0 +1,672 @@
+/* ============================================================
+   KSR GURU JI — MOBILE-FIRST ENHANCEMENT CSS
+   mobile-app.css  v3.0
+   All features visible & touch-optimized for iOS + Android
+   ============================================================ */
+
+/* ── BOTTOM NAVIGATION BAR (Mobile App Style) ───────────────── */
+.bottom-nav {
+  display: none;
+}
+@media (max-width: 768px) {
+  /* Extra bottom padding so content clears the nav bar */
+  body {
+    padding-bottom: 72px;
+  }
+
+  .bottom-nav {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 2000;
+    background: var(--bg-header, rgba(255,255,255,0.97));
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-top: 1px solid var(--border-color, rgba(15,123,58,0.1));
+    box-shadow: 0 -4px 24px rgba(15,123,58,0.1);
+    padding: 0;
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    height: calc(60px + env(safe-area-inset-bottom, 0px));
+    align-items: flex-start;
+  }
+
+  .bottom-nav-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 4px 6px;
+    gap: 3px;
+    text-decoration: none;
+    color: var(--text-muted, #5e6f63);
+    font-size: 0.6rem;
+    font-weight: 600;
+    font-family: var(--font-primary, 'Poppins', sans-serif);
+    transition: color 0.2s;
+    position: relative;
+    min-height: 60px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .bottom-nav-item i {
+    font-size: 1.3rem;
+    transition: transform 0.2s, color 0.2s;
+  }
+
+  .bottom-nav-item.active,
+  .bottom-nav-item:active {
+    color: var(--color-primary, #0f7b3a);
+  }
+
+  .bottom-nav-item.active i {
+    transform: scale(1.2);
+  }
+
+  .bottom-nav-item.active::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 20%;
+    right: 20%;
+    height: 3px;
+    background: var(--gradient-primary, linear-gradient(135deg, #0f7b3a, #1ea85a));
+    border-radius: 0 0 6px 6px;
+  }
+
+  /* Cart badge on bottom nav */
+  .bottom-nav-item .nav-badge {
+    position: absolute;
+    top: 6px;
+    right: 50%;
+    transform: translateX(60%);
+    background: var(--color-accent, #e85d2c);
+    color: white;
+    font-size: 0.55rem;
+    font-weight: 800;
+    min-width: 16px;
+    height: 16px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 3px;
+    border: 1.5px solid white;
+    line-height: 1;
+  }
+
+  /* Centre button — big green Add/Shop action */
+  .bottom-nav-item.center-action {
+    position: relative;
+    top: -14px;
+  }
+  .bottom-nav-item.center-action .center-btn-wrap {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: var(--gradient-primary, linear-gradient(135deg, #0f7b3a, #1ea85a));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 20px rgba(15,123,58,0.4);
+    color: white;
+  }
+  .bottom-nav-item.center-action i {
+    font-size: 1.4rem;
+    color: white;
+  }
+  .bottom-nav-item.center-action span {
+    color: var(--color-primary, #0f7b3a);
+    margin-top: 4px;
+  }
+}
+
+/* ── PWA INSTALL BANNER ──────────────────────────────────────── */
+#pwaInstallBanner {
+  display: none;
+  position: fixed;
+  bottom: 72px;
+  left: 12px;
+  right: 12px;
+  z-index: 3000;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 8px 40px rgba(15,123,58,0.25);
+  padding: 16px 20px;
+  align-items: center;
+  gap: 14px;
+  border: 1px solid rgba(15,123,58,0.15);
+  animation: slideUp 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+#pwaInstallBanner.show {
+  display: flex;
+}
+@keyframes slideUp {
+  from { transform: translateY(100%); opacity: 0; }
+  to   { transform: translateY(0);   opacity: 1; }
+}
+#pwaInstallBanner .pwa-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+#pwaInstallBanner .pwa-text {
+  flex: 1;
+}
+#pwaInstallBanner .pwa-text strong {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: #122116;
+}
+#pwaInstallBanner .pwa-text span {
+  font-size: 0.75rem;
+  color: #5e6f63;
+}
+#pwaInstallBanner .pwa-install-btn {
+  background: linear-gradient(135deg, #0f7b3a, #1ea85a);
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 0.8rem;
+  cursor: pointer;
+  white-space: nowrap;
+  font-family: 'Poppins', sans-serif;
+  flex-shrink: 0;
+}
+#pwaInstallBanner .pwa-close {
+  background: none;
+  border: none;
+  font-size: 1.1rem;
+  cursor: pointer;
+  color: #5e6f63;
+  padding: 4px;
+  flex-shrink: 0;
+}
+
+/* Desktop — show banner differently */
+@media (min-width: 769px) {
+  #pwaInstallBanner {
+    bottom: 24px;
+    left: auto;
+    right: 24px;
+    width: 360px;
+  }
+}
+
+/* ── MOBILE SEARCH BAR (Full Width on Small Screens) ─────────── */
+@media (max-width: 768px) {
+  .navbar {
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 8px 0;
+  }
+
+  .search-bar {
+    order: 3;
+    width: 100%;
+    flex-basis: 100%;
+    margin: 0 !important;
+    max-width: 100% !important;
+  }
+
+  .search-bar input {
+    font-size: 16px !important; /* prevents iOS zoom */
+  }
+
+  .logo-text .logo-tagline {
+    display: none;
+  }
+
+  /* Show only critical nav actions on mobile header */
+  .nav-link-support {
+    display: none;
+  }
+}
+
+/* ── TOUCH-FRIENDLY TAP TARGETS ─────────────────────────────── */
+@media (max-width: 768px) {
+  .add-btn,
+  .btn-add-cart,
+  .btn-add-large {
+    min-height: 44px !important;
+    min-width: 44px !important;
+    padding: 10px 14px !important;
+    font-size: 0.82rem !important;
+    touch-action: manipulation;
+  }
+
+  .category-card {
+    min-height: 80px !important;
+    padding: 12px 8px !important;
+    touch-action: manipulation;
+  }
+
+  .best-card,
+  .product-card {
+    touch-action: manipulation;
+  }
+
+  /* Prevent text selection on tap */
+  .add-btn, .cart-link, .bottom-nav-item, .category-card {
+    -webkit-user-select: none;
+    user-select: none;
+  }
+}
+
+/* ── STICKY CART BUTTON (Mobile floating) ───────────────────── */
+.mobile-cart-fab {
+  display: none;
+}
+@media (max-width: 768px) {
+  /* hide if bottom nav already shows cart */
+  .mobile-cart-fab {
+    display: none;
+  }
+}
+
+/* ── SWIPE-FRIENDLY CATEGORIES HORIZONTAL SCROLL ────────────── */
+@media (max-width: 768px) {
+  .categories-grid {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory;
+    gap: 10px !important;
+    padding: 8px 4px 12px !important;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .categories-grid::-webkit-scrollbar { display: none; }
+
+  .category-group-title {
+    display: none !important; /* hide group headers in scroll mode */
+  }
+
+  .category-card {
+    flex-shrink: 0 !important;
+    scroll-snap-align: start;
+    min-width: 90px !important;
+    max-width: 90px !important;
+    font-size: 0.7rem !important;
+  }
+
+  .category-card i {
+    font-size: 1.3rem !important;
+  }
+}
+
+/* ── PRODUCT GRID MOBILE TWEAKS ─────────────────────────────── */
+@media (max-width: 480px) {
+  .products-grid,
+  .best-sellers-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+  }
+
+  .best-card,
+  .product-card {
+    border-radius: 16px !important;
+    padding: 12px 10px !important;
+  }
+
+  .product-img,
+  .card-img {
+    height: 90px !important;
+    font-size: 2rem !important;
+  }
+
+  .product-name,
+  .card-title,
+  .product-title {
+    font-size: 0.8rem !important;
+    line-height: 1.3 !important;
+  }
+
+  .price,
+  .card-price,
+  .product-price {
+    font-size: 0.95rem !important;
+    font-weight: 800 !important;
+  }
+
+  /* Wishlist button bigger on mobile */
+  .wishlist-btn {
+    width: 32px !important;
+    height: 32px !important;
+    font-size: 0.85rem !important;
+  }
+}
+
+/* ── HERO SECTION MOBILE ─────────────────────────────────────── */
+@media (max-width: 480px) {
+  .hero {
+    min-height: 220px !important;
+  }
+
+  .hero-slide {
+    padding: 24px 16px !important;
+    min-height: 220px !important;
+  }
+
+  .hero-content h2 {
+    font-size: 1.4rem !important;
+    line-height: 1.3 !important;
+  }
+
+  .hero-content p {
+    font-size: 0.82rem !important;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .hero-btns {
+    flex-direction: column !important;
+    gap: 8px !important;
+  }
+
+  .btn {
+    width: 100% !important;
+    text-align: center !important;
+    padding: 12px 20px !important;
+    font-size: 0.85rem !important;
+  }
+}
+
+/* ── QUICK-VIEW MODAL MOBILE ─────────────────────────────────── */
+@media (max-width: 768px) {
+  #quickViewModal .modal-box {
+    border-radius: 24px 24px 0 0 !important;
+    position: fixed !important;
+    bottom: 72px !important;
+    left: 0 !important;
+    right: 0 !important;
+    top: auto !important;
+    transform: none !important;
+    max-height: 85vh !important;
+    overflow-y: auto;
+    padding: 24px 20px !important;
+    animation: slideModalUp 0.35s ease !important;
+  }
+  @keyframes slideModalUp {
+    from { transform: translateY(100%); }
+    to   { transform: translateY(0); }
+  }
+}
+
+/* ── CART DRAWER MOBILE ──────────────────────────────────────── */
+@media (max-width: 768px) {
+  #cartDrawer {
+    top: auto !important;
+    bottom: 72px !important;
+    right: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    max-height: 75vh !important;
+    border-radius: 24px 24px 0 0 !important;
+    transform: translateY(100%) !important;
+  }
+  #cartDrawer.open {
+    transform: translateY(0) !important;
+  }
+}
+
+/* ── CHECKOUT PAGE MOBILE ────────────────────────────────────── */
+@media (max-width: 600px) {
+  .checkout-container,
+  .checkout-grid,
+  .checkout-layout {
+    grid-template-columns: 1fr !important;
+    padding: 0 !important;
+  }
+
+  .checkout-form-section,
+  .checkout-summary-section,
+  .order-summary {
+    border-radius: 16px !important;
+    padding: 16px !important;
+  }
+
+  .payment-methods-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 10px !important;
+  }
+
+  .payment-method-card {
+    padding: 12px 8px !important;
+    font-size: 0.8rem !important;
+  }
+
+  input, select, textarea {
+    font-size: 16px !important; /* iOS anti-zoom */
+    padding: 12px 14px !important;
+  }
+}
+
+/* ── FOOTER MOBILE ───────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .main-footer {
+    border-radius: 24px 24px 0 0 !important;
+    padding: 2rem 0 1rem !important;
+  }
+  .footer-content {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 1.5rem !important;
+    padding: 0 16px !important;
+  }
+  .footer-section:first-child {
+    grid-column: 1 / -1; /* Full width for brand section */
+  }
+}
+
+/* ── SECTION TITLES MOBILE ───────────────────────────────────── */
+@media (max-width: 480px) {
+  .section-title {
+    font-size: 1.15rem !important;
+    margin-bottom: 12px !important;
+  }
+}
+
+/* ── FILTER TOOLBAR MOBILE ───────────────────────────────────── */
+@media (max-width: 600px) {
+  .filter-toolbar {
+    padding: 12px !important;
+    margin: 12px 0 !important;
+  }
+
+  .filter-row {
+    flex-direction: column !important;
+    gap: 8px !important;
+  }
+
+  .filter-chip {
+    width: 100% !important;
+    border-radius: 10px !important;
+  }
+
+  .filter-chip select,
+  .filter-chip input {
+    font-size: 14px !important;
+    width: 100% !important;
+  }
+}
+
+/* ── SAFE AREA SUPPORT (iPhone Notch / Dynamic Island) ───────── */
+@supports (padding: max(0px)) {
+  body {
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+  .header {
+    padding-top: max(12px, env(safe-area-inset-top));
+  }
+}
+
+/* ── APP-DOWNLOAD SECTION ENHANCED ──────────────────────────── */
+.mobile-download-section {
+  background: linear-gradient(135deg, #0f7b3a 0%, #1ea85a 100%);
+  border-radius: 20px;
+  margin: 32px 0;
+  padding: 32px 24px;
+  color: white;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.mobile-download-section::before {
+  content: '';
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  width: 180px;
+  height: 180px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 50%;
+}
+.mobile-download-section h2 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+.mobile-download-section p {
+  font-size: 0.9rem;
+  opacity: 0.9;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+.download-btn-row {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.dl-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255,255,255,0.15);
+  border: 1.5px solid rgba(255,255,255,0.4);
+  border-radius: 14px;
+  padding: 12px 20px;
+  color: white;
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: all 0.2s;
+  backdrop-filter: blur(4px);
+  min-width: 150px;
+  justify-content: center;
+}
+.dl-btn:hover, .dl-btn:active {
+  background: white;
+  color: #0f7b3a;
+  border-color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+}
+.dl-btn i {
+  font-size: 1.3rem;
+}
+.dl-btn .btn-label small {
+  display: block;
+  font-size: 0.65rem;
+  font-weight: 400;
+  opacity: 0.85;
+}
+.dl-btn .btn-label strong {
+  display: block;
+  font-size: 0.95rem;
+}
+
+/* QR Code */
+.qr-section {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-size: 0.8rem;
+  opacity: 0.85;
+}
+.qr-section img {
+  width: 80px;
+  height: 80px;
+  border-radius: 10px;
+  background: white;
+  padding: 6px;
+}
+
+/* ── RIPPLE EFFECT for Buttons ───────────────────────────────── */
+.ripple {
+  position: relative;
+  overflow: hidden;
+}
+.ripple::after {
+  content: '';
+  position: absolute;
+  left: var(--ripple-x, 50%);
+  top: var(--ripple-y, 50%);
+  transform: translate(-50%, -50%) scale(0);
+  width: 200px;
+  height: 200px;
+  background: rgba(255,255,255,0.3);
+  border-radius: 50%;
+  opacity: 1;
+  animation: none;
+  pointer-events: none;
+}
+.ripple.rippling::after {
+  animation: rippleAnim 0.5s ease-out forwards;
+}
+@keyframes rippleAnim {
+  to { transform: translate(-50%, -50%) scale(2); opacity: 0; }
+}
+
+/* ── LAZY-LOAD IMAGE PLACEHOLDER ─────────────────────────────── */
+img.lazy {
+  background: linear-gradient(90deg, #e8f5e9 25%, #f1f8f3 50%, #e8f5e9 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ── SCROLL-TO-TOP BUTTON ────────────────────────────────────── */
+#scrollTopBtn {
+  display: none;
+  position: fixed;
+  right: 16px;
+  bottom: 80px;
+  z-index: 1500;
+  background: var(--gradient-primary, linear-gradient(135deg, #0f7b3a, #1ea85a));
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(15,123,58,0.35);
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.3s, transform 0.3s;
+}
+#scrollTopBtn.show {
+  display: flex;
+}
+#scrollTopBtn:active { transform: scale(0.9); }

@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 // ============================================================
 // doctor-assist/index.php - Landing Page & Hub
 // ============================================================
@@ -47,6 +47,7 @@ $featuredDoctors = array_slice($featuredDoctors, 0, 4);
     <title>Doctor Assist Ecosystem Hub · KSR GURU JI</title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/mobile-app.css?v=3.0" />
 </head>
 
 <body>
@@ -441,6 +442,10 @@ $featuredDoctors = array_slice($featuredDoctors, 0, 4);
         }
     </script>
 
+
+    <!-- Mobile Bottom Navigation -->
+    <?php if (file_exists(__DIR__ . '/../../mobile-bottom-nav.php')) require_once __DIR__ . '/../../mobile-bottom-nav.php'; ?>
+    <script src="/assets/js/mobile-app.js?v=3.0" defer></script>
 </body>
 
 </html>

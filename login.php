@@ -557,6 +557,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
             .btn-login { font-size: 0.95rem; padding: 0.85rem; }
         }
     </style>
+    <link rel="stylesheet" href="/mobile-app.css?v=3.0" />
 </head>
 <body>
     <div class="login-card">
@@ -707,5 +708,9 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
             }, 8000);
         });
     </script>
+
+    <!-- Mobile Bottom Navigation -->
+    <?php if (file_exists(__DIR__ . '/mobile-bottom-nav.php')) require_once __DIR__ . '/mobile-bottom-nav.php'; ?>
+    <script src="/assets/js/mobile-app.js?v=3.0" defer></script>
 </body>
 </html>

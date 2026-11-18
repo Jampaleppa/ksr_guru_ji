@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 if (session_status() === PHP_SESSION_NONE) { session_start(); }
 $patientName = $_SESSION['user_name'] ?? 'John Doe';
 ?>
@@ -156,6 +156,7 @@ $patientName = $_SESSION['user_name'] ?? 'John Doe';
             }
         }
     </style>
+    <link rel="stylesheet" href="/mobile-app.css?v=3.0" />
 </head>
 <body>
     <!-- KSR brand bar (shared) -->
@@ -313,5 +314,9 @@ $patientName = $_SESSION['user_name'] ?? 'John Doe';
             document.getElementById('cartCount').innerText = total;
         }
     </script>
+
+    <!-- Mobile Bottom Navigation -->
+    <?php if (file_exists(__DIR__ . '/../../mobile-bottom-nav.php')) require_once __DIR__ . '/../../mobile-bottom-nav.php'; ?>
+    <script src="/assets/js/mobile-app.js?v=3.0" defer></script>
 </body>
 </html>

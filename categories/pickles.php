@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 // ============================================================
 // pickles-sauces.php - Dynamic Pickles & Sauces page
 // ============================================================
@@ -639,6 +639,7 @@ foreach ($productsData as $p) {
   </style>
   <link rel="stylesheet" href="category-style.css">
   <link rel="stylesheet" href="../index.css">
+    <link rel="stylesheet" href="../mobile-app.css?v=3.0" />
 </head>
 
 <body>
@@ -1012,6 +1013,10 @@ foreach ($productsData as $p) {
   <div class="overlay" id="overlay"></div>
   <?php include __DIR__ . '/../includes/user-footer.php'; ?>
   <script src="sorting.js"></script>
+
+    <!-- Mobile Bottom Navigation -->
+    <?php if (file_exists(__DIR__ . '/../mobile-bottom-nav.php')) require_once __DIR__ . '/../mobile-bottom-nav.php'; ?>
+    <script src="/assets/js/mobile-app.js?v=3.0" defer></script>
 </body>
 
 </html>

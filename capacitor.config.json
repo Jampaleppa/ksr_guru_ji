@@ -1,0 +1,59 @@
+{
+  "appId": "com.ksrguruji.app",
+  "appName": "KSR Guru Ji",
+  "webDir": "www",
+  "bundledWebRuntime": false,
+  "server": {
+    "url": "https://ksrguruji.com",
+    "cleartext": false,
+    "androidScheme": "https"
+  },
+  "android": {
+    "buildOptions": {
+      "keystorePath": "android/app/ksr-guru-ji.jks",
+      "keystorePassword": "ksrguruji@2024",
+      "keystoreAlias": "ksrguruji",
+      "keystoreAliasPassword": "ksrguruji@2024",
+      "releaseType": "APK"
+    },
+    "allowMixedContent": false,
+    "captureInput": true,
+    "webContentsDebuggingEnabled": false,
+    "useLegacyBridge": false,
+    "loggingBehavior": "none",
+    "flavor": "production"
+  },
+  "ios": {
+    "scheme": "KSR Guru Ji",
+    "contentInset": "automatic",
+    "allowsLinkPreview": false,
+    "scrollEnabled": true
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 2000,
+      "launchAutoHide": true,
+      "backgroundColor": "#0f7b3a",
+      "androidSplashResourceName": "splash",
+      "androidScaleType": "CENTER_CROP",
+      "showSpinner": true,
+      "androidSpinnerStyle": "large",
+      "iosSpinnerStyle": "large",
+      "spinnerColor": "#ffffff",
+      "splashFullScreen": true,
+      "splashImmersive": true
+    },
+    "PushNotifications": {
+      "presentationOptions": ["badge", "sound", "alert"]
+    },
+    "StatusBar": {
+      "style": "dark",
+      "backgroundColor": "#0f7b3a"
+    },
+    "Keyboard": {
+      "resize": "body",
+      "style": "dark",
+      "resizeOnFullScreen": true
+    }
+  }
+}

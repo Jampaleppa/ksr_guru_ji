@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 // ============================================================
 // suggestion-box.php - Missing Product Suggestion Form
 // ============================================================
@@ -284,6 +284,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && isset($_POST['action']) 
             font-weight: 600;
         }
     </style>
+    <link rel="stylesheet" href="/mobile-app.css?v=3.0" />
 </head>
 <body>
     <header class="header">
@@ -434,6 +435,10 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && isset($_POST['action']) 
     <footer style="text-align:center; padding:20px; color:var(--text-muted); font-size:0.85rem;">
         &copy; <?php echo date('Y'); ?> KSR GURU JI · Dedicated to bringing all your essentials to your doorstep.
     </footer>
+
+    <!-- Mobile Bottom Navigation -->
+    <?php if (file_exists(__DIR__ . '/mobile-bottom-nav.php')) require_once __DIR__ . '/mobile-bottom-nav.php'; ?>
+    <script src="/assets/js/mobile-app.js?v=3.0" defer></script>
 </body>
 </html>
 

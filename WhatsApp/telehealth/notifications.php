@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 require_once 'helper.php';
 
 // Mock Patient State for Inbox
@@ -587,6 +587,7 @@ $docName = $_SESSION['user_name'] ?? 'DR. D C Rathod';
             }
         }
     </style>
+    <link rel="stylesheet" href="/mobile-app.css?v=3.0" />
 </head>
 
 <body>
@@ -846,6 +847,10 @@ $docName = $_SESSION['user_name'] ?? 'DR. D C Rathod';
         }
     </script>
 
+
+    <!-- Mobile Bottom Navigation -->
+    <?php if (file_exists(__DIR__ . '/../../mobile-bottom-nav.php')) require_once __DIR__ . '/../../mobile-bottom-nav.php'; ?>
+    <script src="/assets/js/mobile-app.js?v=3.0" defer></script>
 </body>
 
 </html>
