@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 // ============================================================
 // checkout.php - Unified Checkout (Backend + Frontend)
 // ============================================================
@@ -460,7 +460,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && isset($_POST['action']))
         if (!$priced['validated']) {
             error_log(
                 "create_order BLOCKED: {$priced['unmatched']} cart item(s) could not be matched to active products. " .
-                "Possible tampering. User: " . ($_SESSION['user_id'] ?? 'guest')
+                    "Possible tampering. User: " . ($_SESSION['user_id'] ?? 'guest')
             );
             echo json_encode(['success' => false, 'errors' => [
                 'One or more items in your cart are no longer available. Please refresh your cart and try again.'
@@ -505,7 +505,9 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && isset($_POST['action']))
                 // Check for collision (unique constraint on order_number)
                 $_chk = $pdo->prepare('SELECT 1 FROM orders WHERE order_number = ? LIMIT 1');
                 $_chk->execute([$orderNumber]);
-                if (!$_chk->fetchColumn()) { break; }
+                if (!$_chk->fetchColumn()) {
+                    break;
+                }
             }
             if (empty($orderNumber)) {
                 $pdo->rollBack();
@@ -548,16 +550,55 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && isset($_POST['action']))
             $isMysql = ($pdo->getAttribute(PDO::ATTR_DRIVER_NAME) !== 'sqlite');
             $stockErrors = [];
             foreach ($priced['line_items'] as $line) {
-                $lockSql = $isMysql
-                    ? 'SELECT stock FROM products WHERE id = ? AND status = 1 FOR UPDATE'
-                    : 'SELECT stock FROM products WHERE id = ? AND status = 1';
-                $stk = $pdo->prepare($lockSql);
-                $stk->execute([$line['id']]);
-                $prod = $stk->fetch(PDO::FETCH_ASSOC);
-                if ($prod === false) {
-                    $stockErrors[] = $line['name'] . ' is no longer available.';
-                } elseif ((int)$prod['stock'] < (int)$line['qty']) {
-                    $stockErrors[] = $line['name'] . ': only ' . (int)$prod['stock'] . ' left in stock (you requested ' . (int)$line['qty'] . ').';
+                $rawLineId = (string)($line['id'] ?? '');
+                $cleanLineId = explode(':', $rawLineId)[0];
+
+                // Case A: Produce items (veg_*)
+                if (str_starts_with($cleanLineId, 'veg_')) {
+                    $vegId = (int)substr($cleanLineId, 4);
+                    if ($vegId > 0) {
+                        try {
+                            $stkVeg = $pdo->prepare('SELECT is_available, is_active FROM daily_market_prices WHERE id = ?');
+                            $stkVeg->execute([$vegId]);
+                            $vegRow = $stkVeg->fetch(PDO::FETCH_ASSOC);
+                            if ($vegRow !== false) {
+                                $isAvail = (int)($vegRow['is_available'] ?? 1);
+                                $isActive = (int)($vegRow['is_active'] ?? 1);
+                                if ($isAvail === 0 && $isActive === 0) {
+                                    $stockErrors[] = $line['name'] . ' is currently out of stock in today\'s market.';
+                                }
+                            }
+                        } catch (Throwable $e) {}
+                    }
+                    continue;
+                }
+
+                // Case B: Products table items
+                $pid = 0;
+                if (preg_match('/^[a-zA-Z0-9\-]+_(\d+)$/', $cleanLineId, $m)) {
+                    $pid = (int)$m[1];
+                } elseif (is_numeric($cleanLineId)) {
+                    $pid = (int)$cleanLineId;
+                }
+
+                if ($pid > 0) {
+                    $lockSql = $isMysql
+                        ? 'SELECT id, stock FROM products WHERE id = ? AND status = 1 FOR UPDATE'
+                        : 'SELECT id, stock FROM products WHERE id = ? AND status = 1';
+                    $stk = $pdo->prepare($lockSql);
+                    $stk->execute([$pid]);
+                    $prod = $stk->fetch(PDO::FETCH_ASSOC);
+                    if ($prod !== false) {
+                        if ((int)$prod['stock'] < (int)$line['qty']) {
+                            $stockErrors[] = $line['name'] . ': only ' . (int)$prod['stock'] . ' left in stock (you requested ' . (int)$line['qty'] . ').';
+                        }
+                        continue;
+                    }
+                }
+
+                // Case C: Virtual / category catalog / multi-store items
+                if ((int)$line['qty'] > 999) {
+                    $stockErrors[] = $line['name'] . ': maximum order quantity is 999.';
                 }
             }
             if (!empty($stockErrors)) {
@@ -576,21 +617,36 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && isset($_POST['action']))
                 VALUES (?, ?, ?, ?, ?, ?)
             ");
             foreach ($priced['line_items'] as $line) {
+                $rawLineId = (string)($line['id'] ?? '');
+                $cleanLineId = explode(':', $rawLineId)[0];
+                $pid = 0;
+                if (preg_match('/^[a-zA-Z0-9\-]+_(\d+)$/', $cleanLineId, $m)) {
+                    $pid = (int)$m[1];
+                } elseif (is_numeric($cleanLineId)) {
+                    $pid = (int)$cleanLineId;
+                }
+
                 $stmt->execute([
                     $orderId,
-                    $line['id'],
+                    $pid > 0 ? $pid : null,
                     $line['name'],
                     $line['qty'],
                     $line['unit_price'],
                     $line['total'],
                 ]);
-                // Decrement stock atomically
-                if ($isMysql) {
-                    $pdo->prepare('UPDATE products SET stock = GREATEST(0, stock - ?) WHERE id = ?')
-                        ->execute([$line['qty'], $line['id']]);
-                } else {
-                    $pdo->prepare('UPDATE products SET stock = MAX(0, stock - ?) WHERE id = ?')
-                        ->execute([$line['qty'], $line['id']]);
+                // Decrement stock atomically only for items in products table
+                if ($pid > 0) {
+                    $chk = $pdo->prepare('SELECT id FROM products WHERE id = ?');
+                    $chk->execute([$pid]);
+                    if ($chk->fetch()) {
+                        if ($isMysql) {
+                            $pdo->prepare('UPDATE products SET stock = GREATEST(0, stock - ?) WHERE id = ?')
+                                ->execute([$line['qty'], $pid]);
+                        } else {
+                            $pdo->prepare('UPDATE products SET stock = MAX(0, stock - ?) WHERE id = ?')
+                                ->execute([$line['qty'], $pid]);
+                        }
+                    }
                 }
             }
 
@@ -803,13 +859,13 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && isset($_POST['action']))
                     }
 
                     $_SESSION['cart'] = [];
-echo json_encode([
-    'success' => true,
-    'order_id' => $orderId,
-    'order_number' => $orderNumber,
-    'redirect_url' => '/payment/index.php?oid=' . $orderId,
-    'message' => 'Proceeding to KSR GURU JI PAY...'
-]);
+                    echo json_encode([
+                        'success' => true,
+                        'order_id' => $orderId,
+                        'order_number' => $orderNumber,
+                        'redirect_url' => '/payment/index.php?oid=' . $orderId,
+                        'message' => 'Proceeding to KSR GURU JI PAY...'
+                    ]);
                     exit;
                 }
             }
@@ -891,7 +947,7 @@ if ($isLoggedIn) {
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-title" content="KSR Guru Ji" />
-        <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="shortcut icon" href="/favicon.ico" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
     <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
@@ -1339,7 +1395,9 @@ if ($isLoggedIn) {
             if (currentPath.endsWith('.php')) {
                 endpoints.push(currentPath);
             }
-            if (currentPath && currentPath !== '/') { endpoints.push(currentPath); }
+            if (currentPath && currentPath !== '/') {
+                endpoints.push(currentPath);
+            }
             endpoints.push('/checkout.php');
             endpoints.push('/checkout');
             endpoints.push('checkout.php');
@@ -1355,19 +1413,29 @@ if ($isLoggedIn) {
                     const response = await fetch(endpoint, {
                         method: 'POST',
                         body: formData,
-                        headers: { 'Accept': 'application/json' }
+                        headers: {
+                            'Accept': 'application/json'
+                        }
                     });
                     const text = await response.text();
                     lastText = text;
                     try {
                         const parsed = JSON.parse(text);
-                        return { ok: true, data: parsed, endpoint: endpoint };
+                        return {
+                            ok: true,
+                            data: parsed,
+                            endpoint: endpoint
+                        };
                     } catch (parseErr) {
                         const match = text.match(/\{[\s\S]*\}/);
                         if (match) {
                             try {
                                 const parsed = JSON.parse(match[0]);
-                                return { ok: true, data: parsed, endpoint: endpoint };
+                                return {
+                                    ok: true,
+                                    data: parsed,
+                                    endpoint: endpoint
+                                };
                             } catch (_) {}
                         }
                         lastError = new Error(`Server returned non-JSON response from ${endpoint}`);
@@ -1377,7 +1445,11 @@ if ($isLoggedIn) {
                     console.warn(`Checkout request at ${endpoint} failed:`, fetchErr);
                 }
             }
-            return { ok: false, error: lastError, rawText: lastText };
+            return {
+                ok: false,
+                error: lastError,
+                rawText: lastText
+            };
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -1490,8 +1562,8 @@ if ($isLoggedIn) {
         const DELIVERY_CHARGE = 15; // fixed delivery fee
         const UPI_ID = 'jyampallepparathod-1@oksbi';
         const APP_UPI_IDS = {
-            gpay: '9590902742@axl',          // Axis — avoids ICICI→SBI cross-bank block
-            phonepe: '9590902742@axl',
+            gpay: 'jyampallepparathod-1@oksbi', // Axis — avoids ICICI→SBI cross-bank block
+            phonepe: '959090274@axl',
             paytm: '9590902742@ptyes',
             amazonpay: '8088584421@apl',
             bhim: '9590902742@upi',
@@ -1504,7 +1576,7 @@ if ($isLoggedIn) {
             },
             {
                 name: 'PhonePe',
-                id: '9590902742@axl'
+                id: '959090274@axl'
             },
             {
                 name: 'Paytm',
@@ -1521,14 +1593,14 @@ if ($isLoggedIn) {
         ];
         const MERCHANT_UPI_IDS = [
             'jyampallepparathod-1@oksbi',
-            '9590902742@axl',
+            '959090274@axl',
             '9590902742@ptyes',
             '8088584421@apl',
             '9590902742@upi'
         ];
         const COMPANY_NAME = 'KSR GURU JI';
         const COMPANY_PHONE = '8088584421';
-        const COMPANY_EMAIL = 'support@ksrguru.com';
+        const COMPANY_EMAIL = 'ksrguruji26@gmail.com';
         const WHATSAPP_NUMBERS = ['918088584421', '918762474406']; // with country code
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -1647,9 +1719,9 @@ if ($isLoggedIn) {
 
             const hasLiveLocation = !!(orderData.location && orderData.location.lat && orderData.location.lng);
             const locationStatus = hasLiveLocation ? '📍 LIVE GPS LOCATION' : '🏠 MANUAL ADDRESS';
-            const mapsLink = hasLiveLocation 
-                ? `https://maps.google.com/?q=${orderData.location.lat},${orderData.location.lng}` 
-                : `https://maps.google.com/?q=${encodeURIComponent(customer.address + ', ' + customer.city + ' ' + customer.pincode)}`;
+            const mapsLink = hasLiveLocation ?
+                `https://maps.google.com/?q=${orderData.location.lat},${orderData.location.lng}` :
+                `https://maps.google.com/?q=${encodeURIComponent(customer.address + ', ' + customer.city + ' ' + customer.pincode)}`;
 
             let itemsList = items.map((item, idx) => {
                 let str = `${idx + 1}. *${item.name}* × ${item.qty} (${formatINR(item.price * item.qty)})`;
@@ -1671,25 +1743,25 @@ if ($isLoggedIn) {
             }
 
             let msg = `🛍️ *NEW ORDER — KSR GURU JI EXPRESS* 🛍️\n` +
-                      `━━━━━━━━━━━━━━━━━━━━━━━\n` +
-                      `🆔 *Order ID:* ${orderNo}\n` +
-                      `⏰ *Order Placed:* ${timeStr}\n` +
-                      `⚡ *Delivery Deadline:* ${deadlineStr} (within 45 mins)\n\n` +
-                      `👤 *CUSTOMER DETAILS:*\n` +
-                      `• *Name:* ${customer.name}\n` +
-                      `• *Phone:* ${customer.mobile}\n` +
-                      `• *Address:* ${customer.address}, ${customer.city} - ${customer.pincode}\n` +
-                      `• *Location Status:* ${locationStatus}\n\n` +
-                      `📦 *ITEMS ORDERED (${items.length}):*\n` +
-                      `${itemsList}\n\n` +
-                      `━━━━━━━━━━━━━━━━━━━━━━━\n` +
-                      `💰 *BILL SUMMARY:*\n` +
-                      `• Subtotal: ${formatINR(subtotal)}\n` +
-                      `• Express Delivery (45m): ${formatINR(deliveryCharge)}\n` +
-                      `• *Grand Total: ${formatINR(total)}*\n` +
-                      `• *Payment Status:* ${payBadge}\n\n` +
-                      `🚀 *Live Delivery Tracking:*\n${window.location.origin}/delivery/tracking.php?ref=${orderNo}\n\n` +
-                      `🗺️ *Google Maps Navigation Link:*\n${mapsLink}\n`;
+                `━━━━━━━━━━━━━━━━━━━━━━━\n` +
+                `🆔 *Order ID:* ${orderNo}\n` +
+                `⏰ *Order Placed:* ${timeStr}\n` +
+                `⚡ *Delivery Deadline:* ${deadlineStr} (within 45 mins)\n\n` +
+                `👤 *CUSTOMER DETAILS:*\n` +
+                `• *Name:* ${customer.name}\n` +
+                `• *Phone:* ${customer.mobile}\n` +
+                `• *Address:* ${customer.address}, ${customer.city} - ${customer.pincode}\n` +
+                `• *Location Status:* ${locationStatus}\n\n` +
+                `📦 *ITEMS ORDERED (${items.length}):*\n` +
+                `${itemsList}\n\n` +
+                `━━━━━━━━━━━━━━━━━━━━━━━\n` +
+                `💰 *BILL SUMMARY:*\n` +
+                `• Subtotal: ${formatINR(subtotal)}\n` +
+                `• Express Delivery (45m): ${formatINR(deliveryCharge)}\n` +
+                `• *Grand Total: ${formatINR(total)}*\n` +
+                `• *Payment Status:* ${payBadge}\n\n` +
+                `🚀 *Live Delivery Tracking:*\n${window.location.origin}/delivery/tracking.php?ref=${orderNo}\n\n` +
+                `🗺️ *Google Maps Navigation Link:*\n${mapsLink}\n`;
 
             if (pdfUploadUrl) {
                 msg += `\n📄 *Official Invoice Copy:*\n${pdfUploadUrl}\n`;
@@ -1700,11 +1772,11 @@ if ($isLoggedIn) {
             }
 
             msg += `\n📞 Support Hotline: ${primaryDisplay} | ${secondaryDisplay}\n` +
-                   `⚠️ *Note: Price will be change customer will be support.*\n` +
-                   `━━━━━━━━━━━━━━━━━━━━━━━\n` +
-                   `Actions:\n` +
-                   `✅ Reply *ACCEPT* to confirm pickup & dispatch\n` +
-                   `❌ Reply *REJECT* to flag issue`;
+                `⚠️ *Note: Price will be change customer will be support.*\n` +
+                `━━━━━━━━━━━━━━━━━━━━━━━\n` +
+                `Actions:\n` +
+                `✅ Reply *ACCEPT* to confirm pickup & dispatch\n` +
+                `❌ Reply *REJECT* to flag issue`;
 
             return msg;
         }
@@ -2178,7 +2250,7 @@ if ($isLoggedIn) {
                 `;
             }
 
-                        // Direct UPI / UTR Submission Card definition
+            // Direct UPI / UTR Submission Card definition
             const utrBoxHtml = `
                 <div class="upi-utr-box" style="margin: 14px 0 2px 0; padding: 14px 16px; background: #f0fdf4; border: 1.5px dashed #22c55e; border-radius: 14px; text-align: left;">
                     <div style="font-weight: 700; font-size: 0.88rem; color: #166534; display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
@@ -2320,7 +2392,9 @@ if ($isLoggedIn) {
         //  GENERATE PDF INVOICE (same as original)
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         function generateInvoicePDF(orderData, orderNo, transactionId, paymentStatus) {
-            const { jsPDF } = window.jspdf;
+            const {
+                jsPDF
+            } = window.jspdf;
             const doc = new jsPDF('p', 'mm', 'a4');
             const pageWidth = 210;
             const pageHeight = 297;
@@ -2371,11 +2445,15 @@ if ($isLoggedIn) {
                 doc.setFontSize(10);
                 doc.setFont(undefined, 'bold');
                 doc.setTextColor(21, 128, 61);
-                doc.text('PAID ONLINE', pillX + (pillW / 2), pillY + 6.5, { align: 'center' });
+                doc.text('PAID ONLINE', pillX + (pillW / 2), pillY + 6.5, {
+                    align: 'center'
+                });
                 doc.setFontSize(7.5);
                 doc.setFont(undefined, 'normal');
                 doc.setTextColor(22, 101, 52);
-                doc.text(transactionId ? `Txn: ${transactionId.slice(-12)}` : 'Verified Gateway', pillX + (pillW / 2), pillY + 12, { align: 'center' });
+                doc.text(transactionId ? `Txn: ${transactionId.slice(-12)}` : 'Verified Gateway', pillX + (pillW / 2), pillY + 12, {
+                    align: 'center'
+                });
             } else {
                 doc.setFillColor(254, 243, 199);
                 doc.setDrawColor(245, 158, 11);
@@ -2383,11 +2461,15 @@ if ($isLoggedIn) {
                 doc.setFontSize(10);
                 doc.setFont(undefined, 'bold');
                 doc.setTextColor(180, 83, 9);
-                doc.text('CASH ON DELIVERY', pillX + (pillW / 2), pillY + 6.5, { align: 'center' });
+                doc.text('CASH ON DELIVERY', pillX + (pillW / 2), pillY + 6.5, {
+                    align: 'center'
+                });
                 doc.setFontSize(7.5);
                 doc.setFont(undefined, 'normal');
                 doc.setTextColor(146, 64, 14);
-                doc.text(`Pay on Arrival: Rs. ${(orderData.total || 0).toFixed(2)}`, pillX + (pillW / 2), pillY + 12, { align: 'center' });
+                doc.text(`Pay on Arrival: Rs. ${(orderData.total || 0).toFixed(2)}`, pillX + (pillW / 2), pillY + 12, {
+                    align: 'center'
+                });
             }
 
             y += 24;
@@ -2398,8 +2480,11 @@ if ($isLoggedIn) {
 
             // Invoice Meta Box
             const dateStr = new Date().toLocaleDateString('en-IN', {
-                day: '2-digit', month: 'short', year: 'numeric',
-                hour: '2-digit', minute: '2-digit'
+                day: '2-digit',
+                month: 'short',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
             });
 
             // Customer Info & Order Info Cards
@@ -2470,7 +2555,9 @@ if ($isLoggedIn) {
 
             doc.autoTable({
                 startY: y,
-                head: [['Item Description', 'Qty', 'Unit Price', 'Total']],
+                head: [
+                    ['Item Description', 'Qty', 'Unit Price', 'Total']
+                ],
                 body: tableRows,
                 theme: 'striped',
                 headStyles: {
@@ -2489,12 +2576,26 @@ if ($isLoggedIn) {
                     fillColor: [248, 250, 252]
                 },
                 columnStyles: {
-                    0: { cellWidth: 105 },
-                    1: { halign: 'center', cellWidth: 20 },
-                    2: { halign: 'right', cellWidth: 25 },
-                    3: { halign: 'right', cellWidth: 28 }
+                    0: {
+                        cellWidth: 105
+                    },
+                    1: {
+                        halign: 'center',
+                        cellWidth: 20
+                    },
+                    2: {
+                        halign: 'right',
+                        cellWidth: 25
+                    },
+                    3: {
+                        halign: 'right',
+                        cellWidth: 28
+                    }
                 },
-                margin: { left: margin, right: margin }
+                margin: {
+                    left: margin,
+                    right: margin
+                }
             });
 
             let finalY = doc.lastAutoTable.finalY + 8;
@@ -2524,7 +2625,9 @@ if ($isLoggedIn) {
                 doc.setFontSize(7.5);
                 doc.setFont(undefined, 'bold');
                 doc.setTextColor(15, 123, 58);
-                doc.text('KSR Official QR', margin + 14, finalY + 29.5, { align: 'center' });
+                doc.text('KSR Official QR', margin + 14, finalY + 29.5, {
+                    align: 'center'
+                });
             }
 
             // Totals on Right
@@ -2535,10 +2638,14 @@ if ($isLoggedIn) {
             doc.setFont(undefined, 'normal');
             doc.setTextColor(71, 85, 105);
             doc.text('Subtotal', totalsX, finalY + 2);
-            doc.text(`Rs. ${orderData.subtotal.toFixed(2)}`, totalsValX, finalY + 2, { align: 'right' });
+            doc.text(`Rs. ${orderData.subtotal.toFixed(2)}`, totalsValX, finalY + 2, {
+                align: 'right'
+            });
 
             doc.text('Express Delivery Fee', totalsX, finalY + 8);
-            doc.text(`Rs. ${DELIVERY_CHARGE.toFixed(2)}`, totalsValX, finalY + 8, { align: 'right' });
+            doc.text(`Rs. ${DELIVERY_CHARGE.toFixed(2)}`, totalsValX, finalY + 8, {
+                align: 'right'
+            });
 
             doc.setDrawColor(226, 232, 240);
             doc.line(totalsX, finalY + 12, pageWidth - margin, finalY + 12);
@@ -2547,7 +2654,9 @@ if ($isLoggedIn) {
             doc.setFontSize(11);
             doc.setTextColor(15, 123, 58);
             doc.text('Grand Total', totalsX, finalY + 18);
-            doc.text(`Rs. ${(orderData.subtotal + DELIVERY_CHARGE).toFixed(2)}`, totalsValX, finalY + 18, { align: 'right' });
+            doc.text(`Rs. ${(orderData.subtotal + DELIVERY_CHARGE).toFixed(2)}`, totalsValX, finalY + 18, {
+                align: 'right'
+            });
 
             finalY += 34;
 
@@ -2565,15 +2674,22 @@ if ($isLoggedIn) {
             doc.setFontSize(9);
             doc.setTextColor(15, 123, 58);
             doc.setFont(undefined, 'bold');
-            doc.text('Thank You for Choosing ' + COMPANY_NAME + '!', pageWidth / 2, pageHeight - 12, { align: 'center' });
+            doc.text('Thank You for Choosing ' + COMPANY_NAME + '!', pageWidth / 2, pageHeight - 12, {
+                align: 'center'
+            });
             doc.setFontSize(7.5);
             doc.setTextColor(100, 116, 139);
             doc.setFont(undefined, 'normal');
-            doc.text(`WhatsApp: ${COMPANY_PHONE}  |  Support: support@ksrguru.com  |  Visit: www.ksrguruji.com`, pageWidth / 2, pageHeight - 7, { align: 'center' });
+            doc.text(`WhatsApp: ${COMPANY_PHONE}  |  Support: support@ksrguru.com  |  Visit: www.ksrguruji.com`, pageWidth / 2, pageHeight - 7, {
+                align: 'center'
+            });
 
             const pdfBlob = doc.output('blob');
             const pdfUrl = URL.createObjectURL(pdfBlob);
-            return { url: pdfUrl, blob: pdfBlob };
+            return {
+                url: pdfUrl,
+                blob: pdfBlob
+            };
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -2856,9 +2972,9 @@ if ($isLoggedIn) {
             } catch (err) {
                 const msg = err && err.message ? err.message : String(err);
                 console.error('placeOrder error:', err);
-                const displayMsg = (msg.includes('fetch') || msg.includes('Failed to fetch'))
-                    ? 'Connection issue detected. Please check your internet or retry.'
-                    : msg;
+                const displayMsg = (msg.includes('fetch') || msg.includes('Failed to fetch')) ?
+                    'Connection issue detected. Please check your internet or retry.' :
+                    msg;
                 showToast('❌ ' + displayMsg, 'error', 7000);
             }
 

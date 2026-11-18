@@ -169,6 +169,18 @@ $tamperedValidation = ksrCalculateCartTotal($tamperedCart);
 assertTest($tamperedValidation['validated'] === false, "Tampered produce price rejected (validated=false)");
 assertTest($tamperedValidation['unmatched'] > 0, "Tampered item counted as unmatched");
 
+// Test multi-category unified cart (Produce + Bakery + Snacks + Pooja)
+$multiCategoryCart = [
+    ['id' => 'veg_' . $tomatoId . ':500g', 'product_id' => 'veg_' . $tomatoId, 'name' => 'Tomato (500g)', 'qty' => 1, 'price' => 36.00, 'variant' => '500g'],
+    ['id' => '10:hash', 'name' => 'Gluten-Free Bread (400g)', 'qty' => 1, 'price' => 120.00, 'variant' => '400g', 'store' => 'Bakery'],
+    ['id' => 'snacks_1', 'name' => 'Murukku', 'qty' => 2, 'price' => 30.00, 'store' => 'Snacks'],
+    ['id' => 'pooja_58', 'name' => 'Camphor Premium', 'qty' => 1, 'price' => 140.00, 'store' => 'Pooja Items']
+];
+$multiValidation = ksrCalculateCartTotal($multiCategoryCart);
+assertTest($multiValidation['validated'] === true, "Multi-store unified cart validated=true without 'no longer available' error");
+assertTest($multiValidation['matched'] === 4, "All 4 multi-store items matched");
+assertTest($multiValidation['unmatched'] === 0, "Zero unmatched items in multi-store cart");
+
 // ------------------------------------------------------------
 // 6. Price Update & Price History Tracking
 // ------------------------------------------------------------

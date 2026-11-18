@@ -187,7 +187,33 @@ function ksrCalculateCartTotal(array $cartItems): array
         if ($sname !== '') $sessionItemsByName[$sname] = $sItem;
     }
 
-    // 5. Evaluate each line item
+    // 5. Batch-load category catalog data (2,600+ store products across all 27 categories)
+    static $categoryCatalog = null;
+    if ($categoryCatalog === null) {
+        $catFile = __DIR__ . '/includes/category_catalog_data.php';
+        if (file_exists($catFile)) {
+            $categoryCatalog = require $catFile;
+        } else {
+            $categoryCatalog = [];
+        }
+    }
+
+    // Recognized category stores from STORES configuration in checkout
+    $recognizedStores = [
+        'air freshener', 'bakery', 'bath & body', 'breakfast', 'dry fruits', 'grains',
+        'cleaning', 'cold drinks', 'suggestion', 'dishwash', 'health & wellness',
+        'hair care', 'home care', 'frozen foods', 'spices', 'stationery', 'pet supplies',
+        'snacks', 'pooja items', 'pickles & sauces', 'plastic ware', 'pulses & dals',
+        'pure oils', 'fresh dairy', 'kitchenware', 'vegetables & fruits', 'session',
+        'ksr_air_freshener_cart', 'karavallicartweightextended', 'glowcartnew',
+        'breakfastcart', 'dryfruits_cart_variants', 'graincompactcart', 'cleanhomecart',
+        'coldhomecart', 'dishwashcart', 'healthcart', 'haircart', 'homecarecart',
+        'frozencart', 'spicescartweight', 'stationerycart', 'petcart', 'snackscart',
+        'poojacart', 'picklescart', 'plasticscart', 'pulsescart', 'pureoilscart',
+        'freshdairy_cart2', 'kitchenwarecart'
+    ];
+
+    // 6. Evaluate each line item
     foreach ($cartItems as $item) {
         $qty = (int)($item['qty'] ?? $item['quantity'] ?? 1);
         if ($qty < 1) $qty = 1;
@@ -196,17 +222,29 @@ function ksrCalculateCartTotal(array $cartItems): array
         $rawId = (string)($item['product_id'] ?? $item['id'] ?? '');
         $name = trim((string)($item['name'] ?? 'Item'));
         $lowerName = strtolower($name);
+        $cleanName = trim((string)preg_replace('/\s*\([^)]*\)\s*$/', '', $name));
+        $cleanLowerName = strtolower($cleanName);
+
         $cleanId = explode(':', $rawId)[0];
+        $submittedPrice = (float)($item['price'] ?? $item['unit_price'] ?? 0);
+        $variant = trim((string)($item['variant'] ?? ''));
+        if ($variant === '' && preg_match('/\(([^)]+)\)$/', $name, $vm)) {
+            $variant = trim($vm[1]);
+        }
+        $store = strtolower(trim((string)($item['store'] ?? $item['storeName'] ?? $item['sourceKey'] ?? '')));
+
         $unitPrice = 0.0;
         $isMatched = false;
 
-        // Check produce items first (if veg_ prefix)
-        if (str_starts_with($cleanId, 'veg_')) {
-            $vid = (int)substr($cleanId, 4);
-            $vegRow = $vegPricesById[$vid] ?? $vegPricesByName[$lowerName] ?? null;
+        // Check produce items first (if veg_ prefix or produce name in daily_market_prices)
+        if (str_starts_with($cleanId, 'veg_') || isset($vegPricesByName[$cleanLowerName]) || isset($vegPricesByName[$lowerName])) {
+            $vid = str_starts_with($cleanId, 'veg_') ? (int)substr($cleanId, 4) : 0;
+            $vegRow = ($vid > 0 && isset($vegPricesById[$vid]))
+                ? $vegPricesById[$vid]
+                : ($vegPricesByName[$cleanLowerName] ?? ($vegPricesByName[$lowerName] ?? null));
+
             if ($vegRow) {
                 $baseSelling = (float)$vegRow['selling_price'];
-                $submittedPrice = (float)($item['price'] ?? $item['unit_price'] ?? 0);
                 $unitType = (string)($vegRow['unit_type'] ?? 'kg');
                 $baseQty = (float)($vegRow['base_quantity'] ?? 1);
                 $dispUnit = (string)($vegRow['display_unit'] ?? '');
@@ -224,13 +262,13 @@ function ksrCalculateCartTotal(array $cartItems): array
                     $isMatched = true;
                 }
                 if ($isMatched) {
-                    $name = $vegRow['name'];
+                    $name = $vegRow['name'] . ($variant ? " ($variant)" : '');
                     $matched++;
                 }
             }
         }
 
-        // Check standard catalog products (by ID or name)
+        // Check standard catalog products (products table by name or compatible ID)
         if (!$isMatched) {
             $pid = 0;
             if (preg_match('/^[a-zA-Z0-9\-]+_(\d+)$/', $cleanId, $m)) {
@@ -238,7 +276,17 @@ function ksrCalculateCartTotal(array $cartItems): array
             } elseif (is_numeric($cleanId)) {
                 $pid = (int)$cleanId;
             }
-            $prodRow = ($pid > 0 && isset($dbPricesById[$pid])) ? $dbPricesById[$pid] : ($dbPricesByName[$lowerName] ?? null);
+
+            // Name match takes priority in products table
+            $prodRow = $dbPricesByName[$cleanLowerName] ?? ($dbPricesByName[$lowerName] ?? null);
+            if (!$prodRow && $pid > 0 && isset($dbPricesById[$pid])) {
+                $candidate = $dbPricesById[$pid];
+                $candName = strtolower(trim($candidate['name']));
+                if ($candName === $cleanLowerName || str_contains($cleanLowerName, $candName) || str_contains($candName, $cleanLowerName) || ($store === '' && !str_contains($rawId, '_'))) {
+                    $prodRow = $candidate;
+                }
+            }
+
             if ($prodRow && ($prodRow['status'] ?? 1) === 1) {
                 $unitPrice = (float)$prodRow['price'];
                 $name = $prodRow['name'];
@@ -247,39 +295,41 @@ function ksrCalculateCartTotal(array $cartItems): array
             }
         }
 
-        // Check produce by name if ID was not veg_ prefixed
-        if (!$isMatched && isset($vegPricesByName[$lowerName])) {
-            $vegRow = $vegPricesByName[$lowerName];
-            $baseSelling = (float)$vegRow['selling_price'];
-            $submittedPrice = (float)($item['price'] ?? $item['unit_price'] ?? 0);
-            $unitType = (string)($vegRow['unit_type'] ?? 'kg');
-            $baseQty = (float)($vegRow['base_quantity'] ?? 1);
-            $dispUnit = (string)($vegRow['display_unit'] ?? '');
-
-            $validOptions = getPurchaseOptionsForUnit($unitType, $baseSelling, '', $baseQty, $dispUnit);
-            foreach ($validOptions as $opt) {
-                if (abs($opt['price'] - $submittedPrice) < 0.05) {
-                    $unitPrice = $opt['price'];
-                    $isMatched = true;
-                    break;
-                }
-            }
-            if (!$isMatched && abs($baseSelling - $submittedPrice) < 0.05) {
-                $unitPrice = $baseSelling;
-                $isMatched = true;
-            }
-            if ($isMatched) {
-                $name = $vegRow['name'];
-                $matched++;
-            }
-        }
-
         // Check verified session cart items (category fallbacks, tablets, etc.)
         if (!$isMatched) {
-            $sessRow = $sessionItemsById[$rawId] ?? $sessionItemsById[$cleanId] ?? ($sessionItemsByName[$lowerName] ?? null);
+            $sessRow = $sessionItemsById[$rawId] ?? $sessionItemsById[$cleanId] ?? ($sessionItemsByName[$cleanLowerName] ?? ($sessionItemsByName[$lowerName] ?? null));
             if ($sessRow && isset($sessRow['price']) && (float)$sessRow['price'] > 0) {
                 $unitPrice = (float)$sessRow['price'];
                 $name = $sessRow['name'] ?? $name;
+                $matched++;
+                $isMatched = true;
+            }
+        }
+
+        // Check category catalog data (2,600+ products across all 27 categories)
+        if (!$isMatched && !empty($categoryCatalog)) {
+            $catRow = $categoryCatalog[$cleanLowerName] ?? ($categoryCatalog[$lowerName] ?? null);
+            if ($catRow) {
+                $targetPrice = (float)($catRow['price'] ?? 0);
+                if (!empty($catRow['weights']) && $variant !== '') {
+                    $vKey = strtolower(trim($variant));
+                    if (isset($catRow['weights'][$vKey])) {
+                        $targetPrice = (float)$catRow['weights'][$vKey];
+                    }
+                }
+                if ($targetPrice > 0) {
+                    $unitPrice = $targetPrice;
+                    $name = $catRow['name'] . ($variant ? " ($variant)" : '');
+                    $matched++;
+                    $isMatched = true;
+                }
+            }
+        }
+
+        // Check recognized category store items (localStorage multi-store cart)
+        if (!$isMatched && $submittedPrice > 0 && strlen($name) >= 2 && $name !== 'Item unknown') {
+            if ($store !== '' && in_array($store, $recognizedStores, true)) {
+                $unitPrice = $submittedPrice;
                 $matched++;
                 $isMatched = true;
             }
