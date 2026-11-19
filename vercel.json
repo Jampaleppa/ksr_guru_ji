@@ -68,15 +68,15 @@
     },
     {
       "src": "/manifest.json",
-      "dest": "/manifest.json"
+      "dest": "/api/index.php"
     },
     {
       "src": "/sw.js",
-      "dest": "/sw.js"
+      "dest": "/api/index.php"
     },
     {
-      "src": "/downloads/(.*\\.(apk|aab|mobileconfig))",
-      "dest": "/downloads/$1"
+      "src": "/downloads/(.*)",
+      "dest": "/api/index.php"
     },
     {
       "src": "/(.*\\.(css|js|png|jpg|jpeg|gif|svg|ico|webp|woff|woff2|ttf|eot|webmanifest|mp3|wav))",

@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 // ============================================================
 // api/index.php - Vercel Serverless PHP Router / Front-Controller
 // ============================================================
@@ -160,6 +160,29 @@ if ($cleanPath === 'sw.js') {
         readfile($swPath);
     } else {
         echo "// KSR Guru Ji Service Worker fallback\nself.addEventListener('install', () => self.skipWaiting());\nself.addEventListener('activate', () => self.clients.claim());\n";
+    }
+    exit(0);
+}
+
+// Serve binary app downloads (APK, AAB, MobileConfig)
+if (preg_match('#^downloads/(.+\.(apk|aab|mobileconfig))$#i', $cleanPath, $dlMatch)) {
+    $dlFile = $rootDir . '/' . $cleanPath;
+    if (is_file($dlFile)) {
+        $ext = strtolower($dlMatch[2]);
+        $mimeMap = [
+            'apk'          => 'application/vnd.android.package-archive',
+            'aab'          => 'application/x-authorware-bin',
+            'mobileconfig' => 'application/x-apple-aspen-config',
+        ];
+        header('Content-Type: ' . ($mimeMap[$ext] ?? 'application/octet-stream'));
+        header('Content-Disposition: attachment; filename="' . basename($dlFile) . '"');
+        header('Content-Length: ' . filesize($dlFile));
+        header('Cache-Control: no-store');
+        readfile($dlFile);
+    } else {
+        http_response_code(404);
+        header('Content-Type: application/json');
+        echo json_encode(['error' => 'Download not found: ' . $dlMatch[1]]);
     }
     exit(0);
 }
