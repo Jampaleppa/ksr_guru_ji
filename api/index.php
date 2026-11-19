@@ -101,6 +101,8 @@ $aliases = [
     'app' => 'download-app.php',
     'downloads' => 'downloads/index.php',
     'downloads/' => 'downloads/index.php',
+    'health' => 'api/health.php',
+    'api/health' => 'api/health.php',
 ];
 
 if (isset($aliases[$cleanPath])) {
