@@ -95,10 +95,30 @@ $aliases = [
     'refund-policy' => 'refund-policy.php',
     'return-refund-policy' => 'refund-policy.php',
     'return-policy' => 'refund-policy.php',
+    // ── Mobile App & Downloads aliases ───────────────────────────────────────
+    'download-app' => 'download-app.php',
+    'download' => 'download-app.php',
+    'app' => 'download-app.php',
+    'downloads' => 'downloads/index.php',
+    'downloads/' => 'downloads/index.php',
 ];
 
 if (isset($aliases[$cleanPath])) {
     $cleanPath = $aliases[$cleanPath];
+}
+
+// Allow public PWA manifest and service worker
+if ($cleanPath === 'manifest.json' && is_file($rootDir . '/manifest.json')) {
+    header('Content-Type: application/manifest+json; charset=utf-8');
+    header('Access-Control-Allow-Origin: *');
+    readfile($rootDir . '/manifest.json');
+    exit(0);
+}
+if ($cleanPath === 'sw.js' && is_file($rootDir . '/sw.js')) {
+    header('Content-Type: application/javascript; charset=utf-8');
+    header('Service-Worker-Allowed: /');
+    readfile($rootDir . '/sw.js');
+    exit(0);
 }
 
 // Block direct access to sensitive extensions and paths

@@ -4,21 +4,21 @@
       "runtime": "vercel-php@0.9.0",
       "maxDuration": 30,
       "memory": 1024,
-      "includeFiles": "**/*.php",
+      "includeFiles": "{**/*.php,manifest.json,sw.js,downloads/**}",
       "excludeFiles": "{images/**,WhatsApp/vendor/**,WhatsApp/composer.phar}"
     },
     "api/*.php": {
       "runtime": "vercel-php@0.9.0",
       "maxDuration": 30,
       "memory": 1024,
-      "includeFiles": "**/*.php",
+      "includeFiles": "{**/*.php,manifest.json,sw.js,downloads/**}",
       "excludeFiles": "{images/**,WhatsApp/vendor/**,WhatsApp/composer.phar}"
     },
     "api/index.php": {
       "runtime": "vercel-php@0.9.0",
       "maxDuration": 30,
       "memory": 1024,
-      "includeFiles": "**/*.php",
+      "includeFiles": "{**/*.php,manifest.json,sw.js,downloads/**}",
       "excludeFiles": "{images/**,WhatsApp/vendor/**,WhatsApp/composer.phar}"
     }
   },
@@ -36,6 +36,21 @@
       ]
     },
     {
+      "source": "/manifest.json",
+      "headers": [
+        { "key": "Content-Type", "value": "application/manifest+json; charset=utf-8" },
+        { "key": "Access-Control-Allow-Origin", "value": "*" }
+      ]
+    },
+    {
+      "source": "/sw.js",
+      "headers": [
+        { "key": "Content-Type", "value": "application/javascript; charset=utf-8" },
+        { "key": "Service-Worker-Allowed", "value": "/" },
+        { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" }
+      ]
+    },
+    {
       "source": "/(.*)",
       "headers": [
         { "key": "X-Content-Type-Options", "value": "nosniff" },
@@ -50,6 +65,18 @@
     {
       "src": "/(images|assets|uploads/products)/(.*)",
       "dest": "/$1/$2"
+    },
+    {
+      "src": "/manifest.json",
+      "dest": "/manifest.json"
+    },
+    {
+      "src": "/sw.js",
+      "dest": "/sw.js"
+    },
+    {
+      "src": "/downloads/(.*\\.(apk|aab|mobileconfig))",
+      "dest": "/downloads/$1"
     },
     {
       "src": "/(.*\\.(css|js|png|jpg|jpeg|gif|svg|ico|webp|woff|woff2|ttf|eot|webmanifest|mp3|wav))",
