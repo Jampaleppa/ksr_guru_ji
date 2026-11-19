@@ -107,23 +107,64 @@ if (isset($aliases[$cleanPath])) {
     $cleanPath = $aliases[$cleanPath];
 }
 
+// Explicit handler for download-app.php
+if ($cleanPath === 'download-app.php') {
+    $dlCandidate = is_file($rootDir . '/download-app.php') ? ($rootDir . '/download-app.php') : (file_exists(__DIR__ . '/../download-app.php') ? (__DIR__ . '/../download-app.php') : null);
+    if ($dlCandidate && is_file($dlCandidate)) {
+        require $dlCandidate;
+        exit(0);
+    }
+}
+
+// Explicit handler for downloads/index.php
+if ($cleanPath === 'downloads/index.php') {
+    $dlsCandidate = is_file($rootDir . '/downloads/index.php') ? ($rootDir . '/downloads/index.php') : (file_exists(__DIR__ . '/../downloads/index.php') ? (__DIR__ . '/../downloads/index.php') : null);
+    if ($dlsCandidate && is_file($dlsCandidate)) {
+        require $dlsCandidate;
+        exit(0);
+    }
+}
+
 // Allow public PWA manifest and service worker
-if ($cleanPath === 'manifest.json' && is_file($rootDir . '/manifest.json')) {
+if ($cleanPath === 'manifest.json') {
+    $mfPath = is_file($rootDir . '/manifest.json') ? ($rootDir . '/manifest.json') : (file_exists(__DIR__ . '/../manifest.json') ? (__DIR__ . '/../manifest.json') : null);
     header('Content-Type: application/manifest+json; charset=utf-8');
     header('Access-Control-Allow-Origin: *');
-    readfile($rootDir . '/manifest.json');
+    if ($mfPath && is_file($mfPath)) {
+        readfile($mfPath);
+    } else {
+        echo json_encode([
+            "name" => "KSR GURU JI – ನಮ್ಮ ಅಂಗಡಿ",
+            "short_name" => "KSR Guru Ji",
+            "start_url" => "/index.php?source=pwa",
+            "scope" => "/",
+            "display" => "standalone",
+            "background_color" => "#ffffff",
+            "theme_color" => "#0f7b3a",
+            "icons" => [
+                ["src" => "/icon-192.png", "sizes" => "192x192", "type" => "image/png", "purpose" => "any maskable"],
+                ["src" => "/icon-512.png", "sizes" => "512x512", "type" => "image/png", "purpose" => "any maskable"]
+            ]
+        ], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+    }
     exit(0);
 }
-if ($cleanPath === 'sw.js' && is_file($rootDir . '/sw.js')) {
+if ($cleanPath === 'sw.js') {
+    $swPath = is_file($rootDir . '/sw.js') ? ($rootDir . '/sw.js') : (file_exists(__DIR__ . '/../sw.js') ? (__DIR__ . '/../sw.js') : null);
     header('Content-Type: application/javascript; charset=utf-8');
     header('Service-Worker-Allowed: /');
-    readfile($rootDir . '/sw.js');
+    header('Cache-Control: no-cache, no-store, must-revalidate');
+    if ($swPath && is_file($swPath)) {
+        readfile($swPath);
+    } else {
+        echo "// KSR Guru Ji Service Worker fallback\nself.addEventListener('install', () => self.skipWaiting());\nself.addEventListener('activate', () => self.clients.claim());\n";
+    }
     exit(0);
 }
 
 // Block direct access to sensitive extensions and paths
 $blockedPattern = '/(\.(sql|env|log|md|json|bat|ps1|sh|yml|yaml|ini|sqlite|lock|git|bak|conf|txt)$|^(\.|\/|\.env|logs\/|scratch\/|\.vercel\/|includes\/|payment-core\/|database\/|admin\/database\/|WhatsApp\/telehealth\/seed|delivery\/seed|api\/debug))/i';
-if (preg_match($blockedPattern, $cleanPath)) {
+if (preg_match($blockedPattern, $cleanPath) && $cleanPath !== 'manifest.json') {
     http_response_code(403);
     echo "<!DOCTYPE html><html><head><meta charset='utf-8'><title>403 Forbidden</title></head>";
     echo "<body style='font-family:sans-serif;padding:40px;background:#0f172a;color:#f1f5f9;'>";
