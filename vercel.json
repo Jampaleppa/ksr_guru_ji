@@ -1,5 +1,8 @@
 {
   "functions": {
+    "api/manifest.php": { "runtime": "vercel-php@0.9.0", "maxDuration": 10, "memory": 256, "includeFiles": "{manifest.json}" },
+    "api/sw.php": { "runtime": "vercel-php@0.9.0", "maxDuration": 10, "memory": 256, "includeFiles": "{sw.js}" },
+    
     "api/**/*.php": {
       "runtime": "vercel-php@0.9.0",
       "maxDuration": 30,
@@ -68,11 +71,11 @@
     },
     {
       "src": "/manifest.json",
-      "dest": "/api/index.php"
+      "dest": "/api/manifest.php"
     },
     {
       "src": "/sw.js",
-      "dest": "/api/index.php"
+      "dest": "/api/sw.php"
     },
     {
       "src": "/downloads/(.*)",
