@@ -2624,6 +2624,7 @@ if ($isLoggedIn) {
                     qCtx.drawImage(qrDomImg, 0, 0);
                     qrCanvasData = qrC.toDataURL('image/png');
                 } catch (e) {
+
                     console.warn('Could not extract QR canvas for PDF:', e);
                 }
             }

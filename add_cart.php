@@ -17,9 +17,10 @@ if (!isset($_SESSION['cart'])) {
 }
 
 // --- Get parameters ---
-// Basic product ID and quantity
+// Basic product ID and quantity (bounded 1 to 999)
 $productIdRaw = isset($_POST['id']) ? trim($_POST['id']) : (isset($_GET['id']) ? trim($_GET['id']) : '');
 $quantity = isset($_POST['qty']) ? (int)$_POST['qty'] : (isset($_GET['qty']) ? (int)$_GET['qty'] : 1);
+$quantity = max(1, min(999, $quantity));
 
 // Optional variant (e.g., weight, size)
 $variant = isset($_POST['variant']) ? trim($_POST['variant']) : (isset($_GET['variant']) ? trim($_GET['variant']) : null);
@@ -193,7 +194,9 @@ if ($wantsJson) {
     } else {
         // Return updated cart info
         $cartCount = array_sum(array_column($_SESSION['cart'], 'qty'));
-        $cartTotal = array_sum(array_map(fn($item) => $item['price'] * $item['qty'], $_SESSION['cart']));
+        $cartTotal = array_sum(array_map(fn($item) => (float)$item['price'] * (int)$item['qty'], $_SESSION['cart']));
+        $deliveryCharge = ($cartTotal > 0) ? 15.00 : 0.00;
+        $grandTotal = $cartTotal + $deliveryCharge;
         echo json_encode([
             'success' => true,
             'message' => $message ?? 'Product added to cart.',
@@ -201,7 +204,9 @@ if ($wantsJson) {
             'added_qty' => $quantity,
             'cart' => array_values($_SESSION['cart']),
             'cartCount' => $cartCount,
-            'cartTotal' => $cartTotal,
+            'cartTotal' => round($cartTotal, 2),
+            'deliveryCharge' => round($deliveryCharge, 2),
+            'grandTotal' => round($grandTotal, 2),
         ], JSON_UNESCAPED_UNICODE);
     }
     exit;

@@ -4,6 +4,7 @@
 // ============================================================
 require_once __DIR__ . '/config.php';
 require_once __DIR__ . '/functions.php';
+require_once __DIR__ . '/pricing.php';
 
 // Start session for cart
 if (session_status() === PHP_SESSION_NONE) {
@@ -63,27 +64,26 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
     }
 }
 
-// Calculate totals
+// Calculate authoritative totals
 $cartItems = $_SESSION['cart'];
 $cartCount = array_sum(array_column($cartItems, 'qty'));
-$cartTotal = array_sum(array_map(fn($item) => (float)$item['price'] * (int)$item['qty'], $cartItems));
-$freeDeliveryThreshold = 499;
-$deliveryFee = ($cartTotal >= $freeDeliveryThreshold || $cartTotal == 0) ? 0 : 40;
+$cartTotal = array_sum(array_map(fn($item) => (float)($item['price'] ?? 0) * (int)($item['qty'] ?? 1), $cartItems));
+$deliveryFee = ($cartTotal > 0) ? (float)KSR_DELIVERY_CHARGE : 0.0;
 $grandTotal = $cartTotal + $deliveryFee;
-$amountNeededForFreeDelivery = max(0, $freeDeliveryThreshold - $cartTotal);
-$freeDeliveryPercent = min(100, round(($cartTotal / $freeDeliveryThreshold) * 100));
 
 // Build WhatsApp text for direct order (shop + delivery)
 $waText = "Namaste KSR GURU JI! I would like to order the following items from my cart:%0A";
 foreach ($cartItems as $ci) {
     $variantPart = !empty($ci['variant']) ? " (" . $ci['variant'] . ")" : "";
-    $waText .= "• " . urlencode($ci['name'] . $variantPart) . " x " . $ci['qty'] . " (\u20b9" . ($ci['price'] * $ci['qty']) . ")%0A";
+    $itemSubtotal = (float)($ci['price'] ?? 0) * (int)($ci['qty'] ?? 1);
+    $waText .= "• " . urlencode($ci['name'] . $variantPart) . " x " . $ci['qty'] . " (₹" . number_format($itemSubtotal, 2) . ")%0A";
 }
-$waText .= "%0ATotal Amount: \u20b9" . $grandTotal;
-$waText .= "%0ADelivery Charge: " . ($deliveryFee > 0 ? "\u20b9$deliveryFee" : "FREE");
-$waText .= "%0APayment: Cash on Delivery";
-$waText .= "%0A%0A\u26a0\ufe0f Note: Price vary please customer will support this line.";
-$waText .= "%0AKindly confirm and dispatch to Delivery Boy: 8088584421 (Primary) / 6362079192 (Backup)";
+$waText .= "%0AItems Subtotal: ₹" . number_format($cartTotal, 2);
+$waText .= "%0ADelivery Charge: ₹" . number_format($deliveryFee, 2);
+$waText .= "%0AGrand Total: ₹" . number_format($grandTotal, 2);
+$waText .= "%0APayment Method: Cash on Delivery / UPI";
+$waText .= "%0A%0A⚠️ Note: Price will be change customer will be support.";
+$waText .= "%0AKindly confirm and dispatch to Delivery Boy: 8088584421 (Primary) / 8762474406 (Backup)";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -607,22 +607,19 @@ $waText .= "%0AKindly confirm and dispatch to Delivery Boy: 8088584421 (Primary)
 
         <?php else: ?>
 
-            <!-- Free Delivery Meter -->
-            <div class="free-delivery-meter" id="freeDeliveryMeter">
-                <div class="meter-text">
-                    <span id="meterText">
-                        <?php if ($amountNeededForFreeDelivery > 0): ?>
-                            🚚 Add <strong>₹<?php echo number_format($amountNeededForFreeDelivery, 2); ?></strong> more to unlock <strong>FREE Delivery</strong>!
-                        <?php else: ?>
-                            🎉 <strong>FREE Delivery Unlocked!</strong> You saved ₹40 on this order.
-                        <?php endif; ?>
+            <!-- Express Delivery Banner -->
+            <div class="free-delivery-meter" id="deliveryBanner" style="background: linear-gradient(135deg, rgba(15, 123, 58, 0.08), rgba(30, 168, 90, 0.12)); border: 1px solid rgba(15, 123, 58, 0.25); border-radius: 12px; padding: 14px 18px; margin-bottom: 24px;">
+                <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <span style="font-size: 1.4rem;">⚡</span>
+                        <div>
+                            <div style="font-weight: 700; font-size: 0.95rem; color: var(--ksr-text-main);">Superfast Express Delivery (Within 45 Mins)</div>
+                            <div style="font-size: 0.8rem; color: var(--ksr-text-muted);">Fresh from store to your doorstep across Karavalli &amp; Bangalore</div>
+                        </div>
+                    </div>
+                    <span style="background: var(--ksr-primary); color: #ffffff; padding: 4px 12px; border-radius: 20px; font-size: 0.82rem; font-weight: 700;">
+                        ₹<?php echo number_format($deliveryFee, 2); ?> Flat Fee
                     </span>
-                    <span id="meterPercent" style="font-size: 0.85rem; color: var(--ksr-primary); font-weight: 700;">
-                        <?php echo $freeDeliveryPercent; ?>%
-                    </span>
-                </div>
-                <div class="meter-bar-track">
-                    <div class="meter-bar-fill" id="meterFill" style="width: <?php echo $freeDeliveryPercent; ?>%;"></div>
                 </div>
             </div>
 
@@ -705,7 +702,7 @@ $waText .= "%0AKindly confirm and dispatch to Delivery Boy: 8088584421 (Primary)
                             <i class="fas fa-arrow-left"></i> Continue Shopping
                         </a>
                         <span style="font-size: 0.85rem; color: var(--ksr-text-muted);">
-                            Free delivery threshold: ₹499
+                            <i class="fas fa-truck" style="color: var(--ksr-primary);"></i> Flat Express Delivery: ₹15.00
                         </span>
                     </div>
                 </div>
@@ -722,9 +719,9 @@ $waText .= "%0AKindly confirm and dispatch to Delivery Boy: 8088584421 (Primary)
                     </div>
 
                     <div class="summary-row">
-                        <span>Delivery Charges</span>
-                        <span id="summaryDelivery" style="font-weight: 600; color: <?php echo $deliveryFee === 0 ? '#10b981' : 'inherit'; ?>;">
-                            <?php echo $deliveryFee === 0 ? '<span style="color:#10b981;">FREE</span>' : '₹' . number_format($deliveryFee, 2); ?>
+                        <span>Delivery Charges (Flat Fee)</span>
+                        <span id="summaryDelivery" style="font-weight: 600; color: var(--ksr-text-main);">
+                            ₹<?php echo number_format($deliveryFee, 2); ?>
                         </span>
                     </div>
 
@@ -796,7 +793,7 @@ $waText .= "%0AKindly confirm and dispatch to Delivery Boy: 8088584421 (Primary)
         (function() {
             const cartContainer = document.getElementById('cartContainer');
             const clearCartBtn = document.getElementById('clearCartBtn');
-            const freeDeliveryThreshold = 499;
+            const DELIVERY_CHARGE = 15.00;
 
             // Toast helper
             function showToast(message, type = 'success') {
@@ -844,8 +841,8 @@ $waText .= "%0AKindly confirm and dispatch to Delivery Boy: 8088584421 (Primary)
             // Update UI elements based on new cart array
             function updateCartUIFromData(cart) {
                 const totalQty = cart.reduce((sum, i) => sum + (parseInt(i.qty) || 0), 0);
-                const subtotal = cart.reduce((sum, i) => sum + (parseFloat(i.price) * (parseInt(i.qty) || 0)), 0);
-                const deliveryFee = (subtotal >= freeDeliveryThreshold || subtotal === 0) ? 0 : 40;
+                const subtotal = cart.reduce((sum, i) => sum + (parseFloat(i.price || 0) * (parseInt(i.qty) || 0)), 0);
+                const deliveryFee = subtotal > 0 ? DELIVERY_CHARGE : 0.00;
                 const grandTotal = subtotal + deliveryFee;
 
                 // Header badge
@@ -860,29 +857,11 @@ $waText .= "%0AKindly confirm and dispatch to Delivery Boy: 8088584421 (Primary)
 
                 const summaryDelivery = document.getElementById('summaryDelivery');
                 if (summaryDelivery) {
-                    summaryDelivery.innerHTML = deliveryFee === 0 ? '<span style="color:#10b981;">FREE</span>' : '₹' + deliveryFee.toFixed(2);
+                    summaryDelivery.innerText = '₹' + deliveryFee.toFixed(2);
                 }
 
                 const summaryGrandTotal = document.getElementById('summaryGrandTotal');
                 if (summaryGrandTotal) summaryGrandTotal.innerText = '₹' + grandTotal.toFixed(2);
-
-                // Free delivery progress meter
-                const needed = Math.max(0, freeDeliveryThreshold - subtotal);
-                const pct = Math.min(100, Math.round((subtotal / freeDeliveryThreshold) * 100));
-
-                const meterFill = document.getElementById('meterFill');
-                const meterPercent = document.getElementById('meterPercent');
-                const meterText = document.getElementById('meterText');
-
-                if (meterFill) meterFill.style.width = pct + '%';
-                if (meterPercent) meterPercent.innerText = pct + '%';
-                if (meterText) {
-                    if (needed > 0) {
-                        meterText.innerHTML = `🚚 Add <strong>₹${needed.toFixed(2)}</strong> more to unlock <strong>FREE Delivery</strong>!`;
-                    } else {
-                        meterText.innerHTML = `🎉 <strong>FREE Delivery Unlocked!</strong> You saved ₹40 on this order.`;
-                    }
-                }
 
                 // If cart is now empty, reload to display clean empty state
                 if (cart.length === 0 || totalQty === 0) {
