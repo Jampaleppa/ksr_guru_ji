@@ -2989,31 +2989,43 @@ if ($isLoggedIn) {
 
                                 // Customer WhatsApp Template
                                 const customerPayText = (paymentStatus === 'PAID') ? '✅ Online Paid' : ((paymentStatus === 'UPI_AWAITING_VERIFICATION') ? '⚡ Direct UPI (Awaiting Verification - UTR: ' + transactionId + ')' : '💵 Cash on Delivery');
+                                const itemListText = (orderData.items || []).map((it, i) => `  ${i+1}. ${it.name} × ${it.qty} — ₹${(parseFloat(it.price)*it.qty).toFixed(2)}`).join('\n');
                                 const customerMsg = `Hello *${orderData.customer.name}*, thank you for ordering with *KSR GURU JI*! 🛍️✨\n\n` +
-                                    `Your order *#${orderNo}* has been successfully confirmed!\n` +
-                                    `💰 *Total Amount:* ${formatINR(total)}\n` +
-                                    `💳 *Payment Method:* ${customerPayText}\n` +
-                                    `⚡ *Estimated Delivery:* Within 45 minutes\n` +
-                                    `📍 *Delivery Address:* ${orderData.customer.address}, ${orderData.customer.city}\n\n` +
-                                    `🚀 *Live Tracking:* ${window.location.origin}/delivery/tracking.php?ref=${orderNo}
-
-` +
-                                    `We are carefully packing your items and our delivery boy is on the way! Thank you for trusting KSR GURU JI. 🙏`;
+                                    `Your order *#${orderNo}* has been successfully confirmed! 🎉\n\n` +
+                                    `🧾 *Order Summary:*\n${itemListText}\n\n` +
+                                    `💰 *Subtotal:* ${formatINR(orderData.subtotal || (total - 15))}\n` +
+                                    `🚚 *Delivery Charge:* ₹15.00\n` +
+                                    `💳 *Grand Total:* ${formatINR(total)}\n` +
+                                    `💳 *Payment:* ${customerPayText}\n` +
+                                    `⚡ *Delivery:* Within 45 minutes 🏍️\n` +
+                                    `📍 *Address:* ${orderData.customer.address}, ${orderData.customer.city}\n\n` +
+                                    `🚀 *Track:* ${window.location.origin}/delivery/tracking.php?ref=${orderNo}\n\n` +
+                                    `⚠️ Note: Prices may change; customer support available.\n\n` +
+                                    `Thank you for trusting KSR GURU JI! 🙏\n📞 Helpline: 8088584421 | 8762474406`;
 
                                 // Set Customer Button href
                                 waCustomerBtn.href = `https://wa.me/${rawPhone}?text=${encodeURIComponent(customerMsg)}`;
 
-                                // ── Send WhatsApp to both delivery boys ──
-                                const waNumbers = WHATSAPP_NUMBERS;
-                                waNumbers.forEach(num => {
-                                    try {
-                                        const url = `https://wa.me/${num}?text=${encodeURIComponent(waMessage)}`;
-                                        window.open(url, '_blank');
-                                    } catch (popErr) {
-                                        console.warn('Popup blocked:', popErr);
-                                    }
-                                });
-                                showToast('📱 Opening WhatsApp for delivery boys...', 'info', 4000);
+                                // ── Set delivery boy modal button hrefs ──
+                                waPrimaryBtn.href = `https://wa.me/${WHATSAPP_NUMBERS[0]}?text=${encodeURIComponent(waMessage)}`;
+                                waSecondaryBtn.href = `https://wa.me/${WHATSAPP_NUMBERS[1]}?text=${encodeURIComponent(waMessage)}`;
+
+                                // ── Single safe window.open (forEach loops after await are blocked by browsers) ──
+                                const waBlockedNote = document.getElementById('waPopupBlockedNote');
+                                let primaryOpened = false;
+                                try {
+                                    const primaryTab = window.open(`https://wa.me/${WHATSAPP_NUMBERS[0]}?text=${encodeURIComponent(waMessage)}`, '_blank');
+                                    primaryOpened = !!(primaryTab && !primaryTab.closed);
+                                } catch (popErr) {
+                                    console.warn('WhatsApp popup blocked:', popErr);
+                                }
+                                if (!primaryOpened && waBlockedNote) {
+                                    waBlockedNote.style.display = 'block';
+                                }
+                                showToast(primaryOpened
+                                    ? '📱 WhatsApp opened — tap Backup button in popup if needed.'
+                                    : '📱 Popup blocked — tap the WhatsApp buttons in the success popup.',
+                                    'info', 5000);
 
                                 // ── Clear client-side carts ──
                                 clearAllCarts();
@@ -3030,8 +3042,6 @@ if ($isLoggedIn) {
                                 if (trackBtn) {
                                     trackBtn.href = `/delivery/tracking.php?ref=${orderNo}`;
                                 }
-                                waPrimaryBtn.href = `https://wa.me/${WHATSAPP_NUMBERS[0]}?text=${encodeURIComponent(waMessage)}`;
-                                waSecondaryBtn.href = `https://wa.me/${WHATSAPP_NUMBERS[1]}?text=${encodeURIComponent(waMessage)}`;
 
                                 // Sync pre-order suggestion to post-order modal box
                                 const preSug = document.getElementById('additionalSuggestionInput');
