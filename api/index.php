@@ -46,6 +46,11 @@ if (preg_match('#(?:.*?/)?(WhatsApp/telehealth/.*)$#i', $cleanPath, $matches)) {
     }
 }
 
+// Handle KSR Guru JI subdirectory alias pass-through
+if (preg_match('#^KSR(?:\s+|%20|_)Guru(?:\s+|%20|_)JI(?:/(.*))?$#i', $cleanPath, $ksrMatches)) {
+    $cleanPath = !empty($ksrMatches[1]) ? $ksrMatches[1] : 'index.php';
+}
+
 // Redirect fictitious image subpaths to the flat static /images/<filename> path
 if (preg_match('#^images/.+/(.+\.(?:jpg|jpeg|png|gif|webp|svg|ico))$#i', $cleanPath, $imgMatches)) {
     header('Location: /images/' . rawurlencode($imgMatches[1]), true, 301);
