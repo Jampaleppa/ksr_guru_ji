@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 // ============================================================
 // patient-login.php - MOVED
 // The full Patient Portal login now lives at /patient-login.php

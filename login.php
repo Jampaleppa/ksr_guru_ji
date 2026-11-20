@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 // ============================================================
 // login.php - Unified Login Page · KSR GURU JI
 // Role-based routing: admin → admin/, delivery_boy → delivery/, customer → index.php

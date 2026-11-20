@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 // ============================================================
 // patient-register.php - Patient Portal Registration
 // Step 1: details + CAPTCHA + Terms consent

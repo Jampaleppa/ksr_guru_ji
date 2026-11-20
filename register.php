@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 // ============================================================
 // register.php - Customer Registration · KSR GURU JI
 // Uses PDO — consistent with platform architecture

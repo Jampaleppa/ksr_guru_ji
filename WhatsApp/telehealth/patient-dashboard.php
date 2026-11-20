@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 require_once 'helper.php';
 require_once dirname(__DIR__, 2) . '/patient-auth.php';
 

@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 // ============================================================
 // categories/vegetables-fruits.php - Dynamic Vegetables & Fruits page
 // KSR GURU JI - Daily Market Rate & Automatic Selling Price (+₹3)

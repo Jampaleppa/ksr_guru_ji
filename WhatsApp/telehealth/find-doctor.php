@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 require_once 'helper.php';
 
 $pdo = getAssistDB();

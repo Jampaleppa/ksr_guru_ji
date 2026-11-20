@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 // ============================================================
 // patient-login.php - Patient Portal Login
 // Password login | OTP login | Remember Me | Forgot Password

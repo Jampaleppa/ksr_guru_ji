@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 require_once 'helper.php';
 
 // Mock Patient State for Inbox
