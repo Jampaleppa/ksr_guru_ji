@@ -1611,8 +1611,7 @@ if ($isLoggedIn) {
                         }
                     };
 
-                    const COD_LIMIT = 200000000000;
-                    const COD_LIMIT = 1000000000; // ₹10,000 COD limit (increased from ₹2,000)
+                    const COD_LIMIT = 10000; // ₹10,000 COD limit
                     const DELIVERY_CHARGE = 15; // fixed delivery fee
                     const UPI_ID = 'jyampallepparathod-1@oksbi';
                     const APP_UPI_IDS = {
