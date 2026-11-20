@@ -128,7 +128,7 @@ if ($cleanPath === 'downloads/index.php') {
 }
 
 // Allow public PWA manifest and service worker
-if ($cleanPath === 'manifest.json') {
+if ($cleanPath === 'manifest.json' || $cleanPath === 'manifest.webmanifest') {
     $mfPath = is_file($rootDir . '/manifest.json') ? ($rootDir . '/manifest.json') : (file_exists(__DIR__ . '/../manifest.json') ? (__DIR__ . '/../manifest.json') : null);
     header('Content-Type: application/manifest+json; charset=utf-8');
     header('Access-Control-Allow-Origin: *');
@@ -189,7 +189,7 @@ if (preg_match('#^downloads/(.+\.(apk|aab|mobileconfig))$#i', $cleanPath, $dlMat
 
 // Block direct access to sensitive extensions and paths
 $blockedPattern = '/(\.(sql|env|log|md|json|bat|ps1|sh|yml|yaml|ini|sqlite|lock|git|bak|conf|txt)$|^(\.|\/|\.env|logs\/|scratch\/|\.vercel\/|includes\/|payment-core\/|database\/|admin\/database\/|WhatsApp\/telehealth\/seed|delivery\/seed|api\/debug))/i';
-if (preg_match($blockedPattern, $cleanPath) && $cleanPath !== 'manifest.json') {
+if (preg_match($blockedPattern, $cleanPath) && $cleanPath !== 'manifest.json' && $cleanPath !== 'manifest.webmanifest') {
     http_response_code(403);
     echo "<!DOCTYPE html><html><head><meta charset='utf-8'><title>403 Forbidden</title></head>";
     echo "<body style='font-family:sans-serif;padding:40px;background:#0f172a;color:#f1f5f9;'>";
