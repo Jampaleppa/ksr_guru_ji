@@ -10,7 +10,7 @@ if (is_file($mfPath)) {
     readfile($mfPath);
 } else {
     echo json_encode([
-        "name"             => "KSR GURU JI – ನಮ್ಮ ಅಂಗಡಿ",
+        "name"             => "KSR GURU JI â€“ à²¨à²®à³à²® à²…à²‚à²—à²¡à²¿",
         "short_name"       => "KSR Guru Ji",
         "description"      => "Groceries & daily essentials delivered in 45 minutes",
         "start_url"        => "/index.php?source=pwa",
@@ -24,3 +24,5 @@ if (is_file($mfPath)) {
         ]
     ], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
 }
+
+// v2
