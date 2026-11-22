@@ -457,10 +457,14 @@ if (empty($productsData)) {
         .product-desc {
             font-size: 0.74rem;
             color: var(--text-muted);
-            
             margin-bottom: 0.4rem;
             padding: 0 4px;
             line-height: 1.3;
+            min-height: 2.6em;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
 
         .base-price-hint {
