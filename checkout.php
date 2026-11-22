@@ -1373,37 +1373,28 @@ if ($isLoggedIn) {
             </div>
 
             <!-- WhatsApp Share with Customer -->
-            <div style="margin: 10px 0; border: 1px dashed #20ba5a; padding: 10px; border-radius: 12px; background: #f0fdf4;">
-                <div style="font-weight: 700; font-size: 0.85rem; color: #166534; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; justify-content: center;">
-                    <i class="fab fa-whatsapp" style="font-size: 1.1rem; color: #20ba5a;"></i> WhatsApp Order Confirmation
-                    <div style="margin: 10px 0; border: 2px solid #20ba5a; padding: 12px; border-radius: 14px; background: linear-gradient(135deg,#f0fdf4,#dcfce7);">
-                        <div style="font-weight: 700; font-size: 0.88rem; color: #166534; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; justify-content: center;">
-                            <i class="fab fa-whatsapp" style="font-size: 1.2rem; color: #20ba5a;"></i> 💬 Send Order Confirmation to Customer
-                        </div>
-                        <a href="#" id="waCustomerBtn" class="wa-send-btn" target="_blank" style="display: flex; align-items: center; justify-content: center; gap: 8px; background: #20ba5a; color: white; padding: 10px 14px; border-radius: 30px; font-weight: 600; text-decoration: none; font-size: 0.85rem; border: none; transition: 0.2s;">
-                            <i class="fab fa-whatsapp" style="font-size: 1.2rem;"></i> Open WhatsApp Confirmation
-                            <a href="#" id="waCustomerBtn" class="wa-send-btn" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; justify-content: center; gap: 8px; background: linear-gradient(135deg,#16a34a,#20ba5a); color: white; padding: 11px 16px; border-radius: 30px; font-weight: 700; text-decoration: none; font-size: 0.88rem; border: none; transition: 0.2s; box-shadow: 0 4px 12px rgba(22,163,74,0.3);">
-                                <i class="fab fa-whatsapp" style="font-size: 1.3rem;"></i> Send WhatsApp Confirmation to Customer
-                            </a>
-                    </div>
+            <div style="margin: 12px 0; border: 2px solid #20ba5a; padding: 12px; border-radius: 14px; background: linear-gradient(135deg,#f0fdf4,#dcfce7); text-align: center;">
+                <div style="font-weight: 700; font-size: 0.88rem; color: #166534; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; justify-content: center;">
+                    <i class="fab fa-whatsapp" style="font-size: 1.2rem; color: #20ba5a;"></i> 💬 Send Order Confirmation to Customer
+                </div>
+                <a href="#" id="waCustomerBtn" class="wa-send-btn" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; justify-content: center; gap: 8px; background: linear-gradient(135deg,#16a34a,#20ba5a); color: white; padding: 11px 16px; border-radius: 30px; font-weight: 700; text-decoration: none; font-size: 0.88rem; border: none; transition: 0.2s; box-shadow: 0 4px 12px rgba(22,163,74,0.3);">
+                    <i class="fab fa-whatsapp" style="font-size: 1.3rem;"></i> Send WhatsApp Confirmation to Customer
+                </a>
+            </div>
 
-                    <!-- WhatsApp Share with Delivery Personnel -->
-                    <div style="margin-top: 10px; font-size: 0.78rem; color: #64748b; font-weight: 600; text-align: center; margin-bottom:6px;">Share Order List to Delivery Boy:</div>
-                    <div class="wa-send-row" style="display:flex; gap:10px; justify-content:center; margin-bottom: 12px;">
-                        <a href="#" id="waPrimaryBtn" class="wa-send-btn" style="flex:1; text-align:center; padding:9px; border-radius:8px; font-size:0.78rem; text-decoration:none; background:#0f7b3a; color:#fff;" target="_blank"><i class="fab fa-whatsapp"></i> Delivery Boy (Primary)</a>
-                        <a href="#" id="waSecondaryBtn" class="wa-send-btn" style="flex:1; text-align:center; padding:9px; border-radius:8px; font-size:0.78rem; text-decoration:none; background:#047857; color:#fff;" target="_blank"><i class="fab fa-whatsapp"></i> Delivery Boy (Backup)</a>
-                        <div style="margin: 10px 0; border: 2px solid #0f7b3a; padding: 12px; border-radius: 14px; background: linear-gradient(135deg,#f0fdf4,#bbf7d0);">
-                            <div style="font-weight: 700; font-size: 0.88rem; color: #064e3b; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; justify-content: center;">
-                                <i class="fas fa-truck" style="color: #0f7b3a;"></i> 🚚 Send Order to Delivery Boy
-                            </div>
-                            <div class="wa-send-row" style="display:flex; gap:8px; justify-content:center;">
-                                <a href="#" id="waPrimaryBtn" class="wa-send-btn" style="flex:1; display:flex; align-items:center; justify-content:center; gap:6px; padding:10px; border-radius:10px; font-size:0.82rem; font-weight:700; text-decoration:none; background:linear-gradient(135deg,#0f7b3a,#15803d); color:#fff; box-shadow:0 4px 10px rgba(15,123,58,0.25); transition:0.2s;" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp" style="font-size:1.1rem;"></i> Primary Boy</a>
-                                <a href="#" id="waSecondaryBtn" class="wa-send-btn" style="flex:1; display:flex; align-items:center; justify-content:center; gap:6px; padding:10px; border-radius:10px; font-size:0.82rem; font-weight:700; text-decoration:none; background:linear-gradient(135deg,#047857,#065f46); color:#fff; box-shadow:0 4px 10px rgba(4,120,87,0.25); transition:0.2s;" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp" style="font-size:1.1rem;"></i> Backup Boy</a>
-                            </div>
-                            <div id="waPopupBlockedNote" style="display:none; margin-top:8px; padding:8px 10px; background:#fffbeb; border:1px solid #fcd34d; border-radius:8px; font-size:0.76rem; color:#92400e; text-align:center;">
-                                <i class="fas fa-exclamation-triangle" style="color:#f59e0b;"></i> Popup was blocked by browser. Please tap the buttons above to open WhatsApp manually.
-                            </div>
-                        </div>
+            <!-- WhatsApp Share with Delivery Personnel -->
+            <div style="margin: 12px 0; border: 2px solid #0f7b3a; padding: 12px; border-radius: 14px; background: linear-gradient(135deg,#f0fdf4,#bbf7d0); text-align: center;">
+                <div style="font-weight: 700; font-size: 0.88rem; color: #064e3b; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; justify-content: center;">
+                    <i class="fas fa-truck" style="color: #0f7b3a;"></i> 🚚 Notify Delivery Boys
+                </div>
+                <div class="wa-send-row" style="display:flex; gap:8px; justify-content:center;">
+                    <a href="#" id="waPrimaryBtn" class="wa-send-btn" style="flex:1; display:flex; align-items:center; justify-content:center; gap:6px; padding:10px; border-radius:10px; font-size:0.82rem; font-weight:700; text-decoration:none; background:linear-gradient(135deg,#0f7b3a,#15803d); color:#fff; box-shadow:0 4px 10px rgba(15,123,58,0.25); transition:0.2s;" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp" style="font-size:1.1rem;"></i> Primary (8088584421)</a>
+                    <a href="#" id="waSecondaryBtn" class="wa-send-btn" style="flex:1; display:flex; align-items:center; justify-content:center; gap:6px; padding:10px; border-radius:10px; font-size:0.82rem; font-weight:700; text-decoration:none; background:linear-gradient(135deg,#047857,#065f46); color:#fff; box-shadow:0 4px 10px rgba(4,120,87,0.25); transition:0.2s;" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp" style="font-size:1.1rem;"></i> Backup (8762474406)</a>
+                </div>
+                <div id="waPopupBlockedNote" style="display:none; margin-top:8px; padding:8px 10px; background:#fffbeb; border:1px solid #fcd34d; border-radius:8px; font-size:0.76rem; color:#92400e; text-align:center;">
+                    <i class="fas fa-exclamation-triangle" style="color:#f59e0b;"></i> Popup was blocked by browser. Please tap the buttons above to open WhatsApp manually.
+                </div>
+            </div>
 
                         <!-- Action Row -->
                         <div class="action-row" style="margin-bottom:12px; display:flex; gap:10px;">
