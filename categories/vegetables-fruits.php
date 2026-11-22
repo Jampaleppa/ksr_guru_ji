@@ -457,6 +457,7 @@ if (empty($productsData)) {
         .product-desc {
             font-size: 0.74rem;
             color: var(--text-muted);
+            
             margin-bottom: 0.4rem;
             padding: 0 4px;
             line-height: 1.3;
@@ -521,6 +522,11 @@ if (empty($productsData)) {
         .add-to-cart:hover {
             background: #0f5f56;
             transform: scale(1.02);
+        }
+
+        .add-to-cart.added {
+            background: #059669 !important;
+            transform: scale(0.96);
         }
 
         @media (max-width: 600px) {
@@ -854,6 +860,15 @@ if (empty($productsData)) {
                         const selectedOpt = selector.options[selector.selectedIndex];
                         const variantLabel = selectedOpt.dataset.label;
                         const unitPrice = parseFloat(selectedOpt.dataset.price);
+
+                        const btn = this;
+                        const origHtml = btn.innerHTML;
+                        btn.innerHTML = '<i class="fas fa-check"></i> Added';
+                        btn.classList.add('added');
+                        setTimeout(() => {
+                            btn.innerHTML = origHtml;
+                            btn.classList.remove('added');
+                        }, 1200);
 
                         addToCart(
                             pid,
