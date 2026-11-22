@@ -240,9 +240,28 @@ function ksrCalculateCartTotal(array $cartItems): array
         $isProduce = (str_starts_with($cleanId, 'veg_') || isset($vegPricesByName[$cleanLowerName]) || isset($vegPricesByName[$lowerName]));
         if ($isProduce) {
             $vid = str_starts_with($cleanId, 'veg_') ? (int)substr($cleanId, 4) : 0;
-            $vegRow = ($vid > 0 && isset($vegPricesById[$vid]))
-                ? $vegPricesById[$vid]
-                : ($vegPricesByName[$cleanLowerName] ?? ($vegPricesByName[$lowerName] ?? null));
+            $vegRow = null;
+            if ($vid > 0 && isset($vegPricesById[$vid])) {
+                $candidateRow = $vegPricesById[$vid];
+                $candName = strtolower(trim($candidateRow['name']));
+                // Verify the ID belongs to this product name before accepting it
+                if ($candName === $cleanLowerName || $candName === $lowerName || str_contains($cleanLowerName, $candName) || str_contains($candName, $cleanLowerName)) {
+                    $vegRow = $candidateRow;
+                }
+            }
+            if (!$vegRow) {
+                // Name match takes priority
+                $vegRow = $vegPricesByName[$cleanLowerName] ?? ($vegPricesByName[$lowerName] ?? null);
+            }
+            if (!$vegRow) {
+                // Try stripping produce qualifiers: (Hybrid), (Local), (Fresh), (Desi), (Country), (Ooty), (Organic)
+                $strippedName = trim(preg_replace('/\s*\([^)]*\)\s*/', ' ', $cleanLowerName));
+                $baseVegName = strtolower(trim(preg_replace('/\b(hybrid|local|fresh|desi|country|ooty|organic)\b/i', '', $strippedName)));
+                $baseVegName = trim(preg_replace('/\s+/', ' ', $baseVegName));
+                if ($baseVegName !== '') {
+                    $vegRow = $vegPricesByName[$baseVegName] ?? null;
+                }
+            }
 
             if ($vegRow) {
                 $baseSelling = (float)$vegRow['selling_price'];
@@ -261,6 +280,19 @@ function ksrCalculateCartTotal(array $cartItems): array
                 if (!$isMatched && abs($baseSelling - $submittedPrice) < 0.05) {
                     $unitPrice = $baseSelling;
                     $isMatched = true;
+                }
+                // Check if submittedPrice matches an integer multiple of an option (e.g. 2 kg, 3 packets)
+                if (!$isMatched && $submittedPrice > 0 && $baseSelling > 0) {
+                    foreach ($validOptions as $opt) {
+                        if ($opt['price'] > 0) {
+                            $ratio = $submittedPrice / $opt['price'];
+                            if (abs($ratio - round($ratio)) < 0.03 && round($ratio) >= 1 && round($ratio) <= 20) {
+                                $unitPrice = $submittedPrice;
+                                $isMatched = true;
+                                break;
+                            }
+                        }
+                    }
                 }
                 if ($isMatched) {
                     $name = $vegRow['name'] . ($variant ? " ($variant)" : '');
