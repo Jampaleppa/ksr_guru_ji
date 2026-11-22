@@ -908,7 +908,7 @@ $topPicks = array_slice($products, 0, 8);
                             if (jsonStart !== -1) {
                                 data = JSON.parse(text.substring(jsonStart));
                             }
-                        } catch(e) {
+                        } catch (e) {
                             console.warn("Cart response parse warning:", text);
                         }
                         if (!data) {

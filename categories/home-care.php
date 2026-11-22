@@ -307,7 +307,8 @@ function getFallbackHomeCareProducts()
   return $fallback;
 }
 if (!function_exists('getFallbackProducts')) {
-  function getFallbackProducts() {
+  function getFallbackProducts()
+  {
     return getFallbackHomeCareProducts();
   }
 }
@@ -751,7 +752,7 @@ $topPicks = array_slice($products, 0, 8);
   </style>
   <link rel="stylesheet" href="category-style.css">
   <link rel="stylesheet" href="../index.css">
-    <link rel="stylesheet" href="../mobile-app.css?v=3.0" />
+  <link rel="stylesheet" href="../mobile-app.css?v=3.0" />
 </head>
 
 <body>
@@ -895,7 +896,7 @@ $topPicks = array_slice($products, 0, 8);
               if (jsonStart !== -1) {
                 data = JSON.parse(text.substring(jsonStart));
               }
-            } catch(e) {
+            } catch (e) {
               console.warn("Cart response parse warning:", text);
             }
             if (!data) {
@@ -1101,9 +1102,9 @@ $topPicks = array_slice($products, 0, 8);
   <?php include __DIR__ . '/../includes/user-footer.php'; ?>
   <script src="sorting.js"></script>
 
-    <!-- Mobile Bottom Navigation -->
-    <?php if (file_exists(__DIR__ . '/../mobile-bottom-nav.php')) require_once __DIR__ . '/../mobile-bottom-nav.php'; ?>
-    <script src="/assets/js/mobile-app.js?v=3.0" defer></script>
+  <!-- Mobile Bottom Navigation -->
+  <?php if (file_exists(__DIR__ . '/../mobile-bottom-nav.php')) require_once __DIR__ . '/../mobile-bottom-nav.php'; ?>
+  <script src="/assets/js/mobile-app.js?v=3.0" defer></script>
 </body>
 
 </html>

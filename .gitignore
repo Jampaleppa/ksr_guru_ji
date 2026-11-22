@@ -29,3 +29,5 @@ admin/database/install_admin_rbac.php
 delivery/seed_agents.php
 WhatsApp/telehealth/seed-telehealth-data.php
 api/debug.php
+
+invoices/
