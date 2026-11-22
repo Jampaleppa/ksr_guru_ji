@@ -659,6 +659,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && isset($_POST['cake_submi
     formData.append('id', productId);
     formData.append('qty', 1);
     formData.append('variant', weightLabel);
+    formData.append('price', unitPrice.toFixed(2));
     formData.append('custom_price', unitPrice.toFixed(2));
     formData.append('name', product.nameEn || product.name || '');
     formData.append('kn', product.kn || product.nameKn || product.knName || '');
@@ -668,29 +669,44 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && isset($_POST['cake_submi
         body: formData,
         headers: { 'X-Requested-With': 'XMLHttpRequest' }
     })
-    .then(res => res.json())
-    .then(data => {
+    .then(res => res.text())
+    .then(text => {
+        let data;
+        try {
+            const jsonStart = text.indexOf('{');
+            if (jsonStart !== -1) {
+                data = JSON.parse(text.substring(jsonStart));
+            }
+        } catch(e) {
+            console.warn("Cart response parse warning:", text);
+        }
+        if (!data) {
+            console.error("Invalid cart response:", text);
+            return;
+        }
         if (data.success) {
-                    if (typeof cart !== "undefined") {
-                        cart = data.cart || cart;
-                    } else {
-                        window.cart = data.cart;
-                    }
-                    const badges = document.querySelectorAll("#cartCount, .cart-count, .cart-badge, #cartBadgeCount");
-                    badges.forEach(b => {
-                        b.innerText = data.cart ? data.cart.reduce((acc, i) => acc + (i.qty || 1), 0) : "";
-                    });
-                    if (typeof openCart === "function") {
-                        openCart();
-                    }
+            const cartArr = Array.isArray(data.cart) ? data.cart : Object.values(data.cart || {});
+            if (typeof cart !== "undefined") {
+                cart = cartArr;
+            } else {
+                window.cart = cartArr;
+            }
+            const badges = document.querySelectorAll("#cartCount, .cart-count, .cart-badge, #cartBadgeCount");
+            const totalCount = data.cartCount || cartArr.reduce((acc, i) => acc + (parseInt(i.qty) || 1), 0);
+            badges.forEach(b => {
+                b.innerText = totalCount || "";
+            });
+            if (typeof openCart === "function") {
+                openCart();
+            }
         } else {
             alert(data.error || 'Failed to add product to cart');
         }
     })
     .catch(err => {
-            console.error(err);
-            alert("Error adding product to cart.");
-        });
+        console.error(err);
+        alert("Error adding product to cart.");
+    });
   }
 
   // ----- RENDER -----

@@ -358,6 +358,7 @@ $cartCount = array_sum(array_column($_SESSION['cart'] ?? [], 'qty'));
     formData.append('name', product.nameEn);
     formData.append('kn', product.kn);
     formData.append('price', product.price);
+    formData.append('custom_price', product.price);
     formData.append('image', product.image);
     
     fetch('../cart/add_cart.php', {
@@ -365,16 +366,31 @@ $cartCount = array_sum(array_column($_SESSION['cart'] ?? [], 'qty'));
         body: formData,
         headers: { 'X-Requested-With': 'XMLHttpRequest' }
     })
-    .then(res => res.json())
-    .then(data => {
-        if (data.success) {
-            if (typeof window.cart !== "undefined") {
-                window.cart = data.cart;
+    .then(res => res.text())
+    .then(text => {
+        let data;
+        try {
+            const jsonStart = text.indexOf('{');
+            if (jsonStart !== -1) {
+                data = JSON.parse(text.substring(jsonStart));
             }
-            cart = data.cart;
-            const badges = document.querySelectorAll("#cartCount, .cart-count, .cart-badge");
+        } catch(e) {
+            console.warn("Cart response parse warning:", text);
+        }
+        if (!data) {
+            console.error("Invalid cart response:", text);
+            return;
+        }
+        if (data.success) {
+            const cartArr = Array.isArray(data.cart) ? data.cart : Object.values(data.cart || {});
+            if (typeof window.cart !== "undefined") {
+                window.cart = cartArr;
+            }
+            cart = cartArr;
+            const badges = document.querySelectorAll("#cartCount, .cart-count, .cart-badge, #cartBadgeCount");
+            const totalCount = data.cartCount || cartArr.reduce((acc, i) => acc + (parseInt(i.qty) || 1), 0);
             badges.forEach(b => {
-                b.innerText = data.cart ? data.cart.reduce((acc, i) => acc + (i.qty || 1), 0) : "";
+                b.innerText = totalCount || "";
             });
             if (typeof openCart === "function") {
                 openCart();

@@ -115,7 +115,8 @@ function ksrCalculateCartTotal(array $cartItems): array
             try {
                 $chk = $pdo->query("SELECT discount FROM products LIMIT 1");
                 $hasDiscount = ($chk !== false);
-            } catch (Throwable $e) {}
+            } catch (Throwable $e) {
+            }
 
             $sql = $hasDiscount
                 ? "SELECT id, name, price, discount, status FROM products WHERE (" . implode(' OR ', $whereParts) . ")"
@@ -200,17 +201,57 @@ function ksrCalculateCartTotal(array $cartItems): array
 
     // Recognized category stores from STORES configuration in checkout
     $recognizedStores = [
-        'air freshener', 'bakery', 'bath & body', 'breakfast', 'dry fruits', 'grains',
-        'cleaning', 'cold drinks', 'suggestion', 'dishwash', 'health & wellness',
-        'hair care', 'home care', 'frozen foods', 'spices', 'stationery', 'pet supplies',
-        'snacks', 'pooja items', 'pickles & sauces', 'plastic ware', 'pulses & dals',
-        'pure oils', 'fresh dairy', 'kitchenware', 'vegetables & fruits', 'session',
-        'ksr_air_freshener_cart', 'karavallicartweightextended', 'glowcartnew',
-        'breakfastcart', 'dryfruits_cart_variants', 'graincompactcart', 'cleanhomecart',
-        'coldhomecart', 'dishwashcart', 'healthcart', 'haircart', 'homecarecart',
-        'frozencart', 'spicescartweight', 'stationerycart', 'petcart', 'snackscart',
-        'poojacart', 'picklescart', 'plasticscart', 'pulsescart', 'pureoilscart',
-        'freshdairy_cart2', 'kitchenwarecart'
+        'air freshener',
+        'bakery',
+        'bath & body',
+        'breakfast',
+        'dry fruits',
+        'grains',
+        'cleaning',
+        'cold drinks',
+        'suggestion',
+        'dishwash',
+        'health & wellness',
+        'hair care',
+        'home care',
+        'frozen foods',
+        'spices',
+        'stationery',
+        'pet supplies',
+        'snacks',
+        'pooja items',
+        'pickles & sauces',
+        'plastic ware',
+        'pulses & dals',
+        'pure oils',
+        'fresh dairy',
+        'kitchenware',
+        'vegetables & fruits',
+        'session',
+        'ksr_air_freshener_cart',
+        'karavallicartweightextended',
+        'glowcartnew',
+        'breakfastcart',
+        'dryfruits_cart_variants',
+        'graincompactcart',
+        'cleanhomecart',
+        'coldhomecart',
+        'dishwashcart',
+        'healthcart',
+        'haircart',
+        'homecarecart',
+        'frozencart',
+        'spicescartweight',
+        'stationerycart',
+        'petcart',
+        'snackscart',
+        'poojacart',
+        'picklescart',
+        'plasticscart',
+        'pulsescart',
+        'pureoilscart',
+        'freshdairy_cart2',
+        'kitchenwarecart'
     ];
 
     // 6. Evaluate each line item

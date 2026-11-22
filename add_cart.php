@@ -50,28 +50,41 @@ if ($productIdRaw === '') {
     $pdo = null;
     try {
         $pdo = getDBConnection();
-        if ($pdo) {
-            $stmt = $pdo->prepare("SELECT id, name, kn_name, price, stock, image_url FROM products WHERE id = ? AND status = 1");
-            $stmt->execute([is_numeric($productId) ? (int)$productId : $productId]);
-            $product = $stmt->fetch(PDO::FETCH_ASSOC);
-        }
     } catch (Throwable $e) {
-        $product = null;
+        $pdo = null;
     }
 
-    // Check daily_market_prices table for authoritative daily vegetable & fruit rates
-    if (!$product && $pdo && (!empty($clientName) || !empty($productId))) {
+    $isProduce = str_starts_with((string)$productId, 'veg_') || (isset($_SERVER['HTTP_REFERER']) && str_contains($_SERVER['HTTP_REFERER'], 'vegetables-fruits'));
+
+    // 1. For produce / vegetables & fruits, check daily_market_prices first
+    if ($pdo && ($isProduce || !empty($clientName))) {
         try {
+            $cleanVegName = preg_replace('/\s*\([^)]*\)\s*$/', '', $clientName);
             $marketId = 0;
             if (str_starts_with((string)$productId, 'veg_')) {
                 $marketId = (int)substr((string)$productId, 4);
-            } elseif (is_numeric($productId)) {
+            } elseif (is_numeric($productId) && $isProduce) {
                 $marketId = (int)$productId;
             }
-            $stmtMarket = $pdo->prepare("SELECT id, name, name_kn, selling_price, image, unit_type FROM daily_market_prices WHERE (id = ? OR name = ?) AND (is_available = 1 OR is_active = 1)");
-            $stmtMarket->execute([$marketId, $clientName ?: $productId]);
-            $marketItem = $stmtMarket->fetch(PDO::FETCH_ASSOC);
-            if ($marketItem) {
+
+            // A. Prefer exact / clean name match
+            if ($cleanVegName !== '') {
+                $stmtM = $pdo->prepare("SELECT id, name, name_kn, selling_price, image, unit_type FROM daily_market_prices WHERE (name = ? OR name = ?) AND (is_available = 1 OR is_active = 1) LIMIT 1");
+                $stmtM->execute([$clientName, $cleanVegName]);
+                $marketItem = $stmtM->fetch(PDO::FETCH_ASSOC);
+            }
+
+            // B. If not found by name and explicit veg ID provided
+            if (empty($marketItem) && $marketId > 0) {
+                $stmtM = $pdo->prepare("SELECT id, name, name_kn, selling_price, image, unit_type FROM daily_market_prices WHERE id = ? AND (is_available = 1 OR is_active = 1)");
+                $stmtM->execute([$marketId]);
+                $cand = $stmtM->fetch(PDO::FETCH_ASSOC);
+                if ($cand && (empty($clientName) || strcasecmp($cand['name'], $clientName) === 0 || str_contains(strtolower($clientName), strtolower($cand['name'])))) {
+                    $marketItem = $cand;
+                }
+            }
+
+            if (!empty($marketItem)) {
                 $vegPrice = ($clientPrice > 0) ? $clientPrice : (float)$marketItem['selling_price'];
                 $product = [
                     'id' => 'veg_' . $marketItem['id'],
@@ -84,6 +97,35 @@ if ($productIdRaw === '') {
                 $productId = $product['id'];
             }
         } catch (Throwable $e) {}
+    }
+
+    // 2. Query standard products table (with Name priority to prevent client loop index collisions)
+    if (!$product && $pdo) {
+        try {
+            if ($clientName !== '') {
+                $cleanProdName = preg_replace('/\s*\([^)]*\)\s*$/', '', $clientName);
+                $stmt = $pdo->prepare("SELECT id, name, kn_name, price, stock, image_url FROM products WHERE (name = ? OR name = ?) AND status = 1 LIMIT 1");
+                $stmt->execute([$clientName, $cleanProdName]);
+                $prodMatch = $stmt->fetch(PDO::FETCH_ASSOC);
+                if ($prodMatch) {
+                    $product = $prodMatch;
+                    $productId = $product['id'];
+                }
+            }
+
+            // Fallback to ID lookup if not found by name
+            if (!$product && is_numeric($productId)) {
+                $stmt = $pdo->prepare("SELECT id, name, kn_name, price, stock, image_url FROM products WHERE id = ? AND status = 1");
+                $stmt->execute([(int)$productId]);
+                $cand = $stmt->fetch(PDO::FETCH_ASSOC);
+                if ($cand && (empty($clientName) || strcasecmp($cand['name'], $clientName) === 0 || str_contains(strtolower($clientName), strtolower($cand['name'])))) {
+                    $product = $cand;
+                    $productId = $product['id'];
+                }
+            }
+        } catch (Throwable $e) {
+            $product = null;
+        }
     }
 
     if (!$product || ($clientName !== '' && strcasecmp($product['name'], $clientName) !== 0)) {
@@ -125,8 +167,14 @@ if ($productIdRaw === '') {
             if ($product['stock'] !== null && $product['stock'] < $quantity) {
                 $error = 'Not enough stock available. Maximum: ' . $product['stock'];
             } else {
-                // Always use DB-authoritative price. customPrice override is disabled.
-                $finalPrice = $product['price'];
+                // Price calculation: support variant pricing and client calculated prices
+                if ($variant !== null && $clientPrice > 0) {
+                    $finalPrice = $clientPrice;
+                } elseif (!empty($product['price']) && (float)$product['price'] > 0) {
+                    $finalPrice = (float)$product['price'];
+                } else {
+                    $finalPrice = $clientPrice;
+                }
 
                 // --- Build item identifier (handle variant) ---
                 // If a variant is provided, append it to the ID so different variants are separate in cart

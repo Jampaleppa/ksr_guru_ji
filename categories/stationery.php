@@ -704,6 +704,7 @@ $topPickIds = [1, 5, 13, 24, 18, 15, 9, 28, 38, 44];
         formData.append('id', productId);
         formData.append('qty', 1);
         formData.append('variant', selectedQty + ' piece(s)');
+        formData.append('price', totalPrice.toFixed(2));
         formData.append('custom_price', totalPrice.toFixed(2));
         formData.append('name', product.name || '');
         formData.append('kn', product.kn || '');
@@ -715,17 +716,32 @@ $topPickIds = [1, 5, 13, 24, 18, 15, 9, 28, 38, 44];
               'X-Requested-With': 'XMLHttpRequest'
             }
           })
-          .then(res => res.json())
-          .then(data => {
+          .then(res => res.text())
+          .then(text => {
+            let data;
+            try {
+              const jsonStart = text.indexOf('{');
+              if (jsonStart !== -1) {
+                data = JSON.parse(text.substring(jsonStart));
+              }
+            } catch(e) {
+              console.warn("Cart response parse warning:", text);
+            }
+            if (!data) {
+              console.error("Invalid cart response:", text);
+              return;
+            }
             if (data.success) {
+              const cartArr = Array.isArray(data.cart) ? data.cart : Object.values(data.cart || {});
               if (typeof cart !== "undefined") {
-                cart = data.cart || cart;
+                cart = cartArr;
               } else {
-                window.cart = data.cart;
+                window.cart = cartArr;
               }
               const badges = document.querySelectorAll("#cartCount, .cart-count, .cart-badge, #cartBadgeCount");
+              const totalCount = data.cartCount || cartArr.reduce((acc, i) => acc + (parseInt(i.qty) || 1), 0);
               badges.forEach(b => {
-                b.innerText = data.cart ? data.cart.reduce((acc, i) => acc + (i.qty || 1), 0) : "";
+                b.innerText = totalCount || "";
               });
               if (typeof openCart === "function") {
                 openCart();

@@ -681,11 +681,12 @@ if (empty($productsData)) {
             const tabs = document.querySelectorAll('.tab');
 
             function updateCartBadge() {
-                const totalQty = cart.reduce((sum, i) => sum + (i.qty || 0), 0);
+                const cartArr = Array.isArray(cart) ? cart : Object.values(cart || {});
+                const totalQty = cartArr.reduce((sum, i) => sum + (parseInt(i.qty) || 0), 0);
                 if (cartCountSpan) cartCountSpan.innerText = totalQty;
-                const allBadges = document.querySelectorAll("#cartCount, .cart-count, .cart-badge");
+                const allBadges = document.querySelectorAll("#cartCount, .cart-count, .cart-badge, #cartBadgeCount");
                 allBadges.forEach(b => b.innerText = totalQty || "");
-                localStorage.setItem('glowCartNew', JSON.stringify(cart));
+                localStorage.setItem('glowCartNew', JSON.stringify(cartArr));
             }
 
             // Add Product to Cart via AJAX with exact calculated unit price and variant
@@ -706,10 +707,23 @@ if (empty($productsData)) {
                     body: formData,
                     headers: { 'X-Requested-With': 'XMLHttpRequest' }
                 })
-                .then(res => res.json())
-                .then(data => {
+                .then(res => res.text())
+                .then(text => {
+                    let data;
+                    try {
+                        const jsonStart = text.indexOf('{');
+                        if (jsonStart !== -1) {
+                            data = JSON.parse(text.substring(jsonStart));
+                        }
+                    } catch (e) {
+                        console.warn("Cart response parse warning:", text);
+                    }
+                    if (!data) {
+                        console.error("Invalid cart response:", text);
+                        return;
+                    }
                     if (data.success) {
-                        cart = data.cart || cart;
+                        cart = Array.isArray(data.cart) ? data.cart : Object.values(data.cart || {});
                         updateCartBadge();
                         if (typeof openCart === "function") {
                             openCart();
