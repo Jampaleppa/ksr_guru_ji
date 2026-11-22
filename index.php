@@ -1089,12 +1089,18 @@ $bestSellers = array_slice($products, 0, 8);
             // ----- Load cart from server -----
             function loadCart() {
                 fetch('index.php?ajax=cart')
-                    .then(res => res.json())
-                    .then(data => {
-                        cart = data;
-                        cartCount = cart.reduce((acc, i) => acc + i.qty, 0);
-                        updateCartBadge();
-                        renderCartModal();
+                    .then(res => res.text())
+                    .then(text => {
+                        try {
+                            const jsonStart = text.indexOf('[');
+                            const data = jsonStart >= 0 ? JSON.parse(text.substring(jsonStart)) : JSON.parse(text);
+                            cart = Array.isArray(data) ? data : Object.values(data || {});
+                            cartCount = cart.reduce((acc, i) => acc + (parseInt(i.qty) || 0), 0);
+                            updateCartBadge();
+                            renderCartModal();
+                        } catch (e) {
+                            console.warn("Cart load error:", e);
+                        }
                     })
                     .catch(console.error);
             }
@@ -1109,18 +1115,31 @@ $bestSellers = array_slice($products, 0, 8);
                 const formData = new FormData();
                 formData.append('id', productId);
                 if (name) formData.append('name', name);
-                if (price) formData.append('price', price);
+                if (price) {
+                    formData.append('price', price);
+                    formData.append('custom_price', price);
+                }
                 if (image) formData.append('image', image);
                 if (kn) formData.append('kn', kn);
-                fetch('/index.php?ajax=add_cart', {
+                fetch('index.php?ajax=add_cart', {
                         method: 'POST',
-                        body: formData
+                        body: formData,
+                        headers: { 'X-Requested-With': 'XMLHttpRequest' }
                     })
-                    .then(res => res.json())
-                    .then(data => {
-                        if (data.success) {
-                            cart = data.cart;
-                            cartCount = cart.reduce((acc, i) => acc + i.qty, 0);
+                    .then(res => res.text())
+                    .then(text => {
+                        let data;
+                        try {
+                            const jsonStart = text.indexOf('{');
+                            if (jsonStart !== -1) {
+                                data = JSON.parse(text.substring(jsonStart));
+                            }
+                        } catch (e) {
+                            console.warn("Cart parse error:", e);
+                        }
+                        if (data && data.success) {
+                            cart = Array.isArray(data.cart) ? data.cart : Object.values(data.cart || {});
+                            cartCount = cart.reduce((acc, i) => acc + (parseInt(i.qty) || 0), 0);
                             updateCartBadge();
                             renderCartModal();
                             // Feedback
@@ -1216,13 +1235,21 @@ $bestSellers = array_slice($products, 0, 8);
                 formData.append('qty', newQty);
                 fetch('index.php?ajax=update_cart', {
                         method: 'POST',
-                        body: formData
+                        body: formData,
+                        headers: { 'X-Requested-With': 'XMLHttpRequest' }
                     })
-                    .then(res => res.json())
-                    .then(data => {
-                        if (data.success) {
-                            cart = data.cart;
-                            cartCount = cart.reduce((acc, i) => acc + i.qty, 0);
+                    .then(res => res.text())
+                    .then(text => {
+                        let data;
+                        try {
+                            const jsonStart = text.indexOf('{');
+                            if (jsonStart !== -1) {
+                                data = JSON.parse(text.substring(jsonStart));
+                            }
+                        } catch (e) {}
+                        if (data && data.success) {
+                            cart = Array.isArray(data.cart) ? data.cart : Object.values(data.cart || {});
+                            cartCount = cart.reduce((acc, i) => acc + (parseInt(i.qty) || 0), 0);
                             updateCartBadge();
                             renderCartModal();
                         }
