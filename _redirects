@@ -1,0 +1,6 @@
+# KSR Guru Ji – Netlify redirects
+# Route root to index.php
+/   /index.php  200
+
+# Route all PHP pages
+/*.php  /:splat.php  200
