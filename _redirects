@@ -1,6 +1,2 @@
-# KSR Guru Ji – Netlify redirects
-# Route root to index.php
-/   /index.php  200
-
-# Route all PHP pages
-/*.php  /:splat.php  200
+# KSR Guru Ji – Netlify Edge Proxy to Live PHP Engine
+/*  https://ksrguruji.vercel.app/:splat  200!
