@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /**
@@ -11,10 +12,11 @@ declare(strict_types=1);
 function getUpiConfig(\PDO $pdo): array
 {
     $defaults = [
-        'merchant_name' => 'KSR GURU JI',
-        'upi_id'        => '',           // empty until SBI onboarding complete
+        'merchant_name' => 'mr.JAMPALEPPA KRUSHNAPPA RATHOD',
+        'upi_id'        => 'jyampallepparathod-1@oksbi',
         'display_name'  => 'KSR GURU JI PAY',
-        'qr_image_path' => '',           // empty until QR image uploaded
+        'qr_image_path' => '/images/ksr_upi_qr.png',
+        'bank_name'     => 'State Bank of India',
     ];
 
     try {
@@ -27,7 +29,10 @@ function getUpiConfig(\PDO $pdo): array
         $rows = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
         foreach ($rows as $row) {
-            $defaults[$row['setting_key']] = $row['setting_value'];
+            $val = trim((string)($row['setting_value'] ?? ''));
+            if ($val !== '' && !str_starts_with($val, 'PLACEHOLDER')) {
+                $defaults[$row['setting_key']] = $val;
+            }
         }
     } catch (\Throwable $e) {
         error_log('getUpiConfig error: ' . $e->getMessage());
@@ -39,10 +44,10 @@ function getUpiConfig(\PDO $pdo): array
 function getBankTransferConfig(\PDO $pdo): array
 {
     $defaults = [
-        'account_holder' => 'KSR GURU JI',
+        'account_holder' => 'mr.JAMPALEPPA KRUSHNAPPA RATHOD',
         'bank_name'      => 'State Bank of India',
-        'account_number' => '', // set via admin settings
-        'ifsc'           => '',
+        'account_number' => '00000033196470488',
+        'ifsc'           => 'SBIN0011275',
         'account_type'   => 'Savings',
     ];
 
@@ -56,7 +61,13 @@ function getBankTransferConfig(\PDO $pdo): array
         $rows = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
         foreach ($rows as $row) {
-            $defaults[$row['setting_key']] = $row['setting_value'];
+            $val = trim((string)($row['setting_value'] ?? ''));
+            if ($val !== '' && !str_starts_with($val, 'PLACEHOLDER') && $val !== 'SBIN0000000') {
+                $defaults[$row['setting_key']] = $val;
+            }
+        }
+        if (isset($defaults['account_name']) && (empty($defaults['account_holder']) || $defaults['account_holder'] === 'KSR GURU JI')) {
+            $defaults['account_holder'] = $defaults['account_name'];
         }
     } catch (\Throwable $e) {
         error_log('getBankTransferConfig error: ' . $e->getMessage());
@@ -64,4 +75,3 @@ function getBankTransferConfig(\PDO $pdo): array
 
     return $defaults;
 }
-

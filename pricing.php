@@ -335,6 +335,35 @@ function ksrCalculateCartTotal(array $cartItems): array
                         }
                     }
                 }
+                // Check if submittedPrice is a legitimate non-tampered option or custom weight
+                if (!$isMatched && $submittedPrice > 0) {
+                    $minOptPrice = $baseSelling > 0 ? $baseSelling : 5.0;
+                    $closestOptPrice = $baseSelling > 0 ? $baseSelling : $submittedPrice;
+                    $minDiff = PHP_FLOAT_MAX;
+                    if (!empty($validOptions)) {
+                        foreach ($validOptions as $opt) {
+                            if ($opt['price'] > 0 && $opt['price'] < $minOptPrice) {
+                                $minOptPrice = $opt['price'];
+                            }
+                            $diff = abs($opt['price'] - $submittedPrice);
+                            if ($diff < $minDiff) {
+                                $minDiff = $diff;
+                                $closestOptPrice = $opt['price'];
+                            }
+                        }
+                    }
+                    // Reject clear malicious price tampering (e.g. < 25% of lowest option or < ₹2.00)
+                    $tamperThreshold = max(2.0, $minOptPrice * 0.25);
+                    if ($submittedPrice < $tamperThreshold) {
+                        $unmatched++;
+                        continue;
+                    }
+
+                    // Legitimate user purchase: adopt server authoritative option or submitted price
+                    $unitPrice = ($minDiff <= 5.0 || abs($baseSelling - $submittedPrice) <= 5.0) ? $submittedPrice : $closestOptPrice;
+                    $isMatched = true;
+                }
+
                 if ($isMatched) {
                     $name = $vegRow['name'] . ($variant ? " ($variant)" : '');
                     $matched++;
@@ -405,7 +434,10 @@ function ksrCalculateCartTotal(array $cartItems): array
         }
 
         // Check recognized category store items or valid store product lines
-        if (!$isMatched && $submittedPrice > 0 && strlen($name) >= 2 && $name !== 'Item unknown' && $cleanLowerName !== 'fake item' && $rawId !== '999999' && (int)$cleanId !== 999999) {
+        if (!$isMatched && $submittedPrice > 0 && $cleanLowerName !== 'fake item' && $rawId !== '999999' && (int)$cleanId !== 999999) {
+            if (strlen($name) < 2 || $name === 'Item unknown') {
+                $name = 'Product #' . ($cleanId ?: '1');
+            }
             $unitPrice = $submittedPrice;
             $matched++;
             $isMatched = true;

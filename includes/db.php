@@ -71,7 +71,7 @@ if (!function_exists('_bootstrapSQLiteSchema')) {
         try {
             $sqliteFuncMethod = 'sqliteCreate' . 'Function';
             if ($pdo->getAttribute(PDO::ATTR_DRIVER_NAME) === 'sqlite' && method_exists($pdo, $sqliteFuncMethod)) {
-                $reg = function(string $name, callable $fn, int $numArgs = -1) use ($pdo, $sqliteFuncMethod): void {
+                $reg = function (string $name, callable $fn, int $numArgs = -1) use ($pdo, $sqliteFuncMethod): void {
                     @call_user_func([$pdo, $sqliteFuncMethod], $name, $fn, $numArgs);
                 };
                 $reg('CURDATE', fn() => date('Y-m-d'), 0);
@@ -81,12 +81,12 @@ if (!function_exists('_bootstrapSQLiteSchema')) {
                 $reg('CONCAT', fn(...$args) => implode('', $args));
                 $reg('IF', fn($c, $t, $f) => $c ? $t : $f, 3);
                 $reg('CHAR_LENGTH', fn($s) => mb_strlen((string)$s), 1);
-                $reg('DATE_SUB', function($date, $expr = null) {
+                $reg('DATE_SUB', function ($date, $expr = null) {
                     $d = $date ? strtotime((string)$date) : time();
                     $days = $expr ? (int)preg_replace('/[^0-9]/', '', (string)$expr) : 0;
                     return date('Y-m-d', strtotime("-$days days", $d));
                 });
-                $reg('TIMESTAMPDIFF', function($unit, $dt1, $dt2) {
+                $reg('TIMESTAMPDIFF', function ($unit, $dt1, $dt2) {
                     $t1 = $dt1 ? strtotime((string)$dt1) : 0;
                     $t2 = $dt2 ? strtotime((string)$dt2) : time();
                     $diff = $t2 - $t1;
@@ -96,13 +96,14 @@ if (!function_exists('_bootstrapSQLiteSchema')) {
                     if ($u === 'DAY') return (int)($diff / 86400);
                     return (int)$diff; // SECOND
                 }, 3);
-                $reg('DATE_ADD', function($date, $expr = null) {
+                $reg('DATE_ADD', function ($date, $expr = null) {
                     $d = $date ? strtotime((string)$date) : time();
                     $days = $expr ? (int)preg_replace('/[^0-9]/', '', (string)$expr) : 0;
                     return date('Y-m-d', strtotime("+$days days", $d));
                 });
             }
-        } catch (Throwable $e) {}
+        } catch (Throwable $e) {
+        }
 
         $tables = [
             // ── Core user / patient tables ─────────────────────────────────
@@ -848,72 +849,171 @@ if (!function_exists('_bootstrapSQLiteSchema')) {
         try {
             $otpCols = $pdo->query("PRAGMA table_info(patient_otps)")->fetchAll(PDO::FETCH_COLUMN, 1);
             if (!in_array('code_hash', $otpCols, true)) {
-                try { $pdo->exec("ALTER TABLE patient_otps ADD COLUMN code_hash TEXT"); } catch (Throwable $e) {}
-                try { $pdo->exec("ALTER TABLE patient_otps ADD COLUMN channel TEXT DEFAULT 'whatsapp'"); } catch (Throwable $e) {}
-                try { $pdo->exec("ALTER TABLE patient_otps ADD COLUMN destination TEXT"); } catch (Throwable $e) {}
-                try { $pdo->exec("ALTER TABLE patient_otps ADD COLUMN is_used INTEGER DEFAULT 0"); } catch (Throwable $e) {}
-                try { $pdo->exec("ALTER TABLE patient_otps ADD COLUMN verified_at TEXT"); } catch (Throwable $e) {}
+                try {
+                    $pdo->exec("ALTER TABLE patient_otps ADD COLUMN code_hash TEXT");
+                } catch (Throwable $e) {
+                }
+                try {
+                    $pdo->exec("ALTER TABLE patient_otps ADD COLUMN channel TEXT DEFAULT 'whatsapp'");
+                } catch (Throwable $e) {
+                }
+                try {
+                    $pdo->exec("ALTER TABLE patient_otps ADD COLUMN destination TEXT");
+                } catch (Throwable $e) {
+                }
+                try {
+                    $pdo->exec("ALTER TABLE patient_otps ADD COLUMN is_used INTEGER DEFAULT 0");
+                } catch (Throwable $e) {
+                }
+                try {
+                    $pdo->exec("ALTER TABLE patient_otps ADD COLUMN verified_at TEXT");
+                } catch (Throwable $e) {
+                }
             }
             $attCols = $pdo->query("PRAGMA table_info(patient_login_attempts)")->fetchAll(PDO::FETCH_COLUMN, 1);
             if (!in_array('was_successful', $attCols, true)) {
-                try { $pdo->exec("ALTER TABLE patient_login_attempts ADD COLUMN was_successful INTEGER DEFAULT 0"); } catch (Throwable $e) {}
-                try { $pdo->exec("ALTER TABLE patient_login_attempts ADD COLUMN attempted_at TEXT"); } catch (Throwable $e) {}
-                try { $pdo->exec("ALTER TABLE patient_login_attempts ADD COLUMN ip_address TEXT"); } catch (Throwable $e) {}
-                try { $pdo->exec("ALTER TABLE patient_login_attempts ADD COLUMN user_agent TEXT"); } catch (Throwable $e) {}
-                try { $pdo->exec("ALTER TABLE patient_login_attempts ADD COLUMN attempt_type TEXT DEFAULT 'password'"); } catch (Throwable $e) {}
+                try {
+                    $pdo->exec("ALTER TABLE patient_login_attempts ADD COLUMN was_successful INTEGER DEFAULT 0");
+                } catch (Throwable $e) {
+                }
+                try {
+                    $pdo->exec("ALTER TABLE patient_login_attempts ADD COLUMN attempted_at TEXT");
+                } catch (Throwable $e) {
+                }
+                try {
+                    $pdo->exec("ALTER TABLE patient_login_attempts ADD COLUMN ip_address TEXT");
+                } catch (Throwable $e) {
+                }
+                try {
+                    $pdo->exec("ALTER TABLE patient_login_attempts ADD COLUMN user_agent TEXT");
+                } catch (Throwable $e) {
+                }
+                try {
+                    $pdo->exec("ALTER TABLE patient_login_attempts ADD COLUMN attempt_type TEXT DEFAULT 'password'");
+                } catch (Throwable $e) {
+                }
             }
             $remCols = $pdo->query("PRAGMA table_info(patient_remember_tokens)")->fetchAll(PDO::FETCH_COLUMN, 1);
             if (!in_array('selector', $remCols, true)) {
-                try { $pdo->exec("ALTER TABLE patient_remember_tokens ADD COLUMN selector TEXT"); } catch (Throwable $e) {}
-                try { $pdo->exec("ALTER TABLE patient_remember_tokens ADD COLUMN validator_hash TEXT"); } catch (Throwable $e) {}
-                try { $pdo->exec("ALTER TABLE patient_remember_tokens ADD COLUMN user_agent TEXT"); } catch (Throwable $e) {}
-                try { $pdo->exec("ALTER TABLE patient_remember_tokens ADD COLUMN last_used_at TEXT"); } catch (Throwable $e) {}
+                try {
+                    $pdo->exec("ALTER TABLE patient_remember_tokens ADD COLUMN selector TEXT");
+                } catch (Throwable $e) {
+                }
+                try {
+                    $pdo->exec("ALTER TABLE patient_remember_tokens ADD COLUMN validator_hash TEXT");
+                } catch (Throwable $e) {
+                }
+                try {
+                    $pdo->exec("ALTER TABLE patient_remember_tokens ADD COLUMN user_agent TEXT");
+                } catch (Throwable $e) {
+                }
+                try {
+                    $pdo->exec("ALTER TABLE patient_remember_tokens ADD COLUMN last_used_at TEXT");
+                } catch (Throwable $e) {
+                }
             }
             $uCols = $pdo->query("PRAGMA table_info(users)")->fetchAll(PDO::FETCH_COLUMN, 1);
             if (!in_array('verified_at', $uCols, true)) {
-                try { $pdo->exec("ALTER TABLE users ADD COLUMN verified_at TEXT"); } catch (Throwable $e) {}
-                try { $pdo->exec("ALTER TABLE users ADD COLUMN failed_logins INTEGER DEFAULT 0"); } catch (Throwable $e) {}
-                try { $pdo->exec("ALTER TABLE users ADD COLUMN last_login_at TEXT"); } catch (Throwable $e) {}
+                try {
+                    $pdo->exec("ALTER TABLE users ADD COLUMN verified_at TEXT");
+                } catch (Throwable $e) {
+                }
+                try {
+                    $pdo->exec("ALTER TABLE users ADD COLUMN failed_logins INTEGER DEFAULT 0");
+                } catch (Throwable $e) {
+                }
+                try {
+                    $pdo->exec("ALTER TABLE users ADD COLUMN last_login_at TEXT");
+                } catch (Throwable $e) {
+                }
             }
             if (!in_array('address', $uCols, true)) {
-                try { $pdo->exec("ALTER TABLE users ADD COLUMN address TEXT"); } catch (Throwable $e) {}
+                try {
+                    $pdo->exec("ALTER TABLE users ADD COLUMN address TEXT");
+                } catch (Throwable $e) {
+                }
             }
             if (!in_array('mobile', $uCols, true)) {
-                try { $pdo->exec("ALTER TABLE users ADD COLUMN mobile TEXT"); } catch (Throwable $e) {}
+                try {
+                    $pdo->exec("ALTER TABLE users ADD COLUMN mobile TEXT");
+                } catch (Throwable $e) {
+                }
             }
             if (!in_array('account_status', $uCols, true)) {
-                try { $pdo->exec("ALTER TABLE users ADD COLUMN account_status TEXT DEFAULT 'PENDING_VERIFICATION'"); } catch (Throwable $e) {}
+                try {
+                    $pdo->exec("ALTER TABLE users ADD COLUMN account_status TEXT DEFAULT 'PENDING_VERIFICATION'");
+                } catch (Throwable $e) {
+                }
             }
 
             // Migrate missing columns on orders table
             $oCols = $pdo->query("PRAGMA table_info(orders)")->fetchAll(PDO::FETCH_COLUMN, 1);
             if (!in_array('net_amount', $oCols, true)) {
-                try { $pdo->exec("ALTER TABLE orders ADD COLUMN net_amount REAL DEFAULT 0"); } catch (Throwable $e) {}
-                try { $pdo->exec("ALTER TABLE orders ADD COLUMN subtotal REAL DEFAULT 0"); } catch (Throwable $e) {}
-                try { $pdo->exec("ALTER TABLE orders ADD COLUMN delivery_charge REAL DEFAULT 0"); } catch (Throwable $e) {}
-                try { $pdo->exec("ALTER TABLE orders ADD COLUMN discount REAL DEFAULT 0"); } catch (Throwable $e) {}
-                try { $pdo->exec("ALTER TABLE orders ADD COLUMN tax REAL DEFAULT 0"); } catch (Throwable $e) {}
-                try { $pdo->exec("ALTER TABLE orders ADD COLUMN total_amount REAL DEFAULT 0"); } catch (Throwable $e) {}
-                try { $pdo->exec("ALTER TABLE orders ADD COLUMN delivery_address TEXT"); } catch (Throwable $e) {}
+                try {
+                    $pdo->exec("ALTER TABLE orders ADD COLUMN net_amount REAL DEFAULT 0");
+                } catch (Throwable $e) {
+                }
+                try {
+                    $pdo->exec("ALTER TABLE orders ADD COLUMN subtotal REAL DEFAULT 0");
+                } catch (Throwable $e) {
+                }
+                try {
+                    $pdo->exec("ALTER TABLE orders ADD COLUMN delivery_charge REAL DEFAULT 0");
+                } catch (Throwable $e) {
+                }
+                try {
+                    $pdo->exec("ALTER TABLE orders ADD COLUMN discount REAL DEFAULT 0");
+                } catch (Throwable $e) {
+                }
+                try {
+                    $pdo->exec("ALTER TABLE orders ADD COLUMN tax REAL DEFAULT 0");
+                } catch (Throwable $e) {
+                }
+                try {
+                    $pdo->exec("ALTER TABLE orders ADD COLUMN total_amount REAL DEFAULT 0");
+                } catch (Throwable $e) {
+                }
+                try {
+                    $pdo->exec("ALTER TABLE orders ADD COLUMN delivery_address TEXT");
+                } catch (Throwable $e) {
+                }
             }
             // Delivery columns (always try — idempotent)
             if (!in_array('delivery_boy_id', $oCols, true)) {
-                try { $pdo->exec("ALTER TABLE orders ADD COLUMN delivery_boy_id INTEGER DEFAULT NULL"); } catch (Throwable $e) {}
+                try {
+                    $pdo->exec("ALTER TABLE orders ADD COLUMN delivery_boy_id INTEGER DEFAULT NULL");
+                } catch (Throwable $e) {
+                }
             }
             if (!in_array('delivered_at', $oCols, true)) {
-                try { $pdo->exec("ALTER TABLE orders ADD COLUMN delivered_at TEXT DEFAULT NULL"); } catch (Throwable $e) {}
+                try {
+                    $pdo->exec("ALTER TABLE orders ADD COLUMN delivered_at TEXT DEFAULT NULL");
+                } catch (Throwable $e) {
+                }
             }
             if (!in_array('order_status', $oCols, true)) {
-                try { $pdo->exec("ALTER TABLE orders ADD COLUMN order_status TEXT DEFAULT 'pending'"); } catch (Throwable $e) {}
+                try {
+                    $pdo->exec("ALTER TABLE orders ADD COLUMN order_status TEXT DEFAULT 'pending'");
+                } catch (Throwable $e) {
+                }
             }
             if (!in_array('driver_id', $oCols, true)) {
-                try { $pdo->exec("ALTER TABLE orders ADD COLUMN driver_id INTEGER DEFAULT NULL"); } catch (Throwable $e) {}
+                try {
+                    $pdo->exec("ALTER TABLE orders ADD COLUMN driver_id INTEGER DEFAULT NULL");
+                } catch (Throwable $e) {
+                }
             }
             if (!in_array('tracking_number', $oCols, true)) {
-                try { $pdo->exec("ALTER TABLE orders ADD COLUMN tracking_number TEXT DEFAULT NULL"); } catch (Throwable $e) {}
+                try {
+                    $pdo->exec("ALTER TABLE orders ADD COLUMN tracking_number TEXT DEFAULT NULL");
+                } catch (Throwable $e) {
+                }
             }
             if (!in_array('assigned_at', $oCols, true)) {
-                try { $pdo->exec("ALTER TABLE orders ADD COLUMN assigned_at TEXT DEFAULT NULL"); } catch (Throwable $e) {}
+                try {
+                    $pdo->exec("ALTER TABLE orders ADD COLUMN assigned_at TEXT DEFAULT NULL");
+                } catch (Throwable $e) {
+                }
             }
 
             // Migrate missing columns on products table
@@ -934,11 +1034,16 @@ if (!function_exists('_bootstrapSQLiteSchema')) {
                 ];
                 foreach ($productMigrations as $col => $sql) {
                     if (!in_array($col, $pCols, true)) {
-                        try { $pdo->exec($sql); } catch (Throwable $e) {}
+                        try {
+                            $pdo->exec($sql);
+                        } catch (Throwable $e) {
+                        }
                     }
                 }
-            } catch (Throwable $e) {}
-        } catch (Throwable $e) {}
+            } catch (Throwable $e) {
+            }
+        } catch (Throwable $e) {
+        }
 
         // Seed default categories (27 KSR categories) if table is empty
         try {
@@ -949,7 +1054,7 @@ if (!function_exists('_bootstrapSQLiteSchema')) {
                     ['bakery',           'Bakery',            'ಬೇಕರಿ',             '🍞'],
                     ['bath-body',        'Bath & Body',       'ಸ್ನಾನ ಮತ್ತು ಶರೀರ', '🛁'],
                     ['breakfast',        'Breakfast',         'ಬ್ರೇಕ್‌ಫಾಸ್ಟ್',    '🌅'],
-                    ['cleaning',         'Cleaning Products', 'ಸ್ವಚ್ಛತೆ ಉತ್ಪನ್ನಗಳು','🧹'],
+                    ['cleaning',         'Cleaning Products', 'ಸ್ವಚ್ಛತೆ ಉತ್ಪನ್ನಗಳು', '🧹'],
                     ['cold-drinks',      'Cold Drinks',       'ಕೋಲ್ಡ್ ಡ್ರಿಂಕ್ಸ್', '🥤'],
                     ['cooking-oil',      'Cooking Oil',       'ಅಡಿಗೆ ಎಣ್ಣೆ',      '🫙'],
                     ['dairy',            'Dairy',             'ಡೇರಿ',              '🥛'],
@@ -957,16 +1062,16 @@ if (!function_exists('_bootstrapSQLiteSchema')) {
                     ['dry-fruits',       'Dry Fruits',        'ಒಣ ಹಣ್ಣುಗಳು',      '🥜'],
                     ['grains-cereals',   'Grains & Cereals',  'ಧಾನ್ಯಗಳು',         '🌾'],
                     ['hair-care',        'Hair Care',         'ಕೂದಲಿನ ಆರೈಕೆ',     '💆'],
-                    ['health-pharmacy',  'Health & Pharmacy', 'ಆರೋಗ್ಯ ಮತ್ತು ಔಷಧ','💊'],
+                    ['health-pharmacy',  'Health & Pharmacy', 'ಆರೋಗ್ಯ ಮತ್ತು ಔಷಧ', '💊'],
                     ['home-care',        'Home Care',         'ಮನೆ ಆರೈಕೆ',        '🏠'],
-                    ['kitchen-essentials','Kitchen Essentials','ಅಡಿಗೆ ಸಾಮಾನು',    '🍳'],
+                    ['kitchen-essentials', 'Kitchen Essentials', 'ಅಡಿಗೆ ಸಾಮಾನು',    '🍳'],
                     ['laundry',          'Laundry',           'ಬಟ್ಟೆ ತೊಳೆಯುವ',    '👕'],
                     ['paper-products',   'Paper Products',    'ಕಾಗದ ಉತ್ಪನ್ನಗಳು',  '📄'],
                     ['parcels',          'Parcels',           'ಪಾರ್ಸೆಲ್ಸ್',       '📦'],
                     ['personal-care',    'Personal Care',     'ವೈಯಕ್ತಿಕ ಆರೈಕೆ',  '🪥'],
-                    ['pet-supplies',     'Pet Supplies',      'ಸಾಕುಪ್ರಾಣಿ ಸಾಮಾನು','🐾'],
-                    ['pickles-sauces',   'Pickles & Sauces',  'ಉಪ್ಪಿನಕಾಯಿ ಮತ್ತು ಸಾಸ್','🥒'],
-                    ['plastic-household','Plastic Household',  'ಪ್ಲಾಸ್ಟಿಕ್ ಸಾಮಾನು','🪣'],
+                    ['pet-supplies',     'Pet Supplies',      'ಸಾಕುಪ್ರಾಣಿ ಸಾಮಾನು', '🐾'],
+                    ['pickles-sauces',   'Pickles & Sauces',  'ಉಪ್ಪಿನಕಾಯಿ ಮತ್ತು ಸಾಸ್', '🥒'],
+                    ['plastic-household', 'Plastic Household',  'ಪ್ಲಾಸ್ಟಿಕ್ ಸಾಮಾನು', '🪣'],
                     ['pooja-items',      'Pooja Items',       'ಪೂಜಾ ಸಾಮಗ್ರಿ',    '🪔'],
                     ['pules-lentils',    'Pulses & Lentils',  'ಬೇಳೆ ಕಾಳುಗಳು',    '🫘'],
                     ['ready-to-eat',     'Ready to Eat',      'ರೆಡಿ ಟು ಈಟ್',     '🍱'],
@@ -974,7 +1079,7 @@ if (!function_exists('_bootstrapSQLiteSchema')) {
                     ['snacks',           'Snacks',            'ತಿಂಡಿಗಳು',         '🍿'],
                     ['spices-masalas',   'Spices & Masalas',  'ಮಸಾಲೆ ಪದಾರ್ಥಗಳು', '🌶️'],
                     ['stationery',       'Stationery',        'ಸ್ಟೇಷನರಿ',         '✏️'],
-                    ['vegetables-fruits','Vegetables & Fruits','ತರಕಾರಿ ಮತ್ತು ಹಣ್ಣುಗಳು','🥦'],
+                    ['vegetables-fruits', 'Vegetables & Fruits', 'ತರಕಾರಿ ಮತ್ತು ಹಣ್ಣುಗಳು', '🥦'],
                 ];
                 $ins = $pdo->prepare(
                     "INSERT OR IGNORE INTO categories (id, name, kn_name, slug, emoji, sort_order) VALUES (?,?,?,?,?,?)"
@@ -983,7 +1088,8 @@ if (!function_exists('_bootstrapSQLiteSchema')) {
                     $ins->execute([$c[0], $c[1], $c[2], $c[0], $c[3], $i + 1]);
                 }
             }
-        } catch (Throwable $e) {}
+        } catch (Throwable $e) {
+        }
 
         // Seed sample products (20 essential grocery items) so admin/pricing.php
         // shows real data on a fresh SQLite DB. Only runs when products table is empty.
@@ -998,14 +1104,14 @@ if (!function_exists('_bootstrapSQLiteSchema')) {
                     ['Carrot',           'ಗಜ್ಜರಿ',        'vegetables-fruits', 'Vegetables',   35.00, '500g', 'Fresh carrots'],
                     ['Basmati Rice',     'ಬಾಸ್ಮತಿ ಅಕ್ಕಿ', 'grains-cereals',   'Grains',       65.00, '1kg',  'Premium basmati rice'],
                     ['Toor Dal',         'ತೊಗರಿ ಬೇಳೆ',    'pules-lentils',    'Pulses',       90.00, '500g', 'Toor dal split'],
-                    ['Sunflower Oil',    'ಸೂರ್ಯಕಾಂತಿ ಎಣ್ಣೆ','cooking-oil',    'Oils',        110.00, '1L',   'Refined sunflower oil'],
-                    ['Full Cream Milk',  'ಹಾಲು',          'dairy',            'Dairy',         28.00, '500ml','Fresh full cream milk'],
+                    ['Sunflower Oil',    'ಸೂರ್ಯಕಾಂತಿ ಎಣ್ಣೆ', 'cooking-oil',    'Oils',        110.00, '1L',   'Refined sunflower oil'],
+                    ['Full Cream Milk',  'ಹಾಲು',          'dairy',            'Dairy',         28.00, '500ml', 'Fresh full cream milk'],
                     ['Curd',             'ಮೊಸರು',          'dairy',            'Dairy',         22.00, '400g', 'Fresh set curd'],
-                    ['Whole Wheat Bread','ಗೋಧಿ ಬ್ರೆಡ್',   'bakery',           'Bakery',        47.00, '400g', 'Whole wheat sliced bread'],
+                    ['Whole Wheat Bread', 'ಗೋಧಿ ಬ್ರೆಡ್',   'bakery',           'Bakery',        47.00, '400g', 'Whole wheat sliced bread'],
                     ['Biscuits - Marie', 'ಮೇರಿ ಬಿಸ್ಕಿಟ್', 'snacks',          'Snacks',        22.00, '200g', 'Marie biscuits pack'],
                     ['Maggi Noodles',    'ಮ್ಯಾಗಿ',         'ready-to-eat',    'Ready-to-Eat',  13.00, '70g',  '2-minute noodles'],
-                    ['Coconut Oil',      'ತೆಂಗಿನ ಎಣ್ಣೆ',  'cooking-oil',     'Oils',         120.00, '500ml','Pure coconut oil'],
-                    ['Red Chilli Powder','ಕೆಂಪು ಮೆಣಸಿನ ಪುಡಿ','spices-masalas','Spices',       55.00, '200g', 'Hot red chilli powder'],
+                    ['Coconut Oil',      'ತೆಂಗಿನ ಎಣ್ಣೆ',  'cooking-oil',     'Oils',         120.00, '500ml', 'Pure coconut oil'],
+                    ['Red Chilli Powder', 'ಕೆಂಪು ಮೆಣಸಿನ ಪುಡಿ', 'spices-masalas', 'Spices',       55.00, '200g', 'Hot red chilli powder'],
                     ['Turmeric Powder',  'ಅರಿಶಿನ ಪುಡಿ',   'spices-masalas',  'Spices',        32.00, '100g', 'Pure turmeric powder'],
                     ['Salt',             'ಉಪ್ಪು',          'spices-masalas',  'Spices',        18.00, '1kg',  'Iodized table salt'],
                     ['Surf Excel',       'ಸರ್ಫ್ ಎಕ್ಸೆಲ್', 'laundry',         'Laundry',       48.00, '500g', 'Surf Excel washing powder'],
@@ -1024,14 +1130,15 @@ if (!function_exists('_bootstrapSQLiteSchema')) {
                     $ins->execute([$p[0], $p[1], $p[2], $p[3], $selling, $market, $p[5], $p[6]]);
                 }
             }
-        } catch (Throwable $e) {}
+        } catch (Throwable $e) {
+        }
 
         // Seed default admin roles
         try {
             $pdo->exec("INSERT OR IGNORE INTO admin_roles (id, role_key, role_name, description, is_system) VALUES
                 (1, 'SUPER_ADMIN', 'Super Admin', 'Full unrestricted system access', 1),
                 (2, 'ADMIN', 'Admin', 'Permission-based operational access', 1)");
-            
+
             // Seed Super Admin & Admin accounts
             $superPass = getenv('ADMIN_SUPER_PASS') ?: bin2hex(random_bytes(12));
             $adminPass = getenv('ADMIN_DEFAULT_PASS') ?: bin2hex(random_bytes(12));
@@ -1081,15 +1188,15 @@ if (!function_exists('_bootstrapSQLiteSchema')) {
                     ['doctors.view',      'doctors',      'view',    'View Doctors'],
                     ['appointments.view', 'appointments', 'view',    'View Appointments'],
                     ['appointments.edit', 'appointments', 'edit',    'Manage Appointments'],
-                    ['prescriptions.view','prescriptions','view',    'View Prescriptions'],
-                    ['prescriptions.approve','prescriptions','approve','Approve Prescriptions'],
+                    ['prescriptions.view', 'prescriptions', 'view',    'View Prescriptions'],
+                    ['prescriptions.approve', 'prescriptions', 'approve', 'Approve Prescriptions'],
                     ['delivery.view',     'delivery',     'view',    'View Delivery Partners'],
                     ['delivery.edit',     'delivery',     'edit',    'Manage Delivery'],
                     ['reports.view',      'reports',      'view',    'View Reports'],
                     ['reports.export',    'reports',      'export',  'Export Reports'],
                     ['settings.view',     'settings',     'view',    'View Settings'],
                     ['settings.edit',     'settings',     'edit',    'Edit Settings'],
-                    ['notifications.view','notifications','view',    'View Notifications'],
+                    ['notifications.view', 'notifications', 'view',    'View Notifications'],
                     ['inventory.view',    'inventory',    'view',    'View Inventory'],
                     ['inventory.create',  'inventory',    'create',  'Create Inventory Items'],
                     ['inventory.edit',    'inventory',    'edit',    'Edit Inventory Items'],
@@ -1188,15 +1295,21 @@ if (!function_exists('_bootstrapSQLiteSchema')) {
                 (3, 'bank_transfer', 'Bank Transfer (NEFT/IMPS)', 'Transfer directly to our SBI current account', 'fa-university', 1, 30)");
 
             $pdo->exec("INSERT OR IGNORE INTO payment_gateway_settings (gateway_code, setting_key, setting_value, is_secret) VALUES
-                ('upi', 'vpa', 'PLACEHOLDER_UPI_ID@sbi', 0),
-                ('upi', 'merchant_name', 'KSR GURU JI', 0),
+                ('upi', 'vpa', 'jyampallepparathod-1@oksbi', 0),
+                ('upi', 'upi_id', 'jyampallepparathod-1@oksbi', 0),
+                ('upi', 'merchant_name', 'mr.JAMPALEPPA KRUSHNAPPA RATHOD', 0),
+                ('upi', 'display_name', 'KSR GURU JI PAY', 0),
+                ('upi', 'qr_image_path', '/images/ksr_upi_qr.png', 0),
                 ('upi', 'mcc', '5411', 0),
                 ('bank_transfer', 'bank_name', 'State Bank of India', 0),
-                ('bank_transfer', 'account_number', 'PLACEHOLDER_ACCOUNT_NUMBER', 0),
-                ('bank_transfer', 'ifsc', 'SBIN0000000', 0),
-                ('bank_transfer', 'account_name', 'KSR GURU JI', 0),
+                ('bank_transfer', 'account_number', '00000033196470488', 0),
+                ('bank_transfer', 'ifsc', 'SBIN0011275', 0),
+                ('bank_transfer', 'account_name', 'mr.JAMPALEPPA KRUSHNAPPA RATHOD', 0),
+                ('bank_transfer', 'account_holder', 'mr.JAMPALEPPA KRUSHNAPPA RATHOD', 0),
+                ('bank_transfer', 'account_type', 'Savings', 0),
                 ('bank_transfer', 'branch', 'Main Branch', 0)");
-        } catch (Throwable $e) {}
+        } catch (Throwable $e) {
+        }
 
         // Seed default system settings
         try {
@@ -1208,17 +1321,20 @@ if (!function_exists('_bootstrapSQLiteSchema')) {
                 ('currency', 'INR', 'general'),
                 ('currency_symbol', '₹', 'general'),
                 ('price_margin', '3.00', 'pricing')");
-        } catch (Throwable $e) {}
+        } catch (Throwable $e) {
+        }
 
         // Seed default inventory for products
         try {
             $pdo->exec("INSERT OR IGNORE INTO inventory (product_id, quantity) SELECT id, 10 FROM products");
-        } catch (Throwable $e) {}
+        } catch (Throwable $e) {
+        }
 
         // Seed Daily Market Prices for Vegetables & Fruits
         try {
             require_once __DIR__ . '/market_prices.php';
             seedDailyMarketPrices($pdo);
-        } catch (Throwable $e) {}
+        } catch (Throwable $e) {
+        }
     }
 }
