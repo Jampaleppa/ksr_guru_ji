@@ -218,13 +218,21 @@
 
   // ── 11. Bottom nav cart count sync ──────────────────────────
   function syncBottomNavCart() {
-    const cartBadge = document.getElementById('cartCount');
     const bottomNavBadge = document.getElementById('bottomNavCartBadge');
-    if (cartBadge && bottomNavBadge) {
-      const count = cartBadge.textContent.trim();
-      bottomNavBadge.textContent = count;
-      bottomNavBadge.style.display = count && count !== '0' ? 'flex' : 'none';
+    if (!bottomNavBadge) return;
+    
+    // Find count from any active cart badge in page
+    const badges = document.querySelectorAll('#cartCount, .cart-count, .cart-badge, #cartBadge, .nav-badge:not(#bottomNavCartBadge)');
+    let count = '0';
+    for (const b of badges) {
+      const val = b.textContent.trim();
+      if (val && !isNaN(parseInt(val)) && parseInt(val) > 0) {
+        count = val;
+        break;
+      }
     }
+    bottomNavBadge.textContent = count;
+    bottomNavBadge.style.display = count && count !== '0' ? 'flex' : 'none';
   }
 
   // Run after page load
@@ -232,10 +240,18 @@
     setBottomNavActive();
     syncBottomNavCart();
 
-    // Keep badge in sync whenever cart count changes
+    // Keep badge in sync whenever cart count changes anywhere in DOM
     const observer = new MutationObserver(syncBottomNavCart);
-    const badge = document.getElementById('cartCount');
-    if (badge) observer.observe(badge, { childList: true, characterData: true, subtree: true });
+    const badges = document.querySelectorAll('#cartCount, .cart-count, .cart-badge, #cartBadge');
+    badges.forEach(b => observer.observe(b, { childList: true, characterData: true, subtree: true }));
+
+    // Haptic feedback for touch devices on add-to-cart
+    document.addEventListener('click', (e) => {
+      const addBtn = e.target.closest('.add-to-cart, .add-btn, .btn-add-cart, .btn-add-large, .add-cart-btn');
+      if (addBtn && 'vibrate' in navigator) {
+        try { navigator.vibrate(25); } catch (_) {}
+      }
+    });
   });
 
   // ── 12. Category swipe scroll snap hint ─────────────────────

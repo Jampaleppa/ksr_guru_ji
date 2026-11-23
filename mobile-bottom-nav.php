@@ -31,7 +31,7 @@ if (!empty($_SESSION['cart']) && is_array($_SESSION['cart'])) {
      class="bottom-nav-item <?= strpos($currentPath,'categories') !== false ? 'active' : '' ?>"
      data-page="categories"
      aria-label="Categories">
-    <i class="fas fa-grid-2"></i>
+    <i class="fas fa-th-large"></i>
     <span>Shop</span>
   </a>
 

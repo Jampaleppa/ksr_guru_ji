@@ -9,9 +9,9 @@
   display: none;
 }
 @media (max-width: 768px) {
-  /* Extra bottom padding so content clears the nav bar */
+  /* Extra bottom padding so content clears the nav bar and modern safe area */
   body {
-    padding-bottom: 72px;
+    padding-bottom: calc(76px + env(safe-area-inset-bottom, 0px)) !important;
   }
 
   .bottom-nav {
@@ -407,11 +407,11 @@
   }
 }
 
-/* ── CART DRAWER MOBILE ──────────────────────────────────────── */
+/* ── CART DRAWER & SIDEBAR MOBILE ───────────────────────────── */
 @media (max-width: 768px) {
   #cartDrawer {
     top: auto !important;
-    bottom: 72px !important;
+    bottom: calc(60px + env(safe-area-inset-bottom, 0px)) !important;
     right: 0 !important;
     left: 0 !important;
     width: 100% !important;
@@ -421,6 +421,9 @@
   }
   #cartDrawer.open {
     transform: translateY(0) !important;
+  }
+  .cart-sidebar .cart-footer {
+    padding-bottom: calc(20px + env(safe-area-inset-bottom, 0px)) !important;
   }
 }
 
