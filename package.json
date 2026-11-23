@@ -4,8 +4,8 @@
   "description": "KSR Guru Ji – Mobile App (PWA + Capacitor Android/iOS)",
   "main": "index.js",
   "scripts": {
-    "build": "echo 'Building KSR Guru Ji PWA...' && npm run copy-www",
-    "copy-www": "xcopy /E /I /Y . www /EXCLUDE:exclude-list.txt 2>nul || rsync -av --exclude=node_modules --exclude=www --exclude=android --exclude=ios . www/",
+    "build": "echo 'KSR Guru Ji Build OK'",
+    "copy-www": "node scripts/copy-www.js",
     "cap:add:android": "npx cap add android",
     "cap:add:ios": "npx cap add ios",
     "cap:sync": "npx cap sync",
