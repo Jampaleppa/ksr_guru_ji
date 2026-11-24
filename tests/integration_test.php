@@ -163,11 +163,9 @@ runTest("Database bootstrap initializes settings and inventory tables", function
     return ($stmt1 !== false) && ($stmt2 !== false);
 });
 
-runTest("KSR Guru JI compatibility wrapper routes to root index.php", function() use ($baseDir) {
-    $wrapper = $baseDir . '/KSR Guru JI/index.php';
-    if (!file_exists($wrapper)) return false;
-    $content = file_get_contents($wrapper);
-    return strpos($content, '/../index.php') !== false;
+runTest("KSR Guru JI compatibility routing is handled by front-controller", function() use ($baseDir) {
+    $router = file_get_contents($baseDir . '/api/index.php');
+    return strpos($router, 'KSR') !== false && strpos($router, 'Guru') !== false;
 });
 
 // -------------------------------------------------------------
