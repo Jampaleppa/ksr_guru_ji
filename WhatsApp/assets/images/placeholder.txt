@@ -1,2 +1,0 @@
-<?php
-// Placeholder for assets/images/placeholder.txt

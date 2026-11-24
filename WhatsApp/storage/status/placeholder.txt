@@ -1,2 +1,0 @@
-<?php
-// Placeholder for storage/status/placeholder.txt

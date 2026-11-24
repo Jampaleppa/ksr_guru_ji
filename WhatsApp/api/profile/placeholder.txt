@@ -1,2 +1,0 @@
-<?php
-// Placeholder for api/profile/placeholder.txt
