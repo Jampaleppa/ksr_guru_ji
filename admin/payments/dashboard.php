@@ -89,11 +89,17 @@ tr:hover{background:#f9f9f9}
   <!-- Quick actions -->
   <div class="quick-links">
     <a href="/admin/payments/transactions.php" style="color:#1a7f4b;border-color:#1a7f4b"><i class="fas fa-list"></i> All Transactions</a>
+    <a href="/admin/payments/successful.php"   style="color:#1a7f4b;border-color:#1a7f4b"><i class="fas fa-check-circle"></i> Successful</a>
     <a href="/admin/payments/pending.php"      style="color:#f9a825;border-color:#f9a825"><i class="fas fa-clock"></i> Pending UPI (<?= $pendingUPI ?>)</a>
+    <a href="/admin/payments/failed.php"       style="color:#e53e3e;border-color:#e53e3e"><i class="fas fa-times-circle"></i> Failed</a>
     <a href="/admin/payments/bank-credits.php" style="color:#2196f3;border-color:#2196f3"><i class="fas fa-university"></i> Bank Credits</a>
     <a href="/admin/payments/reconciliation.php" style="color:#9c27b0;border-color:#9c27b0"><i class="fas fa-link"></i> Reconcile</a>
+    <a href="/admin/payments/settlement.php"   style="color:#00897b;border-color:#00897b"><i class="fas fa-file-invoice-dollar"></i> Settlements</a>
     <a href="/admin/payments/refunds.php"      style="color:#ff9800;border-color:#ff9800"><i class="fas fa-undo"></i> Refunds (<?= $pendingRefunds ?>)</a>
     <a href="/admin/payments/reports.php"      style="color:#607d8b;border-color:#607d8b"><i class="fas fa-file-alt"></i> Reports</a>
+    <a href="/admin/payments/permissions.php"  style="color:#3f51b5;border-color:#3f51b5"><i class="fas fa-user-shield"></i> Permissions</a>
+    <a href="/admin/payments/cod.php"          style="color:#795548;border-color:#795548"><i class="fas fa-money-bill-wave"></i> COD</a>
+    <a href="/admin/payments/support-cases.php" style="color:#e91e63;border-color:#e91e63"><i class="fas fa-headset"></i> Support Cases</a>
     <a href="/admin/payments/settings.php"     style="color:#555;border-color:#ccc"><i class="fas fa-cog"></i> Settings</a>
   </div>
 

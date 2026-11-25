@@ -16,6 +16,8 @@ $sec   = new SecurityManager();
 $csrf  = $sec->generateCSRFToken();
 $from  = trim($_GET['from'] ?? date('Y-m-01'));
 $to    = trim($_GET['to']   ?? date('Y-m-d'));
+if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $from)) { $from = date('Y-m-01'); }
+if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $to))   { $to   = date('Y-m-d');  }
 
 // Summary
 $summary = $pdo->prepare(
@@ -31,9 +33,11 @@ $summary = $pdo->prepare(
 $summary->execute([$from, $to]);
 $sum = $summary->fetch(PDO::FETCH_ASSOC);
 
-$refunded = (int)$pdo->prepare(
+$rStmt = $pdo->prepare(
     "SELECT COALESCE(SUM(amount_paise),0) FROM payment_refunds WHERE status='completed' AND DATE(completed_at) BETWEEN ? AND ?"
-)->execute([$from, $to]) ? $pdo->query("SELECT COALESCE(SUM(amount_paise),0) FROM payment_refunds WHERE status='completed' AND DATE(completed_at) BETWEEN '{$from}' AND '{$to}'")->fetchColumn() : 0;
+);
+$rStmt->execute([$from, $to]);
+$refunded = (int)$rStmt->fetchColumn();
 
 // Daily breakdown
 $daily = $pdo->prepare(

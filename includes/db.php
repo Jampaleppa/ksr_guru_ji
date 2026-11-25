@@ -50,7 +50,9 @@ if (!function_exists('getDBConnection')) {
             $pdo = new PDO('sqlite:' . $sqliteFile, null, null, [
                 PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
                 PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+                PDO::ATTR_TIMEOUT            => 10,
             ]);
+            $pdo->exec('PRAGMA busy_timeout=10000;');
             _bootstrapSQLiteSchema($pdo);
             return $pdo;
         }
@@ -64,6 +66,7 @@ if (!function_exists('getDBConnection')) {
 if (!function_exists('_bootstrapSQLiteSchema')) {
     function _bootstrapSQLiteSchema(PDO $pdo): void
     {
+        $pdo->exec('PRAGMA busy_timeout=10000;');
         $pdo->exec('PRAGMA journal_mode=WAL;');
         $pdo->exec('PRAGMA foreign_keys=ON;');
 
@@ -783,6 +786,70 @@ if (!function_exists('_bootstrapSQLiteSchema')) {
                 generated_at          TEXT DEFAULT (datetime('now')),
                 generated_by          INTEGER,
                 notes                 TEXT
+            )",
+
+            "CREATE TABLE IF NOT EXISTS cod_collections (
+                id                     INTEGER PRIMARY KEY AUTOINCREMENT,
+                payment_transaction_id INTEGER NOT NULL,
+                order_id               INTEGER NOT NULL,
+                delivery_partner_id    INTEGER,
+                expected_amount_paise  INTEGER NOT NULL,
+                collected_amount_paise INTEGER NOT NULL DEFAULT 0,
+                collection_status      TEXT NOT NULL DEFAULT 'cod_assigned',
+                delivery_otp           TEXT,
+                otp_verified           INTEGER NOT NULL DEFAULT 0,
+                collection_notes       TEXT,
+                discrepancy_paise      INTEGER NOT NULL DEFAULT 0,
+                collected_at           TEXT,
+                delivered_at           TEXT,
+                created_at             TEXT DEFAULT (datetime('now')),
+                updated_at             TEXT DEFAULT (datetime('now'))
+            )",
+
+            "CREATE TABLE IF NOT EXISTS cod_handovers (
+                id                    INTEGER PRIMARY KEY AUTOINCREMENT,
+                cod_collection_id     INTEGER NOT NULL,
+                delivery_partner_id   INTEGER,
+                received_by_admin_id  INTEGER,
+                expected_amount_paise INTEGER NOT NULL,
+                received_amount_paise INTEGER NOT NULL DEFAULT 0,
+                discrepancy_paise     INTEGER NOT NULL DEFAULT 0,
+                handover_status       TEXT NOT NULL DEFAULT 'pending',
+                handover_notes        TEXT,
+                handover_at           TEXT,
+                created_at            TEXT DEFAULT (datetime('now')),
+                updated_at            TEXT DEFAULT (datetime('now'))
+            )",
+
+            "CREATE TABLE IF NOT EXISTS payment_support_cases (
+                id                     INTEGER PRIMARY KEY AUTOINCREMENT,
+                case_uid               TEXT NOT NULL UNIQUE,
+                payment_transaction_id INTEGER,
+                order_id               INTEGER NOT NULL,
+                user_id                INTEGER,
+                case_type              TEXT NOT NULL DEFAULT 'other',
+                subject                TEXT NOT NULL,
+                description            TEXT,
+                status                 TEXT NOT NULL DEFAULT 'open',
+                priority               TEXT NOT NULL DEFAULT 'medium',
+                assigned_to            INTEGER,
+                resolution             TEXT,
+                evidence_path          TEXT,
+                opened_at              TEXT DEFAULT (datetime('now')),
+                resolved_at            TEXT,
+                closed_at              TEXT
+            )",
+
+            "CREATE TABLE IF NOT EXISTS payment_admin_permissions (
+                id           INTEGER PRIMARY KEY AUTOINCREMENT,
+                user_id      INTEGER NOT NULL,
+                payment_role TEXT NOT NULL,
+                granted_by   INTEGER,
+                granted_at   TEXT DEFAULT (datetime('now')),
+                revoked_at   TEXT,
+                is_active    INTEGER NOT NULL DEFAULT 1,
+                notes        TEXT,
+                UNIQUE (user_id, payment_role)
             )",
 
             // ── Daily Market Rates for Vegetables & Fruits ─────────────────

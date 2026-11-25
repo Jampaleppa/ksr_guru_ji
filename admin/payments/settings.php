@@ -30,11 +30,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_settings'])) {
                 $postKey = $gateway . '__' . $key;
                 if (isset($_POST[$postKey])) {
                     $val = trim($_POST[$postKey]);
-                    $pdo->prepare(
-                        "INSERT INTO payment_gateway_settings (gateway_code, setting_key, setting_value, updated_by)
-                         VALUES (?, ?, ?, ?)
-                         ON DUPLICATE KEY UPDATE setting_value = VALUES(setting_value), updated_by = VALUES(updated_by)"
-                    )->execute([$gateway, $key, $val, $adminId]);
+                    if ($pdo->getAttribute(\PDO::ATTR_DRIVER_NAME) === 'sqlite') {
+                        $pdo->prepare(
+                            "INSERT INTO payment_gateway_settings (gateway_code, setting_key, setting_value, updated_by)
+                             VALUES (?, ?, ?, ?)
+                             ON CONFLICT(gateway_code, setting_key) DO UPDATE SET
+                               setting_value = excluded.setting_value,
+                               updated_by = excluded.updated_by"
+                        )->execute([$gateway, $key, $val, $adminId]);
+                    } else {
+                        $pdo->prepare(
+                            "INSERT INTO payment_gateway_settings (gateway_code, setting_key, setting_value, updated_by)
+                             VALUES (?, ?, ?, ?)
+                             ON DUPLICATE KEY UPDATE setting_value = VALUES(setting_value), updated_by = VALUES(updated_by)"
+                        )->execute([$gateway, $key, $val, $adminId]);
+                    }
                 }
             }
         }
@@ -49,8 +59,10 @@ foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $r) {
     $settings[$r['gateway_code']][$r['setting_key']] = $r['setting_value'];
 }
 
-function sv(array $settings, string $gw, string $key): string {
-    return htmlspecialchars($settings[$gw][$key] ?? '');
+if (!function_exists('sv')) {
+    function sv(array $settings, string $gw, string $key): string {
+        return htmlspecialchars($settings[$gw][$key] ?? '');
+    }
 }
 ?>
 <!DOCTYPE html>

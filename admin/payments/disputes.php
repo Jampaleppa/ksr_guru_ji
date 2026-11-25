@@ -22,10 +22,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $sec->validateCSRFToken($_POST['csr
     $newStatus  = trim($_POST['new_status']   ?? '');
 
     if ($disputeId > 0 && in_array($newStatus, ['investigating','resolved','closed'], true)) {
+        // Use portable CASE WHEN instead of MySQL-only IF() for SQLite compatibility
+        $nowFn = ($pdo->getAttribute(\PDO::ATTR_DRIVER_NAME) === 'sqlite')
+            ? "datetime('now')" : 'NOW()';
         $pdo->prepare(
             "UPDATE payment_disputes
              SET status = ?, resolution = ?, resolved_by = ?,
-                 resolved_at = IF(? IN ('resolved','closed'), NOW(), resolved_at)
+                 resolved_at = CASE WHEN ? IN ('resolved','closed') THEN {$nowFn} ELSE resolved_at END
              WHERE id = ?"
         )->execute([$newStatus, $resolution, $adminId, $newStatus, $disputeId]);
         $msg = '<div style="color:#1a7f4b;background:#e8f5e9;padding:.6rem 1rem;border-radius:6px;margin-bottom:.8rem">Dispute updated.</div>';

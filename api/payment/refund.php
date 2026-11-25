@@ -30,10 +30,11 @@ $refundId         = (int)($_POST['refund_id']          ?? 0);
 $action           = trim($_POST['action']              ?? '');
 $providerRefundId = trim($_POST['provider_refund_id']  ?? '');
 $bankRef          = trim($_POST['bank_ref']            ?? '');
+$reason           = trim($_POST['reason'] ?? ($_POST['rejection_reason'] ?? ''));
 $adminId          = (int)$_SESSION['user_id'];
 
-if ($refundId < 1 || !in_array($action, ['approve', 'complete'], true)) {
-    echo json_encode(['success' => false, 'error' => 'refund_id and action (approve|complete) required.']); exit;
+if ($refundId < 1 || !in_array($action, ['approve', 'complete', 'reject'], true)) {
+    echo json_encode(['success' => false, 'error' => 'refund_id and valid action (approve|complete|reject) required.']); exit;
 }
 
 try {
@@ -41,6 +42,8 @@ try {
 
     if ($action === 'approve') {
         $ok = $refund->approveRefund($refundId, $adminId);
+    } elseif ($action === 'reject') {
+        $ok = $refund->rejectRefund($refundId, $adminId, $reason);
     } else {
         $ok = $refund->completeRefund($refundId, $adminId, $providerRefundId ?: null, $bankRef ?: null);
     }

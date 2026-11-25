@@ -104,6 +104,17 @@ class PaymentStateMachine
             )->execute([$orderPaymentStatus, $orderId]);
         }
 
+        // Archive HTML receipt automatically when payment is confirmed (non-blocking)
+        if ($newStatus === 'success' && class_exists(ReceiptGenerator::class)) {
+            try {
+                $receiptUserId = (int)($row['user_id'] ?? 0);
+                $storageDir    = dirname(__DIR__) . '/storage/payment/receipts';
+                (new ReceiptGenerator($this->pdo))->storeReceipt($paymentId, $receiptUserId, $storageDir);
+            } catch (\Throwable $e) {
+                error_log('PaymentStateMachine receipt archival skipped: ' . $e->getMessage());
+            }
+        }
+
         return true;
     }
 }

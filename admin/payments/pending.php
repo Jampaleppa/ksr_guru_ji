@@ -68,7 +68,7 @@ th{background:#f5f5f5;font-weight:600;color:#555}
           Verify ✓
         </button>
         <button class="action-btn" style="background:#e53e3e;color:#fff;margin-left:.3rem"
-          onclick="markFailed('<?= htmlspecialchars($p['payment_id']) ?>')">
+          onclick="markFailed('<?= htmlspecialchars($p['payment_id']) ?>', this)">
           Fail ✗
         </button>
       </td>
@@ -117,13 +117,31 @@ async function submitVerify() {
   msg.textContent=d.message||d.error;
   if (d.success) { document.getElementById('row-'+pid).style.opacity='.4'; setTimeout(()=>location.reload(),1500); }
 }
-async function markFailed(pid) {
-  if (!confirm('Mark this payment as FAILED?')) return;
-  const fd=new FormData();
-  fd.append('csrf_token','<?= htmlspecialchars($csrf) ?>');
-  fd.append('payment_id',pid); fd.append('new_status','failed'); fd.append('reason','Marked failed by admin');
-  // Simple status update — extend as needed
-  alert('Failed marking not yet implemented via separate endpoint. Use Transactions page.');
+async function markFailed(pid, btn) {
+  if (!confirm('Mark this payment as FAILED? This cannot be undone.')) return;
+  const row = document.getElementById('row-'+pid);
+  if (btn) { btn.disabled = true; btn.textContent = '…'; }
+  try {
+    const fd = new FormData();
+    fd.append('csrf_token', '<?= htmlspecialchars($csrf) ?>');
+    fd.append('payment_id', pid);
+    fd.append('reason', 'Marked failed by admin from pending UPI page');
+    const r = await fetch('/api/payment/mark-failed.php', {method:'POST', body:fd});
+    const d = await r.json();
+    if (d.success) {
+      row.style.opacity = '.35';
+      row.querySelectorAll('button').forEach(b => b.disabled = true);
+      const td = row.querySelector('td:last-child');
+      td.innerHTML = '<span style="color:#888;font-size:.82rem">Marked failed</span>';
+      setTimeout(() => location.reload(), 1200);
+    } else {
+      alert('Could not mark failed: ' + (d.error || d.message || 'Unknown error'));
+      if (btn) { btn.disabled = false; btn.textContent = 'Fail ✗'; }
+    }
+  } catch(e) {
+    alert('Network error: ' + e.message);
+    if (btn) { btn.disabled = false; btn.textContent = 'Fail ✗'; }
+  }
 }
 </script>
 </body>

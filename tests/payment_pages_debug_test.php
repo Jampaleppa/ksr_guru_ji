@@ -56,7 +56,12 @@ function runSubprocessPage(string $relativeFile, array $session = [], array $get
         return ['code' => -1, 'output' => "File not found: {$absFile}"];
     }
 
-    $phpExe = 'C:\\wamp64\\bin\\php\\php8.3.14\\php.exe';
+    // Use the PHP binary on PATH; fall back to known WAMP 8.1 location
+    $phpExe = (string)shell_exec('where php 2>NUL') ?: '';
+    $phpExe = trim(strtok($phpExe, "\n")); // first line only
+    if ($phpExe === '' || !file_exists($phpExe)) {
+        $phpExe = 'C:\\wamp64\\bin\\php\\php8.1.31\\php.exe';
+    }
 
     // Construct temp bootstrap script to emulate web request environment reliably on Windows
     $bootstrapCode = "<?php\n"
@@ -404,6 +409,155 @@ if ($isServerUp) {
         $isOk = ($res['code'] === 0 && strlen($res['stdout']) > 0);
         assertTest("Endpoint {$name} ({$cfg['file']}) rendered successfully", $isOk);
     }
+}
+
+// ── 7. ADMIN PAGES, CODMANAGER, RECEIPT ARCHIVAL & CRON SCRIPTS ──────────────
+echo "\n7. Testing Admin pages, CodManager, Receipt archival & Cron scripts...\n";
+
+// 7.1 Auto-archived HTML receipt created on transition to success
+$receiptGlob = glob($rootDir . '/storage/payment/receipts/RCP-*.html') ?: [];
+assertTest("PaymentStateMachine auto-archived HTML receipt to private storage", count($receiptGlob) > 0);
+
+// 7.2 CodManager lifecycle (eligibility, collection, OTP, handover)
+$codMgr = new \KsrPay\CodManager($pdo);
+$eligOk = ($codMgr->isEligible(15000)['eligible'] ?? false) === true
+    && ($codMgr->isEligible(250000)['eligible'] ?? true) === false;
+assertTest("CodManager::isEligible enforces Rs 2,000 COD cap", $eligOk);
+
+$codTestPay = $pm->createPayment(888, 888, 'cod', 'idem_cod_mgr_' . time() . '_' . rand(100, 999));
+$collId = $codMgr->createCollection((int)$codTestPay['db_id'], 888, 999, (int)$codTestPay['amount_paise']);
+$otpStmt = $pdo->prepare("SELECT delivery_otp FROM cod_collections WHERE id = ?");
+$otpStmt->execute([$collId]);
+$otpVal = (string)$otpStmt->fetchColumn();
+$otpStmt->closeCursor();
+unset($otpStmt);
+$colResult = $codMgr->recordCollection($collId, (int)$codTestPay['amount_paise'], $otpVal, 999, 'Unit test cash');
+$hoResult  = $codMgr->recordHandover($collId, 999, 999, (int)$codTestPay['amount_paise'], 'Unit test handover');
+assertTest(
+    "CodManager records OTP-verified collection and finance handover",
+    ($colResult['success'] ?? false) === true && ($hoResult['success'] ?? false) === true && ($hoResult['status'] ?? '') === 'completed'
+);
+$pdo->prepare("DELETE FROM cod_handovers WHERE cod_collection_id = ?")->execute([$collId]);
+$pdo->prepare("DELETE FROM cod_collections WHERE id = ?")->execute([$collId]);
+
+// 7.3 Admin COD page & Support Cases page render cleanly
+$resCodAdmin = runSubprocessPage('admin/payments/cod.php', ['user_id' => 999, 'role' => 'admin']);
+assertTest(
+    "admin/payments/cod.php renders COD Management dashboard",
+    $resCodAdmin['code'] === 0 && str_contains($resCodAdmin['stdout'], 'COD Management')
+);
+
+$resScAdmin = runSubprocessPage('admin/payments/support-cases.php', ['user_id' => 999, 'role' => 'admin']);
+assertTest(
+    "admin/payments/support-cases.php renders Payment Support Cases page",
+    $resScAdmin['code'] === 0 && str_contains($resScAdmin['stdout'], 'Payment Support Cases')
+);
+
+// 7.4 Admin Pending, Reconciliation, Reports, Settings & Disputes pages
+$resPendingAdmin = runSubprocessPage('admin/payments/pending.php', ['user_id' => 999, 'role' => 'admin']);
+assertTest(
+    "admin/payments/pending.php renders Pending UPI Verifications",
+    $resPendingAdmin['code'] === 0 && str_contains($resPendingAdmin['stdout'], 'Pending UPI Verifications')
+);
+
+$resReconAdmin = runSubprocessPage('admin/payments/reconciliation.php', ['user_id' => 999, 'role' => 'admin']);
+assertTest(
+    "admin/payments/reconciliation.php renders Reconciliation page",
+    $resReconAdmin['code'] === 0 && str_contains($resReconAdmin['stdout'], 'Reconciliation')
+);
+
+$resRepAdmin = runSubprocessPage('admin/payments/reports.php', ['user_id' => 999, 'role' => 'admin'], ['from' => date('Y-m-01'), 'to' => date('Y-m-d')]);
+assertTest(
+    "admin/payments/reports.php renders with validated date filters",
+    $resRepAdmin['code'] === 0 && str_contains($resRepAdmin['stdout'], 'Reports')
+);
+
+$resSetAdmin = runSubprocessPage('admin/payments/settings.php', ['user_id' => 999, 'role' => 'admin']);
+assertTest(
+    "admin/payments/settings.php renders Payment Gateway Settings",
+    $resSetAdmin['code'] === 0 && str_contains($resSetAdmin['stdout'], 'Payment Gateway Settings')
+);
+
+// 7.5 Disputes POST resolution (verifying portable SQLite/MySQL CASE WHEN)
+$pdo->prepare(
+    "INSERT INTO payment_disputes (order_id, user_id, subject, description, status, opened_at)
+     VALUES (888, 888, 'Test Dispute', 'Unit test dispute description', 'open', datetime('now'))"
+)->execute();
+$dispId = (int)$pdo->lastInsertId();
+$resDispPost = runSubprocessPage(
+    'admin/payments/disputes.php',
+    ['user_id' => 999, 'role' => 'admin', 'ksr_csrf_token' => $testCsrf],
+    [],
+    ['csrf_token' => $testCsrf, 'dispute_id' => $dispId, 'new_status' => 'resolved', 'resolution' => 'Resolved in test'],
+    'POST'
+);
+$dispStatusStmt = $pdo->prepare("SELECT status, resolved_at FROM payment_disputes WHERE id = ?");
+$dispStatusStmt->execute([$dispId]);
+$dispRow = $dispStatusStmt->fetch(\PDO::FETCH_ASSOC);
+$dispStatusStmt->closeCursor();
+unset($dispStatusStmt);
+assertTest(
+    "admin/payments/disputes.php resolves dispute cleanly via POST",
+    $resDispPost['code'] === 0
+    && str_contains($resDispPost['stdout'], 'Dispute updated.')
+    && ($dispRow['status'] ?? '') === 'resolved'
+    && !empty($dispRow['resolved_at'])
+);
+$pdo->prepare("DELETE FROM payment_disputes WHERE id = ?")->execute([$dispId]);
+
+// 7.6 api/payment/mark-failed.php transitions pending payment to failed
+$failPay = $pm->createPayment(888, 888, 'upi', 'idem_fail_api_' . time() . '_' . rand(100, 999));
+$failPid = $failPay['payment_id'];
+$resMarkFail = runSubprocessPage(
+    'api/payment/mark-failed.php',
+    ['user_id' => 999, 'role' => 'admin', 'ksr_csrf_token' => $testCsrf],
+    [],
+    ['csrf_token' => $testCsrf, 'payment_id' => $failPid, 'reason' => 'Automated fail test'],
+    'POST'
+);
+$failJson = json_decode($resMarkFail['stdout'], true);
+$failDbRow = $pm->getPayment($failPid);
+assertTest(
+    "api/payment/mark-failed.php marks payment as failed with audit trail",
+    is_array($failJson)
+    && ($failJson['success'] ?? false) === true
+    && ($failDbRow['status'] ?? '') === 'failed'
+);
+
+// 7.7 BankMatching::findCandidates portability & Admin dashboard/settlement/permissions pages
+require_once $rootDir . '/payment-methods/bank-transfer/BankMatching.php';
+$bm = new \KsrPay\BankMatching($pdo); // constructor takes only $pdo; AuditLogger created internally
+$bmCandidates = $bm->findCandidates();  // 0 args — scans all unmatched credits
+assertTest("BankMatching::findCandidates executes cleanly on current DB driver", is_array($bmCandidates));
+
+$resDashAdmin = runSubprocessPage('admin/payments/dashboard.php', ['user_id' => 999, 'role' => 'admin']);
+assertTest(
+    "admin/payments/dashboard.php renders live overview metrics",
+    $resDashAdmin['code'] === 0 && str_contains($resDashAdmin['stdout'], 'Payment')
+);
+
+$resSettleAdmin = runSubprocessPage('admin/payments/settlement.php', ['user_id' => 999, 'role' => 'admin']);
+assertTest(
+    "admin/payments/settlement.php renders Settlement reports page",
+    $resSettleAdmin['code'] === 0 && str_contains($resSettleAdmin['stdout'], 'Settlement')
+);
+
+$resPermAdmin = runSubprocessPage('admin/payments/permissions.php', ['user_id' => 999, 'role' => 'admin']);
+assertTest(
+    "admin/payments/permissions.php renders RBAC Permissions page",
+    $resPermAdmin['code'] === 0 && str_contains($resPermAdmin['stdout'], 'Permissions')
+);
+
+// 7.8 Cron scripts execute cleanly via CLI
+$phpBin = trim(strtok((string)shell_exec('where php 2>NUL') ?: '', "\n"));
+if ($phpBin === '' || !file_exists($phpBin)) {
+    $phpBin = 'C:\\wamp64\\bin\\php\\php8.1.31\\php.exe';
+}
+foreach (['cron_expire_sessions.php', 'cron_cod_reconciliation.php', 'cron_daily_settlement.php'] as $cronScript) {
+    $out = [];
+    $rc  = -1;
+    exec(escapeshellarg($phpBin) . ' ' . escapeshellarg($rootDir . '/scripts/' . $cronScript) . ' 2>&1', $out, $rc);
+    assertTest("scripts/{$cronScript} executes cleanly (exit={$rc})", $rc === 0);
 }
 
 echo "\n====================================================================\n";

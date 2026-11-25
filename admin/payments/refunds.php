@@ -76,9 +76,13 @@ th{background:#f5f5f5;font-weight:600}
           <?php if ($r['status'] === 'pending'): ?>
             <button class="action-btn" style="background:#2196f3;color:#fff"
               onclick="doRefundAction(<?= (int)$r['id'] ?>,'approve')">Approve</button>
+            <button class="action-btn" style="background:#e53e3e;color:#fff;margin-left:.3rem"
+              onclick="doRejectRefund(<?= (int)$r['id'] ?>)">Reject</button>
           <?php elseif (in_array($r['status'], ['approved','processing'], true)): ?>
             <button class="action-btn" style="background:#1a7f4b;color:#fff"
               onclick="doRefundAction(<?= (int)$r['id'] ?>,'complete')">Mark Complete</button>
+            <button class="action-btn" style="background:#e53e3e;color:#fff;margin-left:.3rem"
+              onclick="doRejectRefund(<?= (int)$r['id'] ?>)">Reject</button>
           <?php endif; ?>
         </td>
       </tr>
@@ -95,6 +99,20 @@ async function doRefundAction(refundId, action) {
   fd.append('csrf_token','<?= htmlspecialchars($csrf) ?>');
   fd.append('refund_id', refundId);
   fd.append('action', action);
+  const r = await fetch('/api/payment/refund.php', {method:'POST', body:fd});
+  const d = await r.json();
+  alert(d.message || d.error);
+  if (d.success) location.reload();
+}
+
+async function doRejectRefund(refundId) {
+  const reason = prompt('Please enter the reason for rejecting this refund:');
+  if (!reason || !reason.trim()) return;
+  const fd = new FormData();
+  fd.append('csrf_token','<?= htmlspecialchars($csrf) ?>');
+  fd.append('refund_id', refundId);
+  fd.append('action', 'reject');
+  fd.append('reason', reason.trim());
   const r = await fetch('/api/payment/refund.php', {method:'POST', body:fd});
   const d = await r.json();
   alert(d.message || d.error);

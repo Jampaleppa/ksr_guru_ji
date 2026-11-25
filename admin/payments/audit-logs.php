@@ -30,7 +30,6 @@ if ($to     !== '') { $where[] = "DATE(created_at) <= ?"; $params[] = $to;   }
 
 $whereSQL = $where ? 'WHERE ' . implode(' AND ', $where) : '';
 
-$total = (int)$pdo->prepare("SELECT COUNT(*) FROM payment_audit_logs {$whereSQL}")->execute($params) ? 0 : 0;
 $cStmt = $pdo->prepare("SELECT COUNT(*) FROM payment_audit_logs {$whereSQL}");
 $cStmt->execute($params);
 $total = (int)$cStmt->fetchColumn();

@@ -2,9 +2,11 @@
 declare(strict_types=1);
 
 require_once __DIR__ . '/../../payment-core/bootstrap.php';
+require_once dirname(__DIR__, 2) . '/payment-methods/bank-transfer/StatementImport.php';
 
 use KsrPay\AmountCalculator;
 use KsrPay\ReconciliationManager;
+use KsrPay\StatementImport;
 use KsrPay\AuditLogger;
 use KsrPay\SecurityManager;
 
@@ -18,6 +20,37 @@ $sec     = new SecurityManager();
 $csrf    = $sec->generateCSRFToken();
 $adminId = (int)$_SESSION['user_id'];
 $msg     = '';
+
+// Handle CSV Statement Upload
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['upload_csv'])) {
+    if (!$sec->validateCSRFToken($_POST['csrf_token'] ?? '')) {
+        $msg = '<div style="color:#c00">Invalid CSRF token.</div>';
+    } elseif (!isset($_FILES['statement_file']) || $_FILES['statement_file']['error'] !== UPLOAD_ERR_OK) {
+        $msg = '<div style="color:#c00">Please select a valid CSV statement file to upload.</div>';
+    } else {
+        $tmpPath = $_FILES['statement_file']['tmp_name'];
+        try {
+            $importer = new StatementImport($pdo);
+            $stats = $importer->importCsv($tmpPath, $adminId);
+            $msg = sprintf(
+                '<div style="color:#1a7f4b;background:#e8f5e9;padding:.8rem;border-radius:6px;margin-bottom:1rem">' .
+                '<strong>Statement imported successfully!</strong><br>' .
+                '• Credits imported: %d<br>' .
+                '• Duplicate credits skipped: %d<br>' .
+                '• Debit entries skipped (not credited): %d<br>' .
+                '• Errors: %d' .
+                '</div>',
+                $stats['imported'],
+                $stats['duplicates'],
+                $stats['skipped_debits'],
+                $stats['skipped_errors']
+            );
+        } catch (\Throwable $e) {
+            $msg = '<div style="color:#c00;background:#ffebee;padding:.8rem;border-radius:6px;margin-bottom:1rem">' .
+                   'CSV Import error: ' . htmlspecialchars($e->getMessage()) . '</div>';
+        }
+    }
+}
 
 // Handle manual import
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['import_credit'])) {
@@ -90,6 +123,20 @@ th{background:#f5f5f5;font-weight:600}
   <h2><a href="/admin/payments/dashboard.php" style="color:#1a7f4b;text-decoration:none">← Dashboard</a> &nbsp; Bank Credits</h2>
 
   <?= $msg ?>
+
+  <!-- CSV Statement Import Form -->
+  <div class="import-form">
+    <h3><i class="fas fa-file-csv" style="color:#1a7f4b;"></i> Import Bank Statement (CSV)</h3>
+    <p style="font-size:.85rem;color:#666;margin:0 0 .8rem">Upload standard SBI statement CSV. Only CREDIT lines will be imported; duplicates and debits are safely skipped.</p>
+    <form method="post" enctype="multipart/form-data">
+      <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrf) ?>">
+      <input type="hidden" name="upload_csv"  value="1">
+      <div class="row" style="align-items:center">
+        <input type="file" name="statement_file" accept=".csv" required style="flex:2">
+        <button type="submit" class="btn-import"><i class="fas fa-file-import"></i> Upload &amp; Import Statement</button>
+      </div>
+    </form>
+  </div>
 
   <!-- Manual Import Form -->
   <div class="import-form">

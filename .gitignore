@@ -20,6 +20,15 @@ logs/
 # Scratch / temporary agent files
 scratch/
 
+# Generated payment runtime artifacts (keep storage/.htaccess and .gitkeep)
+storage/payment/receipts/*.html
+storage/payment/exports/*
+!storage/payment/exports/.gitkeep
+storage/payment/logs/*
+!storage/payment/logs/.gitkeep
+storage/payment/statements/*
+!storage/payment/statements/.gitkeep
+
 # Local alias folder for IDE compatibility
 /KSR Guru JI/
 

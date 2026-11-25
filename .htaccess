@@ -100,7 +100,7 @@ Options -Indexes
     </IfModule>
 </FilesMatch>
 
-<FilesMatch "(?i)^(?:_.*|tmp[-_].*|test.*|debug.*|check_db|check_abs_paths|show_(?:cols|order_delivery|tables)|schema_print2?|spider_test|lint_all|create_admins|create_db_tables|import_db|migrate(?:_db)?|run_(?:migration_audit_logs|patient_portal_migration)|seed_doctors|seed-telehealth-data|sanitize_db|fix_.*|inject_sorting|merge_doctor_assist|patch_session|standardize_.*|update_(?:all_headers|company_logo)|test_whatsapp_sql|run_tests|lint)\.php$">
+<FilesMatch "(?i)^(?:_.*|tmp[-_].*|test.*|debug.*|cron_.*|check_db|check_abs_paths|show_(?:cols|order_delivery|tables)|schema_print2?|spider_test|lint_all|create_admins|create_db_tables|import_db|migrate(?:_db)?|run_(?:migration_audit_logs|patient_portal_migration)|seed_doctors|seed-telehealth-data|sanitize_db|fix_.*|inject_sorting|merge_doctor_assist|patch_session|standardize_.*|update_(?:all_headers|company_logo)|test_whatsapp_sql|run_tests|lint)\.php$">
     <IfModule mod_authz_core.c>
         Require all denied
     </IfModule>

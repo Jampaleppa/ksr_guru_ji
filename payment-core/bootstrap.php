@@ -28,7 +28,13 @@ require_once __DIR__ . '/PaymentStateMachine.php';
 require_once __DIR__ . '/ReconciliationManager.php';
 require_once __DIR__ . '/RefundManager.php';
 require_once __DIR__ . '/SecurityManager.php';
+require_once __DIR__ . '/ReceiptGenerator.php';
+require_once __DIR__ . '/PaymentRouter.php';
+require_once __DIR__ . '/PaymentSessionManager.php';
 require_once __DIR__ . '/PaymentManager.php';
+if (file_exists($_ksrRoot . '/payment-methods/cod/CodManager.php')) {
+    require_once $_ksrRoot . '/payment-methods/cod/CodManager.php';
+}
 
 // Obtain PDO
 $pdo = getDBConnection();
