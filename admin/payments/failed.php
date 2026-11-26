@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/../../payment-core/bootstrap.php';
 use KsrPay\AmountCalculator;
+use KsrPay\SecurityManager;
 
-if (session_status() === PHP_SESSION_NONE) { session_start(); }
-if (empty($_SESSION['user_id']) || ($_SESSION['role'] ?? '') !== 'admin') {
-    header('Location: /admin/login.php'); exit;
-}
+SecurityManager::requireAdminPage();
 
 $page   = max(1, (int)($_GET['page'] ?? 1));
 $limit  = 25;

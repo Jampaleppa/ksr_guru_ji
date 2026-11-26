@@ -5,10 +5,7 @@ require_once __DIR__ . '/../../payment-core/bootstrap.php';
 
 use KsrPay\SecurityManager;
 
-if (session_status() === PHP_SESSION_NONE) { session_start(); }
-if (empty($_SESSION['user_id']) || ($_SESSION['role'] ?? '') !== 'admin') {
-    header('Location: /admin/login.php'); exit;
-}
+SecurityManager::requireAdminPage();
 
 $sec     = new SecurityManager();
 $csrf    = $sec->generateCSRFToken();

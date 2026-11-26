@@ -127,9 +127,10 @@ class BankMatching
             )->execute([$paymentTransactionId, $bankCreditId]);
 
             // Set bank_confirmed_ref on payment transaction
+            $nowSql = ($this->pdo->getAttribute(\PDO::ATTR_DRIVER_NAME) === 'sqlite') ? "datetime('now')" : 'NOW()';
             $this->pdo->prepare(
                 "UPDATE payment_transactions
-                    SET bank_confirmed_ref = ?, updated_at = NOW()
+                    SET bank_confirmed_ref = ?, updated_at = {$nowSql}
                   WHERE id = ?"
             )->execute([$credit['bank_ref'], $paymentTransactionId]);
 

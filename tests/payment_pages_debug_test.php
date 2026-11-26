@@ -548,7 +548,111 @@ assertTest(
     $resPermAdmin['code'] === 0 && str_contains($resPermAdmin['stdout'], 'Permissions')
 );
 
-// 7.8 Cron scripts execute cleanly via CLI
+// 7.8 super_admin role session access (AdminAuth sets role='super_admin')
+$resDashSuper = runSubprocessPage('admin/payments/dashboard.php', ['user_id' => 1, 'role' => 'super_admin', 'admin_is_super' => true]);
+assertTest(
+    "admin/payments/dashboard.php permits super_admin session",
+    $resDashSuper['code'] === 0 && str_contains($resDashSuper['stdout'], 'Payment Dashboard')
+);
+
+$resPermSuper = runSubprocessPage('admin/payments/permissions.php', ['user_id' => 1, 'role' => 'super_admin', 'admin_is_super' => true]);
+assertTest(
+    "admin/payments/permissions.php grants superadmin controls to super_admin",
+    $resPermSuper['code'] === 0 && str_contains($resPermSuper['stdout'], 'Grant Role')
+);
+
+// 7.9 StatementImport CSV (UTF-8 BOM, debit skip, duplicate skip) + BankMatching::applyMatch
+require_once $rootDir . '/payment-methods/bank-transfer/StatementImport.php';
+$bomPay = $pm->createPayment(888, 888, 'upi', 'idem_bm_apply_' . time() . '_' . rand(100, 999));
+$bomInr = number_format($bomPay['amount_paise'] / 100, 2, '.', '');
+$csvTmp = tempnam(sys_get_temp_dir(), 'ksr_stmt_');
+$bomRef = 'REF_BOM_' . time() . '_' . rand(100, 999);
+file_put_contents(
+    $csvTmp,
+    "\xEF\xBB\xBFTxn Date,Description,Ref No./Cheque No.,Debit,Credit,Balance\n" .
+    date('d/m/Y') . ",UPI CREDIT TEST,{$bomRef},,{$bomInr},5000.00\n" .
+    date('d/m/Y') . ",WITHDRAWAL SKIP,REF_DEB_" . time() . ",100.00,,4900.00\n"
+);
+$imp = new \KsrPay\StatementImport($pdo);
+$impStats1 = $imp->importCsv($csvTmp, 999);
+$impStats2 = $imp->importCsv($csvTmp, 999);
+@unlink($csvTmp);
+assertTest(
+    "StatementImport::importCsv handles BOM, skips debits, and deduplicates credits",
+    $impStats1['imported'] === 1
+    && $impStats1['skipped_debits'] === 1
+    && $impStats2['duplicates'] === 1
+);
+$bomCrStmt = $pdo->prepare("SELECT id FROM payment_bank_credits WHERE bank_ref = ? LIMIT 1");
+$bomCrStmt->execute([$bomRef]);
+$bomCreditId = (int)$bomCrStmt->fetchColumn();
+$bomCrStmt->closeCursor();
+unset($bomCrStmt);
+$bomPtStmt = $pdo->prepare("SELECT id FROM payment_transactions WHERE payment_id = ? LIMIT 1");
+$bomPtStmt->execute([$bomPay['payment_id']]);
+$bomPtId = (int)$bomPtStmt->fetchColumn();
+$bomPtStmt->closeCursor();
+unset($bomPtStmt);
+$bm->applyMatch($bomCreditId, $bomPtId, 999, 'Automated BankMatching::applyMatch verification');
+$chkMatchedStmt = $pdo->prepare("SELECT bank_confirmed_ref FROM payment_transactions WHERE id = ?");
+$chkMatchedStmt->execute([$bomPtId]);
+$confirmedRef = (string)$chkMatchedStmt->fetchColumn();
+$chkMatchedStmt->closeCursor();
+unset($chkMatchedStmt);
+assertTest(
+    "BankMatching::applyMatch records reconciliation and sets bank_confirmed_ref",
+    $confirmedRef === $bomRef
+);
+$pdo->prepare("DELETE FROM payment_reconciliations WHERE bank_credit_id = ?")->execute([$bomCreditId]);
+$pdo->prepare("DELETE FROM payment_bank_credits WHERE id = ?")->execute([$bomCreditId]);
+
+// 7.10 SecurityManager env CORS allowlist accepts configured domain and blocks wildcard *
+$prevCors = getenv('CORS_ALLOWED_ORIGIN');
+putenv('CORS_ALLOWED_ORIGIN=*,https://ksrguruji.in');
+$secCors = new SecurityManager();
+$corsValid   = $secCors->validateOrigin('https://ksrguruji.in');
+$corsWild    = $secCors->validateOrigin('*');
+$corsEvil    = $secCors->validateOrigin('https://evil.example.com');
+putenv($prevCors === false ? 'CORS_ALLOWED_ORIGIN' : "CORS_ALLOWED_ORIGIN={$prevCors}");
+assertTest(
+    "SecurityManager loads CORS_ALLOWED_ORIGIN from env and blocks '*' wildcard",
+    $corsValid && !$corsWild && !$corsEvil
+);
+
+// 7.11 AdminAuth enforces WhatsApp OTP MFA for finance_admin accounts
+require_once $rootDir . '/admin/inc/admin_auth.php';
+$authTest = new \AdminAuth($pdo);
+$isSqliteTest = ($pdo->getAttribute(\PDO::ATTR_DRIVER_NAME) === 'sqlite');
+$insIgnoreTest = $isSqliteTest ? 'INSERT OR IGNORE INTO' : 'INSERT IGNORE INTO';
+$pdo->exec(
+    "{$insIgnoreTest} admin_roles (role_key, role_name) VALUES ('ADMIN', 'Admin')"
+);
+$adminRoleIdStmt = $pdo->query("SELECT id FROM admin_roles WHERE role_key = 'ADMIN' LIMIT 1");
+$adminRoleId = (int)$adminRoleIdStmt->fetchColumn();
+$adminRoleIdStmt->closeCursor();
+unset($adminRoleIdStmt);
+
+$finHash = password_hash('FinTest@2026', PASSWORD_DEFAULT);
+$pdo->prepare("DELETE FROM payment_admin_permissions WHERE user_id = 9901")->execute();
+$pdo->prepare("DELETE FROM admin_users WHERE id = 9901 OR username = 'fin_admin_test'")->execute();
+$pdo->prepare(
+    "{$insIgnoreTest} users (id, name, email, phone, role) VALUES (9901, 'Finance Admin Test', 'fin@ksr.test', '919999999999', 'admin')"
+)->execute();
+$pdo->prepare(
+    "INSERT INTO admin_users (id, username, email, password_hash, full_name, phone, role_id, status, is_super_admin)
+     VALUES (9901, 'fin_admin_test', 'fin@ksr.test', ?, 'Finance Admin Test', '919999999999', ?, 'active', 0)"
+)->execute([$finHash, $adminRoleId]);
+$pdo->prepare("INSERT INTO payment_admin_permissions (user_id, payment_role, granted_by) VALUES (9901, 'finance_admin', 1)")->execute();
+$finAuthRes = $authTest->authenticate('fin_admin_test', 'FinTest@2026', '127.0.0.1');
+$pdo->prepare("DELETE FROM payment_admin_permissions WHERE user_id = 9901")->execute();
+$pdo->prepare("DELETE FROM admin_users WHERE id = 9901")->execute();
+$pdo->prepare("DELETE FROM users WHERE id = 9901")->execute();
+assertTest(
+    "AdminAuth::authenticate enforces OTP stage for finance_admin accounts",
+    ($finAuthRes['status'] ?? '') === 'otp'
+);
+
+// 7.12 Cron scripts execute cleanly via CLI
 $phpBin = trim(strtok((string)shell_exec('where php 2>NUL') ?: '', "\n"));
 if ($phpBin === '' || !file_exists($phpBin)) {
     $phpBin = 'C:\\wamp64\\bin\\php\\php8.1.31\\php.exe';

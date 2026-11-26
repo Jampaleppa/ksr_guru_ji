@@ -18,7 +18,7 @@ $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
 $host = $_SERVER['HTTP_HOST'] ?? '';
 if (!empty($origin)) {
     $parsedHost = parse_url($origin, PHP_URL_HOST);
-    if ($parsedHost && ($parsedHost === $host || str_ends_with($parsedHost, 'ksrguruji.in') || $parsedHost === 'localhost' || $parsedHost === '127.0.0.1')) {
+    if ($parsedHost && ($parsedHost === $host || $parsedHost === 'ksrguruji.in' || str_ends_with($parsedHost, '.ksrguruji.in') || $parsedHost === 'localhost' || $parsedHost === '127.0.0.1')) {
         header("Access-Control-Allow-Origin: $origin");
         header('Access-Control-Allow-Credentials: true');
     }

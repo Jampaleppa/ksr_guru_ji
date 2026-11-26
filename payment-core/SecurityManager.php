@@ -19,6 +19,43 @@ class SecurityManager
         'http://127.0.0.1:8090',
     ];
 
+    /** Roles permitted to access KSR PAY administration pages and APIs. */
+    private const ADMIN_ROLES = ['admin', 'super_admin'];
+
+    /** Whether the active PHP session belongs to an admin or super_admin. */
+    public static function isAdminSession(): bool
+    {
+        return !empty($_SESSION['user_id'])
+            && in_array($_SESSION['role'] ?? '', self::ADMIN_ROLES, true);
+    }
+
+    /** Ensure an admin/super_admin session for HTML pages, redirecting otherwise. */
+    public static function requireAdminPage(string $redirectTo = '/admin/login.php'): int
+    {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+        if (!self::isAdminSession()) {
+            header('Location: ' . $redirectTo);
+            exit;
+        }
+        return (int)$_SESSION['user_id'];
+    }
+
+    /** Ensure an admin/super_admin session for JSON APIs, returning 403 otherwise. */
+    public static function requireAdminApi(string $errorKey = 'error'): int
+    {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+        if (!self::isAdminSession()) {
+            http_response_code(403);
+            echo json_encode(['success' => false, $errorKey => 'Admin access required.']);
+            exit;
+        }
+        return (int)$_SESSION['user_id'];
+    }
+
     /** Generate a CSRF token and store it in session. */
     public static function generateCSRFToken(): string
     {
@@ -74,6 +111,27 @@ class SecurityManager
         return mb_substr(trim(strip_tags($input)), 0, $maxLen);
     }
 
+    /**
+     * Effective CORS allowlist, combining defaults with CORS_ALLOWED_ORIGIN env var.
+     * Never permits wildcard '*'.
+     *
+     * @return string[]
+     */
+    public static function resolveAllowedOrigins(): array
+    {
+        $origins = self::ALLOWED_ORIGINS;
+        $envOrigins = getenv('CORS_ALLOWED_ORIGIN');
+        if ($envOrigins !== false && $envOrigins !== '') {
+            foreach (explode(',', $envOrigins) as $candidate) {
+                $clean = rtrim(trim($candidate), '/');
+                if ($clean !== '' && $clean !== '*' && preg_match('#^https?://#i', $clean)) {
+                    $origins[] = $clean;
+                }
+            }
+        }
+        return array_values(array_unique($origins));
+    }
+
     /** Check if the request's HTTP_ORIGIN is from an allowed domain. */
     public function validateOrigin(?string $origin = null): bool
     {
@@ -81,14 +139,15 @@ class SecurityManager
         if ($origin === '') {
             return true; // same-origin requests don't send Origin
         }
-        return in_array($origin, self::ALLOWED_ORIGINS, true);
+        return in_array($origin, self::resolveAllowedOrigins(), true);
     }
 
     /** Return CORS headers array (never wildcard *). */
     public function getCORSHeaders(): array
     {
-        $origin  = $_SERVER['HTTP_ORIGIN'] ?? '';
-        $allowed = in_array($origin, self::ALLOWED_ORIGINS, true) ? $origin : self::ALLOWED_ORIGINS[0];
+        $allowedList = self::resolveAllowedOrigins();
+        $origin      = $_SERVER['HTTP_ORIGIN'] ?? '';
+        $allowed     = in_array($origin, $allowedList, true) ? $origin : $allowedList[0];
 
         return [
             'Access-Control-Allow-Origin'      => $allowed,

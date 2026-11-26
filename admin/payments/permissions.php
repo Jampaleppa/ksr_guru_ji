@@ -6,32 +6,28 @@ require_once __DIR__ . '/../../payment-core/bootstrap.php';
 use KsrPay\SecurityManager;
 use KsrPay\AuditLogger;
 
-if (session_status() === PHP_SESSION_NONE) { session_start(); }
+$adminId = SecurityManager::requireAdminPage();
 
-// Only superadmin can manage permissions
+// Only superadmin (either portal super_admin after MFA or explicit DB payment_role = 'superadmin') can manage permissions
 $role = $_SESSION['role'] ?? '';
-if (empty($_SESSION['user_id']) || $role !== 'admin') {
-    header('Location: /admin/login.php'); exit;
+$isSuperadmin = ($role === 'super_admin' || !empty($_SESSION['admin_is_super']));
+if (!$isSuperadmin) {
+    try {
+        $chk = $pdo->prepare(
+            "SELECT 1 FROM payment_admin_permissions
+              WHERE user_id = ? AND payment_role = 'superadmin' AND is_active = 1"
+        );
+        $chk->execute([$adminId]);
+        $isSuperadmin = (bool)$chk->fetchColumn();
+    } catch (Throwable $e) {
+        // Table may not exist yet
+    }
 }
 
-// Extra check: must have superadmin payment role
-$isSuperadmin = false;
-try {
-    $chk = $pdo->prepare(
-        "SELECT 1 FROM payment_admin_permissions
-          WHERE user_id = ? AND payment_role = 'superadmin' AND is_active = 1"
-    );
-    $chk->execute([(int)$_SESSION['user_id']]);
-    $isSuperadmin = (bool)$chk->fetchColumn();
-} catch (Throwable $e) {
-    // Table may not exist yet
-}
-
-$sec    = new SecurityManager();
-$audit  = new AuditLogger($pdo);
-$csrf   = $sec->generateCSRFToken();
-$adminId = (int)$_SESSION['user_id'];
-$msg    = '';
+$sec     = new SecurityManager();
+$audit   = new AuditLogger($pdo);
+$csrf    = $sec->generateCSRFToken();
+$msg     = '';
 $msgType = 'info';
 
 $allRoles = [
@@ -78,9 +74,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $sec->validateCSRFToken($_POST['csr
                     }
                     $msg = "Role '{$grantRole}' granted."; $msgType = 'ok';
                 } elseif ($action === 'revoke') {
+                    $nowSql = ($pdo->getAttribute(\PDO::ATTR_DRIVER_NAME) === 'sqlite') ? "datetime('now')" : 'NOW()';
                     $pdo->prepare(
                         "UPDATE payment_admin_permissions
-                            SET is_active=0, revoked_at=NOW()
+                            SET is_active=0, revoked_at={$nowSql}
                           WHERE user_id=? AND payment_role=?"
                     )->execute([$targetId, $grantRole]);
                     $msg = "Role '{$grantRole}' revoked."; $msgType = 'ok';

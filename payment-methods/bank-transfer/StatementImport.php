@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace KsrPay;
@@ -79,10 +80,13 @@ class StatementImport
             throw new \RuntimeException("Unable to open statement file.");
         }
 
-        $headers     = null;
-        $columnMap   = [];
-        $batchInsert = $this->pdo->prepare(
-            "INSERT IGNORE INTO payment_bank_credits
+        $headers      = null;
+        $columnMap    = [];
+        $insertPrefix = ($this->pdo->getAttribute(\PDO::ATTR_DRIVER_NAME) === 'sqlite')
+            ? 'INSERT OR IGNORE INTO'
+            : 'INSERT IGNORE INTO';
+        $batchInsert  = $this->pdo->prepare(
+            "{$insertPrefix} payment_bank_credits
                 (credit_date, bank_ref, utr, narration, amount_paise, imported_by)
              VALUES
                 (:credit_date, :bank_ref, :utr, :narration, :amount_paise, :imported_by)"
@@ -90,29 +94,36 @@ class StatementImport
 
         try {
             while (($row = fgetcsv($handle)) !== false) {
+                // Skip completely blank lines
+                if ($row === [null] || (count($row) === 1 && trim((string)$row[0]) === '')) {
+                    continue;
+                }
+
                 // Header row
                 if ($headers === null) {
+                    $row[0]    = preg_replace('/^\xEF\xBB\xBF/', '', (string)($row[0] ?? ''));
                     $headers   = array_map('trim', $row);
                     $columnMap = $this->buildColumnMap($headers);
                     if (!isset($columnMap['credit']) || !isset($columnMap['bank_ref'])) {
                         throw new \RuntimeException(
                             'CSV missing required columns "Credit" and/or "Ref No.". ' .
-                            'Please export a standard SBI statement CSV.'
+                                'Please export a standard SBI statement CSV.'
                         );
                     }
                     continue;
                 }
 
                 $result['total_rows']++;
-                $data = array_combine($headers, array_pad($row, count($headers), ''));
+                $data = array_combine($headers, array_slice(array_pad($row, count($headers), ''), 0, count($headers)));
 
                 // ── Extract values ────────────────────────────────────
-                $creditRaw  = trim($data[$columnMap['credit']]  ?? '');
-                $debitRaw   = trim($data[$columnMap['debit']]   ?? '');
-                $bankRef    = trim($data[$columnMap['bank_ref']] ?? '');
-                $narration  = trim($data[$columnMap['narration']] ?? '');
-                $dateRaw    = trim($data[$columnMap['credit_date']] ?? '');
-                $utr        = isset($columnMap['utr']) ? trim($data[$columnMap['utr']] ?? '') : '';
+                $creditRaw = trim((string)($data[$columnMap['credit']] ?? ''));
+                $debitRaw  = isset($columnMap['debit']) ? trim((string)($data[$columnMap['debit']] ?? '')) : '';
+                $bankRef   = trim((string)($data[$columnMap['bank_ref']] ?? ''));
+                $narration = isset($columnMap['narration']) ? trim((string)($data[$columnMap['narration']] ?? '')) : '';
+                $dateKey   = $columnMap['credit_date'] ?? ($columnMap['credit_date_alt'] ?? null);
+                $dateRaw   = $dateKey !== null ? trim((string)($data[$dateKey] ?? '')) : '';
+                $utr       = isset($columnMap['utr']) ? trim((string)($data[$columnMap['utr']] ?? '')) : '';
 
                 // Skip DEBIT rows — only import CREDITS
                 $creditNum = $this->parseAmount($creditRaw);
@@ -168,12 +179,12 @@ class StatementImport
         $this->audit->log(
             eventType: 'STATEMENT_IMPORT',
             actorType: 'admin',
-            actorId:   $importedBy,
-            notes:     "File: " . basename($filePath) .
-                       " | Imported: {$result['imported']}" .
-                       " | Duplicates: {$result['duplicates']}" .
-                       " | Debits skipped: {$result['skipped_debits']}" .
-                       " | Errors: {$result['skipped_errors']}"
+            actorId: $importedBy,
+            notes: "File: " . basename($filePath) .
+                " | Imported: {$result['imported']}" .
+                " | Duplicates: {$result['duplicates']}" .
+                " | Debits skipped: {$result['skipped_debits']}" .
+                " | Errors: {$result['skipped_errors']}"
         );
 
         return $result;

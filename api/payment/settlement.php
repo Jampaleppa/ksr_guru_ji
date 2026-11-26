@@ -8,15 +8,9 @@ header('Cache-Control: no-store');
 require_once dirname(__DIR__, 2) . '/payment-core/bootstrap.php';
 
 use KsrPay\AmountCalculator;
+use KsrPay\SecurityManager;
 
-if (session_status() === PHP_SESSION_NONE) { session_start(); }
-
-$role = $_SESSION['role'] ?? '';
-if (empty($_SESSION['user_id']) || !in_array($role, ['admin','super_admin'], true)) {
-    http_response_code(403);
-    echo json_encode(['success' => false, 'error' => 'Admin access required.']);
-    exit;
-}
+SecurityManager::requireAdminApi();
 
 $from  = trim($_GET['from']  ?? date('Y-m-01'));
 $to    = trim($_GET['to']    ?? date('Y-m-d'));

@@ -8,10 +8,7 @@ use KsrPay\RefundManager;
 use KsrPay\AuditLogger;
 use KsrPay\SecurityManager;
 
-if (session_status() === PHP_SESSION_NONE) { session_start(); }
-if (empty($_SESSION['user_id']) || ($_SESSION['role'] ?? '') !== 'admin') {
-    header('Location: /admin/login.php'); exit;
-}
+SecurityManager::requireAdminPage();
 
 $calc    = new AmountCalculator();
 $sec     = new SecurityManager();

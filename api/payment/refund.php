@@ -9,11 +9,7 @@ use KsrPay\SecurityManager;
 
 header('Content-Type: application/json');
 
-if (session_status() === PHP_SESSION_NONE) { session_start(); }
-if (empty($_SESSION['user_id']) || ($_SESSION['role'] ?? '') !== 'admin') {
-    http_response_code(403);
-    echo json_encode(['success' => false, 'error' => 'Admin access required.']); exit;
-}
+SecurityManager::requireAdminApi();
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);

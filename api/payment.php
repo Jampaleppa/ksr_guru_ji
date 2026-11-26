@@ -9,16 +9,9 @@ if (file_exists(__DIR__ . '/functions.php')) { require_once __DIR__ . '/function
 header('Content-Type: application/json');
 
 // --- Safe CORS policy (no wildcard *) ---
-$allowedOrigins = [
-    'https://ksrguruji.vercel.app',
-    'https://ksrguruji-3rpi.vercel.app',
-    'http://localhost',
-    'http://localhost:80',
-    'http://localhost:8090',
-    'http://127.0.0.1',
-    'http://127.0.0.1:8090',
-];
 $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
+require_once __DIR__ . '/../payment-core/SecurityManager.php';
+$allowedOrigins = \KsrPay\SecurityManager::resolveAllowedOrigins();
 $corsOrigin = in_array($origin, $allowedOrigins, true) ? $origin : $allowedOrigins[0];
 header("Access-Control-Allow-Origin: {$corsOrigin}");
 header('Access-Control-Allow-Methods: POST, GET, OPTIONS');

@@ -16,7 +16,7 @@
 // admin/database/admin_rbac_schema.sql.
 // ============================================================
 
-if (session_status() === PHP_SESSION_NONE) {
+if (session_status() === PHP_SESSION_NONE && !headers_sent()) {
     session_start();
 }
 
@@ -326,8 +326,8 @@ if (!class_exists('AdminAuth')) {
             $this->clearAttempts($ip);
             $this->resetFailedLogins((int) $admin['id']);
 
-            // Super admin requires WhatsApp OTP (stage 2).
-            if ((int) $admin['is_super_admin'] === 1 || $admin['role_key'] === 'SUPER_ADMIN') {
+            // Super admin and finance_admin accounts require WhatsApp OTP (stage 2).
+            if ($this->requiresMfaOtp($admin)) {
                 return ['status' => 'otp', 'admin' => $admin];
             }
 
@@ -335,6 +335,32 @@ if (!class_exists('AdminAuth')) {
             $this->establishSession($admin, $ip, false);
 
             return ['status' => 'done', 'admin' => $admin];
+        }
+
+        /**
+         * Determine whether an authenticated admin requires WhatsApp OTP MFA.
+         * Enforced for superadmin and finance_admin accounts.
+         */
+        private function requiresMfaOtp(array $admin): bool
+        {
+            if ((int) ($admin['is_super_admin'] ?? 0) === 1
+                || in_array($admin['role_key'] ?? '', ['SUPER_ADMIN', 'FINANCE_ADMIN'], true)
+            ) {
+                return true;
+            }
+            try {
+                $stmt = $this->pdo->prepare(
+                    "SELECT 1 FROM payment_admin_permissions
+                      WHERE user_id = ?
+                        AND payment_role IN ('superadmin', 'finance_admin')
+                        AND is_active = 1
+                      LIMIT 1"
+                );
+                $stmt->execute([(int) $admin['id']]);
+                return (bool) $stmt->fetchColumn();
+            } catch (Throwable $e) {
+                return false;
+            }
         }
 
         private function bumpFailedLogins(int $adminId): void

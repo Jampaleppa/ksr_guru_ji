@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 require_once __DIR__ . '/../../payment-core/bootstrap.php';
@@ -9,11 +10,13 @@ use KsrPay\SecurityManager;
 
 header('Content-Type: application/json');
 
-if (session_status() === PHP_SESSION_NONE) { session_start(); }
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
-// Role check: admin OR delivery_boy
+// Role check: admin/super_admin OR delivery partner
 $role = $_SESSION['role'] ?? '';
-if (empty($_SESSION['user_id']) || !in_array($role, ['admin', 'delivery', 'delivery_boy'], true)) {
+if (empty($_SESSION['user_id']) || !in_array($role, ['admin', 'super_admin', 'delivery', 'delivery_boy', 'delivery_partner'], true)) {
     http_response_code(403);
     echo json_encode(['success' => false, 'message' => 'Access denied.']);
     exit;
@@ -66,11 +69,11 @@ if ($collectedAmountPaise !== (int)$payment['amount_paise']) {
 try {
     $sm = new PaymentStateMachine($pdo, new AuditLogger($pdo));
     $ok = $sm->transition($paymentId, 'cod_collected', [
-        'actor_type'          => in_array($role, ['admin'], true) ? 'admin' : 'system',
+        'actor_type'          => SecurityManager::isAdminSession() ? 'admin' : 'system',
         'actor_id'            => $actorId,
         'collected_amount'    => $collectedAmountPaise,
         'collected_by'        => $actorId,
-        'collection_reference'=> $collectionReference,
+        'collection_reference' => $collectionReference,
         'notes'               => "COD collected. Ref: {$collectionReference}",
     ]);
 
@@ -84,4 +87,3 @@ try {
     error_log('COD confirm_collection error: ' . $e->getMessage());
     echo json_encode(['success' => false, 'message' => 'Server error. Please try again.']);
 }
-
