@@ -44,6 +44,7 @@ if (!function_exists('getDefaultSettings')) {
                 'delivery_fee' => 40,
                 'free_delivery_threshold' => 500,
                 'delivery_time' => 45,
+                'parcel_charge' => defined('KSR_PARCEL_CHARGE') ? KSR_PARCEL_CHARGE : 50,
                 'delivery_zones' => ['Central Business District', 'Residential Area North', 'Tech Park Zone'],
             ],
             'payment' => [

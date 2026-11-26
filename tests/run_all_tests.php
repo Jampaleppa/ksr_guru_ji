@@ -42,6 +42,10 @@ $suites = [
         'name' => 'Security, Gateway & Secrets Audit Suite',
         'file' => $testsDir . '/security_test.php',
     ],
+    [
+        'name' => 'Hardening, Checkout, Coupons & Reservations Suite',
+        'file' => $testsDir . '/hardening_features_test.php',
+    ],
 ];
 
 echo "====================================================================\n";

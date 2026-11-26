@@ -6,11 +6,17 @@ $currentPage = 'reports';
 require_once 'inc/auth_check.php';
 require_once '../config.php';
 require_once 'inc/functions.php';
+require_once '../includes/coupons.php';
 $pdo = getDBConnection();
+ensureCouponTables($pdo);
 
 // --- FETCH REAL DATA FROM DATABASE ---
-$dateFrom = $_GET['from'] ?? date('Y-m-01');
-$dateTo   = $_GET['to']   ?? date('Y-m-t');
+$dateFrom = preg_match('/^\d{4}-\d{2}-\d{2}$/', (string)($_GET['from'] ?? '')) ? $_GET['from'] : date('Y-m-01');
+$dateTo   = preg_match('/^\d{4}-\d{2}-\d{2}$/', (string)($_GET['to'] ?? '')) ? $_GET['to'] : date('Y-m-t');
+
+// Consider orders settled when payment_status is paid/completed/success/cod_collected OR delivered COD
+$settledCondOrders = "(payment_status IN ('paid','completed','success','cod_collected') OR (payment_method = 'cod' AND status = 'delivered')) AND status != 'cancelled'";
+$settledCondAlias  = "(o.payment_status IN ('paid','completed','success','cod_collected') OR (o.payment_method = 'cod' AND o.status = 'delivered')) AND o.status != 'cancelled'";
 
 // Sales Overview
 $salesStmt = $pdo->prepare("
@@ -20,7 +26,7 @@ $salesStmt = $pdo->prepare("
         SUM(total) as total_sales,
         AVG(total) as avg_order_value
     FROM orders 
-    WHERE payment_status = 'paid' AND DATE(created_at) BETWEEN ? AND ?
+    WHERE {$settledCondOrders} AND DATE(created_at) BETWEEN ? AND ?
     GROUP BY DATE(created_at)
     ORDER BY date ASC
 ");
@@ -35,7 +41,7 @@ $topProductsStmt = $pdo->prepare("
     FROM order_items oi
     JOIN products p ON oi.product_id = p.id
     JOIN orders o ON oi.order_id = o.id
-    WHERE o.payment_status = 'paid' AND DATE(o.created_at) BETWEEN ? AND ?
+    WHERE {$settledCondAlias} AND DATE(o.created_at) BETWEEN ? AND ?
     GROUP BY p.id
     ORDER BY total_sold DESC
     LIMIT 10
@@ -43,14 +49,14 @@ $topProductsStmt = $pdo->prepare("
 $topProductsStmt->execute([$dateFrom, $dateTo]);
 $topProducts = $topProductsStmt->fetchAll();
 
-// Top Customers
+// Top Customers (users table guarantees `name`; deploy schema also has `fullname`)
 $topCustomersStmt = $pdo->prepare("
-    SELECT u.id, u.name, u.email,
+    SELECT u.id, COALESCE(NULLIF(u.name, ''), u.email) as name, u.email,
            COUNT(o.id) as order_count,
            SUM(o.total) as total_spent
     FROM orders o
     JOIN users u ON o.user_id = u.id
-    WHERE o.payment_status = 'paid' AND DATE(o.created_at) BETWEEN ? AND ?
+    WHERE {$settledCondAlias} AND DATE(o.created_at) BETWEEN ? AND ?
     GROUP BY u.id
     ORDER BY total_spent DESC
     LIMIT 10
@@ -66,48 +72,82 @@ $categoryStmt = $pdo->prepare("
     FROM categories c
     LEFT JOIN products p ON p.category_id = c.id
     LEFT JOIN order_items oi ON oi.product_id = p.id
-    LEFT JOIN orders o ON oi.order_id = o.id
-    WHERE o.payment_status = 'paid' AND DATE(o.created_at) BETWEEN ? AND ?
+    LEFT JOIN orders o ON oi.order_id = o.id AND {$settledCondAlias} AND DATE(o.created_at) BETWEEN ? AND ?
     GROUP BY c.id
+    HAVING items_sold > 0
     ORDER BY revenue DESC
 ");
 $categoryStmt->execute([$dateFrom, $dateTo]);
 $categoryPerformance = $categoryStmt->fetchAll();
 
-// Payment Method Breakdown
+// Payment Method Breakdown (all non-cancelled orders, distinguishing settled vs awaiting)
 $paymentStmt = $pdo->prepare("
     SELECT payment_method, COUNT(*) as count, SUM(total) as total
     FROM orders
-    WHERE payment_status = 'paid' AND DATE(created_at) BETWEEN ? AND ?
+    WHERE {$settledCondOrders} AND DATE(created_at) BETWEEN ? AND ?
     GROUP BY payment_method
 ");
 $paymentStmt->execute([$dateFrom, $dateTo]);
 $paymentMethods = $paymentStmt->fetchAll();
 
-// Summary Stats
+// Summary Stats (settled revenue + COD/pending pipeline visibility)
 $summaryStmt = $pdo->prepare("
     SELECT 
         COUNT(*) as total_orders,
-        SUM(total) as total_revenue,
-        AVG(total) as avg_order,
-        SUM(CASE WHEN payment_method = 'cod' THEN total ELSE 0 END) as cod_revenue,
-        SUM(CASE WHEN payment_method != 'cod' THEN total ELSE 0 END) as online_revenue
+        COALESCE(SUM(CASE WHEN {$settledCondOrders} THEN total ELSE 0 END), 0) as total_revenue,
+        COALESCE(AVG(CASE WHEN {$settledCondOrders} THEN total END), 0) as avg_order,
+        COALESCE(SUM(CASE WHEN {$settledCondOrders} AND payment_method = 'cod' THEN total ELSE 0 END), 0) as cod_revenue,
+        COALESCE(SUM(CASE WHEN {$settledCondOrders} AND payment_method != 'cod' THEN total ELSE 0 END), 0) as online_revenue,
+        COALESCE(SUM(CASE WHEN payment_method = 'cod' AND status NOT IN ('delivered','cancelled','failed') THEN total ELSE 0 END), 0) as pending_cod_revenue,
+        COALESCE(SUM(CASE WHEN payment_status IN ('upi_awaiting','bank_transfer_awaiting','initiated','pending') AND payment_method != 'cod' AND status != 'cancelled' THEN total ELSE 0 END), 0) as awaiting_online_revenue
     FROM orders
-    WHERE payment_status = 'paid' AND DATE(created_at) BETWEEN ? AND ?
+    WHERE DATE(created_at) BETWEEN ? AND ?
 ");
 $summaryStmt->execute([$dateFrom, $dateTo]);
 $summary = $summaryStmt->fetch();
 
-// Low Stock Products
+// Low Stock Products (merges inventory table & products.stock)
 $lowStockStmt = $pdo->query("
-    SELECT p.id, p.name, p.price, i.quantity
+    SELECT p.id, p.name, p.price, COALESCE(i.quantity, p.stock, 0) as quantity
     FROM products p
-    JOIN inventory i ON p.id = i.product_id
-    WHERE i.quantity < 10
-    ORDER BY i.quantity ASC
+    LEFT JOIN inventory i ON p.id = i.product_id
+    WHERE COALESCE(i.quantity, p.stock, 0) < 10
+    ORDER BY quantity ASC
     LIMIT 20
 ");
 $lowStock = $lowStockStmt->fetchAll();
+
+// Coupon Usage Analytics (filtered by selected date range)
+$couponAnalytics = [];
+$couponSummary = ['total_redemptions' => 0, 'total_discount' => 0.0, 'attributed_revenue' => 0.0];
+try {
+    $couponStmt = $pdo->prepare("
+        SELECT
+            UPPER(cu.coupon_code) AS code,
+            MAX(COALESCE(c.discount_type, 'fixed')) AS discount_type,
+            MAX(COALESCE(c.discount_value, 0)) AS discount_value,
+            MAX(COALESCE(c.status, 'unknown')) AS status,
+            COUNT(cu.id) AS usage_count,
+            COALESCE(SUM(cu.discount_amount), 0) AS total_discount,
+            COALESCE(SUM(COALESCE(o.total, 0)), 0) AS revenue_generated,
+            MAX(cu.used_at) AS last_used_at
+        FROM coupon_usage cu
+        LEFT JOIN coupons c ON UPPER(c.code) = UPPER(cu.coupon_code)
+        LEFT JOIN orders o ON o.id = cu.order_id AND o.status != 'cancelled'
+        WHERE DATE(cu.used_at) BETWEEN ? AND ?
+        GROUP BY UPPER(cu.coupon_code)
+        ORDER BY usage_count DESC, total_discount DESC
+    ");
+    $couponStmt->execute([$dateFrom, $dateTo]);
+    $couponAnalytics = $couponStmt->fetchAll(PDO::FETCH_ASSOC);
+    foreach ($couponAnalytics as $ca) {
+        $couponSummary['total_redemptions']  += (int)($ca['usage_count'] ?? 0);
+        $couponSummary['total_discount']     += (float)($ca['total_discount'] ?? 0);
+        $couponSummary['attributed_revenue'] += (float)($ca['revenue_generated'] ?? 0);
+    }
+} catch (Throwable $e) {
+    error_log('[admin/reports.php coupon analytics] ' . $e->getMessage());
+}
 
 // ---- PASS DATA TO JAVASCRIPT AS JSON ----
 $jsonSales = json_encode($sales);
@@ -117,6 +157,7 @@ $jsonCategoryPerformance = json_encode($categoryPerformance);
 $jsonPaymentMethods = json_encode($paymentMethods);
 $jsonSummary = json_encode($summary);
 $jsonLowStock = json_encode($lowStock);
+$jsonCouponAnalytics = json_encode($couponAnalytics);
 $jsonDateFrom = json_encode($dateFrom);
 $jsonDateTo = json_encode($dateTo);
 
@@ -713,6 +754,7 @@ $jsonDateTo = json_encode($dateTo);
                 <button class="tab-btn active" data-tab="sales">Sales Report</button>
                 <button class="tab-btn" data-tab="customers">Customer Report</button>
                 <button class="tab-btn" data-tab="inventory">Inventory Report</button>
+                <button class="tab-btn" data-tab="coupons">Coupon Usage (<?= count($couponAnalytics) ?>)</button>
             </div>
             <!-- Sales Tab -->
             <div class="tab-content active" id="salesTab">
@@ -741,6 +783,15 @@ $jsonDateTo = json_encode($dateTo);
                     </table>
                 </div>
             </div>
+            <!-- Coupon Usage Tab -->
+            <div class="tab-content" id="couponsTab">
+                <div class="table-container">
+                    <table class="data-table" id="couponsTable">
+                        <thead><tr><th>Coupon Code</th><th>Offer</th><th>Redemptions</th><th>Total Discount Given</th><th>Attributed Revenue</th><th>Last Used</th></tr></thead>
+                        <tbody id="couponsTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
             <div class="table-footer">
                 <div class="pagination">
                     <button class="pagination-btn" id="prevPage"><i class="fas fa-chevron-left"></i></button>
@@ -765,6 +816,55 @@ $jsonDateTo = json_encode($dateTo);
                 <div class="insights-container" id="insightsContainer"></div>
             </div>
         </div>
+
+        <!-- Coupon Usage Analytics -->
+        <section class="chart-container" style="margin-top:20px;" id="couponUsageSection">
+            <div class="chart-header">
+                <h4><i class="fas fa-ticket-alt" style="color:var(--success);"></i> Coupon Usage Analytics (<?= htmlspecialchars($dateFrom) ?> to <?= htmlspecialchars($dateTo) ?>)</h4>
+                <div style="display:flex;gap:16px;font-size:0.85rem;color:var(--text-secondary);">
+                    <span>Redemptions: <strong><?= (int)$couponSummary['total_redemptions'] ?></strong></span>
+                    <span>Total Discount Given: <strong style="color:var(--danger);">₹<?= number_format((float)$couponSummary['total_discount'], 2) ?></strong></span>
+                    <span>Attributed Revenue: <strong style="color:var(--success);">₹<?= number_format((float)$couponSummary['attributed_revenue'], 2) ?></strong></span>
+                </div>
+            </div>
+            <div style="overflow-x:auto;">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Code</th>
+                            <th>Offer</th>
+                            <th>Status</th>
+                            <th>Redemptions</th>
+                            <th>Total Discount Given</th>
+                            <th>Attributed Revenue</th>
+                            <th>Last Used</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <?php if (empty($couponAnalytics)): ?>
+                        <tr><td colspan="7" style="text-align:center;color:var(--text-secondary);padding:20px;">No coupon redemptions recorded in this date range.</td></tr>
+                    <?php else: ?>
+                        <?php foreach ($couponAnalytics as $ca):
+                            $isPct = in_array(strtolower((string)$ca['discount_type']), ['percent', 'percentage'], true);
+                            $offerLabel = $isPct
+                                ? rtrim(rtrim(number_format((float)$ca['discount_value'], 2, '.', ''), '0'), '.') . '% OFF'
+                                : '₹' . number_format((float)$ca['discount_value'], 2) . ' OFF';
+                        ?>
+                        <tr>
+                            <td><strong><?= htmlspecialchars((string)$ca['code']) ?></strong></td>
+                            <td><?= htmlspecialchars($offerLabel) ?></td>
+                            <td><span class="status-badge <?= strtolower((string)$ca['status']) === 'active' ? 'status-delivered' : 'status-pending' ?>"><?= htmlspecialchars(ucfirst((string)$ca['status'])) ?></span></td>
+                            <td><?= (int)$ca['usage_count'] ?></td>
+                            <td>₹<?= number_format((float)$ca['total_discount'], 2) ?></td>
+                            <td>₹<?= number_format((float)$ca['revenue_generated'], 2) ?></td>
+                            <td><?= $ca['last_used_at'] ? htmlspecialchars(date('d M Y, H:i', strtotime((string)$ca['last_used_at']))) : '—' ?></td>
+                        </tr>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                    </tbody>
+                </table>
+            </div>
+        </section>
 
         <footer>
             <p>© 2025 KSR GURU – Everything Your Family Needs, Every Day</p>
@@ -814,9 +914,16 @@ const phpData = {
     paymentMethods: <?= $jsonPaymentMethods ?>,
     summary: <?= $jsonSummary ?>,
     lowStock: <?= $jsonLowStock ?>,
+    coupons: <?= $jsonCouponAnalytics ?>,
     dateFrom: <?= $jsonDateFrom ?>,
     dateTo: <?= $jsonDateTo ?>
 };
+
+function escapeHtml(val) {
+    return String(val ?? '').replace(/[&<>"']/g, ch => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+    }[ch]));
+}
 
 // ============================================================
 // STATE
@@ -893,11 +1000,29 @@ function renderTables() {
         const paginated = data.slice(start, start+itemsPerPage);
         document.getElementById('inventoryTableBody').innerHTML = paginated.map(p => `
             <tr>
-                <td>${p.name}</td>
+                <td>${escapeHtml(p.name)}</td>
                 <td>${p.quantity}</td>
                 <td><span class="status-badge status-pending">Low Stock</span></td>
             </tr>
         `).join('');
+    } else if (currentTab === 'coupons') {
+        data = phpData.coupons || [];
+        totalItems = data.length;
+        const start = (currentPage-1)*itemsPerPage;
+        const paginated = data.slice(start, start+itemsPerPage);
+        document.getElementById('couponsTableBody').innerHTML = paginated.length ? paginated.map(cp => {
+            const isPct = ['percent', 'percentage'].includes(String(cp.discount_type || '').toLowerCase());
+            const offer = isPct ? `${Number(cp.discount_value || 0)}% OFF` : `₹${Number(cp.discount_value || 0).toFixed(2)} OFF`;
+            return `
+            <tr>
+                <td><strong>${escapeHtml(cp.code)}</strong></td>
+                <td>${escapeHtml(offer)}</td>
+                <td>${Number(cp.usage_count || 0)}</td>
+                <td>₹${Number(cp.total_discount || 0).toFixed(2)}</td>
+                <td>₹${Number(cp.revenue_generated || 0).toFixed(2)}</td>
+                <td>${escapeHtml(cp.last_used_at || '—')}</td>
+            </tr>`;
+        }).join('') : '<tr><td colspan="6" style="text-align:center;color:var(--text-secondary);">No coupon usage in this date range.</td></tr>';
     }
     const totalPages = Math.ceil(totalItems / itemsPerPage) || 1;
     document.getElementById('totalPages').innerText = totalPages;
@@ -1066,6 +1191,10 @@ function exportCSV() {
         headers = ['Customer', 'Orders', 'Total Spent'];
         data = phpData.topCustomers.map(c => [c.name, c.order_count, c.total_spent]);
         filename = 'customers_report.csv';
+    } else if (currentTab === 'coupons') {
+        headers = ['Code', 'Type', 'Value', 'Redemptions', 'Total Discount', 'Attributed Revenue', 'Last Used'];
+        data = (phpData.coupons || []).map(c => [c.code, c.discount_type, c.discount_value, c.usage_count, c.total_discount, c.revenue_generated, c.last_used_at || '']);
+        filename = 'coupons_report.csv';
     } else {
         headers = ['Product', 'Stock'];
         data = phpData.lowStock.map(p => [p.name, p.quantity]);
@@ -1190,8 +1319,10 @@ document.getElementById('resetFilter').addEventListener('click', function() {
 document.querySelectorAll('.tab-btn').forEach(btn => {
     btn.addEventListener('click', function() {
         document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
         this.classList.add('active');
         currentTab = this.dataset.tab;
+        document.getElementById(currentTab + 'Tab')?.classList.add('active');
         currentPage = 1;
         renderTables();
     });
@@ -1202,11 +1333,11 @@ document.getElementById('prevPage').addEventListener('click', function() {
     if (currentPage > 1) { currentPage--; renderTables(); }
 });
 document.getElementById('nextPage').addEventListener('click', function() {
-    const total = Math.ceil(
-        (currentTab === 'sales' ? phpData.sales.length :
-         currentTab === 'customers' ? phpData.topCustomers.length :
-         phpData.lowStock.length) / itemsPerPage
-    );
+    const len = currentTab === 'sales' ? phpData.sales.length :
+                currentTab === 'customers' ? phpData.topCustomers.length :
+                currentTab === 'coupons' ? (phpData.coupons || []).length :
+                phpData.lowStock.length;
+    const total = Math.ceil(len / itemsPerPage);
     if (currentPage < total) { currentPage++; renderTables(); }
 });
 document.getElementById('itemsPerPage').addEventListener('change', function() {
@@ -1217,6 +1348,7 @@ document.getElementById('itemsPerPage').addEventListener('change', function() {
 
 // Export buttons
 document.getElementById('exportBtn').addEventListener('click', exportCSV);
+document.getElementById('exportExcel')?.addEventListener('click', exportCSV);
 document.getElementById('exportPdf').addEventListener('click', downloadPDF);
 document.getElementById('pdfBtn').addEventListener('click', downloadPDF);
 

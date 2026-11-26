@@ -54,13 +54,15 @@ if (!defined('ADMIN_PAGE_PERMISSION_MAP')) {
         'delivery'     => 'delivery.view',
         'refunds'      => 'payments.view',
         'suppliers'    => 'customers.view',
+        'b2b'          => 'customers.view',
         'inventory'    => 'inventory.view',
 
         // ---------------------------------------------------------
         // People
         // ---------------------------------------------------------
-        'users'        => 'customers.view',
-        'customers'    => 'customers.view',
+        'users'             => 'customers.view',
+        'customers'         => 'customers.view',
+        'account_deletions' => 'customers.view',
 
         // ---------------------------------------------------------
         // Doctor Assist / clinical
@@ -160,6 +162,12 @@ if (!defined('ADMIN_ACTION_OVERRIDES')) {
             'mark_read'     => 'notifications.edit',
             'mark_all_read' => 'notifications.edit',
             'send'          => 'notifications.create',
+        ],
+
+        // Account deletion queue: operational admins with customers.edit can approve/deny.
+        'account_deletions' => [
+            'approve' => 'customers.edit',
+            'deny'    => 'customers.edit',
         ],
     ]);
 }
@@ -293,6 +301,7 @@ if (!function_exists('admin_page_options')) {
             'delivery'     => 'Delivery',
             'users'        => 'Users',
             'customers'    => 'Customers',
+            'account_deletions' => 'Account Deletion Requests',
             'notification' => 'Notifications',
             'whatsapp'     => 'WhatsApp Command Center',
             'reports'      => 'Reports & Analytics',

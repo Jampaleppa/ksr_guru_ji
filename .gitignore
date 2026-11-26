@@ -14,6 +14,8 @@ deploy/
 
 # Local SQLite databases
 *.sqlite
+*.sqlite-wal
+*.sqlite-shm
 logs/
 *.log
 

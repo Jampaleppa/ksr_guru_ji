@@ -357,6 +357,11 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && isset($_POST['action']) 
                         </div>
                     <?php endif; ?>
 
+                    <div style="margin-bottom:18px;padding:12px 14px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;">
+                        <span style="font-size:0.88rem;color:#166534;font-weight:600;"><i class="fas fa-pills"></i> Need medicines or medical suggestions?</span>
+                        <a href="/suggestion-box-unified.php?tab=medical" style="background:#0f7b3a;color:#fff;padding:7px 13px;border-radius:8px;font-size:0.82rem;font-weight:700;text-decoration:none;">Switch to Medical Suggestion Box →</a>
+                    </div>
+
                     <form action="/suggestion-box.php" method="POST">
                         <input type="hidden" name="action" value="submit_suggestion">
 

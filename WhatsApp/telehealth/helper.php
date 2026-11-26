@@ -32,14 +32,45 @@ function getAssistDB()
     return $pdo;
 }
 
-function logAuditEvent($action, $table, $userId, $details)
+function logAuditEvent(string $action, string $table, int|string|null $userId, mixed $details): void
 {
-    // Basic audit logger
+    try {
+        $pdo = getDBConnection();
+        $stmt = $pdo->prepare(
+            "INSERT INTO admin_audit_logs (admin_id, action, module, target_table, details, ip_address)
+             VALUES (?, ?, 'telehealth', ?, ?, ?)"
+        );
+        $stmt->execute([
+            is_numeric($userId) ? (int)$userId : null,
+            (string)$action,
+            (string)$table,
+            is_string($details) ? $details : json_encode($details),
+            $_SERVER['REMOTE_ADDR'] ?? 'cli',
+        ]);
+    } catch (Throwable $e) {
+        error_log("Telehealth audit [{$action}]: " . $e->getMessage());
+    }
 }
 
-function simulateWhatsApp($userId, $template, $params)
+function simulateWhatsApp(int|string|null $userId, string $template, mixed $params): void
 {
-    // Simulated whatsapp send
+    try {
+        $pdo = getDBConnection();
+        $msg = "Template: {$template} | " . (is_string($params) ? $params : json_encode($params));
+        $recipient = is_array($params)
+            ? (string)($params['phone'] ?? $params['recipient'] ?? (is_numeric($userId) ? "user:{$userId}" : 'patient'))
+            : (is_numeric($userId) ? "user:{$userId}" : 'patient');
+        $pdo->prepare(
+            "INSERT INTO whatsapp_logs (recipient, template, message, status) VALUES (?, ?, ?, 'logged')"
+        )->execute([$recipient, (string)$template, $msg]);
+        if (is_numeric($userId) && (int)$userId > 0) {
+            $pdo->prepare(
+                "INSERT INTO notifications (user_id, title, subject, message, type) VALUES (?, ?, ?, ?, 'telehealth')"
+            )->execute([(int)$userId, 'WhatsApp Update', 'WhatsApp Update', $msg]);
+        }
+    } catch (Throwable $e) {
+        error_log("Telehealth WA log [{$template}]: " . $e->getMessage());
+    }
 }
 
 function renderRoleSwitcher()
@@ -550,7 +581,7 @@ function telehealthEnsureSchema(PDO $pdo): void
         try {
             $sqliteFuncMethod = 'sqliteCreate' . 'Function';
             if (method_exists($pdo, $sqliteFuncMethod)) {
-                $reg = function(string $name, callable $fn, int $numArgs = -1) use ($pdo, $sqliteFuncMethod): void {
+                $reg = function (string $name, callable $fn, int $numArgs = -1) use ($pdo, $sqliteFuncMethod): void {
                     @call_user_func([$pdo, $sqliteFuncMethod], $name, $fn, $numArgs);
                 };
                 $reg('CURDATE', fn() => date('Y-m-d'), 0);
@@ -560,17 +591,17 @@ function telehealthEnsureSchema(PDO $pdo): void
                 $reg('CONCAT', fn(...$args) => implode('', $args));
                 $reg('IF', fn($c, $t, $f) => $c ? $t : $f, 3);
                 $reg('CHAR_LENGTH', fn($s) => mb_strlen((string)$s), 1);
-                $reg('DATE_SUB', function($date, $expr = null) {
+                $reg('DATE_SUB', function ($date, $expr = null) {
                     $d = $date ? strtotime((string)$date) : time();
                     $days = $expr ? (int)preg_replace('/[^0-9]/', '', (string)$expr) : 0;
                     return date('Y-m-d', strtotime("-$days days", $d));
                 });
-                $reg('DATE_ADD', function($date, $expr = null) {
+                $reg('DATE_ADD', function ($date, $expr = null) {
                     $d = $date ? strtotime((string)$date) : time();
                     $days = $expr ? (int)preg_replace('/[^0-9]/', '', (string)$expr) : 0;
                     return date('Y-m-d', strtotime("+$days days", $d));
                 });
-                $reg('TIMESTAMPDIFF', function($unit, $dt1, $dt2) {
+                $reg('TIMESTAMPDIFF', function ($unit, $dt1, $dt2) {
                     $t1 = $dt1 ? strtotime((string)$dt1) : 0;
                     $t2 = $dt2 ? strtotime((string)$dt2) : time();
                     $diff = $t2 - $t1;
@@ -581,7 +612,8 @@ function telehealthEnsureSchema(PDO $pdo): void
                     return (int)$diff;
                 }, 3);
             }
-        } catch (Throwable $e) {}
+        } catch (Throwable $e) {
+        }
     }
 
     try {
@@ -1112,7 +1144,7 @@ function telehealthColumns(PDO $pdo, string $table): array
         if ($dbName) {
             $chk = $pdo->prepare(
                 'SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES '
-                . 'WHERE TABLE_SCHEMA = ? AND TABLE_NAME = ?'
+                    . 'WHERE TABLE_SCHEMA = ? AND TABLE_NAME = ?'
             );
             $chk->execute([$dbName, $table]);
             if ((int) $chk->fetchColumn() === 0) {

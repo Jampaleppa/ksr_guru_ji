@@ -32,8 +32,25 @@ if (!$user) {
     exit;
 }
 
-// Handle profile update
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if (empty($_SESSION['csrf_token'])) { $_SESSION['csrf_token'] = bin2hex(random_bytes(16)); }
+$deletionPending = false;
+try {
+    $isMysqlProfile = $pdo->getAttribute(PDO::ATTR_DRIVER_NAME) !== 'sqlite';
+    $pdo->exec($isMysqlProfile ? "CREATE TABLE IF NOT EXISTS account_deletion_requests (id INT AUTO_INCREMENT PRIMARY KEY, user_id INT NOT NULL, email VARCHAR(150) NULL, reason TEXT NULL, status VARCHAR(30) NOT NULL DEFAULT 'pending', requested_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, INDEX idx_user (user_id)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" : "CREATE TABLE IF NOT EXISTS account_deletion_requests (id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER NOT NULL, email TEXT NULL, reason TEXT NULL, status TEXT NOT NULL DEFAULT 'pending', requested_at TEXT NOT NULL DEFAULT (datetime('now')))");
+    $chkDel = $pdo->prepare("SELECT 1 FROM account_deletion_requests WHERE user_id = ? AND status = 'pending' LIMIT 1"); $chkDel->execute([$userId]); $deletionPending = (bool)$chkDel->fetchColumn();
+} catch (Throwable $ignore) {}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'request_deletion') {
+    if (!hash_equals($_SESSION['csrf_token'] ?? '', (string)($_POST['csrf_token'] ?? ''))) {
+        $error = 'Security token expired. Please reload and try again.';
+    } elseif (!$deletionPending) {
+        try {
+            $pdo->prepare("INSERT INTO account_deletion_requests (user_id, email, reason) VALUES (?, ?, ?)")->execute([$userId, $user['email'] ?? '', trim((string)($_POST['deletion_reason'] ?? ''))]);
+            $deletionPending = true;
+            $message = 'Your account deletion request has been submitted and will be reviewed shortly.';
+        } catch (Throwable $e) { $error = 'Unable to submit request right now.'; }
+    }
+} elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = trim($_POST['name'] ?? '');
     $phone = trim($_POST['phone'] ?? '');
     $password = $_POST['password'] ?? '';
@@ -95,7 +112,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes" />
-    <title>My Profile · KSR GURU JI</title>
+    <title>My Profile Â· KSR GURU JI</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Poppins:wght@300;400;500;600;700&display=swap"
@@ -438,11 +455,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="form-group">
                 <label for="password"><i class="fas fa-lock"></i> New Password <span class="optional">(min 6
                         chars)</span></label>
-                <input type="password" id="password" name="password" placeholder="••••••••" />
+                <input type="password" id="password" name="password" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢" />
             </div>
             <div class="form-group">
                 <label for="confirm_password"><i class="fas fa-check-circle"></i> Confirm Password</label>
-                <input type="password" id="confirm_password" name="confirm_password" placeholder="••••••••" />
+                <input type="password" id="confirm_password" name="confirm_password" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢" />
             </div>
 
             <button type="submit" class="btn-save">
@@ -459,7 +476,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         class="fas fa-shipping-fast"></i> Delivery Panel</a>
             <?php endif; ?>
             <a href="index.php" class="btn-back"><i class="fas fa-arrow-left"></i> Back to Store</a>
+            <a href="addresses.php" class="btn-back" style="background:#3b82f6;color:#fff;"><i class="fas fa-map-marker-alt"></i> My Addresses</a>
+            <a href="orders.php" class="btn-back" style="background:#0f7b3a;color:#fff;"><i class="fas fa-box"></i> My Orders</a>
             <a href="logout.php" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        </div>
+        <div style="margin-top:24px;padding:16px;border:1px solid #fecaca;background:#fef2f2;border-radius:12px;">
+            <h4 style="color:#991b1b;font-size:0.95rem;margin-bottom:6px;"><i class="fas fa-user-times"></i> Account Deletion Request</h4>
+            <?php if ($deletionPending): ?>
+                <p style="font-size:0.85rem;color:#7f1d1d;">A deletion request for this account is currently <strong>pending review</strong>.</p>
+            <?php else: ?>
+                <form method="POST" onsubmit="return confirm('Submit an account deletion request to our support team?');">
+                    <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>" />
+                    <input type="hidden" name="action" value="request_deletion" />
+                    <input type="text" name="deletion_reason" placeholder="Optional reason..." style="width:100%;padding:8px 10px;border:1px solid #fca5a5;border-radius:8px;margin-bottom:8px;font-size:0.85rem;" />
+                    <button type="submit" style="background:#dc2626;color:#fff;border:none;padding:8px 14px;border-radius:8px;font-weight:700;font-size:0.82rem;cursor:pointer;">Request Account Deletion</button>
+                </form>
+            <?php endif; ?>
         </div>
     </div>
 

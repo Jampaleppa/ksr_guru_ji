@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/includes/db.php';
 require_once __DIR__ . '/includes/market_prices.php';
+require_once __DIR__ . '/includes/coupons.php';
 
 /**
  * Delivery charge policy (matches checkout UI).
@@ -27,10 +28,15 @@ if (!defined('KSR_DELIVERY_CHARGE')) {
  *  2. products table (Standard grocery catalog)
  *  3. $_SESSION['cart'] (Validated server-side session items)
  *
- * @param  array $cartItems  [['id'=>int|string,'qty'=>int,'price'=>float,'name'=>...], ...]
+ * @param  array       $cartItems  [['id'=>int|string,'qty'=>int,'price'=>float,'name'=>...], ...]
+ * @param  string|null $couponCode Optional coupon code to validate & apply.
+ * @param  int|null    $userId     Optional logged-in user ID for per-user coupon limits.
  * @return array{
  *     subtotal: float,
  *     delivery_charge: float,
+ *     discount: float,
+ *     coupon_code: ?string,
+ *     coupon_error: string,
  *     total: float,
  *     validated: bool,
  *     matched: int,
@@ -38,7 +44,7 @@ if (!defined('KSR_DELIVERY_CHARGE')) {
  *     line_items: array
  * }
  */
-function ksrCalculateCartTotal(array $cartItems): array
+function ksrCalculateCartTotal(array $cartItems, ?string $couponCode = null, ?int $userId = null): array
 {
     $subtotal   = 0.0;
     $matched    = 0;
@@ -49,6 +55,9 @@ function ksrCalculateCartTotal(array $cartItems): array
         return [
             'subtotal'        => 0.0,
             'delivery_charge' => (float)KSR_DELIVERY_CHARGE,
+            'discount'        => 0.0,
+            'coupon_code'     => null,
+            'coupon_error'    => '',
             'total'           => (float)KSR_DELIVERY_CHARGE,
             'validated'       => false,
             'matched'         => 0,
@@ -467,11 +476,34 @@ function ksrCalculateCartTotal(array $cartItems): array
 
     $subtotal       = round($subtotal, 2);
     $deliveryCharge = (float)KSR_DELIVERY_CHARGE;
-    $total          = round($subtotal + $deliveryCharge, 2);
+    $discount       = 0.0;
+    $appliedCode    = null;
+    $couponError    = '';
+
+    $cleanCoupon = trim((string)($couponCode ?? ''));
+    if ($cleanCoupon !== '' && $unmatched === 0 && !empty($lineItems)) {
+        try {
+            $cv = ksrValidateCoupon($pdo, $cleanCoupon, $subtotal, $userId);
+            if ($cv['valid']) {
+                $discount    = (float)$cv['discount'];
+                $appliedCode = (string)$cv['coupon']['code'];
+            } else {
+                $couponError = (string)$cv['error'];
+            }
+        } catch (Throwable $e) {
+            error_log('ksrCalculateCartTotal coupon error: ' . $e->getMessage());
+            $couponError = 'Unable to validate coupon.';
+        }
+    }
+
+    $total = max(0.0, round($subtotal + $deliveryCharge - $discount, 2));
 
     return [
         'subtotal'        => $subtotal,
         'delivery_charge' => $deliveryCharge,
+        'discount'        => $discount,
+        'coupon_code'     => $appliedCode,
+        'coupon_error'    => $couponError,
         'total'           => $total,
         // Fully validated only when every line mapped to a real product.
         'validated'       => ($unmatched === 0 && !empty($lineItems)),

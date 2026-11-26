@@ -4,14 +4,110 @@
 // ============================================================
 require_once __DIR__ . '/config.php';
 require_once __DIR__ . '/functions.php';
+require_once __DIR__ . '/includes/coupons.php';
+require_once __DIR__ . '/includes/inventory.php';
+// IdempotencyManager must be loaded at file-top so the class is always
+// resolvable by static-analysis tools (Intelephense, PHP language server)
+// and by payment flows.
+require_once __DIR__ . '/payment-core/IdempotencyManager.php';
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// --- Handle PDF Upload (Secured with Ownership & Magic-Byte MIME Validation) ---
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+
+/**
+ * Ensure order_idempotency_keys table exists for duplicate create_order protection.
+ */
+function ksrEnsureOrderIdempotencyTable(PDO $pdo): void
+{
+    static $done = [];
+    $id = spl_object_id($pdo);
+    if (isset($done[$id])) {
+        return;
+    }
+    $isSqlite = ($pdo->getAttribute(PDO::ATTR_DRIVER_NAME) === 'sqlite');
+    $sql = $isSqlite
+        ? "CREATE TABLE IF NOT EXISTS order_idempotency_keys (
+            id              INTEGER PRIMARY KEY AUTOINCREMENT,
+            idempotency_key TEXT NOT NULL UNIQUE,
+            order_id        INTEGER NOT NULL,
+            response_json   TEXT NOT NULL,
+            created_at      TEXT DEFAULT (datetime('now')),
+            expires_at      TEXT NOT NULL
+        )"
+        : "CREATE TABLE IF NOT EXISTS order_idempotency_keys (
+            id              BIGINT AUTO_INCREMENT PRIMARY KEY,
+            idempotency_key VARCHAR(128) NOT NULL UNIQUE,
+            order_id        INT NOT NULL,
+            response_json   MEDIUMTEXT NOT NULL,
+            created_at      DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            expires_at      DATETIME NOT NULL,
+            INDEX idx_expires (expires_at)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4";
+    try {
+        $pdo->exec($sql);
+        $done[$id] = true;
+    } catch (Throwable $e) {
+        error_log('ksrEnsureOrderIdempotencyTable: ' . $e->getMessage());
+    }
+}
+
+function ksrCheckOrderIdempotency(PDO $pdo, string $key): ?array
+{
+    if ($key === '') {
+        return null;
+    }
+    ksrEnsureOrderIdempotencyTable($pdo);
+    $stmt = $pdo->prepare(
+        "SELECT response_json FROM order_idempotency_keys WHERE idempotency_key = ? AND expires_at > ? LIMIT 1"
+    );
+    $stmt->execute([$key, date('Y-m-d H:i:s')]);
+    $raw = $stmt->fetchColumn();
+    if (!is_string($raw) || $raw === '') {
+        return null;
+    }
+    $decoded = json_decode($raw, true);
+    if (!is_array($decoded)) {
+        return null;
+    }
+    $decoded['idempotent'] = true;
+    return $decoded;
+}
+
+function ksrSaveOrderIdempotency(PDO $pdo, string $key, int $orderId, array $payload, int $ttlSeconds = 86400): void
+{
+    if ($key === '' || $orderId <= 0) {
+        return;
+    }
+    ksrEnsureOrderIdempotencyTable($pdo);
+    $isSqlite = ($pdo->getAttribute(PDO::ATTR_DRIVER_NAME) === 'sqlite');
+    $sql = $isSqlite
+        ? "INSERT OR IGNORE INTO order_idempotency_keys (idempotency_key, order_id, response_json, expires_at) VALUES (?, ?, ?, ?)"
+        : "INSERT IGNORE INTO order_idempotency_keys (idempotency_key, order_id, response_json, expires_at) VALUES (?, ?, ?, ?)";
+    try {
+        $pdo->prepare($sql)->execute([
+            $key,
+            $orderId,
+            json_encode($payload, JSON_UNESCAPED_UNICODE),
+            date('Y-m-d H:i:s', time() + $ttlSeconds),
+        ]);
+    } catch (Throwable $e) {
+        error_log('ksrSaveOrderIdempotency: ' . $e->getMessage());
+    }
+}
+
+// --- Handle PDF Upload (Secured with CSRF, Ownership & Magic-Byte MIME Validation) ---
 if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && isset($_POST['action']) && $_POST['action'] === 'upload_invoice') {
     header('Content-Type: application/json');
+    if (empty($_POST['csrf_token']) || empty($_SESSION['csrf_token']) || !hash_equals($_SESSION['csrf_token'], (string)$_POST['csrf_token'])) {
+        http_response_code(419);
+        echo json_encode(['success' => false, 'error' => 'Invalid or expired security token.']);
+        exit;
+    }
     $orderNumber = trim($_POST['order_number'] ?? '');
 
     if (empty($orderNumber) || !isset($_FILES['pdf_file']) || !$_FILES['pdf_file']['tmp_name']) {
@@ -94,6 +190,14 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && isset($_POST['action']) 
 if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && isset($_POST['action'])) {
     if ($_POST['action'] === 'verify_razorpay_payment') {
         header('Content-Type: application/json');
+
+        // CSRF protection
+        if (empty($_POST['csrf_token']) || empty($_SESSION['csrf_token']) || !hash_equals($_SESSION['csrf_token'], (string)$_POST['csrf_token'])) {
+            http_response_code(419);
+            echo json_encode(['success' => false, 'error' => 'Invalid or expired security token. Please refresh and try again.']);
+            exit;
+        }
+
         $orderId = (int)($_POST['order_id'] ?? 0);
         $razorpay_payment_id = trim($_POST['razorpay_payment_id'] ?? '');
         $razorpay_order_id = trim($_POST['razorpay_order_id'] ?? '');
@@ -397,24 +501,33 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && isset($_POST['action']))
     if ($_POST['action'] === 'create_order') {
         header('Content-Type: application/json');
 
+        // CSRF protection
+        if (empty($_POST['csrf_token']) || empty($_SESSION['csrf_token']) || !hash_equals($_SESSION['csrf_token'], (string)$_POST['csrf_token'])) {
+            http_response_code(419);
+            echo json_encode(['success' => false, 'errors' => ['Invalid or expired security token. Please refresh the page and try again.']]);
+            exit;
+        }
+
         // Get and sanitize input
-        $name = trim($_POST['name'] ?? '');
-        $email = trim($_POST['email'] ?? '');
-        $phone = trim($_POST['phone'] ?? '');
-        $address = trim($_POST['address'] ?? '');
-        $city = trim($_POST['city'] ?? '');
-        $state = trim($_POST['state'] ?? '');
-        $pincode = trim($_POST['pincode'] ?? '');
+        $name           = trim($_POST['name'] ?? '');
+        $email          = trim($_POST['email'] ?? '');
+        $phone          = trim($_POST['phone'] ?? '');
+        $address        = trim($_POST['address'] ?? '');
+        $city           = trim($_POST['city'] ?? '');
+        $state          = trim($_POST['state'] ?? '');
+        $pincode        = trim($_POST['pincode'] ?? '');
         $payment_method = $_POST['payment_method'] ?? 'cod';
-        $notes = trim($_POST['notes'] ?? '');
-        $utr = trim($_POST['utr'] ?? '');
+        $notes          = trim($_POST['notes'] ?? '');
+        $utr            = trim($_POST['utr'] ?? '');
+        $postedCoupon   = trim((string)($_POST['coupon_code'] ?? ''));
+        $couponCode     = $postedCoupon !== '' ? $postedCoupon : trim((string)($_SESSION['applied_coupon']['code'] ?? ''));
 
         // Cart items from client (JSON)
         $cartItems = isset($_POST['items']) ? json_decode($_POST['items'], true) : [];
 
         // Client-supplied figures are treated as UNTRUSTED display hints only.
-        $clientTotal     = (float)($_POST['total'] ?? 0);
-        $deliveryCharge  = (float)($_POST['delivery_charge'] ?? 0);
+        $clientTotal    = (float)($_POST['total'] ?? 0);
+        $deliveryCharge = (float)($_POST['delivery_charge'] ?? 0);
 
         if (file_exists(__DIR__ . '/pricing.php')) {
             require_once __DIR__ . '/pricing.php';
@@ -443,20 +556,29 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && isset($_POST['action']))
             exit;
         }
 
+        $pdo    = getDBConnection();
+        $userId = isset($_SESSION['user_id']) ? (int)$_SESSION['user_id'] : null;
+
         // ---- Authoritative server-side price recalculation ---------------
         // The final payable amount is NEVER taken from the browser.
-        $priced = ksrCalculateCartTotal($cartItems);
-        $subtotal = $priced['subtotal'];
-        $total    = $priced['total'];
-        $deliveryCharge = $priced['delivery_charge'];
+        $priced            = ksrCalculateCartTotal($cartItems, $couponCode !== '' ? $couponCode : null, $userId);
+        $subtotal          = $priced['subtotal'];
+        $couponDiscount    = (float)($priced['discount'] ?? 0.0);
+        $appliedCouponCode = $priced['coupon_code'] ?? null;
+        $total             = $priced['total'];
+        $deliveryCharge    = $priced['delivery_charge'];
 
-        if ($total <= 0) {
+        if ($postedCoupon !== '' && empty($appliedCouponCode) && !empty($priced['coupon_error'])) {
+            echo json_encode(['success' => false, 'errors' => ['Coupon error: ' . $priced['coupon_error']]]);
+            exit;
+        }
+
+        if ($total < 0 || ($subtotal <= 0 && $total <= 0)) {
             echo json_encode(['success' => false, 'errors' => ['Cart total could not be calculated.']]);
             exit;
         }
 
         // SECURITY: Reject orders that contain products not found in the active database.
-        // This prevents price manipulation via cart items with no matching DB product.
         if (!$priced['validated']) {
             error_log(
                 "create_order BLOCKED: {$priced['unmatched']} cart item(s) could not be matched to active products. " .
@@ -468,8 +590,6 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && isset($_POST['action']))
             exit;
         }
 
-        // If the browser's number disagrees materially with the server, warn
-        // in the log but proceed with the server figure.
         if ($clientTotal > 0 && abs($clientTotal - $total) > 1.00) {
             error_log(
                 "create_order: client total {$clientTotal} != server total {$total}. Using server value."
@@ -480,6 +600,81 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && isset($_POST['action']))
         $allowedMethods = ['cod', 'upi', 'qr', 'gpay', 'phonepe', 'paytm', 'bhim', 'amazonpay', 'bank_transfer'];
         if (!in_array($payment_method, $allowedMethods, true)) {
             $payment_method = 'upi';
+        }
+
+        // ---- Idempotency check (after input validation & normalization) ----
+        $idempotencyKey = trim((string)($_POST['idempotency_key'] ?? ''));
+        if ($idempotencyKey === '') {
+            // 2-minute dedup window for accidental double clicks when no client key was sent
+            $idempotencyKey = hash('sha256', json_encode([
+                session_id(), $phone, $address, $payment_method, $appliedCouponCode, $total, $cartItems, floor(time() / 120)
+            ]));
+        }
+        $cachedOrderResponse = ksrCheckOrderIdempotency($pdo, $idempotencyKey);
+        if ($cachedOrderResponse !== null) {
+            echo json_encode($cachedOrderResponse);
+            exit;
+        }
+
+        // ---- Server-side COD per-order & per-customer daily limit ---------
+        if ($payment_method === 'cod') {
+            $perOrderLimit = (float)KSR_COD_LIMIT;
+            if ($total > $perOrderLimit) {
+                echo json_encode(['success' => false, 'errors' => [
+                    'Cash on Delivery is available only for orders up to ₹' . number_format($perOrderLimit, 0) . '. Please choose UPI or Bank Transfer.'
+                ]]);
+                exit;
+            }
+            $today = date('Y-m-d');
+            if ($userId !== null && $userId > 0) {
+                $stmtCod = $pdo->prepare(
+                    "SELECT COALESCE(SUM(total), 0) FROM orders
+                      WHERE payment_method = 'cod'
+                        AND status NOT IN ('cancelled', 'failed')
+                        AND DATE(created_at) = ?
+                        AND (user_id = ? OR phone = ?)"
+                );
+                $stmtCod->execute([$today, $userId, $phone]);
+            } else {
+                $stmtCod = $pdo->prepare(
+                    "SELECT COALESCE(SUM(total), 0) FROM orders
+                      WHERE payment_method = 'cod'
+                        AND status NOT IN ('cancelled', 'failed')
+                        AND DATE(created_at) = ?
+                        AND phone = ?"
+                );
+                $stmtCod->execute([$today, $phone]);
+            }
+            $dailyTotal = (float)$stmtCod->fetchColumn();
+            if (($dailyTotal + $total) > (float)COD_DAILY_LIMIT) {
+                echo json_encode(['success' => false, 'errors' => [
+                    'Daily Cash on Delivery limit of ₹' . number_format((float)COD_DAILY_LIMIT, 0) . ' exceeded for your account today. Please choose UPI or Bank Transfer.'
+                ]]);
+                exit;
+            }
+        }
+
+        // ---- Duplicate UTR / Reference guard (before order creation) --------
+        if ($payment_method !== 'cod' && $utr !== '') {
+            $utrCleanCheck = preg_replace('/[^A-Za-z0-9]/', '', $utr);
+            if ($utrCleanCheck !== '') {
+                $dupUtr = $pdo->prepare(
+                    "SELECT id FROM orders WHERE transaction_id = ? AND status NOT IN ('cancelled', 'failed') LIMIT 1"
+                );
+                $dupUtr->execute([$utrCleanCheck]);
+                if ($dupUtr->fetchColumn()) {
+                    echo json_encode(['success' => false, 'errors' => [
+                        "Transaction reference / UTR '{$utrCleanCheck}' has already been submitted on another order. Please check and enter a unique reference."
+                    ]]);
+                    exit;
+                }
+            }
+        }
+
+        // Append coupon summary into order notes cleanly if applied
+        if ($appliedCouponCode !== null && $couponDiscount > 0) {
+            $couponTag = "[Coupon: {$appliedCouponCode} (-₹" . number_format($couponDiscount, 2) . ")]";
+            $notes = $notes !== '' ? ($notes . ' | ' . $couponTag) : $couponTag;
         }
 
         // Begin transaction
@@ -546,7 +741,9 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && isset($_POST['action']))
             $orderId = $pdo->lastInsertId();
 
             // ---- Phase 5: Stock enforcement (transactional) ----
-            // Lock each product row, verify sufficient stock, then decrement.
+            // Lock each product row, verify sufficient stock (accounting for other sessions' holds), then decrement.
+            ksrPurgeExpiredReservations($pdo);
+            $currentSid = session_id();
             $isMysql = ($pdo->getAttribute(PDO::ATTR_DRIVER_NAME) !== 'sqlite');
             $stockErrors = [];
             foreach ($priced['line_items'] as $line) {
@@ -594,8 +791,10 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && isset($_POST['action']))
                         $dbProdName = strtolower(trim((string)($prod['name'] ?? '')));
                         $lineProdName = strtolower(trim((string)preg_replace('/\s*\([^)]*\)\s*$/', '', $line['name'])));
                         if ($dbProdName === $lineProdName || str_contains($lineProdName, $dbProdName) || str_contains($dbProdName, $lineProdName)) {
-                            if ((int)$prod['stock'] < (int)$line['qty']) {
-                                $stockErrors[] = $line['name'] . ': only ' . (int)$prod['stock'] . ' left in stock (you requested ' . (int)$line['qty'] . ').';
+                            $reservedByOthers = ksrGetReservedQuantity($pdo, $pid, $currentSid);
+                            $availableStock   = max(0, (int)$prod['stock'] - $reservedByOthers);
+                            if ($availableStock < (int)$line['qty']) {
+                                $stockErrors[] = $line['name'] . ': only ' . $availableStock . ' left in stock (you requested ' . (int)$line['qty'] . ').';
                             }
                             continue;
                         }
@@ -642,19 +841,35 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && isset($_POST['action']))
                 ]);
                 // Decrement stock atomically only for items in products table whose name matches
                 if ($pid > 0) {
-                    $chk = $pdo->prepare('SELECT id, name FROM products WHERE id = ?');
+                    $chk = $pdo->prepare('SELECT id, name, stock FROM products WHERE id = ?');
                     $chk->execute([$pid]);
                     $pRow = $chk->fetch(PDO::FETCH_ASSOC);
                     if ($pRow) {
                         $dbProdName = strtolower(trim((string)($pRow['name'] ?? '')));
                         $lineProdName = strtolower(trim((string)preg_replace('/\s*\([^)]*\)\s*$/', '', $line['name'])));
                         if ($dbProdName === $lineProdName || str_contains($lineProdName, $dbProdName) || str_contains($dbProdName, $lineProdName)) {
+                            $oldStock = (int)($pRow['stock'] ?? 0);
+                            $qtyDec   = (int)$line['qty'];
+                            $newStock = max(0, $oldStock - $qtyDec);
                             if ($isMysql) {
                                 $pdo->prepare('UPDATE products SET stock = GREATEST(0, stock - ?) WHERE id = ?')
-                                    ->execute([$line['qty'], $pid]);
+                                    ->execute([$qtyDec, $pid]);
                             } else {
                                 $pdo->prepare('UPDATE products SET stock = MAX(0, stock - ?) WHERE id = ?')
-                                    ->execute([$line['qty'], $pid]);
+                                    ->execute([$qtyDec, $pid]);
+                            }
+                            try {
+                                ksrRecordStockHistory(
+                                    $pdo,
+                                    $pid,
+                                    $oldStock,
+                                    $newStock,
+                                    'order',
+                                    "Order #{$orderNumber}",
+                                    $userId
+                                );
+                            } catch (Throwable $shEx) {
+                                error_log('stock_history insert: ' . $shEx->getMessage());
                             }
                         }
                     }
@@ -715,6 +930,35 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && isset($_POST['action']))
             }
 
             $pdo->commit();
+
+            // Finalize post-commit side effects uniformly for all payment paths:
+            // coupon usage tracking, session reservation release, and idempotency response caching.
+            $finalizeCreateOrder = function (array $response) use (
+                $pdo,
+                $orderId,
+                $userId,
+                $appliedCouponCode,
+                $couponDiscount,
+                $idempotencyKey,
+                $currentSid
+            ): void {
+                try {
+                    ksrReleaseSessionReservations($pdo, $currentSid);
+                } catch (Throwable $ignore) {
+                }
+                if ($appliedCouponCode !== null && $appliedCouponCode !== '') {
+                    try {
+                        ksrRecordCouponUsage($pdo, $appliedCouponCode, (int)$orderId, $userId, $couponDiscount);
+                    } catch (Throwable $ignore) {
+                    }
+                    unset($_SESSION['applied_coupon']);
+                }
+                $response['discount']    = $couponDiscount;
+                $response['coupon_code'] = $appliedCouponCode;
+                ksrSaveOrderIdempotency($pdo, $idempotencyKey, (int)$orderId, $response);
+                echo json_encode($response);
+                exit;
+            };
 
             // Note: cart is cleared only after successful payment initiation (see each branch below)
 
@@ -780,7 +1024,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && isset($_POST['action']))
                 // Clear cart now that reference is submitted successfully
                 $_SESSION['cart'] = [];
 
-                echo json_encode([
+                $finalizeCreateOrder([
                     'success' => true,
                     'order_id' => $orderId,
                     'order_number' => $orderNumber,
@@ -795,13 +1039,12 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && isset($_POST['action']))
                         ? 'Order placed successfully! We received your Bank Transfer reference and are verifying your payment.'
                         : 'Order placed successfully! We received your UPI UTR reference and are verifying your payment.'
                 ]);
-                exit;
             }
 
             // Direct Bank Transfer without immediate UTR
             if ($payment_method === 'bank_transfer') {
                 $_SESSION['cart'] = [];
-                echo json_encode([
+                $finalizeCreateOrder([
                     'success' => true,
                     'order_id' => $orderId,
                     'order_number' => $orderNumber,
@@ -813,7 +1056,6 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && isset($_POST['action']))
                     'customer_phone' => $phone,
                     'message' => 'Order initiated! Please transfer ₹' . number_format($total, 2) . ' to SBI account 00000033196470488 (IFSC: SBIN0011275).'
                 ]);
-                exit;
             }
 
             // Generate Razorpay Order if not COD
@@ -869,7 +1111,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && isset($_POST['action']))
                     // Clear cart now that gateway order is created successfully
                     $_SESSION['cart'] = [];
 
-                    echo json_encode([
+                    $finalizeCreateOrder([
                         'success' => true,
                         'order_id' => $orderId,
                         'order_number' => $orderNumber,
@@ -882,7 +1124,6 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && isset($_POST['action']))
                         'simulated' => $isMockOrder,
                         'message' => 'Order initiated, open payment gateway.'
                     ]);
-                    exit;
                 } else {
                     // Online payment could not be initiated — mark the
                     // payment failed so it does not linger as initiated.
@@ -897,14 +1138,13 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && isset($_POST['action']))
                     }
 
                     $_SESSION['cart'] = [];
-                    echo json_encode([
+                    $finalizeCreateOrder([
                         'success' => true,
                         'order_id' => $orderId,
                         'order_number' => $orderNumber,
                         'redirect_url' => '/payment/index.php?oid=' . $orderId,
                         'message' => 'Proceeding to KSR GURU JI PAY...'
                     ]);
-                    exit;
                 }
             }
 
@@ -925,7 +1165,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && isset($_POST['action']))
             // Clear cart only after COD order is fully committed
             $_SESSION['cart'] = [];
 
-            echo json_encode([
+            $finalizeCreateOrder([
                 'success' => true,
                 'cod' => true,
                 'order_id' => $orderId,
@@ -934,7 +1174,6 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && isset($_POST['action']))
                 'payment_status' => 'cod_pending',
                 'message' => 'Order placed successfully (Cash on Delivery).'
             ]);
-            exit;
         } catch (Throwable $e) {
             if (isset($pdo) && $pdo instanceof PDO && $pdo->inTransaction()) {
                 $pdo->rollBack();
@@ -951,12 +1190,16 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && isset($_POST['action']))
 // Needed so the template can flag production mode to the client.
 require_once __DIR__ . '/razorpay_helper.php';
 
-// Pre‑fill user data if logged in
+// Pre‑fill user data & saved addresses if logged in
 $isLoggedIn = isset($_SESSION['user_id']);
 $userId = $isLoggedIn ? $_SESSION['user_id'] : null;
 $userEmail = $isLoggedIn ? ($_SESSION['user_email'] ?? '') : '';
 $userName = $isLoggedIn ? ($_SESSION['user_name'] ?? '') : '';
 $userPhone = '';
+$userAddress = '';
+$userCity = '';
+$userPincode = '';
+$savedAddresses = [];
 $userRole = $_SESSION['user_role'] ?? ($_SESSION['role'] ?? 'user');
 $isAdmin = in_array($userRole, ['admin', 'super_admin']);
 
@@ -967,10 +1210,28 @@ if ($isLoggedIn) {
         $stmt->execute([$userId]);
         $userData = $stmt->fetch(PDO::FETCH_ASSOC);
         $userPhone = $userData['phone'] ?? '';
+
+        try {
+            $addrStmt = $pdo->prepare('SELECT id, label, full_name, phone, address, city, state, pincode, is_default FROM customer_addresses WHERE user_id = ? ORDER BY is_default DESC, id DESC');
+            $addrStmt->execute([(int)$userId]);
+            $savedAddresses = $addrStmt->fetchAll(PDO::FETCH_ASSOC) ?: [];
+            if (!empty($savedAddresses)) {
+                $def = $savedAddresses[0];
+                if (!empty($def['full_name'])) $userName = (string)$def['full_name'];
+                if (!empty($def['phone']))     $userPhone = (string)$def['phone'];
+                $userAddress = (string)($def['address'] ?? '');
+                $userCity    = (string)($def['city'] ?? '');
+                $userPincode = (string)($def['pincode'] ?? '');
+            }
+        } catch (Throwable $addrEx) {
+            // customer_addresses table may not exist yet before first address/migration
+        }
     } catch (PDOException $e) {
         // ignore
     }
 }
+
+$checkoutCoupon = $_SESSION['applied_coupon'] ?? null;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -1037,7 +1298,35 @@ if ($isLoggedIn) {
 
             <!-- Customer Details -->
             <div class="card">
-                <div class="card-title"><i class="fas fa-user"></i> Customer Details</div>
+                <div class="card-title" style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;">
+                    <span><i class="fas fa-user"></i> Customer Details</span>
+                    <?php if ($isLoggedIn): ?>
+                        <a href="/addresses.php" style="font-size:0.8rem;font-weight:700;color:#0f7b3a;text-decoration:none;"><i class="fas fa-map-marker-alt"></i> Manage Saved Addresses</a>
+                    <?php endif; ?>
+                </div>
+
+                <?php if (!empty($savedAddresses)): ?>
+                <div style="margin-bottom:14px;padding:10px 12px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;">
+                    <div style="font-size:0.78rem;font-weight:700;color:#166534;margin-bottom:8px;">
+                        <i class="fas fa-bookmark"></i> Quick-fill from Saved Addresses:
+                    </div>
+                    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                        <?php foreach ($savedAddresses as $idx => $sa): ?>
+                            <button type="button" class="saved-addr-pill"
+                                onclick='fillSavedAddress(<?php echo json_encode([
+                                    "full_name" => (string)$sa["full_name"],
+                                    "phone" => (string)$sa["phone"],
+                                    "address" => (string)$sa["address"],
+                                    "city" => (string)$sa["city"],
+                                    "pincode" => (string)$sa["pincode"],
+                                ], JSON_HEX_APOS | JSON_HEX_QUOT); ?>)'
+                                style="padding:6px 11px;border-radius:20px;border:1.5px solid <?php echo $idx === 0 ? '#0f7b3a' : '#86efac'; ?>;background:#fff;color:#14532d;font-size:0.78rem;font-weight:700;cursor:pointer;">
+                                <?php echo htmlspecialchars((string)$sa['label']); ?> — <?php echo htmlspecialchars((string)$sa['city']); ?><?php echo !empty($sa['is_default']) ? ' ★' : ''; ?>
+                            </button>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+                <?php endif; ?>
 
                 <div class="form-row-2">
                     <div class="form-group">
@@ -1054,19 +1343,19 @@ if ($isLoggedIn) {
 
                 <div class="form-group">
                     <label>Delivery Address <span class="required">*</span></label>
-                    <input type="text" id="address" placeholder="Street, building, landmark" />
+                    <input type="text" id="address" placeholder="Street, building, landmark" value="<?php echo htmlspecialchars($userAddress); ?>" />
                     <div class="error-text" id="addressError">Please enter your delivery address</div>
                 </div>
 
                 <div class="form-row-2">
                     <div class="form-group">
                         <label>City <span class="required">*</span></label>
-                        <input type="text" id="city" placeholder="Mumbai" />
+                        <input type="text" id="city" placeholder="Mumbai" value="<?php echo htmlspecialchars($userCity); ?>" />
                         <div class="error-text" id="cityError">Please enter your city</div>
                     </div>
                     <div class="form-group">
                         <label>Pincode <span class="required">*</span></label>
-                        <input type="text" id="pincode" placeholder="400001" maxlength="6" />
+                        <input type="text" id="pincode" placeholder="400001" maxlength="6" value="<?php echo htmlspecialchars($userPincode); ?>" />
                         <div class="error-text" id="pincodeError">Enter a 6-digit pincode</div>
                     </div>
                 </div>
@@ -1323,6 +1612,28 @@ if ($isLoggedIn) {
                 <div class="summary-row" id="deliveryChargeRow">
                     <span class="label">Delivery Charge</span>
                     <span class="value" id="deliveryChargeDisplay">₹15.00</span>
+                </div>
+
+                <!-- Coupon Code Box -->
+                <div id="checkoutCouponBox" style="margin:10px 0;">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;font-size:0.76rem;">
+                        <span style="color:#64748b;font-weight:600;">Promo Code</span>
+                        <a href="/offers.php" target="_blank" style="color:#0f7b3a;font-weight:700;text-decoration:none;">View Offers →</a>
+                    </div>
+                    <div id="checkoutCouponFormRow" style="display:flex;gap:6px;align-items:center;">
+                        <input type="text" id="checkoutCouponInput" placeholder="Coupon code" style="flex:1;padding:8px 10px;border:1.5px solid #cbd5e1;border-radius:8px;font-size:0.82rem;text-transform:uppercase;min-width:0;" />
+                        <button type="button" id="applyCouponBtn" onclick="applyCheckoutCoupon()" style="padding:8px 12px;background:#0f7b3a;color:#fff;border:none;border-radius:8px;font-size:0.8rem;font-weight:700;cursor:pointer;white-space:nowrap;">Apply</button>
+                    </div>
+                    <div id="checkoutCouponAppliedRow" style="display:none;align-items:center;justify-content:space-between;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:7px 10px;font-size:0.82rem;color:#166534;">
+                        <span>🎟️ <strong id="checkoutCouponCodeText"></strong> <span id="checkoutCouponMsgText"></span></span>
+                        <button type="button" onclick="removeCheckoutCoupon()" style="background:none;border:none;color:#dc2626;font-weight:700;cursor:pointer;font-size:0.8rem;">✕ Remove</button>
+                    </div>
+                    <div id="checkoutCouponErrorText" style="display:none;color:#dc2626;font-size:0.78rem;margin-top:4px;"></div>
+                </div>
+
+                <div class="summary-row" id="discountSummaryRow" style="display:none;color:#0f7b3a;">
+                    <span class="label">Coupon Discount</span>
+                    <span class="value" id="discountDisplay" style="font-weight:700;">– ₹0.00</span>
                 </div>
 
                 <hr class="summary-divider" />
@@ -1684,6 +1995,16 @@ if ($isLoggedIn) {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         //  STATE
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        const KSR_CSRF_TOKEN = <?php echo json_encode((string)($_SESSION['csrf_token'] ?? '')); ?>;
+        function generateIdempotencyKey() {
+            if (window.crypto && typeof window.crypto.randomUUID === 'function') {
+                return window.crypto.randomUUID();
+            }
+            return 'ksr_' + Date.now().toString(36) + '_' + Math.random().toString(36).substring(2, 14);
+        }
+        let checkoutIdempotencyKey = generateIdempotencyKey();
+        let appliedCoupon = <?php echo json_encode($checkoutCoupon ?: null); ?>;
+
         const rawSessionCartItems = <?php echo json_encode(array_values($_SESSION['cart'] ?? [])); ?>;
         const sessionCartItems = Array.isArray(rawSessionCartItems) ? rawSessionCartItems : Object.values(rawSessionCartItems || {});
         let unifiedItems = [];
@@ -1754,8 +2075,110 @@ if ($isLoggedIn) {
             return '/' + clean.replace(/^\/+/, '');
         }
 
+        function getCouponDiscount() {
+            if (!appliedCoupon || !appliedCoupon.code) return 0;
+            let d = parseFloat(appliedCoupon.discount || 0);
+            const cType = String(appliedCoupon.type || '').toLowerCase();
+            const cVal = parseFloat(appliedCoupon.value || 0);
+            if ((cType === 'percent' || cType === 'percentage') && Number.isFinite(cVal) && cVal > 0) {
+                d = Math.round(subtotal * (cVal / 100) * 100) / 100;
+            }
+            if (!Number.isFinite(d) || d <= 0) return 0;
+            return Math.min(d, subtotal + DELIVERY_CHARGE);
+        }
+
         function getTotal() {
-            return subtotal + DELIVERY_CHARGE;
+            return Math.max(0, subtotal + DELIVERY_CHARGE - getCouponDiscount());
+        }
+
+        function fillSavedAddress(addr) {
+            if (!addr) return;
+            const setVal = (id, v) => {
+                const el = document.getElementById(id);
+                if (el && v !== undefined && v !== null) {
+                    el.value = v;
+                    el.classList.remove('error');
+                    const err = document.getElementById(id + 'Error');
+                    if (err) err.classList.remove('show');
+                }
+            };
+            setVal('fullName', addr.full_name || '');
+            setVal('mobile', addr.phone || '');
+            setVal('address', addr.address || '');
+            setVal('city', addr.city || '');
+            setVal('pincode', addr.pincode || '');
+            showToast('📍 Saved address filled.', 'success', 2000);
+        }
+
+        function syncCouponBoxUI() {
+            const formRow = document.getElementById('checkoutCouponFormRow');
+            const appliedRow = document.getElementById('checkoutCouponAppliedRow');
+            const discRow = document.getElementById('discountSummaryRow');
+            const discDisplay = document.getElementById('discountDisplay');
+            const codeText = document.getElementById('checkoutCouponCodeText');
+            const msgText = document.getElementById('checkoutCouponMsgText');
+            const disc = getCouponDiscount();
+
+            if (appliedCoupon && appliedCoupon.code && disc > 0) {
+                if (formRow) formRow.style.display = 'none';
+                if (appliedRow) appliedRow.style.display = 'flex';
+                if (codeText) codeText.textContent = appliedCoupon.code;
+                if (msgText) msgText.textContent = appliedCoupon.message ? ('(' + appliedCoupon.message + ')') : '';
+                if (discRow) discRow.style.display = 'flex';
+                if (discDisplay) discDisplay.textContent = '– ' + formatINR(disc);
+            } else {
+                if (formRow) formRow.style.display = 'flex';
+                if (appliedRow) appliedRow.style.display = 'none';
+                if (discRow) discRow.style.display = 'none';
+            }
+        }
+
+        async function applyCheckoutCoupon() {
+            const inp = document.getElementById('checkoutCouponInput');
+            const errEl = document.getElementById('checkoutCouponErrorText');
+            const code = inp ? inp.value.trim().toUpperCase() : '';
+            if (errEl) { errEl.style.display = 'none'; errEl.textContent = ''; }
+            if (!code) {
+                if (errEl) { errEl.textContent = 'Please enter a coupon code.'; errEl.style.display = 'block'; }
+                return;
+            }
+            try {
+                const res = await fetch('/api/coupons/validate.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                    credentials: 'same-origin',
+                    body: JSON.stringify({ code, subtotal })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    appliedCoupon = {
+                        code: data.code || code,
+                        discount: parseFloat(data.discount || 0),
+                        message: data.message || ''
+                    };
+                    checkoutIdempotencyKey = generateIdempotencyKey();
+                    updateSummary();
+                    renderPaymentDetail(selectedMethod);
+                    showToast('🎟️ Coupon applied: ' + (data.message || code), 'success', 2500);
+                } else {
+                    if (errEl) { errEl.textContent = data.error || 'Invalid coupon.'; errEl.style.display = 'block'; }
+                }
+            } catch (e) {
+                if (errEl) { errEl.textContent = 'Could not validate coupon. Please try again.'; errEl.style.display = 'block'; }
+            }
+        }
+
+        async function removeCheckoutCoupon() {
+            appliedCoupon = null;
+            checkoutIdempotencyKey = generateIdempotencyKey();
+            try {
+                await fetch('/api/coupons/remove.php', { method: 'POST', credentials: 'same-origin' });
+            } catch (_) {}
+            const inp = document.getElementById('checkoutCouponInput');
+            if (inp) inp.value = '';
+            updateSummary();
+            renderPaymentDetail(selectedMethod);
+            showToast('Coupon removed.', 'info', 2000);
         }
 
         function escapeHtml(str) {
@@ -1928,6 +2351,7 @@ if ($isLoggedIn) {
         //  UPDATE SUMMARY
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         function updateSummary() {
+            syncCouponBoxUI();
             const total = getTotal();
             subtotalDisplay.textContent = formatINR(subtotal);
             deliveryChargeDisplay.textContent = formatINR(DELIVERY_CHARGE);
@@ -2809,14 +3233,23 @@ if ($isLoggedIn) {
                 align: 'right'
             });
 
+            const pdfDiscount = Math.max(0, (orderData.subtotal + DELIVERY_CHARGE) - (orderData.total || (orderData.subtotal + DELIVERY_CHARGE)));
+            if (pdfDiscount > 0.009) {
+                doc.text('Coupon Discount', totalsX, finalY + 13);
+                doc.text(`-Rs. ${pdfDiscount.toFixed(2)}`, totalsValX, finalY + 13, {
+                    align: 'right'
+                });
+            }
+
+            const divOffset = pdfDiscount > 0.009 ? 16 : 12;
             doc.setDrawColor(226, 232, 240);
-            doc.line(totalsX, finalY + 12, pageWidth - margin, finalY + 12);
+            doc.line(totalsX, finalY + divOffset, pageWidth - margin, finalY + divOffset);
 
             doc.setFont(undefined, 'bold');
             doc.setFontSize(11);
             doc.setTextColor(15, 123, 58);
-            doc.text('Grand Total', totalsX, finalY + 18);
-            doc.text(`Rs. ${(orderData.subtotal + DELIVERY_CHARGE).toFixed(2)}`, totalsValX, finalY + 18, {
+            doc.text('Grand Total', totalsX, finalY + divOffset + 6);
+            doc.text(`Rs. ${(orderData.total ?? (orderData.subtotal + DELIVERY_CHARGE)).toFixed(2)}`, totalsValX, finalY + divOffset + 6, {
                 align: 'right'
             });
 
@@ -2917,6 +3350,11 @@ if ($isLoggedIn) {
             // Prepare POST data
             const formData = new FormData();
             formData.append('action', 'create_order');
+            formData.append('csrf_token', KSR_CSRF_TOKEN);
+            formData.append('idempotency_key', checkoutIdempotencyKey);
+            if (appliedCoupon && appliedCoupon.code) {
+                formData.append('coupon_code', appliedCoupon.code);
+            }
             formData.append('name', orderData.customer.name);
             formData.append('email', orderData.customer.email);
             formData.append('phone', orderData.customer.mobile);
@@ -2968,6 +3406,9 @@ if ($isLoggedIn) {
                     }
 
                     if (result.redirect_url) {
+                        clearAllCarts();
+                        appliedCoupon = null;
+                        checkoutIdempotencyKey = generateIdempotencyKey();
                         window.location.href = result.redirect_url;
                         return;
                     }
@@ -3044,6 +3485,7 @@ if ($isLoggedIn) {
                     let pdfUploadUrl = '';
                     const invoiceFormData = new FormData();
                     invoiceFormData.append('action', 'upload_invoice');
+                    invoiceFormData.append('csrf_token', KSR_CSRF_TOKEN);
                     invoiceFormData.append('order_number', orderNo);
                     invoiceFormData.append('pdf_file', pdfResult.blob, `Invoice_${orderNo}.pdf`);
 
@@ -3114,8 +3556,10 @@ if ($isLoggedIn) {
                         '📱 Popup blocked — tap the WhatsApp buttons in the success popup.',
                         'info', 5000);
 
-                    // ── Clear client-side carts ──
+                    // ── Clear client-side carts & rotate idempotency key ──
                     clearAllCarts();
+                    appliedCoupon = null;
+                    checkoutIdempotencyKey = generateIdempotencyKey();
 
                     // ── Update UI ──
                     unifiedItems = [];
@@ -3507,6 +3951,7 @@ if ($isLoggedIn) {
 
                         const verifyData = new FormData();
                         verifyData.append('action', 'verify_razorpay_payment');
+                        verifyData.append('csrf_token', KSR_CSRF_TOKEN);
                         verifyData.append('order_id', result.order_id);
                         verifyData.append('razorpay_payment_id', paymentId);
                         verifyData.append('razorpay_order_id', result.razorpay_order_id);
@@ -3552,6 +3997,7 @@ if ($isLoggedIn) {
                         handler: async function(response) {
                             const verifyData = new FormData();
                             verifyData.append('action', 'verify_razorpay_payment');
+                            verifyData.append('csrf_token', KSR_CSRF_TOKEN);
                             verifyData.append('order_id', result.order_id);
                             verifyData.append('razorpay_payment_id', response.razorpay_payment_id);
                             verifyData.append('razorpay_order_id', response.razorpay_order_id);
@@ -3609,6 +4055,7 @@ if ($isLoggedIn) {
             if (addSug) addSug.value = '';
             const sugBody = document.getElementById('suggestionBoxBody');
             if (sugBody) sugBody.style.display = 'none';
+            checkoutIdempotencyKey = generateIdempotencyKey();
             updateSummary();
             renderPaymentDetail(selectedMethod);
             showToast('🔄 Form reset. Cart items unchanged.', 'info', 2000);

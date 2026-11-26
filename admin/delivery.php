@@ -9,35 +9,59 @@ require_once 'inc/functions.php';
 $pdo = getDBConnection();
 
 // Generate OTP
-function generateOTP() {
-    return str_pad(random_int(0, 9999), 4, '0', STR_PAD_LEFT);
+function generateOTP()
+{
+    return str_pad((string)random_int(0, 9999), 4, '0', STR_PAD_LEFT);
+}
+
+$isSqliteDelivery = ($pdo->getAttribute(PDO::ATTR_DRIVER_NAME) === 'sqlite');
+$nowExprDelivery = $isSqliteDelivery ? "datetime('now')" : "NOW()";
+
+try {
+    $otpDdl = $isSqliteDelivery
+        ? "CREATE TABLE IF NOT EXISTS delivery_otps (order_id INTEGER PRIMARY KEY, otp_hash TEXT NOT NULL, verified_at TEXT DEFAULT NULL, created_at TEXT NOT NULL)"
+        : "CREATE TABLE IF NOT EXISTS delivery_otps (order_id INT NOT NULL PRIMARY KEY, otp_hash VARCHAR(255) NOT NULL, verified_at DATETIME DEFAULT NULL, created_at DATETIME NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4";
+    $pdo->exec($otpDdl);
+} catch (Throwable $e) {
+    error_log('delivery_otps table init: ' . $e->getMessage());
 }
 
 // --- HANDLE OTP VERIFICATION ---
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['verify_otp'])) {
     $order_id = (int)$_POST['order_id'];
-    $otp = trim($_POST['otp_code']);
-    
-    // In production, fetch OTP from a separate table (e.g., delivery_otps)
-    // For demo, OTP is '1234'
-    if ($otp === '1234') {
+    $otp = trim((string)($_POST['otp_code'] ?? ''));
+
+    if (!preg_match('/^\d{4}$/', $otp)) {
+        $error = '❌ Please enter a valid 4-digit OTP.';
+    } else {
         try {
-            $pdo->beginTransaction();
-            
-            $stmt = $pdo->prepare("UPDATE orders SET status = 'delivered', delivered_at = NOW(), updated_at = NOW() WHERE id = ?");
-            $stmt->execute([$order_id]);
-            
-            $stmt = $pdo->prepare("INSERT INTO order_timeline (order_id, status, notes, created_by) VALUES (?, 'delivered', 'OTP verified', ?)");
-            $stmt->execute([$order_id, $_SESSION['admin_id'] ?? null]);
-            
-            $pdo->commit();
-            $message = '✅ Order #' . $order_id . ' marked as delivered!';
+            $otpStmt = $pdo->prepare("SELECT otp_hash, verified_at FROM delivery_otps WHERE order_id = ? LIMIT 1");
+            $otpStmt->execute([$order_id]);
+            $otpRow = $otpStmt->fetch(PDO::FETCH_ASSOC);
+
+            if (!$otpRow || !empty($otpRow['verified_at']) || !password_verify($otp, (string)$otpRow['otp_hash'])) {
+                $error = '❌ Invalid or expired OTP. Please verify the OTP generated at driver assignment.';
+            } else {
+                $pdo->beginTransaction();
+
+                $stmt = $pdo->prepare("UPDATE orders SET status = 'delivered', delivered_at = {$nowExprDelivery}, updated_at = {$nowExprDelivery} WHERE id = ?");
+                $stmt->execute([$order_id]);
+
+                $stmt = $pdo->prepare("UPDATE delivery_otps SET verified_at = {$nowExprDelivery} WHERE order_id = ?");
+                $stmt->execute([$order_id]);
+
+                $stmt = $pdo->prepare("INSERT INTO order_timeline (order_id, status, notes, created_by) VALUES (?, 'delivered', 'OTP verified', ?)");
+                $stmt->execute([$order_id, $_SESSION['admin_id'] ?? $_SESSION['admin_auth_id'] ?? null]);
+
+                $pdo->commit();
+                $message = '✅ Order #' . $order_id . ' marked as delivered!';
+            }
         } catch (PDOException $e) {
-            $pdo->rollBack();
+            if ($pdo->inTransaction()) {
+                $pdo->rollBack();
+            }
             $error = 'Database error: ' . $e->getMessage();
         }
-    } else {
-        $error = '❌ Invalid OTP. Please try again.';
     }
     header('Location: delivery.php?msg=' . urlencode($message) . '&err=' . urlencode($error));
     exit;
@@ -47,31 +71,56 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['verify_otp'])) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['assign_driver'])) {
     $order_id = (int)$_POST['order_id'];
     $driver_id = (int)$_POST['driver_id'];
-    
+
     if ($driver_id > 0) {
         try {
             $pdo->beginTransaction();
-            
+
             $otp = generateOTP();
-            $stmt = $pdo->prepare("UPDATE orders SET driver_id = ?, status = 'out_for_delivery', assigned_at = NOW(), updated_at = NOW() WHERE id = ?");
+            $otpHash = password_hash($otp, PASSWORD_DEFAULT);
+
+            $stmt = $pdo->prepare("UPDATE orders SET driver_id = ?, status = 'out_for_delivery', assigned_at = {$nowExprDelivery}, updated_at = {$nowExprDelivery} WHERE id = ?");
             $stmt->execute([$driver_id, $order_id]);
-            
-            $stmt = $pdo->prepare("INSERT INTO order_timeline (order_id, status, notes, created_by) VALUES (?, 'out_for_delivery', CONCAT('Assigned to driver ID: ', ?), ?)");
-            $stmt->execute([$order_id, $driver_id, $_SESSION['admin_id'] ?? null]);
-            
-            // Log notification to customer
+
+            if ($isSqliteDelivery) {
+                $otpUpsert = $pdo->prepare(
+                    "INSERT INTO delivery_otps (order_id, otp_hash, verified_at, created_at) VALUES (?, ?, NULL, datetime('now'))
+                     ON CONFLICT(order_id) DO UPDATE SET otp_hash = excluded.otp_hash, verified_at = NULL, created_at = excluded.created_at"
+                );
+            } else {
+                $otpUpsert = $pdo->prepare(
+                    "INSERT INTO delivery_otps (order_id, otp_hash, verified_at, created_at) VALUES (?, ?, NULL, NOW())
+                     ON DUPLICATE KEY UPDATE otp_hash = VALUES(otp_hash), verified_at = NULL, created_at = VALUES(created_at)"
+                );
+            }
+            $otpUpsert->execute([$order_id, $otpHash]);
+
+            $stmt = $pdo->prepare("INSERT INTO order_timeline (order_id, status, notes, created_by) VALUES (?, 'out_for_delivery', ?, ?)");
+            $stmt->execute([$order_id, "Assigned to driver ID: {$driver_id}", $_SESSION['admin_id'] ?? $_SESSION['admin_auth_id'] ?? null]);
+
+            // Log notification to customer (non-fatal across schema variations)
             $stmt = $pdo->prepare("SELECT user_id FROM orders WHERE id = ?");
             $stmt->execute([$order_id]);
             $userId = $stmt->fetchColumn();
             if ($userId) {
-                $stmt = $pdo->prepare("INSERT INTO notifications (user_id, type, subject, message, link, is_read) VALUES (?, 'delivery', 'Order Out for Delivery', CONCAT('Your order #', ?, ' is out for delivery. OTP: ', ?), CONCAT('orders.php?view=', ?), 0)");
-                $stmt->execute([$userId, $order_id, $otp, $order_id]);
+                try {
+                    $stmt = $pdo->prepare("INSERT INTO notifications (user_id, type, title, subject, message, link, is_read) VALUES (?, 'delivery', 'Order Out for Delivery', 'Order Out for Delivery', ?, ?, 0)");
+                    $stmt->execute([
+                        $userId,
+                        "Your order #{$order_id} is out for delivery. OTP: {$otp}",
+                        "orders.php?view={$order_id}"
+                    ]);
+                } catch (Throwable $notifEx) {
+                    error_log('delivery assign notification warning: ' . $notifEx->getMessage());
+                }
             }
-            
+
             $pdo->commit();
             $message = '✅ Driver assigned. OTP for customer: ' . $otp;
         } catch (PDOException $e) {
-            $pdo->rollBack();
+            if ($pdo->inTransaction()) {
+                $pdo->rollBack();
+            }
             $error = 'Database error: ' . $e->getMessage();
         }
     } else {
@@ -95,14 +144,20 @@ $collectedCash = $pdo->query("SELECT COALESCE(SUM(total), 0) FROM orders WHERE p
 $onlinePayments = $pdo->query("SELECT COALESCE(SUM(total), 0) FROM orders WHERE payment_method != 'cod' AND status = 'delivered' AND DATE(delivered_at) = '$today'")->fetchColumn();
 
 $dailyEarnings = $pdo->query("SELECT COALESCE(SUM(total), 0) FROM orders WHERE status = 'delivered' AND DATE(delivered_at) = '$today'")->fetchColumn();
-$weeklyEarnings = $pdo->query("SELECT COALESCE(SUM(total), 0) FROM orders WHERE status = 'delivered' AND delivered_at >= DATE_SUB(NOW(), INTERVAL 7 DAY)")->fetchColumn();
-$monthlyEarnings = $pdo->query("SELECT COALESCE(SUM(total), 0) FROM orders WHERE status = 'delivered' AND MONTH(delivered_at) = MONTH(CURDATE()) AND YEAR(delivered_at) = YEAR(CURDATE())")->fetchColumn();
+$sevenDaysAgo  = date('Y-m-d H:i:s', strtotime('-7 days'));
+$monthStart    = date('Y-m-01 00:00:00');
+$wkStmt = $pdo->prepare("SELECT COALESCE(SUM(total), 0) FROM orders WHERE status = 'delivered' AND delivered_at >= ?");
+$wkStmt->execute([$sevenDaysAgo]);
+$weeklyEarnings = $wkStmt->fetchColumn();
+$moStmt = $pdo->prepare("SELECT COALESCE(SUM(total), 0) FROM orders WHERE status = 'delivered' AND delivered_at >= ?");
+$moStmt->execute([$monthStart]);
+$monthlyEarnings = $moStmt->fetchColumn();
 
 // Active Deliveries (with customer & driver info)
 $activeDeliveries = $pdo->query("
     SELECT o.*, 
            o.name as customer_name, o.phone as customer_phone,
-           d.fullname as driver_name, d.phone as driver_phone,
+           COALESCE(NULLIF(d.name, ''), d.email) as driver_name, d.phone as driver_phone,
            o.address as address_line1, o.city, o.state, o.pincode as zip_code
     FROM orders o
     LEFT JOIN users d ON o.driver_id = d.id
@@ -113,10 +168,10 @@ $activeDeliveries = $pdo->query("
 
 // Delivery Boys for dropdown
 $deliveryBoys = $pdo->query("
-    SELECT id, fullname AS name, phone, 'Motorcycle' AS vehicle_type, 1 AS is_online 
+    SELECT id, COALESCE(NULLIF(name, ''), email) AS name, phone, 'Motorcycle' AS vehicle_type, 1 AS is_online 
     FROM users 
-    WHERE role = 'delivery'
-    ORDER BY fullname ASC
+    WHERE role IN ('delivery', 'delivery_boy')
+    ORDER BY name ASC
 ")->fetchAll();
 
 // Notifications (latest 5)
@@ -133,6 +188,7 @@ $error = $_GET['err'] ?? '';
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
@@ -141,7 +197,12 @@ $error = $_GET['err'] ?? '';
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         /* ===== RESET & VARIABLES ===== */
-        * { margin:0; padding:0; box-sizing:border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         :root {
             --primary: #3b82f6;
             --primary-dark: #2563eb;
@@ -161,7 +222,12 @@ $error = $_GET['err'] ?? '';
             --radius-lg: 1rem;
             --radius-md: 0.75rem;
         }
-        body { font-family: 'Inter', sans-serif; background: var(--gray-100); color: var(--gray-800); }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--gray-100);
+            color: var(--gray-800);
+        }
 
         /* ===== SIDEBAR (same as other admin pages) ===== */
         .sidebar {
@@ -177,36 +243,191 @@ $error = $_GET['err'] ?? '';
             flex-direction: column;
             overflow-y: auto;
         }
-        .sidebar-header { padding: 20px 18px; border-bottom: 1px solid rgba(255,255,255,0.08); }
-        .admin-logo { display: flex; align-items: center; gap: 12px; }
-        .admin-logo i { font-size: 28px; color: var(--primary); }
-        .admin-logo h2 { font-size: 1.3rem; font-weight: 700; color: white; }
-        .admin-logo p { font-size: 0.65rem; color: #94a3b8; }
-        .admin-profile { padding: 18px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid rgba(255,255,255,0.08); }
-        .profile-image i { font-size: 42px; color: #94a3b8; }
-        .profile-info h3 { font-size: 0.95rem; font-weight: 600; color: white; }
-        .profile-info p { font-size: 0.7rem; color: #94a3b8; }
-        .sidebar-nav { flex: 1; padding: 12px 0; }
-        .nav-section h4 { padding: 0 20px; font-size: 0.65rem; letter-spacing: 1px; color: #64748b; margin-bottom: 8px; text-transform: uppercase; }
-        .nav-item { display: flex; align-items: center; gap: 14px; padding: 9px 20px; color: #e2e8f0; transition: 0.2s; font-size: 0.9rem; border-left: 3px solid transparent; text-decoration: none; }
-        .nav-item i { width: 22px; text-align: center; }
-        .nav-item.active { background: rgba(59,130,246,0.15); border-left-color: var(--primary); color: white; }
-        .nav-item:hover:not(.active) { background: rgba(255,255,255,0.05); }
-        .sidebar-footer { padding: 16px 18px; border-top: 1px solid rgba(255,255,255,0.08); }
-        .logout-btn { width: 100%; background: rgba(239,68,68,0.15); border: none; padding: 10px; border-radius: 12px; color: #f87171; font-weight: 500; display: flex; align-items: center; justify-content: center; gap: 10px; transition: 0.2s; cursor: pointer; }
-        .logout-btn:hover { background: rgba(239,68,68,0.3); }
+
+        .sidebar-header {
+            padding: 20px 18px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .admin-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .admin-logo i {
+            font-size: 28px;
+            color: var(--primary);
+        }
+
+        .admin-logo h2 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .admin-logo p {
+            font-size: 0.65rem;
+            color: #94a3b8;
+        }
+
+        .admin-profile {
+            padding: 18px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .profile-image i {
+            font-size: 42px;
+            color: #94a3b8;
+        }
+
+        .profile-info h3 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: white;
+        }
+
+        .profile-info p {
+            font-size: 0.7rem;
+            color: #94a3b8;
+        }
+
+        .sidebar-nav {
+            flex: 1;
+            padding: 12px 0;
+        }
+
+        .nav-section h4 {
+            padding: 0 20px;
+            font-size: 0.65rem;
+            letter-spacing: 1px;
+            color: #64748b;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 9px 20px;
+            color: #e2e8f0;
+            transition: 0.2s;
+            font-size: 0.9rem;
+            border-left: 3px solid transparent;
+            text-decoration: none;
+        }
+
+        .nav-item i {
+            width: 22px;
+            text-align: center;
+        }
+
+        .nav-item.active {
+            background: rgba(59, 130, 246, 0.15);
+            border-left-color: var(--primary);
+            color: white;
+        }
+
+        .nav-item:hover:not(.active) {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .sidebar-footer {
+            padding: 16px 18px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .logout-btn {
+            width: 100%;
+            background: rgba(239, 68, 68, 0.15);
+            border: none;
+            padding: 10px;
+            border-radius: 12px;
+            color: #f87171;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+
+        .logout-btn:hover {
+            background: rgba(239, 68, 68, 0.3);
+        }
 
         /* ===== MAIN CONTENT ===== */
-        .main-content { margin-left: 280px; padding: 20px 28px; min-height: 100vh; }
-        .top-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 24px; }
-        .header-left h1 { font-size: 1.6rem; font-weight: 700; display: flex; align-items: center; gap: 10px; }
-        .header-left h1 i { color: var(--primary); }
-        .breadcrumb { color: var(--gray-600); font-size: 0.8rem; }
-        .header-right { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
-        .user-menu { display: flex; align-items: center; gap: 10px; background: white; padding: 4px 14px 4px 10px; border-radius: 50px; cursor: pointer; box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200); }
-        .user-avatar i { font-size: 28px; color: var(--primary); }
-        .user-info .user-name { font-weight: 600; font-size: 0.85rem; }
-        .user-info .user-role { font-size: 0.65rem; color: var(--gray-600); display: block; }
+        .main-content {
+            margin-left: 280px;
+            padding: 20px 28px;
+            min-height: 100vh;
+        }
+
+        .top-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .header-left h1 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .header-left h1 i {
+            color: var(--primary);
+        }
+
+        .breadcrumb {
+            color: var(--gray-600);
+            font-size: 0.8rem;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: white;
+            padding: 4px 14px 4px 10px;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--gray-200);
+        }
+
+        .user-avatar i {
+            font-size: 28px;
+            color: var(--primary);
+        }
+
+        .user-info .user-name {
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        .user-info .user-role {
+            font-size: 0.65rem;
+            color: var(--gray-600);
+            display: block;
+        }
 
         /* ===== STATS CARDS ===== */
         .stats-container {
@@ -215,6 +436,7 @@ $error = $_GET['err'] ?? '';
             gap: 1rem;
             margin-bottom: 2rem;
         }
+
         .stat-card {
             background: white;
             border-radius: var(--radius-lg);
@@ -224,6 +446,7 @@ $error = $_GET['err'] ?? '';
             gap: 1rem;
             box-shadow: var(--shadow-md);
         }
+
         .stat-icon {
             width: 48px;
             height: 48px;
@@ -233,12 +456,37 @@ $error = $_GET['err'] ?? '';
             justify-content: center;
             font-size: 1.5rem;
         }
-        .stat-icon.pending { background: #fef3c7; color: #d97706; }
-        .stat-icon.active { background: #dbeafe; color: #2563eb; }
-        .stat-icon.delivered { background: #d1fae5; color: #059669; }
-        .stat-icon.earnings { background: #e0e7ff; color: #4f46e5; }
-        .stat-info h3 { font-size: 1.75rem; font-weight: 800; line-height: 1.2; }
-        .stat-info p { color: var(--gray-600); font-size: 0.875rem; }
+
+        .stat-icon.pending {
+            background: #fef3c7;
+            color: #d97706;
+        }
+
+        .stat-icon.active {
+            background: #dbeafe;
+            color: #2563eb;
+        }
+
+        .stat-icon.delivered {
+            background: #d1fae5;
+            color: #059669;
+        }
+
+        .stat-icon.earnings {
+            background: #e0e7ff;
+            color: #4f46e5;
+        }
+
+        .stat-info h3 {
+            font-size: 1.75rem;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+
+        .stat-info p {
+            color: var(--gray-600);
+            font-size: 0.875rem;
+        }
 
         /* ===== FILTER & SEARCH ===== */
         .filter-section {
@@ -253,6 +501,7 @@ $error = $_GET['err'] ?? '';
             align-items: center;
             justify-content: space-between;
         }
+
         .search-box {
             flex: 1;
             min-width: 240px;
@@ -264,9 +513,25 @@ $error = $_GET['err'] ?? '';
             border-radius: 2rem;
             border: 1px solid var(--gray-200);
         }
-        .search-box i { color: var(--gray-600); }
-        .search-box input { border: none; background: transparent; outline: none; flex: 1; font-size: 0.9rem; }
-        .filter-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+
+        .search-box i {
+            color: var(--gray-600);
+        }
+
+        .search-box input {
+            border: none;
+            background: transparent;
+            outline: none;
+            flex: 1;
+            font-size: 0.9rem;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
         .filter-btn {
             padding: 0.5rem 1.25rem;
             border-radius: 2rem;
@@ -276,8 +541,16 @@ $error = $_GET['err'] ?? '';
             font-weight: 500;
             transition: all 0.2s;
         }
-        .filter-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
-        .filter-btn:hover:not(.active) { background: var(--gray-50); }
+
+        .filter-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .filter-btn:hover:not(.active) {
+            background: var(--gray-50);
+        }
 
         /* ===== DELIVERY CARDS ===== */
         .delivery-list h2 {
@@ -287,12 +560,21 @@ $error = $_GET['err'] ?? '';
             align-items: center;
             gap: 0.5rem;
         }
-        .badge { background: var(--primary); color: white; padding: 0.25rem 0.75rem; border-radius: 2rem; font-size: 0.875rem; }
+
+        .badge {
+            background: var(--primary);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 2rem;
+            font-size: 0.875rem;
+        }
+
         .deliveries-container {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
             gap: 1.5rem;
         }
+
         .delivery-card {
             background: white;
             border-radius: var(--radius-lg);
@@ -301,25 +583,113 @@ $error = $_GET['err'] ?? '';
             border-left: 4px solid var(--gray-200);
             transition: all 0.2s;
         }
-        .delivery-card.status-pending { border-left-color: var(--warning); }
-        .delivery-card.status-confirmed { border-left-color: var(--primary); }
-        .delivery-card.status-picked { border-left-color: #8b5cf6; }
-        .delivery-card.status-out_for_delivery { border-left-color: #06b6d4; }
-        .delivery-card.status-delivered { border-left-color: var(--success); opacity: 0.85; }
-        .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem; }
-        .order-id { font-weight: 700; font-size: 1.1rem; color: var(--primary); }
-        .status-badge { padding: 0.25rem 0.75rem; border-radius: 2rem; font-size: 0.75rem; font-weight: 600; }
-        .status-badge.pending { background: #fef3c7; color: #b45309; }
-        .status-badge.confirmed { background: #dbeafe; color: #1e40af; }
-        .status-badge.picked { background: #ede9fe; color: #6d28d9; }
-        .status-badge.out_for_delivery { background: #cffafe; color: #0e7490; }
-        .status-badge.delivered { background: #d1fae5; color: #065f46; }
-        .customer-info { margin-bottom: 1rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--gray-200); }
-        .customer-name { font-weight: 600; margin-bottom: 0.25rem; }
-        .address { font-size: 0.875rem; color: var(--gray-600); display: flex; gap: 0.5rem; align-items: flex-start; }
-        .address i { margin-top: 0.2rem; }
-        .eta { display: flex; align-items: center; gap: 0.5rem; font-size: 0.875rem; color: var(--gray-600); margin-top: 0.75rem; }
-        .card-actions { display: flex; gap: 0.75rem; margin-top: 1rem; flex-wrap: wrap; justify-content: flex-end; }
+
+        .delivery-card.status-pending {
+            border-left-color: var(--warning);
+        }
+
+        .delivery-card.status-confirmed {
+            border-left-color: var(--primary);
+        }
+
+        .delivery-card.status-picked {
+            border-left-color: #8b5cf6;
+        }
+
+        .delivery-card.status-out_for_delivery {
+            border-left-color: #06b6d4;
+        }
+
+        .delivery-card.status-delivered {
+            border-left-color: var(--success);
+            opacity: 0.85;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .order-id {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--primary);
+        }
+
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 2rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .status-badge.pending {
+            background: #fef3c7;
+            color: #b45309;
+        }
+
+        .status-badge.confirmed {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .status-badge.picked {
+            background: #ede9fe;
+            color: #6d28d9;
+        }
+
+        .status-badge.out_for_delivery {
+            background: #cffafe;
+            color: #0e7490;
+        }
+
+        .status-badge.delivered {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .customer-info {
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .customer-name {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .address {
+            font-size: 0.875rem;
+            color: var(--gray-600);
+            display: flex;
+            gap: 0.5rem;
+            align-items: flex-start;
+        }
+
+        .address i {
+            margin-top: 0.2rem;
+        }
+
+        .eta {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            color: var(--gray-600);
+            margin-top: 0.75rem;
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
         .btn {
             padding: 0.5rem 1rem;
             border-radius: 2rem;
@@ -332,28 +702,67 @@ $error = $_GET['err'] ?? '';
             gap: 0.5rem;
             font-size: 0.875rem;
         }
-        .btn-primary { background: var(--primary); color: white; }
-        .btn-primary:hover { background: var(--primary-dark); }
-        .btn-success { background: var(--success); color: white; }
-        .btn-success:hover { background: #059669; }
-        .btn-outline { background: transparent; border: 1px solid var(--gray-300); }
-        .btn-outline:hover { background: var(--gray-100); }
-        .btn-danger { background: var(--danger); color: white; }
-        .btn-danger:hover { background: #dc2626; }
-        .btn-sm { padding: 0.25rem 0.75rem; font-size: 0.75rem; }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #059669;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--gray-300);
+        }
+
+        .btn-outline:hover {
+            background: var(--gray-100);
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #dc2626;
+        }
+
+        .btn-sm {
+            padding: 0.25rem 0.75rem;
+            font-size: 0.75rem;
+        }
 
         /* ===== MODALS ===== */
         .modal-overlay {
             display: none;
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.5);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
             align-items: center;
             justify-content: center;
             z-index: 2000;
             padding: 20px;
         }
-        .modal-overlay.active { display: flex; }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
         .modal-box {
             background: white;
             border-radius: var(--radius-lg);
@@ -365,16 +774,51 @@ $error = $_GET['err'] ?? '';
             box-shadow: var(--shadow-lg);
             animation: modalIn 0.25s ease;
         }
+
         @keyframes modalIn {
-            from { transform: scale(0.95) translateY(20px); opacity: 0; }
-            to { transform: scale(1) translateY(0); opacity: 1; }
+            from {
+                transform: scale(0.95) translateY(20px);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1) translateY(0);
+                opacity: 1;
+            }
         }
-        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
-        .modal-close { background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--gray-600); }
-        .modal-close:hover { color: var(--gray-900); }
-        .form-group { margin-bottom: 1.25rem; }
-        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 500; }
-        .form-group input, .form-group select, .form-group textarea {
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--gray-600);
+        }
+
+        .modal-close:hover {
+            color: var(--gray-900);
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
             width: 100%;
             padding: 0.625rem 0.75rem;
             border: 1px solid var(--gray-200);
@@ -382,12 +826,20 @@ $error = $_GET['err'] ?? '';
             font-family: inherit;
             font-size: 0.9rem;
         }
-        .form-group input:focus, .form-group select:focus {
+
+        .form-group input:focus,
+        .form-group select:focus {
             outline: none;
             border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(59,130,246,0.15);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
         }
-        .modal-actions { display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 1.5rem; }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+        }
 
         /* ===== TOAST ===== */
         .toast {
@@ -406,27 +858,57 @@ $error = $_GET['err'] ?? '';
             transition: opacity 0.3s;
             pointer-events: none;
         }
-        .toast.show { opacity: 1; pointer-events: auto; }
-        .toast.success { background: var(--success); }
-        .toast.error { background: var(--danger); }
-        .toast.info { background: var(--primary); }
+
+        .toast.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .toast.success {
+            background: var(--success);
+        }
+
+        .toast.error {
+            background: var(--danger);
+        }
+
+        .toast.info {
+            background: var(--primary);
+        }
 
         /* ===== RESPONSIVE ===== */
         @media (max-width: 768px) {
-            .sidebar { transform: translateX(-100%); }
-            .sidebar.mobile-open { transform: translateX(0); }
-            .main-content { margin-left: 0; padding: 16px; }
-            .stats-container { grid-template-columns: 1fr; }
-            .deliveries-container { grid-template-columns: 1fr; }
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.mobile-open {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 16px;
+            }
+
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+
+            .deliveries-container {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
     <link rel="stylesheet" href="css/admin-theme.css?v=1.6">
     <script src="js/admin-theme.js?v=1.6" defer></script>
 </head>
+
 <body>
 
     <!-- ===== SIDEBAR ===== -->
-    <?php $currentPage = 'delivery'; include 'inc/sidebar.php'; ?>
+    <?php $currentPage = 'delivery';
+    include 'inc/sidebar.php'; ?>
 
     <!-- ===== MAIN CONTENT ===== -->
     <div class="main-content">
@@ -529,9 +1011,9 @@ $error = $_GET['err'] ?? '';
                     </div>
                 <?php else: ?>
                     <?php foreach ($activeDeliveries as $del): ?>
-                        <div class="delivery-card status-<?= $del['status'] ?>" 
-                             data-status="<?= $del['status'] ?>"
-                             data-search="<?= strtolower($del['order_number'] . ' ' . $del['customer_name'] . ' ' . ($del['address_line1'] ?? '')) ?>">
+                        <div class="delivery-card status-<?= $del['status'] ?>"
+                            data-status="<?= $del['status'] ?>"
+                            data-search="<?= strtolower($del['order_number'] . ' ' . $del['customer_name'] . ' ' . ($del['address_line1'] ?? '')) ?>">
                             <div class="card-header">
                                 <span class="order-id">#<?= htmlspecialchars($del['order_number'] ?? $del['id']) ?></span>
                                 <span class="status-badge <?= $del['status'] ?>"><?= ucfirst(str_replace('_', ' ', $del['status'])) ?></span>
@@ -635,12 +1117,13 @@ $error = $_GET['err'] ?? '';
                 <button class="modal-close" onclick="closeModal('otpModal')"><i class="fas fa-times"></i></button>
             </div>
             <form method="POST" action="delivery.php">
+                <input type="hidden" name="verify_otp" value="1">
                 <input type="hidden" name="order_id" id="otpOrderId">
                 <div class="modal-body">
                     <div class="form-group">
                         <label>Enter OTP (4-digit)</label>
-                        <input type="text" name="otp_code" id="otpCode" maxlength="4" placeholder="1234" required autocomplete="off" style="text-align:center;font-size:1.5rem;letter-spacing:8px;">
-                        <small style="color:var(--gray-600);display:block;margin-top:0.25rem;">Demo OTP: <strong>1234</strong></small>
+                        <input type="text" name="otp_code" id="otpCode" maxlength="4" pattern="\d{4}" inputmode="numeric" placeholder="••••" required autocomplete="off" style="text-align:center;font-size:1.5rem;letter-spacing:8px;">
+                        <small style="color:var(--gray-600);display:block;margin-top:0.25rem;">Enter the 4-digit OTP generated when the driver was assigned.</small>
                     </div>
                 </div>
                 <div class="modal-actions">
@@ -656,8 +1139,13 @@ $error = $_GET['err'] ?? '';
     <!-- ============================================================ -->
     <script>
         // ===== MODAL HELPERS =====
-        function openModal(id) { document.getElementById(id).classList.add('active'); }
-        function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+        function openModal(id) {
+            document.getElementById(id).classList.add('active');
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('active');
+        }
 
         // ===== ASSIGN DRIVER =====
         document.querySelectorAll('.assign-driver-btn').forEach(btn => {
@@ -732,4 +1220,5 @@ $error = $_GET['err'] ?? '';
         }, 1000);
     </script>
 </body>
+
 </html>

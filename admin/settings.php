@@ -13,25 +13,41 @@ require_once 'inc/settings_logic.php';
 require_once __DIR__ . '/inc/whatsapp/WhatsAppFactory.php';
 
 $pdo = getDBConnection();
+$isSqliteSettings = ($pdo->getAttribute(PDO::ATTR_DRIVER_NAME) === 'sqlite');
+$settingsUpsertSql = $isSqliteSettings
+    ? "INSERT INTO settings (setting_key, setting_value, category, updated_at) VALUES (?, ?, ?, ?) ON CONFLICT(setting_key) DO UPDATE SET setting_value = excluded.setting_value, category = excluded.category, updated_at = excluded.updated_at"
+    : "INSERT INTO settings (setting_key, setting_value, category, updated_at) VALUES (?, ?, ?, ?) ON DUPLICATE KEY UPDATE setting_value = VALUES(setting_value), category = VALUES(category), updated_at = VALUES(updated_at)";
 
 // --- (Default settings live in inc/settings_logic.php) ---
 
 // --- HANDLE ACTIONS ---
 $message = '';
 $error = '';
+if (empty($_SESSION['admin_csrf_token'])) {
+    $_SESSION['admin_csrf_token'] = bin2hex(random_bytes(16));
+}
+$adminCsrfToken = $_SESSION['admin_csrf_token'];
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && (isset($_POST['save_settings']) || isset($_POST['test_whatsapp_config']))) {
+    if (!hash_equals($_SESSION['admin_csrf_token'] ?? '', (string)($_POST['csrf_token'] ?? ''))) {
+        http_response_code(419);
+        exit('Session expired. Please reload and try again.');
+    }
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_settings'])) {
     $category = $_POST['category'] ?? 'general';
     $settings = $_POST['settings'] ?? [];
+    $nowTs = date('Y-m-d H:i:s');
 
     try {
-        $stmt = $pdo->prepare("INSERT INTO settings (setting_key, setting_value, category) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE setting_value = ?, updated_at = NOW()");
+        $stmt = $pdo->prepare($settingsUpsertSql);
         foreach ($settings as $key => $value) {
             if ($key === 'whatsapp_access_token') {
                 continue;
             }
             $value = settings_encode_value($value);
-            $stmt->execute([$key, $value, $category, $value]);
+            $stmt->execute([$key, $value, $category, $nowTs]);
         }
         $message = 'Settings saved successfully.';
     } catch (PDOException $e) {
@@ -70,11 +86,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['test_whatsapp_config'
 if (isset($_GET['action']) && $_GET['action'] === 'reset') {
     $tab = $_GET['tab'] ?? 'general';
     $defaults = getDefaultSettings($tab);
+    $nowTs = date('Y-m-d H:i:s');
     try {
-        $stmt = $pdo->prepare("INSERT INTO settings (setting_key, setting_value, category) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE setting_value = ?, updated_at = NOW()");
+        $stmt = $pdo->prepare($settingsUpsertSql);
         foreach ($defaults as $key => $value) {
             $value = settings_encode_value($value);
-            $stmt->execute([$key, $value, $tab, $value]);
+            $stmt->execute([$key, $value, $tab, $nowTs]);
         }
         $message = 'Settings reset to defaults.';
     } catch (PDOException $e) {
@@ -970,6 +987,7 @@ if (isset($_GET['err'])) $error = $_GET['err'];
                         <p>Basic information about your shop</p>
                     </div>
                     <form method="POST">
+                        <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($adminCsrfToken, ENT_QUOTES) ?>">
                         <input type="hidden" name="category" value="general">
                         <div class="form-row">
                             <div class="form-group">
@@ -1015,6 +1033,7 @@ if (isset($_GET['err'])) $error = $_GET['err'];
                         <p>Set your shop opening and closing times</p>
                     </div>
                     <form method="POST">
+                        <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($adminCsrfToken, ENT_QUOTES) ?>">
                         <input type="hidden" name="category" value="business_hours">
                         <?php
                         $days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
@@ -1062,6 +1081,7 @@ if (isset($_GET['err'])) $error = $_GET['err'];
                         <p>Configure delivery zones, fees, and timing</p>
                     </div>
                     <form method="POST">
+                        <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($adminCsrfToken, ENT_QUOTES) ?>">
                         <input type="hidden" name="category" value="delivery">
                         <div class="form-group">
                             <label for="delivery_radius">Delivery Radius (km) *</label>
@@ -1090,6 +1110,11 @@ if (isset($_GET['err'])) $error = $_GET['err'];
                                 <input type="number" id="delivery_time" name="settings[delivery_time]" min="15" max="180" value="<?= htmlspecialchars($currentSettings['delivery_time'] ?? 45) ?>">
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label for="parcel_charge">Hyperlocal Parcel Delivery Fee (₹)</label>
+                            <input type="number" id="parcel_charge" name="settings[parcel_charge]" min="1" step="1" value="<?= htmlspecialchars($currentSettings['parcel_charge'] ?? (defined('KSR_PARCEL_CHARGE') ? KSR_PARCEL_CHARGE : 50)) ?>">
+                            <div class="form-hint">Overrides the default ₹<?= defined('KSR_PARCEL_CHARGE') ? KSR_PARCEL_CHARGE : 50 ?> parcel pickup/drop charge used by <code>categories/parcels.php</code> unless <code>PARCEL_CHARGE</code> env var is set.</div>
+                        </div>
                         <div class="form-actions">
                             <a href="settings.php?action=reset&tab=delivery" class="btn btn-secondary" onclick="return confirm('Reset delivery settings to default?')"><i class="fas fa-undo"></i> Reset</a>
                             <button type="submit" name="save_settings" class="btn btn-primary"><i class="fas fa-save"></i> Save Delivery Settings</button>
@@ -1110,6 +1135,7 @@ if (isset($_GET['err'])) $error = $_GET['err'];
                         <p>Configure accepted payment options</p>
                     </div>
                     <form method="POST">
+                        <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($adminCsrfToken, ENT_QUOTES) ?>">
                         <input type="hidden" name="category" value="payment">
                         <div class="payment-option">
                             <div class="payment-info">
@@ -1214,6 +1240,7 @@ if (isset($_GET['err'])) $error = $_GET['err'];
                         <p>Configure notification channels and alerts</p>
                     </div>
                     <form method="POST">
+                        <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($adminCsrfToken, ENT_QUOTES) ?>">
                         <input type="hidden" name="category" value="notifications">
 
                         <div class="notification-category" style="margin-bottom:30px;">
@@ -1328,6 +1355,7 @@ if (isset($_GET['err'])) $error = $_GET['err'];
                         <p>Manage staff members</p>
                     </div>
                     <form method="POST">
+                        <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($adminCsrfToken, ENT_QUOTES) ?>">
                         <input type="hidden" name="category" value="staff">
                         <div class="staff-management">
                             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
@@ -1366,6 +1394,7 @@ if (isset($_GET['err'])) $error = $_GET['err'];
                         <p>Password policies and account security</p>
                     </div>
                     <form method="POST">
+                        <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($adminCsrfToken, ENT_QUOTES) ?>">
                         <input type="hidden" name="category" value="security">
                         <div class="form-row">
                             <div class="form-group">
@@ -1397,6 +1426,7 @@ if (isset($_GET['err'])) $error = $_GET['err'];
                         <p>Connect APIs and third-party tools</p>
                     </div>
                     <form method="POST">
+                        <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($adminCsrfToken, ENT_QUOTES) ?>">
                         <input type="hidden" name="category" value="integrations">
 
                         <div class="notification-category" style="margin-bottom:24px;">

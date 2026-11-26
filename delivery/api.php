@@ -71,23 +71,25 @@ try {
                 [$id, $id, $today]
             );
 
+            $sevenDaysAgo = date('Y-m-d H:i:s', strtotime('-7 days'));
             $earnedWeek = (float) scalar(
                 $pdo,
-                "SELECT COALESCE(SUM(total),0) FROM orders WHERE (driver_id = ? OR delivery_boy_id = ?) AND status = 'delivered' AND delivered_at >= DATE_SUB(NOW(), INTERVAL 7 DAY)",
-                [$id, $id]
+                "SELECT COALESCE(SUM(total),0) FROM orders WHERE (driver_id = ? OR delivery_boy_id = ?) AND status = 'delivered' AND delivered_at >= ?",
+                [$id, $id, $sevenDaysAgo]
             );
 
             // Last 7 days delivered count (sparkline)
+            $sixDaysAgo = date('Y-m-d', strtotime('-6 days'));
             $trend = [];
             $stmt = $pdo->prepare(
                 "SELECT DATE(delivered_at) d, COUNT(*) c, COALESCE(SUM(total),0) amt
                  FROM orders
                  WHERE (driver_id = ? OR delivery_boy_id = ?)
                    AND status = 'delivered'
-                   AND delivered_at >= DATE_SUB(CURDATE(), INTERVAL 6 DAY)
+                   AND DATE(delivered_at) >= ?
                  GROUP BY DATE(delivered_at)"
             );
-            $stmt->execute([$id, $id]);
+            $stmt->execute([$id, $id, $sixDaysAgo]);
             $byDay = [];
             foreach ($stmt->fetchAll() as $r) {
                 $byDay[$r['d']] = ['c' => (int) $r['c'], 'amt' => (float) $r['amt']];
@@ -163,7 +165,16 @@ try {
                         o.driver_id, o.delivery_boy_id
                  FROM orders o
                  WHERE $where
-                 ORDER BY FIELD(o.status,'pending','confirmed','accepted','picked_up','in_transit','delivered','cancelled'),
+                 ORDER BY CASE o.status
+                            WHEN 'pending' THEN 1
+                            WHEN 'confirmed' THEN 2
+                            WHEN 'accepted' THEN 3
+                            WHEN 'picked_up' THEN 4
+                            WHEN 'in_transit' THEN 5
+                            WHEN 'delivered' THEN 6
+                            WHEN 'cancelled' THEN 7
+                            ELSE 8
+                          END,
                           o.created_at DESC
                  LIMIT 200",
                 $params
@@ -258,6 +269,25 @@ try {
             $alreadyDone = in_array((string) $row['status'], ['delivered', 'cancelled'], true);
             if ($alreadyDone && (string) $row['status'] !== $status) {
                 api_fail('Order is already ' . delivery_status_meta($row['status'])['label'] . '.', 409);
+            }
+
+            if ($status === 'delivered') {
+                // Verify OTP if a pending delivery_otps record exists for this order
+                $submittedOtp = trim((string) ($_POST['otp'] ?? ''));
+                try {
+                    $otpSt = delivery_db()->prepare('SELECT otp_hash, verified_at FROM delivery_otps WHERE order_id = ? LIMIT 1');
+                    $otpSt->execute([$orderId]);
+                    $otpRow = $otpSt->fetch();
+                    if ($otpRow && empty($otpRow['verified_at'])) {
+                        if ($submittedOtp === '' || !password_verify($submittedOtp, (string) $otpRow['otp_hash'])) {
+                            api_fail('Valid 4-digit delivery OTP required to complete delivery.', 422);
+                        }
+                        $nowExpr = (delivery_db()->getAttribute(PDO::ATTR_DRIVER_NAME) === 'sqlite') ? "datetime('now')" : 'NOW()';
+                        delivery_db()->prepare("UPDATE delivery_otps SET verified_at = {$nowExpr} WHERE order_id = ?")
+                            ->execute([$orderId]);
+                    }
+                } catch (Throwable $ignore) {
+                }
             }
 
             set_order_status($orderId, $status, $id, 'Status → ' . delivery_status_meta($status)['label']);

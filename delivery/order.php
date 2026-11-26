@@ -27,11 +27,22 @@ $payment = delivery_db()->prepare('SELECT * FROM payments WHERE order_id = ? ORD
 $payment->execute([$orderId]);
 $payment = $payment->fetch() ?: null;
 
+$requiresOtp = false;
+try {
+    $otpChk = delivery_db()->prepare('SELECT verified_at FROM delivery_otps WHERE order_id = ? LIMIT 1');
+    $otpChk->execute([$orderId]);
+    $otpStRow = $otpChk->fetch();
+    if ($otpStRow && empty($otpStRow['verified_at'])) {
+        $requiresOtp = true;
+    }
+} catch (Throwable $ignore) {
+}
+
 $isMine = (int) ($order['driver_id'] ?: 0) === delivery_id() || (int) ($order['delivery_boy_id'] ?: 0) === delivery_id();
 $isOpen = !$order['driver_id'] && !$order['delivery_boy_id'];
 $isDone = in_array($order['status'], ['delivered', 'cancelled'], true);
 
-delivery_layout('Order ' . $order['order_number'], 'orders', function () use ($order, $items, $timeline, $payment, $isMine, $isOpen, $isDone) {
+delivery_layout('Order ' . $order['order_number'], 'orders', function () use ($order, $items, $timeline, $payment, $requiresOtp, $isMine, $isOpen, $isDone) {
     $waMsg = "Hi " . $order['name'] . ", your KSR GURU JI order " . $order['order_number']
         . " is " . delivery_status_meta($order['status'])['label'] . ".";
 ?>
@@ -104,6 +115,11 @@ delivery_layout('Order ' . $order['order_number'], 'orders', function () use ($o
                 ];
                 $next = $steps[$order['status']] ?? null;
                 if ($next): ?>
+                    <?php if ($next[0] === 'status|delivered' && $requiresOtp): ?>
+                        <div style="margin-bottom:10px;width:100%;">
+                            <input type="text" id="deliveryOtpInput" maxlength="4" pattern="\d{4}" placeholder="Enter 4-digit customer OTP" style="width:100%;padding:10px 12px;border:1.5px solid #cbd5e1;border-radius:10px;font-weight:700;letter-spacing:2px;text-align:center;" />
+                        </div>
+                    <?php endif; ?>
                     <button class="dp-btn dp-btn-primary dp-btn-block" onclick="update('<?= $next[0] ?>')">
                         <i class="fa-solid fa-arrow-right"></i> <?= e($next[1]) ?>
                     </button>
@@ -150,13 +166,22 @@ delivery_layout('Order ' . $order['order_number'], 'orders', function () use ($o
 <script src="js/delivery-common.js?v=1"></script>
 <script>
     const ORDER_ID = <?= (int) $orderId ?>;
+    const REQUIRES_OTP = <?= $requiresOtp ? 'true' : 'false' ?>;
     async function update(action) {
         let status = '';
         if (action.startsWith('status|')) status = action.split('|')[1];
+        const otpEl = document.getElementById('deliveryOtpInput');
+        const otpVal = otpEl ? otpEl.value.trim() : '';
+        if (status === 'delivered' && REQUIRES_OTP && !/^\d{4}$/.test(otpVal)) {
+            alert('Please enter the 4-digit delivery OTP from the customer.');
+            if (otpEl) otpEl.focus();
+            return;
+        }
         if (status === 'delivered' && !confirm('Confirm the order has been handed over to the customer?')) return;
         const j = await dpApi.post(action, {
             id: ORDER_ID,
-            status
+            status,
+            otp: otpVal
         });
         if (j && j.success) {
             dpToast(j.message || 'Updated');

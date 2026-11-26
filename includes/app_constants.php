@@ -30,6 +30,26 @@ if (!defined('KSR_DELIVERY_CHARGE')) {
 if (!defined('KSR_FREE_DELIVERY_ABOVE')) {
     define('KSR_FREE_DELIVERY_ABOVE', 500.00); // orders above ₹500 get free delivery
 }
+if (!defined('KSR_COD_LIMIT')) {
+    $__codLimit = getenv('KSR_COD_LIMIT');
+    define('KSR_COD_LIMIT', ($__codLimit !== false && is_numeric($__codLimit) && (float)$__codLimit > 0) ? (float)$__codLimit : 10000.00);
+    unset($__codLimit);
+}
+if (!defined('KSR_COD_DAILY_LIMIT')) {
+    $__codDaily = getenv('KSR_COD_DAILY_LIMIT') ?: getenv('COD_DAILY_LIMIT');
+    define('KSR_COD_DAILY_LIMIT', ($__codDaily !== false && is_numeric($__codDaily) && (float)$__codDaily > 0) ? (float)$__codDaily : 10000.00);
+    unset($__codDaily);
+}
+if (!defined('KSR_OTP_EXPIRY_SECONDS')) {
+    $__otpExp = getenv('OTP_EXPIRY_SECONDS');
+    define('KSR_OTP_EXPIRY_SECONDS', ($__otpExp !== false && is_numeric($__otpExp) && (int)$__otpExp > 0) ? (int)$__otpExp : 600);
+    unset($__otpExp);
+}
+if (!defined('KSR_PARCEL_CHARGE')) {
+    $__parcelCharge = getenv('PARCEL_CHARGE');
+    define('KSR_PARCEL_CHARGE', ($__parcelCharge !== false && is_numeric($__parcelCharge) && (float)$__parcelCharge > 0) ? (float)$__parcelCharge : 50.00);
+    unset($__parcelCharge);
+}
 
 // ── API / Security ───────────────────────────────────────────
 // Set KSR_API_KEY env var in Vercel/production secrets.

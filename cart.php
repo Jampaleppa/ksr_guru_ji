@@ -5,6 +5,7 @@
 require_once __DIR__ . '/config.php';
 require_once __DIR__ . '/functions.php';
 require_once __DIR__ . '/pricing.php';
+require_once __DIR__ . '/includes/coupons.php';
 
 // Start session for cart
 if (session_status() === PHP_SESSION_NONE) {
@@ -62,6 +63,45 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
         header('Location: /cart.php');
         exit;
     }
+
+    // ── Coupon: apply ──────────────────────────────────────────
+    if ($action === 'apply_coupon' && isset($_POST['coupon_code'])) {
+        $code = strtoupper(trim((string)$_POST['coupon_code']));
+        try {
+            $couponPdo = getDBConnection();
+            $cartSubtotal = (float)array_sum(array_map(
+                fn($item) => (float)($item['price'] ?? 0) * (int)($item['qty'] ?? 1),
+                $_SESSION['cart']
+            ));
+            $uid = isset($_SESSION['user_id']) ? (int)$_SESSION['user_id'] : null;
+            $res = ksrValidateCoupon($couponPdo, $code, $cartSubtotal, $uid);
+            if (!$res['valid'] || !$res['coupon']) {
+                $_SESSION['coupon_error'] = $res['error'] ?: 'Invalid or expired coupon code.';
+                unset($_SESSION['applied_coupon']);
+            } else {
+                $_SESSION['applied_coupon'] = [
+                    'id'       => $res['coupon']['id'],
+                    'code'     => $res['coupon']['code'],
+                    'discount' => $res['discount'],
+                    'type'     => $res['coupon']['discount_type'],
+                    'value'    => $res['coupon']['discount_value'],
+                ];
+                $_SESSION['coupon_error'] = '';
+            }
+        } catch (Throwable $e) {
+            $_SESSION['coupon_error'] = 'Could not apply coupon. Please try again.';
+        }
+        header('Location: /cart.php');
+        exit;
+    }
+
+    // ── Coupon: remove ─────────────────────────────────────────
+    if ($action === 'remove_coupon') {
+        unset($_SESSION['applied_coupon']);
+        $_SESSION['coupon_error'] = '';
+        header('Location: /cart.php');
+        exit;
+    }
 }
 
 // Calculate authoritative totals
@@ -69,7 +109,39 @@ $cartItems = $_SESSION['cart'];
 $cartCount = array_sum(array_column($cartItems, 'qty'));
 $cartTotal = array_sum(array_map(fn($item) => (float)($item['price'] ?? 0) * (int)($item['qty'] ?? 1), $cartItems));
 $deliveryFee = ($cartTotal > 0) ? (float)KSR_DELIVERY_CHARGE : 0.0;
-$grandTotal = $cartTotal + $deliveryFee;
+
+// ── Re-validate coupon discount against current cart subtotal ──
+$appliedCoupon = $_SESSION['applied_coupon'] ?? null;
+$couponDiscount = 0.0;
+$couponError = $_SESSION['coupon_error'] ?? '';
+unset($_SESSION['coupon_error']); // show once
+if ($appliedCoupon && !empty($appliedCoupon['code'])) {
+    if ($cartTotal <= 0) {
+        unset($_SESSION['applied_coupon']);
+        $appliedCoupon = null;
+    } else {
+        try {
+            $recheck = ksrValidateCoupon(
+                getDBConnection(),
+                (string)$appliedCoupon['code'],
+                (float)$cartTotal,
+                isset($_SESSION['user_id']) ? (int)$_SESSION['user_id'] : null
+            );
+            if ($recheck['valid'] && $recheck['coupon']) {
+                $couponDiscount = (float)$recheck['discount'];
+                $_SESSION['applied_coupon']['discount'] = $couponDiscount;
+            } else {
+                $couponError = $recheck['error'];
+                unset($_SESSION['applied_coupon']);
+                $appliedCoupon = null;
+            }
+        } catch (Throwable $e) {
+            $couponDiscount = (float)($appliedCoupon['discount'] ?? 0);
+        }
+    }
+}
+
+$grandTotal = max(0.0, $cartTotal + $deliveryFee - $couponDiscount);
 
 // Build WhatsApp text for direct order (shop + delivery)
 $waText = "Namaste KSR GURU JI! I would like to order the following items from my cart:%0A";
@@ -729,6 +801,42 @@ $waText .= "%0AKindly confirm and dispatch to Delivery Boy: 8088584421 (Primary)
                         <span>GST / Estimated Taxes</span>
                         <span style="color: #10b981; font-weight: 600;">Included</span>
                     </div>
+
+                    <!-- ── Coupon Code ─────────────────────────── -->
+                    <?php if (!empty($couponError)): ?>
+                    <div style="background:#fff0f0;color:#c0392b;border-radius:8px;padding:8px 12px;font-size:.85rem;margin-bottom:10px;">
+                        ❌ <?= htmlspecialchars($couponError) ?>
+                    </div>
+                    <?php endif; ?>
+
+                    <?php if ($appliedCoupon): ?>
+                    <div style="background:#e8f5ee;border-radius:8px;padding:8px 12px;font-size:.9rem;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;">
+                        <span>🎟️ <strong><?= htmlspecialchars($appliedCoupon['code']) ?></strong> applied</span>
+                        <form method="POST" style="margin:0;">
+                            <input type="hidden" name="action" value="remove_coupon">
+                            <button style="background:none;border:none;color:#c0392b;cursor:pointer;font-size:.85rem;" type="submit">✕ Remove</button>
+                        </form>
+                    </div>
+                    <div class="summary-row" style="color:#0f7b3a;">
+                        <span>Coupon Discount</span>
+                        <span style="font-weight:700;">– ₹<?= number_format($couponDiscount, 2) ?></span>
+                    </div>
+                    <?php else: ?>
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;font-size:.82rem;">
+                        <span style="color:#64748b;font-weight:600;">Have a promo code?</span>
+                        <a href="/offers.php" style="color:#0f7b3a;font-weight:700;text-decoration:none;">View Offers →</a>
+                    </div>
+                    <form method="POST" style="display:flex;gap:8px;margin-bottom:14px;">
+                        <input type="hidden" name="action" value="apply_coupon">
+                        <input type="text" name="coupon_code" placeholder="Enter coupon code"
+                               style="flex:1;padding:9px 12px;border:1.5px solid #ddd;border-radius:9px;font-size:.9rem;text-transform:uppercase;">
+                        <button type="submit"
+                                style="padding:9px 16px;background:#0f7b3a;color:#fff;border:none;border-radius:9px;font-weight:700;cursor:pointer;white-space:nowrap;">
+                            Apply
+                        </button>
+                    </form>
+                    <?php endif; ?>
+                    <!-- ─────────────────────────────────────────── -->
 
                     <div class="summary-row total">
                         <span>Grand Total</span>

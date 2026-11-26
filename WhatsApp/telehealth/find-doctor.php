@@ -25,7 +25,7 @@ if ($specialtyFilter) {
 }
 
 if (!empty($conditions)) {
-    $sql .= " WHERE " . implode(' AND ', $conditions);
+    $sql .= " AND " . implode(' AND ', $conditions);
 }
 
 $stmt = $pdo->prepare($sql);

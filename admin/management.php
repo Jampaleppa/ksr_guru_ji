@@ -6,9 +6,26 @@ $currentPage = 'management';
 require_once 'inc/auth_check.php';
 require_once '../config.php'; // added config for DB connection
 require_once 'inc/functions.php';
+require_once '../includes/coupons.php';
+require_once '../includes/inventory.php';
 
-// Initialize database connection
+// Initialize database connection & ensure tables exist
 $pdo = getDBConnection();
+ensureCouponTables($pdo);
+ensureInventoryReservationTables($pdo);
+
+if (empty($_SESSION['admin_csrf_token'])) {
+    $_SESSION['admin_csrf_token'] = bin2hex(random_bytes(16));
+}
+$adminCsrfToken = $_SESSION['admin_csrf_token'];
+
+function mgmtVerifyCsrf(): void
+{
+    if (!hash_equals($_SESSION['admin_csrf_token'] ?? '', (string)($_POST['csrf_token'] ?? ''))) {
+        http_response_code(419);
+        exit('Session expired. Please reload the page and try again.');
+    }
+}
 
 // --- GENERATE COUPON CODE ---
 function generateCouponCode(int $length = 8): string
@@ -33,6 +50,7 @@ $activeTab = $_GET['tab'] ?? 'banners';
 // BANNER / SLIDER ACTIONS
 // ============================================================
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_banner'])) {
+    mgmtVerifyCsrf();
     $id = (int)($_POST['id'] ?? 0);
     $title = trim($_POST['title'] ?? '');
     $subtitle = trim($_POST['subtitle'] ?? '');
@@ -128,7 +146,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'toggle_banner' && isset($_GET
     $id = (int)$_GET['id'];
     $type = $_GET['type'];
     $table = getTableName($type);
-    $pdo->prepare("UPDATE $table SET status = IF(status='active','inactive','active') WHERE id = ?")->execute([$id]);
+    $pdo->prepare("UPDATE $table SET status = CASE WHEN status='active' THEN 'inactive' ELSE 'active' END WHERE id = ?")->execute([$id]);
     header('Location: management.php?tab=' . $type);
     exit;
 }
@@ -137,6 +155,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'toggle_banner' && isset($_GET
 // COUPON ACTIONS
 // ============================================================
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_coupon'])) {
+    mgmtVerifyCsrf();
     $id = (int)($_POST['id'] ?? 0);
     $code = !empty($_POST['code']) ? strtoupper(trim($_POST['code'])) : generateCouponCode();
     $description = trim($_POST['description'] ?? '');
@@ -184,7 +203,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'delete_coupon' && isset($_GET
 // Toggle Coupon Status
 if (isset($_GET['action']) && $_GET['action'] === 'toggle_coupon' && isset($_GET['id'])) {
     $id = (int)$_GET['id'];
-    $pdo->prepare("UPDATE coupons SET status = IF(status='active','inactive','active') WHERE id = ?")->execute([$id]);
+    $pdo->prepare("UPDATE coupons SET status = CASE WHEN status='active' THEN 'inactive' ELSE 'active' END WHERE id = ?")->execute([$id]);
     header('Location: management.php?tab=coupons');
     exit;
 }
@@ -200,28 +219,37 @@ if (isset($_GET['action']) && $_GET['action'] === 'generate_code') {
 // INVENTORY ACTIONS
 // ============================================================
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_stock'])) {
+    mgmtVerifyCsrf();
     $id = (int)$_POST['id'];
-    $quantity = (int)$_POST['quantity'];
+    $quantity = max(0, (int)$_POST['quantity']);
     $change_type = $_POST['change_type'] ?? 'adjustment';
     $note = trim($_POST['note'] ?? '');
 
     try {
         $pdo->beginTransaction();
 
-        $stmt = $pdo->prepare("SELECT quantity FROM inventory WHERE id = ?");
+        $stmt = $pdo->prepare("SELECT product_id, quantity FROM inventory WHERE id = ? LIMIT 1");
         $stmt->execute([$id]);
-        $oldQty = $stmt->fetchColumn() ?: 0;
+        $invRow = $stmt->fetch(PDO::FETCH_ASSOC);
+        if (!$invRow) {
+            throw new RuntimeException('Inventory record not found.');
+        }
+        $productId = (int)$invRow['product_id'];
+        $oldQty = (int)$invRow['quantity'];
 
-        $stmt = $pdo->prepare("UPDATE inventory SET quantity = ? WHERE id = ?");
-        $stmt->execute([$quantity, $id]);
+        $pdo->prepare("UPDATE inventory SET quantity = ? WHERE id = ?")->execute([$quantity, $id]);
+        // Keep storefront products.stock in sync with inventory.quantity
+        $pdo->prepare("UPDATE products SET stock = ? WHERE id = ?")->execute([$quantity, $productId]);
 
-        $stmt = $pdo->prepare("INSERT INTO stock_history (product_id, old_quantity, new_quantity, change_type, note, created_by) SELECT product_id, ?, ?, ?, ?, ? FROM inventory WHERE id = ?");
-        $stmt->execute([$oldQty, $quantity, $change_type, $note, $_SESSION['admin_id'] ?? null, $id]);
+        $actorId = isset($_SESSION['admin_auth_id']) ? (int)$_SESSION['admin_auth_id'] : (isset($_SESSION['admin_id']) ? (int)$_SESSION['admin_id'] : null);
+        ksrRecordStockHistory($pdo, $productId, $oldQty, $quantity, $change_type, $note, $actorId);
 
         $pdo->commit();
-        $message = 'Stock updated successfully.';
-    } catch (PDOException $e) {
-        $pdo->rollBack();
+        $message = 'Stock updated and synced across inventory & product catalog.';
+    } catch (Throwable $e) {
+        if ($pdo->inTransaction()) {
+            $pdo->rollBack();
+        }
         $error = 'Database error: ' . $e->getMessage();
     }
     header('Location: management.php?tab=inventory&msg=' . urlencode($message) . '&err=' . urlencode($error));
@@ -1188,7 +1216,7 @@ if (isset($_GET['err'])) $error = $_GET['err'];
             <div class="modal-header">
                 <h3 id="bannerModalTitle">Add <?= ucfirst($bannerType) ?></h3><button class="modal-close" onclick="closeModal('bannerModal')"><i class="fas fa-times"></i></button>
             </div>
-            <form method="POST" enctype="multipart/form-data" action="management.php"><input type="hidden" name="id" id="bannerId"><input type="hidden" name="banner_type" value="<?= $bannerType ?>">
+            <form method="POST" enctype="multipart/form-data" action="management.php"><input type="hidden" name="csrf_token" value="<?= htmlspecialchars($adminCsrfToken, ENT_QUOTES) ?>"><input type="hidden" name="id" id="bannerId"><input type="hidden" name="banner_type" value="<?= $bannerType ?>">
                 <div class="modal-body">
                     <div class="form-group"><label>Title *</label><input type="text" name="title" id="bannerTitle" required></div>
                     <div class="form-group"><label>Subtitle</label><input type="text" name="subtitle" id="bannerSubtitle"></div>
@@ -1212,7 +1240,7 @@ if (isset($_GET['err'])) $error = $_GET['err'];
             <div class="modal-header">
                 <h3 id="couponModalTitle">Add Coupon</h3><button class="modal-close" onclick="closeModal('couponModal')"><i class="fas fa-times"></i></button>
             </div>
-            <form method="POST" action="management.php"><input type="hidden" name="id" id="couponId">
+            <form method="POST" action="management.php"><input type="hidden" name="csrf_token" value="<?= htmlspecialchars($adminCsrfToken, ENT_QUOTES) ?>"><input type="hidden" name="id" id="couponId">
                 <div class="modal-body">
                     <div class="form-row">
                         <div class="form-group"><label>Coupon Code</label>
@@ -1253,7 +1281,7 @@ if (isset($_GET['err'])) $error = $_GET['err'];
             <div class="modal-header">
                 <h3>Update Stock</h3><button class="modal-close" onclick="closeModal('stockModal')"><i class="fas fa-times"></i></button>
             </div>
-            <form method="POST" action="management.php"><input type="hidden" name="id" id="stockId">
+            <form method="POST" action="management.php"><input type="hidden" name="csrf_token" value="<?= htmlspecialchars($adminCsrfToken, ENT_QUOTES) ?>"><input type="hidden" name="id" id="stockId">
                 <div class="modal-body">
                     <div class="form-group"><label>Product</label><input type="text" id="productName" disabled style="background:#e2e8f0;cursor:not-allowed;"></div>
                     <div class="form-group"><label>New Quantity *</label><input type="number" name="quantity" id="stockQty" required min="0"></div>

@@ -23,6 +23,7 @@ if (PHP_SAPI !== 'cli') {
 }
 
 require_once dirname(__DIR__) . '/payment-core/bootstrap.php';
+require_once dirname(__DIR__) . '/includes/inventory.php';
 
 use KsrPay\PaymentSessionManager;
 use KsrPay\PaymentStateMachine;
@@ -85,6 +86,20 @@ foreach ($rows as $row) {
         $expiredErr++;
         echo "  [ERR]  {$pid} — " . $e->getMessage() . "\n";
     }
+}
+
+// Release expired pre-checkout inventory reservations and stale order idempotency keys
+$purgedRes = 0;
+try {
+    $purgedRes = ksrPurgeExpiredReservations($pdo);
+    echo "  [OK]   Purged {$purgedRes} expired inventory reservation(s)\n";
+} catch (Throwable $e) {
+    echo "  [WARN] Inventory reservation cleanup: " . $e->getMessage() . "\n";
+}
+try {
+    $delIdem = $pdo->prepare("DELETE FROM order_idempotency_keys WHERE expires_at <= ?");
+    $delIdem->execute([$nowSql]);
+} catch (Throwable $e) {
 }
 
 $elapsed = (new DateTimeImmutable())->getTimestamp() - $started->getTimestamp();

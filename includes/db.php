@@ -1,4 +1,7 @@
 <?php
+// --- Load configuration (if not already loaded) ---
+require_once __DIR__ . '/app_constants.php';
+
 if (!defined('DB_HOST')) {
     define('DB_HOST', getenv('DB_HOST') ?: '127.0.0.1');
 }
@@ -35,15 +38,35 @@ if (!function_exists('getDBConnection')) {
         ];
         // TiDB Cloud and other remote hosts require SSL (port 4000 = TiDB default)
         if (DB_HOST !== '127.0.0.1' && DB_HOST !== 'localhost') {
-            if (defined('PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT')) {
-                $options[PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT] = false;
+            $_dbSslCa = getenv('DB_SSL_CA') ?: '';
+            if (!empty($_dbSslCa) && is_readable($_dbSslCa)) {
+                if (defined('PDO::MYSQL_ATTR_SSL_CA')) {
+                    $options[PDO::MYSQL_ATTR_SSL_CA] = $_dbSslCa;
+                }
+                if (defined('PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT')) {
+                    $options[PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT] = true;
+                }
+            } else {
+                if (defined('KSR_IS_PRODUCTION') && KSR_IS_PRODUCTION) {
+                    error_log('SECURITY WARNING: DB_SSL_CA not set; PDO connecting without certificate verification.');
+                }
+                if (defined('PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT')) {
+                    $options[PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT] = false;
+                }
             }
         }
         try {
             $pdo = new PDO($dsn, DB_USER, DB_PASS, $options);
             return $pdo;
         } catch (Throwable $e) {
-            // MySQL unavailable (Vercel serverless / local dev without MySQL).
+            if (defined('KSR_IS_PRODUCTION') && KSR_IS_PRODUCTION) {
+                error_log('CRITICAL: Primary MySQL database unavailable in production: ' . $e->getMessage());
+                http_response_code(503);
+                header('Content-Type: application/json; charset=utf-8');
+                echo json_encode(['success' => false, 'error' => 'Service temporarily unavailable. Please try again shortly.']);
+                exit;
+            }
+            // MySQL unavailable (local dev / automated test fallback).
             // Fall back to persistent SQLite database on disk and bootstrap schema.
             $sqliteDir = is_writable(__DIR__ . '/..') ? (__DIR__ . '/..') : sys_get_temp_dir();
             $sqliteFile = $sqliteDir . '/ksr_local_database.sqlite';
@@ -113,6 +136,7 @@ if (!function_exists('_bootstrapSQLiteSchema')) {
             "CREATE TABLE IF NOT EXISTS users (
                 id          INTEGER PRIMARY KEY AUTOINCREMENT,
                 name        TEXT    NOT NULL DEFAULT '',
+                fullname    TEXT    NOT NULL DEFAULT '',
                 email       TEXT    UNIQUE,
                 phone       TEXT,
                 mobile      TEXT,
@@ -473,8 +497,11 @@ if (!function_exists('_bootstrapSQLiteSchema')) {
                 user_id     INTEGER,
                 type        TEXT,
                 title       TEXT,
+                subject     TEXT,
                 message     TEXT,
+                link        TEXT,
                 is_read     INTEGER DEFAULT 0,
+                read_at     TEXT,
                 created_at  TEXT DEFAULT (datetime('now'))
             )",
 
@@ -901,6 +928,98 @@ if (!function_exists('_bootstrapSQLiteSchema')) {
                 quantity   INTEGER NOT NULL DEFAULT 10,
                 updated_at TEXT DEFAULT (datetime('now', 'localtime'))
             )",
+
+            "CREATE TABLE IF NOT EXISTS stock_history (
+                id           INTEGER PRIMARY KEY AUTOINCREMENT,
+                product_id   INTEGER NOT NULL,
+                old_quantity INTEGER NOT NULL DEFAULT 0,
+                new_quantity INTEGER NOT NULL DEFAULT 0,
+                change_type  TEXT DEFAULT 'adjustment',
+                note         TEXT,
+                created_by   INTEGER,
+                created_at   TEXT DEFAULT (datetime('now', 'localtime'))
+            )",
+
+            "CREATE TABLE IF NOT EXISTS delivery_otps (
+                order_id    INTEGER PRIMARY KEY,
+                otp_hash    TEXT NOT NULL,
+                verified_at TEXT DEFAULT NULL,
+                created_at  TEXT DEFAULT (datetime('now', 'localtime'))
+            )",
+
+            "CREATE TABLE IF NOT EXISTS coupons (
+                id               INTEGER PRIMARY KEY AUTOINCREMENT,
+                code             TEXT NOT NULL UNIQUE,
+                description      TEXT DEFAULT NULL,
+                discount_type    TEXT NOT NULL DEFAULT 'percent',
+                discount_value   REAL NOT NULL DEFAULT 0,
+                min_order_amount REAL DEFAULT 0,
+                min_order        REAL DEFAULT 0,
+                max_discount     REAL DEFAULT NULL,
+                usage_limit      INTEGER DEFAULT NULL,
+                user_limit       INTEGER DEFAULT 1,
+                used_count       INTEGER NOT NULL DEFAULT 0,
+                start_date       TEXT DEFAULT NULL,
+                end_date         TEXT DEFAULT NULL,
+                expiry_date      TEXT DEFAULT NULL,
+                status           TEXT NOT NULL DEFAULT 'active',
+                created_at       TEXT DEFAULT (datetime('now', 'localtime'))
+            )",
+
+            "CREATE TABLE IF NOT EXISTS coupon_usage (
+                id              INTEGER PRIMARY KEY AUTOINCREMENT,
+                coupon_code     TEXT NOT NULL,
+                order_id        INTEGER NOT NULL,
+                user_id         INTEGER NOT NULL DEFAULT 0,
+                discount_amount REAL NOT NULL DEFAULT 0,
+                used_at         TEXT DEFAULT (datetime('now', 'localtime')),
+                UNIQUE (coupon_code, order_id)
+            )",
+
+            "CREATE TABLE IF NOT EXISTS inventory_reservations (
+                reservation_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                product_id     INTEGER NOT NULL,
+                quantity       INTEGER NOT NULL,
+                session_id     TEXT NOT NULL,
+                expires_at     TEXT NOT NULL,
+                created_at     TEXT DEFAULT (datetime('now', 'localtime'))
+            )",
+
+            "CREATE TABLE IF NOT EXISTS order_idempotency_keys (
+                id              INTEGER PRIMARY KEY AUTOINCREMENT,
+                idempotency_key TEXT NOT NULL UNIQUE,
+                order_id        INTEGER NOT NULL,
+                response_json   TEXT NOT NULL,
+                created_at      TEXT DEFAULT (datetime('now', 'localtime')),
+                expires_at      TEXT NOT NULL
+            )",
+
+            "CREATE TABLE IF NOT EXISTS customer_addresses (
+                id         INTEGER PRIMARY KEY AUTOINCREMENT,
+                user_id    INTEGER NOT NULL,
+                label      TEXT NOT NULL DEFAULT 'Home',
+                full_name  TEXT NOT NULL,
+                phone      TEXT NOT NULL,
+                address    TEXT NOT NULL,
+                city       TEXT NOT NULL,
+                state      TEXT NOT NULL DEFAULT 'Karnataka',
+                pincode    TEXT NOT NULL,
+                is_default INTEGER NOT NULL DEFAULT 0,
+                created_at TEXT DEFAULT (datetime('now', 'localtime')),
+                updated_at TEXT DEFAULT (datetime('now', 'localtime'))
+            )",
+
+            "CREATE TABLE IF NOT EXISTS account_deletion_requests (
+                id           INTEGER PRIMARY KEY AUTOINCREMENT,
+                user_id      INTEGER NOT NULL,
+                email        TEXT NULL,
+                reason       TEXT NULL,
+                status       TEXT NOT NULL DEFAULT 'pending',
+                requested_at TEXT NOT NULL DEFAULT (datetime('now')),
+                reviewed_by  INTEGER NULL,
+                reviewed_at  TEXT NULL,
+                admin_note   TEXT NULL
+            )",
         ];
 
         foreach ($tables as $sql) {
@@ -914,6 +1033,41 @@ if (!function_exists('_bootstrapSQLiteSchema')) {
 
         // Migrate missing columns on existing patient tables
         try {
+            $notifCols = $pdo->query("PRAGMA table_info(notifications)")->fetchAll(PDO::FETCH_COLUMN, 1);
+            if (!empty($notifCols)) {
+                foreach ([
+                    'subject TEXT',
+                    'link TEXT',
+                    'read_at TEXT',
+                ] as $colDef) {
+                    $colName = explode(' ', $colDef)[0];
+                    if (!in_array($colName, $notifCols, true)) {
+                        try {
+                            $pdo->exec("ALTER TABLE notifications ADD COLUMN {$colDef}");
+                        } catch (Throwable $e) {
+                        }
+                    }
+                }
+            }
+            $userCols = $pdo->query("PRAGMA table_info(users)")->fetchAll(PDO::FETCH_COLUMN, 1);
+            if (!empty($userCols) && !in_array('fullname', $userCols, true)) {
+                try {
+                    $pdo->exec("ALTER TABLE users ADD COLUMN fullname TEXT DEFAULT ''");
+                } catch (Throwable $e) {
+                }
+            }
+            $adrCols = $pdo->query("PRAGMA table_info(account_deletion_requests)")->fetchAll(PDO::FETCH_COLUMN, 1);
+            if (!empty($adrCols)) {
+                foreach (['reviewed_by INTEGER NULL', 'reviewed_at TEXT NULL', 'admin_note TEXT NULL'] as $colDef) {
+                    $colName = explode(' ', $colDef)[0];
+                    if (!in_array($colName, $adrCols, true)) {
+                        try {
+                            $pdo->exec("ALTER TABLE account_deletion_requests ADD COLUMN {$colDef}");
+                        } catch (Throwable $e) {
+                        }
+                    }
+                }
+            }
             $otpCols = $pdo->query("PRAGMA table_info(patient_otps)")->fetchAll(PDO::FETCH_COLUMN, 1);
             if (!in_array('code_hash', $otpCols, true)) {
                 try {

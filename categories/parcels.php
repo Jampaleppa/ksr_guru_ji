@@ -19,8 +19,6 @@ const APP_NAME       = 'KSR GURU JI';
 const APP_SUBTITLE   = 'PARCEL TO DOOR • LOCAL SAME-DAY EXPRESS';
 const DB_DRIVER      = 'mysql';                  // 'sqlite' | 'mysql'
 const DB_PATH        = __DIR__ . '/parcel.sqlite';
-const PARCEL_CHARGE  = 50;                       // fixed door-delivery charge
-const STAFF_PIN      = '2468';                   // driver + admin PIN
 const CURRENCY       = '₹';
 
 /* -------- contact / WhatsApp numbers -------- */
@@ -56,7 +54,57 @@ function redirect(string $u): void
 }
 function is_staff(): bool
 {
-  return !empty($_SESSION['staff']);
+  if (!empty($_SESSION['staff'])) {
+    return true;
+  }
+  if (!empty($_SESSION['admin_auth_id']) || !empty($_SESSION['delivery_boy_id'])) {
+    return true;
+  }
+  $role = (string)($_SESSION['user_role'] ?? $_SESSION['role'] ?? '');
+  return !empty($_SESSION['user_id']) && in_array($role, ['admin', 'super_admin', 'delivery', 'delivery_boy'], true);
+}
+
+function parcel_charge(): float
+{
+  static $cached = null;
+  if ($cached !== null) {
+    return $cached;
+  }
+  $envCharge = getenv('PARCEL_CHARGE');
+  if ($envCharge !== false && is_numeric($envCharge) && (float)$envCharge > 0) {
+    return $cached = (float)$envCharge;
+  }
+  try {
+    $val = db()->query("SELECT setting_value FROM settings WHERE setting_key = 'parcel_charge' LIMIT 1")->fetchColumn();
+    if ($val !== false && is_numeric($val) && (float)$val > 0) {
+      return $cached = (float)$val;
+    }
+  } catch (Throwable $e) {
+  }
+  return $cached = (defined('KSR_PARCEL_CHARGE') ? (float)KSR_PARCEL_CHARGE : 50.0);
+}
+
+function verify_parcel_staff_pin(string $submittedPin): array
+{
+  if ($submittedPin === '') {
+    return [false, 'Please enter your staff PIN.'];
+  }
+  $envPin = getenv('PARCEL_STAFF_PIN');
+  if ($envPin !== false && $envPin !== '') {
+    return hash_equals($envPin, $submittedPin)
+      ? [true, 'Welcome back.']
+      : [false, 'Incorrect PIN.'];
+  }
+  try {
+    $hash = db()->query("SELECT setting_value FROM settings WHERE setting_key = 'parcel_staff_pin_hash' LIMIT 1")->fetchColumn();
+    if (is_string($hash) && $hash !== '') {
+      return password_verify($submittedPin, $hash)
+        ? [true, 'Welcome back.']
+        : [false, 'Incorrect PIN.'];
+    }
+  } catch (Throwable $e) {
+  }
+  return [false, 'Staff PIN login is disabled until PARCEL_STAFF_PIN is configured. Please sign in through the Admin or Delivery portal.'];
 }
 
 function csrf_token(): string
@@ -446,13 +494,14 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
       $form = $f;
       flash('Please correct the highlighted fields.', 'err');
     } else {
-      $code  = new_order_code();
-      $token = new_token();
+      $code   = new_order_code();
+      $token  = new_token();
+      $charge = parcel_charge();
       $sql = "INSERT INTO parcel_requests
                 (order_code, access_token, pickup_name, pickup_mobile, pickup_address, pickup_landmark, pickup_coords,
                  receiver_name, receiver_mobile, delivery_address, delivery_landmark, delivery_coords,
                  parcel_type, weight, description, amount, payment_method, payment_status, delivery_status, payment_ref)
-                VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?," . PARCEL_CHARGE . ", ?, ?, 'REQUESTED', ?)";
+                VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?, ?, ?, 'REQUESTED', ?)";
       db()->prepare($sql)->execute([
         $code,
         $token,
@@ -469,12 +518,13 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
         $f['parcel_type'],
         $f['weight'],
         $f['description'],
+        $charge,
         $payMethod,
         $payStatus,
         $payRef,
       ]);
 
-      $methodLabel = ($payMethod === 'UPI') ? 'Instant UPI (' . money(PARCEL_CHARGE) . ')' : 'Cash on Delivery (' . money(PARCEL_CHARGE) . ')';
+      $methodLabel = ($payMethod === 'UPI') ? 'Instant UPI (' . money($charge) . ')' : 'Cash on Delivery (' . money($charge) . ')';
       flash("Parcel booked successfully! Payment Method: $methodLabel. Share details on WhatsApp below.", 'ok');
       redirect('?page=track&code=' . urlencode($code) . '&m=' . urlencode($f['pickup_mobile']) . '&booked=1');
     }
@@ -490,18 +540,19 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
     $ref = 'CASH-' . strtoupper(bin2hex(random_bytes(4)));
     db()->prepare("UPDATE parcel_requests SET payment_status = 'CONFIRMED', payment_ref = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?")
       ->execute([$ref, $id]);
-    flash('Cash of ' . money(PARCEL_CHARGE) . ' marked as collected successfully.', 'ok');
+    flash('Cash of ' . money(parcel_charge()) . ' marked as collected successfully.', 'ok');
     redirect('?page=' . ($_POST['back'] ?? 'driver'));
   }
 
   /* ---------- 3. STAFF LOGIN / LOGOUT ---------- */
   if ($action === 'staff_login') {
-    if (hash_equals(STAFF_PIN, (string)($_POST['pin'] ?? ''))) {
+    [$pinOk, $pinMsg] = verify_parcel_staff_pin((string)($_POST['pin'] ?? ''));
+    if ($pinOk) {
       $_SESSION['staff'] = true;
-      flash('Welcome back.', 'ok');
+      flash($pinMsg, 'ok');
       redirect('?page=' . ($_POST['goto'] ?? 'driver'));
     }
-    flash('Incorrect PIN.', 'err');
+    flash($pinMsg, 'err');
     redirect('?page=' . ($_POST['goto'] ?? 'driver'));
   }
   if ($action === 'staff_logout') {
@@ -598,7 +649,7 @@ if ($page === 'admin' && is_staff()) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title><?= h(APP_NAME) ?> — Parcel to Door <?= money(PARCEL_CHARGE) ?> (Cash on Delivery)</title>
+  <title><?= h(APP_NAME) ?> — Parcel to Door <?= money(parcel_charge()) ?> (Cash on Delivery)</title>
   <!-- Google Fonts & Font Awesome -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1414,13 +1465,13 @@ if ($page === 'admin' && is_staff()) {
       <section class="hero">
         <div class="hero-badge"><i class="fas fa-shield-alt"></i> Fast • Same-Day Local Delivery</div>
         <h1>Express Parcel to Door</h1>
-        <p>Doorstep pickup and doorstep delivery anywhere in town — Fixed <?= money(PARCEL_CHARGE) ?> Cash on Delivery</p>
+        <p>Doorstep pickup and doorstep delivery anywhere in town — Fixed <?= money(parcel_charge()) ?> Cash on Delivery</p>
       </section>
 
       <!-- Price Card & COD Notice -->
       <div class="price-card">
         <div class="lbl">Fixed Service Charge</div>
-        <div class="amt"><?= money(PARCEL_CHARGE) ?></div>
+        <div class="amt"><?= money(parcel_charge()) ?></div>
         <div class="note">Pay only when parcel is collected or delivered</div>
         <div>
           <span class="cod-pill"><i class="fas fa-money-bill-wave"></i> Payment Method: Only Cash on Delivery</span>
@@ -1440,7 +1491,7 @@ if ($page === 'admin' && is_staff()) {
         <div class="step">
           <div class="n">2</div>
           <h3>Only Cash on Delivery</h3>
-          <p>Zero advance payment! Pay <?= money(PARCEL_CHARGE) ?> cash upon doorstep pickup or handover.</p>
+          <p>Zero advance payment! Pay <?= money(parcel_charge()) ?> cash upon doorstep pickup or handover.</p>
         </div>
         <div class="step">
           <div class="n">3</div>
@@ -1595,7 +1646,7 @@ if ($page === 'admin' && is_staff()) {
                 </div>
                 <div>
                   <span class="pm-title">Cash on Delivery</span>
-                  <span class="pm-desc">Pay <?= money(PARCEL_CHARGE) ?> cash to driver</span>
+                  <span class="pm-desc">Pay <?= money(parcel_charge()) ?> cash to driver</span>
                 </div>
               </div>
 
@@ -1614,8 +1665,8 @@ if ($page === 'admin' && is_staff()) {
             <div class="cod-box-highlight" id="cod-box-panel" style="display:<?= ($form['payment_method'] ?? 'CASH_ON_DELIVERY') === 'CASH_ON_DELIVERY' ? 'flex' : 'none' ?>;">
               <div class="cod-box-icon"><i class="fas fa-hand-holding-usd"></i></div>
               <div class="cod-box-text">
-                <strong>Payment Method: Cash on Delivery (<?= money(PARCEL_CHARGE) ?>)</strong>
-                <span>Pay <?= money(PARCEL_CHARGE) ?> in cash when our driver collects or delivers the parcel.</span>
+                <strong>Payment Method: Cash on Delivery (<?= money(parcel_charge()) ?>)</strong>
+                <span>Pay <?= money(parcel_charge()) ?> in cash when our driver collects or delivers the parcel.</span>
               </div>
             </div>
 
@@ -1629,7 +1680,7 @@ if ($page === 'admin' && is_staff()) {
                   <i class="fas fa-bolt"></i>
                 </div>
                 <div>
-                  <strong style="color:#0369A1; font-size:15px; display:block;">Instant UPI Payment (<?= money(PARCEL_CHARGE) ?>)</strong>
+                  <strong style="color:#0369A1; font-size:15px; display:block;">Instant UPI Payment (<?= money(parcel_charge()) ?>)</strong>
                   <span style="color:#0284C7; font-size:12.5px;">Fast &bull; ICICI/SBI Bank-limit bypass &bull; Direct Driver Dispatch</span>
                 </div>
               </div>
@@ -1637,19 +1688,19 @@ if ($page === 'admin' && is_staff()) {
               <!-- 1-Click Mobile Launchers -->
               <div style="font-size:12px; font-weight:700; color:#475569; margin-bottom:6px;">Tap any app to pay directly:</div>
               <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(130px, 1fr)); gap:8px; margin-bottom:14px;">
-                <a href="intent://pay?pa=9590902742@axl&pn=KSR%20GURU%20JI&am=<?= PARCEL_CHARGE ?>&cu=INR&tn=Parcel%20Delivery%20Fee&tr=<?= $trParcel ?>&mc=5411#Intent;scheme=upi;package=com.google.android.apps.nbu.paisa.user;end"
+                <a href="intent://pay?pa=9590902742@axl&pn=KSR%20GURU%20JI&am=<?= parcel_charge() ?>&cu=INR&tn=Parcel%20Delivery%20Fee&tr=<?= $trParcel ?>&mc=5411#Intent;scheme=upi;package=com.google.android.apps.nbu.paisa.user;end"
                    style="display:flex; align-items:center; justify-content:center; gap:6px; background:#4285F4; color:white; padding:8px 10px; border-radius:8px; font-weight:700; font-size:12.5px; text-decoration:none;">
                   <i class="fab fa-google-pay" style="font-size:16px;"></i> Google Pay
                 </a>
-                <a href="intent://pay?pa=9590902742@axl&pn=KSR%20GURU%20JI&am=<?= PARCEL_CHARGE ?>&cu=INR&tn=Parcel%20Delivery%20Fee&tr=<?= $trParcel ?>&mc=5411#Intent;scheme=upi;package=com.phonepe.app;end"
+                <a href="intent://pay?pa=9590902742@axl&pn=KSR%20GURU%20JI&am=<?= parcel_charge() ?>&cu=INR&tn=Parcel%20Delivery%20Fee&tr=<?= $trParcel ?>&mc=5411#Intent;scheme=upi;package=com.phonepe.app;end"
                    style="display:flex; align-items:center; justify-content:center; gap:6px; background:#5F259F; color:white; padding:8px 10px; border-radius:8px; font-weight:700; font-size:12.5px; text-decoration:none;">
                   <i class="fas fa-mobile-alt"></i> PhonePe
                 </a>
-                <a href="intent://pay?pa=9590902742@ptyes&pn=KSR%20GURU%20JI&am=<?= PARCEL_CHARGE ?>&cu=INR&tn=Parcel%20Delivery%20Fee&tr=<?= $trParcel ?>&mc=5411#Intent;scheme=net.one97.paytm;end"
+                <a href="intent://pay?pa=9590902742@ptyes&pn=KSR%20GURU%20JI&am=<?= parcel_charge() ?>&cu=INR&tn=Parcel%20Delivery%20Fee&tr=<?= $trParcel ?>&mc=5411#Intent;scheme=net.one97.paytm;end"
                    style="display:flex; align-items:center; justify-content:center; gap:6px; background:#00BAF2; color:white; padding:8px 10px; border-radius:8px; font-weight:700; font-size:12.5px; text-decoration:none;">
                   <i class="fas fa-wallet"></i> Paytm
                 </a>
-                <a href="intent://pay?pa=8088584421@apl&pn=KSR%20GURU%20JI&am=<?= PARCEL_CHARGE ?>&cu=INR&tn=Parcel%20Delivery%20Fee&tr=<?= $trParcel ?>&mc=5411#Intent;scheme=in.amazon.mShop.android.shopping;end"
+                <a href="intent://pay?pa=8088584421@apl&pn=KSR%20GURU%20JI&am=<?= parcel_charge() ?>&cu=INR&tn=Parcel%20Delivery%20Fee&tr=<?= $trParcel ?>&mc=5411#Intent;scheme=in.amazon.mShop.android.shopping;end"
                    style="display:flex; align-items:center; justify-content:center; gap:6px; background:#FF9900; color:#111; padding:8px 10px; border-radius:8px; font-weight:700; font-size:12.5px; text-decoration:none;">
                   <i class="fab fa-amazon"></i> Amazon Pay
                 </a>
@@ -1657,9 +1708,9 @@ if ($page === 'admin' && is_staff()) {
 
               <!-- QR Code & Manual Copy -->
               <div style="display:flex; align-items:center; gap:14px; background:white; border:1px solid #BAE6FD; border-radius:10px; padding:12px; margin-bottom:12px; flex-wrap:wrap;">
-                <img src="/images/ksr_upi_qr.png" alt="Scan UPI QR" style="width:110px; height:110px; border-radius:8px; border:1px solid #E2E8F0; object-fit:contain; background:white; padding:4px;" onerror="this.onerror=null;this.src='https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=upi%3A%2F%2Fpay%3Fpa%3D9590902742%40axl%26pn%3DKSR%2520GURU%2520JI%26am%3D50%26cu%3DINR%26tn%3DParcel%2520Delivery%2520Fee';">
+                <img src="/images/ksr_upi_qr.png" alt="Scan UPI QR" style="width:110px; height:110px; border-radius:8px; border:1px solid #E2E8F0; object-fit:contain; background:white; padding:4px;" onerror="this.onerror=null;this.src='https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=upi%3A%2F%2Fpay%3Fpa%3D9590902742%40axl%26pn%3DKSR%2520GURU%2520JI%26am%3D<?= rawurlencode((string)parcel_charge()) ?>%26cu%3DINR%26tn%3DParcel%2520Delivery%2520Fee';">
                 <div style="flex:1; min-width:180px;">
-                  <span style="font-size:11px; text-transform:uppercase; color:#64748B; font-weight:700; display:block;">Or scan QR &amp; pay ₹50 to:</span>
+                  <span style="font-size:11px; text-transform:uppercase; color:#64748B; font-weight:700; display:block;">Or scan QR &amp; pay <?= money(parcel_charge()) ?> to:</span>
                   <div style="font-family:monospace; font-weight:800; font-size:14px; color:#0F172A; margin:3px 0;">9590902742@axl</div>
                   <button type="button" onclick="copyUpiVpa('9590902742@axl', this)" style="border:1px solid #CBD5E1; background:#F8FAFC; padding:4px 10px; border-radius:6px; font-size:12px; font-weight:700; cursor:pointer;">
                     <i class="fas fa-copy"></i> Copy UPI ID
@@ -1677,14 +1728,14 @@ if ($page === 'admin' && is_staff()) {
           </div>
 
           <div class="totals">
-            <div class="trow"><span>Fixed Door Delivery Charge</span><span><?= money(PARCEL_CHARGE) ?></span></div>
+            <div class="trow"><span>Fixed Door Delivery Charge</span><span><?= money(parcel_charge()) ?></span></div>
             <div class="trow"><span>Payment Mode</span><span id="summary-pay-mode" style="font-weight:800;color:<?= ($form['payment_method'] ?? 'CASH_ON_DELIVERY') === 'UPI' ? '#0284C7' : '#16A34A' ?>;"><?= ($form['payment_method'] ?? 'CASH_ON_DELIVERY') === 'UPI' ? 'Instant UPI / Online' : 'Cash on Delivery (COD)' ?></span></div>
-            <div class="trow big"><span>Total Payable</span><span><?= money(PARCEL_CHARGE) ?></span></div>
+            <div class="trow big"><span>Total Payable</span><span><?= money(parcel_charge()) ?></span></div>
           </div>
 
           <div style="margin-top:20px">
             <button type="submit" id="btn-submit-parcel" class="btn btn-primary">
-              <?= ($form['payment_method'] ?? 'CASH_ON_DELIVERY') === 'UPI' ? '🚚 Confirm Parcel Request — Prepaid ' . money(PARCEL_CHARGE) . ' via UPI' : '🚚 Confirm Parcel Request — Pay ' . money(PARCEL_CHARGE) . ' Cash on Delivery' ?>
+              <?= ($form['payment_method'] ?? 'CASH_ON_DELIVERY') === 'UPI' ? '🚚 Confirm Parcel Request — Prepaid ' . money(parcel_charge()) . ' via UPI' : '🚚 Confirm Parcel Request — Pay ' . money(parcel_charge()) . ' Cash on Delivery' ?>
             </button>
             <div style="text-align:center; font-size:13px; color:var(--muted); margin-top:8px;">
               Your order will be booked immediately and you can share full details to WhatsApp with 1 tap.
@@ -1701,7 +1752,7 @@ if ($page === 'admin' && is_staff()) {
       <div class="feat" style="margin-bottom:24px">
         <div class="f">
           <div class="ic">💰</div>
-          <div class="t">Flat <?= money(PARCEL_CHARGE) ?></div>
+          <div class="t">Flat <?= money(parcel_charge()) ?></div>
           <div class="d">Zero hidden costs</div>
         </div>
         <div class="f">
@@ -2332,7 +2383,7 @@ if ($page === 'admin' && is_staff()) {
   <?php if ($page === 'home'): ?>
     <div class="sticky-cta">
       <button class="btn btn-primary" onclick="document.getElementById('parcelForm').requestSubmit();">
-        🚚 Request Door Delivery &bull; <?= money(PARCEL_CHARGE) ?> Cash on Delivery
+        🚚 Request Door Delivery &bull; <?= money(parcel_charge()) ?> Cash on Delivery
       </button>
     </div>
   <?php endif; ?>
@@ -2343,7 +2394,7 @@ if ($page === 'admin' && is_staff()) {
       <img src="<?= h($logoUrl) ?>" alt="KSR GURU JI" style="width:28px; height:28px; border-radius:50%; object-fit:cover;" onerror="this.src='company_logo.jpg';">
       <b style="font-size:15px;"><?= h(APP_NAME) ?></b> &bull; <?= h(SHOP_TAGLINE) ?>
     </div>
-    <div>Door Delivery Service &bull; Fixed <?= money(PARCEL_CHARGE) ?> Cash on Delivery &bull; <?= h(SHOP_ADDRESS) ?></div>
+    <div>Door Delivery Service &bull; Fixed <?= money(parcel_charge()) ?> Cash on Delivery &bull; <?= h(SHOP_ADDRESS) ?></div>
     
     <!-- WhatsApp & Phone Contacts -->
     <div style="margin-top:14px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
@@ -2473,7 +2524,7 @@ if ($page === 'admin' && is_staff()) {
           modeSpan.textContent = 'Instant UPI / Online';
           modeSpan.style.color = '#0284C7';
         }
-        btn.innerHTML = '🚚 Confirm Parcel Request — Prepaid <?= money(PARCEL_CHARGE) ?> via UPI';
+        btn.innerHTML = '🚚 Confirm Parcel Request — Prepaid <?= money(parcel_charge()) ?> via UPI';
       } else {
         input.value = 'CASH_ON_DELIVERY';
         if (upiTab) upiTab.classList.remove('active');
@@ -2484,7 +2535,7 @@ if ($page === 'admin' && is_staff()) {
           modeSpan.textContent = 'Cash on Delivery (COD)';
           modeSpan.style.color = '#16A34A';
         }
-        btn.innerHTML = '🚚 Confirm Parcel Request — Pay <?= money(PARCEL_CHARGE) ?> Cash on Delivery';
+        btn.innerHTML = '🚚 Confirm Parcel Request — Pay <?= money(parcel_charge()) ?> Cash on Delivery';
       }
     }
 

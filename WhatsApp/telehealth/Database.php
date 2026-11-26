@@ -10,10 +10,10 @@ class Database {
     private ?PDO $pdo = null;
 
     private function __construct() {
-        $host = '127.0.0.1';
-        $db   = 'doctor_assist';
-        $user = 'root';
-        $pass = ''; // Configure accordingly
+        $host = getenv('DB_HOST') ?: '127.0.0.1';
+        $db   = getenv('TELEHEALTH_DB_NAME') ?: (getenv('DB_NAME') ?: 'doctor_assist');
+        $user = getenv('DB_USER') ?: 'root';
+        $pass = getenv('DB_PASS') !== false ? getenv('DB_PASS') : '';
         $charset = 'utf8mb4';
 
         $dsn = "mysql:host=$host;dbname=$db;charset=$charset";

@@ -16,7 +16,7 @@ $error = '';
 // Send Notification
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['send_notification'])) {
     $user_id = (int)($_POST['user_id'] ?? 0);
-    $type = $_POST['type'] ?? 'general';
+    $type = $_POST['type'] ?? 'system';
     $subject = trim($_POST['subject'] ?? '');
     $message_text = trim($_POST['message'] ?? '');
     $link = trim($_POST['link'] ?? '');
@@ -27,16 +27,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['send_notification']))
         try {
             if ($user_id > 0) {
                 // Send to specific user
-                $stmt = $pdo->prepare("INSERT INTO notifications (user_id, type, subject, message, link, is_read) VALUES (?, ?, ?, ?, ?, 0)");
-                $stmt->execute([$user_id, $type, $subject, $message_text, $link]);
+                $stmt = $pdo->prepare("INSERT INTO notifications (user_id, type, title, subject, message, link, is_read) VALUES (?, ?, ?, ?, ?, ?, 0)");
+                $stmt->execute([$user_id, $type, $subject, $subject, $message_text, $link]);
                 $message = 'Notification sent to user #' . $user_id;
             } else {
                 // Send to all users (broadcast)
                 $stmt = $pdo->prepare("
-                    INSERT INTO notifications (user_id, type, subject, message, link, is_read) 
-                    SELECT id, ?, ?, ?, ?, 0 FROM users WHERE role = 'customer'
+                    INSERT INTO notifications (user_id, type, title, subject, message, link, is_read) 
+                    SELECT id, ?, ?, ?, ?, ?, 0 FROM users WHERE role IN ('customer', 'user')
                 ");
-                $stmt->execute([$type, $subject, $message_text, $link]);
+                $stmt->execute([$type, $subject, $subject, $message_text, $link]);
                 $count = $stmt->rowCount();
                 $message = 'Notification broadcasted to ' . $count . ' customers.';
             }
@@ -51,14 +51,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['send_notification']))
 // Mark as Read
 if (isset($_GET['action']) && $_GET['action'] === 'mark_read' && isset($_GET['id'])) {
     $id = (int)$_GET['id'];
-    $pdo->prepare("UPDATE notifications SET is_read = 1, read_at = NOW() WHERE id = ?")->execute([$id]);
+    $pdo->prepare("UPDATE notifications SET is_read = 1, read_at = ? WHERE id = ?")->execute([date('Y-m-d H:i:s'), $id]);
     header('Location: notification.php');
     exit;
 }
 
 // Mark All as Read
 if (isset($_GET['action']) && $_GET['action'] === 'mark_all_read') {
-    $pdo->prepare("UPDATE notifications SET is_read = 1, read_at = NOW() WHERE is_read = 0")->execute();
+    $pdo->prepare("UPDATE notifications SET is_read = 1, read_at = ? WHERE is_read = 0")->execute([date('Y-m-d H:i:s')]);
     header('Location: notification.php');
     exit;
 }
@@ -80,7 +80,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'clear_all') {
 
 // --- FETCH DATA ---
 $filter = $_GET['filter'] ?? 'all';
-$sql = "SELECT n.*, u.fullname as user_name, u.email as user_email 
+$sql = "SELECT n.*, COALESCE(NULLIF(u.name, ''), u.email) as user_name, u.email as user_email 
         FROM notifications n
         LEFT JOIN users u ON n.user_id = u.id";
 if ($filter === 'unread') {
@@ -97,7 +97,7 @@ $unread = $pdo->query("SELECT COUNT(*) FROM notifications WHERE is_read = 0")->f
 $read = $total - $unread;
 
 // Fetch users for dropdown
-$users = $pdo->query("SELECT id, fullname AS name, email FROM users WHERE role = 'customer' ORDER BY fullname ASC")->fetchAll();
+$users = $pdo->query("SELECT id, COALESCE(NULLIF(name, ''), email) AS name, email FROM users WHERE role IN ('customer', 'user') ORDER BY name ASC")->fetchAll();
 
 // Handle messages
 if (isset($_GET['msg'])) $message = $_GET['msg'];
@@ -257,19 +257,19 @@ if (isset($_GET['err'])) $error = $_GET['err'];
             <?php else: ?>
                 <?php foreach ($notifications as $n): ?>
                     <div class="notification-item <?= $n['is_read'] ? '' : 'unread' ?>">
-                        <div class="icon <?= $n['type'] ?>">
-                            <i class="fas fa-<?= $n['type'] === 'order' ? 'shopping-cart' : ($n['type'] === 'delivery' ? 'truck' : ($n['type'] === 'payment' ? 'credit-card' : 'bell')) ?>"></i>
+                        <div class="icon <?= htmlspecialchars((string)($n['type'] ?? 'system')) ?>">
+                            <i class="fas fa-<?= ($n['type'] ?? '') === 'order' ? 'shopping-cart' : (($n['type'] ?? '') === 'delivery' ? 'truck' : (($n['type'] ?? '') === 'payment' ? 'credit-card' : 'bell')) ?>"></i>
                         </div>
                         <div class="content">
-                            <div class="subject"><?= htmlspecialchars($n['subject']) ?></div>
-                            <div class="message"><?= htmlspecialchars($n['message']) ?></div>
+                            <div class="subject"><?= htmlspecialchars((string)($n['subject'] ?? $n['title'] ?? 'Notification')) ?></div>
+                            <div class="message"><?= htmlspecialchars((string)($n['message'] ?? '')) ?></div>
                             <div class="meta">
-                                <?php if ($n['user_name']): ?>
-                                    To: <?= htmlspecialchars($n['user_name']) ?> (<?= htmlspecialchars($n['user_email']) ?>) ·
+                                <?php if (!empty($n['user_name'])): ?>
+                                    To: <?= htmlspecialchars((string)$n['user_name']) ?> (<?= htmlspecialchars((string)($n['user_email'] ?? '')) ?>) ·
                                 <?php else: ?>
                                     To: All Customers ·
                                 <?php endif; ?>
-                                <?= date('d M Y, h:i A', strtotime($n['created_at'])) ?>
+                                <?= !empty($n['created_at']) ? date('d M Y, h:i A', strtotime((string)$n['created_at'])) : '—' ?>
                                 <?php if ($n['is_read']): ?>
                                     · <span style="color:var(--success);">✓ Read</span>
                                 <?php else: ?>
@@ -310,10 +310,10 @@ if (isset($_GET['err'])) $error = $_GET['err'];
                     <div class="form-group">
                         <label>Type</label>
                         <select name="type">
-                            <option value="general">General</option>
+                            <option value="system">General / System</option>
                             <option value="order">Order</option>
                             <option value="delivery">Delivery</option>
-                            <option value="payment">Payment</option>
+                            <option value="promo">Promo</option>
                         </select>
                     </div>
                     <div class="form-group">

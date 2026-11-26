@@ -1,9 +1,9 @@
 <?php
 // ============================================================
-// api/notification.php - Notification API Endpoint
+// notification.php - Notification API Endpoint
 // ============================================================
-require_once '../config.php';
-require_once '../functions.php';
+require_once __DIR__ . '/config.php';
+require_once __DIR__ . '/functions.php';
 
 // Start session for authentication
 if (session_status() === PHP_SESSION_NONE) {
@@ -13,9 +13,11 @@ if (session_status() === PHP_SESSION_NONE) {
 // Set JSON response header
 header('Content-Type: application/json');
 
-// --- Helper: Check if user is admin ---
+// --- Helper: Check if user is admin or super_admin ---
 function isAdmin() {
-    return isset($_SESSION['admin_id']) && $_SESSION['role'] === 'admin';
+    $role = (string)($_SESSION['user_role'] ?? $_SESSION['role'] ?? '');
+    return (!empty($_SESSION['admin_id']) || !empty($_SESSION['admin_auth_id']) || !empty($_SESSION['user_id']))
+        && in_array($role, ['admin', 'super_admin'], true);
 }
 
 // --- Helper: Get current user ID (if logged in) ---

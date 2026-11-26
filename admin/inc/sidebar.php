@@ -366,6 +366,12 @@ if (!function_exists('e')) {
                 <i class="fas fa-truck-loading"></i>
                 <span>Suppliers</span>
             </a>
+            <a
+                href="b2b.php"
+                class="nav-item <?= sidebarActive('b2b', $currentPage) ?>">
+                <i class="fas fa-building"></i>
+                <span>B2B Wholesale</span>
+            </a>
             <?php endif; ?>
 
             <?php if ($adminCan('payments')): ?>
@@ -404,6 +410,31 @@ if (!function_exists('e')) {
                 class="nav-item <?= sidebarActive('customers', $currentPage) ?>">
                 <i class="fas fa-user-tag"></i>
                 <span>Customers</span>
+            </a>
+            <?php endif; ?>
+
+            <?php if ($adminCan('account_deletions')): ?>
+            <a
+                href="account_deletions.php"
+                class="nav-item <?= sidebarActive('account_deletions', $currentPage) ?>">
+                <i class="fas fa-user-times"></i>
+                <span>Deletion Requests</span>
+                <?php
+                try {
+                    if (isset($pdo)) {
+                        $pendingDelCount = (int) $pdo
+                            ->query("SELECT COUNT(*) FROM account_deletion_requests WHERE status = 'pending'")
+                            ->fetchColumn();
+                        if ($pendingDelCount > 0) {
+                            echo '<span class="badge" style="background:#ef4444;color:#ffffff;font-size:0.65rem;padding:2px 6px;border-radius:10px;margin-left:auto;">'
+                                . e($pendingDelCount)
+                                . '</span>';
+                        }
+                    }
+                } catch (Throwable $e) {
+                    // Do not break sidebar if table is not created yet.
+                }
+                ?>
             </a>
             <?php endif; ?>
 

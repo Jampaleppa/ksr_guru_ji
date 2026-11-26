@@ -92,6 +92,30 @@ try {
         exit;
     }
 
+    // Prevent reusing the same UTR/reference across active orders or transactions
+    $dupPt = $pdo->prepare(
+        "SELECT id FROM payment_transactions
+          WHERE UPPER(customer_utr) = ? AND id != ?
+            AND status NOT IN ('failed', 'cancelled', 'expired')
+          LIMIT 1"
+    );
+    $dupPt->execute([$customerUtr, (int)$payment['id']]);
+    $dupOrd = $pdo->prepare(
+        "SELECT id FROM orders
+          WHERE UPPER(transaction_id) = ? AND id != ?
+            AND status NOT IN ('cancelled', 'failed')
+          LIMIT 1"
+    );
+    $dupOrd->execute([$customerUtr, (int)$payment['order_id']]);
+    if ($dupPt->fetchColumn() || $dupOrd->fetchColumn()) {
+        http_response_code(409);
+        echo json_encode([
+            'success' => false,
+            'error'   => "Reference / UTR '{$customerUtr}' is already submitted for another payment.",
+        ]);
+        exit;
+    }
+
     $pdo->beginTransaction();
 
     // 1. Update customer_utr on payment_transactions
@@ -100,6 +124,21 @@ try {
             SET customer_utr = ?, updated_at = NOW()
           WHERE id = ?"
     )->execute([$customerUtr, (int)$payment['id']]);
+
+    // Sync order & legacy payments row cleanly when present
+    try {
+        $pdo->prepare(
+            "UPDATE orders
+                SET transaction_id = ?, payment_status = 'upi_awaiting'
+              WHERE id = ? AND status NOT IN ('delivered', 'cancelled')"
+        )->execute([$customerUtr, (int)$payment['order_id']]);
+        $pdo->prepare(
+            "UPDATE payments
+                SET transaction_id = ?, gateway_payment_id = ?, status = 'upi_awaiting'
+              WHERE order_id = ?"
+        )->execute([$customerUtr, $customerUtr, (int)$payment['order_id']]);
+    } catch (Throwable $ignore) {
+    }
 
     // 2. Insert into payment_references
     $pdo->prepare(

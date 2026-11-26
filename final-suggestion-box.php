@@ -5,12 +5,22 @@
     // ============================================================
     require_once __DIR__ . '/config.php';
     require_once __DIR__ . '/functions.php';
-    // ---------- WHATSAPP API CONFIG (replace with your own) ----------
-    define('WHATSAPP_ACCESS_TOKEN', 'EAA_YOUR_LONG_META_ACCESS_TOKEN');
-    define('WHATSAPP_PHONE_NUMBER_ID', '109876543212345');
-    define('WHATSAPP_TEMPLATE_NAME', 'emergency_order');      // must be approved in Meta Business
-    define('WHATSAPP_TEMPLATE_LANGUAGE', 'en_US');
-    define('WHATSAPP_RECIPIENTS', ['918762474406', '918088584421']);
+    // ---------- WHATSAPP API CONFIG (loaded from env / config) ----------
+    if (!defined('WHATSAPP_ACCESS_TOKEN')) {
+        define('WHATSAPP_ACCESS_TOKEN', getenv('WHATSAPP_ACCESS_TOKEN') ?: '');
+    }
+    if (!defined('WHATSAPP_PHONE_NUMBER_ID')) {
+        define('WHATSAPP_PHONE_NUMBER_ID', getenv('WHATSAPP_PHONE_NUMBER_ID') ?: '');
+    }
+    if (!defined('WHATSAPP_TEMPLATE_NAME')) {
+        define('WHATSAPP_TEMPLATE_NAME', getenv('WHATSAPP_TEMPLATE_NAME') ?: 'emergency_order');
+    }
+    if (!defined('WHATSAPP_TEMPLATE_LANGUAGE')) {
+        define('WHATSAPP_TEMPLATE_LANGUAGE', 'en_US');
+    }
+    if (!defined('WHATSAPP_RECIPIENTS')) {
+        define('WHATSAPP_RECIPIENTS', ['918762474406', '918088584421']);
+    }
     // ---------- DATABASE CONFIG ----------
     try {
         $pdo = getDBConnection();

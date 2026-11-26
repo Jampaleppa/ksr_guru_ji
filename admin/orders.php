@@ -6,6 +6,7 @@ $currentPage = 'orders';
 require_once 'inc/auth_check.php';
 require_once '../config.php';
 require_once 'inc/functions.php';
+require_once '../includes/inventory.php';
 
 $pdo = getDBConnection();
 
@@ -37,13 +38,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_status'])) {
             // If delivered, update delivered_at
             if ($status === 'delivered') {
                 $pdo->prepare("UPDATE orders SET delivered_at = NOW() WHERE id = ?")->execute([$id]);
-                
-                // Deduct from inventory (if using inventory table)
+                $isMysqlOrd = ($pdo->getAttribute(PDO::ATTR_DRIVER_NAME) !== 'sqlite');
+
+                // Deduct from inventory (clamped >= 0) and record audit history
                 $items = $pdo->prepare("SELECT product_id, quantity FROM order_items WHERE order_id = ?");
                 $items->execute([$id]);
-                $updateStmt = $pdo->prepare("UPDATE inventory SET quantity = quantity - ? WHERE product_id = ?");
+                $invSel = $pdo->prepare("SELECT quantity FROM inventory WHERE product_id = ? LIMIT 1");
+                $updateStmt = $pdo->prepare(
+                    $isMysqlOrd
+                        ? "UPDATE inventory SET quantity = GREATEST(0, quantity - ?) WHERE product_id = ?"
+                        : "UPDATE inventory SET quantity = MAX(0, quantity - ?) WHERE product_id = ?"
+                );
                 foreach ($items->fetchAll() as $item) {
-                    $updateStmt->execute([$item['quantity'], $item['product_id']]);
+                    $pid = (int)($item['product_id'] ?? 0);
+                    $qty = (int)($item['quantity'] ?? 0);
+                    if ($pid <= 0 || $qty <= 0) continue;
+                    $invSel->execute([$pid]);
+                    $oldInv = $invSel->fetchColumn();
+                    if ($oldInv !== false) {
+                        $oldInvInt = (int)$oldInv;
+                        $updateStmt->execute([$qty, $pid]);
+                        ksrRecordStockHistory($pdo, $pid, $oldInvInt, max(0, $oldInvInt - $qty), 'delivered', "Delivered Order #{$id}", $_SESSION['admin_id'] ?? $_SESSION['admin_auth_id'] ?? null);
+                    }
                 }
             }
             

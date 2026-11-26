@@ -4,10 +4,9 @@
 // ============================================================
 
 require_once __DIR__ . '/logger.php';
-// Shared DB layer â€” provides _bootstrapSQLiteSchema() used by the SQLite fallback.
+// Shared DB layer — provides _bootstrapSQLiteSchema() used by the SQLite fallback.
 require_once __DIR__ . '/includes/db.php';
 require_once __DIR__ . '/includes/app_constants.php';
-
 
 // ============================================================
 // Database credentials
@@ -30,8 +29,22 @@ if (!defined('DB_NAME')) {
     define('DB_NAME', getenv('DB_NAME') ?: 'ksr_guru');  // e.g. 'if0_38000000_ksr_guru'
 }
 
+// ============================================================
+// Application-wide compatibility aliases (sourced from includes/app_constants.php)
+// ============================================================
+if (!defined('COD_DAILY_LIMIT')) {
+    define('COD_DAILY_LIMIT', KSR_COD_DAILY_LIMIT);
+}
+if (!defined('OTP_EXPIRY_SECONDS')) {
+    define('OTP_EXPIRY_SECONDS', KSR_OTP_EXPIRY_SECONDS);
+}
+if (!defined('PARCEL_CHARGE')) {
+    define('PARCEL_CHARGE', KSR_PARCEL_CHARGE);
+}
 
+// ============================================================
 // Define SSL constant fallback if not already defined
+// ============================================================
 if (!defined('MYSQLI_CLIENT_SSL_DONT_VERIFY_SERVER_CERT')) {
     define('MYSQLI_CLIENT_SSL_DONT_VERIFY_SERVER_CERT', 64);
 }
@@ -39,7 +52,7 @@ if (!defined('MYSQLI_CLIENT_SSL_DONT_VERIFY_SERVER_CERT')) {
 // Disable automatic exception throwing so we can catch & display connection errors gracefully
 mysqli_report(MYSQLI_REPORT_OFF);
 
-// Create connection â€” supports both local MySQL and cloud (TiDB / Aiven) with SSL
+// Create connection — supports both local MySQL and cloud (TiDB / Aiven) with SSL
 $conn = mysqli_init();
 if (!$conn) {
     http_response_code(500);
@@ -57,14 +70,14 @@ $connError = '';
 
 try {
     if (DB_HOST !== '127.0.0.1' && DB_HOST !== 'localhost') {
-        // Cloud MySQL (TiDB Cloud, Aiven, etc.) â€” enable SSL with optional CA cert verification
+        // Cloud MySQL (TiDB Cloud, Aiven, etc.) — enable SSL with optional CA cert verification
         $_dbSslCa = getenv('DB_SSL_CA') ?: '';
         if (!empty($_dbSslCa) && is_readable($_dbSslCa)) {
-            // Verified TLS: CA cert provided â€” recommended for production
+            // Verified TLS: CA cert provided — recommended for production
             $conn->ssl_set(NULL, NULL, $_dbSslCa, NULL, NULL);
             $flags = defined('MYSQLI_CLIENT_SSL') ? MYSQLI_CLIENT_SSL : 0;
         } else {
-            // Unverified TLS: no CA cert configured â€” log warning in production
+            // Unverified TLS: no CA cert configured — log warning in production
             if (getenv('KSR_ENV') === 'production' || getenv('APP_ENV') === 'production') {
                 error_log('SECURITY WARNING: DB_SSL_CA not set; connecting to cloud MySQL without certificate verification.');
             }
@@ -83,7 +96,7 @@ try {
     $connError = $e->getMessage();
 }
 
-// Check connection â€” if not connected, set $conn = null so application can use graceful fallback
+// Check connection — if not connected, set $conn = null so application can use graceful fallback
 if (!$connected || $conn->connect_errno) {
     $dbErrMsg = $connError ?: ($conn->connect_error ?? 'Unable to connect to database');
     $conn = null;
@@ -96,61 +109,7 @@ if (!$connected || $conn->connect_errno) {
     $conn->set_charset("utf8mb4");
 }
 
-if (!function_exists('getDBConnection')) {
-    function getDBConnection(): PDO
-    {
-        $dsn = "mysql:host=" . DB_HOST . ";port=" . DB_PORT . ";dbname=" . DB_NAME . ";charset=utf8mb4";
-        $options = [
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-            PDO::ATTR_EMULATE_PREPARES => false,
-            PDO::ATTR_TIMEOUT => 5,
-        ];
-        if (DB_HOST !== '127.0.0.1' && DB_HOST !== 'localhost') {
-            $_dbSslCa = getenv('DB_SSL_CA') ?: '';
-            if (!empty($_dbSslCa) && is_readable($_dbSslCa)) {
-                // Verified TLS with CA cert
-                if (defined('PDO::MYSQL_ATTR_SSL_CA')) {
-                    $options[PDO::MYSQL_ATTR_SSL_CA] = $_dbSslCa;
-                }
-                if (defined('PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT')) {
-                    $options[PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT] = true;
-                }
-            } else {
-                // No CA cert: use SSL without verification (log warning in production)
-                if (getenv('KSR_ENV') === 'production' || getenv('APP_ENV') === 'production') {
-                    error_log('SECURITY WARNING: DB_SSL_CA not set; PDO connecting without certificate verification.');
-                }
-                if (defined('PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT')) {
-                    $options[PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT] = false;
-                }
-            }
-        }
-        try {
-            return new PDO($dsn, DB_USER, DB_PASS, $options);
-        } catch (Throwable $e) {
-            $_isProduction = (getenv('KSR_ENV') === 'production' || getenv('APP_ENV') === 'production');
-            if ($_isProduction) {
-                // In production, fail closed: do NOT silently fall back to SQLite.
-                // A hidden SQLite database would create silent data loss and inconsistency.
-                error_log('CRITICAL: Primary MySQL database unavailable in production: ' . $e->getMessage());
-                http_response_code(503);
-                echo json_encode(['success' => false, 'error' => 'Service temporarily unavailable. Please try again shortly.']);
-                exit;
-            }
-            // Local development fallback to SQLite only
-            $sqliteDir = is_writable(__DIR__) ? __DIR__ : sys_get_temp_dir();
-            $sqliteFile = $sqliteDir . '/ksr_local_database.sqlite';
-            $pdo = new PDO('sqlite:' . $sqliteFile, null, null, [
-                PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-            ]);
-            if (function_exists('_bootstrapSQLiteSchema')) {
-                _bootstrapSQLiteSchema($pdo);
-            }
-            return $pdo;
-        }
-    }
-}
+// getDBConnection() is provided cleanly by includes/db.php (loaded above)
+// with production fail-closed behavior and cached PDO connection.
 
-
+?>

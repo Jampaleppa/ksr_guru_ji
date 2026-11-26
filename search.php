@@ -11,29 +11,62 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-$query = trim((string)($_GET['q'] ?? $_GET['search'] ?? ''));
+$query          = trim((string)($_GET['q'] ?? $_GET['search'] ?? ''));
 $categoryFilter = trim((string)($_GET['category'] ?? ''));
+$minPrice       = isset($_GET['min_price']) && $_GET['min_price'] !== '' ? max(0.0, (float)$_GET['min_price']) : null;
+$maxPrice       = isset($_GET['max_price']) && $_GET['max_price'] !== '' ? max(0.0, (float)$_GET['max_price']) : null;
+$inStockOnly    = !empty($_GET['in_stock']);
+$sortParam      = trim((string)($_GET['sort'] ?? 'newest'));
+$page           = max(1, (int)($_GET['page'] ?? 1));
+$perPage        = 24;
+$hasAnyFilter   = ($categoryFilter !== '' || $minPrice !== null || $maxPrice !== null || $inStockOnly);
+
+$orderSql = match ($sortParam) {
+    'price_asc'  => 'p.price ASC, p.id DESC',
+    'price_desc' => 'p.price DESC, p.id DESC',
+    'name_asc'   => 'p.name ASC',
+    default      => 'p.id DESC',
+};
 
 // Handle AJAX search autocomplete / live results
 if (isset($_GET['ajax']) && $_GET['ajax'] === '1') {
     header('Content-Type: application/json; charset=utf-8');
-    if ($query === '') {
+    if ($query === '' && !$hasAnyFilter) {
         echo json_encode(['results' => [], 'total' => 0, 'query' => '']);
         exit;
     }
 
     try {
         $pdo = getDBConnection();
+        $whereParts = ['(p.status = 1 OR p.status IS NULL)'];
+        $params = [];
+        if ($query !== '') {
+            $whereParts[] = '(p.name LIKE ? OR p.kn_name LIKE ? OR c.name LIKE ?)';
+            $params[] = "%{$query}%";
+            $params[] = "%{$query}%";
+            $params[] = "%{$query}%";
+        }
+        if ($categoryFilter !== '') {
+            $whereParts[] = 'p.category_id = ?';
+            $params[] = $categoryFilter;
+        }
+        if ($minPrice !== null) {
+            $whereParts[] = 'p.price >= ?';
+            $params[] = $minPrice;
+        }
+        if ($maxPrice !== null) {
+            $whereParts[] = 'p.price <= ?';
+            $params[] = $maxPrice;
+        }
+        if ($inStockOnly) {
+            $whereParts[] = 'p.stock > 0';
+        }
         $sql = "SELECT p.*, c.name AS category_name
                 FROM products p
                 LEFT JOIN categories c ON p.category_id = c.id
-                WHERE (p.name LIKE ? OR p.kn_name LIKE ? OR c.name LIKE ?)";
-        $params = ["%{$query}%", "%{$query}%", "%{$query}%"];
-        if ($categoryFilter !== '') {
-            $sql .= " AND p.category_id = ?";
-            $params[] = $categoryFilter;
-        }
-        $sql .= " AND (p.status = 1 OR p.status IS NULL) LIMIT 20";
+                WHERE " . implode(' AND ', $whereParts) . "
+                ORDER BY {$orderSql}
+                LIMIT 20";
 
         $stmt = $pdo->prepare($sql);
         $stmt->execute($params);
@@ -55,17 +88,22 @@ if (isset($_GET['ajax']) && $_GET['ajax'] === '1') {
             ];
         }
 
-        // Fallback search if DB yields 0 or in fallback mode
+        // Fallback search if DB yields 0
         if (empty($results) && function_exists('getStoreFallbackProducts')) {
             $fb = getStoreFallbackProducts($categoryFilter, $query);
             foreach ($fb as $f) {
+                $pVal = (float)($f['price'] ?? 0);
+                $stk  = (int)($f['stock'] ?? 10);
+                if ($minPrice !== null && $pVal < $minPrice) continue;
+                if ($maxPrice !== null && $pVal > $maxPrice) continue;
+                if ($inStockOnly && $stk <= 0) continue;
                 $img = $f['images'] ?? $f['image'] ?? $f['image_url'] ?? '';
                 $results[] = [
                     'id' => (int)($f['id'] ?? 0),
                     'name' => (string)($f['name'] ?? ''),
                     'kn_name' => (string)($f['kn_name'] ?? ''),
-                    'price' => (float)($f['price'] ?? 0),
-                    'stock' => (int)($f['stock'] ?? 10),
+                    'price' => $pVal,
+                    'stock' => $stk,
                     'category_id' => (int)($f['category_id'] ?? 0),
                     'images' => $img,
                     'image_url' => $img,
@@ -88,22 +126,53 @@ if (isset($_GET['ajax']) && $_GET['ajax'] === '1') {
 }
 
 // ------------------------------------------------------------
-// Full Page Search Execution
+// Full Page Search Execution (Filters + Sorting + Pagination)
 // ------------------------------------------------------------
 $products = [];
-if ($query !== '') {
+$totalResults = 0;
+$totalPages = 1;
+
+if ($query !== '' || $hasAnyFilter) {
     try {
         $pdo = getDBConnection();
+        $whereParts = ['(p.status = 1 OR p.status IS NULL)'];
+        $params = [];
+        if ($query !== '') {
+            $whereParts[] = '(p.name LIKE ? OR p.kn_name LIKE ? OR c.name LIKE ?)';
+            $params[] = "%{$query}%";
+            $params[] = "%{$query}%";
+            $params[] = "%{$query}%";
+        }
+        if ($categoryFilter !== '') {
+            $whereParts[] = 'p.category_id = ?';
+            $params[] = $categoryFilter;
+        }
+        if ($minPrice !== null) {
+            $whereParts[] = 'p.price >= ?';
+            $params[] = $minPrice;
+        }
+        if ($maxPrice !== null) {
+            $whereParts[] = 'p.price <= ?';
+            $params[] = $maxPrice;
+        }
+        if ($inStockOnly) {
+            $whereParts[] = 'p.stock > 0';
+        }
+        $whereSql = implode(' AND ', $whereParts);
+
+        $countStmt = $pdo->prepare("SELECT COUNT(*) FROM products p LEFT JOIN categories c ON p.category_id = c.id WHERE {$whereSql}");
+        $countStmt->execute($params);
+        $totalResults = (int)$countStmt->fetchColumn();
+        $totalPages = max(1, (int)ceil($totalResults / $perPage));
+        if ($page > $totalPages) $page = $totalPages;
+        $offset = ($page - 1) * $perPage;
+
         $sql = "SELECT p.*, c.name AS category_name, c.kn_name AS category_kn_name
                 FROM products p
                 LEFT JOIN categories c ON p.category_id = c.id
-                WHERE (p.name LIKE ? OR p.kn_name LIKE ? OR c.name LIKE ?)";
-        $params = ["%{$query}%", "%{$query}%", "%{$query}%"];
-        if ($categoryFilter !== '') {
-            $sql .= " AND p.category_id = ?";
-            $params[] = $categoryFilter;
-        }
-        $sql .= " AND (p.status = 1 OR p.status IS NULL) ORDER BY p.id DESC";
+                WHERE {$whereSql}
+                ORDER BY {$orderSql}
+                LIMIT {$perPage} OFFSET {$offset}";
 
         $stmt = $pdo->prepare($sql);
         $stmt->execute($params);
@@ -112,12 +181,32 @@ if ($query !== '') {
         error_log("Search error: " . $e->getMessage());
     }
 
-    if (empty($products) && function_exists('getStoreFallbackProducts')) {
-        $products = getStoreFallbackProducts($categoryFilter, $query);
+    if (empty($products) && $totalResults === 0 && function_exists('getStoreFallbackProducts')) {
+        $fbAll = getStoreFallbackProducts($categoryFilter, $query);
+        $fbFiltered = array_values(array_filter($fbAll, function (array $f) use ($minPrice, $maxPrice, $inStockOnly): bool {
+            $pVal = (float)($f['price'] ?? 0);
+            $stk  = (int)($f['stock'] ?? 10);
+            if ($minPrice !== null && $pVal < $minPrice) return false;
+            if ($maxPrice !== null && $pVal > $maxPrice) return false;
+            if ($inStockOnly && $stk <= 0) return false;
+            return true;
+        }));
+        usort($fbFiltered, function (array $a, array $b) use ($sortParam): int {
+            return match ($sortParam) {
+                'price_asc'  => ((float)($a['price'] ?? 0)) <=> ((float)($b['price'] ?? 0)),
+                'price_desc' => ((float)($b['price'] ?? 0)) <=> ((float)($a['price'] ?? 0)),
+                'name_asc'   => strcasecmp((string)($a['name'] ?? ''), (string)($b['name'] ?? '')),
+                default      => 0,
+            };
+        });
+        $totalResults = count($fbFiltered);
+        $totalPages = max(1, (int)ceil($totalResults / $perPage));
+        if ($page > $totalPages) $page = $totalPages;
+        $products = array_slice($fbFiltered, ($page - 1) * $perPage, $perPage);
     }
 
-    // REQUIREMENT: If product not found, redirect to Suggestion Box with search term auto-filled!
-    if (empty($products)) {
+    // Redirect to Suggestion Box when search query returns nothing and no narrowing filters were active
+    if (empty($products) && $query !== '' && !$hasAnyFilter) {
         header('Location: /suggestion-box.php?product=' . urlencode($query) . '&not_found=1');
         exit;
     }
@@ -450,7 +539,7 @@ if (!empty($_SESSION['cart']) && is_array($_SESSION['cart'])) {
                         Browse All Products
                     <?php endif; ?>
                 </h1>
-                <p class="results-count"><?php echo count($products); ?> item(s) found across all categories</p>
+                <p class="results-count"><?php echo (int)$totalResults; ?> item(s) found<?php echo $totalPages > 1 ? " · Page {$page} of {$totalPages}" : ''; ?></p>
             </div>
             <div>
                 <a href="/suggestion-box.php?product=<?php echo urlencode($query); ?>" class="suggest-link">
@@ -458,6 +547,45 @@ if (!empty($_SESSION['cart']) && is_array($_SESSION['cart'])) {
                 </a>
             </div>
         </div>
+
+        <form method="GET" action="/search.php" style="background:#fff;border:1px solid var(--border);border-radius:14px;padding:14px 16px;margin-bottom:20px;display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;">
+            <input type="hidden" name="q" value="<?php echo htmlspecialchars($query, ENT_QUOTES, 'UTF-8'); ?>" />
+            <div style="flex:1;min-width:150px;">
+                <label style="display:block;font-size:0.75rem;font-weight:700;color:#475569;margin-bottom:4px;">Category</label>
+                <select name="category" style="width:100%;padding:8px 10px;border:1px solid #cbd5e1;border-radius:8px;font-size:0.88rem;">
+                    <option value="">All Categories</option>
+                    <?php foreach ($categories as $c): ?>
+                        <option value="<?php echo htmlspecialchars((string)$c['id'], ENT_QUOTES, 'UTF-8'); ?>" <?php echo (string)$categoryFilter === (string)$c['id'] ? 'selected' : ''; ?>>
+                            <?php echo htmlspecialchars((string)$c['name']); ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+            <div style="width:110px;">
+                <label style="display:block;font-size:0.75rem;font-weight:700;color:#475569;margin-bottom:4px;">Min ₹</label>
+                <input type="number" name="min_price" min="0" step="1" value="<?php echo $minPrice !== null ? htmlspecialchars((string)$minPrice) : ''; ?>" placeholder="0" style="width:100%;padding:8px 10px;border:1px solid #cbd5e1;border-radius:8px;font-size:0.88rem;" />
+            </div>
+            <div style="width:110px;">
+                <label style="display:block;font-size:0.75rem;font-weight:700;color:#475569;margin-bottom:4px;">Max ₹</label>
+                <input type="number" name="max_price" min="0" step="1" value="<?php echo $maxPrice !== null ? htmlspecialchars((string)$maxPrice) : ''; ?>" placeholder="Any" style="width:100%;padding:8px 10px;border:1px solid #cbd5e1;border-radius:8px;font-size:0.88rem;" />
+            </div>
+            <div style="min-width:150px;">
+                <label style="display:block;font-size:0.75rem;font-weight:700;color:#475569;margin-bottom:4px;">Sort By</label>
+                <select name="sort" style="width:100%;padding:8px 10px;border:1px solid #cbd5e1;border-radius:8px;font-size:0.88rem;">
+                    <option value="newest" <?php echo $sortParam === 'newest' ? 'selected' : ''; ?>>Newest</option>
+                    <option value="price_asc" <?php echo $sortParam === 'price_asc' ? 'selected' : ''; ?>>Price: Low to High</option>
+                    <option value="price_desc" <?php echo $sortParam === 'price_desc' ? 'selected' : ''; ?>>Price: High to Low</option>
+                    <option value="name_asc" <?php echo $sortParam === 'name_asc' ? 'selected' : ''; ?>>Name: A to Z</option>
+                </select>
+            </div>
+            <label style="display:flex;align-items:center;gap:6px;font-size:0.86rem;font-weight:600;color:#334155;padding-bottom:8px;cursor:pointer;">
+                <input type="checkbox" name="in_stock" value="1" <?php echo $inStockOnly ? 'checked' : ''; ?> /> In Stock Only
+            </label>
+            <button type="submit" style="background:var(--primary);color:#fff;border:none;padding:9px 18px;border-radius:8px;font-weight:700;cursor:pointer;">Apply Filters</button>
+            <?php if ($hasAnyFilter): ?>
+                <a href="/search.php?q=<?php echo urlencode($query); ?>" style="padding:9px 12px;color:#dc2626;font-size:0.85rem;font-weight:700;text-decoration:none;">Clear</a>
+            <?php endif; ?>
+        </form>
 
         <div class="suggest-banner">
             <div>
@@ -475,6 +603,12 @@ if (!empty($_SESSION['cart']) && is_array($_SESSION['cart'])) {
         </div>
 
         <div class="product-grid">
+            <?php if (empty($products)): ?>
+                <div style="grid-column:1/-1;background:#fff;border:1px solid var(--border);border-radius:14px;padding:32px;text-align:center;color:var(--text-muted);">
+                    <p style="font-size:1rem;margin-bottom:10px;">No products match your search or active filters.</p>
+                    <a href="/search.php?q=<?php echo urlencode($query); ?>" style="color:var(--primary);font-weight:700;">Reset filters</a>
+                </div>
+            <?php endif; ?>
             <?php foreach ($products as $p): 
                 $img = $p['images'] ?? $p['image_url'] ?? '';
                 $name = $p['name'] ?? 'Product';
@@ -517,6 +651,27 @@ if (!empty($_SESSION['cart']) && is_array($_SESSION['cart'])) {
                 </div>
             <?php endforeach; ?>
         </div>
+
+        <?php if ($totalPages > 1): ?>
+            <div style="display:flex;justify-content:center;gap:8px;margin-top:26px;flex-wrap:wrap;">
+                <?php for ($pg = 1; $pg <= $totalPages; $pg++):
+                    $pgQuery = array_filter([
+                        'q' => $query,
+                        'category' => $categoryFilter,
+                        'min_price' => $minPrice !== null ? (string)$minPrice : '',
+                        'max_price' => $maxPrice !== null ? (string)$maxPrice : '',
+                        'in_stock' => $inStockOnly ? '1' : '',
+                        'sort' => $sortParam,
+                        'page' => (string)$pg,
+                    ], fn($v) => $v !== '');
+                ?>
+                    <a href="/search.php?<?php echo http_build_query($pgQuery); ?>"
+                       style="padding:8px 14px;border-radius:8px;text-decoration:none;font-weight:700;font-size:0.88rem;border:1px solid var(--border);<?php echo $pg === $page ? 'background:var(--primary);color:#fff;border-color:var(--primary);' : 'background:#fff;color:var(--text-dark);'; ?>">
+                        <?php echo $pg; ?>
+                    </a>
+                <?php endfor; ?>
+            </div>
+        <?php endif; ?>
     </main>
 
     <footer>
