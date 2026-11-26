@@ -37,6 +37,8 @@ admin/database/seed_admin_accounts.php
 admin/database/install_admin_rbac.php
 delivery/seed_agents.php
 WhatsApp/telehealth/seed-telehealth-data.php
+# Diagnostic & Vercel build outputs
 api/debug.php
+public/
 
 invoices/

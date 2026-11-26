@@ -1,13 +1,14 @@
 {
-  "buildCommand": null,
+  "buildCommand": "node scripts/build-vercel-public.js",
   "installCommand": "",
+  "outputDirectory": "public",
   "functions": {
     "api/index.php": {
       "runtime": "vercel-php@0.9.0",
       "maxDuration": 30,
       "memory": 1024,
       "includeFiles": "{**/*.php,manifest.json,sw.js,downloads/**}",
-      "excludeFiles": "{images/**,WhatsApp/vendor/**,WhatsApp/composer.phar}"
+      "excludeFiles": "{images/**,public/**,WhatsApp/vendor/**,WhatsApp/composer.phar}"
     }
   },
   "routes": [
