@@ -1,12 +1,12 @@
 <?php
-$testPaths = ['/manifest.json', '/sw.js', '/downloads/ksr-guru-ji.apk', '/checkout.php', '/'];
+$testPaths = ['/manifest.json', '/sw.js', '/downloads/ksr-guru-ji.apk', '/checkout.php', '/', '/scripts/verify_launch_readiness.php', '/storage/payment/receipts/test.html'];
 
 foreach ($testPaths as $rawUri) {
     $uriPath = parse_url($rawUri, PHP_URL_PATH);
     $uriPath = urldecode($uriPath);
     $cleanPath = ltrim($uriPath, '/');
     
-    $blockedPattern = '/(\.(sql|env|log|md|json|bat|ps1|sh|yml|yaml|ini|sqlite|lock|git|bak|conf|txt)$|^(\.|\\/|\.env|logs\/|scratch\/|\.vercel\/|includes\/|payment-core\/|database\/|admin\/database\/|WhatsApp\/telehealth\/seed|delivery\/seed|api\/debug))/i';
+    $blockedPattern = '/(\.(sql|env|log|md|json|bat|ps1|sh|yml|yaml|ini|sqlite|lock|git|bak|conf|txt)$|^(\.|\/|\.env|logs\/|scratch\/|\.vercel\/|includes\/|payment-core\/|database\/|admin\/database\/|scripts\/|storage\/|tests\/|WhatsApp\/telehealth\/seed|delivery\/seed|api\/debug))/i';
     
     $isManifest = ($cleanPath === 'manifest.json');
     $isSw       = ($cleanPath === 'sw.js');

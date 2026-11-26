@@ -1286,14 +1286,14 @@ $recentActivity = [
                                 <?php foreach ($doctorsList as $doc): ?>
                                     <tr>
                                         <td>
-                                            <div style="font-weight: 700; color:var(--text-primary);"><?= htmlspecialchars(stripos($doc['doctor_name'], 'Dr.') === 0 ? $doc['doctor_name'] : 'Dr. ' . $doc['doctor_name']) ?></div>
-                                            <div style="font-size:0.75rem; color:var(--text-secondary);"><?= htmlspecialchars($doc['qualification']) ?></div>
+                                            <div style="font-weight: 700; color:var(--text-primary);"><?= htmlspecialchars(stripos((string)($doc['doctor_name'] ?? ''), 'Dr.') === 0 ? (string)($doc['doctor_name'] ?? '') : 'Dr. ' . ($doc['doctor_name'] ?? '')) ?></div>
+                                            <div style="font-size:0.75rem; color:var(--text-secondary);"><?= htmlspecialchars((string)($doc['qualification'] ?? '')) ?></div>
                                         </td>
                                         <td>
-                                            <div style="font-weight:600;"><?= htmlspecialchars($doc['specialty']) ?></div>
-                                            <div style="font-size:0.75rem; color:var(--text-secondary);">Council: <?= htmlspecialchars($doc['registration_number']) ?> (<?= htmlspecialchars($doc['registration_authority']) ?>)</div>
+                                            <div style="font-weight:600;"><?= htmlspecialchars((string)($doc['specialty'] ?? '')) ?></div>
+                                            <div style="font-size:0.75rem; color:var(--text-secondary);">Council: <?= htmlspecialchars((string)($doc['registration_number'] ?? 'N/A')) ?> (<?= htmlspecialchars((string)($doc['registration_authority'] ?? 'N/A')) ?>)</div>
                                         </td>
-                                        <td><?= htmlspecialchars($doc['experience_years']) ?> Years</td>
+                                        <td><?= htmlspecialchars((string)($doc['experience_years'] ?? '0')) ?> Years</td>
                                         <td>
                                             <?php 
                                             $stClass = 'processing';
@@ -1343,18 +1343,18 @@ $recentActivity = [
                                 <?php foreach ($patientsList as $pat): ?>
                                     <tr>
                                         <td>
-                                            <div style="font-weight: 700; color:var(--text-primary);"><?= htmlspecialchars($pat['patient_name']) ?></div>
-                                            <div style="font-size:0.75rem; color:var(--text-secondary);">User email: <?= htmlspecialchars($pat['email'] ?? 'Unknown mapping') ?></div>
+                                            <div style="font-weight: 700; color:var(--text-primary);"><?= htmlspecialchars((string)($pat['patient_name'] ?? '')) ?></div>
+                                            <div style="font-size:0.75rem; color:var(--text-secondary);">User email: <?= htmlspecialchars((string)($pat['email'] ?? 'Unknown mapping')) ?></div>
                                         </td>
                                         <td>
-                                            <div><?= htmlspecialchars($pat['date_of_birth']) ?></div>
-                                            <div style="font-size:0.75rem; color:var(--text-secondary);"><?= htmlspecialchars($pat['gender']) ?></div>
+                                            <div><?= htmlspecialchars((string)($pat['date_of_birth'] ?? '')) ?></div>
+                                            <div style="font-size:0.75rem; color:var(--text-secondary);"><?= htmlspecialchars((string)($pat['gender'] ?? '')) ?></div>
                                         </td>
                                         <td>
-                                            <div><?= htmlspecialchars($pat['mobile_number']) ?></div>
-                                            <div style="font-size:0.75rem; color:var(--text-secondary); text-overflow:ellipsis; overflow:hidden; max-width:200px; white-space:nowrap;"><?= htmlspecialchars($pat['address']) ?></div>
+                                            <div><?= htmlspecialchars((string)($pat['mobile_number'] ?? '')) ?></div>
+                                            <div style="font-size:0.75rem; color:var(--text-secondary); text-overflow:ellipsis; overflow:hidden; max-width:200px; white-space:nowrap;"><?= htmlspecialchars((string)($pat['address'] ?? '')) ?></div>
                                         </td>
-                                        <td><?= htmlspecialchars($pat['emergency_contact']) ?></td>
+                                        <td><?= htmlspecialchars((string)($pat['emergency_contact'] ?? '—')) ?></td>
                                         <td>
                                             <button class="btn btn-outline btn-sm" style="padding:4px 8px;" onclick="openPatientModal(<?= htmlspecialchars(json_encode($pat)) ?>)"><i class="fas fa-clipboard-list"></i> History & Meds</button>
                                         </td>

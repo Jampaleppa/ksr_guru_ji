@@ -176,7 +176,7 @@ $cartTotal = array_sum(array_map(function ($i) {
 
 // User info (if logged in)
 $isLoggedIn = isset($_SESSION['user_id']);
-$userName = $isLoggedIn ? $_SESSION['user_name'] : '';
+$userName = $isLoggedIn ? ($_SESSION['user_name'] ?? '') : '';
 
 // For Best Sellers, we'll just pick first 8 products
 $bestSellers = array_slice($products, 0, 8);
