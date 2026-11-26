@@ -1,7 +1,25 @@
 <?php
 /**
  * Test live deployment mirrors for checkout and payment configurations
+ *
+ * SAFETY GUARD: This script sends real HTTP POST requests to production URLs,
+ * which may create real orders or trigger real payment flows.
+ * It must NOT be run against live sites without an explicit environment flag.
+ *
+ * To run: set ALLOW_LIVE_TESTS=1 in your environment first.
+ *   Windows: $env:ALLOW_LIVE_TESTS=1; php tests/check_live_mirrors.php
+ *   Linux:   ALLOW_LIVE_TESTS=1 php tests/check_live_mirrors.php
  */
+
+if (getenv('ALLOW_LIVE_TESTS') !== '1') {
+    fwrite(STDERR,
+        "ERROR: This script sends real POST requests to production URLs and may create real orders.\n" .
+        "       Set ALLOW_LIVE_TESTS=1 to override.\n" .
+        "       Windows: \$env:ALLOW_LIVE_TESTS=1; php tests/check_live_mirrors.php\n" .
+        "       Linux:   ALLOW_LIVE_TESTS=1 php tests/check_live_mirrors.php\n"
+    );
+    exit(1);
+}
 
 $targets = [
     'Vercel Main'       => 'https://ksrguruji.vercel.app',
@@ -22,7 +40,7 @@ foreach ($targets as $label => $baseUrl) {
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_FOLLOWLOCATION => true,
         CURLOPT_TIMEOUT => 15,
-        CURLOPT_SSL_VERIFYPEER => false,
+        CURLOPT_SSL_VERIFYPEER => true,
         CURLOPT_USERAGENT => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
     ]);
     $html = curl_exec($ch);
@@ -51,7 +69,7 @@ foreach ($targets as $label => $baseUrl) {
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_COOKIEJAR => $cookieJar,
         CURLOPT_COOKIEFILE => $cookieJar,
-        CURLOPT_SSL_VERIFYPEER => false,
+        CURLOPT_SSL_VERIFYPEER => true,
         CURLOPT_TIMEOUT => 15,
     ]);
     $initialHtml = curl_exec($ch);
@@ -92,7 +110,7 @@ foreach ($targets as $label => $baseUrl) {
         CURLOPT_POSTFIELDS => http_build_query($orderPayload),
         CURLOPT_COOKIEJAR => $cookieJar,
         CURLOPT_COOKIEFILE => $cookieJar,
-        CURLOPT_SSL_VERIFYPEER => false,
+        CURLOPT_SSL_VERIFYPEER => true,
         CURLOPT_TIMEOUT => 15,
         CURLOPT_HTTPHEADER => [
             'X-Requested-With: XMLHttpRequest',

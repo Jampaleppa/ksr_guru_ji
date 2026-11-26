@@ -8,86 +8,90 @@
       "excludeFiles": "{images/**,WhatsApp/vendor/**,WhatsApp/composer.phar}"
     }
   },
-  "headers": [
-    {
-      "source": "/(images|assets|uploads)/(.*)",
-      "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
-      ]
-    },
-    {
-      "source": "/(.*\\.(woff2|ttf|webp|png|jpg|jpeg|gif|svg|ico))",
-      "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
-      ]
-    },
-    {
-      "source": "/(.*\\.(css|js))",
-      "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=86400, stale-while-revalidate=604800" }
-      ]
-    },
-    {
-      "source": "/manifest.json",
-      "headers": [
-        { "key": "Content-Type", "value": "application/manifest+json; charset=utf-8" },
-        { "key": "Access-Control-Allow-Origin", "value": "*" }
-      ]
-    },
-    {
-      "source": "/sw.js",
-      "headers": [
-        { "key": "Content-Type", "value": "application/javascript; charset=utf-8" },
-        { "key": "Service-Worker-Allowed", "value": "/" },
-        { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" }
-      ]
-    },
-    {
-      "source": "/(.*)",
-      "headers": [
-        { "key": "X-Content-Type-Options", "value": "nosniff" },
-        { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
-        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
-        { "key": "Cache-Control", "value": "no-store, no-cache, must-revalidate" },
-        { "key": "Permissions-Policy", "value": "camera=(self), microphone=(self), geolocation=()" }
-      ]
-    }
-  ],
   "routes": [
     {
-      "src": "/(images|assets|uploads/products)/(.*)",
+      "src": "^/(.*)$",
+      "headers": {
+        "X-Content-Type-Options": "nosniff",
+        "X-Frame-Options": "SAMEORIGIN",
+        "Referrer-Policy": "strict-origin-when-cross-origin",
+        "Cache-Control": "no-store, no-cache, must-revalidate",
+        "Permissions-Policy": "camera=(self), microphone=(self), geolocation=()"
+      },
+      "continue": true
+    },
+    {
+      "src": "^/(images|assets|uploads)/(.*)$",
+      "headers": {
+        "Cache-Control": "public, max-age=31536000, immutable"
+      },
+      "continue": true
+    },
+    {
+      "src": "^/(.*\\.(woff2|ttf|webp|png|jpg|jpeg|gif|svg|ico))$",
+      "headers": {
+        "Cache-Control": "public, max-age=31536000, immutable"
+      },
+      "continue": true
+    },
+    {
+      "src": "^/(.*\\.(css|js))$",
+      "headers": {
+        "Cache-Control": "public, max-age=86400, stale-while-revalidate=604800"
+      },
+      "continue": true
+    },
+    {
+      "src": "^/manifest\\.(json|webmanifest)$",
+      "headers": {
+        "Content-Type": "application/manifest+json; charset=utf-8",
+        "Access-Control-Allow-Origin": "*"
+      },
+      "continue": true
+    },
+    {
+      "src": "^/sw\\.js$",
+      "headers": {
+        "Content-Type": "application/javascript; charset=utf-8",
+        "Service-Worker-Allowed": "/",
+        "Cache-Control": "no-cache, no-store, must-revalidate"
+      },
+      "continue": true
+    },
+    {
+      "src": "^/(images|assets|uploads/products)/(.*)$",
       "dest": "/$1/$2"
     },
     {
-      "src": "/manifest.json",
+      "src": "^/manifest\\.json$",
       "dest": "/api/index.php"
     },
     {
-      "src": "/manifest.webmanifest",
+      "src": "^/manifest\\.webmanifest$",
       "dest": "/api/index.php"
     },
     {
-      "src": "/sw.js",
+      "src": "^/sw\\.js$",
       "dest": "/api/index.php"
     },
     {
-      "src": "/downloads/(.*)",
+      "src": "^/downloads/(.*)$",
       "dest": "/api/index.php"
     },
     {
-      "src": "/(.*\\.(css|js|png|jpg|jpeg|gif|svg|ico|webp|woff|woff2|ttf|eot|webmanifest|mp3|wav))",
+      "src": "^/(.*\\.(css|js|png|jpg|jpeg|gif|svg|ico|webp|woff|woff2|ttf|eot|webmanifest|mp3|wav))$",
       "dest": "/$1"
     },
     {
-      "src": "/api/payment/(.*)",
+      "src": "^/api/payment/(.*)$",
       "dest": "/api/index.php"
     },
     {
-      "src": "/payment-methods/(.*)",
+      "src": "^/payment-methods/(.*)$",
       "dest": "/api/index.php"
     },
     {
-      "src": "/(.*)",
+      "src": "^/(.*)$",
       "dest": "/api/index.php"
     }
   ]
