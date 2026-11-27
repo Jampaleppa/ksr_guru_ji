@@ -304,6 +304,11 @@ try {
 } catch (Throwable $ignore) {
 }
 
+$cfWorkflow = file_get_contents($baseDir . '/.github/workflows/cloudflare-pages.yml');
+hAssert("cloudflare-pages.yml avoids archived cloudflare/pages-action", strpos($cfWorkflow, 'cloudflare/pages-action') === false && strpos($cfWorkflow, 'cloudflare/wrangler-action') !== false);
+$appConstCode = file_get_contents($baseDir . '/includes/app_constants.php');
+hAssert("includes/app_constants.php supports KSR_IS_PRODUCTION, KSR_ENV & APP_ENV", strpos($appConstCode, "getenv('KSR_IS_PRODUCTION')") !== false && strpos($appConstCode, "getenv('KSR_ENV')") !== false);
+
 // Telehealth find-doctor SQL & notifications columns check
 $findDocCode = file_get_contents($baseDir . '/WhatsApp/telehealth/find-doctor.php');
 hAssert("find-doctor.php avoids duplicate WHERE clause on filter", strpos($findDocCode, '$sql .= " AND "') !== false && strpos($findDocCode, '$sql .= " WHERE "') === false);

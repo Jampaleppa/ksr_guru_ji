@@ -60,7 +60,11 @@ if (!defined('KSR_API_KEY')) {
 
 // ── Environment ──────────────────────────────────────────────
 if (!defined('KSR_IS_PRODUCTION')) {
-    $__env = getenv('KSR_ENV') ?: getenv('APP_ENV') ?: '';
-    define('KSR_IS_PRODUCTION', in_array($__env, ['production', 'prod'], true));
-    unset($__env);
+    $__env = strtolower(trim((string)(getenv('KSR_ENV') ?: getenv('APP_ENV') ?: '')));
+    $__prodFlag = strtolower(trim((string)(getenv('KSR_IS_PRODUCTION') ?: '')));
+    define(
+        'KSR_IS_PRODUCTION',
+        in_array($__env, ['production', 'prod'], true) || in_array($__prodFlag, ['1', 'true', 'yes'], true)
+    );
+    unset($__env, $__prodFlag);
 }
