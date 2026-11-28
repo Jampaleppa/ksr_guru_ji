@@ -18,20 +18,24 @@ $cartTotal = array_sum(array_map(fn($i) => $i['price'] * $i['qty'], $_SESSION['c
 // User info
 $isLoggedIn = isset($_SESSION['user_id']);
 $userName = $isLoggedIn ? $_SESSION['user_name'] : 'Guest';
+if (!function_exists('normalizeImagePath')) {
+  function normalizeImagePath(?string $path): string
+  {
+    return ksrNormalizeFlatImage($path);
+  }
+}
 // ============================================================
-// FETCH PRODUCTS - Try from DB first, fallback to static data
+// FETCH PRODUCTS - Merge DB entries with full static catalog
 // ============================================================
 $categorySlug = 'ready-to-eat';
 $readyCategory = getCategoryBySlug($categorySlug);
-$productsData = []; // will hold the final product array
+$dbProductsRTE = [];
 if ($readyCategory) {
-  // Fetch products from this category
   $dbProducts = getProductsByCategory($readyCategory['id']);
   if (!empty($dbProducts)) {
     foreach ($dbProducts as $p) {
-      // Build description from description_en or weight
       $description = $p['description_en'] ?? ($p['weight'] ?? 'Ready in minutes');
-      $productsData[] = [
+      $dbProductsRTE[] = [
         'id' => $p['id'],
         'name' => $p['name'],
         'kn' => $p['kn_name'] ?? $p['name'] . ' (ಸಿದ್ಧ ಊಟ)',
@@ -44,187 +48,205 @@ if ($readyCategory) {
     }
   }
 }
-// Fallback to static data if no DB products found
-if (empty($productsData)) {
+$productsData = [];
+if (true) {
   // Embedded static product data (same as original HTML)
   $rawProducts = [
-    ['id' => 1, 'nameEn' => 'Veg Biryani Ready Meal', 'nameKn' => 'ವೆಜ್ ಬಿರಿಯಾನಿ', 'category' => 'rice', 'price' => 120, 'imageurl' => "images\\Veg Biryani Ready Meal.jpg"],
-    ['id' => 2, 'nameEn' => 'Chicken Biryani Ready Meal', 'nameKn' => 'ಚಿಕನ್ ಬಿರಿಯಾನಿ', 'category' => 'rice', 'price' => 180, 'imageurl' => "images\\Chicken Biryani Ready Meal.jpg"],
-    ['id' => 3, 'nameEn' => 'Paneer Biryani Ready Meal', 'nameKn' => 'ಪನೀರ್ ಬಿರಿಯಾನಿ', 'category' => 'rice', 'price' => 160, 'imageurl' => "images\\Paneer Biryani Ready Meal.jpg"],
-    ['id' => 4, 'nameEn' => 'Veg Fried Rice', 'nameKn' => 'ವೆಜ್ ಫ್ರೈಡ್ ರೈಸ್', 'category' => 'rice', 'price' => 110, 'imageurl' => "images\\Veg Fried Rice.jpg"],
-    ['id' => 5, 'nameEn' => 'Schezwan Fried Rice', 'nameKn' => 'ಸ್ಚೆಜ್ವಾನ್ ಫ್ರೈಡ್ ರೈಸ್', 'category' => 'rice', 'price' => 130, 'imageurl' => "images\\Schezwan Fried Rice.jpg"],
-    ['id' => 6, 'nameEn' => 'Chicken Fried Rice', 'nameKn' => 'ಚಿಕನ್ ಫ್ರೈಡ್ ರೈಸ್', 'category' => 'rice', 'price' => 160, 'imageurl' => "images\\Chicken Fried Rice.jpg"],
-    ['id' => 7, 'nameEn' => 'Veg Pulao', 'nameKn' => 'ವೆಜ್ ಪುಲಾವ್', 'category' => 'rice', 'price' => 100, 'imageurl' => "images\\Veg Pulao.jpg"],
-    ['id' => 8, 'nameEn' => 'Jeera Rice', 'nameKn' => 'ಜೀರಾ ರೈಸ್', 'category' => 'rice', 'price' => 90, 'imageurl' => "images\\Jeera Rice.jpg"],
-    ['id' => 9, 'nameEn' => 'Lemon Rice', 'nameKn' => 'ನಿಂಬೆ ಅನ್ನ', 'category' => 'rice', 'price' => 80, 'imageurl' => "images\\Lemon Rice.jpg"],
-    ['id' => 10, 'nameEn' => 'Tamarind Rice', 'nameKn' => 'ಹುಣಸೆ ಅನ್ನ', 'category' => 'rice', 'price' => 80, 'imageurl' => "images\\Tamarind Rice.jpg"],
-    ['id' => 11, 'nameEn' => 'Curd Rice', 'nameKn' => 'ಮೊಸರು ಅನ್ನ', 'category' => 'rice', 'price' => 70, 'imageurl' => "images\\Curd Rice.jpg"],
-    ['id' => 12, 'nameEn' => 'Coconut Rice', 'nameKn' => 'ತೆಂಗಿನ ಅನ್ನ', 'category' => 'rice', 'price' => 80, 'imageurl' => "images\\Coconut Rice.jpg"],
-    ['id' => 13, 'nameEn' => 'Tomato Rice', 'nameKn' => 'ಟೊಮೇಟೊ ಅನ್ನ', 'category' => 'rice', 'price' => 90, 'imageurl' => "images\\Tomato Rice.jpg"],
-    ['id' => 14, 'nameEn' => 'Dal Khichdi', 'nameKn' => 'ದಾಲ್ ಖಿಚಡಿ', 'category' => 'rice', 'price' => 110, 'imageurl' => "images\\Dal Khichdi.jpg"],
-    ['id' => 15, 'nameEn' => 'Veg Khichdi', 'nameKn' => 'ವೆಜ್ ಖಿಚಡಿ', 'category' => 'rice', 'price' => 100, 'imageurl' => "images\\Veg Khichdi.jpg"],
-    ['id' => 16, 'nameEn' => 'Masala Khichdi', 'nameKn' => 'ಮಸಾಲಾ ಖಿಚಡಿ', 'category' => 'rice', 'price' => 110, 'imageurl' => "images\\Masala Khichdi.jpg"],
-    ['id' => 17, 'nameEn' => 'Rajma Chawal', 'nameKn' => 'ರಾಜ್ಮಾ ಚಾವಲ್', 'category' => 'meals', 'price' => 140, 'imageurl' => "images\\Rajma Chawal.jpg"],
-    ['id' => 18, 'nameEn' => 'Chole Chawal', 'nameKn' => 'ಛೋಲೆ ಚಾವಲ್', 'category' => 'meals', 'price' => 140, 'imageurl' => "images\\Chole Chawal.jpg"],
-    ['id' => 19, 'nameEn' => 'Paneer Butter Masala Rice', 'nameKn' => 'ಪನೀರ್ ಬಟರ್ ಮಸಾಲಾ ರೈಸ್', 'category' => 'curries', 'price' => 160, 'imageurl' => "images\\Paneer Butter Masala Rice.jpg"],
-    ['id' => 20, 'nameEn' => 'Dal Tadka Rice Bowl', 'nameKn' => 'ದಾಲ್ ತಡ್ಕಾ ರೈಸ್', 'category' => 'curries', 'price' => 130, 'imageurl' => "images\\Dal Tadka Rice Bowl.jpg"],
-    ['id' => 21, 'nameEn' => 'Veg Noodles', 'nameKn' => 'ವೆಜ್ ನೂಡಲ್ಸ್', 'category' => 'meals', 'price' => 90, 'imageurl' => "images\\Veg Noodles.jpg"],
-    ['id' => 22, 'nameEn' => 'Schezwan Noodles', 'nameKn' => 'ಸ್ಚೆಜ್ವಾನ್ ನೂಡಲ್ಸ್', 'category' => 'meals', 'price' => 110, 'imageurl' => "images\\Schezwan Noodles.jpg"],
-    ['id' => 23, 'nameEn' => 'Chicken Noodles', 'nameKn' => 'ಚಿಕನ್ ನೂಡಲ್ಸ್', 'category' => 'meals', 'price' => 150, 'imageurl' => "images\\Chicken Noodles.jpg"],
-    ['id' => 24, 'nameEn' => 'Hakka Noodles', 'nameKn' => 'ಹಕ್ಕಾ ನೂಡಲ್ಸ್', 'category' => 'meals', 'price' => 100, 'imageurl' => "images\\Hakka Noodles.jpg"],
-    ['id' => 25, 'nameEn' => 'Veg Chowmein', 'nameKn' => 'ವೆಜ್ ಚೌಮೀನ್', 'category' => 'meals', 'price' => 100, 'imageurl' => "images\\Veg Chowmein.jpg"],
-    ['id' => 26, 'nameEn' => 'Paneer Chowmein', 'nameKn' => 'ಪನೀರ್ ಚೌಮೀನ್', 'category' => 'meals', 'price' => 130, 'imageurl' => "images\\Paneer Chowmein.jpg"],
-    ['id' => 27, 'nameEn' => 'Veg Manchurian Noodles', 'nameKn' => 'ಮಂಚೂರಿಯನ್ ನೂಡಲ್ಸ್', 'category' => 'meals', 'price' => 140, 'imageurl' => "images\\Veg Manchurian Noodles.jpg"],
-    ['id' => 28, 'nameEn' => 'Chicken Manchurian Noodles', 'nameKn' => 'ಚಿಕನ್ ಮಂಚೂರಿಯನ್', 'category' => 'meals', 'price' => 180, 'imageurl' => "images\\Chicken Manchurian Noodles.jpg"],
-    ['id' => 29, 'nameEn' => 'Cheese Nuggets', 'nameKn' => 'ಚೀಸ್ ನಗೆಟ್ಸ್', 'category' => 'snacks', 'price' => 180, 'imageurl' => "images\\Cheese Nuggets.jpg"],
-    ['id' => 30, 'nameEn' => 'Cheese Pasta Bowl', 'nameKn' => 'ಚೀಸ್ ಪಾಸ್ತಾ ಬೌಲ್', 'category' => 'pasta', 'price' => 180, 'imageurl' => "images\\Cheese Pasta Bowl.jpg"],
-    ['id' => 31, 'nameEn' => 'White Sauce Pasta', 'nameKn' => 'ವೈಟ್ ಸಾಸ್ ಪಾಸ್ತಾ', 'category' => 'meals', 'price' => 120, 'imageurl' => "images\\White Sauce Pasta.jpg"],
-    ['id' => 32, 'nameEn' => 'Red Sauce Pasta', 'nameKn' => 'ರೆಡ್ ಸಾಸ್ ಪಾಸ್ತಾ', 'category' => 'meals', 'price' => 110, 'imageurl' => "images\\Red Sauce Pasta.jpg"],
-    ['id' => 33, 'nameEn' => 'Cheese Pizza Slice', 'nameKn' => 'ಚೀಸ್ ಪಿಜ್ಜಾ ಸ್ಲೈಸ್', 'category' => 'pizza', 'price' => 180, 'imageurl' => "images\\Cheese Pizza Slice.jpg"],
-    ['id' => 34, 'nameEn' => 'Cheese Sandwich', 'nameKn' => 'ಚೀಸ್ ಸ್ಯಾಂಡ್‌ವಿಚ್', 'category' => 'sandwich', 'price' => 180, 'imageurl' => "images\\Cheese Sandwich.jpg"],
-    ['id' => 35, 'nameEn' => 'Veg Burger', 'nameKn' => 'ವೆಜ್ ಬರ್ಗರ್', 'category' => 'snacks', 'price' => 70, 'imageurl' => "images\\Veg Burger.jpg"],
-    ['id' => 36, 'nameEn' => 'Chicken Burger', 'nameKn' => 'ಚಿಕನ್ ಬರ್ಗರ್', 'category' => 'snacks', 'price' => 120, 'imageurl' => "images\\Chicken Burger.jpg"],
-    ['id' => 37, 'nameEn' => 'Paneer Burger', 'nameKn' => 'ಪನೀರ್ ಬರ್ಗರ್', 'category' => 'snacks', 'price' => 90, 'imageurl' => "images\\Paneer Burger.jpg"],
-    ['id' => 38, 'nameEn' => 'Chicken Burrito', 'nameKn' => 'ಚಿಕನ್ ಬುರಿಟೊ', 'category' => 'burrito', 'price' => 180, 'imageurl' => "images\\Chicken Burrito.jpg"],
-    ['id' => 39, 'nameEn' => 'Chicken Cutlet Pack', 'nameKn' => 'ಚಿಕನ್ ಕಟ್ಲೆಟ್ ಪ್ಯಾಕ್', 'category' => 'snacks', 'price' => 180, 'imageurl' => "images\\Chicken Cutlet Pack.jpg"],
-    ['id' => 40, 'nameEn' => 'Chicken Dinner Combo', 'nameKn' => 'ಚಿಕನ್ ಡಿನ್ನರ್ ಕಾಂಬೊ', 'category' => 'combo', 'price' => 180, 'imageurl' => "images\\Chicken Dinner Combo.jpg"],
-    ['id' => 41, 'nameEn' => 'Veg Wrap', 'nameKn' => 'ವೆಜ್ ರ್ಯಾಪ್', 'category' => 'snacks', 'price' => 90, 'imageurl' => "images\\Veg Wrap.jpg"],
-    ['id' => 42, 'nameEn' => 'Paneer Wrap', 'nameKn' => 'ಪನೀರ್ ರ್ಯಾಪ್', 'category' => 'snacks', 'price' => 120, 'imageurl' => "images\\Paneer Wrap.jpg"],
-    ['id' => 43, 'nameEn' => 'Chicken Wrap', 'nameKn' => 'ಚಿಕನ್ ರ್ಯಾಪ್', 'category' => 'snacks', 'price' => 150, 'imageurl' => "images\\Chicken Wrap.jpg"],
-    ['id' => 44, 'nameEn' => 'Chicken Lunch Combo', 'nameKn' => 'ಚಿಕನ್ ಲಂಚ್ ಕಾಂಬೊ', 'category' => 'combo', 'price' => 180, 'imageurl' => "images\\Chicken Lunch Combo.jpg"],
-    ['id' => 45, 'nameEn' => 'Chicken Momos', 'nameKn' => 'ಚಿಕನ್ ಮೊಮೊಸ್', 'category' => 'snacks', 'price' => 180, 'imageurl' => "images\\Chicken Momos.jpg"],
-    ['id' => 46, 'nameEn' => 'Chicken Samosa', 'nameKn' => 'ಚಿಕನ್ ಸಮೋಸಾ', 'category' => 'snacks', 'price' => 180, 'imageurl' => "images\\Chicken Samosa.jpg"],
-    ['id' => 47, 'nameEn' => 'Chicken Noodle Bowl', 'nameKn' => 'ಚಿಕನ್ ನೂಡಲ್ ಬೌಲ್', 'category' => 'meals', 'price' => 180, 'imageurl' => "images\\Chicken Noodle Bowl.jpg"],
-    ['id' => 48, 'nameEn' => 'Chicken Noodles', 'nameKn' => 'ಚಿಕನ್ ನೂಡಲ್ಸ್', 'category' => 'meals', 'price' => 180, 'imageurl' => "images\\Chicken Noodles.jpg"],
-    ['id' => 49, 'nameEn' => 'Chicken Nuggets Pack', 'nameKn' => 'ಚಿಕನ್ ನಗೆಟ್ಸ್ ಪ್ಯಾಕ್', 'category' => 'snacks', 'price' => 180, 'imageurl' => "images\\Chicken Nuggets Pack.jpg"],
-    ['id' => 50, 'nameEn' => 'Chicken Pasta Bowl', 'nameKn' => 'ಚಿಕನ್ ಪಾಸ್ತಾ ಬೌಲ್', 'category' => 'meals', 'price' => 180, 'imageurl' => "images\\Chicken Pasta Bowl.jpg"],
-    ['id' => 51, 'nameEn' => 'Chicken Pizza Slice', 'nameKn' => 'ಚಿಕನ್ ಪಿಜ್ಜಾ ಸ್ಲೈಸ್', 'category' => 'pizza', 'price' => 180, 'imageurl' => "images\\Chicken Pizza Slice.jpg"],
-    ['id' => 52, 'nameEn' => 'Veg Samosa Pack', 'nameKn' => 'ಸಮೋಸಾ ಪ್ಯಾಕ್', 'category' => 'snacks', 'price' => 50, 'imageurl' => "images\\Veg Samosa Pack.jpg"],
-    ['id' => 53, 'nameEn' => 'Chicken Puff', 'nameKn' => 'ಚಿಕನ್ ಪಫ್', 'category' => 'snacks', 'price' => 180, 'imageurl' => "images\\Chicken Puff.jpg"],
-    ['id' => 54, 'nameEn' => 'Chicken Shawarma Wrap', 'nameKn' => 'ಚಿಕನ್ ಶಾವರ್ಮಾ ರ್ಯಾಪ್', 'category' => 'wrap', 'price' => 180, 'imageurl' => "images\\Chicken Shawarma Wrap.jpg"],
-    ['id' => 55, 'nameEn' => 'Veg Spring Rolls', 'nameKn' => 'ಸ್ಪ್ರಿಂಗ್ ರೋಲ್', 'category' => 'snacks', 'price' => 90, 'imageurl' => "images\\Veg Spring Rolls.jpg"],
-    ['id' => 56, 'nameEn' => 'Chicken Snack Bowl', 'nameKn' => 'ಚಿಕನ್ ಸ್ನ್ಯಾಕ್ ಬೌಲ್', 'category' => 'snacks', 'price' => 180, 'imageurl' => "images\\Chicken Snack Bowl.jpg"],
-    ['id' => 57, 'nameEn' => 'Chicken Snack Combo Pack', 'nameKn' => 'ಚಿಕನ್ ಸ್ನ್ಯಾಕ್ ಕಾಂಬೊ ಪ್ಯಾಕ್', 'category' => 'combo', 'price' => 180, 'imageurl' => "images\\Chicken Snack Combo Pack.jpg"],
-    ['id' => 58, 'nameEn' => 'Chicken Spring Rolls', 'nameKn' => 'ಚಿಕನ್ ಸ್ಪ್ರಿಂಗ್ ರೋಲ್ಸ್', 'category' => 'snacks', 'price' => 180, 'imageurl' => "images\\Chicken Spring Rolls.jpg"],
-    ['id' => 59, 'nameEn' => 'Chicken Taco Meal', 'nameKn' => 'ಚಿಕನ್ ಟ್ಯಾಕೋ ಮೀಲ್', 'category' => 'taco', 'price' => 180, 'imageurl' => "images\\Chicken Taco Meal.jpg"],
-    ['id' => 60, 'nameEn' => 'Chicken Wrap', 'nameKn' => 'ಚಿಕನ್ ರ್ಯಾಪ್', 'category' => 'wrap', 'price' => 180, 'imageurl' => "images\\Chicken Noodles.jpg"],
-    ['id' => 61, 'nameEn' => 'Chole Chawal', 'nameKn' => 'ಛೋಲೆ ಚಾವಲ್', 'category' => 'meals', 'price' => 180, 'imageurl' => "images\\Chole Chawal.jpg"],
-    ['id' => 63, 'nameEn' => 'Corn Nuggets', 'nameKn' => 'ಕಾರ್ನ್ ನಗೆಟ್ಸ್', 'category' => 'snacks', 'price' => 180, 'imageurl' => "images\\Corn Nuggets.jpg"],
-    ['id' => 65, 'nameEn' => 'Crispy Potato Bites', 'nameKn' => 'ಕ್ರಿಸ್ಪಿ ಪೊಟಾಟೊ ಬೈಟ್ಸ್', 'category' => 'snacks', 'price' => 180, 'imageurl' => "images\\Crispy Potato Bites.jpg"],
-    ['id' => 66, 'nameEn' => 'Curly Fries Pack', 'nameKn' => 'ಕರ್ಲಿ ಫ್ರೈಸ್ ಪ್ಯಾಕ್', 'category' => 'snacks', 'price' => 180, 'imageurl' => "images\\Curly Fries Pack.jpg"],
-    ['id' => 67, 'nameEn' => 'Dal Makhani Rice Bowl', 'nameKn' => 'ದಾಲ್ ಮಖಾನಿ ರೈಸ್ ಬೌಲ್', 'category' => 'curries', 'price' => 180, 'imageurl' => "images\\Dal Makhani Rice Bowl.jpg"],
-    ['id' => 69, 'nameEn' => 'Egg Puff', 'nameKn' => 'ಎಗ್ ಪಫ್', 'category' => 'snacks', 'price' => 180, 'imageurl' => "images\\Egg Puff.jpg"],
-    ['id' => 70, 'nameEn' => 'Garlic Bread Cheese', 'nameKn' => 'ಗಾರ್ಲಿಕ್ ಬ್ರೆಡ್ ಚೀಸ್', 'category' => 'snacks', 'price' => 180, 'imageurl' => "images\\Garlic Bread Cheese.jpg"],
-    ['id' => 71, 'nameEn' => 'Instant Pasta Cheese', 'nameKn' => 'ಇನ್ಸ್ಟಂಟ್ ಪಾಸ್ತಾ ಚೀಸ್', 'category' => 'pasta', 'price' => 180, 'imageurl' => "images\\Instant Pasta Cheese.jpg"],
-    ['id' => 72, 'nameEn' => 'Instant Pasta Tomato', 'nameKn' => 'ಇನ್ಸ್ಟಂಟ್ ಪಾಸ್ತಾ ಟೊಮೇಟೊ', 'category' => 'pasta', 'price' => 180, 'imageurl' => "images\\Instant Pasta Tomato.jpg"],
-    ['id' => 73, 'nameEn' => 'Instant Ramen Bowl', 'nameKn' => 'ಇನ್ಸ್ಟಂಟ್ ರಾಮೆನ್ ಬೌಲ್', 'category' => 'noodles', 'price' => 180, 'imageurl' => "images\\Instant Ramen Bowl.jpg"],
-    ['id' => 74, 'nameEn' => 'Macaroni Pasta', 'nameKn' => 'ಮ್ಯಾಕರೋನಿ ಪಾಸ್ತಾ', 'category' => 'pasta', 'price' => 180, 'imageurl' => "images\\Macaroni Pasta.jpg"],
-    ['id' => 76, 'nameEn' => 'Mini Meal Combo Chicken', 'nameKn' => 'ಮಿನಿ ಮೀಲ್ ಕಾಂಬೊ ಚಿಕನ್', 'category' => 'combo', 'price' => 180, 'imageurl' => "images\\Mini Meal Combo Chicken.jpg"],
-    ['id' => 78, 'nameEn' => 'Mini Meal Combo Veg', 'nameKn' => 'ಮಿನಿ ಮೀಲ್ ಕಾಂಬೊ ವೆಜ್', 'category' => 'combo', 'price' => 180, 'imageurl' => "images\\Mini Meal Combo Veg.jpg"],
-    ['id' => 79, 'nameEn' => 'Palak Paneer Rice Bowl', 'nameKn' => 'ಪಾಲಕ್ ಪನೀರ್ ರೈಸ್ ಬೌಲ್', 'category' => 'curries', 'price' => 180, 'imageurl' => "images\\Palak Paneer Rice Bowl.jpg"],
-    ['id' => 80, 'nameEn' => 'Paneer Burrito', 'nameKn' => 'ಪನೀರ್ ಬುರಿಟೊ', 'category' => 'burrito', 'price' => 180, 'imageurl' => "images\\Paneer Burrito.jpg"],
-    ['id' => 82, 'nameEn' => 'Paneer Croquettes', 'nameKn' => 'ಪನೀರ್ ಕ್ರೊಕ್ವೆಟ್ಸ್', 'category' => 'snacks', 'price' => 180, 'imageurl' => "images\\Paneer Croquettes.jpg"],
-    ['id' => 83, 'nameEn' => 'Paneer Dinner Combo', 'nameKn' => 'ಪನೀರ್ ಡಿನ್ನರ್ ಕಾಂಬೊ', 'category' => 'combo', 'price' => 180, 'imageurl' => "images\\Paneer Dinner Combo.jpg"],
-    ['id' => 85, 'nameEn' => 'Paneer Lunch Combo', 'nameKn' => 'ಪನೀರ್ ಲಂಚ್ ಕಾಂಬೊ', 'category' => 'combo', 'price' => 180, 'imageurl' => "images\\Paneer Lunch Combo.jpg"],
-    ['id' => 86, 'nameEn' => 'Paneer Momos', 'nameKn' => 'ಪನೀರ್ ಮೊಮೊಸ್', 'category' => 'snacks', 'price' => 50, 'imageurl' => "images\\Paneer Momos.jpg"],
-    ['id' => 87, 'nameEn' => 'Paneer Noodle Bowl', 'nameKn' => 'ಪನೀರ್ ನೂಡಲ್ ಬೌಲ್', 'category' => 'meals', 'price' => 180, 'imageurl' => "images\\Paneer Noodle Bowl.jpg"],
-    ['id' => 88, 'nameEn' => 'Paneer Nuggets Pack', 'nameKn' => 'ಪನೀರ್ ನಗೆಟ್ಸ್ ಪ್ಯಾಕ್', 'category' => 'snacks', 'price' => 180, 'imageurl' => "images\\Paneer Nuggets Pack.jpg"],
-    ['id' => 89, 'nameEn' => 'Paneer Pasta Bowl', 'nameKn' => 'ಪನೀರ್ ಪಾಸ್ತಾ ಬೌಲ್', 'category' => 'snacks', 'price' => 90, 'imageurl' => "images\\Paneer Pasta Bowl.jpg"],
-    ['id' => 90, 'nameEn' => 'Paneer Pizza Slice', 'nameKn' => 'ಪನೀರ್ ಪಿಜ್ಜಾ ಸ್ಲೈಸ್', 'category' => 'pizza', 'price' => 180, 'imageurl' => "images\\Paneer Pizza Slice.jpg"],
-    ['id' => 92, 'nameEn' => 'Paneer Puff', 'nameKn' => 'ಪನೀರ್ ಪಫ್', 'category' => 'snacks', 'price' => 180, 'imageurl' => "images\\Paneer Puff.jpg"],
-    ['id' => 93, 'nameEn' => 'Paneer Shawarma Wrap', 'nameKn' => 'ಪನೀರ್ ಶಾವರ್ಮಾ ರ್ಯಾಪ್', 'category' => 'wrap', 'price' => 180, 'imageurl' => "images\\Paneer Shawarma Wrap.jpg"],
-    ['id' => 94, 'nameEn' => 'Paneer Snack Bowl', 'nameKn' => 'ಪನೀರ್ ಸ್ನ್ಯಾಕ್ ಬೌಲ್', 'category' => 'snacks', 'price' => 180, 'imageurl' => "images\\Paneer Snack Bowl.jpg"],
-    ['id' => 95, 'nameEn' => 'Paneer Spring Rolls', 'nameKn' => 'ಪನೀರ್ ಸ್ಪ್ರಿಂಗ್ ರೋಲ್ಸ್', 'category' => 'snacks', 'price' => 180, 'imageurl' => "images\\Paneer Spring Rolls.jpg"],
-    ['id' => 96, 'nameEn' => 'Paneer Taco Meal', 'nameKn' => 'ಪನೀರ್ ಟ್ಯಾಕೋ ಮೀಲ್', 'category' => 'taco', 'price' => 180, 'imageurl' => "images\\Paneer Taco Meal.jpg"],
-    ['id' => 97, 'nameEn' => 'Paneer Tikka Rice Bowl', 'nameKn' => 'ಪನೀರ್ ಟಿಕ್ಕಾ ರೈಸ್ ಬೌಲ್', 'category' => 'curries', 'price' => 180, 'imageurl' => "images\\Paneer Tikka Rice Bowl.jpg"],
-    ['id' => 98, 'nameEn' => 'Paneer Wrap', 'nameKn' => 'ಪನೀರ್ ರ್ಯಾಪ್', 'category' => 'wrap', 'price' => 180, 'imageurl' => "images\\Paneer Wrap.jpg"],
-    ['id' => 99, 'nameEn' => 'Potato Smiles Pack', 'nameKn' => 'ಪೊಟಾಟೊ ಸ್ಮೈಲ್ಸ್ ಪ್ಯಾಕ್', 'category' => 'snacks', 'price' => 180, 'imageurl' => "images\\Potato Smiles Pack.jpg"],
-    ['id' => 100, 'nameEn' => 'Veg Burrito', 'nameKn' => 'ವೆಜ್ ಬುರಿಟೊ', 'category' => 'burrito', 'price' => 180, 'imageurl' => "images\\Veg Burrito.jpg"],
-    ['id' => 102, 'nameEn' => 'Veg Croquettes', 'nameKn' => 'ವೆಜ್ ಕ್ರೊಕ್ವೆಟ್ಸ್', 'category' => 'snacks', 'price' => 180, 'imageurl' => "images\\Veg Croquettes.jpg"],
-    ['id' => 103, 'nameEn' => 'Veg Cutlet Pack', 'nameKn' => 'ವೆಜ್ ಕಟ್ಲೆಟ್ ಪ್ಯಾಕ್', 'category' => 'snacks', 'price' => 180, 'imageurl' => "images\\Veg Cutlet Pack.jpg"],
-    ['id' => 104, 'nameEn' => 'Veg Dinner Combo', 'nameKn' => 'ವೆಜ್ ಡಿನ್ನರ್ ಕಾಂಬೊ', 'category' => 'combo', 'price' => 180, 'imageurl' => "images\\Veg Dinner Combo.jpg"],
-    ['id' => 105, 'nameEn' => 'Veg Fried Rice', 'nameKn' => 'ವೆಜ್ ಫ್ರೈಡ್ ರೈಸ್', 'category' => 'rice', 'price' => 180, 'imageurl' => "images\\Veg Fried Rice 1.jpg"],
-    ['id' => 106, 'nameEn' => 'Veg Khichd', 'nameKn' => 'ವೆಜ್ ಖಿಚಡಿ', 'category' => 'rice', 'price' => 180, 'imageurl' => "images\\Veg Khichd.jpg"],
-    ['id' => 107, 'nameEn' => 'Veg Korma Rice Bowl', 'nameKn' => 'ವೆಜ್ ಕೋರ್ಮಾ ರೈಸ್ ಬೌಲ್', 'category' => 'curries', 'price' => 180, 'imageurl' => "images\\Veg Korma Rice Bowl.jpg"],
-    ['id' => 108, 'nameEn' => 'Veg Sandwich', 'nameKn' => 'ವೆಜ್ ಸ್ಯಾಂಡ್‌ವಿಚ್', 'category' => 'sandwich', 'price' => 180, 'imageurl' => "images\\Veg Sandwich.jpg"],
-    ['id' => 109, 'nameEn' => 'Veg Pulao', 'nameKn' => 'ವೆಜ್ ಪುಲಾವ್', 'category' => 'rice', 'price' => 180, 'imageurl' => "images\\Veg Pulao.jpg"],
-    ['id' => 110, 'nameEn' => 'Palak Paneer Rice Bowl', 'nameKn' => 'ಪಾಲಕ್ ಪನೀರ್ ರೈಸ್ ಬೌಲ್', 'category' => 'curries', 'price' => 180, 'imageurl' => "images\\Palak Paneer Rice Bowl.jpg"],
-    ['id' => 111, 'nameEn' => 'Paneer Burrito', 'nameKn' => 'ಪನೀರ್ ಬುರಿಟೊ', 'category' => 'burrito', 'price' => 180, 'imageurl' => "images\\Paneer Burrito.jpg"],
-    ['id' => 112, 'nameEn' => 'Paneer Croquettes', 'nameKn' => 'ಪನೀರ್ ಕ್ರೊಕ್ವೆಟ್ಸ್', 'category' => 'snacks', 'price' => 180, 'imageurl' => "images\\Paneer Croquettes.jpg"],
-    ['id' => 58, 'nameEn' => 'Veg Momos', 'nameKn' => 'ಮೋಮೋಸ್', 'category' => 'snacks', 'price' => 90, 'imageurl' => "images\\Veg Momos.jpg"],
-    ['id' => 64, 'nameEn' => 'Veg Nuggets Pack', 'nameKn' => 'ನಗೆಟ್ಸ್', 'category' => 'snacks', 'price' => 110, 'imageurl' => "images\\Veg Nuggets Pack.jpg"],
-    ['id' => 68, 'nameEn' => 'French Fries Pack', 'nameKn' => 'ಫ್ರೆಂಚ್ ಫ್ರೈಸ್', 'category' => 'snacks', 'price' => 100, 'imageurl' => "images\\French Fries Pack.jpg"],
-    ['id' => 75, 'nameEn' => 'Veg Taco Meal', 'nameKn' => 'ವೆಜ್ ಟ್ಯಾಕೋ', 'category' => 'meals', 'price' => 130, 'imageurl' => "images\\Veg Taco Meal.jpg"],
-    ['id' => 81, 'nameEn' => 'Veg Shawarma Wrap', 'nameKn' => 'ಶಾವರ್ಮಾ', 'category' => 'meals', 'price' => 130, 'imageurl' => "images\\Veg Shawarma Wrap.jpg"],
-    ['id' => 84, 'nameEn' => 'Garlic Bread Veg', 'nameKn' => 'ಗಾರ್ಲಿಕ್ ಬ್ರೆಡ್', 'category' => 'snacks', 'price' => 100, 'imageurl' => "images\\Garlic Bread Veg.jpg"],
-    ['id' => 91, 'nameEn' => 'Veg Lunch Combo', 'nameKn' => 'ಲಂಚ್ ಕಾಂಬೊ', 'category' => 'meals', 'price' => 160, 'imageurl' => "images\\Veg Lunch Combo.jpg"],
-    ['id' => 101, 'nameEn' => 'Veg Rice Bowl', 'nameKn' => 'ರೈಸ್ ಬೌಲ್', 'category' => 'rice', 'price' => 120, 'imageurl' => "images\\Veg Rice Bowl.jpg"],
-    ['id' => 114, 'nameEn' => 'Butter Chicken Rice Bowl', 'nameKn' => 'ಬಟರ್ ಚಿಕನ್ ರೈಸ್', 'category' => 'curries', 'price' => 180, 'imageurl' => "images\\Butter Chicken Rice Bowl.jpg"],
-    ['id' => 119, 'nameEn' => 'Ready Paratha Meal', 'nameKn' => 'ಪರಾಠಾ', 'category' => 'snacks', 'price' => 120, 'imageurl' => "images\\Ready Paratha Meal.jpg"],
-    ['id' => 120, 'nameEn' => 'Family Meal Pack', 'nameKn' => 'ಫ್ಯಾಮಿಲಿ ಮಿಲ್ ಪ್ಯಾಕ್', 'category' => 'meals', 'price' => 400, 'imageurl' => "images\\Family Meal Pack.jpg"],
-    ['id' => 113, 'nameEn' => 'Bingo Mad Angles', 'nameKn' => 'ಬಿಂಗೋ ಮ್ಯಾಡ್ ಆಂಗಲ್ಸ್', 'category' => 'chips', 'price' => 25, 'imageurl' => "images\\Bingo Mad Angles.jpg"],
-    ['id' => 115, 'nameEn' => 'Frozen Butter Naan', 'nameKn' => 'ಫ್ರೋಜನ್ ಬಟರ್ ನಾನ್', 'category' => 'frozen', 'price' => 180, 'imageurl' => "images\\Chicken Biryani Ready Meal.jpg"],
-    ['id' => 116, 'nameEn' => 'Frozen Chapati', 'nameKn' => 'ಫ್ರೋಜನ್ ಚಪಾತಿ', 'category' => 'frozen', 'price' => 160, 'imageurl' => "images\\Paneer Biryani Ready Meal.jpg"],
-    ['id' => 117, 'nameEn' => 'Frozen Chicken Breast', 'nameKn' => 'ಫ್ರೋಜನ್ ಚಿಕನ್ ಬ್ರೆಸ್ಟ್', 'category' => 'frozen', 'price' => 110, 'imageurl' => "images\\Veg Fried Rice.jpg"],
-    ['id' => 118, 'nameEn' => 'Frozen Chicken Sandwich', 'nameKn' => 'ಫ್ರೋಜನ್ ಚಿಕನ್ ಸ್ಯಾಂಡ್‌ವಿಚ್', 'category' => 'frozen', 'price' => 130, 'imageurl' => "images\\Schezwan Fried Rice.jpg"],
-    ['id' => 121, 'nameEn' => 'Frozen Chicken Wings', 'nameKn' => 'ಫ್ರೋಜನ್ ಚಿಕನ್ ವಿಂಗ್ಸ್', 'category' => 'frozen', 'price' => 160, 'imageurl' => "images\\Chicken Fried Rice.jpg"],
-    ['id' => 122, 'nameEn' => 'Frozen Veg Pulao', 'nameKn' => 'ಫ್ರೋಜನ್ ವೆಜ್ ಪುಲಾವ್', 'category' => 'frozen', 'price' => 100, 'imageurl' => "images\\Veg Pulao.jpg"],
-    ['id' => 123, 'nameEn' => 'Frozen Dal Fry', 'nameKn' => 'ಫ್ರೋಜನ್ ದಾಲ್ ಫ್ರೈ', 'category' => 'frozen', 'price' => 90, 'imageurl' => "images\\Jeera Rice.jpg"],
-    ['id' => 124, 'nameEn' => 'Frozen Fish Fillet', 'nameKn' => 'ಫ್ರೋಜನ್ ಫಿಶ್ ಫಿಲೆಟ್', 'category' => 'frozen', 'price' => 80, 'imageurl' => "images\\Lemon Rice.jpg"],
-    ['id' => 125, 'nameEn' => 'Frozen French Fries', 'nameKn' => 'ಫ್ರೋಜನ್ ಫ್ರೆಂಚ್ ಫ್ರೈಸ್', 'category' => 'frozen', 'price' => 80, 'imageurl' => "images\\Tamarind Rice.jpg"],
-    ['id' => 126, 'nameEn' => 'Frozen Fried Rice Veg', 'nameKn' => 'ಫ್ರೋಜನ್ ಫ್ರೈಡ್ ರೈಸ್ ವೆಜ್', 'category' => 'frozen', 'price' => 70, 'imageurl' => "images\\Curd Rice.jpg"],
-    ['id' => 127, 'nameEn' => 'Frozen Garlic Naan', 'nameKn' => 'ಫ್ರೋಜನ್ ಗಾರ್ಲಿಕ್ ನಾನ್', 'category' => 'frozen', 'price' => 80, 'imageurl' => "images\\Coconut Rice.jpg"],
-    ['id' => 128, 'nameEn' => 'Frozen Garlic Naan', 'nameKn' => 'ಫ್ರೋಜನ್ ಗಾರ್ಲಿಕ್ ನಾನ್', 'category' => 'frozen', 'price' => 90, 'imageurl' => "images\\Tomato Rice.jpg"],
-    ['id' => 129, 'nameEn' => 'Frozen Green Peas', 'nameKn' => 'ಫ್ರೋಜನ್ ಗ್ರೀನ್ ಪೀಸ್', 'category' => 'frozen', 'price' => 110, 'imageurl' => "images\\Dal Khichdi.jpg"],
-    ['id' => 130, 'nameEn' => 'Frozen Gulab Jamun', 'nameKn' => 'ಫ್ರೋಜನ್ ಗುಲಾಬ್ ಜಾಮುನ್', 'category' => 'frozen', 'price' => 100, 'imageurl' => "images\\Veg Khichdi.jpg"],
-    ['id' => 131, 'nameEn' => 'Frozen Ice Cream Family Pack', 'nameKn' => 'ಫ್ರೋಜನ್ ಐಸ್ ಕ್ರೀಮ್ ಫ್ಯಾಮಿಲಿ ಪ್ಯಾಕ್', 'category' => 'frozen', 'price' => 110, 'imageurl' => "images\\Masala Khichdi.jpg"],
-    ['id' => 132, 'nameEn' => 'Frozen Jalebi', 'nameKn' => 'ಫ್ರೋಜನ್ ಜಲೇಬಿ', 'category' => 'frozen', 'price' => 140, 'imageurl' => "images\\Rajma Chawal.jpg"],
-    ['id' => 133, 'nameEn' => 'Frozen Kachori', 'nameKn' => 'ಫ್ರೋಜನ್ ಕಚೋರಿ', 'category' => 'frozen', 'price' => 140, 'imageurl' => "images\\Chole Chawal.jpg"],
-    ['id' => 134, 'nameEn' => 'Frozen Kulfi Malai', 'nameKn' => 'ಫ್ರೋಜನ್ ಕುಲ್ಫಿ ಮಲಾಯಿ', 'category' => 'frozen', 'price' => 160, 'imageurl' => "images\\Paneer Butter Masala Rice.jpg"],
-    ['id' => 135, 'nameEn' => 'Frozen Malabar Parotta', 'nameKn' => 'ಫ್ರೋಜನ್ ಮಲಬಾರ್ ಪರೋಟ್ಟಾ', 'category' => 'frozen', 'price' => 130, 'imageurl' => "images\\Dal Tadka Rice Bowl.jpg"],
-    ['id' => 136, 'nameEn' => 'Frozen Muffins', 'nameKn' => 'ಫ್ರೋಜನ್ ಮಫಿನ್ಸ್', 'category' => 'frozen', 'price' => 90, 'imageurl' => "images\\Veg Noodles.jpg"],
-    ['id' => 137, 'nameEn' => 'Frozen Paratha', 'nameKn' => 'ಫ್ರೋಜನ್ ಪರಾಠಾ', 'category' => 'frozen', 'price' => 110, 'imageurl' => "images\\Schezwan Noodles.jpg"],
-    ['id' => 138, 'nameEn' => 'Frozen Prawns', 'nameKn' => 'ಫ್ರೋಜನ್ ಪ್ರಾನ್ಸ್', 'category' => 'frozen', 'price' => 150, 'imageurl' => "images\\Chicken Noodles.jpg"],
-    ['id' => 139, 'nameEn' => 'Frozen Rasmalai', 'nameKn' => 'ಫ್ರೋಜನ್ ರಸ್ಮಲಾಯಿ', 'category' => 'frozen', 'price' => 100, 'imageurl' => "images\\Hakka Noodles.jpg"],
-    ['id' => 140, 'nameEn' => 'Frozen Smoothie Mix', 'nameKn' => 'ಫ್ರೋಜನ್ ಸ್ಮೂಥಿ ಮಿಕ್ಸ್', 'category' => 'frozen', 'price' => 100, 'imageurl' => "images\\Veg Chowmein.jpg"],
-    ['id' => 141, 'nameEn' => 'Frozen Veg Biryani', 'nameKn' => 'ಫ್ರೋಜನ್ ವೆಜ್ ಬಿರಿಯಾನಿ', 'category' => 'frozen', 'price' => 130, 'imageurl' => "images\\Paneer Chowmein.jpg"],
-    ['id' => 142, 'nameEn' => 'Frozen Veg Momos', 'nameKn' => 'ಫ್ರೋಜನ್ ವೆಜ್ ಮೊಮೊಸ್', 'category' => 'frozen', 'price' => 140, 'imageurl' => "images\\Veg Manchurian Noodles.jpg"],
-    ['id' => 143, 'nameEn' => 'Frozen Waffles', 'nameKn' => 'ಫ್ರೋಜನ್ ವಾಫಲ್ಸ್', 'category' => 'frozen', 'price' => 180, 'imageurl' => "images\\Chicken Manchurian Noodles.jpg"],
-    ['id' => 144, 'nameEn' => 'Haldiram Aloo Bhujia', 'nameKn' => 'ಹಳ್ದಿರಾಮ್ ಆಲೂ ಭುಜಿಯಾ', 'category' => 'snacks', 'price' => 120, 'imageurl' => "images\\White Sauce Pasta.jpg"],
-    ['id' => 145, 'nameEn' => 'Ice Cream Vanilla', 'nameKn' => 'ಐಸ್ ಕ್ರೀಮ್ ವೆನಿಲ್ಲಾ', 'category' => 'frozen', 'price' => 110, 'imageurl' => "images\\Red Sauce Pasta.jpg"],
-    ['id' => 146, 'nameEn' => 'Jaggery', 'nameKn' => 'ಬೆಲ್ಲ', 'category' => 'sweetener', 'price' => 70, 'imageurl' => "images\\Veg Burger.jpg"],
-    ['id' => 147, 'nameEn' => 'Knorr Sweet Corn Soup', 'nameKn' => 'ನಾರ್ ಸ್ವೀಟ್ ಕಾರ್ನ್ ಸೂಪ್', 'category' => 'soup', 'price' => 120, 'imageurl' => "images\\Chicken Burger.jpg"],
-    ['id' => 148, 'nameEn' => 'Knorr Tomato Soup', 'nameKn' => 'ನಾರ್ ಟೊಮೇಟೊ ಸೂಪ್', 'category' => 'soup', 'price' => 90, 'imageurl' => "images\\Paneer Burger.jpg"],
-    ['id' => 149, 'nameEn' => 'Knorr Veg Manchow Soup', 'nameKn' => 'ನಾರ್ ವೆಜ್ ಮಂಚೋ ಸೂಪ್', 'category' => 'soup', 'price' => 90, 'imageurl' => "images\\Veg Wrap.jpg"],
-    ['id' => 150, 'nameEn' => 'Kurkure Masala Munch', 'nameKn' => 'ಕುರ್ಕುರೆ ಮಸಾಲಾ ಮಂಚ್', 'category' => 'chips', 'price' => 120, 'imageurl' => "images\\Paneer Wrap.jpg"],
-    ['id' => 151, 'nameEn' => 'Lays Classic Chips', 'nameKn' => 'ಲೇಸ್ ಕ್ಲಾಸಿಕ್ ಚಿಪ್ಸ್', 'category' => 'chips', 'price' => 150, 'imageurl' => "images\\Chicken Wrap.jpg"],
-    ['id' => 152, 'nameEn' => 'Lays Magic Masala', 'nameKn' => 'ಲೇಸ್ ಮ್ಯಾಜಿಕ್ ಮಸಾಲಾ', 'category' => 'chips', 'price' => 50, 'imageurl' => "images\\Veg Samosa Pack.jpg"],
-    ['id' => 153, 'nameEn' => 'Maggi Family Pack', 'nameKn' => 'ಮ್ಯಾಗಿ ಫ್ಯಾಮಿಲಿ ಪ್ಯಾಕ್', 'category' => 'noodles', 'price' => 90, 'imageurl' => "images\\Veg Spring Rolls.jpg"],
-    ['id' => 154, 'nameEn' => 'Maggi Hot Soup Veg', 'nameKn' => 'ಮ್ಯಾಗಿ ಹಾಟ್ ಸೂಪ್ ವೆಜ್', 'category' => 'soup', 'price' => 90, 'imageurl' => "images\\Veg Momos.jpg"],
-    ['id' => 155, 'nameEn' => 'Maggi Masala Noodles', 'nameKn' => 'ಮ್ಯಾಗಿ ಮಸಾಲಾ ನೂಡಲ್ಸ್', 'category' => 'noodles', 'price' => 110, 'imageurl' => "images\\Veg Nuggets Pack.jpg"],
-    ['id' => 156, 'nameEn' => 'French Fries Pack', 'nameKn' => 'ಫ್ರೆಂಚ್ ಫ್ರೈಸ್ ಪ್ಯಾಕ್', 'category' => 'snacks', 'price' => 100, 'imageurl' => "images\\French Fries Pack.jpg"],
-    ['id' => 157, 'nameEn' => 'Maggi Tomato Soup', 'nameKn' => 'ಮ್ಯಾಗಿ ಟೊಮೇಟೊ ಸೂಪ್', 'category' => 'soup', 'price' => 130, 'imageurl' => "images\\Veg Taco Meal.jpg"],
-    ['id' => 158, 'nameEn' => 'MTR Chole Masala', 'nameKn' => 'ಎಂಟಿಆರ್ ಛೋಲೆ ಮಸಾಲಾ', 'category' => 'curries', 'price' => 130, 'imageurl' => "images\\Veg Shawarma Wrap.jpg"],
-    ['id' => 159, 'nameEn' => 'MTR Instant Filter Coffee', 'nameKn' => 'ಎಂಟಿಆರ್ ಇನ್ಸ್ಟಂಟ್ ಫಿಲ್ಟರ್ ಕಾಫಿ', 'category' => 'beverage', 'price' => 100, 'imageurl' => "images\\Garlic Bread Veg.jpg"],
-    ['id' => 160, 'nameEn' => 'MTR Paneer Butter Masala', 'nameKn' => 'ಎಂಟಿಆರ್ ಪನೀರ್ ಬಟರ್ ಮಸಾಲಾ', 'category' => 'curries', 'price' => 160, 'imageurl' => "images\\Veg Lunch Combo.jpg"],
-    ['id' => 161, 'nameEn' => 'Yippee Masala Noodles', 'nameKn' => 'ಯಿಪ್ಪೀ ಮಸಾಲಾ ನೂಡಲ್ಸ್', 'category' => 'noodles', 'price' => 120, 'imageurl' => "images\\Veg Rice Bowl.jpg"],
-    ['id' => 162, 'nameEn' => 'Wai Wai Masala Noodles', 'nameKn' => 'ವೈ ವೈ ಮಸಾಲಾ ನೂಡಲ್ಸ್', 'category' => 'noodles', 'price' => 180, 'imageurl' => "images\\Butter Chicken Rice Bowl.jpg"],
-    ['id' => 163, 'nameEn' => 'Saffola Masala Oats', 'nameKn' => 'ಸ್ಯಾಫೋಲಾ ಮಸಾಲಾ ಓಟ್ಸ್', 'category' => 'oats', 'price' => 120, 'imageurl' => "images\\Ready Paratha Meal.jpg"],
-    ['id' => 164, 'nameEn' => 'Nescafe Classic', 'nameKn' => 'ನೆಸ್ಕಫೆ ಕ್ಲಾಸಿಕ್', 'category' => 'beverage', 'price' => 400, 'imageurl' => "images\\Family Meal Pack.jpg"]
+    ['id' => 1, 'nameEn' => 'Veg Biryani Ready Meal', 'nameKn' => 'ವೆಜ್ ಬಿರಿಯಾನಿ', 'category' => 'rice', 'price' => 122, 'imageurl' => "images\\Veg Biryani Ready Meal.jpg"],
+    ['id' => 2, 'nameEn' => 'Chicken Biryani Ready Meal', 'nameKn' => 'ಚಿಕನ್ ಬಿರಿಯಾನಿ', 'category' => 'rice', 'price' => 182, 'imageurl' => "images\\Chicken Biryani Ready Meal.jpg"],
+    ['id' => 3, 'nameEn' => 'Paneer Biryani Ready Meal', 'nameKn' => 'ಪನೀರ್ ಬಿರಿಯಾನಿ', 'category' => 'rice', 'price' => 162, 'imageurl' => "images\\Paneer Biryani Ready Meal.jpg"],
+    ['id' => 4, 'nameEn' => 'Veg Fried Rice', 'nameKn' => 'ವೆಜ್ ಫ್ರೈಡ್ ರೈಸ್', 'category' => 'rice', 'price' => 112, 'imageurl' => "images\\Veg Fried Rice.jpg"],
+    ['id' => 5, 'nameEn' => 'Schezwan Fried Rice', 'nameKn' => 'ಸ್ಚೆಜ್ವಾನ್ ಫ್ರೈಡ್ ರೈಸ್', 'category' => 'rice', 'price' => 132, 'imageurl' => "images\\Schezwan Fried Rice.jpg"],
+    ['id' => 6, 'nameEn' => 'Chicken Fried Rice', 'nameKn' => 'ಚಿಕನ್ ಫ್ರೈಡ್ ರೈಸ್', 'category' => 'rice', 'price' => 162, 'imageurl' => "images\\Chicken Fried Rice.jpg"],
+    ['id' => 7, 'nameEn' => 'Veg Pulao', 'nameKn' => 'ವೆಜ್ ಪುಲಾವ್', 'category' => 'rice', 'price' => 102, 'imageurl' => "images\\Veg Pulao.jpg"],
+    ['id' => 8, 'nameEn' => 'Jeera Rice', 'nameKn' => 'ಜೀರಾ ರೈಸ್', 'category' => 'rice', 'price' => 92, 'imageurl' => "images\\Jeera Rice.jpg"],
+    ['id' => 9, 'nameEn' => 'Lemon Rice', 'nameKn' => 'ನಿಂಬೆ ಅನ್ನ', 'category' => 'rice', 'price' => 82, 'imageurl' => "images\\Lemon Rice.jpg"],
+    ['id' => 10, 'nameEn' => 'Tamarind Rice', 'nameKn' => 'ಹುಣಸೆ ಅನ್ನ', 'category' => 'rice', 'price' => 82, 'imageurl' => "images\\Tamarind Rice.jpg"],
+    ['id' => 11, 'nameEn' => 'Curd Rice', 'nameKn' => 'ಮೊಸರು ಅನ್ನ', 'category' => 'rice', 'price' => 72, 'imageurl' => "images\\Curd Rice.jpg"],
+    ['id' => 12, 'nameEn' => 'Coconut Rice', 'nameKn' => 'ತೆಂಗಿನ ಅನ್ನ', 'category' => 'rice', 'price' => 82, 'imageurl' => "images\\Coconut Rice.jpg"],
+    ['id' => 13, 'nameEn' => 'Tomato Rice', 'nameKn' => 'ಟೊಮೇಟೊ ಅನ್ನ', 'category' => 'rice', 'price' => 92, 'imageurl' => "images\\Tomato Rice.jpg"],
+    ['id' => 14, 'nameEn' => 'Dal Khichdi', 'nameKn' => 'ದಾಲ್ ಖಿಚಡಿ', 'category' => 'rice', 'price' => 112, 'imageurl' => "images\\Dal Khichdi.jpg"],
+    ['id' => 15, 'nameEn' => 'Veg Khichdi', 'nameKn' => 'ವೆಜ್ ಖಿಚಡಿ', 'category' => 'rice', 'price' => 102, 'imageurl' => "images/Dal Khichdi.jpg"],
+    ['id' => 16, 'nameEn' => 'Masala Khichdi', 'nameKn' => 'ಮಸಾಲಾ ಖಿಚಡಿ', 'category' => 'rice', 'price' => 112, 'imageurl' => "images\\Masala Khichdi.jpg"],
+    ['id' => 17, 'nameEn' => 'Rajma Chawal', 'nameKn' => 'ರಾಜ್ಮಾ ಚಾವಲ್', 'category' => 'meals', 'price' => 142, 'imageurl' => "images\\Rajma Chawal.jpg"],
+    ['id' => 18, 'nameEn' => 'Chole Chawal', 'nameKn' => 'ಛೋಲೆ ಚಾವಲ್', 'category' => 'meals', 'price' => 142, 'imageurl' => "images\\Chole Chawal.jpg"],
+    ['id' => 19, 'nameEn' => 'Paneer Butter Masala Rice', 'nameKn' => 'ಪನೀರ್ ಬಟರ್ ಮಸಾಲಾ ರೈಸ್', 'category' => 'curries', 'price' => 162, 'imageurl' => "images\\Paneer Butter Masala Rice.jpg"],
+    ['id' => 20, 'nameEn' => 'Dal Tadka Rice Bowl', 'nameKn' => 'ದಾಲ್ ತಡ್ಕಾ ರೈಸ್', 'category' => 'curries', 'price' => 132, 'imageurl' => "images\\Dal Tadka Rice Bowl.jpg"],
+    ['id' => 21, 'nameEn' => 'Veg Noodles', 'nameKn' => 'ವೆಜ್ ನೂಡಲ್ಸ್', 'category' => 'meals', 'price' => 92, 'imageurl' => "images\\Veg Noodles.jpg"],
+    ['id' => 22, 'nameEn' => 'Schezwan Noodles', 'nameKn' => 'ಸ್ಚೆಜ್ವಾನ್ ನೂಡಲ್ಸ್', 'category' => 'meals', 'price' => 112, 'imageurl' => "images\\Schezwan Noodles.jpg"],
+    ['id' => 23, 'nameEn' => 'Chicken Noodles', 'nameKn' => 'ಚಿಕನ್ ನೂಡಲ್ಸ್', 'category' => 'meals', 'price' => 152, 'imageurl' => "images\\Chicken Noodles.jpg"],
+    ['id' => 24, 'nameEn' => 'Hakka Noodles', 'nameKn' => 'ಹಕ್ಕಾ ನೂಡಲ್ಸ್', 'category' => 'meals', 'price' => 102, 'imageurl' => "images\\Hakka Noodles.jpg"],
+    ['id' => 25, 'nameEn' => 'Veg Chowmein', 'nameKn' => 'ವೆಜ್ ಚೌಮೀನ್', 'category' => 'meals', 'price' => 102, 'imageurl' => "images\\Veg Chowmein.jpg"],
+    ['id' => 26, 'nameEn' => 'Paneer Chowmein', 'nameKn' => 'ಪನೀರ್ ಚೌಮೀನ್', 'category' => 'meals', 'price' => 132, 'imageurl' => "images\\Paneer Chowmein.jpg"],
+    ['id' => 27, 'nameEn' => 'Veg Manchurian Noodles', 'nameKn' => 'ಮಂಚೂರಿಯನ್ ನೂಡಲ್ಸ್', 'category' => 'meals', 'price' => 142, 'imageurl' => "images\\Veg Manchurian Noodles.jpg"],
+    ['id' => 28, 'nameEn' => 'Chicken Manchurian Noodles', 'nameKn' => 'ಚಿಕನ್ ಮಂಚೂರಿಯನ್', 'category' => 'meals', 'price' => 182, 'imageurl' => "images\\Chicken Manchurian Noodles.jpg"],
+    ['id' => 29, 'nameEn' => 'Cheese Nuggets', 'nameKn' => 'ಚೀಸ್ ನಗೆಟ್ಸ್', 'category' => 'snacks', 'price' => 182, 'imageurl' => "images\\Cheese Nuggets.jpg"],
+    ['id' => 30, 'nameEn' => 'Cheese Pasta Bowl', 'nameKn' => 'ಚೀಸ್ ಪಾಸ್ತಾ ಬೌಲ್', 'category' => 'pasta', 'price' => 182, 'imageurl' => "images\\Cheese Pasta Bowl.jpg"],
+    ['id' => 31, 'nameEn' => 'White Sauce Pasta', 'nameKn' => 'ವೈಟ್ ಸಾಸ್ ಪಾಸ್ತಾ', 'category' => 'meals', 'price' => 122, 'imageurl' => "images\\White Sauce Pasta.jpg"],
+    ['id' => 32, 'nameEn' => 'Red Sauce Pasta', 'nameKn' => 'ರೆಡ್ ಸಾಸ್ ಪಾಸ್ತಾ', 'category' => 'meals', 'price' => 112, 'imageurl' => "images\\Red Sauce Pasta.jpg"],
+    ['id' => 33, 'nameEn' => 'Cheese Pizza Slice', 'nameKn' => 'ಚೀಸ್ ಪಿಜ್ಜಾ ಸ್ಲೈಸ್', 'category' => 'pizza', 'price' => 182, 'imageurl' => "images\\Cheese Pizza Slice.jpg"],
+    ['id' => 34, 'nameEn' => 'Cheese Sandwich', 'nameKn' => 'ಚೀಸ್ ಸ್ಯಾಂಡ್‌ವಿಚ್', 'category' => 'sandwich', 'price' => 182, 'imageurl' => "images\\Cheese Sandwich.jpg"],
+    ['id' => 35, 'nameEn' => 'Veg Burger', 'nameKn' => 'ವೆಜ್ ಬರ್ಗರ್', 'category' => 'snacks', 'price' => 72, 'imageurl' => "images\\Veg Burger.jpg"],
+    ['id' => 36, 'nameEn' => 'Chicken Burger', 'nameKn' => 'ಚಿಕನ್ ಬರ್ಗರ್', 'category' => 'snacks', 'price' => 122, 'imageurl' => "images\\Chicken Burger.jpg"],
+    ['id' => 37, 'nameEn' => 'Paneer Burger', 'nameKn' => 'ಪನೀರ್ ಬರ್ಗರ್', 'category' => 'snacks', 'price' => 92, 'imageurl' => "images\\Paneer Burger.jpg"],
+    ['id' => 38, 'nameEn' => 'Chicken Burrito', 'nameKn' => 'ಚಿಕನ್ ಬುರಿಟೊ', 'category' => 'burrito', 'price' => 182, 'imageurl' => "images\\Chicken Burrito.jpg"],
+    ['id' => 39, 'nameEn' => 'Chicken Cutlet Pack', 'nameKn' => 'ಚಿಕನ್ ಕಟ್ಲೆಟ್ ಪ್ಯಾಕ್', 'category' => 'snacks', 'price' => 182, 'imageurl' => "images\\Chicken Cutlet Pack.jpg"],
+    ['id' => 40, 'nameEn' => 'Chicken Dinner Combo', 'nameKn' => 'ಚಿಕನ್ ಡಿನ್ನರ್ ಕಾಂಬೊ', 'category' => 'combo', 'price' => 182, 'imageurl' => "images\\Chicken Dinner Combo.jpg"],
+    ['id' => 41, 'nameEn' => 'Veg Wrap', 'nameKn' => 'ವೆಜ್ ರ್ಯಾಪ್', 'category' => 'snacks', 'price' => 92, 'imageurl' => "images\\Veg Wrap.jpg"],
+    ['id' => 42, 'nameEn' => 'Paneer Wrap', 'nameKn' => 'ಪನೀರ್ ರ್ಯಾಪ್', 'category' => 'snacks', 'price' => 122, 'imageurl' => "images\\Paneer Wrap.jpg"],
+    ['id' => 43, 'nameEn' => 'Chicken Wrap', 'nameKn' => 'ಚಿಕನ್ ರ್ಯಾಪ್', 'category' => 'snacks', 'price' => 152, 'imageurl' => "images\\Chicken Wrap.jpg"],
+    ['id' => 44, 'nameEn' => 'Chicken Lunch Combo', 'nameKn' => 'ಚಿಕನ್ ಲಂಚ್ ಕಾಂಬೊ', 'category' => 'combo', 'price' => 182, 'imageurl' => "images\\Chicken Lunch Combo.jpg"],
+    ['id' => 45, 'nameEn' => 'Chicken Momos', 'nameKn' => 'ಚಿಕನ್ ಮೊಮೊಸ್', 'category' => 'snacks', 'price' => 182, 'imageurl' => "images\\Chicken Momos.jpg"],
+    ['id' => 46, 'nameEn' => 'Chicken Samosa', 'nameKn' => 'ಚಿಕನ್ ಸಮೋಸಾ', 'category' => 'snacks', 'price' => 182, 'imageurl' => "images\\Chicken Samosa.jpg"],
+    ['id' => 47, 'nameEn' => 'Chicken Noodle Bowl', 'nameKn' => 'ಚಿಕನ್ ನೂಡಲ್ ಬೌಲ್', 'category' => 'meals', 'price' => 182, 'imageurl' => "images\\Chicken Noodle Bowl.jpg"],
+    ['id' => 48, 'nameEn' => 'Chicken Noodles', 'nameKn' => 'ಚಿಕನ್ ನೂಡಲ್ಸ್', 'category' => 'meals', 'price' => 182, 'imageurl' => "images\\Chicken Noodles.jpg"],
+    ['id' => 49, 'nameEn' => 'Chicken Nuggets Pack', 'nameKn' => 'ಚಿಕನ್ ನಗೆಟ್ಸ್ ಪ್ಯಾಕ್', 'category' => 'snacks', 'price' => 182, 'imageurl' => "images\\Chicken Nuggets Pack.jpg"],
+    ['id' => 50, 'nameEn' => 'Chicken Pasta Bowl', 'nameKn' => 'ಚಿಕನ್ ಪಾಸ್ತಾ ಬೌಲ್', 'category' => 'meals', 'price' => 182, 'imageurl' => "images\\Chicken Pasta Bowl.jpg"],
+    ['id' => 51, 'nameEn' => 'Chicken Pizza Slice', 'nameKn' => 'ಚಿಕನ್ ಪಿಜ್ಜಾ ಸ್ಲೈಸ್', 'category' => 'pizza', 'price' => 182, 'imageurl' => "images\\Chicken Pizza Slice.jpg"],
+    ['id' => 52, 'nameEn' => 'Veg Samosa Pack', 'nameKn' => 'ಸಮೋಸಾ ಪ್ಯಾಕ್', 'category' => 'snacks', 'price' => 52, 'imageurl' => "images\\Veg Samosa Pack.jpg"],
+    ['id' => 53, 'nameEn' => 'Chicken Puff', 'nameKn' => 'ಚಿಕನ್ ಪಫ್', 'category' => 'snacks', 'price' => 182, 'imageurl' => "images\\Chicken Puff.jpg"],
+    ['id' => 54, 'nameEn' => 'Chicken Shawarma Wrap', 'nameKn' => 'ಚಿಕನ್ ಶಾವರ್ಮಾ ರ್ಯಾಪ್', 'category' => 'wrap', 'price' => 182, 'imageurl' => "images\\Chicken Shawarma Wrap.jpg"],
+    ['id' => 55, 'nameEn' => 'Veg Spring Rolls', 'nameKn' => 'ಸ್ಪ್ರಿಂಗ್ ರೋಲ್', 'category' => 'snacks', 'price' => 92, 'imageurl' => "images\\Veg Spring Rolls.jpg"],
+    ['id' => 56, 'nameEn' => 'Chicken Snack Bowl', 'nameKn' => 'ಚಿಕನ್ ಸ್ನ್ಯಾಕ್ ಬೌಲ್', 'category' => 'snacks', 'price' => 182, 'imageurl' => "images\\Chicken Snack Bowl.jpg"],
+    ['id' => 57, 'nameEn' => 'Chicken Snack Combo Pack', 'nameKn' => 'ಚಿಕನ್ ಸ್ನ್ಯಾಕ್ ಕಾಂಬೊ ಪ್ಯಾಕ್', 'category' => 'combo', 'price' => 182, 'imageurl' => "images\\Chicken Snack Combo Pack.jpg"],
+    ['id' => 58, 'nameEn' => 'Chicken Spring Rolls', 'nameKn' => 'ಚಿಕನ್ ಸ್ಪ್ರಿಂಗ್ ರೋಲ್ಸ್', 'category' => 'snacks', 'price' => 182, 'imageurl' => "images\\Chicken Spring Rolls.jpg"],
+    ['id' => 59, 'nameEn' => 'Chicken Taco Meal', 'nameKn' => 'ಚಿಕನ್ ಟ್ಯಾಕೋ ಮೀಲ್', 'category' => 'taco', 'price' => 182, 'imageurl' => "images\\Chicken Taco Meal.jpg"],
+    ['id' => 60, 'nameEn' => 'Chicken Wrap', 'nameKn' => 'ಚಿಕನ್ ರ್ಯಾಪ್', 'category' => 'wrap', 'price' => 182, 'imageurl' => "images/Chicken Wrap.jpg"],
+    ['id' => 61, 'nameEn' => 'Chole Chawal', 'nameKn' => 'ಛೋಲೆ ಚಾವಲ್', 'category' => 'meals', 'price' => 182, 'imageurl' => "images\\Chole Chawal.jpg"],
+    ['id' => 63, 'nameEn' => 'Corn Nuggets', 'nameKn' => 'ಕಾರ್ನ್ ನಗೆಟ್ಸ್', 'category' => 'snacks', 'price' => 182, 'imageurl' => "images\\Corn Nuggets.jpg"],
+    ['id' => 65, 'nameEn' => 'Crispy Potato Bites', 'nameKn' => 'ಕ್ರಿಸ್ಪಿ ಪೊಟಾಟೊ ಬೈಟ್ಸ್', 'category' => 'snacks', 'price' => 182, 'imageurl' => "images\\Crispy Potato Bites.jpg"],
+    ['id' => 66, 'nameEn' => 'Curly Fries Pack', 'nameKn' => 'ಕರ್ಲಿ ಫ್ರೈಸ್ ಪ್ಯಾಕ್', 'category' => 'snacks', 'price' => 182, 'imageurl' => "images\\Curly Fries Pack.jpg"],
+    ['id' => 67, 'nameEn' => 'Dal Makhani Rice Bowl', 'nameKn' => 'ದಾಲ್ ಮಖಾನಿ ರೈಸ್ ಬೌಲ್', 'category' => 'curries', 'price' => 182, 'imageurl' => "images\\Dal Makhani Rice Bowl.jpg"],
+    ['id' => 69, 'nameEn' => 'Egg Puff', 'nameKn' => 'ಎಗ್ ಪಫ್', 'category' => 'snacks', 'price' => 182, 'imageurl' => "images\\Egg Puff.jpg"],
+    ['id' => 70, 'nameEn' => 'Garlic Bread Cheese', 'nameKn' => 'ಗಾರ್ಲಿಕ್ ಬ್ರೆಡ್ ಚೀಸ್', 'category' => 'snacks', 'price' => 182, 'imageurl' => "images\\Garlic Bread Cheese.jpg"],
+    ['id' => 71, 'nameEn' => 'Instant Pasta Cheese', 'nameKn' => 'ಇನ್ಸ್ಟಂಟ್ ಪಾಸ್ತಾ ಚೀಸ್', 'category' => 'pasta', 'price' => 182, 'imageurl' => "images\\Instant Pasta Cheese.jpg"],
+    ['id' => 72, 'nameEn' => 'Instant Pasta Tomato', 'nameKn' => 'ಇನ್ಸ್ಟಂಟ್ ಪಾಸ್ತಾ ಟೊಮೇಟೊ', 'category' => 'pasta', 'price' => 182, 'imageurl' => "images\\Instant Pasta Tomato.jpg"],
+    ['id' => 73, 'nameEn' => 'Instant Ramen Bowl', 'nameKn' => 'ಇನ್ಸ್ಟಂಟ್ ರಾಮೆನ್ ಬೌಲ್', 'category' => 'noodles', 'price' => 182, 'imageurl' => "images\\Instant Ramen Bowl.jpg"],
+    ['id' => 74, 'nameEn' => 'Macaroni Pasta', 'nameKn' => 'ಮ್ಯಾಕರೋನಿ ಪಾಸ್ತಾ', 'category' => 'pasta', 'price' => 182, 'imageurl' => "images\\Macaroni Pasta.jpg"],
+    ['id' => 76, 'nameEn' => 'Mini Meal Combo Chicken', 'nameKn' => 'ಮಿನಿ ಮೀಲ್ ಕಾಂಬೊ ಚಿಕನ್', 'category' => 'combo', 'price' => 182, 'imageurl' => "images\\Mini Meal Combo Chicken.jpg"],
+    ['id' => 78, 'nameEn' => 'Mini Meal Combo Veg', 'nameKn' => 'ಮಿನಿ ಮೀಲ್ ಕಾಂಬೊ ವೆಜ್', 'category' => 'combo', 'price' => 182, 'imageurl' => "images\\Mini Meal Combo Veg.jpg"],
+    ['id' => 79, 'nameEn' => 'Palak Paneer Rice Bowl', 'nameKn' => 'ಪಾಲಕ್ ಪನೀರ್ ರೈಸ್ ಬೌಲ್', 'category' => 'curries', 'price' => 182, 'imageurl' => "images\\Palak Paneer Rice Bowl.jpg"],
+    ['id' => 80, 'nameEn' => 'Paneer Burrito', 'nameKn' => 'ಪನೀರ್ ಬುರಿಟೊ', 'category' => 'burrito', 'price' => 182, 'imageurl' => "images\\Paneer Burrito.jpg"],
+    ['id' => 82, 'nameEn' => 'Paneer Croquettes', 'nameKn' => 'ಪನೀರ್ ಕ್ರೊಕ್ವೆಟ್ಸ್', 'category' => 'snacks', 'price' => 182, 'imageurl' => "images\\Paneer Croquettes.jpg"],
+    ['id' => 83, 'nameEn' => 'Paneer Dinner Combo', 'nameKn' => 'ಪನೀರ್ ಡಿನ್ನರ್ ಕಾಂಬೊ', 'category' => 'combo', 'price' => 182, 'imageurl' => "images\\Paneer Dinner Combo.jpg"],
+    ['id' => 85, 'nameEn' => 'Paneer Lunch Combo', 'nameKn' => 'ಪನೀರ್ ಲಂಚ್ ಕಾಂಬೊ', 'category' => 'combo', 'price' => 182, 'imageurl' => "images\\Paneer Lunch Combo.jpg"],
+    ['id' => 86, 'nameEn' => 'Paneer Momos', 'nameKn' => 'ಪನೀರ್ ಮೊಮೊಸ್', 'category' => 'snacks', 'price' => 52, 'imageurl' => "images\\Paneer Momos.jpg"],
+    ['id' => 87, 'nameEn' => 'Paneer Noodle Bowl', 'nameKn' => 'ಪನೀರ್ ನೂಡಲ್ ಬೌಲ್', 'category' => 'meals', 'price' => 182, 'imageurl' => "images\\Paneer Noodle Bowl.jpg"],
+    ['id' => 88, 'nameEn' => 'Paneer Nuggets Pack', 'nameKn' => 'ಪನೀರ್ ನಗೆಟ್ಸ್ ಪ್ಯಾಕ್', 'category' => 'snacks', 'price' => 182, 'imageurl' => "images\\Paneer Nuggets Pack.jpg"],
+    ['id' => 89, 'nameEn' => 'Paneer Pasta Bowl', 'nameKn' => 'ಪನೀರ್ ಪಾಸ್ತಾ ಬೌಲ್', 'category' => 'snacks', 'price' => 92, 'imageurl' => "images\\Paneer Pasta Bowl.jpg"],
+    ['id' => 90, 'nameEn' => 'Paneer Pizza Slice', 'nameKn' => 'ಪನೀರ್ ಪಿಜ್ಜಾ ಸ್ಲೈಸ್', 'category' => 'pizza', 'price' => 182, 'imageurl' => "images\\Paneer Pizza Slice.jpg"],
+    ['id' => 92, 'nameEn' => 'Paneer Puff', 'nameKn' => 'ಪನೀರ್ ಪಫ್', 'category' => 'snacks', 'price' => 182, 'imageurl' => "images\\Paneer Puff.jpg"],
+    ['id' => 93, 'nameEn' => 'Paneer Shawarma Wrap', 'nameKn' => 'ಪನೀರ್ ಶಾವರ್ಮಾ ರ್ಯಾಪ್', 'category' => 'wrap', 'price' => 182, 'imageurl' => "images\\Paneer Shawarma Wrap.jpg"],
+    ['id' => 94, 'nameEn' => 'Paneer Snack Bowl', 'nameKn' => 'ಪನೀರ್ ಸ್ನ್ಯಾಕ್ ಬೌಲ್', 'category' => 'snacks', 'price' => 182, 'imageurl' => "images\\Paneer Snack Bowl.jpg"],
+    ['id' => 95, 'nameEn' => 'Paneer Spring Rolls', 'nameKn' => 'ಪನೀರ್ ಸ್ಪ್ರಿಂಗ್ ರೋಲ್ಸ್', 'category' => 'snacks', 'price' => 182, 'imageurl' => "images\\Paneer Spring Rolls.jpg"],
+    ['id' => 96, 'nameEn' => 'Paneer Taco Meal', 'nameKn' => 'ಪನೀರ್ ಟ್ಯಾಕೋ ಮೀಲ್', 'category' => 'taco', 'price' => 182, 'imageurl' => "images\\Paneer Taco Meal.jpg"],
+    ['id' => 97, 'nameEn' => 'Paneer Tikka Rice Bowl', 'nameKn' => 'ಪನೀರ್ ಟಿಕ್ಕಾ ರೈಸ್ ಬೌಲ್', 'category' => 'curries', 'price' => 182, 'imageurl' => "images\\Paneer Tikka Rice Bowl.jpg"],
+    ['id' => 98, 'nameEn' => 'Paneer Wrap', 'nameKn' => 'ಪನೀರ್ ರ್ಯಾಪ್', 'category' => 'wrap', 'price' => 182, 'imageurl' => "images\\Paneer Wrap.jpg"],
+    ['id' => 99, 'nameEn' => 'Potato Smiles Pack', 'nameKn' => 'ಪೊಟಾಟೊ ಸ್ಮೈಲ್ಸ್ ಪ್ಯಾಕ್', 'category' => 'snacks', 'price' => 182, 'imageurl' => "images\\Potato Smiles Pack.jpg"],
+    ['id' => 100, 'nameEn' => 'Veg Burrito', 'nameKn' => 'ವೆಜ್ ಬುರಿಟೊ', 'category' => 'burrito', 'price' => 182, 'imageurl' => "images\\Veg Burrito.jpg"],
+    ['id' => 102, 'nameEn' => 'Veg Croquettes', 'nameKn' => 'ವೆಜ್ ಕ್ರೊಕ್ವೆಟ್ಸ್', 'category' => 'snacks', 'price' => 182, 'imageurl' => "images\\Veg Croquettes.jpg"],
+    ['id' => 103, 'nameEn' => 'Veg Cutlet Pack', 'nameKn' => 'ವೆಜ್ ಕಟ್ಲೆಟ್ ಪ್ಯಾಕ್', 'category' => 'snacks', 'price' => 182, 'imageurl' => "images\\Veg Cutlet Pack.jpg"],
+    ['id' => 104, 'nameEn' => 'Veg Dinner Combo', 'nameKn' => 'ವೆಜ್ ಡಿನ್ನರ್ ಕಾಂಬೊ', 'category' => 'combo', 'price' => 182, 'imageurl' => "images\\Veg Dinner Combo.jpg"],
+    ['id' => 105, 'nameEn' => 'Veg Fried Rice', 'nameKn' => 'ವೆಜ್ ಫ್ರೈಡ್ ರೈಸ್', 'category' => 'rice', 'price' => 182, 'imageurl' => "images/Veg Fried Rice.jpg"],
+    ['id' => 106, 'nameEn' => 'Veg Khichd', 'nameKn' => 'ವೆಜ್ ಖಿಚಡಿ', 'category' => 'rice', 'price' => 182, 'imageurl' => "images\\Veg Khichd.jpg"],
+    ['id' => 107, 'nameEn' => 'Veg Korma Rice Bowl', 'nameKn' => 'ವೆಜ್ ಕೋರ್ಮಾ ರೈಸ್ ಬೌಲ್', 'category' => 'curries', 'price' => 182, 'imageurl' => "images\\Veg Korma Rice Bowl.jpg"],
+    ['id' => 108, 'nameEn' => 'Veg Sandwich', 'nameKn' => 'ವೆಜ್ ಸ್ಯಾಂಡ್‌ವಿಚ್', 'category' => 'sandwich', 'price' => 182, 'imageurl' => "images\\Veg Sandwich.jpg"],
+    ['id' => 109, 'nameEn' => 'Veg Pulao', 'nameKn' => 'ವೆಜ್ ಪುಲಾವ್', 'category' => 'rice', 'price' => 182, 'imageurl' => "images\\Veg Pulao.jpg"],
+    ['id' => 110, 'nameEn' => 'Palak Paneer Rice Bowl', 'nameKn' => 'ಪಾಲಕ್ ಪನೀರ್ ರೈಸ್ ಬೌಲ್', 'category' => 'curries', 'price' => 182, 'imageurl' => "images\\Palak Paneer Rice Bowl.jpg"],
+    ['id' => 111, 'nameEn' => 'Paneer Burrito', 'nameKn' => 'ಪನೀರ್ ಬುರಿಟೊ', 'category' => 'burrito', 'price' => 182, 'imageurl' => "images\\Paneer Burrito.jpg"],
+    ['id' => 112, 'nameEn' => 'Paneer Croquettes', 'nameKn' => 'ಪನೀರ್ ಕ್ರೊಕ್ವೆಟ್ಸ್', 'category' => 'snacks', 'price' => 182, 'imageurl' => "images\\Paneer Croquettes.jpg"],
+    ['id' => 58, 'nameEn' => 'Veg Momos', 'nameKn' => 'ಮೋಮೋಸ್', 'category' => 'snacks', 'price' => 92, 'imageurl' => "images\\Veg Momos.jpg"],
+    ['id' => 64, 'nameEn' => 'Veg Nuggets Pack', 'nameKn' => 'ನಗೆಟ್ಸ್', 'category' => 'snacks', 'price' => 112, 'imageurl' => "images/Paneer Nuggets Pack.jpg"],
+    ['id' => 68, 'nameEn' => 'French Fries Pack', 'nameKn' => 'ಫ್ರೆಂಚ್ ಫ್ರೈಸ್', 'category' => 'snacks', 'price' => 102, 'imageurl' => "images\\French Fries Pack.jpg"],
+    ['id' => 75, 'nameEn' => 'Veg Taco Meal', 'nameKn' => 'ವೆಜ್ ಟ್ಯಾಕೋ', 'category' => 'meals', 'price' => 132, 'imageurl' => "images\\Veg Taco Meal.jpg"],
+    ['id' => 81, 'nameEn' => 'Veg Shawarma Wrap', 'nameKn' => 'ಶಾವರ್ಮಾ', 'category' => 'meals', 'price' => 132, 'imageurl' => "images\\Veg Shawarma Wrap.jpg"],
+    ['id' => 84, 'nameEn' => 'Garlic Bread Veg', 'nameKn' => 'ಗಾರ್ಲಿಕ್ ಬ್ರೆಡ್', 'category' => 'snacks', 'price' => 102, 'imageurl' => "images\\Garlic Bread Veg.jpg"],
+    ['id' => 91, 'nameEn' => 'Veg Lunch Combo', 'nameKn' => 'ಲಂಚ್ ಕಾಂಬೊ', 'category' => 'meals', 'price' => 162, 'imageurl' => "images\\Veg Lunch Combo.jpg"],
+    ['id' => 101, 'nameEn' => 'Veg Rice Bowl', 'nameKn' => 'ರೈಸ್ ಬೌಲ್', 'category' => 'rice', 'price' => 122, 'imageurl' => "images\\Veg Rice Bowl.jpg"],
+    ['id' => 114, 'nameEn' => 'Butter Chicken Rice Bowl', 'nameKn' => 'ಬಟರ್ ಚಿಕನ್ ರೈಸ್', 'category' => 'curries', 'price' => 182, 'imageurl' => "images\\Butter Chicken Rice Bowl.jpg"],
+    ['id' => 119, 'nameEn' => 'Ready Paratha Meal', 'nameKn' => 'ಪರಾಠಾ', 'category' => 'snacks', 'price' => 122, 'imageurl' => "images\\Ready Paratha Meal.jpg"],
+    ['id' => 120, 'nameEn' => 'Family Meal Pack', 'nameKn' => 'ಫ್ಯಾಮಿಲಿ ಮಿಲ್ ಪ್ಯಾಕ್', 'category' => 'meals', 'price' => 402, 'imageurl' => "images\\Family Meal Pack.jpg"],
+    ['id' => 113, 'nameEn' => 'Bingo Mad Angles', 'nameKn' => 'ಬಿಂಗೋ ಮ್ಯಾಡ್ ಆಂಗಲ್ಸ್', 'category' => 'chips', 'price' => 27, 'imageurl' => "images\\Bingo Mad Angles.jpg"],
+    ['id' => 115, 'nameEn' => 'Frozen Butter Naan', 'nameKn' => 'ಫ್ರೋಜನ್ ಬಟರ್ ನಾನ್', 'category' => 'frozen', 'price' => 182, 'imageurl' => "images/Frozen Butter Naan.jpg"],
+    ['id' => 116, 'nameEn' => 'Frozen Chapati', 'nameKn' => 'ಫ್ರೋಜನ್ ಚಪಾತಿ', 'category' => 'frozen', 'price' => 162, 'imageurl' => "images/Frozen Chapati.jpg"],
+    ['id' => 117, 'nameEn' => 'Frozen Chicken Breast', 'nameKn' => 'ಫ್ರೋಜನ್ ಚಿಕನ್ ಬ್ರೆಸ್ಟ್', 'category' => 'frozen', 'price' => 112, 'imageurl' => "images/Frozen Chicken Breast.jpg"],
+    ['id' => 118, 'nameEn' => 'Frozen Chicken Sandwich', 'nameKn' => 'ಫ್ರೋಜನ್ ಚಿಕನ್ ಸ್ಯಾಂಡ್‌ವಿಚ್', 'category' => 'frozen', 'price' => 132, 'imageurl' => "images/Frozen Chicken Sandwich.jpg"],
+    ['id' => 121, 'nameEn' => 'Frozen Chicken Wings', 'nameKn' => 'ಫ್ರೋಜನ್ ಚಿಕನ್ ವಿಂಗ್ಸ್', 'category' => 'frozen', 'price' => 162, 'imageurl' => "images/Frozen Chicken Wings.jpg"],
+    ['id' => 122, 'nameEn' => 'Frozen Veg Pulao', 'nameKn' => 'ಫ್ರೋಜನ್ ವೆಜ್ ಪುಲಾವ್', 'category' => 'frozen', 'price' => 102, 'imageurl' => "images\\Veg Pulao.jpg"],
+    ['id' => 123, 'nameEn' => 'Frozen Dal Fry', 'nameKn' => 'ಫ್ರೋಜನ್ ದಾಲ್ ಫ್ರೈ', 'category' => 'frozen', 'price' => 92, 'imageurl' => "images/Frozen Dal Fry.jpg"],
+    ['id' => 124, 'nameEn' => 'Frozen Fish Fillet', 'nameKn' => 'ಫ್ರೋಜನ್ ಫಿಶ್ ಫಿಲೆಟ್', 'category' => 'frozen', 'price' => 82, 'imageurl' => "images/Frozen Fish Fillet.jpg"],
+    ['id' => 125, 'nameEn' => 'Frozen French Fries', 'nameKn' => 'ಫ್ರೋಜನ್ ಫ್ರೆಂಚ್ ಫ್ರೈಸ್', 'category' => 'frozen', 'price' => 82, 'imageurl' => "images/Frozen French Fries.jpg"],
+    ['id' => 126, 'nameEn' => 'Frozen Fried Rice Veg', 'nameKn' => 'ಫ್ರೋಜನ್ ಫ್ರೈಡ್ ರೈಸ್ ವೆಜ್', 'category' => 'frozen', 'price' => 72, 'imageurl' => "images/Frozen Fried Rice Veg.jpg"],
+    ['id' => 127, 'nameEn' => 'Frozen Garlic Naan', 'nameKn' => 'ಫ್ರೋಜನ್ ಗಾರ್ಲಿಕ್ ನಾನ್', 'category' => 'frozen', 'price' => 82, 'imageurl' => "images/Frozen Garlic Naan.jpg"],
+    ['id' => 128, 'nameEn' => 'Frozen Garlic Naan', 'nameKn' => 'ಫ್ರೋಜನ್ ಗಾರ್ಲಿಕ್ ನಾನ್', 'category' => 'frozen', 'price' => 92, 'imageurl' => "images/Frozen Garlic Naan.jpg"],
+    ['id' => 129, 'nameEn' => 'Frozen Green Peas', 'nameKn' => 'ಫ್ರೋಜನ್ ಗ್ರೀನ್ ಪೀಸ್', 'category' => 'frozen', 'price' => 112, 'imageurl' => "images/Frozen Green Peas.jpg"],
+    ['id' => 130, 'nameEn' => 'Frozen Gulab Jamun', 'nameKn' => 'ಫ್ರೋಜನ್ ಗುಲಾಬ್ ಜಾಮುನ್', 'category' => 'frozen', 'price' => 102, 'imageurl' => "images/Frozen Gulab Jamun.jpg"],
+    ['id' => 131, 'nameEn' => 'Frozen Ice Cream Family Pack', 'nameKn' => 'ಫ್ರೋಜನ್ ಐಸ್ ಕ್ರೀಮ್ ಫ್ಯಾಮಿಲಿ ಪ್ಯಾಕ್', 'category' => 'frozen', 'price' => 112, 'imageurl' => "images/Frozen Ice Cream Family Pack.jpg"],
+    ['id' => 132, 'nameEn' => 'Frozen Jalebi', 'nameKn' => 'ಫ್ರೋಜನ್ ಜಲೇಬಿ', 'category' => 'frozen', 'price' => 142, 'imageurl' => "images/Frozen Jalebi.jpg"],
+    ['id' => 133, 'nameEn' => 'Frozen Kachori', 'nameKn' => 'ಫ್ರೋಜನ್ ಕಚೋರಿ', 'category' => 'frozen', 'price' => 142, 'imageurl' => "images/Frozen Kachori.jpg"],
+    ['id' => 134, 'nameEn' => 'Frozen Kulfi Malai', 'nameKn' => 'ಫ್ರೋಜನ್ ಕುಲ್ಫಿ ಮಲಾಯಿ', 'category' => 'frozen', 'price' => 162, 'imageurl' => "images/Frozen Kulfi Malai.jpg"],
+    ['id' => 135, 'nameEn' => 'Frozen Malabar Parotta', 'nameKn' => 'ಫ್ರೋಜನ್ ಮಲಬಾರ್ ಪರೋಟ್ಟಾ', 'category' => 'frozen', 'price' => 132, 'imageurl' => "images/Frozen Malabar Parotta.jpg"],
+    ['id' => 136, 'nameEn' => 'Frozen Muffins', 'nameKn' => 'ಫ್ರೋಜನ್ ಮಫಿನ್ಸ್', 'category' => 'frozen', 'price' => 92, 'imageurl' => "images/Frozen Muffins.jpg"],
+    ['id' => 137, 'nameEn' => 'Frozen Paratha', 'nameKn' => 'ಫ್ರೋಜನ್ ಪರಾಠಾ', 'category' => 'frozen', 'price' => 112, 'imageurl' => "images/Frozen Paratha.jpg"],
+    ['id' => 138, 'nameEn' => 'Frozen Prawns', 'nameKn' => 'ಫ್ರೋಜನ್ ಪ್ರಾನ್ಸ್', 'category' => 'frozen', 'price' => 152, 'imageurl' => "images/Frozen Prawns.jpg"],
+    ['id' => 139, 'nameEn' => 'Frozen Rasmalai', 'nameKn' => 'ಫ್ರೋಜನ್ ರಸ್ಮಲಾಯಿ', 'category' => 'frozen', 'price' => 102, 'imageurl' => "images/Frozen Rasmalai.jpg"],
+    ['id' => 140, 'nameEn' => 'Frozen Smoothie Mix', 'nameKn' => 'ಫ್ರೋಜನ್ ಸ್ಮೂಥಿ ಮಿಕ್ಸ್', 'category' => 'frozen', 'price' => 102, 'imageurl' => "images/Frozen Smoothie Mix.jpg"],
+    ['id' => 141, 'nameEn' => 'Frozen Veg Biryani', 'nameKn' => 'ಫ್ರೋಜನ್ ವೆಜ್ ಬಿರಿಯಾನಿ', 'category' => 'frozen', 'price' => 132, 'imageurl' => "images/Frozen Veg Biryani.jpg"],
+    ['id' => 142, 'nameEn' => 'Frozen Veg Momos', 'nameKn' => 'ಫ್ರೋಜನ್ ವೆಜ್ ಮೊಮೊಸ್', 'category' => 'frozen', 'price' => 142, 'imageurl' => "images/Frozen Veg Momos.jpg"],
+    ['id' => 143, 'nameEn' => 'Frozen Waffles', 'nameKn' => 'ಫ್ರೋಜನ್ ವಾಫಲ್ಸ್', 'category' => 'frozen', 'price' => 182, 'imageurl' => "images/Frozen Waffles.jpg"],
+    ['id' => 144, 'nameEn' => 'Haldiram Aloo Bhujia', 'nameKn' => 'ಹಳ್ದಿರಾಮ್ ಆಲೂ ಭುಜಿಯಾ', 'category' => 'snacks', 'price' => 122, 'imageurl' => "images/Haldiram Aloo Bhujia.jpg"],
+    ['id' => 145, 'nameEn' => 'Ice Cream Vanilla', 'nameKn' => 'ಐಸ್ ಕ್ರೀಮ್ ವೆನಿಲ್ಲಾ', 'category' => 'frozen', 'price' => 112, 'imageurl' => "images/Ice Cream Vanilla.jpg"],
+    ['id' => 146, 'nameEn' => 'Jaggery', 'nameKn' => 'ಬೆಲ್ಲ', 'category' => 'sweetener', 'price' => 72, 'imageurl' => "images/Jaggery.jpg"],
+    ['id' => 147, 'nameEn' => 'Knorr Sweet Corn Soup', 'nameKn' => 'ನಾರ್ ಸ್ವೀಟ್ ಕಾರ್ನ್ ಸೂಪ್', 'category' => 'soup', 'price' => 122, 'imageurl' => "images/Knorr Sweet Corn Soup.jpg"],
+    ['id' => 148, 'nameEn' => 'Knorr Tomato Soup', 'nameKn' => 'ನಾರ್ ಟೊಮೇಟೊ ಸೂಪ್', 'category' => 'soup', 'price' => 92, 'imageurl' => "images/Knorr Tomato Soup.jpg"],
+    ['id' => 149, 'nameEn' => 'Knorr Veg Manchow Soup', 'nameKn' => 'ನಾರ್ ವೆಜ್ ಮಂಚೋ ಸೂಪ್', 'category' => 'soup', 'price' => 92, 'imageurl' => "images/Knorr Veg Manchow Soup.jpg"],
+    ['id' => 150, 'nameEn' => 'Kurkure Masala Munch', 'nameKn' => 'ಕುರ್ಕುರೆ ಮಸಾಲಾ ಮಂಚ್', 'category' => 'chips', 'price' => 122, 'imageurl' => "images/Kurkure Masala Munch.jpg"],
+    ['id' => 151, 'nameEn' => 'Lays Classic Chips', 'nameKn' => 'ಲೇಸ್ ಕ್ಲಾಸಿಕ್ ಚಿಪ್ಸ್', 'category' => 'chips', 'price' => 152, 'imageurl' => "images/Lays Classic Chips.jpg"],
+    ['id' => 152, 'nameEn' => 'Lays Magic Masala', 'nameKn' => 'ಲೇಸ್ ಮ್ಯಾಜಿಕ್ ಮಸಾಲಾ', 'category' => 'chips', 'price' => 52, 'imageurl' => "images/Lays Magic Masala.jpg"],
+    ['id' => 153, 'nameEn' => 'Maggi Family Pack', 'nameKn' => 'ಮ್ಯಾಗಿ ಫ್ಯಾಮಿಲಿ ಪ್ಯಾಕ್', 'category' => 'noodles', 'price' => 92, 'imageurl' => "images/Maggi Family Pack.jpg"],
+    ['id' => 154, 'nameEn' => 'Maggi Hot Soup Veg', 'nameKn' => 'ಮ್ಯಾಗಿ ಹಾಟ್ ಸೂಪ್ ವೆಜ್', 'category' => 'soup', 'price' => 92, 'imageurl' => "images/Maggi Hot Soup Veg.jpg"],
+    ['id' => 155, 'nameEn' => 'Maggi Masala Noodles', 'nameKn' => 'ಮ್ಯಾಗಿ ಮಸಾಲಾ ನೂಡಲ್ಸ್', 'category' => 'noodles', 'price' => 112, 'imageurl' => "images/Maggi Masala Noodles.jpg"],
+    ['id' => 156, 'nameEn' => 'French Fries Pack', 'nameKn' => 'ಫ್ರೆಂಚ್ ಫ್ರೈಸ್ ಪ್ಯಾಕ್', 'category' => 'snacks', 'price' => 102, 'imageurl' => "images\\French Fries Pack.jpg"],
+    ['id' => 157, 'nameEn' => 'Maggi Tomato Soup', 'nameKn' => 'ಮ್ಯಾಗಿ ಟೊಮೇಟೊ ಸೂಪ್', 'category' => 'soup', 'price' => 132, 'imageurl' => "images/Maggi Tomato Soup.jpg"],
+    ['id' => 158, 'nameEn' => 'MTR Chole Masala', 'nameKn' => 'ಎಂಟಿಆರ್ ಛೋಲೆ ಮಸಾಲಾ', 'category' => 'curries', 'price' => 132, 'imageurl' => "images/MTR Chole Masala.jpg"],
+    ['id' => 159, 'nameEn' => 'MTR Instant Filter Coffee', 'nameKn' => 'ಎಂಟಿಆರ್ ಇನ್ಸ್ಟಂಟ್ ಫಿಲ್ಟರ್ ಕಾಫಿ', 'category' => 'beverage', 'price' => 102, 'imageurl' => "images/MTR Instant Filter Coffee.jpg"],
+    ['id' => 160, 'nameEn' => 'MTR Paneer Butter Masala', 'nameKn' => 'ಎಂಟಿಆರ್ ಪನೀರ್ ಬಟರ್ ಮಸಾಲಾ', 'category' => 'curries', 'price' => 162, 'imageurl' => "images/MTR Paneer Butter Masala.jpg"],
+    ['id' => 161, 'nameEn' => 'Yippee Masala Noodles', 'nameKn' => 'ಯಿಪ್ಪೀ ಮಸಾಲಾ ನೂಡಲ್ಸ್', 'category' => 'noodles', 'price' => 122, 'imageurl' => "images/Yippee Masala Noodles.jpg"],
+    ['id' => 162, 'nameEn' => 'Wai Wai Masala Noodles', 'nameKn' => 'ವೈ ವೈ ಮಸಾಲಾ ನೂಡಲ್ಸ್', 'category' => 'noodles', 'price' => 182, 'imageurl' => "images/Wai Wai Masala Noodles.jpg"],
+    ['id' => 163, 'nameEn' => 'Saffola Masala Oats', 'nameKn' => 'ಸ್ಯಾಫೋಲಾ ಮಸಾಲಾ ಓಟ್ಸ್', 'category' => 'oats', 'price' => 122, 'imageurl' => "images/Saffola Masala Oats.jpg"],
+    ['id' => 164, 'nameEn' => 'Nescafe Classic', 'nameKn' => 'ನೆಸ್ಕಫೆ ಕ್ಲಾಸಿಕ್', 'category' => 'beverage', 'price' => 402, 'imageurl' => "images/Nescafe Classic.jpg"],
+    ['id' => 9200, 'nameEn' => 'Frozen Berries Mix', 'nameKn' => 'ಫ್ರೋಜನ್ ಬೆರ್ರಿ ಮಿಕ್ಸ್', 'category' => 'frozen', 'price' => 282, 'imageurl' => 'images/Frozen Berries Mix.jpg'],
+    ['id' => 9201, 'nameEn' => 'Frozen Vegetables Mix', 'nameKn' => 'ಫ್ರೋಜನ್ ತರಕಾರಿ ಮಿಕ್ಸ್', 'category' => 'frozen', 'price' => 122, 'imageurl' => 'images/Frozen Vegetables Mix.jpg'],
+    ['id' => 9202, 'nameEn' => 'MTR Instant Pancake Mix', 'nameKn' => 'ಎಂಟಿಆರ್ ಪ್ಯಾನ್‌ಕೇಕ್ ಮಿಕ್ಸ್', 'category' => 'snacks', 'price' => 97, 'imageurl' => 'images/MTR Instant Pancake Mix 95.jpg'],
+    ['id' => 9203, 'nameEn' => 'MTR Multigrain Pancake Mix', 'nameKn' => 'ಎಂಟಿಆರ್ ಮಲ್ಟಿಗ್ರೇನ್ ಪ್ಯಾನ್‌ಕೇಕ್', 'category' => 'snacks', 'price' => 152, 'imageurl' => 'images/MTR Instant Multigrain Pancake Mix 150.jpg'],
+    ['id' => 9204, 'nameEn' => 'Ready-to-Cook Rasam Mix', 'nameKn' => 'ರೆಡಿ ರಸಂ ಮಿಕ್ಸ್', 'category' => 'curries', 'price' => 87, 'imageurl' => 'images/Ready-to-Cook Bulk Rasam Mix.jpg'],
+    ['id' => 9205, 'nameEn' => 'Ready-to-Cook Sambar Mix', 'nameKn' => 'ರೆಡಿ ಸಾಂಬಾರ್ ಮಿಕ್ಸ್', 'category' => 'curries', 'price' => 97, 'imageurl' => 'images/Ready-to-Cook Bulk Sambar Mix.jpg'],
+    ['id' => 9206, 'nameEn' => 'Chicken Rice Bowl', 'nameKn' => 'ಚಿಕನ್ ರೈಸ್ ಬೌಲ್', 'category' => 'rice', 'price' => 172, 'imageurl' => 'images/Chicken Rice Bowl.jpg'],
+    ['id' => 9207, 'nameEn' => 'Saffola Masala Oats Classic', 'nameKn' => 'ಸ್ಯಾಫೋಲಾ ಮಸಾಲಾ ಓಟ್ಸ್', 'category' => 'oats', 'price' => 47, 'imageurl' => 'images/Saffola Masala Oats Classic.jpg'],
+    ['id' => 9208, 'nameEn' => 'Saffola Masala Oats Peppy Tomato', 'nameKn' => 'ಸ್ಯಾಫೋಲಾ ಟೊಮೇಟೊ ಓಟ್ಸ್', 'category' => 'oats', 'price' => 52, 'imageurl' => 'images/Saffola Masala Oats Peppy Tomato.jpg'],
+    ['id' => 9209, 'nameEn' => 'Saffola Masala Oats Veggie Twist', 'nameKn' => 'ಸ್ಯಾಫೋಲಾ ವೆಜ್ ಓಟ್ಸ್', 'category' => 'oats', 'price' => 52, 'imageurl' => 'images/Saffola Masala Oats Veggie Twist.jpg'],
+    ['id' => 9210, 'nameEn' => "Bagrry's Instant Oats", 'nameKn' => 'ಬ್ಯಾಗ್ರೀಸ್ ಇನ್ಸ್ಟಂಟ್ ಓಟ್ಸ್', 'category' => 'oats', 'price' => 107, 'imageurl' => "images/Bagrry's Instant Oats.jpg"],
+    ['id' => 9211, 'nameEn' => 'Pillsbury Pancake Mix', 'nameKn' => 'ಪಿಲ್ಸ್‌ಬರಿ ಪ್ಯಾನ್‌ಕೇಕ್ ಮಿಕ್ಸ್', 'category' => 'snacks', 'price' => 97, 'imageurl' => 'images/Pillsbury Pancake Mix 95.jpg']
   ];
-  // Build productsData from rawProducts
+  // Build fallback productsData from rawProducts and merge DB entries
+  $fallbackRTE = [];
   foreach ($rawProducts as $item) {
-    $productsData[] = [
+    $fallbackRTE[] = [
       'id' => $item['id'],
       'name' => $item['nameEn'],
       'kn' => $item['nameKn'],
       'category' => $item['category'],
       'price' => $item['price'],
-      'imageUrl' => $item['imageurl'],
+      'imageUrl' => normalizeImagePath($item['imageurl']),
       'description' => '', // will be generated in JS
       'weight' => ''
     ];
   }
+  $productsData = ksrMergeCategoryProducts($dbProductsRTE, $fallbackRTE, [
+    'nameField' => 'name',
+    'imageField' => 'imageUrl',
+    'updateMatchedPrice' => true,
+  ]);
 }
 ?>
 <!DOCTYPE html>
@@ -500,8 +522,9 @@ if (empty($productsData)) {
     }
   </style>
   <link rel="stylesheet" href="category-style.css">
+  <script src="gallery.js"></script>
   <link rel="stylesheet" href="../index.css">
-    <link rel="stylesheet" href="../mobile-app.css?v=3.0" />
+  <link rel="stylesheet" href="../mobile-app.css?v=3.0" />
 </head>
 
 <body>
@@ -586,6 +609,7 @@ if (empty($productsData)) {
           category: p.category,
           price: p.price,
           image: p.imageUrl,
+          images: p.images || [],
           description: p.description || getShortDescription(p.name, p.category)
         };
       });
@@ -665,7 +689,7 @@ if (empty($productsData)) {
               if (jsonStart !== -1) {
                 data = JSON.parse(text.substring(jsonStart));
               }
-            } catch(e) {
+            } catch (e) {
               console.warn("Cart response parse warning:", text);
             }
             if (!data) {
@@ -713,9 +737,12 @@ if (empty($productsData)) {
         grid.innerHTML = filtered.map(p => {
           const bg = cardColorByTitle(p.nameEn);
           const btnText = `${p.description.substring(0, 38)} ✨`;
+          const mediaHtml = (p.images && p.images.length > 1)
+            ? `<div class="product-img">${window.ksrGalleryMediaHtml(p, {emoji:'🍱'})}</div>`
+            : window.ksrGalleryMediaHtml(p, {emoji:'🍱', imgClass:'product-img', onError:"this.src='https://placehold.co/88x88?text=Meal'"});
           return `
                 <div class="product-card" style="background: ${bg};" data-id="${p.id}">
-                    <img class="product-img" src="${p.image}" alt="" loading="lazy" onerror="this.src='https://placehold.co/88x88?text=Meal'">
+                    ${mediaHtml}
                     <div class="product-name">${p.nameEn.replace(/[&<>]/g, function(m){if(m==='&')return '&amp;';if(m==='<')return '&lt;';if(m==='>')return '&gt;';return m;})}</div>
                     <div class="product-name-kn">${p.nameKn.replace(/[&<>]/g, function(m){if(m==='&')return '&amp;';if(m==='<')return '&lt;';if(m==='>')return '&gt;';return m;})}</div>
                     <div class="product-desc"><i class="fa-regular fa-clock"></i> ${p.description}</div>
@@ -933,9 +960,9 @@ if (empty($productsData)) {
   <?php include __DIR__ . '/../includes/user-footer.php'; ?>
   <script src="sorting.js"></script>
 
-    <!-- Mobile Bottom Navigation -->
-    <?php if (file_exists(__DIR__ . '/../mobile-bottom-nav.php')) require_once __DIR__ . '/../mobile-bottom-nav.php'; ?>
-    <script src="/assets/js/mobile-app.js?v=3.0" defer></script>
+  <!-- Mobile Bottom Navigation -->
+  <?php if (file_exists(__DIR__ . '/../mobile-bottom-nav.php')) require_once __DIR__ . '/../mobile-bottom-nav.php'; ?>
+  <script src="/assets/js/mobile-app.js?v=3.0" defer></script>
 </body>
 
 </html>

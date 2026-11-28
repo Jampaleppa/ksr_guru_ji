@@ -2,871 +2,79 @@
     {
         "id": 1,
         "name": "Amul Gold Full Cream Milk",
-        "kn_name": "ಅಮೂಲ್ ಗೋಲ್ಡ್",
-        "price": 34,
+        "kn_name": "\u0c85\u0cae\u0cc2\u0cb2\u0ccd \u0c97\u0ccb\u0cb2\u0ccd\u0ca1\u0ccd",
+        "price": 36,
         "category": "milk",
         "variants": [
             {
                 "label": "500 ml",
-                "price": 34
-            },
-            {
-                "label": "1 Litre",
-                "price": 68
-            }
-        ],
-        "emoji": "🥛",
-        "description_en": "Fresh dairy product",
-        "image": "/images/Amul Gold Full Cream Milk.jpg"
-    },
-    {
-        "id": 2,
-        "name": "Amul Taaza Toned Milk",
-        "kn_name": "ಅಮೂಲ್ ತಾಜಾ",
-        "price": 28,
-        "category": "milk",
-        "variants": [
-            {
-                "label": "500 ml",
-                "price": 28
-            },
-            {
-                "label": "1 Litre",
-                "price": 65
-            }
-        ],
-        "emoji": "🥛",
-        "description_en": "Fresh dairy product",
-        "image": "/images/Amul Taaza Toned Milk.jpg"
-    },
-    {
-        "id": 3,
-        "name": "Amul Shakti Standardised Milk",
-        "kn_name": "ಅಮೂಲ್ ಶಕ್ತಿ",
-        "price": 31,
-        "category": "milk",
-        "variants": [
-            {
-                "label": "500 ml",
-                "price": 31
-            }
-        ],
-        "emoji": "🥛",
-        "description_en": "Fresh dairy product",
-        "image": "/images/Amul Shakti Standardised Milk.jpg"
-    },
-    {
-        "id": 4,
-        "name": "Amul Slim n Trim Double Toned",
-        "kn_name": "ಅಮೂಲ್ ಸ್ಲಿಮ್",
-        "price": 23,
-        "category": "milk",
-        "variants": [
-            {
-                "label": "500 ml",
-                "price": 23
-            }
-        ],
-        "emoji": "🥛",
-        "description_en": "Fresh dairy product",
-        "image": "/images/Amul Slim n Trim Double Toned.jpg"
-    },
-    {
-        "id": 5,
-        "name": "Amul Cow Milk",
-        "kn_name": "ಅಮೂಲ್ ಹಸುವಿನ ಹಾಲು",
-        "price": 28,
-        "category": "milk",
-        "variants": [
-            {
-                "label": "500 ml",
-                "price": 28
-            }
-        ],
-        "emoji": "🥛",
-        "description_en": "Fresh dairy product",
-        "image": "/images/Amul Cow Milk.jpg"
-    },
-    {
-        "id": 6,
-        "name": "Amul Taaza UHT Milk",
-        "kn_name": "ಅಮೂಲ್ ತಾಜಾ ಯುಎಚ್ಟಿ",
-        "price": 75,
-        "category": "milk",
-        "variants": [
-            {
-                "label": "1 Litre",
-                "price": 75
-            }
-        ],
-        "emoji": "🥛",
-        "description_en": "Fresh dairy product",
-        "image": "/images/Amul Taaza UHT Milk.jpg"
-    },
-    {
-        "id": 7,
-        "name": "Amul Calci+ Milk",
-        "kn_name": "ಅಮೂಲ್ ಕ್ಯಾಲ್ಸಿ+",
-        "price": 95,
-        "category": "milk",
-        "variants": [
-            {
-                "label": "1 Litre",
-                "price": 95
-            }
-        ],
-        "emoji": "🥛",
-        "description_en": "Fresh dairy product",
-        "image": "/images/Amul Calci+ Milk.png"
-    },
-    {
-        "id": 8,
-        "name": "Amul Butter",
-        "kn_name": "ಅಮೂಲ್ ಬೆಣ್ಣೆ",
-        "price": 59,
-        "category": "butter",
-        "variants": [
-            {
-                "label": "100 g",
-                "price": 59
-            },
-            {
-                "label": "500 g",
-                "price": 275
-            }
-        ],
-        "emoji": "🥛",
-        "description_en": "Fresh dairy product",
-        "image": "/images/Amul Butter.jpg"
-    },
-    {
-        "id": 9,
-        "name": "Amul Fresh Cream",
-        "kn_name": "ಅಮೂಲ್ ಕ್ರೀಮ್",
-        "price": 65,
-        "category": "cream",
-        "variants": [
-            {
-                "label": "200 ml",
-                "price": 65
-            },
-            {
-                "label": "1 Litre",
-                "price": 222
-            }
-        ],
-        "emoji": "🥛",
-        "description_en": "Fresh dairy product",
-        "image": "/images/Amul Fresh Cream.jpg"
-    },
-    {
-        "id": 10,
-        "name": "Amul Malai Paneer",
-        "kn_name": "ಅಮೂಲ್ ಪನೀರ್",
-        "price": 92,
-        "category": "paneer",
-        "variants": [
-            {
-                "label": "200 g",
-                "price": 92
-            },
-            {
-                "label": "1 kg",
-                "price": 440
-            }
-        ],
-        "emoji": "🥛",
-        "description_en": "Fresh dairy product",
-        "image": "/images/Amul Malai Paneer.jpg"
-    },
-    {
-        "id": 11,
-        "name": "Amul Masti Dahi",
-        "kn_name": "ಅಮೂಲ್ ದಹಿ",
-        "price": 20,
-        "category": "yogurt",
-        "variants": [
-            {
-                "label": "200 g",
-                "price": 20
-            },
-            {
-                "label": "400 g",
-                "price": 40
-            },
-            {
-                "label": "1 kg",
-                "price": 85
-            }
-        ],
-        "emoji": "🥛",
-        "description_en": "Fresh dairy product",
-        "image": "/images/Amul Masti Dahi.jpg"
-    },
-    {
-        "id": 12,
-        "name": "Amul Pure Ghee",
-        "kn_name": "ಅಮೂಲ್ ತುಪ್ಪ",
-        "price": 270,
-        "category": "ghee",
-        "variants": [
-            {
-                "label": "500 ml",
-                "price": 270
-            },
-            {
-                "label": "1 Litre",
-                "price": 525
-            }
-        ],
-        "emoji": "🥛",
-        "description_en": "Fresh dairy product",
-        "image": "/images/Amul Pure Ghee.jpg"
-    },
-    {
-        "id": 13,
-        "name": "Amul Cheese Block",
-        "kn_name": "ಅಮೂಲ್ ಚೀಸ್",
-        "price": 134,
-        "category": "cheese",
-        "variants": [
-            {
-                "label": "200 g",
-                "price": 134
-            },
-            {
-                "label": "500 g",
-                "price": 340
-            }
-        ],
-        "emoji": "🥛",
-        "description_en": "Fresh dairy product",
-        "image": "/images/Amul Cheese Block.jpg"
-    },
-    {
-        "id": 14,
-        "name": "Amul Kool Flavoured Milk",
-        "kn_name": "ಅಮೂಲ್ ಕೂಲ್",
-        "price": 27,
-        "category": "beverages",
-        "variants": [
-            {
-                "label": "180 ml (Chocolate)",
-                "price": 27
-            },
-            {
-                "label": "180 ml (Strawberry)",
-                "price": 27
-            }
-        ],
-        "emoji": "🥛",
-        "description_en": "Fresh dairy product",
-        "image": "/images/Amul Kool Flavoured Milk.jpg"
-    },
-    {
-        "id": 15,
-        "name": "Amul Buttermilk (Chaas)",
-        "kn_name": "ಅಮೂಲ್ ಮಜ್ಜಿಗೆ",
-        "price": 12,
-        "category": "beverages",
-        "variants": [
-            {
-                "label": "200 ml",
-                "price": 12
-            }
-        ],
-        "emoji": "🥛",
-        "description_en": "Fresh dairy product",
-        "image": "/images/Amul Buttermilk (Chaas).jpg"
-    },
-    {
-        "id": 16,
-        "name": "Amul Lassi",
-        "kn_name": "ಅಮೂಲ್ ಲಸ್ಸಿ",
-        "price": 18,
-        "category": "beverages",
-        "variants": [
-            {
-                "label": "200 ml",
-                "price": 18
-            }
-        ],
-        "emoji": "🥛",
-        "description_en": "Fresh dairy product",
-        "image": "/images/Amul Lassi.jpg"
-    },
-    {
-        "id": 17,
-        "name": "Nandini Toned Milk",
-        "kn_name": "ನಂದಿನಿ ಟೋನ್ಡ್",
-        "price": 24,
-        "category": "milk",
-        "variants": [
-            {
-                "label": "550 ml",
-                "price": 24
-            },
-            {
-                "label": "1050 ml",
-                "price": 44
-            }
-        ],
-        "emoji": "🥛",
-        "description_en": "Fresh dairy product",
-        "image": "/images/Nandini Toned Milk.jpg"
-    },
-    {
-        "id": 18,
-        "name": "Nandini Homogenised Milk",
-        "kn_name": "ನಂದಿನಿ ಹೋಮೋಜಿನೈಸ್ಡ್",
-        "price": 25,
-        "category": "milk",
-        "variants": [
-            {
-                "label": "550 ml",
-                "price": 25
-            }
-        ],
-        "emoji": "🥛",
-        "description_en": "Fresh dairy product",
-        "image": "/images/Nandini Homogenised Milk.jpg"
-    },
-    {
-        "id": 19,
-        "name": "Nandini Samrudhi Full Cream",
-        "kn_name": "ನಂದಿನಿ ಸಮೃದ್ಧಿ",
-        "price": 53,
-        "category": "milk",
-        "variants": [
-            {
-                "label": "500 ml",
-                "price": 53
-            },
-            {
-                "label": "1 Litre",
-                "price": 102
-            }
-        ],
-        "emoji": "🥛",
-        "description_en": "Fresh dairy product",
-        "image": "/images/Nandini Samrudhi Full Cream.jpg"
-    },
-    {
-        "id": 20,
-        "name": "Nandini Shubham Milk",
-        "kn_name": "ನಂದಿನಿ ಶುಭಮ್",
-        "price": 50,
-        "category": "milk",
-        "variants": [
-            {
-                "label": "1050 ml",
-                "price": 50
-            }
-        ],
-        "emoji": "🥛",
-        "description_en": "Fresh dairy product",
-        "image": "/images/Nandini Shubham Milk.jpg"
-    },
-    {
-        "id": 21,
-        "name": "Nandini Goodlife UHT",
-        "kn_name": "ನಂದಿನಿ ಗುಡ್‌ಲೈಫ್",
-        "price": 68,
-        "category": "milk",
-        "variants": [
-            {
-                "label": "1 Litre",
-                "price": 68
-            }
-        ],
-        "emoji": "🥛",
-        "description_en": "Fresh dairy product",
-        "image": "/images/Nandini Goodlife UHT.jpg"
-    },
-    {
-        "id": 22,
-        "name": "Nandini Slim Milk",
-        "kn_name": "ನಂದಿನಿ ಸ್ಲಿಮ್",
-        "price": 25,
-        "category": "milk",
-        "variants": [
-            {
-                "label": "500 ml",
-                "price": 25
-            }
-        ],
-        "emoji": "🥛",
-        "description_en": "Fresh dairy product",
-        "image": "/images/Nandini Slim Milk.jpg"
-    },
-    {
-        "id": 23,
-        "name": "Nandini A2 Cow Milk",
-        "kn_name": "ನಂದಿನಿ ಎ2 ಹಾಲು",
-        "price": 40,
-        "category": "milk",
-        "variants": [
-            {
-                "label": "500 ml",
-                "price": 40
-            }
-        ],
-        "emoji": "🥛",
-        "description_en": "Fresh dairy product",
-        "image": "/images/Nandini A2 Cow Milk.jpg"
-    },
-    {
-        "id": 24,
-        "name": "Nandini Butter",
-        "kn_name": "ನಂದಿನಿ ಬೆಣ್ಣೆ",
-        "price": 60,
-        "category": "butter",
-        "variants": [
-            {
-                "label": "100 g",
-                "price": 60
-            },
-            {
-                "label": "500 g",
-                "price": 286
-            }
-        ],
-        "emoji": "🥛",
-        "description_en": "Fresh dairy product",
-        "image": "/images/Nandini Butter.jpg"
-    },
-    {
-        "id": 25,
-        "name": "Nandini Paneer",
-        "kn_name": "ನಂದಿನಿ ಪನೀರ್",
-        "price": 88,
-        "category": "paneer",
-        "variants": [
-            {
-                "label": "200 g",
-                "price": 88
-            },
-            {
-                "label": "1 kg",
-                "price": 408
-            }
-        ],
-        "emoji": "🥛",
-        "description_en": "Fresh dairy product",
-        "image": "/images/Nandini Paneer.jpg"
-    },
-    {
-        "id": 26,
-        "name": "Nandini Curd",
-        "kn_name": "ನಂದಿನಿ ಮೊಸರು",
-        "price": 12,
-        "category": "yogurt",
-        "variants": [
-            {
-                "label": "200 g",
-                "price": 12
-            },
-            {
-                "label": "500 g",
-                "price": 28
-            },
-            {
-                "label": "1 kg",
-                "price": 54
-            }
-        ],
-        "emoji": "🥛",
-        "description_en": "Fresh dairy product",
-        "image": "/images/Nandini Curd.jpg"
-    },
-    {
-        "id": 27,
-        "name": "Nandini Pure Cow Ghee",
-        "kn_name": "ನಂದಿನಿ ತುಪ್ಪ",
-        "price": 305,
-        "category": "ghee",
-        "variants": [
-            {
-                "label": "500 ml",
-                "price": 305
-            },
-            {
-                "label": "1 Litre",
-                "price": 610
-            }
-        ],
-        "emoji": "🥛",
-        "description_en": "Fresh dairy product",
-        "image": "/images/Nandini Pure Cow Ghee 650.jpg"
-    },
-    {
-        "id": 28,
-        "name": "Nandini Lassi",
-        "kn_name": "ನಂದಿನಿ ಲಸ್ಸಿ",
-        "price": 22,
-        "category": "beverages",
-        "variants": [
-            {
-                "label": "200 ml",
-                "price": 22
-            }
-        ],
-        "emoji": "🥛",
-        "description_en": "Fresh dairy product",
-        "image": "/images/Nandini Lassi.jpg"
-    },
-    {
-        "id": 29,
-        "name": "Nandini Buttermilk",
-        "kn_name": "ನಂದಿನಿ ಮಜ್ಜಿಗೆ",
-        "price": 14,
-        "category": "beverages",
-        "variants": [
-            {
-                "label": "200 ml",
-                "price": 14
-            }
-        ],
-        "emoji": "🥛",
-        "description_en": "Fresh dairy product",
-        "image": "/images/Nandini Buttermilk.jpg"
-    },
-    {
-        "id": 30,
-        "name": "Nandini Dharwad Peda",
-        "kn_name": "ನಂದಿನಿ ಧಾರವಾಡ ಪೇಡಾ",
-        "price": 125,
-        "category": "other",
-        "variants": [
-            {
-                "label": "250 g",
-                "price": 125
-            }
-        ],
-        "emoji": "🥛",
-        "description_en": "Fresh dairy product",
-        "image": "/images/Nandini Dharwad Peda.jpg"
-    },
-    {
-        "id": 31,
-        "name": "Nandini Mysore Pak",
-        "kn_name": "ನಂದಿನಿ ಮೈಸೂರು ಪಾಕ್",
-        "price": 165,
-        "category": "other",
-        "variants": [
-            {
-                "label": "250 g",
-                "price": 165
-            }
-        ],
-        "emoji": "🥛",
-        "description_en": "Fresh dairy product",
-        "image": "/images/Nandini Mysore Pak.jpg"
-    },
-    {
-        "id": 32,
-        "name": "Heritage Toned UHT Milk",
-        "kn_name": "ಹೆರಿಟೇಜ್ ಟೋನ್ಡ್ ಯುಎಚ್ಟಿ",
-        "price": 66,
-        "category": "milk",
-        "variants": [
-            {
-                "label": "1 Litre",
-                "price": 66
-            }
-        ],
-        "emoji": "🥛",
-        "description_en": "Fresh dairy product",
-        "image": "/images/Heritage Toned UHT Milk.jpg"
-    },
-    {
-        "id": 33,
-        "name": "Heritage Full Cream Milk",
-        "kn_name": "ಹೆರಿಟೇಜ್ ಫುಲ್ ಕ್ರೀಮ್",
-        "price": 46,
-        "category": "milk",
-        "variants": [
-            {
-                "label": "500 ml",
-                "price": 46
-            },
-            {
-                "label": "1 Litre",
-                "price": 92
-            }
-        ],
-        "emoji": "🥛",
-        "description_en": "Fresh dairy product",
-        "image": "/images/Heritage Full Cream Milk.jpg"
-    },
-    {
-        "id": 34,
-        "name": "Heritage Cow Milk",
-        "kn_name": "ಹೆರಿಟೇಜ್ ಹಸುವಿನ ಹಾಲು",
-        "price": 29,
-        "category": "milk",
-        "variants": [
-            {
-                "label": "500 ml",
-                "price": 29
-            }
-        ],
-        "emoji": "🥛",
-        "description_en": "Fresh dairy product",
-        "image": "/images/Heritage Cow Milk.jpg"
-    },
-    {
-        "id": 35,
-        "name": "Heritage Double Toned Milk",
-        "kn_name": "ಹೆರಿಟೇಜ್ ಡಬಲ್ ಟೋನ್ಡ್",
-        "price": 21,
-        "category": "milk",
-        "variants": [
-            {
-                "label": "500 ml",
-                "price": 21
-            }
-        ],
-        "emoji": "🥛",
-        "description_en": "Fresh dairy product",
-        "image": "/images/Heritage Double Toned Milk.jpg"
-    },
-    {
-        "id": 36,
-        "name": "Heritage Organic Milk",
-        "kn_name": "ಹೆರಿಟೇಜ್ ಸಾವಯವ ಹಾಲು",
-        "price": 50,
-        "category": "milk",
-        "variants": [
-            {
-                "label": "500 ml",
-                "price": 50
-            }
-        ],
-        "emoji": "🥛",
-        "description_en": "Fresh dairy product",
-        "image": "/images/Heritage Organic Milk.jpg"
-    },
-    {
-        "id": 37,
-        "name": "Heritage Curd",
-        "kn_name": "ಹೆರಿಟೇಜ್ ಮೊಸರು",
-        "price": 40,
-        "category": "yogurt",
-        "variants": [
-            {
-                "label": "500 g",
-                "price": 40
-            },
-            {
-                "label": "1 kg",
-                "price": 78
-            }
-        ],
-        "emoji": "🥛",
-        "description_en": "Fresh dairy product",
-        "image": "/images/Heritage Curd.jpg"
-    },
-    {
-        "id": 38,
-        "name": "Heritage Flavoured Yogurt",
-        "kn_name": "ಹೆರಿಟೇಜ್ ಫ್ಲೇವರ್ಡ್ ಮೊಸರು",
-        "price": 22,
-        "category": "yogurt",
-        "variants": [
-            {
-                "label": "90 g",
-                "price": 22
-            }
-        ],
-        "emoji": "🥛",
-        "description_en": "Fresh dairy product",
-        "image": "/images/Heritage Flavoured Yogurt.jpg"
-    },
-    {
-        "id": 39,
-        "name": "Heritage Cow Ghee",
-        "kn_name": "ಹೆರಿಟೇಜ್ ತುಪ್ಪ",
-        "price": 330,
-        "category": "ghee",
-        "variants": [
-            {
-                "label": "500 ml",
-                "price": 330
-            },
-            {
-                "label": "1 Litre",
-                "price": 700
-            }
-        ],
-        "emoji": "🥛",
-        "description_en": "Fresh dairy product",
-        "image": "/images/Heritage Cow Ghee 700, packet -50.jpg"
-    },
-    {
-        "id": 40,
-        "name": "Heritage Butter",
-        "kn_name": "ಹೆರಿಟೇಜ್ ಬೆಣ್ಣೆ",
-        "price": 300,
-        "category": "butter",
-        "variants": [
-            {
-                "label": "500 g",
-                "price": 300
-            }
-        ],
-        "emoji": "🥛",
-        "description_en": "Fresh dairy product",
-        "image": "/images/Heritage Butter.jpg"
-    },
-    {
-        "id": 41,
-        "name": "Heritage Cheese Slices",
-        "kn_name": "ಹೆರಿಟೇಜ್ ಚೀಸ್ ಸ್ಲೈಸ್",
-        "price": 110,
-        "category": "cheese",
-        "variants": [
-            {
-                "label": "100 g",
-                "price": 110
-            }
-        ],
-        "emoji": "🥛",
-        "description_en": "Fresh dairy product",
-        "image": "/images/Heritage Cheese Slices.jpg"
-    },
-    {
-        "id": 42,
-        "name": "Dodla Full Cream Milk",
-        "kn_name": "ದೊಡ್ಲಾ ಫುಲ್ ಕ್ರೀಮ್",
-        "price": 35,
-        "category": "milk",
-        "variants": [
-            {
-                "label": "500 ml",
-                "price": 35
+                "price": 36
             },
             {
                 "label": "1 Litre",
                 "price": 70
             }
         ],
-        "emoji": "🥛",
+        "emoji": "\ud83e\udd5b",
         "description_en": "Fresh dairy product",
-        "image": "/images/Dodla Full Cream Milk.jpg"
+        "image": "../images/Amul Gold Full Cream Milk.jpg"
     },
     {
-        "id": 43,
-        "name": "Dodla Toned Milk",
-        "kn_name": "ದೊಡ್ಲಾ ಟೋನ್ಡ್",
-        "price": 29,
+        "id": 2,
+        "name": "Amul Taaza Toned Milk",
+        "kn_name": "\u0c85\u0cae\u0cc2\u0cb2\u0ccd \u0ca4\u0cbe\u0c9c\u0cbe",
+        "price": 30,
         "category": "milk",
         "variants": [
             {
                 "label": "500 ml",
-                "price": 29
-            }
-        ],
-        "emoji": "🥛",
-        "description_en": "Fresh dairy product",
-        "image": "/images/Dodla Toned Milk.jpg"
-    },
-    {
-        "id": 44,
-        "name": "Dodla UHT Milk",
-        "kn_name": "ದೊಡ್ಲಾ ಯುಎಚ್ಟಿ",
-        "price": 31,
-        "category": "milk",
-        "variants": [
-            {
-                "label": "500 ml",
-                "price": 31
-            }
-        ],
-        "emoji": "🥛",
-        "description_en": "Fresh dairy product",
-        "image": "/images/Dodla UHT Milk.jpg"
-    },
-    {
-        "id": 45,
-        "name": "Dodla Curd",
-        "kn_name": "ದೊಡ್ಲಾ ಮೊಸರು",
-        "price": 28,
-        "category": "yogurt",
-        "variants": [
-            {
-                "label": "500 g",
-                "price": 28
-            },
-            {
-                "label": "1 kg",
-                "price": 61
-            }
-        ],
-        "emoji": "🥛",
-        "description_en": "Fresh dairy product",
-        "image": "/images/Dodla Curd.jpg"
-    },
-    {
-        "id": 46,
-        "name": "Dodla Low Fat Curd",
-        "kn_name": "ದೊಡ್ಲಾ ಲೋ ಫ್ಯಾಟ್ ಮೊಸರು",
-        "price": 48,
-        "category": "yogurt",
-        "variants": [
-            {
-                "label": "1 kg",
-                "price": 48
-            }
-        ],
-        "emoji": "🥛",
-        "description_en": "Fresh dairy product",
-        "image": "/images/Dodla Low Fat Curd.jpg"
-    },
-    {
-        "id": 47,
-        "name": "Dodla Cow Ghee",
-        "kn_name": "ದೊಡ್ಲಾ ತುಪ್ಪ",
-        "price": 347,
-        "category": "ghee",
-        "variants": [
-            {
-                "label": "500 ml",
-                "price": 347
+                "price": 30
             },
             {
                 "label": "1 Litre",
-                "price": 605
+                "price": 67
             }
         ],
-        "emoji": "🥛",
+        "emoji": "\ud83e\udd5b",
         "description_en": "Fresh dairy product",
-        "image": "/images/Dodla Cow Ghee 610 jar ,554 packet.jpg"
+        "image": "../images/Amul Taaza Toned Milk.jpg"
     },
     {
-        "id": 48,
-        "name": "Dodla Paneer",
-        "kn_name": "ದೊಡ್ಲಾ ಪನೀರ್",
-        "price": 95,
-        "category": "paneer",
+        "id": 3,
+        "name": "Amul Shakti Standardised Milk",
+        "kn_name": "\u0c85\u0cae\u0cc2\u0cb2\u0ccd \u0cb6\u0c95\u0ccd\u0ca4\u0cbf",
+        "price": 33,
+        "category": "milk",
         "variants": [
             {
-                "label": "200 g",
-                "price": 95
-            },
-            {
-                "label": "1 kg",
-                "price": 333
+                "label": "500 ml",
+                "price": 33
             }
         ],
-        "emoji": "🥛",
+        "emoji": "\ud83e\udd5b",
         "description_en": "Fresh dairy product",
-        "image": "/images/Dodla Paneer.jpg"
+        "image": "../images/Amul Shakti Standardised Milk.jpg"
     },
     {
-        "id": 49,
-        "name": "Hatsun Cow Milk",
-        "kn_name": "ಹ್ಯಾಟ್ಸನ್ ಹಸುವಿನ ಹಾಲು",
+        "id": 4,
+        "name": "Amul Slim n Trim Double Toned",
+        "kn_name": "\u0c85\u0cae\u0cc2\u0cb2\u0ccd \u0cb8\u0ccd\u0cb2\u0cbf\u0cae\u0ccd",
+        "price": 25,
+        "category": "milk",
+        "variants": [
+            {
+                "label": "500 ml",
+                "price": 25
+            }
+        ],
+        "emoji": "\ud83e\udd5b",
+        "description_en": "Fresh dairy product",
+        "image": "../images/Amul Slim n Trim Double Toned.jpg"
+    },
+    {
+        "id": 5,
+        "name": "Amul Cow Milk",
+        "kn_name": "\u0c85\u0cae\u0cc2\u0cb2\u0ccd \u0cb9\u0cb8\u0cc1\u0cb5\u0cbf\u0ca8 \u0cb9\u0cbe\u0cb2\u0cc1",
         "price": 30,
         "category": "milk",
         "variants": [
@@ -875,106 +83,310 @@
                 "price": 30
             }
         ],
-        "emoji": "🥛",
+        "emoji": "\ud83e\udd5b",
         "description_en": "Fresh dairy product",
-        "image": "/images/Hatsun Cow Milk.jpg"
+        "image": "../images/Amul Cow Milk.jpg"
     },
     {
-        "id": 50,
-        "name": "Hatsun Fresh Cream",
-        "kn_name": "ಹ್ಯಾಟ್ಸನ್ ಕ್ರೀಮ್",
-        "price": 38,
-        "category": "cream",
-        "variants": [
-            {
-                "label": "100 g",
-                "price": 38
-            }
-        ],
-        "emoji": "🥛",
-        "description_en": "Fresh dairy product",
-        "image": "/images/Hatsun Fresh Cream.jpg"
-    },
-    {
-        "id": 51,
-        "name": "Hatsun Curd",
-        "kn_name": "ಹ್ಯಾಟ್ಸನ್ ಮೊಸರು",
-        "price": 36,
-        "category": "yogurt",
-        "variants": [
-            {
-                "label": "500 g",
-                "price": 36
-            },
-            {
-                "label": "1 kg",
-                "price": 115
-            }
-        ],
-        "emoji": "🥛",
-        "description_en": "Fresh dairy product",
-        "image": "/images/Hatsun Curd.jpg"
-    },
-    {
-        "id": 69,
-        "name": "hatsun cup",
-        "kn_name": "ಹ್ಯಾಟ್ಸನ್ ಮೊಸರು",
-        "price": 36,
-        "category": "yogurt",
-        "variants": [
-            {
-                "label": "500 g",
-                "price": 36
-            },
-            {
-                "label": "1 kg",
-                "price": 115
-            }
-        ],
-        "emoji": "🥛",
-        "description_en": "Fresh dairy product",
-        "image": "/images/hatsun cup.jpg"
-    },
-    {
-        "id": 52,
-        "name": "Hatsun Greek Yogurt",
-        "kn_name": "ಹ್ಯಾಟ್ಸನ್ ಗ್ರೀಕ್ ಮೊಸರು",
-        "price": 50,
-        "category": "yogurt",
-        "variants": [
-            {
-                "label": "100 g (Fig&Dates)",
-                "price": 50
-            },
-            {
-                "label": "100 g (Cherry)",
-                "price": 45
-            }
-        ],
-        "emoji": "🥛",
-        "description_en": "Fresh dairy product",
-        "image": "/images/Hatsun Greek Yogurt.jpg"
-    },
-    {
-        "id": 53,
-        "name": "Gokul Full Cream Milk",
-        "kn_name": "ಗೋಕುಲ್ ಫುಲ್ ಕ್ರೀಮ್",
-        "price": 76,
+        "id": 6,
+        "name": "Amul Taaza UHT Milk",
+        "kn_name": "\u0c85\u0cae\u0cc2\u0cb2\u0ccd \u0ca4\u0cbe\u0c9c\u0cbe \u0caf\u0cc1\u0c8e\u0c9a\u0ccd\u0c9f\u0cbf",
+        "price": 77,
         "category": "milk",
         "variants": [
             {
                 "label": "1 Litre",
-                "price": 76
+                "price": 77
             }
         ],
-        "emoji": "🥛",
+        "emoji": "\ud83e\udd5b",
         "description_en": "Fresh dairy product",
-        "image": "/images/Gokul Full Cream Milk.jpg"
+        "image": "../images/Amul Taaza UHT Milk.jpg"
     },
     {
-        "id": 54,
-        "name": "Gokul Cow Milk",
-        "kn_name": "ಗೋಕುಲ್ ಹಸುವಿನ ಹಾಲು",
+        "id": 7,
+        "name": "Amul Calci+ Milk",
+        "kn_name": "\u0c85\u0cae\u0cc2\u0cb2\u0ccd \u0c95\u0ccd\u0caf\u0cbe\u0cb2\u0ccd\u0cb8\u0cbf+",
+        "price": 97,
+        "category": "milk",
+        "variants": [
+            {
+                "label": "1 Litre",
+                "price": 97
+            }
+        ],
+        "emoji": "\ud83e\udd5b",
+        "description_en": "Fresh dairy product",
+        "image": "../images/Amul Calci+ Milk.png"
+    },
+    {
+        "id": 8,
+        "name": "Amul Butter",
+        "kn_name": "\u0c85\u0cae\u0cc2\u0cb2\u0ccd \u0cac\u0cc6\u0ca3\u0ccd\u0ca3\u0cc6",
+        "price": 61,
+        "category": "butter",
+        "variants": [
+            {
+                "label": "100 g",
+                "price": 61
+            },
+            {
+                "label": "500 g",
+                "price": 277
+            }
+        ],
+        "emoji": "\ud83e\udd5b",
+        "description_en": "Fresh dairy product",
+        "image": "../images/Amul Butter.jpg"
+    },
+    {
+        "id": 9,
+        "name": "Amul Fresh Cream",
+        "kn_name": "\u0c85\u0cae\u0cc2\u0cb2\u0ccd \u0c95\u0ccd\u0cb0\u0cc0\u0cae\u0ccd",
+        "price": 67,
+        "category": "cream",
+        "variants": [
+            {
+                "label": "200 ml",
+                "price": 67
+            },
+            {
+                "label": "1 Litre",
+                "price": 224
+            }
+        ],
+        "emoji": "\ud83e\udd5b",
+        "description_en": "Fresh dairy product",
+        "image": "../images/Amul Fresh Cream.jpg"
+    },
+    {
+        "id": 10,
+        "name": "Amul Malai Paneer",
+        "kn_name": "\u0c85\u0cae\u0cc2\u0cb2\u0ccd \u0caa\u0ca8\u0cc0\u0cb0\u0ccd",
+        "price": 94,
+        "category": "paneer",
+        "variants": [
+            {
+                "label": "200 g",
+                "price": 94
+            },
+            {
+                "label": "1 kg",
+                "price": 442
+            }
+        ],
+        "emoji": "\ud83e\udd5b",
+        "description_en": "Fresh dairy product",
+        "image": "../images/Amul Malai Paneer.jpg"
+    },
+    {
+        "id": 11,
+        "name": "Amul Masti Dahi",
+        "kn_name": "\u0c85\u0cae\u0cc2\u0cb2\u0ccd \u0ca6\u0cb9\u0cbf",
+        "price": 22,
+        "category": "yogurt",
+        "variants": [
+            {
+                "label": "200 g",
+                "price": 22
+            },
+            {
+                "label": "400 g",
+                "price": 42
+            },
+            {
+                "label": "1 kg",
+                "price": 87
+            }
+        ],
+        "emoji": "\ud83e\udd5b",
+        "description_en": "Fresh dairy product",
+        "image": "../images/Amul Masti Dahi.jpg"
+    },
+    {
+        "id": 12,
+        "name": "Amul Pure Ghee",
+        "kn_name": "\u0c85\u0cae\u0cc2\u0cb2\u0ccd \u0ca4\u0cc1\u0caa\u0ccd\u0caa",
+        "price": 272,
+        "category": "ghee",
+        "variants": [
+            {
+                "label": "500 ml",
+                "price": 272
+            },
+            {
+                "label": "1 Litre",
+                "price": 527
+            }
+        ],
+        "emoji": "\ud83e\udd5b",
+        "description_en": "Fresh dairy product",
+        "image": "../images/Amul Pure Ghee.jpg"
+    },
+    {
+        "id": 13,
+        "name": "Amul Cheese Block",
+        "kn_name": "\u0c85\u0cae\u0cc2\u0cb2\u0ccd \u0c9a\u0cc0\u0cb8\u0ccd",
+        "price": 136,
+        "category": "cheese",
+        "variants": [
+            {
+                "label": "200 g",
+                "price": 136
+            },
+            {
+                "label": "500 g",
+                "price": 342
+            }
+        ],
+        "emoji": "\ud83e\udd5b",
+        "description_en": "Fresh dairy product",
+        "image": "../images/Amul Cheese Block.jpg"
+    },
+    {
+        "id": 14,
+        "name": "Amul Kool Flavoured Milk",
+        "kn_name": "\u0c85\u0cae\u0cc2\u0cb2\u0ccd \u0c95\u0cc2\u0cb2\u0ccd",
+        "price": 29,
+        "category": "beverages",
+        "variants": [
+            {
+                "label": "180 ml (Chocolate)",
+                "price": 29
+            },
+            {
+                "label": "180 ml (Strawberry)",
+                "price": 29
+            }
+        ],
+        "emoji": "\ud83e\udd5b",
+        "description_en": "Fresh dairy product",
+        "image": "../images/Amul Kool Flavoured Milk.jpg"
+    },
+    {
+        "id": 15,
+        "name": "Amul Buttermilk (Chaas)",
+        "kn_name": "\u0c85\u0cae\u0cc2\u0cb2\u0ccd \u0cae\u0c9c\u0ccd\u0c9c\u0cbf\u0c97\u0cc6",
+        "price": 14,
+        "category": "beverages",
+        "variants": [
+            {
+                "label": "200 ml",
+                "price": 14
+            }
+        ],
+        "emoji": "\ud83e\udd5b",
+        "description_en": "Fresh dairy product",
+        "image": "../images/Amul Buttermilk (Chaas).jpg"
+    },
+    {
+        "id": 16,
+        "name": "Amul Lassi",
+        "kn_name": "\u0c85\u0cae\u0cc2\u0cb2\u0ccd \u0cb2\u0cb8\u0ccd\u0cb8\u0cbf",
+        "price": 20,
+        "category": "beverages",
+        "variants": [
+            {
+                "label": "200 ml",
+                "price": 20
+            }
+        ],
+        "emoji": "\ud83e\udd5b",
+        "description_en": "Fresh dairy product",
+        "image": "../images/Amul Lassi.jpg"
+    },
+    {
+        "id": 17,
+        "name": "Nandini Toned Milk",
+        "kn_name": "\u0ca8\u0c82\u0ca6\u0cbf\u0ca8\u0cbf \u0c9f\u0ccb\u0ca8\u0ccd\u0ca1\u0ccd",
+        "price": 26,
+        "category": "milk",
+        "variants": [
+            {
+                "label": "550 ml",
+                "price": 26
+            },
+            {
+                "label": "1050 ml",
+                "price": 46
+            }
+        ],
+        "emoji": "\ud83e\udd5b",
+        "description_en": "Fresh dairy product",
+        "image": "../images/Nandini Toned Milk.jpg"
+    },
+    {
+        "id": 18,
+        "name": "Nandini Homogenised Milk",
+        "kn_name": "\u0ca8\u0c82\u0ca6\u0cbf\u0ca8\u0cbf \u0cb9\u0ccb\u0cae\u0ccb\u0c9c\u0cbf\u0ca8\u0cc8\u0cb8\u0ccd\u0ca1\u0ccd",
+        "price": 27,
+        "category": "milk",
+        "variants": [
+            {
+                "label": "550 ml",
+                "price": 27
+            }
+        ],
+        "emoji": "\ud83e\udd5b",
+        "description_en": "Fresh dairy product",
+        "image": "../images/Nandini Homogenised Milk.jpg"
+    },
+    {
+        "id": 19,
+        "name": "Nandini Samrudhi Full Cream",
+        "kn_name": "\u0ca8\u0c82\u0ca6\u0cbf\u0ca8\u0cbf \u0cb8\u0cae\u0cc3\u0ca6\u0ccd\u0ca7\u0cbf",
+        "price": 55,
+        "category": "milk",
+        "variants": [
+            {
+                "label": "500 ml",
+                "price": 55
+            },
+            {
+                "label": "1 Litre",
+                "price": 104
+            }
+        ],
+        "emoji": "\ud83e\udd5b",
+        "description_en": "Fresh dairy product",
+        "image": "../images/Nandini Samrudhi Full Cream.jpg"
+    },
+    {
+        "id": 20,
+        "name": "Nandini Shubham Milk",
+        "kn_name": "\u0ca8\u0c82\u0ca6\u0cbf\u0ca8\u0cbf \u0cb6\u0cc1\u0cad\u0cae\u0ccd",
+        "price": 52,
+        "category": "milk",
+        "variants": [
+            {
+                "label": "1050 ml",
+                "price": 52
+            }
+        ],
+        "emoji": "\ud83e\udd5b",
+        "description_en": "Fresh dairy product",
+        "image": "../images/Nandini Shubham Milk.jpg"
+    },
+    {
+        "id": 21,
+        "name": "Nandini Goodlife UHT",
+        "kn_name": "\u0ca8\u0c82\u0ca6\u0cbf\u0ca8\u0cbf \u0c97\u0cc1\u0ca1\u0ccd\u200c\u0cb2\u0cc8\u0cab\u0ccd",
+        "price": 70,
+        "category": "milk",
+        "variants": [
+            {
+                "label": "1 Litre",
+                "price": 70
+            }
+        ],
+        "emoji": "\ud83e\udd5b",
+        "description_en": "Fresh dairy product",
+        "image": "../images/Nandini Goodlife UHT.jpg"
+    },
+    {
+        "id": 22,
+        "name": "Nandini Slim Milk",
+        "kn_name": "\u0ca8\u0c82\u0ca6\u0cbf\u0ca8\u0cbf \u0cb8\u0ccd\u0cb2\u0cbf\u0cae\u0ccd",
         "price": 27,
         "category": "milk",
         "variants": [
@@ -983,110 +395,682 @@
                 "price": 27
             }
         ],
-        "emoji": "🥛",
+        "emoji": "\ud83e\udd5b",
         "description_en": "Fresh dairy product",
-        "image": "/images/Gokul Cow Milk.jpg"
+        "image": "../images/Nandini Slim Milk.jpg"
     },
     {
-        "id": 55,
-        "name": "Gokul Buffalo Ghee",
-        "kn_name": "ಗೋಕುಲ್ ಎಮ್ಮೆ ತುಪ್ಪ",
-        "price": 295,
+        "id": 23,
+        "name": "Nandini A2 Cow Milk",
+        "kn_name": "\u0ca8\u0c82\u0ca6\u0cbf\u0ca8\u0cbf \u0c8e2 \u0cb9\u0cbe\u0cb2\u0cc1",
+        "price": 42,
+        "category": "milk",
+        "variants": [
+            {
+                "label": "500 ml",
+                "price": 42
+            }
+        ],
+        "emoji": "\ud83e\udd5b",
+        "description_en": "Fresh dairy product",
+        "image": "../images/Nandini A2 Cow Milk.jpg"
+    },
+    {
+        "id": 24,
+        "name": "Nandini Butter",
+        "kn_name": "\u0ca8\u0c82\u0ca6\u0cbf\u0ca8\u0cbf \u0cac\u0cc6\u0ca3\u0ccd\u0ca3\u0cc6",
+        "price": 62,
+        "category": "butter",
+        "variants": [
+            {
+                "label": "100 g",
+                "price": 62
+            },
+            {
+                "label": "500 g",
+                "price": 288
+            }
+        ],
+        "emoji": "\ud83e\udd5b",
+        "description_en": "Fresh dairy product",
+        "image": "../images/Nandini Butter.jpg"
+    },
+    {
+        "id": 25,
+        "name": "Nandini Paneer",
+        "kn_name": "\u0ca8\u0c82\u0ca6\u0cbf\u0ca8\u0cbf \u0caa\u0ca8\u0cc0\u0cb0\u0ccd",
+        "price": 90,
+        "category": "paneer",
+        "variants": [
+            {
+                "label": "200 g",
+                "price": 90
+            },
+            {
+                "label": "1 kg",
+                "price": 410
+            }
+        ],
+        "emoji": "\ud83e\udd5b",
+        "description_en": "Fresh dairy product",
+        "image": "../images/Nandini Paneer.jpg"
+    },
+    {
+        "id": 26,
+        "name": "Nandini Curd",
+        "kn_name": "\u0ca8\u0c82\u0ca6\u0cbf\u0ca8\u0cbf \u0cae\u0cca\u0cb8\u0cb0\u0cc1",
+        "price": 14,
+        "category": "yogurt",
+        "variants": [
+            {
+                "label": "200 g",
+                "price": 14
+            },
+            {
+                "label": "500 g",
+                "price": 30
+            },
+            {
+                "label": "1 kg",
+                "price": 56
+            }
+        ],
+        "emoji": "\ud83e\udd5b",
+        "description_en": "Fresh dairy product",
+        "image": "../images/Nandini Curd.jpg"
+    },
+    {
+        "id": 27,
+        "name": "Nandini Pure Cow Ghee",
+        "kn_name": "\u0ca8\u0c82\u0ca6\u0cbf\u0ca8\u0cbf \u0ca4\u0cc1\u0caa\u0ccd\u0caa",
+        "price": 307,
         "category": "ghee",
         "variants": [
             {
                 "label": "500 ml",
-                "price": 295
+                "price": 307
+            },
+            {
+                "label": "1 Litre",
+                "price": 612
             }
         ],
-        "emoji": "🥛",
+        "emoji": "\ud83e\udd5b",
         "description_en": "Fresh dairy product",
-        "image": "/images/Gokul Buffalo Ghee 570,jar 540.jpg"
+        "image": "../images/Nandini Pure Cow Ghee 650.jpg"
     },
     {
-        "id": 56,
-        "name": "Gokul Paneer",
-        "kn_name": "ಗೋಕುಲ್ ಪನೀರ್",
-        "price": 187,
-        "category": "paneer",
+        "id": 28,
+        "name": "Nandini Lassi",
+        "kn_name": "\u0ca8\u0c82\u0ca6\u0cbf\u0ca8\u0cbf \u0cb2\u0cb8\u0ccd\u0cb8\u0cbf",
+        "price": 24,
+        "category": "beverages",
         "variants": [
             {
-                "label": "500 g",
-                "price": 187
+                "label": "200 ml",
+                "price": 24
             }
         ],
-        "emoji": "🥛",
+        "emoji": "\ud83e\udd5b",
         "description_en": "Fresh dairy product",
-        "image": "/images/Gokul Paneer.jpg"
+        "image": "../images/Nandini Lassi.jpg"
     },
     {
-        "id": 57,
-        "name": "Gokul Basundi",
-        "kn_name": "ಗೋಕುಲ್ ಬಾಸುಂಡಿ",
-        "price": 55,
+        "id": 29,
+        "name": "Nandini Buttermilk",
+        "kn_name": "\u0ca8\u0c82\u0ca6\u0cbf\u0ca8\u0cbf \u0cae\u0c9c\u0ccd\u0c9c\u0cbf\u0c97\u0cc6",
+        "price": 16,
+        "category": "beverages",
+        "variants": [
+            {
+                "label": "200 ml",
+                "price": 16
+            }
+        ],
+        "emoji": "\ud83e\udd5b",
+        "description_en": "Fresh dairy product",
+        "image": "../images/Nandini Buttermilk.jpg"
+    },
+    {
+        "id": 30,
+        "name": "Nandini Dharwad Peda",
+        "kn_name": "\u0ca8\u0c82\u0ca6\u0cbf\u0ca8\u0cbf \u0ca7\u0cbe\u0cb0\u0cb5\u0cbe\u0ca1 \u0caa\u0cc7\u0ca1\u0cbe",
+        "price": 127,
         "category": "other",
         "variants": [
             {
                 "label": "250 g",
-                "price": 55
+                "price": 127
             }
         ],
-        "emoji": "🥛",
+        "emoji": "\ud83e\udd5b",
         "description_en": "Fresh dairy product",
-        "image": "/images/Gokul Basundi.jpg"
+        "image": "../images/Nandini Dharwad Peda.jpg"
+    },
+    {
+        "id": 31,
+        "name": "Nandini Mysore Pak",
+        "kn_name": "\u0ca8\u0c82\u0ca6\u0cbf\u0ca8\u0cbf \u0cae\u0cc8\u0cb8\u0cc2\u0cb0\u0cc1 \u0caa\u0cbe\u0c95\u0ccd",
+        "price": 167,
+        "category": "other",
+        "variants": [
+            {
+                "label": "250 g",
+                "price": 167
+            }
+        ],
+        "emoji": "\ud83e\udd5b",
+        "description_en": "Fresh dairy product",
+        "image": "../images/Nandini Mysore Pak.jpg"
+    },
+    {
+        "id": 32,
+        "name": "Heritage Toned UHT Milk",
+        "kn_name": "\u0cb9\u0cc6\u0cb0\u0cbf\u0c9f\u0cc7\u0c9c\u0ccd \u0c9f\u0ccb\u0ca8\u0ccd\u0ca1\u0ccd \u0caf\u0cc1\u0c8e\u0c9a\u0ccd\u0c9f\u0cbf",
+        "price": 68,
+        "category": "milk",
+        "variants": [
+            {
+                "label": "1 Litre",
+                "price": 68
+            }
+        ],
+        "emoji": "\ud83e\udd5b",
+        "description_en": "Fresh dairy product",
+        "image": "../images/Heritage Toned UHT Milk.jpg"
+    },
+    {
+        "id": 33,
+        "name": "Heritage Full Cream Milk",
+        "kn_name": "\u0cb9\u0cc6\u0cb0\u0cbf\u0c9f\u0cc7\u0c9c\u0ccd \u0cab\u0cc1\u0cb2\u0ccd \u0c95\u0ccd\u0cb0\u0cc0\u0cae\u0ccd",
+        "price": 48,
+        "category": "milk",
+        "variants": [
+            {
+                "label": "500 ml",
+                "price": 48
+            },
+            {
+                "label": "1 Litre",
+                "price": 94
+            }
+        ],
+        "emoji": "\ud83e\udd5b",
+        "description_en": "Fresh dairy product",
+        "image": "../images/Heritage Full Cream Milk.jpg"
+    },
+    {
+        "id": 34,
+        "name": "Heritage Cow Milk",
+        "kn_name": "\u0cb9\u0cc6\u0cb0\u0cbf\u0c9f\u0cc7\u0c9c\u0ccd \u0cb9\u0cb8\u0cc1\u0cb5\u0cbf\u0ca8 \u0cb9\u0cbe\u0cb2\u0cc1",
+        "price": 31,
+        "category": "milk",
+        "variants": [
+            {
+                "label": "500 ml",
+                "price": 31
+            }
+        ],
+        "emoji": "\ud83e\udd5b",
+        "description_en": "Fresh dairy product",
+        "image": "../images/Heritage Cow Milk.jpg"
+    },
+    {
+        "id": 35,
+        "name": "Heritage Double Toned Milk",
+        "kn_name": "\u0cb9\u0cc6\u0cb0\u0cbf\u0c9f\u0cc7\u0c9c\u0ccd \u0ca1\u0cac\u0cb2\u0ccd \u0c9f\u0ccb\u0ca8\u0ccd\u0ca1\u0ccd",
+        "price": 23,
+        "category": "milk",
+        "variants": [
+            {
+                "label": "500 ml",
+                "price": 23
+            }
+        ],
+        "emoji": "\ud83e\udd5b",
+        "description_en": "Fresh dairy product",
+        "image": "../images/Heritage Double Toned Milk.jpg"
+    },
+    {
+        "id": 36,
+        "name": "Heritage Organic Milk",
+        "kn_name": "\u0cb9\u0cc6\u0cb0\u0cbf\u0c9f\u0cc7\u0c9c\u0ccd \u0cb8\u0cbe\u0cb5\u0caf\u0cb5 \u0cb9\u0cbe\u0cb2\u0cc1",
+        "price": 52,
+        "category": "milk",
+        "variants": [
+            {
+                "label": "500 ml",
+                "price": 52
+            }
+        ],
+        "emoji": "\ud83e\udd5b",
+        "description_en": "Fresh dairy product",
+        "image": "../images/Heritage Organic Milk.jpg"
+    },
+    {
+        "id": 37,
+        "name": "Heritage Curd",
+        "kn_name": "\u0cb9\u0cc6\u0cb0\u0cbf\u0c9f\u0cc7\u0c9c\u0ccd \u0cae\u0cca\u0cb8\u0cb0\u0cc1",
+        "price": 42,
+        "category": "yogurt",
+        "variants": [
+            {
+                "label": "500 g",
+                "price": 42
+            },
+            {
+                "label": "1 kg",
+                "price": 80
+            }
+        ],
+        "emoji": "\ud83e\udd5b",
+        "description_en": "Fresh dairy product",
+        "image": "../images/Heritage Curd.jpg"
+    },
+    {
+        "id": 38,
+        "name": "Heritage Flavoured Yogurt",
+        "kn_name": "\u0cb9\u0cc6\u0cb0\u0cbf\u0c9f\u0cc7\u0c9c\u0ccd \u0cab\u0ccd\u0cb2\u0cc7\u0cb5\u0cb0\u0ccd\u0ca1\u0ccd \u0cae\u0cca\u0cb8\u0cb0\u0cc1",
+        "price": 24,
+        "category": "yogurt",
+        "variants": [
+            {
+                "label": "90 g",
+                "price": 24
+            }
+        ],
+        "emoji": "\ud83e\udd5b",
+        "description_en": "Fresh dairy product",
+        "image": "../images/Heritage Flavoured Yogurt.jpg"
+    },
+    {
+        "id": 39,
+        "name": "Heritage Cow Ghee",
+        "kn_name": "\u0cb9\u0cc6\u0cb0\u0cbf\u0c9f\u0cc7\u0c9c\u0ccd \u0ca4\u0cc1\u0caa\u0ccd\u0caa",
+        "price": 332,
+        "category": "ghee",
+        "variants": [
+            {
+                "label": "500 ml",
+                "price": 332
+            },
+            {
+                "label": "1 Litre",
+                "price": 702
+            }
+        ],
+        "emoji": "\ud83e\udd5b",
+        "description_en": "Fresh dairy product",
+        "image": "../images/Heritage Cow Ghee 700, packet -50.jpg"
+    },
+    {
+        "id": 40,
+        "name": "Heritage Butter",
+        "kn_name": "\u0cb9\u0cc6\u0cb0\u0cbf\u0c9f\u0cc7\u0c9c\u0ccd \u0cac\u0cc6\u0ca3\u0ccd\u0ca3\u0cc6",
+        "price": 302,
+        "category": "butter",
+        "variants": [
+            {
+                "label": "500 g",
+                "price": 302
+            }
+        ],
+        "emoji": "\ud83e\udd5b",
+        "description_en": "Fresh dairy product",
+        "image": "../images/Heritage Butter.jpg"
+    },
+    {
+        "id": 41,
+        "name": "Heritage Cheese Slices",
+        "kn_name": "\u0cb9\u0cc6\u0cb0\u0cbf\u0c9f\u0cc7\u0c9c\u0ccd \u0c9a\u0cc0\u0cb8\u0ccd \u0cb8\u0ccd\u0cb2\u0cc8\u0cb8\u0ccd",
+        "price": 112,
+        "category": "cheese",
+        "variants": [
+            {
+                "label": "100 g",
+                "price": 112
+            }
+        ],
+        "emoji": "\ud83e\udd5b",
+        "description_en": "Fresh dairy product",
+        "image": "../images/Heritage Cheese Slices.jpg"
+    },
+    {
+        "id": 42,
+        "name": "Dodla Full Cream Milk",
+        "kn_name": "\u0ca6\u0cca\u0ca1\u0ccd\u0cb2\u0cbe \u0cab\u0cc1\u0cb2\u0ccd \u0c95\u0ccd\u0cb0\u0cc0\u0cae\u0ccd",
+        "price": 37,
+        "category": "milk",
+        "variants": [
+            {
+                "label": "500 ml",
+                "price": 37
+            },
+            {
+                "label": "1 Litre",
+                "price": 72
+            }
+        ],
+        "emoji": "\ud83e\udd5b",
+        "description_en": "Fresh dairy product",
+        "image": "../images/Dodla Full Cream Milk.jpg"
+    },
+    {
+        "id": 43,
+        "name": "Dodla Toned Milk",
+        "kn_name": "\u0ca6\u0cca\u0ca1\u0ccd\u0cb2\u0cbe \u0c9f\u0ccb\u0ca8\u0ccd\u0ca1\u0ccd",
+        "price": 31,
+        "category": "milk",
+        "variants": [
+            {
+                "label": "500 ml",
+                "price": 31
+            }
+        ],
+        "emoji": "\ud83e\udd5b",
+        "description_en": "Fresh dairy product",
+        "image": "../images/Dodla Toned Milk.jpg"
+    },
+    {
+        "id": 44,
+        "name": "Dodla UHT Milk",
+        "kn_name": "\u0ca6\u0cca\u0ca1\u0ccd\u0cb2\u0cbe \u0caf\u0cc1\u0c8e\u0c9a\u0ccd\u0c9f\u0cbf",
+        "price": 33,
+        "category": "milk",
+        "variants": [
+            {
+                "label": "500 ml",
+                "price": 33
+            }
+        ],
+        "emoji": "\ud83e\udd5b",
+        "description_en": "Fresh dairy product",
+        "image": "../images/Dodla UHT Milk.jpg"
+    },
+    {
+        "id": 45,
+        "name": "Dodla Curd",
+        "kn_name": "\u0ca6\u0cca\u0ca1\u0ccd\u0cb2\u0cbe \u0cae\u0cca\u0cb8\u0cb0\u0cc1",
+        "price": 30,
+        "category": "yogurt",
+        "variants": [
+            {
+                "label": "500 g",
+                "price": 30
+            },
+            {
+                "label": "1 kg",
+                "price": 63
+            }
+        ],
+        "emoji": "\ud83e\udd5b",
+        "description_en": "Fresh dairy product",
+        "image": "../images/Dodla Curd.jpg"
+    },
+    {
+        "id": 46,
+        "name": "Dodla Low Fat Curd",
+        "kn_name": "\u0ca6\u0cca\u0ca1\u0ccd\u0cb2\u0cbe \u0cb2\u0ccb \u0cab\u0ccd\u0caf\u0cbe\u0c9f\u0ccd \u0cae\u0cca\u0cb8\u0cb0\u0cc1",
+        "price": 50,
+        "category": "yogurt",
+        "variants": [
+            {
+                "label": "1 kg",
+                "price": 50
+            }
+        ],
+        "emoji": "\ud83e\udd5b",
+        "description_en": "Fresh dairy product",
+        "image": "../images/Dodla Low Fat Curd.jpg"
+    },
+    {
+        "id": 47,
+        "name": "Dodla Cow Ghee",
+        "kn_name": "\u0ca6\u0cca\u0ca1\u0ccd\u0cb2\u0cbe \u0ca4\u0cc1\u0caa\u0ccd\u0caa",
+        "price": 349,
+        "category": "ghee",
+        "variants": [
+            {
+                "label": "500 ml",
+                "price": 349
+            },
+            {
+                "label": "1 Litre",
+                "price": 607
+            }
+        ],
+        "emoji": "\ud83e\udd5b",
+        "description_en": "Fresh dairy product",
+        "image": "../images/Dodla Cow Ghee 610 jar ,554 packet.jpg"
+    },
+    {
+        "id": 48,
+        "name": "Dodla Paneer",
+        "kn_name": "\u0ca6\u0cca\u0ca1\u0ccd\u0cb2\u0cbe \u0caa\u0ca8\u0cc0\u0cb0\u0ccd",
+        "price": 97,
+        "category": "paneer",
+        "variants": [
+            {
+                "label": "200 g",
+                "price": 97
+            },
+            {
+                "label": "1 kg",
+                "price": 335
+            }
+        ],
+        "emoji": "\ud83e\udd5b",
+        "description_en": "Fresh dairy product",
+        "image": "../images/Dodla Paneer.jpg"
+    },
+    {
+        "id": 49,
+        "name": "Hatsun Cow Milk",
+        "kn_name": "\u0cb9\u0ccd\u0caf\u0cbe\u0c9f\u0ccd\u0cb8\u0ca8\u0ccd \u0cb9\u0cb8\u0cc1\u0cb5\u0cbf\u0ca8 \u0cb9\u0cbe\u0cb2\u0cc1",
+        "price": 32,
+        "category": "milk",
+        "variants": [
+            {
+                "label": "500 ml",
+                "price": 32
+            }
+        ],
+        "emoji": "\ud83e\udd5b",
+        "description_en": "Fresh dairy product",
+        "image": "../images/Hatsun Cow Milk.jpg"
+    },
+    {
+        "id": 50,
+        "name": "Hatsun Fresh Cream",
+        "kn_name": "\u0cb9\u0ccd\u0caf\u0cbe\u0c9f\u0ccd\u0cb8\u0ca8\u0ccd \u0c95\u0ccd\u0cb0\u0cc0\u0cae\u0ccd",
+        "price": 40,
+        "category": "cream",
+        "variants": [
+            {
+                "label": "100 g",
+                "price": 40
+            }
+        ],
+        "emoji": "\ud83e\udd5b",
+        "description_en": "Fresh dairy product",
+        "image": "../images/Hatsun Fresh Cream.jpg"
+    },
+    {
+        "id": 51,
+        "name": "Hatsun Curd",
+        "kn_name": "\u0cb9\u0ccd\u0caf\u0cbe\u0c9f\u0ccd\u0cb8\u0ca8\u0ccd \u0cae\u0cca\u0cb8\u0cb0\u0cc1",
+        "price": 38,
+        "category": "yogurt",
+        "variants": [
+            {
+                "label": "500 g",
+                "price": 38
+            },
+            {
+                "label": "1 kg",
+                "price": 117
+            }
+        ],
+        "emoji": "\ud83e\udd5b",
+        "description_en": "Fresh dairy product",
+        "image": "../images/Hatsun Curd.jpg"
+    },
+    {
+        "id": 69,
+        "name": "hatsun cup",
+        "kn_name": "\u0cb9\u0ccd\u0caf\u0cbe\u0c9f\u0ccd\u0cb8\u0ca8\u0ccd \u0cae\u0cca\u0cb8\u0cb0\u0cc1",
+        "price": 38,
+        "category": "yogurt",
+        "variants": [
+            {
+                "label": "500 g",
+                "price": 38
+            },
+            {
+                "label": "1 kg",
+                "price": 117
+            }
+        ],
+        "emoji": "\ud83e\udd5b",
+        "description_en": "Fresh dairy product",
+        "image": "../images/hatsun cup.jpg"
+    },
+    {
+        "id": 52,
+        "name": "Hatsun Greek Yogurt",
+        "kn_name": "\u0cb9\u0ccd\u0caf\u0cbe\u0c9f\u0ccd\u0cb8\u0ca8\u0ccd \u0c97\u0ccd\u0cb0\u0cc0\u0c95\u0ccd \u0cae\u0cca\u0cb8\u0cb0\u0cc1",
+        "price": 52,
+        "category": "yogurt",
+        "variants": [
+            {
+                "label": "100 g (Fig&Dates)",
+                "price": 52
+            },
+            {
+                "label": "100 g (Cherry)",
+                "price": 47
+            }
+        ],
+        "emoji": "\ud83e\udd5b",
+        "description_en": "Fresh dairy product",
+        "image": "../images/Hatsun Greek Yogurt.jpg"
+    },
+    {
+        "id": 53,
+        "name": "Gokul Full Cream Milk",
+        "kn_name": "\u0c97\u0ccb\u0c95\u0cc1\u0cb2\u0ccd \u0cab\u0cc1\u0cb2\u0ccd \u0c95\u0ccd\u0cb0\u0cc0\u0cae\u0ccd",
+        "price": 78,
+        "category": "milk",
+        "variants": [
+            {
+                "label": "1 Litre",
+                "price": 78
+            }
+        ],
+        "emoji": "\ud83e\udd5b",
+        "description_en": "Fresh dairy product",
+        "image": "../images/Gokul Full Cream Milk.jpg"
+    },
+    {
+        "id": 54,
+        "name": "Gokul Cow Milk",
+        "kn_name": "\u0c97\u0ccb\u0c95\u0cc1\u0cb2\u0ccd \u0cb9\u0cb8\u0cc1\u0cb5\u0cbf\u0ca8 \u0cb9\u0cbe\u0cb2\u0cc1",
+        "price": 29,
+        "category": "milk",
+        "variants": [
+            {
+                "label": "500 ml",
+                "price": 29
+            }
+        ],
+        "emoji": "\ud83e\udd5b",
+        "description_en": "Fresh dairy product",
+        "image": "../images/Gokul Cow Milk.jpg"
+    },
+    {
+        "id": 55,
+        "name": "Gokul Buffalo Ghee",
+        "kn_name": "\u0c97\u0ccb\u0c95\u0cc1\u0cb2\u0ccd \u0c8e\u0cae\u0ccd\u0cae\u0cc6 \u0ca4\u0cc1\u0caa\u0ccd\u0caa",
+        "price": 297,
+        "category": "ghee",
+        "variants": [
+            {
+                "label": "500 ml",
+                "price": 297
+            }
+        ],
+        "emoji": "\ud83e\udd5b",
+        "description_en": "Fresh dairy product",
+        "image": "../images/Gokul Buffalo Ghee 570,jar 540.jpg"
+    },
+    {
+        "id": 56,
+        "name": "Gokul Paneer",
+        "kn_name": "\u0c97\u0ccb\u0c95\u0cc1\u0cb2\u0ccd \u0caa\u0ca8\u0cc0\u0cb0\u0ccd",
+        "price": 189,
+        "category": "paneer",
+        "variants": [
+            {
+                "label": "500 g",
+                "price": 189
+            }
+        ],
+        "emoji": "\ud83e\udd5b",
+        "description_en": "Fresh dairy product",
+        "image": "../images/Gokul Paneer.jpg"
+    },
+    {
+        "id": 57,
+        "name": "Gokul Basundi",
+        "kn_name": "\u0c97\u0ccb\u0c95\u0cc1\u0cb2\u0ccd \u0cac\u0cbe\u0cb8\u0cc1\u0c82\u0ca1\u0cbf",
+        "price": 57,
+        "category": "other",
+        "variants": [
+            {
+                "label": "250 g",
+                "price": 57
+            }
+        ],
+        "emoji": "\ud83e\udd5b",
+        "description_en": "Fresh dairy product",
+        "image": "../images/Gokul Basundi.jpg"
     },
     {
         "id": 58,
         "name": "Gokul Shrikhand",
-        "kn_name": "ಗೋಕುಲ್ ಶ್ರೀಖಂಡ್",
-        "price": 115,
+        "kn_name": "\u0c97\u0ccb\u0c95\u0cc1\u0cb2\u0ccd \u0cb6\u0ccd\u0cb0\u0cc0\u0c96\u0c82\u0ca1\u0ccd",
+        "price": 117,
         "category": "other",
         "variants": [
             {
                 "label": "500 g",
-                "price": 115
+                "price": 117
             }
         ],
-        "emoji": "🥛",
+        "emoji": "\ud83e\udd5b",
         "description_en": "Fresh dairy product",
-        "image": "/images/Gokul Shrikhand.jpg"
+        "image": "../images/Gokul Shrikhand.jpg"
     },
     {
         "id": 59,
         "name": "Generic Full Cream Milk",
-        "kn_name": "ಜನರಲ್ ಫುಲ್ ಕ್ರೀಮ್",
-        "price": 69,
+        "kn_name": "\u0c9c\u0ca8\u0cb0\u0cb2\u0ccd \u0cab\u0cc1\u0cb2\u0ccd \u0c95\u0ccd\u0cb0\u0cc0\u0cae\u0ccd",
+        "price": 71,
         "category": "milk",
         "variants": [
             {
                 "label": "1 Litre",
-                "price": 69
+                "price": 71
             }
         ],
-        "emoji": "🥛",
+        "emoji": "\ud83e\udd5b",
         "description_en": "Fresh dairy product",
-        "image": "/images/Generic Full Cream Milk.jpg"
+        "image": "../images/Generic Full Cream Milk.jpg"
     },
     {
         "id": 60,
         "name": "Arokya Toned Milk",
-        "kn_name": "ಜನರಲ್ ಟೋನ್ಡ್",
-        "price": 57,
-        "category": "milk",
-        "variants": [
-            {
-                "label": "1 Litre",
-                "price": 57
-            }
-        ],
-        "emoji": "🥛",
-        "description_en": "Fresh dairy product",
-        "image": "/images/Generic Toned Milk.jpg"
-    },
-    {
-        "id": 61,
-        "name": "Arokya standarized milk",
-        "kn_name": "ಜನರಲ್ ಹಸುವಿನ ಹಾಲು",
+        "kn_name": "\u0c9c\u0ca8\u0cb0\u0cb2\u0ccd \u0c9f\u0ccb\u0ca8\u0ccd\u0ca1\u0ccd",
         "price": 59,
         "category": "milk",
         "variants": [
@@ -1095,184 +1079,360 @@
                 "price": 59
             }
         ],
-        "emoji": "🥛",
+        "emoji": "\ud83e\udd5b",
         "description_en": "Fresh dairy product",
-        "image": "/images/Arokya standarized milk.jpg"
+        "image": "../images/Generic Toned Milk.jpg"
+    },
+    {
+        "id": 61,
+        "name": "Arokya standarized milk",
+        "kn_name": "\u0c9c\u0ca8\u0cb0\u0cb2\u0ccd \u0cb9\u0cb8\u0cc1\u0cb5\u0cbf\u0ca8 \u0cb9\u0cbe\u0cb2\u0cc1",
+        "price": 61,
+        "category": "milk",
+        "variants": [
+            {
+                "label": "1 Litre",
+                "price": 61
+            }
+        ],
+        "emoji": "\ud83e\udd5b",
+        "description_en": "Fresh dairy product",
+        "image": "../images/Arokya standarized milk.jpg"
     },
     {
         "id": 62,
         "name": "Arokya full cream",
-        "kn_name": "ಜನರಲ್ ಡಬಲ್ ಟೋನ್ಡ್",
-        "price": 51,
+        "kn_name": "\u0c9c\u0ca8\u0cb0\u0cb2\u0ccd \u0ca1\u0cac\u0cb2\u0ccd \u0c9f\u0ccb\u0ca8\u0ccd\u0ca1\u0ccd",
+        "price": 53,
         "category": "milk",
         "variants": [
             {
                 "label": "1 Litre",
-                "price": 51
+                "price": 53
             }
         ],
-        "emoji": "🥛",
+        "emoji": "\ud83e\udd5b",
         "description_en": "Fresh dairy product",
-        "image": "/images/Aroya full cream.jpg"
+        "image": "../images/Aroya full cream.jpg"
     },
     {
         "id": 63,
         "name": "Generic Dahi (Curd)",
-        "kn_name": "ಜನರಲ್ ಮೊಸರು",
-        "price": 85,
+        "kn_name": "\u0c9c\u0ca8\u0cb0\u0cb2\u0ccd \u0cae\u0cca\u0cb8\u0cb0\u0cc1",
+        "price": 87,
         "category": "yogurt",
         "variants": [
             {
                 "label": "1 kg",
-                "price": 85
+                "price": 87
             }
         ],
-        "emoji": "🥛",
+        "emoji": "\ud83e\udd5b",
         "description_en": "Fresh dairy product",
-        "image": "/images/Curd (yogurt).jpg"
+        "image": "../images/Curd (yogurt).jpg"
     },
     {
         "id": 64,
         "name": "Generic Paneer",
-        "kn_name": "ಜನರಲ್ ಪನೀರ್",
-        "price": 92,
+        "kn_name": "\u0c9c\u0ca8\u0cb0\u0cb2\u0ccd \u0caa\u0ca8\u0cc0\u0cb0\u0ccd",
+        "price": 94,
         "category": "paneer",
         "variants": [
             {
                 "label": "200 g",
-                "price": 92
+                "price": 94
             }
         ],
-        "emoji": "🥛",
+        "emoji": "\ud83e\udd5b",
         "description_en": "Fresh dairy product",
-        "image": "/images/Generic Paneer.jpg"
+        "image": "../images/Generic Paneer.jpg"
     },
     {
         "id": 65,
         "name": "Generic Butter",
-        "kn_name": "ಜನರಲ್ ಬೆಣ್ಣೆ",
-        "price": 57,
+        "kn_name": "\u0c9c\u0ca8\u0cb0\u0cb2\u0ccd \u0cac\u0cc6\u0ca3\u0ccd\u0ca3\u0cc6",
+        "price": 59,
         "category": "butter",
         "variants": [
             {
                 "label": "100 g",
-                "price": 57
+                "price": 59
             }
         ],
-        "emoji": "🥛",
+        "emoji": "\ud83e\udd5b",
         "description_en": "Fresh dairy product",
-        "image": "/images/Butter.jpg"
+        "image": "../images/Butter.jpg"
     },
     {
         "id": 66,
         "name": "Generic Ghee",
-        "kn_name": "ಜನರಲ್ ತುಪ್ಪ",
-        "price": 645,
+        "kn_name": "\u0c9c\u0ca8\u0cb0\u0cb2\u0ccd \u0ca4\u0cc1\u0caa\u0ccd\u0caa",
+        "price": 647,
         "category": "ghee",
         "variants": [
             {
                 "label": "1 Litre",
-                "price": 645
+                "price": 647
             }
         ],
-        "emoji": "🥛",
+        "emoji": "\ud83e\udd5b",
         "description_en": "Fresh dairy product",
-        "image": "/images/Generic Ghee.jpg"
+        "image": "../images/Generic Ghee.jpg"
     },
     {
         "id": 67,
         "name": "Curd",
-        "kn_name": "ಜನರಲ್ ಮೊಸರು",
-        "price": 11,
+        "kn_name": "\u0c9c\u0ca8\u0cb0\u0cb2\u0ccd \u0cae\u0cca\u0cb8\u0cb0\u0cc1",
+        "price": 13,
         "category": "yogurt",
         "variants": [
             {
                 "label": "1 packet",
-                "price": 11
+                "price": 13
             }
         ],
-        "emoji": "🥛",
+        "emoji": "\ud83e\udd5b",
         "description_en": "Fresh dairy product",
-        "image": "/images/Curd.jpg"
+        "image": "../images/curd.jpg"
     },
     {
         "id": 68,
         "name": "Milk Butter Masale",
-        "kn_name": "ಜನರಲ್ ಮಿಲ್ಕ್ ಬಟರ್ ಮಸಾಲೆ",
-        "price": 11,
+        "kn_name": "\u0c9c\u0ca8\u0cb0\u0cb2\u0ccd \u0cae\u0cbf\u0cb2\u0ccd\u0c95\u0ccd \u0cac\u0c9f\u0cb0\u0ccd \u0cae\u0cb8\u0cbe\u0cb2\u0cc6",
+        "price": 13,
         "category": "yogurt",
         "variants": [
             {
                 "label": "1 packet",
-                "price": 11
+                "price": 13
             }
         ],
-        "emoji": "🥛",
+        "emoji": "\ud83e\udd5b",
         "description_en": "Fresh dairy product",
-        "image": "/images/masala buttermilk.jpg"
+        "image": "../images/masala buttermilk.jpg"
     },
     {
         "id": 70,
         "name": "Organic Buffalo Milk",
-        "kn_name": "ಎಮ್ಮೆ ತುಪ್ಪ",
-        "price": 295,
+        "kn_name": "\u0c8e\u0cae\u0ccd\u0cae\u0cc6 \u0ca4\u0cc1\u0caa\u0ccd\u0caa",
+        "price": 297,
         "category": "milk",
         "variants": [
             {
                 "label": "500 ml",
-                "price": 295
+                "price": 297
             }
         ],
-        "emoji": "🥛",
+        "emoji": "\ud83e\udd5b",
         "description_en": "Fresh dairy product",
-        "image": "/images/Organic Buffalo Milk 90.jpg"
+        "image": "../images/Organic Buffalo Milk 90.jpg"
     },
     {
         "id": 71,
         "name": "Milk",
         "kn_name": "",
-        "price": 295,
+        "price": 297,
         "category": "milk",
         "variants": [
             {
                 "label": "500 ml",
-                "price": 295
+                "price": 297
             }
         ],
-        "emoji": "🥛",
+        "emoji": "\ud83e\udd5b",
         "description_en": "Fresh dairy product",
-        "image": "/images/Milk.jpg"
+        "image": "../images/Milk.jpg"
     },
     {
         "id": 72,
         "name": "Flavored Milk Vanilla",
-        "kn_name": "ಹೆರಿಟೇಜ್ ಫ್ಲೇವರ್ಡ್ ಮೊಸರು",
-        "price": 22,
+        "kn_name": "\u0cb9\u0cc6\u0cb0\u0cbf\u0c9f\u0cc7\u0c9c\u0ccd \u0cab\u0ccd\u0cb2\u0cc7\u0cb5\u0cb0\u0ccd\u0ca1\u0ccd \u0cae\u0cca\u0cb8\u0cb0\u0cc1",
+        "price": 24,
         "category": "yogurt",
         "variants": [
             {
                 "label": "90 g",
-                "price": 22
+                "price": 24
             }
         ],
-        "emoji": "🥛",
+        "emoji": "\ud83e\udd5b",
         "description_en": "Fresh dairy product",
-        "image": "/images/Flavored Milk Vanilla 200ml 20-35.jpg"
+        "image": "../images/Flavored Milk Vanilla 200ml 20-35.jpg"
     },
     {
         "id": 73,
         "name": "Flavored Milk Strawberry",
-        "kn_name": "ಹೆರಿಟೇಜ್ ಫ್ಲೇವರ್ಡ್ ಮೊಸರು",
-        "price": 22,
+        "kn_name": "\u0cb9\u0cc6\u0cb0\u0cbf\u0c9f\u0cc7\u0c9c\u0ccd \u0cab\u0ccd\u0cb2\u0cc7\u0cb5\u0cb0\u0ccd\u0ca1\u0ccd \u0cae\u0cca\u0cb8\u0cb0\u0cc1",
+        "price": 24,
         "category": "yogurt",
         "variants": [
             {
                 "label": "90 g",
-                "price": 22
+                "price": 24
             }
         ],
-        "emoji": "🥛",
+        "emoji": "\ud83e\udd5b",
         "description_en": "Fresh dairy product",
-        "image": "/images/Flavored Milk Strawberry 200ml (200ml).jpg"
+        "image": "../images/Flavored Milk Strawberry 200ml (200ml).jpg"
+    },
+    {
+        "id": 9500,
+        "name": "Amul Cooking Butter",
+        "kn_name": "\u0c85\u0cae\u0cc2\u0cb2\u0ccd \u0c95\u0cc1\u0c95\u0cbf\u0c82\u0c97\u0ccd \u0cac\u0c9f\u0cb0\u0ccd",
+        "price": 272,
+        "category": "butter",
+        "variants": [
+            {
+                "label": "500 g",
+                "price": 272
+            },
+            {
+                "label": "100 g",
+                "price": 60
+            }
+        ],
+        "emoji": "\ud83e\udd5b",
+        "description_en": "Fresh dairy product",
+        "image": "../images/Amul cooking Butter.jpg"
+    },
+    {
+        "id": 9501,
+        "name": "Badam Milk",
+        "kn_name": "\u0cac\u0cbe\u0ca6\u0cbe\u0cae\u0cbf \u0cb9\u0cbe\u0cb2\u0cc1",
+        "price": 52,
+        "category": "beverages",
+        "variants": [
+            {
+                "label": "200 ml",
+                "price": 52
+            }
+        ],
+        "emoji": "\ud83e\udd5b",
+        "description_en": "Fresh dairy product",
+        "image": "../images/Badam Milk 50.jpg"
+    },
+    {
+        "id": 9502,
+        "name": "Cavin's Milkshake",
+        "kn_name": "\u0c95\u0ccd\u0caf\u0cbe\u0cb5\u0cbf\u0ca8\u0ccd\u0cb8\u0ccd \u0cae\u0cbf\u0cb2\u0ccd\u0c95\u0ccd\u200c\u0cb6\u0cc7\u0c95\u0ccd",
+        "price": 42,
+        "category": "beverages",
+        "variants": [
+            {
+                "label": "200 ml",
+                "price": 42
+            },
+            {
+                "label": "4 Pack",
+                "price": 152
+            }
+        ],
+        "emoji": "\ud83e\udd5b",
+        "description_en": "Fresh dairy product",
+        "image": "../images/Cavin's Milkshake 150.jpg"
+    },
+    {
+        "id": 9503,
+        "name": "Cheese Block Classic",
+        "kn_name": "\u0c9a\u0cc0\u0cb8\u0ccd \u0cac\u0ccd\u0cb2\u0cbe\u0c95\u0ccd",
+        "price": 127,
+        "category": "cheese",
+        "variants": [
+            {
+                "label": "200 g",
+                "price": 127
+            }
+        ],
+        "emoji": "\ud83e\udd5b",
+        "description_en": "Fresh dairy product",
+        "image": "../images/Cheese.jpg"
+    },
+    {
+        "id": 9504,
+        "name": "Hershey's Chocolate Milkshake",
+        "kn_name": "\u0cb9\u0cb0\u0ccd\u0cb7\u0cc0\u0cb8\u0ccd \u0c9a\u0cbe\u0c95\u0ccd\u0cb2\u0cc7\u0c9f\u0ccd \u0cae\u0cbf\u0cb2\u0ccd\u0c95\u0ccd\u200c\u0cb6\u0cc7\u0c95\u0ccd",
+        "price": 44,
+        "category": "beverages",
+        "variants": [
+            {
+                "label": "200 ml",
+                "price": 44
+            },
+            {
+                "label": "3 Pack",
+                "price": 122
+            }
+        ],
+        "emoji": "\ud83e\udd5b",
+        "description_en": "Fresh dairy product",
+        "image": "../images/Hershey's Chocolate Milkshake 120.jpg"
+    },
+    {
+        "id": 9505,
+        "name": "Toned Milk 1L Pouch",
+        "kn_name": "\u0c9f\u0ccb\u0ca8\u0ccd\u0ca1\u0ccd \u0cae\u0cbf\u0cb2\u0ccd\u0c95\u0ccd 1L",
+        "price": 24,
+        "category": "milk",
+        "variants": [
+            {
+                "label": "500 ml",
+                "price": 24
+            },
+            {
+                "label": "1 Litre",
+                "price": 46
+            }
+        ],
+        "emoji": "\ud83e\udd5b",
+        "description_en": "Fresh dairy product",
+        "image": "../images/Toned Milk 1L (1L) 20.jpg"
+    },
+    {
+        "id": 9506,
+        "name": "Amul Kool Flavored Milk",
+        "kn_name": "\u0c85\u0cae\u0cc2\u0cb2\u0ccd \u0c95\u0cc2\u0cb2\u0ccd",
+        "price": 32,
+        "category": "beverages",
+        "variants": [
+            {
+                "label": "180 ml",
+                "price": 32
+            }
+        ],
+        "emoji": "\ud83e\udd5b",
+        "description_en": "Fresh dairy product",
+        "image": "../images/Amul Kool Flavored Milk 30.jpg"
+    },
+    {
+        "id": 9507,
+        "name": "Paneer Rice Bowl",
+        "kn_name": "\u0caa\u0ca8\u0cc0\u0cb0\u0ccd \u0cb0\u0cc8\u0cb8\u0ccd \u0cac\u0ccc\u0cb2\u0ccd",
+        "price": 122,
+        "category": "paneer",
+        "variants": [
+            {
+                "label": "1 pack",
+                "price": 122
+            }
+        ],
+        "emoji": "\ud83e\udd5b",
+        "description_en": "Fresh dairy product",
+        "image": "../images/Paneer Rice Bowl.jpg"
+    },
+    {
+        "id": 9508,
+        "name": "Ice Cream Vanilla",
+        "kn_name": "\u0cb5\u0cc6\u0ca8\u0cbf\u0cb2\u0ccd\u0cb2\u0cbe \u0c90\u0cb8\u0ccd \u0c95\u0ccd\u0cb0\u0cc0\u0cae\u0ccd",
+        "price": 112,
+        "category": "other",
+        "variants": [
+            {
+                "label": "500 ml",
+                "price": 112
+            }
+        ],
+        "emoji": "\ud83e\udd5b",
+        "description_en": "Fresh dairy product",
+        "image": "../images/Ice Cream Vanilla.jpg"
     }
 ]

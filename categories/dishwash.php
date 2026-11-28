@@ -109,12 +109,7 @@ if (isset($_GET['ajax'])) {
 if (!function_exists('normalizeImagePath')) {
   function normalizeImagePath(?string $rawPath): string
   {
-    if (empty($rawPath)) return '';
-    $clean = str_replace('\\', '/', $rawPath);
-    if (preg_match('#(?:.*)(images/.*)$#i', $clean, $matches)) {
-      return '../' . $matches[1];
-    }
-    return '../images/' . basename($clean);
+    return ksrNormalizeFlatImage($rawPath);
   }
 }
 // ============================================================
@@ -181,64 +176,80 @@ function getFallbackDishwashProducts(): array
     }
   }
   $json = '[
-  {"id":1,"name":"Vim Dishwash Liquid Gel Lemon","nameKn":"Vim ಡಿಶ್ವಾಶ್ ಲಿಕ್ವಿಡ್ ಜೆಲ್ ಲಿಂಬೆ","category":"liquid","price":930,"imageUrl":"images\\\\Vim Dishwash Liquid Gel Lemon 930.jpg","description":"Lemon fresh gel, cuts grease effectively."},
-  {"id":2,"name":"Pril Dishwash Liquid Lime","nameKn":"Pril ಡಿಶ್ವಾಶ್ ಲಿಕ್ವಿಡ್ ಲೈಮ್","category":"liquid","price":190,"imageUrl":"images\\\\Pril Dishwash Liquid Lime 190.jpg","description":"Lime scented, gentle on hands."},
-  {"id":3,"name":"Exo Dishwash Liquid","nameKn":"Exo ಡಿಶ್ವಾಶ್ ಲಿಕ್ವಿಡ್","category":"liquid","price":110,"imageUrl":"images\\\\Exo Dishwash Liquid 200.jpg","description":"Powerful degreaser, economical."},
-  {"id":4,"name":"Genteel Dishwash Liquid","nameKn":"Genteel ಡಿಶ್ವಾಶ್ ಲಿಕ್ವಿಡ್","category":"liquid","price":105,"imageUrl":"images\\\\Genteel Dishwash Liquid 101.jpg","description":"Mild on skin, tough on stains."},
-  {"id":5,"name":"Fortune Dishwash Liquid","nameKn":"Fortune ಡಿಶ್ವಾಶ್ ಲಿಕ್ವಿಡ್","category":"liquid","price":260,"imageUrl":"images\\\\Fortune Dishwash Liquid 260.jpg","description":"Budget-friendly, removes oil quickly."},
-  {"id":6,"name":"Godrej Ezee Dishwash Liquid","nameKn":"Godrej Ezee ಡಿಶ್ವಾಶ್ ಲಿಕ್ವಿಡ್","category":"liquid","price":130,"imageUrl":"images\\\\Godrej Ezee Dishwash Liquid 250.jpg","description":"Powerful formula, safe for utensils."},
-  {"id":7,"name":"Amazon Brand Presto Dishwash Liquid","nameKn":"Amazon Presto ಡಿಶ್ವಾಶ್ ಲಿಕ್ವಿಡ್","category":"liquid","price":99,"imageUrl":"images\\\\Amazon Brand Presto Dishwash Liquid 450.jpg","description":"Value pack, long-lasting."},
-  {"id":8,"name":"Herbal Strategi Dishwash Liquid","nameKn":"Herbal Strategi ಡಿಶ್ವಾಶ್ ಲಿಕ್ವಿಡ್","category":"liquid","price":320,"imageUrl":"images\\\\Herbal Strategi Dishwash Liquid 320.jpg","description":"Natural ingredients, eco-friendly."},
-  {"id":9,"name":"Safewash Dishwash Liquid","nameKn":"Safewash ಡಿಶ್ವಾಶ್ ಲಿಕ್ವಿಡ್","category":"liquid","price":230,"imageUrl":"images\\\\Safewash Dishwash Liquid 225.jpg","description":"Antibacterial, fresh fragrance."},
-  {"id":10,"name":"Clean Mate Dishwash Liquid","nameKn":"Clean Mate ಡಿಶ್ವಾಶ್ ಲಿಕ್ವಿಡ್","category":"liquid","price":140,"imageUrl":"images\\\\Clean Mate Dishwash Liquid 132.jpg","description":"Daily use, effective on grease."},
-  {"id":41,"name":"Vim Dishwash Liquid Refill","nameKn":"Vim ರೀಫಿಲ್","category":"liquid","price":300,"imageUrl":"images\\\\Vim Dishwash Liquid Refill Pack 300.jpg","description":"Economy refill pack, same formula."},
-  {"id":42,"name":"Exo Dishwash Liquid Refill","nameKn":"Exo ರೀಫಿಲ್","category":"liquid","price":280,"imageUrl":"images\\\\Exo Dishwash Liquid Refill 280.jpg","description":"Bulk refill, saves plastic."},
-  {"id":43,"name":"Genteel Dishwash Liquid Refill","nameKn":"Genteel ರೀಫಿಲ್","category":"liquid","price":270,"imageUrl":"images\\\\Genteel Dishwash Liquid Refill 270.jpg","description":"Large pouch, easy pour."},
-  {"id":11,"name":"Vim Dishwash Powder","nameKn":"Vim ಡಿಶ್ವಾಶ್ ಪುಡಿ","category":"powder","price":95,"imageUrl":"images\\\\Vim Dishwash Powder 85.jpg","description":"Powder formula, deep cleaning."},
-  {"id":13,"name":"Exo Dishwash Powder","nameKn":"Exo ಡಿಶ್ವಾಶ್ ಪುಡಿ","category":"powder","price":85,"imageUrl":"images\\\\Exo Dishwash Powder 50.jpg","description":"Scrubs away burnt food."},
-  {"id":14,"name":"Genteel Dishwash Powder","nameKn":"Genteel ಡಿಶ್ವಾಶ್ ಪುಡಿ","category":"powder","price":450,"imageUrl":"images\\\\Genteel Dishwash Powder 450.jpg","description":"Gentle on utensils, tough on dirt."},
-  {"id":15,"name":"Fortune Dishwash Powder","nameKn":"Fortune ಡಿಶ್ವಾಶ್ ಪುಡಿ","category":"powder","price":660,"imageUrl":"images\\\\Fortune Dishwash Powder 660.jpg","description":"Best value for daily use."},
-  {"id":16,"name":"Amazon Presto Dishwash Powder","nameKn":"Amazon Presto ಪುಡಿ","category":"powder","price":70,"imageUrl":"images\\\\Amazon Presto Dishwash Powder 590.jpg","description":"Fragrance-free, high efficiency."},
-  {"id":17,"name":"Herbal Strategi Dishwash Powder","nameKn":"Herbal Strategi ಪುಡಿ","category":"powder","price":150,"imageUrl":"images\\\\Herbal Strategi Dishwash Powder 150.jpg","description":"Natural ingredients, plant-based."},
-  {"id":18,"name":"Safewash Dishwash Powder","nameKn":"Safewash ಪುಡಿ","category":"powder","price":65,"imageUrl":"images\\\\Safewash Dishwash Powder.jpg","description":"Antibacterial, safe for families."},
-  {"id":19,"name":"Clean Mate Dishwash Powder","nameKn":"Clean Mate ಪುಡಿ","category":"powder","price":780,"imageUrl":"images\\\\Clean Mate Dishwash Powder 760.jpg","description":"Small pack, travel friendly."},
-  {"id":20,"name":"Eco Friendly Dishwash Powder","nameKn":"Eco Friendly ಪುಡಿ","category":"powder","price":200,"imageUrl":"images\\\\Eco Friendly Dishwash Powder 200.jpg","description":"Biodegradable, zero chemicals."},
-  {"id":51,"name":"Vim Dishwash Powder Economy Pack","nameKn":"Vim ಎಕಾನಮಿ ಪ್ಯಾಕ್","category":"powder","price":440,"imageUrl":"images\\\\Vim Dishwash Powder Economy Pack 430.jpg","description":"Family pack, 2x quantity."},
-  {"id":21,"name":"Finish Dishwasher 110 Tablets Classic","nameKn":"Finish ಕ್ಲಾಸಿಕ್ ಟ್ಯಾಬ್ಲೆಟ್","category":"tablets","price":1350,"imageUrl":"images\\\\Finish Dishwasher 110 Tablets Classic 1350.jpg","description":"All-in-one, machine safe."},
-  {"id":22,"name":"Finish Quantum Tablets","nameKn":"Finish ಕ್ವಾಂಟಮ್","category":"tablets","price":1500,"imageUrl":"images\\\\Finish Quantum Dishwasher Tablets 1500.jpg","description":"Premium power, glass protection."},
-  {"id":23,"name":"Bosch Dishwasher Tablets","nameKn":"Bosch ಟ್ಯಾಬ್ಲೆಟ್","category":"tablets","price":320,"imageUrl":"images\\\\Bosch Dishwasher Tablets 500.jpg","description":"Designed for Bosch machines."},
-  {"id":24,"name":"IFB Dishwasher Tablets","nameKn":"IFB ಟ್ಯಾಬ್ಲೆಟ್","category":"tablets","price":280,"imageUrl":"images\\\\IFB Dishwasher Tablets 700.jpg","description":"Anti-limescale, rinse aid."},
-  {"id":25,"name":"Fortune Dishwasher Tablets","nameKn":"Fortune ಟ್ಯಾಬ್ಲೆಟ್","category":"tablets","price":700,"imageUrl":"images\\\\Fortune Dishwasher Tablets 700.jpg","description":"Budget tablets, good for daily."},
-  {"id":26,"name":"Genteel Dishwasher Tablets","nameKn":"Genteel ಟ್ಯಾಬ್ಲೆಟ್","category":"tablets","price":2700,"imageUrl":"images\\\\Genteel Dishwasher Tablets 2650.jpg","description":"Gentle on dishes, effective."},
-  {"id":27,"name":"Pril Dishwasher Tablets Large Pack","nameKn":"Pril ದೊಡ್ಡ ಪ್ಯಾಕ್","category":"tablets","price":600,"imageUrl":"images\\\\Pril Dishwasher Tablets Large Pack 400.jpg","description":"30 tablets, great value."},
-  {"id":28,"name":"All-in-One Dishwasher Tablets","nameKn":"ಆಲ್ ಇನ್ ವನ್","category":"tablets","price":650,"imageUrl":"images\\\\All-in-One Dishwasher Tablets 750.jpg","description":"Complete care with salt function."},
-  {"id":31,"name":"Scotch Brite Scrub Sponge","nameKn":"Scotch Brite ಸ್ಕ್ರಬ್ ಸ್ಪಂಜ್","category":"accessories","price":70,"imageUrl":"images\\\\Scotch Brite Scrub Sponge 70.jpg","description":"Non-scratch, dual side sponge."},
-  {"id":32,"name":"Scotch Brite Steel Scrubber","nameKn":"Scotch Brite ಸ್ಟೀಲ್ ಸ್ಕ್ರಬ್ಬರ್","category":"accessories","price":25,"imageUrl":"images\\\\Scotch Brite Steel Scrubber 25.jpg","description":"For tough stains, rust resistant."},
-  {"id":33,"name":"Gala Scrub Pad","nameKn":"Gala ಸ್ಕ್ರಬ್ ಪ್ಯಾಡ್","category":"accessories","price":70,"imageUrl":"images\\\\Gala Scrub Pad 70.jpg","description":"Economical scrub pad."},
-  {"id":34,"name":"Vim Scrubber Pad","nameKn":"Vim ಸ್ಕ್ರಬ್ಬರ್ ಪ್ಯಾಡ್","category":"accessories","price":15,"imageUrl":"images\\\\Vim Scrubber Pad 10.jpg","description":"Durable, good grip."},
-  {"id":35,"name":"Plastic Dish Brush","nameKn":"ಪ್ಲಾಸ್ಟಿಕ್ ಡಿಶ್ ಬ್ರಷ್","category":"accessories","price":600,"imageUrl":"images\\\\Plastic Dish Brush 600.jpg","description":"Ergonomic handle, nylon bristles."},
-  {"id":36,"name":"Steel Dish Cleaning Brush","nameKn":"ಸ್ಟೀಲ್ ಡಿಶ್ ಕ್ಲೀನಿಂಗ್ ಬ್ರಷ್","category":"accessories","price":70,"imageUrl":"images\\\\Steel Dish Cleaning Brush.jpg","description":"Stainless steel, long lasting."},
-  {"id":37,"name":"Microfiber Cleaning Cloth","nameKn":"ಮೈಕ್ರೋಫೈಬರ್ ಕ್ಲೀನಿಂಗ್ ಕ್ಲಾತ್","category":"accessories","price":100,"imageUrl":"images\\\\Microfiber Cleaning Cloth 100.jpg","description":"Lint-free, absorbent."},
-  {"id":38,"name":"Dishwashing Gloves Rubber","nameKn":"ಡಿಶ್ವಾಶಿಂಗ್ ಗ್ಲೌಸ್","category":"accessories","price":700,"imageUrl":"images\\\\Dishwashing Gloves Rubber 700.jpg","description":"Protects hands, non-slip."},
-  {"id":39,"name":"Sink Cleaning Brush","nameKn":"ಸಿಂಕ್ ಕ್ಲೀನಿಂಗ್ ಬ್ರಷ್","category":"accessories","price":80,"imageUrl":"images\\\\Sink Cleaning Brush 50.jpg","description":"Angled head, for corners."},
-  {"id":40,"name":"Soap Holder for Dishwash","nameKn":"ಸೋಪು ಹೋಲ್ಡರ್","category":"accessories","price":150,"imageUrl":"images\\\\Soap Holder for Dishwash 150.jpg","description":"Draining tray, keeps soap dry."},
-  {"id":71,"name":"Scotch Brite Heavy Duty Scrubber","nameKn":"Scotch Brite ಹೆವಿ ಡ್ಯೂಟಿ","category":"accessories","price":30,"imageUrl":"images\\\\Scotch Brite Heavy Duty Scrubber 30.jpg","description":"For burnt pans, extra strong."},
-  {"id":73,"name":"Gala Scrubber Combo Pack","nameKn":"Gala ಕಾಂಬೊ","category":"accessories","price":60,"imageUrl":"images\\\\Gala Scrubber Combo Pack 180.jpg","description":"Value pack of 5 scrub pads."},
-  {"id":74,"name":"Long Handle Dish Brush","nameKn":"ಲಾಂಗ್ ಹ್ಯಾಂಡಲ್ ಬ್ರಷ್","category":"accessories","price":120,"imageUrl":"images\\\\Long Handle Dish Brush.jpg","description":"Reaches deep utensils."},
-  {"id":75,"name":"Bottle Cleaning Brush Set","nameKn":"ಬಾಟಲ್ ಬ್ರಷ್ ಸೆಟ್","category":"accessories","price":1000,"imageUrl":"images\\\\Bottle Cleaning Brush Set 1000.jpg","description":"2 sizes, for narrow necks."},
-  {"id":76,"name":"Dishwashing Gloves Premium","nameKn":"ಪ್ರೀಮಿಯಂ ಗ್ಲೌಸ್","category":"accessories","price":200,"imageUrl":"images\\\\Dishwashing Gloves Premium 200.jpg","description":"Cotton lined, extra comfort."},
-  {"id":77,"name":"Sink Drain Cleaning Brush","nameKn":"ಸಿಂಕ್ ಡ್ರೈನ್ ಬ್ರಷ್","category":"accessories","price":400,"imageUrl":"images\\\\Sink Drain Cleaning Brush 400.jpg","description":"Flexible, removes debris."},
-  {"id":78,"name":"Dish Drying Mat","nameKn":"ಡಿಶ್ ಡ್ರೈಯಿಂಗ್ ಮಾಟ್","category":"accessories","price":550,"imageUrl":"images\\\\Dish Drying Mat 550.jpg","description":"Quick dry, non-slip."},
-  {"id":79,"name":"Soap Dispenser for Kitchen","nameKn":"ಸೋಪು ಡಿಸ್ಪೆನ್ಸರ್","category":"accessories","price":300,"imageUrl":"images\\\\Soap Dispenser for Kitchen 180.jpg","description":"Stainless steel, pump action."},
-  {"id":80,"name":"Scrubber Holder Stand","nameKn":"ಸ್ಕ್ರಬ್ಬರ್ ಹೋಲ್ಡರ್","category":"accessories","price":80,"imageUrl":"images\\\\Scrubber Holder Stand 250.jpg","description":"Keeps sink organized."},
-  {"id":81,"name":"Dish Rack Steel","nameKn":"ಡಿಶ್ ರ್ಯಾಕ್ ಸ್ಟೀಲ್","category":"accessories","price":900,"imageUrl":"images\\\\Dish Rack Steel.jpg","description":"Rust-proof, large capacity."},
-  {"id":82,"name":"Dishwash Bar Holder","nameKn":"ಬಾರ್ ಹೋಲ್ಡರ್","category":"accessories","price":50,"imageUrl":"images\\\\Dishwash Bar Holder 140.jpg","description":"Simple plastic holder."},
-  {"id":83,"name":"Sink Organizer Basket","nameKn":"ಸಿಂಕ್ ಆರ್ಗನೈಜರ್","category":"accessories","price":200,"imageUrl":"images\\\\Sink Organizer Basket 200.jpg","description":"Holds sponges and brushes."},
-  {"id":84,"name":"Sponge with Handle","nameKn":"ಹ್ಯಾಂಡಲ್ ಸ್ಪಂಜ್","category":"accessories","price":660,"imageUrl":"images\\\\Sponge with Handle 660.jpg","description":"Prevents hand contact with water."},
-  {"id":85,"name":"Dish Cleaning Brush Rotating","nameKn":"ರೊಟೇಟಿಂಗ್ ಬ್ರಷ್","category":"accessories","price":360,"imageUrl":"images\\\\Dish Cleaning Brush Rotating 360.jpg","description":"360° rotation, fills with soap."},
-  {"id":86,"name":"Dish Cleaning Kit Combo","nameKn":"ಕ್ಲೀನಿಂಗ್ ಕಿಟ್ ಕಾಂಬೊ","category":"accessories","price":550,"imageUrl":"images\\\\Dish Cleaning Kit Combo 550.jpg","description":"Sponge, brush, gloves, cloth."},
-  {"id":87,"name":"Premium Sink Cleaning Kit","nameKn":"ಪ್ರೀಮಿಯಂ ಸಿಂಕ್ ಕಿಟ್","category":"accessories","price":500,"imageUrl":"images\\\\Premium Sink Cleaning Kit 500.jpg","description":"Complete set with caddy."},
-  {"id":88,"name":"Complete Kitchen Cleaning Set","nameKn":"ಕಂಪ್ಲೀಟ್ ಕಿಚನ್ ಸೆಟ್","category":"accessories","price":390,"imageUrl":"images\\\\Complete Kitchen Cleaning Set 390.jpg","description":"Everything for daily cleaning."}
+  {"id":1,"name":"Vim Dishwash Liquid Gel Lemon","nameKn":"Vim ಡಿಶ್ವಾಶ್ ಲಿಕ್ವಿಡ್ ಜೆಲ್ ಲಿಂಬೆ","category":"liquid","price":932,"imageUrl":"images\\\\Vim Dishwash Liquid Gel Lemon 930.jpg","description":"Lemon fresh gel, cuts grease effectively."},
+  {"id":2,"name":"Pril Dishwash Liquid Lime","nameKn":"Pril ಡಿಶ್ವಾಶ್ ಲಿಕ್ವಿಡ್ ಲೈಮ್","category":"liquid","price":192,"imageUrl":"images\\\\Pril Dishwash Liquid Lime 190.jpg","description":"Lime scented, gentle on hands."},
+  {"id":3,"name":"Exo Dishwash Liquid","nameKn":"Exo ಡಿಶ್ವಾಶ್ ಲಿಕ್ವಿಡ್","category":"liquid","price":112,"imageUrl":"images\\\\Exo Dishwash Liquid 200.jpg","description":"Powerful degreaser, economical."},
+  {"id":4,"name":"Genteel Dishwash Liquid","nameKn":"Genteel ಡಿಶ್ವಾಶ್ ಲಿಕ್ವಿಡ್","category":"liquid","price":107,"imageUrl":"images\\\\Genteel Dishwash Liquid 101.jpg","description":"Mild on skin, tough on stains."},
+  {"id":5,"name":"Fortune Dishwash Liquid","nameKn":"Fortune ಡಿಶ್ವಾಶ್ ಲಿಕ್ವಿಡ್","category":"liquid","price":262,"imageUrl":"images\\\\Fortune Dishwash Liquid 260.jpg","description":"Budget-friendly, removes oil quickly."},
+  {"id":6,"name":"Godrej Ezee Dishwash Liquid","nameKn":"Godrej Ezee ಡಿಶ್ವಾಶ್ ಲಿಕ್ವಿಡ್","category":"liquid","price":132,"imageUrl":"images\\\\Godrej Ezee Dishwash Liquid 250.jpg","description":"Powerful formula, safe for utensils."},
+  {"id":7,"name":"Amazon Brand Presto Dishwash Liquid","nameKn":"Amazon Presto ಡಿಶ್ವಾಶ್ ಲಿಕ್ವಿಡ್","category":"liquid","price":101,"imageUrl":"images\\\\Amazon Brand Presto Dishwash Liquid 450.jpg","description":"Value pack, long-lasting."},
+  {"id":8,"name":"Herbal Strategi Dishwash Liquid","nameKn":"Herbal Strategi ಡಿಶ್ವಾಶ್ ಲಿಕ್ವಿಡ್","category":"liquid","price":322,"imageUrl":"images\\\\Herbal Strategi Dishwash Liquid 320.jpg","description":"Natural ingredients, eco-friendly."},
+  {"id":9,"name":"Safewash Dishwash Liquid","nameKn":"Safewash ಡಿಶ್ವಾಶ್ ಲಿಕ್ವಿಡ್","category":"liquid","price":232,"imageUrl":"images\\\\Safewash Dishwash Liquid 225.jpg","description":"Antibacterial, fresh fragrance."},
+  {"id":10,"name":"Clean Mate Dishwash Liquid","nameKn":"Clean Mate ಡಿಶ್ವಾಶ್ ಲಿಕ್ವಿಡ್","category":"liquid","price":142,"imageUrl":"images\\\\Clean Mate Dishwash Liquid 132.jpg","description":"Daily use, effective on grease."},
+  {"id":41,"name":"Vim Dishwash Liquid Refill","nameKn":"Vim ರೀಫಿಲ್","category":"liquid","price":302,"imageUrl":"images\\\\Vim Dishwash Liquid Refill Pack 300.jpg","description":"Economy refill pack, same formula."},
+  {"id":42,"name":"Exo Dishwash Liquid Refill","nameKn":"Exo ರೀಫಿಲ್","category":"liquid","price":282,"imageUrl":"images\\\\Exo Dishwash Liquid Refill 280.jpg","description":"Bulk refill, saves plastic."},
+  {"id":43,"name":"Genteel Dishwash Liquid Refill","nameKn":"Genteel ರೀಫಿಲ್","category":"liquid","price":272,"imageUrl":"images\\\\Genteel Dishwash Liquid Refill 270.jpg","description":"Large pouch, easy pour."},
+  {"id":11,"name":"Vim Dishwash Powder","nameKn":"Vim ಡಿಶ್ವಾಶ್ ಪುಡಿ","category":"powder","price":97,"imageUrl":"images\\\\Vim Dishwash Powder 85.jpg","description":"Powder formula, deep cleaning."},
+  {"id":13,"name":"Exo Dishwash Powder","nameKn":"Exo ಡಿಶ್ವಾಶ್ ಪುಡಿ","category":"powder","price":87,"imageUrl":"images\\\\Exo Dishwash Powder 50.jpg","description":"Scrubs away burnt food."},
+  {"id":14,"name":"Genteel Dishwash Powder","nameKn":"Genteel ಡಿಶ್ವಾಶ್ ಪುಡಿ","category":"powder","price":452,"imageUrl":"images\\\\Genteel Dishwash Powder 450.jpg","description":"Gentle on utensils, tough on dirt."},
+  {"id":15,"name":"Fortune Dishwash Powder","nameKn":"Fortune ಡಿಶ್ವಾಶ್ ಪುಡಿ","category":"powder","price":662,"imageUrl":"images\\\\Fortune Dishwash Powder 660.jpg","description":"Best value for daily use."},
+  {"id":16,"name":"Amazon Presto Dishwash Powder","nameKn":"Amazon Presto ಪುಡಿ","category":"powder","price":72,"imageUrl":"images\\\\Amazon Presto Dishwash Powder 590.jpg","description":"Fragrance-free, high efficiency."},
+  {"id":17,"name":"Herbal Strategi Dishwash Powder","nameKn":"Herbal Strategi ಪುಡಿ","category":"powder","price":152,"imageUrl":"images\\\\Herbal Strategi Dishwash Powder 150.jpg","description":"Natural ingredients, plant-based."},
+  {"id":18,"name":"Safewash Dishwash Powder","nameKn":"Safewash ಪುಡಿ","category":"powder","price":67,"imageUrl":"images\\\\Safewash Dishwash Powder.jpg","description":"Antibacterial, safe for families."},
+  {"id":19,"name":"Clean Mate Dishwash Powder","nameKn":"Clean Mate ಪುಡಿ","category":"powder","price":782,"imageUrl":"images\\\\Clean Mate Dishwash Powder 760.jpg","description":"Small pack, travel friendly."},
+  {"id":20,"name":"Eco Friendly Dishwash Powder","nameKn":"Eco Friendly ಪುಡಿ","category":"powder","price":202,"imageUrl":"images\\\\Eco Friendly Dishwash Powder 200.jpg","description":"Biodegradable, zero chemicals."},
+  {"id":51,"name":"Vim Dishwash Powder Economy Pack","nameKn":"Vim ಎಕಾನಮಿ ಪ್ಯಾಕ್","category":"powder","price":442,"imageUrl":"images\\\\Vim Dishwash Powder Economy Pack 430.jpg","description":"Family pack, 2x quantity."},
+  {"id":21,"name":"Finish Dishwasher 110 Tablets Classic","nameKn":"Finish ಕ್ಲಾಸಿಕ್ ಟ್ಯಾಬ್ಲೆಟ್","category":"tablets","price":1352,"imageUrl":"images\\\\Finish Dishwasher 110 Tablets Classic 1350.jpg","description":"All-in-one, machine safe."},
+  {"id":22,"name":"Finish Quantum Tablets","nameKn":"Finish ಕ್ವಾಂಟಮ್","category":"tablets","price":1502,"imageUrl":"images\\\\Finish Quantum Dishwasher Tablets 1500.jpg","description":"Premium power, glass protection."},
+  {"id":23,"name":"Bosch Dishwasher Tablets","nameKn":"Bosch ಟ್ಯಾಬ್ಲೆಟ್","category":"tablets","price":322,"imageUrl":"images\\\\Bosch Dishwasher Tablets 500.jpg","description":"Designed for Bosch machines."},
+  {"id":24,"name":"IFB Dishwasher Tablets","nameKn":"IFB ಟ್ಯಾಬ್ಲೆಟ್","category":"tablets","price":282,"imageUrl":"images\\\\IFB Dishwasher Tablets 700.jpg","description":"Anti-limescale, rinse aid."},
+  {"id":25,"name":"Fortune Dishwasher Tablets","nameKn":"Fortune ಟ್ಯಾಬ್ಲೆಟ್","category":"tablets","price":702,"imageUrl":"images\\\\Fortune Dishwasher Tablets 700.jpg","description":"Budget tablets, good for daily."},
+  {"id":26,"name":"Genteel Dishwasher Tablets","nameKn":"Genteel ಟ್ಯಾಬ್ಲೆಟ್","category":"tablets","price":2702,"imageUrl":"images\\\\Genteel Dishwasher Tablets 2650.jpg","description":"Gentle on dishes, effective."},
+  {"id":27,"name":"Pril Dishwasher Tablets Large Pack","nameKn":"Pril ದೊಡ್ಡ ಪ್ಯಾಕ್","category":"tablets","price":602,"imageUrl":"images\\\\Pril Dishwasher Tablets Large Pack 400.jpg","description":"30 tablets, great value."},
+  {"id":28,"name":"All-in-One Dishwasher Tablets","nameKn":"ಆಲ್ ಇನ್ ವನ್","category":"tablets","price":652,"imageUrl":"images\\\\All-in-One Dishwasher Tablets 750.jpg","description":"Complete care with salt function."},
+  {"id":31,"name":"Scotch Brite Scrub Sponge","nameKn":"Scotch Brite ಸ್ಕ್ರಬ್ ಸ್ಪಂಜ್","category":"accessories","price":72,"imageUrl":"images\\\\Scotch Brite Scrub Sponge 70.jpg","description":"Non-scratch, dual side sponge."},
+  {"id":32,"name":"Scotch Brite Steel Scrubber","nameKn":"Scotch Brite ಸ್ಟೀಲ್ ಸ್ಕ್ರಬ್ಬರ್","category":"accessories","price":27,"imageUrl":"images\\\\Scotch Brite Steel Scrubber 25.jpg","description":"For tough stains, rust resistant."},
+  {"id":33,"name":"Gala Scrub Pad","nameKn":"Gala ಸ್ಕ್ರಬ್ ಪ್ಯಾಡ್","category":"accessories","price":72,"imageUrl":"images\\\\Gala Scrub Pad 70.jpg","description":"Economical scrub pad."},
+  {"id":34,"name":"Vim Scrubber Pad","nameKn":"Vim ಸ್ಕ್ರಬ್ಬರ್ ಪ್ಯಾಡ್","category":"accessories","price":17,"imageUrl":"images\\\\Vim Scrubber Pad 10.jpg","description":"Durable, good grip."},
+  {"id":35,"name":"Plastic Dish Brush","nameKn":"ಪ್ಲಾಸ್ಟಿಕ್ ಡಿಶ್ ಬ್ರಷ್","category":"accessories","price":602,"imageUrl":"images\\\\Plastic Dish Brush 600.jpg","description":"Ergonomic handle, nylon bristles."},
+  {"id":36,"name":"Steel Dish Cleaning Brush","nameKn":"ಸ್ಟೀಲ್ ಡಿಶ್ ಕ್ಲೀನಿಂಗ್ ಬ್ರಷ್","category":"accessories","price":72,"imageUrl":"images\\\\Steel Dish Cleaning Brush.jpg","description":"Stainless steel, long lasting."},
+  {"id":37,"name":"Microfiber Cleaning Cloth","nameKn":"ಮೈಕ್ರೋಫೈಬರ್ ಕ್ಲೀನಿಂಗ್ ಕ್ಲಾತ್","category":"accessories","price":102,"imageUrl":"images\\\\Microfiber Cleaning Cloth 100.jpg","description":"Lint-free, absorbent."},
+  {"id":38,"name":"Dishwashing Gloves Rubber","nameKn":"ಡಿಶ್ವಾಶಿಂಗ್ ಗ್ಲೌಸ್","category":"accessories","price":702,"imageUrl":"images\\\\Dishwashing Gloves Rubber 700.jpg","description":"Protects hands, non-slip."},
+  {"id":39,"name":"Sink Cleaning Brush","nameKn":"ಸಿಂಕ್ ಕ್ಲೀನಿಂಗ್ ಬ್ರಷ್","category":"accessories","price":82,"imageUrl":"images\\\\Sink Cleaning Brush 50.jpg","description":"Angled head, for corners."},
+  {"id":40,"name":"Soap Holder for Dishwash","nameKn":"ಸೋಪು ಹೋಲ್ಡರ್","category":"accessories","price":152,"imageUrl":"images\\\\Soap Holder for Dishwash 150.jpg","description":"Draining tray, keeps soap dry."},
+  {"id":71,"name":"Scotch Brite Heavy Duty Scrubber","nameKn":"Scotch Brite ಹೆವಿ ಡ್ಯೂಟಿ","category":"accessories","price":32,"imageUrl":"images\\\\Scotch Brite Heavy Duty Scrubber 30.jpg","description":"For burnt pans, extra strong."},
+  {"id":73,"name":"Gala Scrubber Combo Pack","nameKn":"Gala ಕಾಂಬೊ","category":"accessories","price":62,"imageUrl":"images\\\\Gala Scrubber Combo Pack 180.jpg","description":"Value pack of 5 scrub pads."},
+  {"id":74,"name":"Long Handle Dish Brush","nameKn":"ಲಾಂಗ್ ಹ್ಯಾಂಡಲ್ ಬ್ರಷ್","category":"accessories","price":122,"imageUrl":"images\\\\Long Handle Dish Brush.jpg","description":"Reaches deep utensils."},
+  {"id":75,"name":"Bottle Cleaning Brush Set","nameKn":"ಬಾಟಲ್ ಬ್ರಷ್ ಸೆಟ್","category":"accessories","price":1002,"imageUrl":"images\\\\Bottle Cleaning Brush Set 1000.jpg","description":"2 sizes, for narrow necks."},
+  {"id":76,"name":"Dishwashing Gloves Premium","nameKn":"ಪ್ರೀಮಿಯಂ ಗ್ಲೌಸ್","category":"accessories","price":202,"imageUrl":"images\\\\Dishwashing Gloves Premium 200.jpg","description":"Cotton lined, extra comfort."},
+  {"id":77,"name":"Sink Drain Cleaning Brush","nameKn":"ಸಿಂಕ್ ಡ್ರೈನ್ ಬ್ರಷ್","category":"accessories","price":402,"imageUrl":"images\\\\Sink Drain Cleaning Brush 400.jpg","description":"Flexible, removes debris."},
+  {"id":78,"name":"Dish Drying Mat","nameKn":"ಡಿಶ್ ಡ್ರೈಯಿಂಗ್ ಮಾಟ್","category":"accessories","price":552,"imageUrl":"images\\\\Dish Drying Mat 550.jpg","description":"Quick dry, non-slip."},
+  {"id":79,"name":"Soap Dispenser for Kitchen","nameKn":"ಸೋಪು ಡಿಸ್ಪೆನ್ಸರ್","category":"accessories","price":302,"imageUrl":"images\\\\Soap Dispenser for Kitchen 180.jpg","description":"Stainless steel, pump action."},
+  {"id":80,"name":"Scrubber Holder Stand","nameKn":"ಸ್ಕ್ರಬ್ಬರ್ ಹೋಲ್ಡರ್","category":"accessories","price":82,"imageUrl":"images\\\\Scrubber Holder Stand 250.jpg","description":"Keeps sink organized."},
+  {"id":81,"name":"Dish Rack Steel","nameKn":"ಡಿಶ್ ರ್ಯಾಕ್ ಸ್ಟೀಲ್","category":"accessories","price":902,"imageUrl":"images\\\\Dish Rack Steel.jpg","description":"Rust-proof, large capacity."},
+  {"id":82,"name":"Dishwash Bar Holder","nameKn":"ಬಾರ್ ಹೋಲ್ಡರ್","category":"accessories","price":52,"imageUrl":"images\\\\Dishwash Bar Holder 140.jpg","description":"Simple plastic holder."},
+  {"id":83,"name":"Sink Organizer Basket","nameKn":"ಸಿಂಕ್ ಆರ್ಗನೈಜರ್","category":"accessories","price":202,"imageUrl":"images\\\\Sink Organizer Basket 200.jpg","description":"Holds sponges and brushes."},
+  {"id":84,"name":"Sponge with Handle","nameKn":"ಹ್ಯಾಂಡಲ್ ಸ್ಪಂಜ್","category":"accessories","price":662,"imageUrl":"images\\\\Sponge with Handle 660.jpg","description":"Prevents hand contact with water."},
+  {"id":85,"name":"Dish Cleaning Brush Rotating","nameKn":"ರೊಟೇಟಿಂಗ್ ಬ್ರಷ್","category":"accessories","price":362,"imageUrl":"images\\\\Dish Cleaning Brush Rotating 360.jpg","description":"360° rotation, fills with soap."},
+  {"id":86,"name":"Dish Cleaning Kit Combo","nameKn":"ಕ್ಲೀನಿಂಗ್ ಕಿಟ್ ಕಾಂಬೊ","category":"accessories","price":552,"imageUrl":"images\\\\Dish Cleaning Kit Combo 550.jpg","description":"Sponge, brush, gloves, cloth."},
+  {"id":87,"name":"Premium Sink Cleaning Kit","nameKn":"ಪ್ರೀಮಿಯಂ ಸಿಂಕ್ ಕಿಟ್","category":"accessories","price":502,"imageUrl":"images\\\\Premium Sink Cleaning Kit 500.jpg","description":"Complete set with caddy."},
+  {"id":88,"name":"Complete Kitchen Cleaning Set","nameKn":"ಕಂಪ್ಲೀಟ್ ಕಿಚನ್ ಸೆಟ್","category":"accessories","price":392,"imageUrl":"images\\\\Complete Kitchen Cleaning Set 390.jpg","description":"Everything for daily cleaning."},
+  {"id":9700,"name":"Clean Mate Dishwash Liquid Industrial","nameKn":"ಕ್ಲೀನ್ ಮೇಟ್ ಇಂಡಸ್ಟ್ರಿಯಲ್ ಲಿಕ್ವಿಡ್","category":"liquid","price":162,"imageUrl":"images/Clean Mate Dishwash Liquid Industrial 160.jpg","description":"Commercial strength dishwashing gel pack."},
+  {"id":9701,"name":"Clean Mate Dishwash Liquid Large","nameKn":"ಕ್ಲೀನ್ ಮೇಟ್ ಲಾರ್ಜ್ ಲಿಕ್ವಿಡ್","category":"liquid","price":134,"imageUrl":"images/Clean Mate Dishwash Liquid Large 132.jpg","description":"Large economy bottle for everyday kitchen cleaning."},
+  {"id":9702,"name":"Dishwash Bar 10","nameKn":"ಡಿಶ್ವಾಶ್ ಬಾರ್ ₹10","category":"accessories","price":12,"imageUrl":"images/Dishwash Bar 10.jpg","description":"Compact everyday utensil cleaning bar."},
+  {"id":9703,"name":"Dishwash Bar 50","nameKn":"ಡಿಶ್ವಾಶ್ ಬಾರ್","category":"accessories","price":52,"imageUrl":"images/Dishwash Bar 50.jpg","description":"Long-lasting dishwash tub bar."},
+  {"id":9704,"name":"Dishwash Bar Pack (4 pcs)","nameKn":"ಡಿಶ್ವಾಶ್ ಬಾರ್ 4 ಪ್ಯಾಕ್","category":"accessories","price":82,"imageUrl":"images/Dishwash Bar Pack (4 pcs) 80.jpg","description":"Family value multipack of 4 dishwash bars."},
+  {"id":9705,"name":"Dishwash Liquid 130","nameKn":"ಡಿಶ್ವಾಶ್ ಲಿಕ್ವಿಡ್ 130","category":"liquid","price":132,"imageUrl":"images/Dishwash Liquid 130.jpg","description":"Concentrated grease-cutting liquid gel."},
+  {"id":9706,"name":"Dishwash Liquid Lemon","nameKn":"ಲೆಮನ್ ಡಿಶ್ವಾಶ್ ಲಿಕ್ವಿಡ್","category":"liquid","price":92,"imageUrl":"images/Dishwash Liquid Lemon 90.jpg","description":"Zesty lemon formula leaves utensils sparkling."},
+  {"id":9707,"name":"Dishwash Liquid Orange","nameKn":"ಆರೆಂಜ್ ಡಿಶ್ವಾಶ್ ಲಿಕ್ವಿಡ್","category":"liquid","price":192,"imageUrl":"images/Dishwash Liquid Orange 190.jpg","description":"Fresh orange grease remover dishwash gel."},
+  {"id":9708,"name":"Eco Dishwash Powder Bulk Pack","nameKn":"ಇಕೋ ಡಿಶ್ವಾಶ್ ಪೌಡರ್ ಬಲ್ಕ್","category":"powder","price":272,"imageUrl":"images/Eco Dishwash Powder Bulk Pack 270.jpg","description":"Eco-friendly dishwashing powder bulk pack."},
+  {"id":9709,"name":"Eco Dishwash Powder Premium","nameKn":"ಇಕೋ ಡಿಶ್ವಾಶ್ ಪೌಡರ್ ಪ್ರೀಮಿಯಂ","category":"powder","price":252,"imageUrl":"images/Eco Dishwash Powder Premium 250.jpg","description":"Plant-based gentle utensil scouring powder."},
+  {"id":9710,"name":"Eco Friendly Dishwash Liquid","nameKn":"ಇಕೋ ಫ್ರೆಂಡ್ಲಿ ಡಿಶ್ವಾಶ್ ಲಿಕ್ವಿಡ್","category":"liquid","price":702,"imageUrl":"images/Eco Friendly Dishwash Liquid 700.jpg","description":"Biodegradable vegan dishwashing liquid jar."},
+  {"id":9711,"name":"Exo Dishwash Liquid Bulk Pack","nameKn":"ಎಕ್ಸೋ ಡಿಶ್ವಾಶ್ ಲಿಕ್ವಿಡ್ ಬಲ್ಕ್","category":"liquid","price":202,"imageUrl":"images/Exo Dishwash Liquid Bulk Pack 200.jpg","description":"Anti-bacterial cyclozan formula bulk pack."},
+  {"id":9712,"name":"Exo Dishwash Powder Mini","nameKn":"ಎಕ್ಸೋ ಡಿಶ್ವಾಶ್ ಪೌಡರ್ 32","category":"powder","price":34,"imageUrl":"images/Exo Dishwash Powder 32.jpg","description":"Handy anti-bacterial scouring powder."},
+  {"id":9713,"name":"Fortune Dishwash Liquid Refill","nameKn":"ಫಾರ್ಚೂನ್ ಲಿಕ್ವಿಡ್ ರೀಫಿಲ್","category":"liquid","price":172,"imageUrl":"images/Fortune Dishwash Liquid Refill 170.jpg","description":"Economy dishwash liquid refill pouch."},
+  {"id":9714,"name":"Pril Dishwash Liquid Refill","nameKn":"ಪ್ರಿಲ್ ಲಿಕ್ವಿಡ್ ರೀಫಿಲ್","category":"liquid","price":177,"imageUrl":"images/Pril Dishwash Liquid Refill 175.jpg","description":"Active lime dishwash refill pouch."},
+  {"id":9715,"name":"Safewash Dishwash Liquid Bulk","nameKn":"ಸೇಫ್‌ವಾಶ್ ಲಿಕ್ವಿಡ್ ಬಲ್ಕ್","category":"liquid","price":502,"imageUrl":"images/Safewash Dishwash Liquid Bulk 500.jpg","description":"Large hygienic dishwashing liquid can."}
 ]';
   $data = json_decode($json, true);
   if (!is_array($data)) {
@@ -252,19 +263,8 @@ function getFallbackDishwashProducts(): array
     if (!in_array($category, ['liquid', 'powder', 'accessories'])) {
       $category = 'accessories';
     }
-    // Fix image path: convert Windows path to web path
-    $imagePath = $item['imageUrl'] ?? '';
-    if ($imagePath && !str_starts_with($imagePath, 'http') && !str_starts_with($imagePath, 'data:')) {
-      $imagePath = str_replace('D:\\KSR Guru JI\\', '', $imagePath);
-      $imagePath = str_replace('\\', '/', $imagePath);
-      if (!str_starts_with($imagePath, 'images/') && !str_starts_with($imagePath, '../')) {
-        $imagePath = '../images/' . $imagePath;
-      } elseif (!str_starts_with($imagePath, '../')) {
-        $imagePath = '../' . $imagePath;
-      }
-    } else {
-      $imagePath = ''; // fallback to emoji
-    }
+    // Fix image path: convert Windows/subdir path to flat ../images/<file>
+    $imagePath = ksrNormalizeFlatImage($item['imageUrl'] ?? $item['image'] ?? '');
     $result[] = [
       'id' => $id,
       'name' => $item['name'],
@@ -281,12 +281,12 @@ function getFallbackDishwashProducts(): array
   file_put_contents($jsonPath, json_encode($fallback, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
   return $fallback;
 }
-// Get products (dishwash category)
-$products = getDishwashProducts();
-// If no products from DB, use fallback
-if (empty($products)) {
-  $products = getFallbackDishwashProducts();
-}
+// Get products (always load full catalog + merge DB entries cleanly)
+$products = ksrMergeCategoryProducts(getDishwashProducts(), getFallbackDishwashProducts(), [
+  'nameField' => 'name',
+  'imageField' => 'image',
+  'updateMatchedPrice' => true,
+]);
 // Ensure each product has a 'variants' array and an 'image' key
 foreach ($products as &$p) {
   if (!isset($p['variants']) || !is_array($p['variants']) || empty($p['variants'])) {
@@ -885,8 +885,9 @@ $topPicks = array_slice($products, 0, 6);
     }
   </style>
   <link rel="stylesheet" href="category-style.css">
+  <script src="gallery.js"></script>
   <link rel="stylesheet" href="../index.css">
-    <link rel="stylesheet" href="../mobile-app.css?v=3.0" />
+  <link rel="stylesheet" href="../mobile-app.css?v=3.0" />
 </head>
 
 <body>
@@ -945,7 +946,8 @@ $topPicks = array_slice($products, 0, 6);
                             'variants' => $p['variants'] ?? [['label' => '1 unit', 'price' => $p['price']]],
                             'emoji' => $p['emoji'] ?? '🧴',
                             'description' => $p['description_en'] ?? 'Dishwash helper product',
-                            'image' => $p['image'] ?? ''
+                            'image' => $p['image'] ?? '',
+                            'images' => $p['images'] ?? []
                           ];
                         }
                         echo json_encode($out);
@@ -1035,7 +1037,7 @@ $topPicks = array_slice($products, 0, 6);
               if (jsonStart !== -1) {
                 data = JSON.parse(text.substring(jsonStart));
               }
-            } catch(e) {
+            } catch (e) {
               console.warn("Cart response parse warning:", text);
             }
             if (!data) {
@@ -1170,7 +1172,9 @@ $topPicks = array_slice($products, 0, 6);
         grid.innerHTML = filtered.map(p => {
           const defaultVariant = 0;
           const defaultPrice = p.variants[defaultVariant]?.price || 0;
-          const imageHtml = p.image ? `<img src="${p.image}" alt="" onerror="this.style.display='none';this.parentElement.innerHTML='${p.emoji}'">` : p.emoji;
+          const imageHtml = window.ksrGalleryMediaHtml(p, {
+            emoji: p.emoji || '🧴'
+          });
           return `<div class="product-card" data-base="${p.id}">
         <div class="product-image">${imageHtml}</div>
         <div class="product-name">${p.nameEn}</div>
@@ -1257,9 +1261,9 @@ $topPicks = array_slice($products, 0, 6);
   <?php include __DIR__ . '/../includes/user-footer.php'; ?>
   <script src="sorting.js"></script>
 
-    <!-- Mobile Bottom Navigation -->
-    <?php if (file_exists(__DIR__ . '/../mobile-bottom-nav.php')) require_once __DIR__ . '/../mobile-bottom-nav.php'; ?>
-    <script src="/assets/js/mobile-app.js?v=3.0" defer></script>
+  <!-- Mobile Bottom Navigation -->
+  <?php if (file_exists(__DIR__ . '/../mobile-bottom-nav.php')) require_once __DIR__ . '/../mobile-bottom-nav.php'; ?>
+  <script src="/assets/js/mobile-app.js?v=3.0" defer></script>
 </body>
 
 </html>

@@ -1,25 +1,38 @@
 <?php
 /**
  * scripts/generate_category_catalog.php
- * Indexes all products from categories/*.php and saves to includes/category_catalog_data.php
+ * Indexes all products from categories/*.php (and *-fallback.json) and saves to includes/category_catalog_data.php
  */
 
 $files = glob(__DIR__ . '/../categories/*.php');
 $catalog = [];
 
+$addEntry = function (array $entry) use (&$catalog): void {
+    $name = trim((string)($entry['name'] ?? ''));
+    $lower = strtolower($name);
+    if ($lower === '' || (float)($entry['price'] ?? 0) <= 0) {
+        return;
+    }
+    if (!isset($catalog[$lower])) {
+        $catalog[$lower] = $entry;
+    }
+};
+
 foreach ($files as $file) {
     $content = file_get_contents($file);
     $catSlug = basename($file, '.php');
 
-    // 1. JSON blocks with id, name, price / weights
-    if (preg_match_all('/\{"id":(\d+),"name":"([^"]+)",(?:.*?"price":([0-9\.]+)|.*?"weights":\[(.*?)\])/s', $content, $m, PREG_SET_ORDER)) {
+    // 1. JSON blocks (single-line objects) with id, name|nameEn, and price|weights|variants
+    if (preg_match_all('/\{"id":(\d+),"(?:name|nameEn)":"([^"]+)",([^\r\n]+)\}/', $content, $m, PREG_SET_ORDER)) {
         foreach ($m as $row) {
-            $name = trim($row[2]);
-            $lower = strtolower($name);
-            $price = isset($row[3]) && $row[3] !== '' ? (float)$row[3] : 0.0;
+            $rawName = trim($row[2]);
+            $decoded = json_decode('"' . str_replace("\\'", "'", $rawName) . '"');
+            $name = is_string($decoded) ? $decoded : stripslashes($rawName);
+            $body = $row[3];
             $weights = [];
-            if (isset($row[4]) && $row[4] !== '') {
-                if (preg_match_all('/\{"label":"([^"]+)","price":([0-9\.]+)\}/', $row[4], $wm, PREG_SET_ORDER)) {
+            $price = 0.0;
+            if (preg_match('/"(?:weights|variants)":\[(.*?)\]/', $body, $wmBlock)) {
+                if (preg_match_all('/\{"(?:label|size)":"([^"]+)","price":([0-9\.]+)\}/', $wmBlock[1], $wm, PREG_SET_ORDER)) {
                     foreach ($wm as $w) {
                         $weights[strtolower(trim($w[1]))] = (float)$w[2];
                         if ($price == 0.0) {
@@ -28,33 +41,39 @@ foreach ($files as $file) {
                     }
                 }
             }
-            if ($price > 0 && !isset($catalog[$lower])) {
-                $catalog[$lower] = [
-                    'id'       => (int)$row[1],
-                    'name'     => $name,
-                    'price'    => $price,
-                    'category' => $catSlug,
-                    'weights'  => $weights,
-                ];
+            if (preg_match('/"price":([0-9\.]+)/', preg_replace('/"(?:weights|variants)":\[.*?\]/', '', $body), $pm)) {
+                $price = (float)$pm[1];
             }
+            $addEntry([
+                'id'       => (int)$row[1],
+                'name'     => $name,
+                'price'    => $price,
+                'category' => $catSlug,
+                'weights'  => $weights,
+            ]);
         }
     }
 
-    // 2. PHP array syntax: ['id' => ..., 'name' => '...', 'price' => ...]
-    if (preg_match_all('/\[\s*["\']id["\']\s*=>\s*(\d+),\s*["\']name["\']\s*=>\s*["\']([^"\']+)["\'].*?["\']price["\']\s*=>\s*([0-9\.]+)/s', $content, $m2, PREG_SET_ORDER)) {
+    // 2. PHP array syntax: ['id' => ..., 'name'|'nameEn' => '...', 'price' => ...]
+    if (preg_match_all('/\[\s*["\']id["\']\s*=>\s*(\d+),[^\]]*?["\'](?:name|nameEn)["\']\s*=>\s*["\']([^"\']+)["\'][^\]]*?["\']price["\']\s*=>\s*([0-9\.]+)[^\]]*?\]/s', $content, $m2, PREG_SET_ORDER)) {
         foreach ($m2 as $row) {
             $name = trim($row[2]);
-            $lower = strtolower($name);
             $price = (float)$row[3];
-            if ($price > 0 && !isset($catalog[$lower])) {
-                $catalog[$lower] = [
-                    'id'       => (int)$row[1],
-                    'name'     => $name,
-                    'price'    => $price,
-                    'category' => $catSlug,
-                    'weights'  => [],
-                ];
+            $weights = [];
+            if ($catSlug === 'spices') {
+                // Spices prices are per-1kg and selectable by gram steps in UI
+                foreach ([5, 10, 50, 100, 150, 200, 250, 300, 500, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000] as $g) {
+                    $label = $g >= 1000 ? ($g / 1000) . 'kg' : $g . 'g';
+                    $weights[$label] = round(($price / 1000.0) * $g, 2);
+                }
             }
+            $addEntry([
+                'id'       => (int)$row[1],
+                'name'     => $name,
+                'price'    => $price,
+                'category' => $catSlug,
+                'weights'  => $weights,
+            ]);
         }
     }
 
@@ -62,7 +81,6 @@ foreach ($files as $file) {
     if (preg_match_all('/\[\s*["\']id["\']\s*=>\s*(\d+),\s*["\']name["\']\s*=>\s*["\']([^"\']+)["\'].*?["\']weights["\']\s*=>\s*\[(.*?)\]/s', $content, $m3, PREG_SET_ORDER)) {
         foreach ($m3 as $row) {
             $name = trim($row[2]);
-            $lower = strtolower($name);
             $weights = [];
             $price = 0.0;
             if (preg_match_all('/\[\s*["\']label["\']\s*=>\s*["\']([^"\']+)["\'],\s*["\']price["\']\s*=>\s*([0-9\.]+)\s*\]/', $row[3], $wm, PREG_SET_ORDER)) {
@@ -73,15 +91,13 @@ foreach ($files as $file) {
                     }
                 }
             }
-            if ($price > 0 && !isset($catalog[$lower])) {
-                $catalog[$lower] = [
-                    'id'       => (int)$row[1],
-                    'name'     => $name,
-                    'price'    => $price,
-                    'category' => $catSlug,
-                    'weights'  => $weights,
-                ];
-            }
+            $addEntry([
+                'id'       => (int)$row[1],
+                'name'     => $name,
+                'price'    => $price,
+                'category' => $catSlug,
+                'weights'  => $weights,
+            ]);
         }
     }
 }
@@ -90,17 +106,13 @@ foreach ($files as $file) {
 require_once __DIR__ . '/../functions.php';
 if (function_exists('getStoreFallbackProducts')) {
     foreach (getStoreFallbackProducts() as $fb) {
-        $name = trim($fb['name']);
-        $lower = strtolower($name);
-        if (!isset($catalog[$lower])) {
-            $catalog[$lower] = [
-                'id'       => (int)$fb['id'],
-                'name'     => $name,
-                'price'    => (float)$fb['price'],
-                'category' => $fb['category_name'] ?? 'general',
-                'weights'  => [],
-            ];
-        }
+        $addEntry([
+            'id'       => (int)$fb['id'],
+            'name'     => trim($fb['name']),
+            'price'    => (float)$fb['price'],
+            'category' => $fb['category_name'] ?? 'general',
+            'weights'  => [],
+        ]);
     }
 }
 

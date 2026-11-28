@@ -18,19 +18,10 @@ $cartCount = array_sum(array_column($_SESSION['cart'], 'qty'));
 // Helper: normalize image path (Windows absolute -> web relative)
 // ============================================================
 if (!function_exists('normalizeImagePath')) {
-function normalizeImagePath(?string $path): string
-{
-  if (empty($path)) return '';
-  // Normalize backslashes to forward slashes
-  $path = str_replace('\\', '/', $path);
-  // Extract everything after "images/"
-  if (preg_match('#.*?(images/.*)$#i', $path, $matches)) {
-    // Root-relative path with leading slash
-    return '/' . $matches[1];
+  function normalizeImagePath(?string $path): string
+  {
+    return ksrNormalizeFlatImage($path);
   }
-  // Fallback: prepend /images/ if not present
-  return '/images/' . ltrim($path, '/');
-}
 }
 // ============================================================
 // FETCH PRODUCTS FROM DATABASE (fallback to static)
@@ -96,60 +87,79 @@ function getFallbackLaundryProducts()
   static $fallback = null;
   if ($fallback !== null) return $fallback;
   $staticJson = '[
-  {"id":1,"nameEn":"Detergent Powder Regular","category":"detergent","price":120,"weight":"1 kg","imageurl":"images\\\\Detergent Powder Regular 120.jpg","nameKn":"ಡಿಟರ್ಜೆಂಟ್ ಪೌಡರ್ ರೆಗ್ಯುಲರ್","description":"Powerful stain removal formula, works on tough dirt. Safe for all fabrics and maintains brightness.","emoji":"🧺"},
-  {"id":2,"nameEn":"Detergent Powder Lemon","category":"detergent","price":125,"weight":"1 kg","imageurl":"images\\\\Detergent Powder Lemon 80.jpg","nameKn":"ಡಿಟರ್ಜೆಂಟ್ ಪೌಡರ್ ಲೆಮನ್","description":"Fresh lemon fragrance with natural cleaning agents. Removes odors and gives clothes a citrus shine.","emoji":"🧺"},
-  {"id":3,"nameEn":"Detergent Powder Advanced Clean","category":"detergent","price":135,"weight":"1 kg","imageurl":"images\\\\Detergent Powder Advanced Clean 105.jpg","nameKn":"ಡಿಟರ್ಜೆಂಟ್ ಪೌಡರ್ ಅಡ್ವಾನ್ಸ್ಡ್","description":"Deep cleaning technology for high-efficiency machines. Removes embedded stains and odors effectively.","emoji":"🧺"},
-  {"id":4,"nameEn":"Liquid Detergent Front Load","category":"detergent","price":350,"weight":"1 L","imageurl":"images\\\\Liquid Detergent Front Load 350.jpg","nameKn":"ಲಿಕ್ವಿಡ್ ಡಿಟರ್ಜೆಂಟ್ ಫ್ರಂಟ್ ಲೋಡ್","description":"HE compatible low-sudsing liquid. Protects fabric fibers and delivers superior cleaning for front-loaders.","emoji":"🧺"},
-  {"id":5,"nameEn":"Liquid Detergent Top Load","category":"detergent","price":250,"weight":"1 L","imageurl":"images\\\\Liquid Detergent Top Load 250.jpg","nameKn":"ಲಿಕ್ವಿಡ್ ಡಿಟರ್ಜೆಂಟ್ ಟಾಪ್ ಲೋಡ್","description":"High-sudsing formula perfect for top-load washers. Tackles grease and brightens whites instantly.","emoji":"🧺"},
-  {"id":6,"nameEn":"Laundry Soap Bar","category":"detergent","price":20,"weight":"200 g","imageurl":"images\\\\Laundry Soap Bar 20.jpg","nameKn":"ಲಾಂಡ್ರಿ ಸೋಪು ಬಾರ್","description":"Classic laundry bar for handwash. Gentle on skin yet removes stains from collars and cuffs.","emoji":"🧺"},
-  {"id":7,"nameEn":"Laundry Soap Multipack","category":"detergent","price":510,"weight":"1 kg","imageurl":"images\\\\Laundry Soap Multipack 500.jpg","nameKn":"ಲಾಂಡ್ರಿ ಸೋಪು ಮಲ್ಟಿಪ್ಯಾಕ್","description":"Value pack of 4 bars. Biodegradable formula trusted for generations. Great for everyday laundry.","emoji":"🧺"},
-  {"id":8,"nameEn":"Color Care Detergent","category":"detergent","price":350,"weight":"1 kg","imageurl":"images\\\\Color Care Detergent 350.jpg","nameKn":"ಕಲರ್ ಕೇರ್ ಡಿಟರ್ಜೆಂಟ್","description":"Protects vibrant colors from fading. Special polymers lock dye and prevent color transfer.","emoji":"🧺"},
-  {"id":9,"nameEn":"White Bright Detergent","category":"detergent","price":1200,"weight":"1 kg","imageurl":"images\\\\White Bright Detergent 1200.jpg","nameKn":"ವೈಟ್ ಬ್ರೈಟ್ ಡಿಟರ್ಜೆಂಟ್","description":"Optical brighteners make dull whites look new. Removes greyish residue from repeated washes.","emoji":"🧺"},
-  {"id":10,"nameEn":"Wool & Delicate Detergent","category":"detergent","price":175,"weight":"500 ml","imageurl":"images\\\\Wool & Delicate Detergent 140.jpg","nameKn":"ಉಣ್ಣೆ ಮತ್ತು ಡೆಲಿಕೇಟ್ ಡಿಟರ್ಜೆಂಟ್","description":"Enzyme-rich formula safe for silk, wool and cashmere. Maintains texture and prevents shrinkage.","emoji":"🧺"},
-  {"id":11,"nameEn":"Baby Clothes Detergent","category":"detergent","price":225,"weight":"1 L","imageurl":"images\\\\Baby Clothes Detergent 700.jpg","nameKn":"ಬೇಬಿ ಕ್ಲೋತ್ಸ್ ಡಿಟರ್ಜೆಂಟ್","description":"Hypoallergenic and fragrance-free. Dermatologically tested, gentle on baby\'s sensitive skin.","emoji":"🧺"},
-  {"id":12,"nameEn":"Anti Bacterial Laundry Liquid","category":"detergent","price":500,"weight":"1 L","imageurl":"images\\\\Anti Bacterial Laundry Liquid 1980.jpg","nameKn":"ಆಂಟಿ ಬ್ಯಾಕ್ಟೀರಿಯಲ್ ಲಾಂಡ್ರಿ ಲಿಕ್ವಿಡ್","description":"Kills 99.9% of germs and bacteria. Sanitizes clothes deeply, ideal for towels and linens.","emoji":"🧺"},
-  {"id":13,"nameEn":"Fabric Conditioner Fresh","category":"softener","price":340,"weight":"860 ml","imageurl":"images\\\\Fabric Conditioner Fresh 340.jpg","nameKn":"ಫ್ಯಾಬ್ರಿಕ್ ಕಂಡೀಷನರ್ ಫ್ರೆಶ್","description":"Long-lasting freshness that lasts for days. Reduces static cling and makes ironing easier.","emoji":"🧺"},
-  {"id":14,"nameEn":"Fabric Conditioner Floral","category":"softener","price":390,"weight":"860 ml","imageurl":"images\\\\Fabric Conditioner Floral 390.jpg","nameKn":"ಫ್ಯಾಬ್ರಿಕ್ ಕಂಡೀಷನರ್ ಫ್ಲೋರಲ್","description":"Wildflower bouquet scent with extra softness. Keeps fabrics fluffy and vibrant for longer.","emoji":"🧺"},
-  {"id":15,"nameEn":"Fabric Softener Lavender","category":"softener","price":360,"weight":"860 ml","imageurl":"images\\\\Fabric Softener Lavender 360.jpg","nameKn":"ಫ್ಯಾಬ್ರಿಕ್ ಸಾಫ್ಟ್ನರ್ ಲ್ಯಾವೆಂಡರ್","description":"Calming lavender aroma that relaxes your senses. Natural extract softens fibers beautifully.","emoji":"🧺"},
-  {"id":16,"nameEn":"Fabric Softener Rose Fresh","category":"softener","price":750,"weight":"860 ml","imageurl":"images\\\\Fabric Softener Rose Fresh 750.jpg","nameKn":"ಫ್ಯಾಬ್ರಿಕ್ ಸಾಫ್ಟ್ನರ್ ರೋಸ್","description":"Romantic rose scent infused with essential oils. Provides intense softness for towels and bedsheets.","emoji":"🧺"},
-  {"id":17,"nameEn":"Fabric Conditioner Silk Care","category":"softener","price":205,"weight":"860 ml","imageurl":"images\\\\Fabric Conditioner Silk Care 450.jpg","nameKn":"ಸಿಲ್ಕ್ ಕೇರ್ ಕಂಡೀಷನರ್","description":"Premium conditioner for delicate silks. Enhances drape and prevents fabric damage.","emoji":"🧺"},
-  {"id":18,"nameEn":"Fabric Softener Refill Pack","category":"softener","price":280,"weight":"1 L","imageurl":"images\\\\Fabric Softener Refill Pack 280.jpg","nameKn":"ಫ್ಯಾಬ್ರಿಕ್ ಸಾಫ್ಟ್ನರ್ ರೀಫಿಲ್ ಪ್ಯಾಕ್","description":"Economical refill pack with same great quality. Reduces plastic waste without compromising softness.","emoji":"🧺"},
-  {"id":19,"nameEn":"Stain Remover Powder","category":"stain","price":250,"weight":"500 g","imageurl":"images\\\\Stain Remover Powder 250.jpg","nameKn":"ಸ್ಟೇನ್ ರಿಮೂವರ್ ಪೌಡರ್","description":"Oxygen-based powder erases coffee, wine and grass stains. Safe for colors and whites.","emoji":"🧺"},
-  {"id":20,"nameEn":"Stain Remover Liquid","category":"stain","price":60,"weight":"500 ml","imageurl":"images\\\\Stain Remover Liquid 60.jpg","nameKn":"ಸ್ಟೇನ್ ರಿಮೂವರ್ ಲಿಕ್ವಿಡ್","description":"Pre-treat stubborn spots with enzyme boost formula. Works on grease, ink and lipstick.","emoji":"🧺"},
-  {"id":21,"nameEn":"Laundry Spray Stain Remover","category":"stain","price":300,"weight":"300 ml","imageurl":"images\\\\Laundry Spray Stain Remover 300.jpg","nameKn":"ಲಾಂಡ್ರಿ ಸ್ಪ್ರೇ ಸ್ಟೇನ್ ರಿಮೂವರ್","description":"Spray & wash convenience for instant stain treatment. Portable bottle for on-the-go use.","emoji":"🧺"},
-  {"id":22,"nameEn":"Oxygen Stain Remover","category":"stain","price":800,"weight":"500 g","imageurl":"images\\\\Oxygen Stain Remover 800.jpg","nameKn":"ಆಕ್ಸಿಜನ್ ಸ್ಟೇನ್ ರಿಮೂವರ್","description":"Active oxygen crystals lift stains without chlorine. Eco-friendly and septic safe.","emoji":"🧺"},
-  {"id":23,"nameEn":"Laundry Bleach Liquid","category":"bleach","price":400,"weight":"500 ml","imageurl":"images\\\\Laundry Bleach Liquid 400.jpg","nameKn":"ಲಾಂಡ್ರಿ ಬ್ಲೀಚ್ ಲಿಕ್ವಿಡ್","description":"Chlorine-based whitener for white cottons. Removes tough stains and restores whiteness.","emoji":"🧺"},
-  {"id":24,"nameEn":"Laundry Bleach Powder","category":"bleach","price":170,"weight":"500 g","imageurl":"images\\\\Laundry Bleach Powder 170.jpg","nameKn":"ಲಾಂಡ್ರಿ ಬ್ಲೀಚ್ ಪೌಡರ್","description":"Powdered bleach for deep whitening. Effective on yellowing and mildew stains.","emoji":"🧺"},
-  {"id":25,"nameEn":"Chlorine Bleach","category":"bleach","price":290,"weight":"500 ml","imageurl":"images\\\\Chlorine Bleach 290.jpg","nameKn":"ಕ್ಲೋರಿನ್ ಬ್ಲೀಚ್","description":"Regular chlorine bleach for sanitizing and whitening. Use with caution on colors.","emoji":"🧺"},
-  {"id":26,"nameEn":"Oxygen Bleach Powder","category":"bleach","price":2400,"weight":"500 g","imageurl":"images\\\\Oxygen Bleach Powder 2400.jpg","nameKn":"ಆಕ್ಸಿಜನ್ ಬ್ಲೀಚ್ ಪೌಡರ್","description":"Color-safe oxygen bleach removes dinginess naturally. Works on all washable fabrics.","emoji":"🧺"},
-  {"id":27,"nameEn":"Laundry Brush Heavy Duty","category":"accessories","price":140,"weight":"1 pc","imageurl":"images\\\\Laundry Brush Heavy Duty 140.jpg","nameKn":"ಲಾಂಡ್ರಿ ಬ್ರಷ್ ಹೆವಿ ಡ್ಯೂಟಿ","description":"Sturdy bristles for scrubbing cuffs, collars and stubborn stains. Ergonomic handle.","emoji":"🧺"},
-  {"id":28,"nameEn":"Cloth Scrubbing Brush","category":"accessories","price":100,"weight":"1 pc","imageurl":"images\\\\Cloth Scrubbing Brush 100.jpg","nameKn":"ಕ್ಲಾತ್ ಸ್ಕ್ರಬ್ಬಿಂಗ್ ಬ್ರಷ್","description":"Dual-sided brush for gentle and heavy scrubbing. Ideal for delicate fabrics.","emoji":"🧺"},
-  {"id":29,"nameEn":"Laundry Mesh Washing Bag","category":"accessories","price":110,"weight":"1 pc","imageurl":"images\\\\Laundry Mesh Washing Bag 110.jpg","nameKn":"ಲಾಂಡ್ರಿ ಮೆಶ್ ವಾಶಿಂಗ್ ಬ್ಯಾಗ್","description":"Protects delicates from tangling and tearing. Zipper closure with reinforced edges.","emoji":"🧺"},
-  {"id":30,"nameEn":"Laundry Washing Ball","category":"accessories","price":115,"weight":"2 pcs","imageurl":"images\\\\Laundry Washing Ball 115.jpg","nameKn":"ಲಾಂಡ್ರಿ ವಾಶಿಂಗ್ ಬಾಲ್","description":"Eco-friendly washing balls reduce detergent need. Improves agitation for cleaner clothes.","emoji":"🧺"},
-  {"id":31,"nameEn":"Dryer Sheets","category":"accessories","price":380,"weight":"30 pcs","imageurl":"images\\\\Dryer Sheets 380.jpg","nameKn":"ಡ್ರೈಯರ್ ಶೀಟ್ಸ್","description":"Anti-static sheets reduce wrinkles and add freshness. Prevents lint from sticking.","emoji":"🧺"},
-  {"id":32,"nameEn":"Clothes Pegs Plastic","category":"accessories","price":530,"weight":"12 pcs","imageurl":"images\\\\Clothes Pegs Plastic 530.jpg","nameKn":"ಕ್ಲೋತ್ಸ್ ಪೆಗ್ಸ್ ಪ್ಲಾಸ್ಟಿಕ್","description":"Strong plastic pegs with weather resistance. Holds clothes firmly even on windy days.","emoji":"🧺"},
-  {"id":33,"nameEn":"Laundry Basket Plastic","category":"accessories","price":999,"weight":"1 pc","imageurl":"images\\\\Laundry Basket Plastic 999.jpg","nameKn":"ಲಾಂಡ್ರಿ ಬಾಸ್ಕೆಟ್ ಪ್ಲಾಸ್ಟಿಕ್","description":"Large capacity basket with ventilation holes. Lightweight and easy to carry.","emoji":"🧺"},
-  {"id":34,"nameEn":"Laundry Perfume Booster","category":"softener","price":300,"weight":"200 ml","imageurl":"images\\\\Laundry Perfume Booster 300.jpg","nameKn":"ಲಾಂಡ್ರಿ ಪರ್ಫ್ಯೂಮ್ ಬೂಸ್ಟರ್","description":"Concentrated fragrance beads that last for weeks. Adds luxurious scent to every load.","emoji":"🧺"},
-  {"id":35,"nameEn":"Fabric Whitener","category":"bleach","price":80,"weight":"500 ml","imageurl":"images\\\\Fabric Whitener 80.jpg","nameKn":"ಫ್ಯಾಬ್ರಿಕ್ ವೈಟ್ನರ್","description":"Optical whitener for dull gray clothes. Restores brilliance without chlorine bleach.","emoji":"🧺"},
-  {"id":36,"nameEn":"Laundry Pods","category":"detergent","price":500,"weight":"20 pcs","imageurl":"images\\\\Laundry Pods 500.jpg","nameKn":"ಲಾಂಡ್ರಿ ಪಾಡ್ಸ್","description":"Pre-measured pods with 3-in-1 cleaning action. No mess, no waste, perfect for busy households.","emoji":"🧺"},
-  {"id":37,"nameEn":"Eco Friendly Detergent Powder","category":"detergent","price":290,"weight":"1 kg","imageurl":"images\\\\Eco Friendly Detergent Powder 290.jpg","nameKn":"ಎಕೋ ಫ್ರೆಂಡ್ಲಿ ಡಿಟರ್ಜೆಂಟ್ ಪೌಡರ್","description":"Plant-based and biodegradable. Gentle on skin and safe for greywater systems.","emoji":"🧺"},
-  {"id":38,"nameEn":"Eco Friendly Liquid Detergent","category":"detergent","price":600,"weight":"1 L","imageurl":"images\\\\Eco Friendly Liquid Detergent 600.jpg","nameKn":"ಎಕೋ ಫ್ರೆಂಡ್ಲಿ ಲಿಕ್ವಿಡ್ ಡಿಟರ್ಜೆಂಟ್","description":"Concentrated eco liquid with natural enzymes. Plastic-neutral packaging.","emoji":"🧺"},
-  {"id":39,"nameEn":"Hand Wash Detergent Liquid","category":"detergent","price":320,"weight":"500 ml","imageurl":"images\\\\Hand Wash Detergent Liquid 320.jpg","nameKn":"ಹ್ಯಾಂಡ್ ವಾಶ್ ಡಿಟರ್ಜೆಂಟ್ ಲಿಕ್ವಿಡ್","description":"Mild formula for handwashing delicate clothes. Creates gentle foam and rinses easily.","emoji":"🧺"},
-  {"id":40,"nameEn":"Saree Care Detergent","category":"detergent","price":600,"weight":"500 ml","imageurl":"images\\\\Saree Care Detergent 600.jpg","nameKn":"ಸೀರೆ ಕೇರ್ ಡಿಟರ್ಜೆಂಟ್","description":"Special detergent for silk and embroidered sarees. Preserves zari and color brightness.","emoji":"🧺"},
-  {"id":41,"nameEn":"Sportswear Detergent","category":"detergent","price":850,"weight":"500 ml","imageurl":"images\\\\Sportswear Detergent 850.jpg","nameKn":"ಸ್ಪೋರ್ಟ್ಸ್ವೇರ್ ಡಿಟರ್ಜೆಂಟ್","description":"Removes sweat odors and bacteria from gym clothes. Maintains technical fabric performance.","emoji":"🧺"},
-  {"id":42,"nameEn":"Laundry Disinfectant","category":"bleach","price":280,"weight":"500 ml","imageurl":"images\\\\Laundry Disinfectant 280.jpg","nameKn":"ಲಾಂಡ್ರಿ ಡಿಸ್ಇನ್ಫೆಕ್ಟಂಟ್","description":"Kills household germs and viruses. Safe to use with all detergents, fresh scent.","emoji":"🧺"},
-  {"id":43,"nameEn":"Ironing Spray Starch","category":"accessories","price":550,"weight":"400 ml","imageurl":"images\\\\Ironing Spray Starch 550.jpg","nameKn":"ಐರನಿಂಗ್ ಸ್ಪ್ರೇ ಸ್ಟಾರ್ಚ್","description":"Creates crisp finishes on cotton shirts. Reduces ironing time and repels dirt.","emoji":"🧺"},
-  {"id":44,"nameEn":"Laundry Fragrance Beads","category":"softener","price":280,"weight":"200 g","imageurl":"images\\\\Laundry Fragrance Beads 280.jpg","nameKn":"ಲಾಂಡ್ರಿ ಫ್ರ್ಯಾಗ್ರನ್ಸ್ ಬೀಡ್ಸ್","description":"Long-lasting scent booster that works for up to 12 weeks. Adds fragrance directly to fabrics.","emoji":"🧺"},
-  {"id":45,"nameEn":"Laundry Scent Booster","category":"softener","price":195,"weight":"200 g","imageurl":"images\\\\Laundry Scent Booster.jpg","nameKn":"ಲಾಂಡ್ರಿ ಸೆಂಟ್ ಬೂಸ್ಟರ್","description":"Intense fragrance pearls that release freshness with every wear. Customizable scent strength.","emoji":"🧺"},
-  {"id":47,"nameEn":"Laundry Deodorizer Powder","category":"accessories","price":1600,"weight":"500 g","imageurl":"images\\\\Laundry Deodorizer Powder.jpg","nameKn":"ಲಾಂಡ್ರಿ ಡಿಯೋಡೋರೈಜರ್ ಪೌಡರ್","description":"Neutralizes tough odors like smoke and sweat. Safe for all fabrics and septic systems.","emoji":"🧺"},
-  {"id":48,"nameEn":"Fabric Starch Powder","category":"accessories","price":120,"weight":"500 g","imageurl":"images\\\\Fabric Starch Powder 900.jpg","nameKn":"ಫ್ಯಾಬ್ರಿಕ್ ಸ್ಟಾರ್ಚ್ ಪೌಡರ್","description":"Traditional starch for crisp cottons and linens. Mix with water for desired stiffness.","emoji":"🧺"},
-  {"id":49,"nameEn":"Laundry Bucket Detergent Pack","category":"detergent","price":400,"weight":"1 kg","imageurl":"images\\\\Laundry Bucket Detergent Pack 400.jpg","nameKn":"ಲಾಂಡ್ರಿ ಬಕೆಟ್ ಡಿಟರ್ಜೆಂಟ್ ಪ್ಯಾಕ್","description":"Bulk pack with reusable bucket. Powder detergent for over 100 washes, economical choice.","emoji":"🧺"},
-  {"id":50,"nameEn":"Laundry Color Catcher Sheets","category":"accessories","price":300,"weight":"20 pcs","imageurl":"images\\\\Laundry Color Catcher Sheets 300.jpg","nameKn":"ಲಾಂಡ್ರಿ ಕಲರ್ ಕ್ಯಾಚರ್ ಶೀಟ್ಸ್","description":"Traps loose dyes to prevent color bleeding. Lets you mix lights and darks safely.","emoji":"🧺"},
-  {"id":51,"nameEn":"Heavy Duty Stain Remover","category":"stain","price":180,"weight":"500 g","imageurl":"images\\\\Heavy Duty Stain Remover 22.webp","nameKn":"ಹೆವಿ ಡ್ಯೂಟಿ ಸ್ಟೇನ್ ರಿಮೂವರ್","description":"Industrial strength for oil, paint and grease. Powerful yet safe for most fabrics.","emoji":"🧺"},
-  {"id":52,"nameEn":"Chlorine Bleach Strong","category":"bleach","price":450,"weight":"500 ml","imageurl":"images\\\\Chlorine Bleach Strong 450.jpg","nameKn":"ಕ್ಲೋರಿನ್ ಬ್ಲೀಚ್ ಸ್ಟ್ರಾಂಗ್","description":"Extra strength formula for heavy whitening. Ideal for hospital and hotel linen.","emoji":"🧺"},
-  {"id":53,"nameEn":"Laundry Washing Paddle","category":"accessories","price":300,"weight":"1 pc","imageurl":"images\\\\Laundry Washing Paddle 300.jpg","nameKn":"ಲಾಂಡ್ರಿ ವಾಶಿಂಗ್ ಪ್ಯಾಡಲ್","description":"Traditional paddle for hand washing large items. Helps agitate clothes without bending.","emoji":"🧺"},
-  {"id":54,"nameEn":"Clothes Drying Stand","category":"accessories","price":1500,"weight":"1 pc","imageurl":"images\\\\Clothes Drying Stand.jpg","nameKn":"ಕ್ಲೋತ್ಸ್ ಡ್ರೈಯಿಂಗ್ ಸ್ಟ್ಯಾಂಡ್","description":"Collapsible drying rack with 15 meters of space. Rust-resistant steel construction.","emoji":"🧺"},
-  {"id":55,"nameEn":"Laundry Gloves","category":"accessories","price":150,"weight":"1 pair","imageurl":"images\\\\Laundry Gloves 150.jpg","nameKn":"ಲಾಂಡ್ರಿ ಗ್ಲೌಸ್","description":"Waterproof gloves protect hands from harsh detergents. Non-slip texture for grip.","emoji":"🧺"}
+  {"id":1,"nameEn":"Detergent Powder Regular","category":"detergent","price":122,"weight":"1 kg","imageurl":"images\\\\Detergent Powder Regular 120.jpg","nameKn":"ಡಿಟರ್ಜೆಂಟ್ ಪೌಡರ್ ರೆಗ್ಯುಲರ್","description":"Powerful stain removal formula, works on tough dirt. Safe for all fabrics and maintains brightness.","emoji":"🧺"},
+  {"id":2,"nameEn":"Detergent Powder Lemon","category":"detergent","price":127,"weight":"1 kg","imageurl":"images\\\\Detergent Powder Lemon 80.jpg","nameKn":"ಡಿಟರ್ಜೆಂಟ್ ಪೌಡರ್ ಲೆಮನ್","description":"Fresh lemon fragrance with natural cleaning agents. Removes odors and gives clothes a citrus shine.","emoji":"🧺"},
+  {"id":3,"nameEn":"Detergent Powder Advanced Clean","category":"detergent","price":137,"weight":"1 kg","imageurl":"images\\\\Detergent Powder Advanced Clean 105.jpg","nameKn":"ಡಿಟರ್ಜೆಂಟ್ ಪೌಡರ್ ಅಡ್ವಾನ್ಸ್ಡ್","description":"Deep cleaning technology for high-efficiency machines. Removes embedded stains and odors effectively.","emoji":"🧺"},
+  {"id":4,"nameEn":"Liquid Detergent Front Load","category":"detergent","price":352,"weight":"1 L","imageurl":"images\\\\Liquid Detergent Front Load 350.jpg","nameKn":"ಲಿಕ್ವಿಡ್ ಡಿಟರ್ಜೆಂಟ್ ಫ್ರಂಟ್ ಲೋಡ್","description":"HE compatible low-sudsing liquid. Protects fabric fibers and delivers superior cleaning for front-loaders.","emoji":"🧺"},
+  {"id":5,"nameEn":"Liquid Detergent Top Load","category":"detergent","price":252,"weight":"1 L","imageurl":"images\\\\Liquid Detergent Top Load 250.jpg","nameKn":"ಲಿಕ್ವಿಡ್ ಡಿಟರ್ಜೆಂಟ್ ಟಾಪ್ ಲೋಡ್","description":"High-sudsing formula perfect for top-load washers. Tackles grease and brightens whites instantly.","emoji":"🧺"},
+  {"id":6,"nameEn":"Laundry Soap Bar","category":"detergent","price":22,"weight":"200 g","imageurl":"images\\\\Laundry Soap Bar 20.jpg","nameKn":"ಲಾಂಡ್ರಿ ಸೋಪು ಬಾರ್","description":"Classic laundry bar for handwash. Gentle on skin yet removes stains from collars and cuffs.","emoji":"🧺"},
+  {"id":7,"nameEn":"Laundry Soap Multipack","category":"detergent","price":512,"weight":"1 kg","imageurl":"images\\\\Laundry Soap Multipack\' 500.jpg","nameKn":"ಲಾಂಡ್ರಿ ಸೋಪು ಮಲ್ಟಿಪ್ಯಾಕ್","description":"Value pack of 4 bars. Biodegradable formula trusted for generations. Great for everyday laundry.","emoji":"🧺"},
+  {"id":8,"nameEn":"Color Care Detergent","category":"detergent","price":352,"weight":"1 kg","imageurl":"images\\\\Color Care Detergent 350.jpg","nameKn":"ಕಲರ್ ಕೇರ್ ಡಿಟರ್ಜೆಂಟ್","description":"Protects vibrant colors from fading. Special polymers lock dye and prevent color transfer.","emoji":"🧺"},
+  {"id":9,"nameEn":"White Bright Detergent","category":"detergent","price":1202,"weight":"1 kg","imageurl":"images\\\\White Bright Detergent 1200.jpg","nameKn":"ವೈಟ್ ಬ್ರೈಟ್ ಡಿಟರ್ಜೆಂಟ್","description":"Optical brighteners make dull whites look new. Removes greyish residue from repeated washes.","emoji":"🧺"},
+  {"id":10,"nameEn":"Wool & Delicate Detergent","category":"detergent","price":177,"weight":"500 ml","imageurl":"images\\\\Wool & Delicate Detergent 140.jpg","nameKn":"ಉಣ್ಣೆ ಮತ್ತು ಡೆಲಿಕೇಟ್ ಡಿಟರ್ಜೆಂಟ್","description":"Enzyme-rich formula safe for silk, wool and cashmere. Maintains texture and prevents shrinkage.","emoji":"🧺"},
+  {"id":11,"nameEn":"Baby Clothes Detergent","category":"detergent","price":227,"weight":"1 L","imageurl":"images\\\\Baby Clothes Detergent 700.jpg","nameKn":"ಬೇಬಿ ಕ್ಲೋತ್ಸ್ ಡಿಟರ್ಜೆಂಟ್","description":"Hypoallergenic and fragrance-free. Dermatologically tested, gentle on baby\'s sensitive skin.","emoji":"🧺"},
+  {"id":12,"nameEn":"Anti Bacterial Laundry Liquid","category":"detergent","price":502,"weight":"1 L","imageurl":"images\\\\Anti Bacterial Laundry Liquid 1980.jpg","nameKn":"ಆಂಟಿ ಬ್ಯಾಕ್ಟೀರಿಯಲ್ ಲಾಂಡ್ರಿ ಲಿಕ್ವಿಡ್","description":"Kills 99.9% of germs and bacteria. Sanitizes clothes deeply, ideal for towels and linens.","emoji":"🧺"},
+  {"id":13,"nameEn":"Fabric Conditioner Fresh","category":"softener","price":342,"weight":"860 ml","imageurl":"images\\\\Fabric Conditioner Fresh 340.jpg","nameKn":"ಫ್ಯಾಬ್ರಿಕ್ ಕಂಡೀಷನರ್ ಫ್ರೆಶ್","description":"Long-lasting freshness that lasts for days. Reduces static cling and makes ironing easier.","emoji":"🧺"},
+  {"id":14,"nameEn":"Fabric Conditioner Floral","category":"softener","price":392,"weight":"860 ml","imageurl":"images\\\\Fabric Conditioner Floral 390.jpg","nameKn":"ಫ್ಯಾಬ್ರಿಕ್ ಕಂಡೀಷನರ್ ಫ್ಲೋರಲ್","description":"Wildflower bouquet scent with extra softness. Keeps fabrics fluffy and vibrant for longer.","emoji":"🧺"},
+  {"id":15,"nameEn":"Fabric Softener Lavender","category":"softener","price":362,"weight":"860 ml","imageurl":"images\\\\Fabric Softener Lavender 360.jpg","nameKn":"ಫ್ಯಾಬ್ರಿಕ್ ಸಾಫ್ಟ್ನರ್ ಲ್ಯಾವೆಂಡರ್","description":"Calming lavender aroma that relaxes your senses. Natural extract softens fibers beautifully.","emoji":"🧺"},
+  {"id":16,"nameEn":"Fabric Softener Rose Fresh","category":"softener","price":752,"weight":"860 ml","imageurl":"images\\\\Fabric Softener Rose Fresh 750.jpg","nameKn":"ಫ್ಯಾಬ್ರಿಕ್ ಸಾಫ್ಟ್ನರ್ ರೋಸ್","description":"Romantic rose scent infused with essential oils. Provides intense softness for towels and bedsheets.","emoji":"🧺"},
+  {"id":17,"nameEn":"Fabric Conditioner Silk Care","category":"softener","price":207,"weight":"860 ml","imageurl":"images\\\\Fabric Conditioner Silk Care 450.jpg","nameKn":"ಸಿಲ್ಕ್ ಕೇರ್ ಕಂಡೀಷನರ್","description":"Premium conditioner for delicate silks. Enhances drape and prevents fabric damage.","emoji":"🧺"},
+  {"id":18,"nameEn":"Fabric Softener Refill Pack","category":"softener","price":282,"weight":"1 L","imageurl":"images\\\\Fabric Softener Refill Pack 280.jpg","nameKn":"ಫ್ಯಾಬ್ರಿಕ್ ಸಾಫ್ಟ್ನರ್ ರೀಫಿಲ್ ಪ್ಯಾಕ್","description":"Economical refill pack with same great quality. Reduces plastic waste without compromising softness.","emoji":"🧺"},
+  {"id":19,"nameEn":"Stain Remover Powder","category":"stain","price":252,"weight":"500 g","imageurl":"images\\\\Stain Remover Powder 250.jpg","nameKn":"ಸ್ಟೇನ್ ರಿಮೂವರ್ ಪೌಡರ್","description":"Oxygen-based powder erases coffee, wine and grass stains. Safe for colors and whites.","emoji":"🧺"},
+  {"id":20,"nameEn":"Stain Remover Liquid","category":"stain","price":62,"weight":"500 ml","imageurl":"images\\\\Stain Remover Liquid 60.jpg","nameKn":"ಸ್ಟೇನ್ ರಿಮೂವರ್ ಲಿಕ್ವಿಡ್","description":"Pre-treat stubborn spots with enzyme boost formula. Works on grease, ink and lipstick.","emoji":"🧺"},
+  {"id":21,"nameEn":"Laundry Spray Stain Remover","category":"stain","price":302,"weight":"300 ml","imageurl":"images\\\\Laundry Spray Stain Remover 300.jpg","nameKn":"ಲಾಂಡ್ರಿ ಸ್ಪ್ರೇ ಸ್ಟೇನ್ ರಿಮೂವರ್","description":"Spray & wash convenience for instant stain treatment. Portable bottle for on-the-go use.","emoji":"🧺"},
+  {"id":22,"nameEn":"Oxygen Stain Remover","category":"stain","price":802,"weight":"500 g","imageurl":"images\\\\Oxygen Stain Remover 800.jpg","nameKn":"ಆಕ್ಸಿಜನ್ ಸ್ಟೇನ್ ರಿಮೂವರ್","description":"Active oxygen crystals lift stains without chlorine. Eco-friendly and septic safe.","emoji":"🧺"},
+  {"id":23,"nameEn":"Laundry Bleach Liquid","category":"bleach","price":402,"weight":"500 ml","imageurl":"images\\\\Laundry Bleach Liquid 400.jpg","nameKn":"ಲಾಂಡ್ರಿ ಬ್ಲೀಚ್ ಲಿಕ್ವಿಡ್","description":"Chlorine-based whitener for white cottons. Removes tough stains and restores whiteness.","emoji":"🧺"},
+  {"id":24,"nameEn":"Laundry Bleach Powder","category":"bleach","price":172,"weight":"500 g","imageurl":"images\\\\Laundry Bleach Powder 170.jpg","nameKn":"ಲಾಂಡ್ರಿ ಬ್ಲೀಚ್ ಪೌಡರ್","description":"Powdered bleach for deep whitening. Effective on yellowing and mildew stains.","emoji":"🧺"},
+  {"id":25,"nameEn":"Chlorine Bleach","category":"bleach","price":292,"weight":"500 ml","imageurl":"images\\\\Chlorine Bleach 290.jpg","nameKn":"ಕ್ಲೋರಿನ್ ಬ್ಲೀಚ್","description":"Regular chlorine bleach for sanitizing and whitening. Use with caution on colors.","emoji":"🧺"},
+  {"id":26,"nameEn":"Oxygen Bleach Powder","category":"bleach","price":2402,"weight":"500 g","imageurl":"images\\\\Oxygen Bleach Powder 2400.jpg","nameKn":"ಆಕ್ಸಿಜನ್ ಬ್ಲೀಚ್ ಪೌಡರ್","description":"Color-safe oxygen bleach removes dinginess naturally. Works on all washable fabrics.","emoji":"🧺"},
+  {"id":27,"nameEn":"Laundry Brush Heavy Duty","category":"accessories","price":142,"weight":"1 pc","imageurl":"images\\\\Laundry Brush Heavy Duty 140.jpg","nameKn":"ಲಾಂಡ್ರಿ ಬ್ರಷ್ ಹೆವಿ ಡ್ಯೂಟಿ","description":"Sturdy bristles for scrubbing cuffs, collars and stubborn stains. Ergonomic handle.","emoji":"🧺"},
+  {"id":28,"nameEn":"Cloth Scrubbing Brush","category":"accessories","price":102,"weight":"1 pc","imageurl":"images\\\\Cloth Scrubbing Brush 100.jpg","nameKn":"ಕ್ಲಾತ್ ಸ್ಕ್ರಬ್ಬಿಂಗ್ ಬ್ರಷ್","description":"Dual-sided brush for gentle and heavy scrubbing. Ideal for delicate fabrics.","emoji":"🧺"},
+  {"id":29,"nameEn":"Laundry Mesh Washing Bag","category":"accessories","price":112,"weight":"1 pc","imageurl":"images\\\\Laundry Mesh Washing Bag 110.jpg","nameKn":"ಲಾಂಡ್ರಿ ಮೆಶ್ ವಾಶಿಂಗ್ ಬ್ಯಾಗ್","description":"Protects delicates from tangling and tearing. Zipper closure with reinforced edges.","emoji":"🧺"},
+  {"id":30,"nameEn":"Laundry Washing Ball","category":"accessories","price":117,"weight":"2 pcs","imageurl":"images\\\\Laundry Washing Ball 115.jpg","nameKn":"ಲಾಂಡ್ರಿ ವಾಶಿಂಗ್ ಬಾಲ್","description":"Eco-friendly washing balls reduce detergent need. Improves agitation for cleaner clothes.","emoji":"🧺"},
+  {"id":31,"nameEn":"Dryer Sheets","category":"accessories","price":382,"weight":"30 pcs","imageurl":"images\\\\Dryer Sheets 380.jpg","nameKn":"ಡ್ರೈಯರ್ ಶೀಟ್ಸ್","description":"Anti-static sheets reduce wrinkles and add freshness. Prevents lint from sticking.","emoji":"🧺"},
+  {"id":32,"nameEn":"Clothes Pegs Plastic","category":"accessories","price":532,"weight":"12 pcs","imageurl":"images\\\\Clothes Pegs Plastic 530.jpg","nameKn":"ಕ್ಲೋತ್ಸ್ ಪೆಗ್ಸ್ ಪ್ಲಾಸ್ಟಿಕ್","description":"Strong plastic pegs with weather resistance. Holds clothes firmly even on windy days.","emoji":"🧺"},
+  {"id":33,"nameEn":"Laundry Basket Plastic","category":"accessories","price":1001,"weight":"1 pc","imageurl":"images\\\\Laundry Basket Plastic 999.jpg","nameKn":"ಲಾಂಡ್ರಿ ಬಾಸ್ಕೆಟ್ ಪ್ಲಾಸ್ಟಿಕ್","description":"Large capacity basket with ventilation holes. Lightweight and easy to carry.","emoji":"🧺"},
+  {"id":34,"nameEn":"Laundry Perfume Booster","category":"softener","price":302,"weight":"200 ml","imageurl":"images\\\\Laundry Perfume Booster 300.jpg","nameKn":"ಲಾಂಡ್ರಿ ಪರ್ಫ್ಯೂಮ್ ಬೂಸ್ಟರ್","description":"Concentrated fragrance beads that last for weeks. Adds luxurious scent to every load.","emoji":"🧺"},
+  {"id":35,"nameEn":"Fabric Whitener","category":"bleach","price":82,"weight":"500 ml","imageurl":"images\\\\Fabric Whitener 80.jpg","nameKn":"ಫ್ಯಾಬ್ರಿಕ್ ವೈಟ್ನರ್","description":"Optical whitener for dull gray clothes. Restores brilliance without chlorine bleach.","emoji":"🧺"},
+  {"id":36,"nameEn":"Laundry Pods","category":"detergent","price":502,"weight":"20 pcs","imageurl":"images\\\\Laundry Pods 500.jpg","nameKn":"ಲಾಂಡ್ರಿ ಪಾಡ್ಸ್","description":"Pre-measured pods with 3-in-1 cleaning action. No mess, no waste, perfect for busy households.","emoji":"🧺"},
+  {"id":37,"nameEn":"Eco Friendly Detergent Powder","category":"detergent","price":292,"weight":"1 kg","imageurl":"images\\\\Eco Friendly Detergent Powder 290.jpg","nameKn":"ಎಕೋ ಫ್ರೆಂಡ್ಲಿ ಡಿಟರ್ಜೆಂಟ್ ಪೌಡರ್","description":"Plant-based and biodegradable. Gentle on skin and safe for greywater systems.","emoji":"🧺"},
+  {"id":38,"nameEn":"Eco Friendly Liquid Detergent","category":"detergent","price":602,"weight":"1 L","imageurl":"images\\\\Eco Friendly Liquid Detergent 600.jpg","nameKn":"ಎಕೋ ಫ್ರೆಂಡ್ಲಿ ಲಿಕ್ವಿಡ್ ಡಿಟರ್ಜೆಂಟ್","description":"Concentrated eco liquid with natural enzymes. Plastic-neutral packaging.","emoji":"🧺"},
+  {"id":39,"nameEn":"Hand Wash Detergent Liquid","category":"detergent","price":322,"weight":"500 ml","imageurl":"images\\\\Hand Wash Detergent Liquid 320.jpg","nameKn":"ಹ್ಯಾಂಡ್ ವಾಶ್ ಡಿಟರ್ಜೆಂಟ್ ಲಿಕ್ವಿಡ್","description":"Mild formula for handwashing delicate clothes. Creates gentle foam and rinses easily.","emoji":"🧺"},
+  {"id":40,"nameEn":"Saree Care Detergent","category":"detergent","price":602,"weight":"500 ml","imageurl":"images\\\\Saree Care Detergent 600.jpg","nameKn":"ಸೀರೆ ಕೇರ್ ಡಿಟರ್ಜೆಂಟ್","description":"Special detergent for silk and embroidered sarees. Preserves zari and color brightness.","emoji":"🧺"},
+  {"id":41,"nameEn":"Sportswear Detergent","category":"detergent","price":852,"weight":"500 ml","imageurl":"images\\\\Sportswear Detergent 850.jpg","nameKn":"ಸ್ಪೋರ್ಟ್ಸ್ವೇರ್ ಡಿಟರ್ಜೆಂಟ್","description":"Removes sweat odors and bacteria from gym clothes. Maintains technical fabric performance.","emoji":"🧺"},
+  {"id":42,"nameEn":"Laundry Disinfectant","category":"bleach","price":282,"weight":"500 ml","imageurl":"images\\\\Laundry Disinfectant 280.jpg","nameKn":"ಲಾಂಡ್ರಿ ಡಿಸ್ಇನ್ಫೆಕ್ಟಂಟ್","description":"Kills household germs and viruses. Safe to use with all detergents, fresh scent.","emoji":"🧺"},
+  {"id":43,"nameEn":"Ironing Spray Starch","category":"accessories","price":552,"weight":"400 ml","imageurl":"images\\\\Ironing Spray Starch 550.jpg","nameKn":"ಐರನಿಂಗ್ ಸ್ಪ್ರೇ ಸ್ಟಾರ್ಚ್","description":"Creates crisp finishes on cotton shirts. Reduces ironing time and repels dirt.","emoji":"🧺"},
+  {"id":44,"nameEn":"Laundry Fragrance Beads","category":"softener","price":282,"weight":"200 g","imageurl":"images\\\\Laundry Fragrance Beads 280.jpg","nameKn":"ಲಾಂಡ್ರಿ ಫ್ರ್ಯಾಗ್ರನ್ಸ್ ಬೀಡ್ಸ್","description":"Long-lasting scent booster that works for up to 12 weeks. Adds fragrance directly to fabrics.","emoji":"🧺"},
+  {"id":45,"nameEn":"Laundry Scent Booster","category":"softener","price":197,"weight":"200 g","imageurl":"images\\\\Laundry Scent Booster.jpg","nameKn":"ಲಾಂಡ್ರಿ ಸೆಂಟ್ ಬೂಸ್ಟರ್","description":"Intense fragrance pearls that release freshness with every wear. Customizable scent strength.","emoji":"🧺"},
+  {"id":47,"nameEn":"Laundry Deodorizer Powder","category":"accessories","price":1602,"weight":"500 g","imageurl":"images\\\\Laundry Deodorizer Powder.jpg","nameKn":"ಲಾಂಡ್ರಿ ಡಿಯೋಡೋರೈಜರ್ ಪೌಡರ್","description":"Neutralizes tough odors like smoke and sweat. Safe for all fabrics and septic systems.","emoji":"🧺"},
+  {"id":48,"nameEn":"Fabric Starch Powder","category":"accessories","price":122,"weight":"500 g","imageurl":"images\\\\Fabric Starch Powder 900.jpg","nameKn":"ಫ್ಯಾಬ್ರಿಕ್ ಸ್ಟಾರ್ಚ್ ಪೌಡರ್","description":"Traditional starch for crisp cottons and linens. Mix with water for desired stiffness.","emoji":"🧺"},
+  {"id":49,"nameEn":"Laundry Bucket Detergent Pack","category":"detergent","price":402,"weight":"1 kg","imageurl":"images\\\\Laundry Bucket Detergent Pack 400.jpg","nameKn":"ಲಾಂಡ್ರಿ ಬಕೆಟ್ ಡಿಟರ್ಜೆಂಟ್ ಪ್ಯಾಕ್","description":"Bulk pack with reusable bucket. Powder detergent for over 100 washes, economical choice.","emoji":"🧺"},
+  {"id":50,"nameEn":"Laundry Color Catcher Sheets","category":"accessories","price":302,"weight":"20 pcs","imageurl":"images\\\\Laundry Color Catcher Sheets 300.jpg","nameKn":"ಲಾಂಡ್ರಿ ಕಲರ್ ಕ್ಯಾಚರ್ ಶೀಟ್ಸ್","description":"Traps loose dyes to prevent color bleeding. Lets you mix lights and darks safely.","emoji":"🧺"},
+  {"id":51,"nameEn":"Heavy Duty Stain Remover","category":"stain","price":182,"weight":"500 g","imageurl":"images\\\\Heavy Duty Stain Remover 22.jpg0.webp","nameKn":"ಹೆವಿ ಡ್ಯೂಟಿ ಸ್ಟೇನ್ ರಿಮೂವರ್","description":"Industrial strength for oil, paint and grease. Powerful yet safe for most fabrics.","emoji":"🧺"},
+  {"id":52,"nameEn":"Chlorine Bleach Strong","category":"bleach","price":452,"weight":"500 ml","imageurl":"images\\\\Chlorine Bleach Strong 450.jpg","nameKn":"ಕ್ಲೋರಿನ್ ಬ್ಲೀಚ್ ಸ್ಟ್ರಾಂಗ್","description":"Extra strength formula for heavy whitening. Ideal for hospital and hotel linen.","emoji":"🧺"},
+  {"id":53,"nameEn":"Laundry Washing Paddle","category":"accessories","price":302,"weight":"1 pc","imageurl":"images\\\\Laundry Washing Paddle 300.jpg","nameKn":"ಲಾಂಡ್ರಿ ವಾಶಿಂಗ್ ಪ್ಯಾಡಲ್","description":"Traditional paddle for hand washing large items. Helps agitate clothes without bending.","emoji":"🧺"},
+  {"id":54,"nameEn":"Clothes Drying Stand","category":"accessories","price":1502,"weight":"1 pc","imageurl":"images\\\\Clothes Drying Stand.jpg","nameKn":"ಕ್ಲೋತ್ಸ್ ಡ್ರೈಯಿಂಗ್ ಸ್ಟ್ಯಾಂಡ್","description":"Collapsible drying rack with 15 meters of space. Rust-resistant steel construction.","emoji":"🧺"},
+  {"id":55,"nameEn":"Laundry Gloves","category":"accessories","price":152,"weight":"1 pair","imageurl":"images\\\\Laundry Gloves 150.jpg","nameKn":"ಲಾಂಡ್ರಿ ಗ್ಲೌಸ್","description":"Waterproof gloves protect hands from harsh detergents. Non-slip texture for grip.","emoji":"🧺"},
+  {"id":9800,"nameEn":"Bleach Kit","category":"bleach","price":722,"weight":"1 kit","imageurl":"images/Bleach Kit 720.jpg","nameKn":"ಬ್ಲೀಚ್ ಕಿಟ್","description":"Complete fabric whitening and stain care kit.","emoji":"🧺"},
+  {"id":9801,"nameEn":"Bleach Liquid 150","category":"bleach","price":152,"weight":"500 ml","imageurl":"images/Bleach Liquid 150.jpg","nameKn":"ಬ್ಲೀಚ್ ಲಿಕ್ವಿಡ್","description":"Brightening bleach liquid for crisp whites.","emoji":"🧺"},
+  {"id":9802,"nameEn":"Bleach Liquid 330","category":"bleach","price":332,"weight":"1 L","imageurl":"images/Bleach Liquid 330.jpg","nameKn":"ಬ್ಲೀಚ್ ಲಿಕ್ವಿಡ್ 1L","description":"Family value pack disinfecting laundry bleach.","emoji":"🧺"},
+  {"id":9803,"nameEn":"Detergent Powder Jasmine","category":"detergent","price":452,"weight":"2 kg","imageurl":"images/Detergent Powder Jasmine450.jpg","nameKn":"ಮಲ್ಲಿಗೆ ಡಿಟರ್ಜೆಂಟ್ ಪೌಡರ್","description":"Fragrant jasmine wash detergent powder.","emoji":"🧺"},
+  {"id":9804,"nameEn":"Detergent Powder Regular Pack","category":"detergent","price":212,"weight":"1 kg","imageurl":"images/Detergent Powder Regular 210.jpg","nameKn":"ರೆಗ್ಯುಲರ್ ಡಿಟರ್ಜೆಂಟ್","description":"Everyday tough stain removal washing powder.","emoji":"🧺"},
+  {"id":9805,"nameEn":"Detergent Powder Rose","category":"detergent","price":282,"weight":"1 kg","imageurl":"images/Detergent Powder Rose 280.jpg","nameKn":"ರೋಸ್ ಡಿಟರ್ಜೆಂಟ್","description":"Rose scented tough stain removal detergent.","emoji":"🧺"},
+  {"id":9806,"nameEn":"Fabric Softener Pack","category":"softener","price":392,"weight":"1 L","imageurl":"images/Fabric Softener 390.jpg","nameKn":"ಫ್ಯಾಬ್ರಿಕ್ ಸಾಫ್ಟ್‌ನರ್","description":"Leaves clothes ultra-soft and static-free.","emoji":"🧺"},
+  {"id":9807,"nameEn":"Ink Stain Remover","category":"stain","price":502,"weight":"250 ml","imageurl":"images/Ink Stain Remover 500.jpg","nameKn":"ಇಂಕ್ ಕಲೆ ನಿವಾರಕ","description":"Targeted remover for ink and dye marks.","emoji":"🧺"},
+  {"id":9808,"nameEn":"Laundry Combo Pack","category":"detergent","price":552,"weight":"1 combo","imageurl":"images/Laundry Combo Pack 550.jpg","nameKn":"ಲಾಂಡ್ರಿ ಕಾಂಬೊ ಪ್ಯಾಕ್","description":"Detergent + conditioner value combo.","emoji":"🧺"},
+  {"id":9809,"nameEn":"Laundry Detergent 290","category":"detergent","price":292,"weight":"1 kg","imageurl":"images/Laundry Detergent 290.jpg","nameKn":"ಲಾಂಡ್ರಿ ಡಿಟರ್ಜೆಂಟ್ 290","description":"High performance machine & bucket wash.","emoji":"🧺"},
+  {"id":9810,"nameEn":"Laundry Detergent 350","category":"detergent","price":352,"weight":"1.5 kg","imageurl":"images/Laundry Detergent 350.jpg","nameKn":"ಲಾಂಡ್ರಿ ಡಿಟರ್ಜೆಂಟ್ 350","description":"Deep clean low-foam liquid detergent.","emoji":"🧺"},
+  {"id":9811,"nameEn":"Washing Drum Cleaner","category":"accessories","price":122,"weight":"250 g","imageurl":"images/Laundry Drum Cleaner 120.jpg","nameKn":"ಡ್ರಮ್ ಕ್ಲೀನರ್","description":"Removes residue & odor from washing machine drums.","emoji":"🧺"},
+  {"id":9812,"nameEn":"Liquid Detergent Lavender","category":"detergent","price":202,"weight":"1 L","imageurl":"images/Liquid Detergent Lavender 200.jpg","nameKn":"ಲ್ಯಾವೆಂಡರ್ ಲಿಕ್ವಿಡ್ ಡಿಟರ್ಜೆಂಟ್","description":"Relaxing lavender aroma liquid wash.","emoji":"🧺"},
+  {"id":9813,"nameEn":"Organic Laundry Liquid","category":"detergent","price":702,"weight":"2 L","imageurl":"images/Organic Laundry Liquid 700.jpg","nameKn":"ಸಾವಯವ ಲಾಂಡ್ರಿ ಲಿಕ್ವಿಡ್","description":"Plant-based chemical-free gentle baby-safe wash.","emoji":"🧺"},
+  {"id":9814,"nameEn":"Plastic Laundry Basket Large","category":"accessories","price":382,"weight":"1 pc","imageurl":"images/Plastic Laundry Basket large.jpg","nameKn":"ಲಾಂಡ್ರಿ ಬುಟ್ಟಿ ದೊಡ್ಡದು","description":"Ventilated durable laundry storage hamper.","emoji":"🧺"},
+  {"id":9815,"nameEn":"Stain Remover Mini","category":"stain","price":22,"weight":"50 g","imageurl":"images/Stain Remover 20.jpg","nameKn":"ಸ್ಟೇನ್ ರಿಮೂವರ್ ಮಿನಿ","description":"Handy single-wash spot remover.","emoji":"🧺"},
+  {"id":9816,"nameEn":"Stain Remover Liquid Large","category":"stain","price":262,"weight":"500 ml","imageurl":"images/Stain Remover Liquid 260.jpg","nameKn":"ಸ್ಟೇನ್ ರಿಮೂವರ್ ಲಿಕ್ವಿಡ್","description":"Color-safe oxygen active pre-treat liquid.","emoji":"🧺"},
+  {"id":9817,"nameEn":"Stain Remover Powder","category":"stain","price":252,"weight":"400 g","imageurl":"images/Stain Remover Powder 250.jpg","nameKn":"ಸ್ಟೇನ್ ರಿಮೂವರ್ ಪೌಡರ್","description":"Active oxygen booster powder for whites & colors.","emoji":"🧺"},
+  {"id":9818,"nameEn":"Washing Powder Premium","category":"detergent","price":802,"weight":"4 kg","imageurl":"images/Washing Powder Premium 800.jpg","nameKn":"ಪ್ರೀಮಿಯಂ ವಾಶಿಂಗ್ ಪೌಡರ್","description":"Jumbo family pack premium detergent powder.","emoji":"🧺"}
 ]';
   $data = json_decode($staticJson, true);
   foreach ($data as &$item) {
@@ -166,12 +176,13 @@ function getFallbackLaundryProducts()
   return $fallback;
 }
 // ============================================================
-// GET PRODUCTS (DB first, fallback to static)
+// GET PRODUCTS (Always load full catalog + merge DB entries cleanly)
 // ============================================================
-$productsData = getLaundryProducts();
-if (empty($productsData)) {
-  $productsData = getFallbackLaundryProducts();
-}
+$productsData = ksrMergeCategoryProducts(getLaundryProducts(), getFallbackLaundryProducts(), [
+  'nameField' => 'nameEn',
+  'imageField' => 'imageurl',
+  'updateMatchedPrice' => true,
+]);
 // ============================================================
 // AJAX CART ENDPOINTS
 // ============================================================
@@ -707,8 +718,9 @@ $cartCount = array_sum(array_column($_SESSION['cart'], 'qty'));
     }
   </style>
   <link rel="stylesheet" href="category-style.css">
+  <script src="gallery.js"></script>
   <link rel="stylesheet" href="../index.css">
-    <link rel="stylesheet" href="../mobile-app.css?v=3.0" />
+  <link rel="stylesheet" href="../mobile-app.css?v=3.0" />
 </head>
 
 <body>
@@ -799,7 +811,7 @@ $cartCount = array_sum(array_column($_SESSION['cart'], 'qty'));
           formData.append('kn', product.kn || product.nameKn || product.knName || product.kn_name || '');
           formData.append('price', product.price || 0);
           formData.append('custom_price', product.price || 0);
-          formData.append('image', product.image || product.imageUrl || product.image_url || '');
+          formData.append('image', product.image || product.imageUrl || product.image_url || product.imageurl || '');
         }
         fetch('../cart/add_cart.php', {
             method: 'POST',
@@ -816,7 +828,7 @@ $cartCount = array_sum(array_column($_SESSION['cart'], 'qty'));
               if (jsonStart !== -1) {
                 data = JSON.parse(text.substring(jsonStart));
               }
-            } catch(e) {
+            } catch (e) {
               console.warn("Cart response parse warning:", text);
             }
             if (!data) {
@@ -940,11 +952,7 @@ $cartCount = array_sum(array_column($_SESSION['cart'], 'qty'));
           return;
         }
         grid.innerHTML = filtered.map(p => {
-          const imgSrc = p.imageurl || '';
-          // Display actual image if available, otherwise fallback to emoji
-          const imageHtml = imgSrc ?
-            `<img src="${imgSrc}" alt="" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML='<span class=\\'emoji-fallback\\'>${p.emoji || '🧺'}</span>'">` :
-            `<span class="emoji-fallback">${p.emoji || '🧺'}</span>`;
+          const imageHtml = window.ksrGalleryMediaHtml(p, { emoji: p.emoji || '🧺', primary: p.imageurl || p.image || '' });
           return `
         <div class="product-card">
           <div class="product-image">${imageHtml}</div>
@@ -999,9 +1007,9 @@ $cartCount = array_sum(array_column($_SESSION['cart'], 'qty'));
   <?php include __DIR__ . '/../includes/user-footer.php'; ?>
   <script src="sorting.js"></script>
 
-    <!-- Mobile Bottom Navigation -->
-    <?php if (file_exists(__DIR__ . '/../mobile-bottom-nav.php')) require_once __DIR__ . '/../mobile-bottom-nav.php'; ?>
-    <script src="/assets/js/mobile-app.js?v=3.0" defer></script>
+  <!-- Mobile Bottom Navigation -->
+  <?php if (file_exists(__DIR__ . '/../mobile-bottom-nav.php')) require_once __DIR__ . '/../mobile-bottom-nav.php'; ?>
+  <script src="/assets/js/mobile-app.js?v=3.0" defer></script>
 </body>
 
 </html>

@@ -137,12 +137,7 @@ if (isset($_GET['ajax'])) {
 if (!function_exists('normalizeImagePath')) {
     function normalizeImagePath(?string $rawPath): string
     {
-        if (empty($rawPath)) return '';
-        $clean = str_replace('\\', '/', $rawPath);
-        if (preg_match('#(?:.*)(images/.*)$#i', $clean, $matches)) {
-            return '../' . $matches[1];
-        }
-        return '../images/' . basename($clean);
+        return ksrNormalizeFlatImage($rawPath);
     }
 }
 // ============================================================
@@ -210,156 +205,172 @@ function getFallbackSpices(): array
     }
     // Full product list from your static data (shortened for brevity, but complete)
     $data = [
-        ['id' => 1, 'nameEn' => 'Turmeric Powder', 'nameKn' => 'ಅರಿಶಿನ ಪುಡಿ', 'category' => 'ground', 'price' => 220, 'imageUrl' => 'images/Turmeric Powder.jpg', 'description' => 'Bright yellow, earthy flavor, essential for curries.'],
-        ['id' => 2, 'nameEn' => 'Red Chilli Powder', 'nameKn' => 'ಕೆಂಪು ಮೆಣಸಿನ ಪುಡಿ', 'category' => 'ground', 'price' => 300, 'imageUrl' => 'images/Red chili powder.jpg', 'description' => 'Hot and vibrant, adds heat to dishes.'],
-        ['id' => 3, 'nameEn' => 'Kashmiri Chilli Powder', 'nameKn' => 'ಕಾಶ್ಮೀರಿ ಮೆಣಸಿನ ಪುಡಿ', 'category' => 'ground', 'price' => 420, 'imageUrl' => 'images/Chilli Powder Standard Red Chilli 180.jpg', 'description' => 'Mild heat, brilliant red color.'],
-        ['id' => 4, 'nameEn' => 'Coriander Powder', 'nameKn' => 'ಕೊತ್ತಂಬರಿ ಪುಡಿ', 'category' => 'ground', 'price' => 240, 'imageUrl' => 'images/Coriander Powder.jpg', 'description' => 'Citrusy, nutty, foundation of Indian cooking.'],
-        ['id' => 5, 'nameEn' => 'Cumin Seeds', 'nameKn' => 'ಜೀರಿಗೆ', 'category' => 'whole', 'price' => 520, 'imageUrl' => 'images/Cumin Seeds.jpg', 'description' => 'Earthy, warm, essential tempering spice.'],
-        ['id' => 6, 'nameEn' => 'Cumin Powder', 'nameKn' => 'ಜೀರಿಗೆ ಪುಡಿ', 'category' => 'ground', 'price' => 540, 'imageUrl' => 'images/Organic Cumin Powder.jpg', 'description' => 'Ground cumin for easy use in curries.'],
-        ['id' => 7, 'nameEn' => 'Black Pepper', 'nameKn' => 'ಕರಿಮೆಣಸು', 'category' => 'whole', 'price' => 900, 'imageUrl' => 'images/Black Pepper.jpg', 'description' => 'Pungent, sharp, "king of spices".'],
-        ['id' => 8, 'nameEn' => 'White Pepper', 'nameKn' => 'ಬಿಳಿ ಮೆಣಸು', 'category' => 'whole', 'price' => 1200, 'imageUrl' => 'images/White Pepper.jpg', 'description' => 'Milder, used in light-colored dishes.'],
-        ['id' => 9, 'nameEn' => 'Mustard Seeds', 'nameKn' => 'ಸಾಸಿವೆ', 'category' => 'whole', 'price' => 180, 'imageUrl' => 'images/Mustard Seeds.jpg', 'description' => 'Nutty, pungent when cracked.'],
-        ['id' => 10, 'nameEn' => 'Fenugreek Seeds', 'nameKn' => 'ಮೆಂತ್ಯ', 'category' => 'whole', 'price' => 160, 'imageUrl' => 'images/Fenugreek Seeds.jpg', 'description' => 'Slightly bitter, used in pickles and curries.'],
-        ['id' => 11, 'nameEn' => 'Fennel Seeds', 'nameKn' => 'ಸೋಂಪು', 'category' => 'whole', 'price' => 420, 'imageUrl' => 'images/Fennel Seeds.jpg', 'description' => 'Sweet, licorice-like, used as mouth freshener.'],
-        ['id' => 12, 'nameEn' => 'Ajwain Seeds', 'nameKn' => 'ಓಮ', 'category' => 'whole', 'price' => 480, 'imageUrl' => 'images/Ajwain Seeds.jpg', 'description' => 'Thyme-like, aids digestion.'],
-        ['id' => 13, 'nameEn' => 'Nigella Seeds', 'nameKn' => 'ಕೃಷ್ಣ ಜೀರಿಗೆ', 'category' => 'whole', 'price' => 600, 'imageUrl' => 'images/Nigella Seeds.jpg', 'description' => 'Black cumin, onion-like flavor.'],
-        ['id' => 14, 'nameEn' => 'Poppy Seeds', 'nameKn' => 'ಗಸಗಸೆ', 'category' => 'whole', 'price' => 1400, 'imageUrl' => 'images/Poppy Seeds.jpg', 'description' => 'Nutty, used in rich gravies.'],
-        ['id' => 15, 'nameEn' => 'Cardamom', 'nameKn' => 'ಏಲಕ್ಕಿ', 'category' => 'whole', 'price' => 3200, 'imageUrl' => 'images/Cardamom.jpg', 'description' => 'Aromatic, sweet, queen of spices.'],
-        ['id' => 16, 'nameEn' => 'Black Cardamom', 'nameKn' => 'ಕರಿ ಏಲಕ್ಕಿ', 'category' => 'whole', 'price' => 1200, 'imageUrl' => 'images/Black Cardamom.jpg', 'description' => 'Smoky, robust, used in biryanis.'],
-        ['id' => 17, 'nameEn' => 'Cloves', 'nameKn' => 'ಲವಂಗ', 'category' => 'whole', 'price' => 900, 'imageUrl' => 'images/Cloves 1860.jpg', 'description' => 'Intense, sweet, numbing aroma.'],
-        ['id' => 18, 'nameEn' => 'Cinnamon', 'nameKn' => 'ದಾಲ್ಚಿನ್ನಿ', 'category' => 'whole', 'price' => 620, 'imageUrl' => 'images/Cinnamon.jpg', 'description' => 'Warm, sweet, woody bark.'],
-        ['id' => 19, 'nameEn' => 'Bay Leaves', 'nameKn' => 'ತೆಂಗಿನ ಕಾಯಿ ಎಲೆ', 'category' => 'whole', 'price' => 320, 'imageUrl' => 'images/Bay Leaves.jpg', 'description' => 'Herbal, used in rice and curries.'],
-        ['id' => 20, 'nameEn' => 'Star Anise', 'nameKn' => 'ತಾರೆ ಸೋಂಪು', 'category' => 'whole', 'price' => 850, 'imageUrl' => 'images/Star Anise.jpg', 'description' => 'Licorice flavor, star-shaped.'],
-        ['id' => 21, 'nameEn' => 'Nutmeg', 'nameKn' => 'ಜಾಯಿಕಾಯಿ', 'category' => 'whole', 'price' => 900, 'imageUrl' => 'images/Nutmeg.jpg', 'description' => 'Sweet, nutty, grate fresh.'],
-        ['id' => 22, 'nameEn' => 'Mace', 'nameKn' => 'ಜಾಪತ್ರೆ', 'category' => 'whole', 'price' => 1400, 'imageUrl' => 'images/Mace.jpg', 'description' => 'Delicate, similar to nutmeg.'],
-        ['id' => 23, 'nameEn' => 'Asafoetida (Hing)', 'nameKn' => 'ಹಿಂಗು', 'category' => 'specialty', 'price' => 3500, 'imageUrl' => 'images/Specialty Spices Asafoetida.jpg', 'description' => 'Pungent resin, replaces onion/garlic.'],
-        ['id' => 24, 'nameEn' => 'Dry Ginger Powder', 'nameKn' => 'ಶುಂಠಿ ಪುಡಿ', 'category' => 'ground', 'price' => 400, 'imageUrl' => 'images/Dry Ginger Powder.jpg', 'description' => 'Warm, zesty, digestive.'],
-        ['id' => 25, 'nameEn' => 'Garlic Powder', 'nameKn' => 'ಬೆಳ್ಳುಳ್ಳಿ ಪುಡಿ', 'category' => 'ground', 'price' => 420, 'imageUrl' => 'images/Garlic Powder.jpg', 'description' => 'Savory, concentrated garlic flavor.'],
-        ['id' => 26, 'nameEn' => 'Onion Powder', 'nameKn' => 'ಈರುಳ್ಳಿ ಪುಡಿ', 'category' => 'ground', 'price' => 380, 'imageUrl' => 'images/Onion Powder.jpg', 'description' => 'Sweet, savory, for rubs and dips.'],
-        ['id' => 27, 'nameEn' => 'Curry Leaves Dry', 'nameKn' => 'ಕರಿಬೇವಿನ ಪುಡಿ', 'category' => 'ground', 'price' => 200, 'imageUrl' => 'images/Curry Leaves Dry.jpg', 'description' => 'Aromatic, essential for South Indian dishes.'],
-        ['id' => 28, 'nameEn' => 'Tamarind Powder', 'nameKn' => 'ಹುಣಸೆ ಪುಡಿ', 'category' => 'ground', 'price' => 280, 'imageUrl' => 'images/Tamarind Powder.jpg', 'description' => 'Tangy, souring agent.'],
-        ['id' => 29, 'nameEn' => 'Mango Powder (Amchur)', 'nameKn' => 'ಮಾವಿನ ಪುಡಿ', 'category' => 'ground', 'price' => 360, 'imageUrl' => 'images/Mango Powder (Amchur).jpg', 'description' => 'Tangy, fruity, used in chaats.'],
-        ['id' => 30, 'nameEn' => 'Saffron', 'nameKn' => 'ಕೇಸರಿ', 'category' => 'specialty', 'price' => 180000, 'imageUrl' => 'images/Saffron.jpg', 'description' => 'Exotic, floral, world\'s most expensive spice.'],
-        ['id' => 31, 'nameEn' => 'Garam Masala', 'nameKn' => 'ಗರಂ ಮಸಾಲಾ', 'category' => 'blend', 'price' => 520, 'imageUrl' => 'images/Garam Masala.jpg', 'description' => 'Warm spice blend for finishing dishes.'],
-        ['id' => 32, 'nameEn' => 'Kitchen King Masala', 'nameKn' => 'ಕಿಚನ್ ಕಿಂಗ್ ಮಸಾಲಾ', 'category' => 'blend', 'price' => 420, 'imageUrl' => 'images/Kitchen King Masala.jpg', 'description' => 'All-purpose curry masala.'],
-        ['id' => 33, 'nameEn' => 'Biryani Masala', 'nameKn' => 'ಬಿರಿಯಾನಿ ಮಸಾಲಾ', 'category' => 'blend', 'price' => 480, 'imageUrl' => 'images/Biryani Masala.jpg', 'description' => 'Fragrant mix for biryani rice.'],
-        ['id' => 34, 'nameEn' => 'Pav Bhaji Masala', 'nameKn' => 'ಪಾವ್ ಭಾಜಿ ಮಸಾಲಾ', 'category' => 'blend', 'price' => 420, 'imageUrl' => 'images/Pav Bhaji Masala.jpg', 'description' => 'Street-style spicy blend.'],
-        ['id' => 35, 'nameEn' => 'Chaat Masala', 'nameKn' => 'ಚಾಟ್ ಮಸಾಲಾ', 'category' => 'blend', 'price' => 380, 'imageUrl' => 'images/Chaat Masala.jpg', 'description' => 'Tangy, spicy, for snacks and fruits.'],
-        ['id' => 36, 'nameEn' => 'Tandoori Masala', 'nameKn' => 'ತಂದೂರಿ ಮಸಾಲಾ', 'category' => 'blend', 'price' => 450, 'imageUrl' => 'images/Tandoori Masala.jpg', 'description' => 'Smoky, red, for grilled meats.'],
-        ['id' => 37, 'nameEn' => 'Butter Chicken Masala', 'nameKn' => 'ಬಟರ್ ಚಿಕನ್ ಮಸಾಲಾ', 'category' => 'blend', 'price' => 480, 'imageUrl' => 'images/Butter Chicken Masala.jpg', 'description' => 'Creamy, rich blend for butter chicken.'],
-        ['id' => 38, 'nameEn' => 'Chicken Masala', 'nameKn' => 'ಚಿಕನ್ ಮಸಾಲಾ', 'category' => 'blend', 'price' => 450, 'imageUrl' => 'images/Chicken Masala.jpg', 'description' => 'Robust blend for chicken curries.'],
-        ['id' => 39, 'nameEn' => 'Mutton Masala', 'nameKn' => 'ಮಟನ್ ಮಸಾಲಾ', 'category' => 'blend', 'price' => 460, 'imageUrl' => 'images/Mutton Masala.jpg', 'description' => 'Hearty, bold for mutton dishes.'],
-        ['id' => 40, 'nameEn' => 'Fish Masala', 'nameKn' => 'ಮೀನು ಮಸಾಲಾ', 'category' => 'blend', 'price' => 430, 'imageUrl' => 'images/Fish Masala.jpg', 'description' => 'Tangy, coastal-style for fish.'],
-        ['id' => 41, 'nameEn' => 'Paneer Masala', 'nameKn' => 'ಪನೀರ್ ಮಸಾಲಾ', 'category' => 'blend', 'price' => 420, 'imageUrl' => 'images/Paneer Masala.jpg', 'description' => 'Mild, creamy for paneer dishes.'],
-        ['id' => 42, 'nameEn' => 'Shahi Paneer Masala', 'nameKn' => 'ಶಾಹಿ ಪನೀರ್ ಮಸಾಲಾ', 'category' => 'blend', 'price' => 440, 'imageUrl' => 'images/Shahi Paneer Masala.jpg', 'description' => 'Royal, rich blend for paneer.'],
-        ['id' => 43, 'nameEn' => 'Rajma Masala', 'nameKn' => 'ರಾಜ್ಮಾ ಮಸಾಲಾ', 'category' => 'blend', 'price' => 420, 'imageUrl' => 'images/Rajma Masala.jpg', 'description' => 'Punjabi-style for kidney beans.'],
-        ['id' => 44, 'nameEn' => 'Chole Masala', 'nameKn' => 'ಚೋಲೆ ಮಸಾಲಾ', 'category' => 'blend', 'price' => 420, 'imageUrl' => 'images/Chole Masala.jpg', 'description' => 'Tangy, spicy for chickpeas.'],
-        ['id' => 45, 'nameEn' => 'Dal Fry Masala', 'nameKn' => 'ದಾಲ್ ಫ್ರೈ ಮಸಾಲಾ', 'category' => 'blend', 'price' => 380, 'imageUrl' => 'images/Dal Fry Masala.jpg', 'description' => 'Tempering mix for lentils.'],
-        ['id' => 46, 'nameEn' => 'Sambar Powder', 'nameKn' => 'ಸಾಂಬಾರ್ ಪುಡಿ', 'category' => 'blend', 'price' => 380, 'imageUrl' => 'images/Sambar Powder.jpg', 'description' => 'South Indian lentil stew base.'],
-        ['id' => 47, 'nameEn' => 'Rasam Powder', 'nameKn' => 'ರಸಂ ಪುಡಿ', 'category' => 'blend', 'price' => 360, 'imageUrl' => 'images/Rasam Powder.jpg', 'description' => 'Peppery, tangy soup base.'],
-        ['id' => 48, 'nameEn' => 'Idli Podi', 'nameKn' => 'ಇಡ್ಲಿ ಪುಡಿ', 'category' => 'blend', 'price' => 420, 'imageUrl' => 'images/Idli Podi.jpg', 'description' => 'Chutney powder for idli/dosa.'],
-        ['id' => 49, 'nameEn' => 'Vangi Bath Powder', 'nameKn' => 'ವಂಗಿ ಬಾತ್ ಪುಡಿ', 'category' => 'blend', 'price' => 450, 'imageUrl' => 'images/Vangi Bath Powder.jpg', 'description' => 'Eggplant rice spice mix.'],
-        ['id' => 50, 'nameEn' => 'Bisi Bele Bath Powder', 'nameKn' => 'ಬಿಸಿ ಬೇಳೆ ಬಾತ್ ಪುಡಿ', 'category' => 'blend', 'price' => 460, 'imageUrl' => 'images/Bisi Bele Bath Powder.jpg', 'description' => 'Karnataka-style rice spice blend.'],
-        ['id' => 51, 'nameEn' => 'Dry Red Chilli', 'nameKn' => 'ಒಣಗಿದ ಕೆಂಪು ಮೆಣಸು', 'category' => 'whole', 'price' => 240, 'imageUrl' => 'images/Dry Red Chilli.jpg', 'description' => 'Whole dried red chilies for tempering.'],
-        ['id' => 52, 'nameEn' => 'Dry Coriander Seeds', 'nameKn' => 'ಕೊತ್ತಂಬರಿ ಬೀಜ', 'category' => 'whole', 'price' => 200, 'imageUrl' => 'images/Dry Coriander Seeds.jpg', 'description' => 'Citrusy seeds, grind fresh.'],
-        ['id' => 53, 'nameEn' => 'Sesame Seeds White', 'nameKn' => 'ಬಿಳಿ ಎಳ್ಳು', 'category' => 'whole', 'price' => 240, 'imageUrl' => 'images/Sesame Seeds White.jpg', 'description' => 'Nutty, used in breads and chutneys.'],
-        ['id' => 54, 'nameEn' => 'Sesame Seeds Black', 'nameKn' => 'ಕರಿ ಎಳ್ಳು', 'category' => 'whole', 'price' => 280, 'imageUrl' => 'images/Sesame Seeds Black.jpg', 'description' => 'Earthy, used in Asian cooking.'],
-        ['id' => 55, 'nameEn' => 'Dill Seeds', 'nameKn' => 'ಸಬ್ಬಸಿಗೆ ಬೀಜ', 'category' => 'whole', 'price' => 320, 'imageUrl' => 'images/Dill Seeds.jpg', 'description' => 'Aromatic, like dill weed.'],
-        ['id' => 56, 'nameEn' => 'Caraway Seeds', 'nameKn' => 'ಶಾಹಿ ಜೀರಿಗೆ', 'category' => 'whole', 'price' => 420, 'imageUrl' => 'images/Caraway Seeds.jpg', 'description' => 'Rye bread flavor, digestive.'],
-        ['id' => 57, 'nameEn' => 'Panch Phoron Mix', 'nameKn' => 'ಪಂಚ ಫೊರನ್', 'category' => 'blend', 'price' => 450, 'imageUrl' => 'images/Panch Phoron Mix.jpg', 'description' => 'Bengali five-spice blend.'],
-        ['id' => 58, 'nameEn' => 'Paprika', 'nameKn' => 'ಪಾಪ್ರಿಕಾ', 'category' => 'ground', 'price' => 450, 'imageUrl' => 'images/Paprika.jpg', 'description' => 'Sweet, mild red pepper powder.'],
-        ['id' => 59, 'nameEn' => 'Smoked Paprika', 'nameKn' => 'ಹೊಗೆಯ ಪಾಪ್ರಿಕಾ', 'category' => 'ground', 'price' => 520, 'imageUrl' => 'images/Smoked Paprika.jpg', 'description' => 'Deep, smoky flavor.'],
-        ['id' => 60, 'nameEn' => 'Oregano', 'nameKn' => 'ಒರೆಗಾನೊ', 'category' => 'specialty', 'price' => 320, 'imageUrl' => 'images/Oregano.jpg', 'description' => 'Mediterranean herb for pizza.'],
-        ['id' => 61, 'nameEn' => 'Thyme', 'nameKn' => 'ಥೈಮ್', 'category' => 'specialty', 'price' => 350, 'imageUrl' => 'images/Thyme.jpg', 'description' => 'Earthy, floral, for roasts.'],
-        ['id' => 62, 'nameEn' => 'Rosemary', 'nameKn' => 'ರೋಸ್ಮರಿ', 'category' => 'specialty', 'price' => 360, 'imageUrl' => 'images/Rosemary.jpg', 'description' => 'Pine-like, for lamb and potatoes.'],
-        ['id' => 63, 'nameEn' => 'Basil', 'nameKn' => 'ತುಳಸಿ', 'category' => 'specialty', 'price' => 300, 'imageUrl' => 'images/Basil.jpg', 'description' => 'Sweet basil for Italian dishes.'],
-        ['id' => 64, 'nameEn' => 'Cilantro (Coriander Leaves)', 'nameKn' => 'ಕೊತ್ತಂಬರಿ ಸೊಪ್ಪು', 'category' => 'specialty', 'price' => 200, 'imageUrl' => 'images/Cilantro (Coriander Leaves).jpg', 'description' => 'Fresh, citrusy herb.'],
-        ['id' => 65, 'nameEn' => 'Mint', 'nameKn' => 'ಪುದೀನಾ', 'category' => 'specialty', 'price' => 250, 'imageUrl' => 'images/Mint.jpg', 'description' => 'Cooling, for chutneys and teas.'],
-        ['id' => 66, 'nameEn' => 'Taco Seasoning', 'nameKn' => 'ಟಾಕೊ ಸೀಸನಿಂಗ್', 'category' => 'blend', 'price' => 420, 'imageUrl' => 'images/Taco Seasoning.jpg', 'description' => 'Mexican-style spice mix.'],
-        ['id' => 67, 'nameEn' => 'Cajun Seasoning', 'nameKn' => 'ಕಜುನ್ ಸೀಸನಿಂಗ್', 'category' => 'blend', 'price' => 440, 'imageUrl' => 'images/Cajun Seasoning.jpg', 'description' => 'Spicy, herby, for Louisiana cuisine.'],
-        ['id' => 68, 'nameEn' => 'Organic Turmeric', 'nameKn' => 'ಸಾವಯವ ಅರಿಶಿನ', 'category' => 'specialty', 'price' => 360, 'imageUrl' => 'images/Organic Turmeric.jpg', 'description' => 'Certified organic, high curcumin.'],
-        ['id' => 69, 'nameEn' => 'Organic Chilli Powder', 'nameKn' => 'ಸಾವಯವ ಮೆಣಸಿನ ಪುಡಿ', 'category' => 'specialty', 'price' => 420, 'imageUrl' => 'images/Organic Chilli Powder.jpg', 'description' => 'Organic, pure heat.'],
-        ['id' => 70, 'nameEn' => 'Organic Coriander Powder', 'nameKn' => 'ಸಾವಯವ ಕೊತ್ತಂಬರಿ ಪುಡಿ', 'category' => 'specialty', 'price' => 380, 'imageUrl' => 'images/Organic Coriander Powder.jpg', 'description' => 'Organic, fragrant.'],
-        ['id' => 71, 'nameEn' => 'Organic Cumin Powder', 'nameKn' => 'ಸಾವಯವ ಜೀರಿಗೆ ಪುಡಿ', 'category' => 'specialty', 'price' => 420, 'imageUrl' => 'images/Organic Cumin Powder.jpg', 'description' => 'Organic, earthy.'],
-        ['id' => 72, 'nameEn' => 'Organic Garam Masala', 'nameKn' => 'ಸಾವಯವ ಗರಂ ಮಸಾಲಾ', 'category' => 'specialty', 'price' => 480, 'imageUrl' => 'images/Organic Garam Masala.jpg', 'description' => 'Organic blend, no additives.'],
-        ['id' => 73, 'nameEn' => 'Organic Curry Powder', 'nameKn' => 'ಸಾವಯವ ಕರಿ ಪುಡಿ', 'category' => 'specialty', 'price' => 420, 'imageUrl' => 'images/Organic Curry Powder.jpg', 'description' => 'Organic, mild curry blend.'],
-        ['id' => 74, 'nameEn' => 'Organic Pepper', 'nameKn' => 'ಸಾವಯವ ಮೆಣಸು', 'category' => 'specialty', 'price' => 1100, 'imageUrl' => 'images/Organic Pepper.jpg', 'description' => 'Organic black peppercorns.'],
-        ['id' => 75, 'nameEn' => 'Organic Cinnamon', 'nameKn' => 'ಸಾವಯವ ದಾಲ್ಚಿನ್ನಿ', 'category' => 'specialty', 'price' => 720, 'imageUrl' => 'images/Organic Cinnamon.jpg', 'description' => 'Ceylon cinnamon, organic.'],
-        ['id' => 76, 'nameEn' => 'Organic Cardamom', 'nameKn' => 'ಸಾವಯವ ಏಲಕ್ಕಿ', 'category' => 'specialty', 'price' => 3500, 'imageUrl' => 'images/Organic Cardamom.jpg', 'description' => 'Premium green cardamom.'],
-        ['id' => 77, 'nameEn' => 'Organic Cloves', 'nameKn' => 'ಸಾವಯವ ಲವಂಗ', 'category' => 'specialty', 'price' => 1100, 'imageUrl' => 'images/Organic Cloves.jpg', 'description' => 'Organic, aromatic cloves.'],
-        ['id' => 78, 'nameEn' => 'Pepper Mix', 'nameKn' => 'ಮೆಣಸು ಮಿಶ್ರಣ', 'category' => 'blend', 'price' => 800, 'imageUrl' => 'images/Pepper Mix.jpg', 'description' => 'Black, white, green peppercorns.'],
-        ['id' => 79, 'nameEn' => 'Lemon Pepper', 'nameKn' => 'ನಿಂಬೆ ಮೆಣಸು', 'category' => 'blend', 'price' => 620, 'imageUrl' => 'images/Lemon Pepper.jpg', 'description' => 'Citrusy, zesty seasoning.'],
-        ['id' => 80, 'nameEn' => 'Garlic Pepper', 'nameKn' => 'ಬೆಳ್ಳುಳ್ಳಿ ಮೆಣಸು', 'category' => 'blend', 'price' => 620, 'imageUrl' => 'images/Garlic Pepper.jpg', 'description' => 'Savory, garlicky pepper blend.'],
-        ['id' => 81, 'nameEn' => 'Peri Peri Masala', 'nameKn' => 'ಪೇರಿ ಪೇರಿ ಮಸಾಲಾ', 'category' => 'blend', 'price' => 520, 'imageUrl' => 'images/Peri Peri Masala.jpg', 'description' => 'African-Portuguese spicy blend.'],
-        ['id' => 82, 'nameEn' => 'BBQ Spice Mix', 'nameKn' => 'ಬಾರ್ಬಿಕ್ಯೂ ಮಸಾಲಾ', 'category' => 'blend', 'price' => 520, 'imageUrl' => 'images/BBQ Spice Mix.jpg', 'description' => 'Smoky, sweet, for grilling.'],
-        ['id' => 83, 'nameEn' => 'Curry Powder', 'nameKn' => 'ಕರಿ ಪುಡಿ', 'category' => 'blend', 'price' => 420, 'imageUrl' => 'images/Curry Powder.jpg', 'description' => 'Western-style curry blend.'],
-        ['id' => 84, 'nameEn' => 'Pickle Masala', 'nameKn' => 'ಉಪ್ಪಿನಕಾಯಿ ಮಸಾಲಾ', 'category' => 'blend', 'price' => 420, 'imageUrl' => 'images/Pickle Masala.jpg', 'description' => 'Spicy blend for pickling.'],
-        ['id' => 85, 'nameEn' => 'Tea Masala', 'nameKn' => 'ಚಹಾ ಮಸಾಲಾ', 'category' => 'blend', 'price' => 380, 'imageUrl' => 'images/Tea Masala.jpg', 'description' => 'Spices for masala chai.'],
-        ['id' => 86, 'nameEn' => 'Jaljeera Powder', 'nameKn' => 'ಜಲಜೀರಾ ಪುಡಿ', 'category' => 'ground', 'price' => 320, 'imageUrl' => 'images/Jaljeera Powder.jpg', 'description' => 'Tangy cumin drink mix.'],
-        ['id' => 87, 'nameEn' => 'Pani Puri Masala', 'nameKn' => 'ಪಾನಿ ಪೂರಿ ಮಸಾಲಾ', 'category' => 'ground', 'price' => 340, 'imageUrl' => 'images/Pani Puri Masala.jpg', 'description' => 'Spicy water for pani puri.'],
-        ['id' => 88, 'nameEn' => 'Maggi Masala Mix', 'nameKn' => 'ಮ್ಯಾಗಿ ಮಸಾಲಾ ಮಿಕ್ಸ್', 'category' => 'blend', 'price' => 420, 'imageUrl' => 'images/Maggi Masala Mix.jpg', 'description' => 'Noodle seasoning blend.'],
-        ['id' => 89, 'nameEn' => 'Pasta Seasoning', 'nameKn' => 'ಪಾಸ್ಟಾ ಸೀಸನಿಂಗ್', 'category' => 'blend', 'price' => 380, 'imageUrl' => 'images/Pasta Seasoning.jpg', 'description' => 'Italian herb mix for pasta.'],
-        ['id' => 90, 'nameEn' => 'Pizza Seasoning', 'nameKn' => 'ಪಿಜ್ಜಾ ಸೀಸನಿಂಗ್', 'category' => 'blend', 'price' => 380, 'imageUrl' => 'images/Pizza Seasoning.jpg', 'description' => 'Oregano, basil, garlic for pizza.'],
-        ['id' => 91, 'nameEn' => 'Ginger Garlic Powder', 'nameKn' => 'ಶುಂಠಿ ಬೆಳ್ಳುಳ್ಳಿ ಪುಡಿ', 'category' => 'ground', 'price' => 420, 'imageUrl' => 'images/Ginger Garlic Powder.jpg', 'description' => 'Convenient ginger-garlic blend.'],
-        ['id' => 92, 'nameEn' => 'Dry Mint Powder', 'nameKn' => 'ಪುದೀನ ಪುಡಿ', 'category' => 'ground', 'price' => 360, 'imageUrl' => 'images/Dry Mint Powder.jpg', 'description' => 'Dried mint for chutneys.'],
-        ['id' => 93, 'nameEn' => 'Lemongrass Dry', 'nameKn' => 'ಲೆಮನ್ ಗ್ರಾಸ್ ಪುಡಿ', 'category' => 'ground', 'price' => 380, 'imageUrl' => 'images/Lemongrass Dry.jpg', 'description' => 'Citrusy, for soups and teas.'],
-        ['id' => 94, 'nameEn' => 'Tamarind Paste Powder', 'nameKn' => 'ಹುಣಸೆ ಪೇಸ್ಟ್ ಪುಡಿ', 'category' => 'ground', 'price' => 360, 'imageUrl' => 'images/Tamarind Paste Powder.jpg', 'description' => 'Concentrated tamarind powder.'],
-        ['id' => 95, 'nameEn' => 'Spice Grinder Mix', 'nameKn' => 'ಸ್ಪೈಸ್ ಮಿಕ್ಸ್', 'category' => 'blend', 'price' => 480, 'imageUrl' => 'images/Spice Grinder Mix.jpg', 'description' => 'Whole spices for grinding.'],
-        ['id' => 96, 'nameEn' => 'Premium Garam Masala', 'nameKn' => 'ಪ್ರೀಮಿಯಂ ಗರಂ ಮಸಾಲಾ', 'category' => 'specialty', 'price' => 560, 'imageUrl' => 'images/Premium Garam Masala.jpg', 'description' => 'Deluxe aromatic blend.'],
-        ['id' => 97, 'nameEn' => 'Hyderabadi Biryani Masala', 'nameKn' => 'ಹೈದರಾಬಾದಿ ಬಿರಿಯಾನಿ ಮಸಾಲಾ', 'category' => 'blend', 'price' => 520, 'imageUrl' => 'images/Hyderabadi Biryani Masala.jpg', 'description' => 'Authentic Hyderabadi flavor.'],
-        ['id' => 98, 'nameEn' => 'Bombay Biryani Masala', 'nameKn' => 'ಬಾಂಬೆ ಬಿರಿಯಾನಿ ಮಸಾಲಾ', 'category' => 'blend', 'price' => 520, 'imageUrl' => 'images/Bombay Biryani Masala.jpg', 'description' => 'Mumbai-style biryani blend.'],
-        ['id' => 99, 'nameEn' => 'Kolhapuri Masala', 'nameKn' => 'ಕೊಲ್ಹಾಪುರಿ ಮಸಾಲಾ', 'category' => 'blend', 'price' => 520, 'imageUrl' => 'images/Kolhapuri Masala.jpg', 'description' => 'Fiery Maharashtrian blend.'],
-        ['id' => 100, 'nameEn' => 'Malvani Masala', 'nameKn' => 'ಮಾಲ್ವಾಣಿ ಮಸಾಲಾ', 'category' => 'blend', 'price' => 540, 'imageUrl' => 'images/Malvani Masala.jpg', 'description' => 'Coastal Konkani spice mix.'],
-        ['id' => 101, 'nameEn' => 'Goda Masala', 'nameKn' => 'ಗೋಡಾ ಮಸಾಲಾ', 'category' => 'blend', 'price' => 560, 'imageUrl' => 'images/Goda Masala.jpg', 'description' => 'Sweet-spicy Maharashtrian blend.'],
-        ['id' => 102, 'nameEn' => 'Gunpowder Masala', 'nameKn' => 'ಗನ್ ಪೌಡರ್ ಮಸಾಲಾ', 'category' => 'blend', 'price' => 520, 'imageUrl' => 'images/Gunpowder Masala.jpg', 'description' => 'Spicy chutney powder.'],
-        ['id' => 103, 'nameEn' => 'Kashmiri Garam Masala', 'nameKn' => 'ಕಾಶ್ಮೀರಿ ಗರಂ ಮಸಾಲಾ', 'category' => 'blend', 'price' => 560, 'imageUrl' => 'images/Kashmiri Garam Masala.jpg', 'description' => 'Subtle, aromatic Kashmiri blend.'],
-        ['id' => 104, 'nameEn' => 'Butter Paneer Masala', 'nameKn' => 'ಬಟರ್ ಪನೀರ್ ಮಸಾಲಾ', 'category' => 'blend', 'price' => 520, 'imageUrl' => 'images/Butter Paneer Masala.jpg', 'description' => 'Rich gravy spice mix.'],
-        ['id' => 105, 'nameEn' => 'Veg Curry Masala', 'nameKn' => 'ವೆಜ್ ಕರಿ ಮಸಾಲಾ', 'category' => 'blend', 'price' => 520, 'imageUrl' => 'images/Veg Curry Masala.jpg', 'description' => 'Vegetable curry blend.'],
-        ['id' => 106, 'nameEn' => 'Dal Tadka Masala', 'nameKn' => 'ದಾಲ್ ತಡ್ಕಾ ಮಸಾಲಾ', 'category' => 'blend', 'price' => 520, 'imageUrl' => 'images/Dal Tadka Masala.jpg', 'description' => 'Tempering spice for dal.'],
-        ['id' => 107, 'nameEn' => 'Meat Curry Masala', 'nameKn' => 'ಮೀಟ್ ಕರಿ ಮಸಾಲಾ', 'category' => 'blend', 'price' => 540, 'imageUrl' => 'images/Meat Curry Masala.jpg', 'description' => 'Hearty blend for meat curries.'],
-        ['id' => 108, 'nameEn' => 'Dry Curry Leaves Powder', 'nameKn' => 'ಕರಿಬೇವಿನ ಪುಡಿ', 'category' => 'ground', 'price' => 320, 'imageUrl' => 'images/Dry Curry Leaves Powder.jpg', 'description' => 'Aromatic curry leaf powder.'],
-        ['id' => 109, 'nameEn' => 'Curry Base Masala', 'nameKn' => 'ಕರಿ ಬೇಸ್ ಮಸಾಲಾ', 'category' => 'blend', 'price' => 480, 'imageUrl' => 'images/Curry Base Masala.jpg', 'description' => 'Foundation for many curries.'],
-        ['id' => 110, 'nameEn' => 'Spice Gift Pack', 'nameKn' => 'ಮಸಾಲೆ ಗಿಫ್ಟ್ ಪ್ಯಾಕ್', 'category' => 'specialty', 'price' => 1200, 'imageUrl' => 'images/Spice Gift Pack.jpg', 'description' => 'Assorted spice sampler.'],
-        ['id' => 111, 'nameEn' => 'Kitchen Spice Kit', 'nameKn' => 'ಕಿಚನ್ ಸ್ಪೈಸ್ ಕಿಟ್', 'category' => 'specialty', 'price' => 1500, 'imageUrl' => 'images/Kitchen Spice Kit.jpg', 'description' => 'Complete kitchen spice set.'],
-        ['id' => 112, 'nameEn' => 'Spice Combo Pack', 'nameKn' => 'ಮಸಾಲೆ ಕಾಂಬೋ ಪ್ಯಾಕ್', 'category' => 'specialty', 'price' => 900, 'imageUrl' => 'images/Spice Combo Pack.jpg', 'description' => 'Value pack of essential spices.'],
-        ['id' => 113, 'nameEn' => 'Whole Spice Combo', 'nameKn' => 'ಸಂಪೂರ್ಣ ಮಸಾಲೆ ಕಾಂಬೋ', 'category' => 'specialty', 'price' => 850, 'imageUrl' => 'images/Whole Spice Combo.jpg', 'description' => 'Whole spices collection.'],
-        ['id' => 114, 'nameEn' => 'Premium Spice Box', 'nameKn' => 'ಪ್ರೀಮಿಯಂ ಸ್ಪೈಸ್ ಬಾಕ್ಸ್', 'category' => 'specialty', 'price' => 1600, 'imageUrl' => 'images/Premium Spice Box.jpg', 'description' => 'Luxury wooden spice box.'],
-        ['id' => 115, 'nameEn' => 'Masala Gift Box', 'nameKn' => 'ಮಸಾಲಾ ಗಿಫ್ಟ್ ಬಾಕ್ಸ್', 'category' => 'specialty', 'price' => 1800, 'imageUrl' => 'images/Masala Gift Box.jpg', 'description' => 'Elegant gift box of blends.'],
-        ['id' => 116, 'nameEn' => 'Exotic Spice Mix', 'nameKn' => 'ಎಕ್ಸೋಟಿಕ್ ಸ್ಪೈಸ್ ಮಿಕ್ಸ್', 'category' => 'blend', 'price' => 680, 'imageUrl' => 'images/Exotic Spice Mix.jpg', 'description' => 'Rare global spice blend.'],
-        ['id' => 117, 'nameEn' => 'BBQ Rub Masala', 'nameKn' => 'ಬಾರ್ಬಿಕ್ಯೂ ರಬ್ ಮಸಾಲಾ', 'category' => 'blend', 'price' => 620, 'imageUrl' => 'images/BBQ Rub Masala.jpg', 'description' => 'Dry rub for barbecues.'],
-        ['id' => 118, 'nameEn' => 'Steak Seasoning', 'nameKn' => 'ಸ್ಟೀಕ್ ಸೀಸನಿಂಗ್', 'category' => 'blend', 'price' => 620, 'imageUrl' => 'images/Steak Seasoning.jpg', 'description' => 'Robust seasoning for steaks.'],
-        ['id' => 119, 'nameEn' => 'Herb Mix', 'nameKn' => 'ಹರ್ಬ್ ಮಿಕ್ಸ್', 'category' => 'blend', 'price' => 420, 'imageUrl' => 'images/Herb Mix.jpg', 'description' => 'Dried herbs blend.'],
-        ['id' => 120, 'nameEn' => 'Lemon Herb Mix', 'nameKn' => 'ನಿಂಬೆ ಹರ್ಬ್ ಮಿಕ್ಸ್', 'category' => 'blend', 'price' => 440, 'imageUrl' => 'images/Lemon Herb Mix.jpg', 'description' => 'Citrus-herb seasoning.'],
-        ['id' => 121, 'nameEn' => 'Curry Leaf Powder', 'nameKn' => 'ಕರಿಬೇವಿನ ಪುಡಿ', 'category' => 'ground', 'price' => 360, 'imageUrl' => 'images/Curry Leaf Powder.jpg', 'description' => 'Pure dried curry leaf powder.'],
-        ['id' => 122, 'nameEn' => 'Mint Masala', 'nameKn' => 'ಪುದೀನ ಮಸಾಲಾ', 'category' => 'blend', 'price' => 380, 'imageUrl' => 'images/Mint Masala.jpg', 'description' => 'Mint-based chutney powder.'],
-        ['id' => 123, 'nameEn' => 'Tangy Masala', 'nameKn' => 'ಟ್ಯಾಂಗಿ ಮಸಾಲಾ', 'category' => 'blend', 'price' => 420, 'imageUrl' => 'images/Tangy Masala.jpg', 'description' => 'Sour and spicy blend.'],
-        ['id' => 124, 'nameEn' => 'Spicy Curry Powder', 'nameKn' => 'ಸ್ಪೈಸಿ ಕರಿ ಪುಡಿ', 'category' => 'blend', 'price' => 420, 'imageUrl' => 'images/Spicy Curry Powder.jpg', 'description' => 'Extra-hot curry blend.'],
-        ['id' => 125, 'nameEn' => 'House Blend Masala', 'nameKn' => 'ಹೌಸ್ ಬ್ಲೆಂಡ್ ಮಸಾಲಾ', 'category' => 'blend', 'price' => 480, 'imageUrl' => 'images/House Blend Masala.jpg', 'description' => 'Signature chef blend.'],
-        ['id' => 126, 'nameEn' => 'Masala Chai Mix', 'nameKn' => 'ಮಸಾಲಾ ಚಹಾ ಮಿಕ್ಸ್', 'category' => 'blend', 'price' => 380, 'imageUrl' => 'images/Masala Chai Mix.jpg', 'description' => 'Spiced tea blend.'],
-        ['id' => 127, 'nameEn' => 'Pumpkin Spice', 'nameKn' => 'ಪಂಪ್ಕಿನ್ ಸ್ಪೈಸ್', 'category' => 'blend', 'price' => 520, 'imageUrl' => 'images/Pumpkin Spice.jpg', 'description' => 'Cinnamon, nutmeg, ginger for desserts.'],
-        ['id' => 128, 'nameEn' => 'Berbere Spice', 'nameKn' => 'ಬೆರ್ಬೆರೆ ಸ್ಪೈಸ್', 'category' => 'blend', 'price' => 580, 'imageUrl' => 'images/Berbere Spice.jpg', 'description' => 'Ethiopian hot spice blend.']
+        ['id' => 1, 'nameEn' => 'Turmeric Powder', 'nameKn' => 'ಅರಿಶಿನ ಪುಡಿ', 'category' => 'ground', 'price' => 222, 'imageUrl' => 'images/Turmeric Powder.jpg', 'description' => 'Bright yellow, earthy flavor, essential for curries.'],
+        ['id' => 2, 'nameEn' => 'Red Chilli Powder', 'nameKn' => 'ಕೆಂಪು ಮೆಣಸಿನ ಪುಡಿ', 'category' => 'ground', 'price' => 302, 'imageUrl' => 'images/Red chili powder.jpg', 'description' => 'Hot and vibrant, adds heat to dishes.'],
+        ['id' => 3, 'nameEn' => 'Kashmiri Chilli Powder', 'nameKn' => 'ಕಾಶ್ಮೀರಿ ಮೆಣಸಿನ ಪುಡಿ', 'category' => 'ground', 'price' => 422, 'imageUrl' => 'images/Chilli Powder Standard Red Chilli 180.jpg', 'description' => 'Mild heat, brilliant red color.'],
+        ['id' => 4, 'nameEn' => 'Coriander Powder', 'nameKn' => 'ಕೊತ್ತಂಬರಿ ಪುಡಿ', 'category' => 'ground', 'price' => 242, 'imageUrl' => 'images/Coriander Powder.jpg', 'description' => 'Citrusy, nutty, foundation of Indian cooking.'],
+        ['id' => 5, 'nameEn' => 'Cumin Seeds', 'nameKn' => 'ಜೀರಿಗೆ', 'category' => 'whole', 'price' => 522, 'imageUrl' => 'images/Cumin Seeds.jpg', 'description' => 'Earthy, warm, essential tempering spice.'],
+        ['id' => 6, 'nameEn' => 'Cumin Powder', 'nameKn' => 'ಜೀರಿಗೆ ಪುಡಿ', 'category' => 'ground', 'price' => 542, 'imageUrl' => 'images/Organic Cumin Powder.jpg', 'description' => 'Ground cumin for easy use in curries.'],
+        ['id' => 7, 'nameEn' => 'Black Pepper', 'nameKn' => 'ಕರಿಮೆಣಸು', 'category' => 'whole', 'price' => 902, 'imageUrl' => 'images/Black Pepper.jpg', 'description' => 'Pungent, sharp, "king of spices".'],
+        ['id' => 8, 'nameEn' => 'White Pepper', 'nameKn' => 'ಬಿಳಿ ಮೆಣಸು', 'category' => 'whole', 'price' => 1202, 'imageUrl' => 'images/White Pepper.jpg', 'description' => 'Milder, used in light-colored dishes.'],
+        ['id' => 9, 'nameEn' => 'Mustard Seeds', 'nameKn' => 'ಸಾಸಿವೆ', 'category' => 'whole', 'price' => 182, 'imageUrl' => 'images/Mustard Seeds.jpg', 'description' => 'Nutty, pungent when cracked.'],
+        ['id' => 10, 'nameEn' => 'Fenugreek Seeds', 'nameKn' => 'ಮೆಂತ್ಯ', 'category' => 'whole', 'price' => 162, 'imageUrl' => 'images/Fenugreek Seeds.jpg', 'description' => 'Slightly bitter, used in pickles and curries.'],
+        ['id' => 11, 'nameEn' => 'Fennel Seeds', 'nameKn' => 'ಸೋಂಪು', 'category' => 'whole', 'price' => 422, 'imageUrl' => 'images/Fennel Seeds.jpg', 'description' => 'Sweet, licorice-like, used as mouth freshener.'],
+        ['id' => 12, 'nameEn' => 'Ajwain Seeds', 'nameKn' => 'ಓಮ', 'category' => 'whole', 'price' => 482, 'imageUrl' => 'images/Ajwain Seeds.jpg', 'description' => 'Thyme-like, aids digestion.'],
+        ['id' => 13, 'nameEn' => 'Nigella Seeds', 'nameKn' => 'ಕೃಷ್ಣ ಜೀರಿಗೆ', 'category' => 'whole', 'price' => 602, 'imageUrl' => 'images/Nigella Seeds.jpg', 'description' => 'Black cumin, onion-like flavor.'],
+        ['id' => 14, 'nameEn' => 'Poppy Seeds', 'nameKn' => 'ಗಸಗಸೆ', 'category' => 'whole', 'price' => 1402, 'imageUrl' => 'images/Poppy Seeds.jpg', 'description' => 'Nutty, used in rich gravies.'],
+        ['id' => 15, 'nameEn' => 'Cardamom', 'nameKn' => 'ಏಲಕ್ಕಿ', 'category' => 'whole', 'price' => 3202, 'imageUrl' => 'images/Cardamom.jpg', 'description' => 'Aromatic, sweet, queen of spices.'],
+        ['id' => 16, 'nameEn' => 'Black Cardamom', 'nameKn' => 'ಕರಿ ಏಲಕ್ಕಿ', 'category' => 'whole', 'price' => 1202, 'imageUrl' => 'images/Black Cardamom.jpg', 'description' => 'Smoky, robust, used in biryanis.'],
+        ['id' => 17, 'nameEn' => 'Cloves', 'nameKn' => 'ಲವಂಗ', 'category' => 'whole', 'price' => 902, 'imageUrl' => 'images/Cloves 1860.jpg', 'description' => 'Intense, sweet, numbing aroma.'],
+        ['id' => 18, 'nameEn' => 'Cinnamon', 'nameKn' => 'ದಾಲ್ಚಿನ್ನಿ', 'category' => 'whole', 'price' => 622, 'imageUrl' => 'images/Cinnamon.jpg', 'description' => 'Warm, sweet, woody bark.'],
+        ['id' => 19, 'nameEn' => 'Bay Leaves', 'nameKn' => 'ತೆಂಗಿನ ಕಾಯಿ ಎಲೆ', 'category' => 'whole', 'price' => 322, 'imageUrl' => 'images/Bay Leaves.jpg', 'description' => 'Herbal, used in rice and curries.'],
+        ['id' => 20, 'nameEn' => 'Star Anise', 'nameKn' => 'ತಾರೆ ಸೋಂಪು', 'category' => 'whole', 'price' => 852, 'imageUrl' => 'images/Star Anise.jpg', 'description' => 'Licorice flavor, star-shaped.'],
+        ['id' => 21, 'nameEn' => 'Nutmeg', 'nameKn' => 'ಜಾಯಿಕಾಯಿ', 'category' => 'whole', 'price' => 902, 'imageUrl' => 'images/Nutmeg.jpg', 'description' => 'Sweet, nutty, grate fresh.'],
+        ['id' => 22, 'nameEn' => 'Mace', 'nameKn' => 'ಜಾಪತ್ರೆ', 'category' => 'whole', 'price' => 1402, 'imageUrl' => 'images/Mace.jpg', 'description' => 'Delicate, similar to nutmeg.'],
+        ['id' => 23, 'nameEn' => 'Asafoetida (Hing)', 'nameKn' => 'ಹಿಂಗು', 'category' => 'specialty', 'price' => 3502, 'imageUrl' => 'images/Specialty Spices Asafoetida.jpg', 'description' => 'Pungent resin, replaces onion/garlic.'],
+        ['id' => 24, 'nameEn' => 'Dry Ginger Powder', 'nameKn' => 'ಶುಂಠಿ ಪುಡಿ', 'category' => 'ground', 'price' => 402, 'imageUrl' => 'images/Dry Ginger Powder.jpg', 'description' => 'Warm, zesty, digestive.'],
+        ['id' => 25, 'nameEn' => 'Garlic Powder', 'nameKn' => 'ಬೆಳ್ಳುಳ್ಳಿ ಪುಡಿ', 'category' => 'ground', 'price' => 422, 'imageUrl' => 'images/Garlic Powder.jpg', 'description' => 'Savory, concentrated garlic flavor.'],
+        ['id' => 26, 'nameEn' => 'Onion Powder', 'nameKn' => 'ಈರುಳ್ಳಿ ಪುಡಿ', 'category' => 'ground', 'price' => 382, 'imageUrl' => 'images/Onion Powder.jpg', 'description' => 'Sweet, savory, for rubs and dips.'],
+        ['id' => 27, 'nameEn' => 'Curry Leaves Dry', 'nameKn' => 'ಕರಿಬೇವಿನ ಪುಡಿ', 'category' => 'ground', 'price' => 202, 'imageUrl' => 'images/Curry Leaves Dry.jpg', 'description' => 'Aromatic, essential for South Indian dishes.'],
+        ['id' => 28, 'nameEn' => 'Tamarind Powder', 'nameKn' => 'ಹುಣಸೆ ಪುಡಿ', 'category' => 'ground', 'price' => 282, 'imageUrl' => 'images/Tamarind Powder.jpg', 'description' => 'Tangy, souring agent.'],
+        ['id' => 29, 'nameEn' => 'Mango Powder (Amchur)', 'nameKn' => 'ಮಾವಿನ ಪುಡಿ', 'category' => 'ground', 'price' => 362, 'imageUrl' => 'images/Mango Powder (Amchur).jpg', 'description' => 'Tangy, fruity, used in chaats.'],
+        ['id' => 30, 'nameEn' => 'Saffron', 'nameKn' => 'ಕೇಸರಿ', 'category' => 'specialty', 'price' => 180002, 'imageUrl' => 'images/Saffron.jpg', 'description' => 'Exotic, floral, world\'s most expensive spice.'],
+        ['id' => 31, 'nameEn' => 'Garam Masala', 'nameKn' => 'ಗರಂ ಮಸಾಲಾ', 'category' => 'blend', 'price' => 522, 'imageUrl' => 'images/Garam Masala.jpg', 'description' => 'Warm spice blend for finishing dishes.'],
+        ['id' => 32, 'nameEn' => 'Kitchen King Masala', 'nameKn' => 'ಕಿಚನ್ ಕಿಂಗ್ ಮಸಾಲಾ', 'category' => 'blend', 'price' => 422, 'imageUrl' => 'images/Kitchen King Masala.jpg', 'description' => 'All-purpose curry masala.'],
+        ['id' => 33, 'nameEn' => 'Biryani Masala', 'nameKn' => 'ಬಿರಿಯಾನಿ ಮಸಾಲಾ', 'category' => 'blend', 'price' => 482, 'imageUrl' => 'images/Biryani Masala.jpg', 'description' => 'Fragrant mix for biryani rice.'],
+        ['id' => 34, 'nameEn' => 'Pav Bhaji Masala', 'nameKn' => 'ಪಾವ್ ಭಾಜಿ ಮಸಾಲಾ', 'category' => 'blend', 'price' => 422, 'imageUrl' => 'images/Pav Bhaji Masala.jpg', 'description' => 'Street-style spicy blend.'],
+        ['id' => 35, 'nameEn' => 'Chaat Masala', 'nameKn' => 'ಚಾಟ್ ಮಸಾಲಾ', 'category' => 'blend', 'price' => 382, 'imageUrl' => 'images/Chaat Masala.jpg', 'description' => 'Tangy, spicy, for snacks and fruits.'],
+        ['id' => 36, 'nameEn' => 'Tandoori Masala', 'nameKn' => 'ತಂದೂರಿ ಮಸಾಲಾ', 'category' => 'blend', 'price' => 452, 'imageUrl' => 'images/Tandoori Masala.jpg', 'description' => 'Smoky, red, for grilled meats.'],
+        ['id' => 37, 'nameEn' => 'Butter Chicken Masala', 'nameKn' => 'ಬಟರ್ ಚಿಕನ್ ಮಸಾಲಾ', 'category' => 'blend', 'price' => 482, 'imageUrl' => 'images/Butter Chicken Masala.jpg', 'description' => 'Creamy, rich blend for butter chicken.'],
+        ['id' => 38, 'nameEn' => 'Chicken Masala', 'nameKn' => 'ಚಿಕನ್ ಮಸಾಲಾ', 'category' => 'blend', 'price' => 452, 'imageUrl' => 'images/Chicken Masala.jpg', 'description' => 'Robust blend for chicken curries.'],
+        ['id' => 39, 'nameEn' => 'Mutton Masala', 'nameKn' => 'ಮಟನ್ ಮಸಾಲಾ', 'category' => 'blend', 'price' => 462, 'imageUrl' => 'images/Mutton Masala.jpg', 'description' => 'Hearty, bold for mutton dishes.'],
+        ['id' => 40, 'nameEn' => 'Fish Masala', 'nameKn' => 'ಮೀನು ಮಸಾಲಾ', 'category' => 'blend', 'price' => 432, 'imageUrl' => 'images/Fish Masala.jpg', 'description' => 'Tangy, coastal-style for fish.'],
+        ['id' => 41, 'nameEn' => 'Paneer Masala', 'nameKn' => 'ಪನೀರ್ ಮಸಾಲಾ', 'category' => 'blend', 'price' => 422, 'imageUrl' => 'images/Paneer Masala.jpg', 'description' => 'Mild, creamy for paneer dishes.'],
+        ['id' => 42, 'nameEn' => 'Shahi Paneer Masala', 'nameKn' => 'ಶಾಹಿ ಪನೀರ್ ಮಸಾಲಾ', 'category' => 'blend', 'price' => 442, 'imageUrl' => 'images/Shahi Paneer Masala.jpg', 'description' => 'Royal, rich blend for paneer.'],
+        ['id' => 43, 'nameEn' => 'Rajma Masala', 'nameKn' => 'ರಾಜ್ಮಾ ಮಸಾಲಾ', 'category' => 'blend', 'price' => 422, 'imageUrl' => 'images/Rajma Masala.jpg', 'description' => 'Punjabi-style for kidney beans.'],
+        ['id' => 44, 'nameEn' => 'Chole Masala', 'nameKn' => 'ಚೋಲೆ ಮಸಾಲಾ', 'category' => 'blend', 'price' => 422, 'imageUrl' => 'images/Chole Masala.jpg', 'description' => 'Tangy, spicy for chickpeas.'],
+        ['id' => 45, 'nameEn' => 'Dal Fry Masala', 'nameKn' => 'ದಾಲ್ ಫ್ರೈ ಮಸಾಲಾ', 'category' => 'blend', 'price' => 382, 'imageUrl' => 'images/Dal Fry Masala.jpg', 'description' => 'Tempering mix for lentils.'],
+        ['id' => 46, 'nameEn' => 'Sambar Powder', 'nameKn' => 'ಸಾಂಬಾರ್ ಪುಡಿ', 'category' => 'blend', 'price' => 382, 'imageUrl' => 'images/Sambar Powder.jpg', 'description' => 'South Indian lentil stew base.'],
+        ['id' => 47, 'nameEn' => 'Rasam Powder', 'nameKn' => 'ರಸಂ ಪುಡಿ', 'category' => 'blend', 'price' => 362, 'imageUrl' => 'images/Rasam Powder.jpg', 'description' => 'Peppery, tangy soup base.'],
+        ['id' => 48, 'nameEn' => 'Idli Podi', 'nameKn' => 'ಇಡ್ಲಿ ಪುಡಿ', 'category' => 'blend', 'price' => 422, 'imageUrl' => 'images/Idli Podi.jpg', 'description' => 'Chutney powder for idli/dosa.'],
+        ['id' => 49, 'nameEn' => 'Vangi Bath Powder', 'nameKn' => 'ವಂಗಿ ಬಾತ್ ಪುಡಿ', 'category' => 'blend', 'price' => 452, 'imageUrl' => 'images/Vangi Bath Powder.jpg', 'description' => 'Eggplant rice spice mix.'],
+        ['id' => 50, 'nameEn' => 'Bisi Bele Bath Powder', 'nameKn' => 'ಬಿಸಿ ಬೇಳೆ ಬಾತ್ ಪುಡಿ', 'category' => 'blend', 'price' => 462, 'imageUrl' => 'images/Bisi Bele Bath Powder.jpg', 'description' => 'Karnataka-style rice spice blend.'],
+        ['id' => 51, 'nameEn' => 'Dry Red Chilli', 'nameKn' => 'ಒಣಗಿದ ಕೆಂಪು ಮೆಣಸು', 'category' => 'whole', 'price' => 242, 'imageUrl' => 'images/Dry Red Chilli.jpg', 'description' => 'Whole dried red chilies for tempering.'],
+        ['id' => 52, 'nameEn' => 'Dry Coriander Seeds', 'nameKn' => 'ಕೊತ್ತಂಬರಿ ಬೀಜ', 'category' => 'whole', 'price' => 202, 'imageUrl' => 'images/Dry Coriander Seeds.jpg', 'description' => 'Citrusy seeds, grind fresh.'],
+        ['id' => 53, 'nameEn' => 'Sesame Seeds White', 'nameKn' => 'ಬಿಳಿ ಎಳ್ಳು', 'category' => 'whole', 'price' => 242, 'imageUrl' => 'images/Sesame Seeds White.jpg', 'description' => 'Nutty, used in breads and chutneys.'],
+        ['id' => 54, 'nameEn' => 'Sesame Seeds Black', 'nameKn' => 'ಕರಿ ಎಳ್ಳು', 'category' => 'whole', 'price' => 282, 'imageUrl' => 'images/Sesame Seeds Black.jpg', 'description' => 'Earthy, used in Asian cooking.'],
+        ['id' => 55, 'nameEn' => 'Dill Seeds', 'nameKn' => 'ಸಬ್ಬಸಿಗೆ ಬೀಜ', 'category' => 'whole', 'price' => 322, 'imageUrl' => 'images/Dill Seeds.jpg', 'description' => 'Aromatic, like dill weed.'],
+        ['id' => 56, 'nameEn' => 'Caraway Seeds', 'nameKn' => 'ಶಾಹಿ ಜೀರಿಗೆ', 'category' => 'whole', 'price' => 422, 'imageUrl' => 'images/Caraway Seeds.jpg', 'description' => 'Rye bread flavor, digestive.'],
+        ['id' => 57, 'nameEn' => 'Panch Phoron Mix', 'nameKn' => 'ಪಂಚ ಫೊರನ್', 'category' => 'blend', 'price' => 452, 'imageUrl' => 'images/Panch Phoron Mix.jpg', 'description' => 'Bengali five-spice blend.'],
+        ['id' => 58, 'nameEn' => 'Paprika', 'nameKn' => 'ಪಾಪ್ರಿಕಾ', 'category' => 'ground', 'price' => 452, 'imageUrl' => 'images/Paprika.jpg', 'description' => 'Sweet, mild red pepper powder.'],
+        ['id' => 59, 'nameEn' => 'Smoked Paprika', 'nameKn' => 'ಹೊಗೆಯ ಪಾಪ್ರಿಕಾ', 'category' => 'ground', 'price' => 522, 'imageUrl' => 'images/Smoked Paprika.jpg', 'description' => 'Deep, smoky flavor.'],
+        ['id' => 60, 'nameEn' => 'Oregano', 'nameKn' => 'ಒರೆಗಾನೊ', 'category' => 'specialty', 'price' => 322, 'imageUrl' => 'images/Oregano.jpg', 'description' => 'Mediterranean herb for pizza.'],
+        ['id' => 61, 'nameEn' => 'Thyme', 'nameKn' => 'ಥೈಮ್', 'category' => 'specialty', 'price' => 352, 'imageUrl' => 'images/Thyme.jpg', 'description' => 'Earthy, floral, for roasts.'],
+        ['id' => 62, 'nameEn' => 'Rosemary', 'nameKn' => 'ರೋಸ್ಮರಿ', 'category' => 'specialty', 'price' => 362, 'imageUrl' => 'images/Rosemary.jpg', 'description' => 'Pine-like, for lamb and potatoes.'],
+        ['id' => 63, 'nameEn' => 'Basil', 'nameKn' => 'ತುಳಸಿ', 'category' => 'specialty', 'price' => 302, 'imageUrl' => 'images/Basil.jpg', 'description' => 'Sweet basil for Italian dishes.'],
+        ['id' => 64, 'nameEn' => 'Cilantro (Coriander Leaves)', 'nameKn' => 'ಕೊತ್ತಂಬರಿ ಸೊಪ್ಪು', 'category' => 'specialty', 'price' => 202, 'imageUrl' => 'images/Cilantro (Coriander Leaves).jpg', 'description' => 'Fresh, citrusy herb.'],
+        ['id' => 65, 'nameEn' => 'Mint', 'nameKn' => 'ಪುದೀನಾ', 'category' => 'specialty', 'price' => 252, 'imageUrl' => 'images/Mint.jpg', 'description' => 'Cooling, for chutneys and teas.'],
+        ['id' => 66, 'nameEn' => 'Taco Seasoning', 'nameKn' => 'ಟಾಕೊ ಸೀಸನಿಂಗ್', 'category' => 'blend', 'price' => 422, 'imageUrl' => 'images/Taco Seasoning.jpg', 'description' => 'Mexican-style spice mix.'],
+        ['id' => 67, 'nameEn' => 'Cajun Seasoning', 'nameKn' => 'ಕಜುನ್ ಸೀಸನಿಂಗ್', 'category' => 'blend', 'price' => 442, 'imageUrl' => 'images/Cajun Seasoning.jpg', 'description' => 'Spicy, herby, for Louisiana cuisine.'],
+        ['id' => 68, 'nameEn' => 'Organic Turmeric', 'nameKn' => 'ಸಾವಯವ ಅರಿಶಿನ', 'category' => 'specialty', 'price' => 362, 'imageUrl' => 'images/Organic Turmeric.jpg', 'description' => 'Certified organic, high curcumin.'],
+        ['id' => 69, 'nameEn' => 'Organic Chilli Powder', 'nameKn' => 'ಸಾವಯವ ಮೆಣಸಿನ ಪುಡಿ', 'category' => 'specialty', 'price' => 422, 'imageUrl' => 'images/Organic Chilli Powder.jpg', 'description' => 'Organic, pure heat.'],
+        ['id' => 70, 'nameEn' => 'Organic Coriander Powder', 'nameKn' => 'ಸಾವಯವ ಕೊತ್ತಂಬರಿ ಪುಡಿ', 'category' => 'specialty', 'price' => 382, 'imageUrl' => 'images/Organic Coriander Powder.jpg', 'description' => 'Organic, fragrant.'],
+        ['id' => 71, 'nameEn' => 'Organic Cumin Powder', 'nameKn' => 'ಸಾವಯವ ಜೀರಿಗೆ ಪುಡಿ', 'category' => 'specialty', 'price' => 422, 'imageUrl' => 'images/Organic Cumin Powder.jpg', 'description' => 'Organic, earthy.'],
+        ['id' => 72, 'nameEn' => 'Organic Garam Masala', 'nameKn' => 'ಸಾವಯವ ಗರಂ ಮಸಾಲಾ', 'category' => 'specialty', 'price' => 482, 'imageUrl' => 'images/Organic Garam Masala.jpg', 'description' => 'Organic blend, no additives.'],
+        ['id' => 73, 'nameEn' => 'Organic Curry Powder', 'nameKn' => 'ಸಾವಯವ ಕರಿ ಪುಡಿ', 'category' => 'specialty', 'price' => 422, 'imageUrl' => 'images/Organic Curry Powder.jpg', 'description' => 'Organic, mild curry blend.'],
+        ['id' => 74, 'nameEn' => 'Organic Pepper', 'nameKn' => 'ಸಾವಯವ ಮೆಣಸು', 'category' => 'specialty', 'price' => 1102, 'imageUrl' => 'images/Organic Pepper.jpg', 'description' => 'Organic black peppercorns.'],
+        ['id' => 75, 'nameEn' => 'Organic Cinnamon', 'nameKn' => 'ಸಾವಯವ ದಾಲ್ಚಿನ್ನಿ', 'category' => 'specialty', 'price' => 722, 'imageUrl' => 'images/Organic Cinnamon.jpg', 'description' => 'Ceylon cinnamon, organic.'],
+        ['id' => 76, 'nameEn' => 'Organic Cardamom', 'nameKn' => 'ಸಾವಯವ ಏಲಕ್ಕಿ', 'category' => 'specialty', 'price' => 3502, 'imageUrl' => 'images/Organic Cardamom.jpg', 'description' => 'Premium green cardamom.'],
+        ['id' => 77, 'nameEn' => 'Organic Cloves', 'nameKn' => 'ಸಾವಯವ ಲವಂಗ', 'category' => 'specialty', 'price' => 1102, 'imageUrl' => 'images/Organic Cloves.jpg', 'description' => 'Organic, aromatic cloves.'],
+        ['id' => 78, 'nameEn' => 'Pepper Mix', 'nameKn' => 'ಮೆಣಸು ಮಿಶ್ರಣ', 'category' => 'blend', 'price' => 802, 'imageUrl' => 'images/Pepper Mix.jpg', 'description' => 'Black, white, green peppercorns.'],
+        ['id' => 79, 'nameEn' => 'Lemon Pepper', 'nameKn' => 'ನಿಂಬೆ ಮೆಣಸು', 'category' => 'blend', 'price' => 622, 'imageUrl' => 'images/Lemon Pepper.jpg', 'description' => 'Citrusy, zesty seasoning.'],
+        ['id' => 80, 'nameEn' => 'Garlic Pepper', 'nameKn' => 'ಬೆಳ್ಳುಳ್ಳಿ ಮೆಣಸು', 'category' => 'blend', 'price' => 622, 'imageUrl' => 'images/Garlic Pepper.jpg', 'description' => 'Savory, garlicky pepper blend.'],
+        ['id' => 81, 'nameEn' => 'Peri Peri Masala', 'nameKn' => 'ಪೇರಿ ಪೇರಿ ಮಸಾಲಾ', 'category' => 'blend', 'price' => 522, 'imageUrl' => 'images/Peri Peri Masala.jpg', 'description' => 'African-Portuguese spicy blend.'],
+        ['id' => 82, 'nameEn' => 'BBQ Spice Mix', 'nameKn' => 'ಬಾರ್ಬಿಕ್ಯೂ ಮಸಾಲಾ', 'category' => 'blend', 'price' => 522, 'imageUrl' => 'images/BBQ Spice Mix.jpg', 'description' => 'Smoky, sweet, for grilling.'],
+        ['id' => 83, 'nameEn' => 'Curry Powder', 'nameKn' => 'ಕರಿ ಪುಡಿ', 'category' => 'blend', 'price' => 422, 'imageUrl' => 'images/Curry Powder.jpg', 'description' => 'Western-style curry blend.'],
+        ['id' => 84, 'nameEn' => 'Pickle Masala', 'nameKn' => 'ಉಪ್ಪಿನಕಾಯಿ ಮಸಾಲಾ', 'category' => 'blend', 'price' => 422, 'imageUrl' => 'images/Pickle Masala.jpg', 'description' => 'Spicy blend for pickling.'],
+        ['id' => 85, 'nameEn' => 'Tea Masala', 'nameKn' => 'ಚಹಾ ಮಸಾಲಾ', 'category' => 'blend', 'price' => 382, 'imageUrl' => 'images/Tea Masala.jpg', 'description' => 'Spices for masala chai.'],
+        ['id' => 86, 'nameEn' => 'Jaljeera Powder', 'nameKn' => 'ಜಲಜೀರಾ ಪುಡಿ', 'category' => 'ground', 'price' => 322, 'imageUrl' => 'images/Jaljeera Powder.jpg', 'description' => 'Tangy cumin drink mix.'],
+        ['id' => 87, 'nameEn' => 'Pani Puri Masala', 'nameKn' => 'ಪಾನಿ ಪೂರಿ ಮಸಾಲಾ', 'category' => 'ground', 'price' => 342, 'imageUrl' => 'images/Pani Puri Masala.jpg', 'description' => 'Spicy water for pani puri.'],
+        ['id' => 88, 'nameEn' => 'Maggi Masala Mix', 'nameKn' => 'ಮ್ಯಾಗಿ ಮಸಾಲಾ ಮಿಕ್ಸ್', 'category' => 'blend', 'price' => 422, 'imageUrl' => 'images/Maggi Masala Mix.jpg', 'description' => 'Noodle seasoning blend.'],
+        ['id' => 89, 'nameEn' => 'Pasta Seasoning', 'nameKn' => 'ಪಾಸ್ಟಾ ಸೀಸನಿಂಗ್', 'category' => 'blend', 'price' => 382, 'imageUrl' => 'images/Pasta Seasoning.jpg', 'description' => 'Italian herb mix for pasta.'],
+        ['id' => 90, 'nameEn' => 'Pizza Seasoning', 'nameKn' => 'ಪಿಜ್ಜಾ ಸೀಸನಿಂಗ್', 'category' => 'blend', 'price' => 382, 'imageUrl' => 'images/Pizza Seasoning.jpg', 'description' => 'Oregano, basil, garlic for pizza.'],
+        ['id' => 91, 'nameEn' => 'Ginger Garlic Powder', 'nameKn' => 'ಶುಂಠಿ ಬೆಳ್ಳುಳ್ಳಿ ಪುಡಿ', 'category' => 'ground', 'price' => 422, 'imageUrl' => 'images/Ginger Garlic Powder.jpg', 'description' => 'Convenient ginger-garlic blend.'],
+        ['id' => 92, 'nameEn' => 'Dry Mint Powder', 'nameKn' => 'ಪುದೀನ ಪುಡಿ', 'category' => 'ground', 'price' => 362, 'imageUrl' => 'images/Dry Mint Powder.jpg', 'description' => 'Dried mint for chutneys.'],
+        ['id' => 93, 'nameEn' => 'Lemongrass Dry', 'nameKn' => 'ಲೆಮನ್ ಗ್ರಾಸ್ ಪುಡಿ', 'category' => 'ground', 'price' => 382, 'imageUrl' => 'images/Lemongrass Dry.jpg', 'description' => 'Citrusy, for soups and teas.'],
+        ['id' => 94, 'nameEn' => 'Tamarind Paste Powder', 'nameKn' => 'ಹುಣಸೆ ಪೇಸ್ಟ್ ಪುಡಿ', 'category' => 'ground', 'price' => 362, 'imageUrl' => 'images/Tamarind Paste Powder.jpg', 'description' => 'Concentrated tamarind powder.'],
+        ['id' => 95, 'nameEn' => 'Spice Grinder Mix', 'nameKn' => 'ಸ್ಪೈಸ್ ಮಿಕ್ಸ್', 'category' => 'blend', 'price' => 482, 'imageUrl' => 'images/Spice Grinder Mix.jpg', 'description' => 'Whole spices for grinding.'],
+        ['id' => 96, 'nameEn' => 'Premium Garam Masala', 'nameKn' => 'ಪ್ರೀಮಿಯಂ ಗರಂ ಮಸಾಲಾ', 'category' => 'specialty', 'price' => 562, 'imageUrl' => 'images/Premium Garam Masala.jpg', 'description' => 'Deluxe aromatic blend.'],
+        ['id' => 97, 'nameEn' => 'Hyderabadi Biryani Masala', 'nameKn' => 'ಹೈದರಾಬಾದಿ ಬಿರಿಯಾನಿ ಮಸಾಲಾ', 'category' => 'blend', 'price' => 522, 'imageUrl' => 'images/Hyderabadi Biryani Masala.jpg', 'description' => 'Authentic Hyderabadi flavor.'],
+        ['id' => 98, 'nameEn' => 'Bombay Biryani Masala', 'nameKn' => 'ಬಾಂಬೆ ಬಿರಿಯಾನಿ ಮಸಾಲಾ', 'category' => 'blend', 'price' => 522, 'imageUrl' => 'images/Bombay Biryani Masala.jpg', 'description' => 'Mumbai-style biryani blend.'],
+        ['id' => 99, 'nameEn' => 'Kolhapuri Masala', 'nameKn' => 'ಕೊಲ್ಹಾಪುರಿ ಮಸಾಲಾ', 'category' => 'blend', 'price' => 522, 'imageUrl' => 'images/Kolhapuri Masala.jpg', 'description' => 'Fiery Maharashtrian blend.'],
+        ['id' => 100, 'nameEn' => 'Malvani Masala', 'nameKn' => 'ಮಾಲ್ವಾಣಿ ಮಸಾಲಾ', 'category' => 'blend', 'price' => 542, 'imageUrl' => 'images/Malvani Masala.jpg', 'description' => 'Coastal Konkani spice mix.'],
+        ['id' => 101, 'nameEn' => 'Goda Masala', 'nameKn' => 'ಗೋಡಾ ಮಸಾಲಾ', 'category' => 'blend', 'price' => 562, 'imageUrl' => 'images/Goda Masala.jpg', 'description' => 'Sweet-spicy Maharashtrian blend.'],
+        ['id' => 102, 'nameEn' => 'Gunpowder Masala', 'nameKn' => 'ಗನ್ ಪೌಡರ್ ಮಸಾಲಾ', 'category' => 'blend', 'price' => 522, 'imageUrl' => 'images/Gunpowder Masala.jpg', 'description' => 'Spicy chutney powder.'],
+        ['id' => 103, 'nameEn' => 'Kashmiri Garam Masala', 'nameKn' => 'ಕಾಶ್ಮೀರಿ ಗರಂ ಮಸಾಲಾ', 'category' => 'blend', 'price' => 562, 'imageUrl' => 'images/Kashmiri Garam Masala.jpg', 'description' => 'Subtle, aromatic Kashmiri blend.'],
+        ['id' => 104, 'nameEn' => 'Butter Paneer Masala', 'nameKn' => 'ಬಟರ್ ಪನೀರ್ ಮಸಾಲಾ', 'category' => 'blend', 'price' => 522, 'imageUrl' => 'images/Butter Paneer Masala.jpg', 'description' => 'Rich gravy spice mix.'],
+        ['id' => 105, 'nameEn' => 'Veg Curry Masala', 'nameKn' => 'ವೆಜ್ ಕರಿ ಮಸಾಲಾ', 'category' => 'blend', 'price' => 522, 'imageUrl' => 'images/Veg Curry Masala.jpg', 'description' => 'Vegetable curry blend.'],
+        ['id' => 106, 'nameEn' => 'Dal Tadka Masala', 'nameKn' => 'ದಾಲ್ ತಡ್ಕಾ ಮಸಾಲಾ', 'category' => 'blend', 'price' => 522, 'imageUrl' => 'images/Dal Tadka Masala.jpg', 'description' => 'Tempering spice for dal.'],
+        ['id' => 107, 'nameEn' => 'Meat Curry Masala', 'nameKn' => 'ಮೀಟ್ ಕರಿ ಮಸಾಲಾ', 'category' => 'blend', 'price' => 542, 'imageUrl' => 'images/Meat Curry Masala.jpg', 'description' => 'Hearty blend for meat curries.'],
+        ['id' => 108, 'nameEn' => 'Dry Curry Leaves Powder', 'nameKn' => 'ಕರಿಬೇವಿನ ಪುಡಿ', 'category' => 'ground', 'price' => 322, 'imageUrl' => 'images/Dry Curry Leaves Powder.jpg', 'description' => 'Aromatic curry leaf powder.'],
+        ['id' => 109, 'nameEn' => 'Curry Base Masala', 'nameKn' => 'ಕರಿ ಬೇಸ್ ಮಸಾಲಾ', 'category' => 'blend', 'price' => 482, 'imageUrl' => 'images/Curry Base Masala.jpg', 'description' => 'Foundation for many curries.'],
+        ['id' => 110, 'nameEn' => 'Spice Gift Pack', 'nameKn' => 'ಮಸಾಲೆ ಗಿಫ್ಟ್ ಪ್ಯಾಕ್', 'category' => 'specialty', 'price' => 1202, 'imageUrl' => 'images/Spice Gift Pack.jpg', 'description' => 'Assorted spice sampler.'],
+        ['id' => 111, 'nameEn' => 'Kitchen Spice Kit', 'nameKn' => 'ಕಿಚನ್ ಸ್ಪೈಸ್ ಕಿಟ್', 'category' => 'specialty', 'price' => 1502, 'imageUrl' => 'images/Kitchen Spice Kit.jpg', 'description' => 'Complete kitchen spice set.'],
+        ['id' => 112, 'nameEn' => 'Spice Combo Pack', 'nameKn' => 'ಮಸಾಲೆ ಕಾಂಬೋ ಪ್ಯಾಕ್', 'category' => 'specialty', 'price' => 902, 'imageUrl' => 'images/Spice Combo Pack.jpg', 'description' => 'Value pack of essential spices.'],
+        ['id' => 113, 'nameEn' => 'Whole Spice Combo', 'nameKn' => 'ಸಂಪೂರ್ಣ ಮಸಾಲೆ ಕಾಂಬೋ', 'category' => 'specialty', 'price' => 852, 'imageUrl' => 'images/Whole Spice Combo.jpg', 'description' => 'Whole spices collection.'],
+        ['id' => 114, 'nameEn' => 'Premium Spice Box', 'nameKn' => 'ಪ್ರೀಮಿಯಂ ಸ್ಪೈಸ್ ಬಾಕ್ಸ್', 'category' => 'specialty', 'price' => 1602, 'imageUrl' => 'images/Premium Spice Box.jpg', 'description' => 'Luxury wooden spice box.'],
+        ['id' => 115, 'nameEn' => 'Masala Gift Box', 'nameKn' => 'ಮಸಾಲಾ ಗಿಫ್ಟ್ ಬಾಕ್ಸ್', 'category' => 'specialty', 'price' => 1802, 'imageUrl' => 'images/Masala Gift Box.jpg', 'description' => 'Elegant gift box of blends.'],
+        ['id' => 116, 'nameEn' => 'Exotic Spice Mix', 'nameKn' => 'ಎಕ್ಸೋಟಿಕ್ ಸ್ಪೈಸ್ ಮಿಕ್ಸ್', 'category' => 'blend', 'price' => 682, 'imageUrl' => 'images/Exotic Spice Mix.jpg', 'description' => 'Rare global spice blend.'],
+        ['id' => 117, 'nameEn' => 'BBQ Rub Masala', 'nameKn' => 'ಬಾರ್ಬಿಕ್ಯೂ ರಬ್ ಮಸಾಲಾ', 'category' => 'blend', 'price' => 622, 'imageUrl' => 'images/BBQ Rub Masala.jpg', 'description' => 'Dry rub for barbecues.'],
+        ['id' => 118, 'nameEn' => 'Steak Seasoning', 'nameKn' => 'ಸ್ಟೀಕ್ ಸೀಸನಿಂಗ್', 'category' => 'blend', 'price' => 622, 'imageUrl' => 'images/Steak Seasoning.jpg', 'description' => 'Robust seasoning for steaks.'],
+        ['id' => 119, 'nameEn' => 'Herb Mix', 'nameKn' => 'ಹರ್ಬ್ ಮಿಕ್ಸ್', 'category' => 'blend', 'price' => 422, 'imageUrl' => 'images/Herb Mix.jpg', 'description' => 'Dried herbs blend.'],
+        ['id' => 120, 'nameEn' => 'Lemon Herb Mix', 'nameKn' => 'ನಿಂಬೆ ಹರ್ಬ್ ಮಿಕ್ಸ್', 'category' => 'blend', 'price' => 442, 'imageUrl' => 'images/Lemon Herb Mix.jpg', 'description' => 'Citrus-herb seasoning.'],
+        ['id' => 121, 'nameEn' => 'Curry Leaf Powder', 'nameKn' => 'ಕರಿಬೇವಿನ ಪುಡಿ', 'category' => 'ground', 'price' => 362, 'imageUrl' => 'images/Curry Leaf Powder.jpg', 'description' => 'Pure dried curry leaf powder.'],
+        ['id' => 122, 'nameEn' => 'Mint Masala', 'nameKn' => 'ಪುದೀನ ಮಸಾಲಾ', 'category' => 'blend', 'price' => 382, 'imageUrl' => 'images/Mint Masala.jpg', 'description' => 'Mint-based chutney powder.'],
+        ['id' => 123, 'nameEn' => 'Tangy Masala', 'nameKn' => 'ಟ್ಯಾಂಗಿ ಮಸಾಲಾ', 'category' => 'blend', 'price' => 422, 'imageUrl' => 'images/Tangy Masala.jpg', 'description' => 'Sour and spicy blend.'],
+        ['id' => 124, 'nameEn' => 'Spicy Curry Powder', 'nameKn' => 'ಸ್ಪೈಸಿ ಕರಿ ಪುಡಿ', 'category' => 'blend', 'price' => 422, 'imageUrl' => 'images/Spicy Curry Powder.jpg', 'description' => 'Extra-hot curry blend.'],
+        ['id' => 125, 'nameEn' => 'House Blend Masala', 'nameKn' => 'ಹೌಸ್ ಬ್ಲೆಂಡ್ ಮಸಾಲಾ', 'category' => 'blend', 'price' => 482, 'imageUrl' => 'images/House Blend Masala.jpg', 'description' => 'Signature chef blend.'],
+        ['id' => 126, 'nameEn' => 'Masala Chai Mix', 'nameKn' => 'ಮಸಾಲಾ ಚಹಾ ಮಿಕ್ಸ್', 'category' => 'blend', 'price' => 382, 'imageUrl' => 'images/Masala Chai Mix.jpg', 'description' => 'Spiced tea blend.'],
+        ['id' => 127, 'nameEn' => 'Pumpkin Spice', 'nameKn' => 'ಪಂಪ್ಕಿನ್ ಸ್ಪೈಸ್', 'category' => 'blend', 'price' => 522, 'imageUrl' => 'images/Pumpkin Spice.jpg', 'description' => 'Cinnamon, nutmeg, ginger for desserts.'],
+        ['id' => 128, 'nameEn' => 'Berbere Spice', 'nameKn' => 'ಬೆರ್ಬೆರೆ ಸ್ಪೈಸ್', 'category' => 'blend', 'price' => 582, 'imageUrl' => 'images/Berbere Spice.jpg', 'description' => 'Ethiopian hot spice blend.'],
+        ['id' => 9400, 'nameEn' => 'Aashirvaad Cardamom', 'nameKn' => 'ಆಶೀರ್ವಾದ್ ಏಲಕ್ಕಿ', 'category' => 'whole', 'price' => 2802, 'imageUrl' => 'images/Aashirvaad Cardamom 50 g 200.jpg', 'description' => 'Handpicked aromatic green cardamom pods.'],
+        ['id' => 9401, 'nameEn' => 'Ambica Turmeric Powder', 'nameKn' => 'ಅಂಬಿಕಾ ಅರಿಶಿನ ಪುಡಿ', 'category' => 'ground', 'price' => 242, 'imageUrl' => 'images/Ambica Turmeric Powder 30.jpg', 'description' => 'Pure traditional turmeric powder.'],
+        ['id' => 9402, 'nameEn' => 'Bay Leaf', 'nameKn' => 'ಪಲಾವ್ ಎಲೆ', 'category' => 'whole', 'price' => 302, 'imageUrl' => 'images/Bay Leaf.jpg', 'description' => 'Fragrant dried bay leaves for biryanis and stews.'],
+        ['id' => 9403, 'nameEn' => 'Bay Leaf Tej Patta', 'nameKn' => 'ತೇಜ್ ಪತ್ತಾ', 'category' => 'whole', 'price' => 342, 'imageUrl' => 'images/Bay Leaf (Tej Patta).jpg', 'description' => 'Whole Himalayan tej patta leaves.'],
+        ['id' => 9404, 'nameEn' => 'Biryani Pulav Masala', 'nameKn' => 'ಬಿರಿಯಾನಿ ಪುಲಾವ್ ಮಸಾಲಾ', 'category' => 'blend', 'price' => 522, 'imageUrl' => 'images/Biryani Pulav Masala 100.jpg', 'description' => 'Rich aromatic spice blend for biryani & pulao.'],
+        ['id' => 9405, 'nameEn' => 'Black Pepper 900g', 'nameKn' => 'ಕಾಳು ಮೆಣಸು ಬಲ್ಕ್', 'category' => 'whole', 'price' => 902, 'imageUrl' => 'images/Black Pepper 900.jpg', 'description' => 'Bold Tellicherry whole black pepper.'],
+        ['id' => 9406, 'nameEn' => 'Bulk Chilli Powder', 'nameKn' => 'ಮೆಣಸಿನ ಪುಡಿ ಬಲ್ಕ್', 'category' => 'ground', 'price' => 282, 'imageUrl' => 'images/Bulk Chilli Powder.jpeg', 'description' => 'Vibrant sun-dried red chilli powder.'],
+        ['id' => 9407, 'nameEn' => 'Bulk Mustard Seeds', 'nameKn' => 'ಸಾಸಿವೆ ಬಲ್ಕ್', 'category' => 'whole', 'price' => 172, 'imageUrl' => 'images/Bulk Mustard Seeds.jpg', 'description' => 'Clean tempering mustard seeds value pack.'],
+        ['id' => 9408, 'nameEn' => 'Cumin Seeds 750g', 'nameKn' => 'ಜೀರಿಗೆ ಬಲ್ಕ್', 'category' => 'whole', 'price' => 752, 'imageUrl' => 'images/Cumin Seeds 750.jpg', 'description' => 'Fragrant whole jeera seeds.'],
+        ['id' => 9409, 'nameEn' => 'Garam Masala Tata Sampann', 'nameKn' => 'ಟಾಟಾ ಸಂಪನ್ ಗರಂ ಮಸಾಲಾ', 'category' => 'blend', 'price' => 562, 'imageUrl' => 'images/Garam masalaTata Sampann.jpg', 'description' => 'Natural oils intact signature garam masala.'],
+        ['id' => 9410, 'nameEn' => 'Green Cardamom 2600', 'nameKn' => 'ಹಸಿರು ಏಲಕ್ಕಿ', 'category' => 'whole', 'price' => 2602, 'imageUrl' => 'images/Green Cardamom 2600.jpg', 'description' => 'Bold 8mm aromatic green elaichi.'],
+        ['id' => 9411, 'nameEn' => 'MTR Chole Masala', 'nameKn' => 'ಎಂಟಿಆರ್ ಚೋಲೆ ಮಸಾಲಾ', 'category' => 'blend', 'price' => 442, 'imageUrl' => 'images/MTR Chole Masala.jpg', 'description' => 'Authentic Punjabi chana masala spice mix.'],
+        ['id' => 9412, 'nameEn' => 'Pav Bhaji Masala Pack', 'nameKn' => 'ಪಾವ್ ಭಾಜಿ ಮಸಾಲಾ ಪ್ಯಾಕ್', 'category' => 'blend', 'price' => 442, 'imageUrl' => 'images/Pav Bhaji Masala 80.jpg', 'description' => 'Mumbai style zesty pav bhaji blend.'],
+        ['id' => 9413, 'nameEn' => 'Punjabi Chole Masala', 'nameKn' => 'ಪಂಜಾಬಿ ಚೋಲೆ ಮಸಾಲಾ', 'category' => 'blend', 'price' => 452, 'imageUrl' => 'images/Punjabi Chole Masala.jpg', 'description' => 'Tangy aromatic spice blend for chickpeas.']
     ];
     $fallback = $data;
     file_put_contents($jsonPath, json_encode($fallback, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
     return $fallback;
 }
-// Get products
-$products = getSpiceProducts();
-if (empty($products)) {
-    $fallbackProducts = getFallbackSpices();
-    foreach ($fallbackProducts as $item) {
-        $products[] = [
-            'id' => $item['id'],
-            'name' => $item['nameEn'],
-            'kn_name' => $item['nameKn'] ?? '',
-            'category' => $item['category'] ?? 'whole',
-            'price' => $item['price'],
-            'image_url' => normalizeImagePath($item['imageUrl'] ?? ''),
-            'description_en' => $item['description'] ?? '',
-            'default_weight' => 250
-        ];
-    }
+// Get products (always load full catalog + merge DB entries cleanly without overriding per-kg rates)
+$fallbackSpicesNormalized = [];
+foreach (getFallbackSpices() as $item) {
+    $fallbackSpicesNormalized[] = [
+        'id' => $item['id'],
+        'name' => $item['nameEn'],
+        'kn_name' => $item['nameKn'] ?? '',
+        'category' => $item['category'] ?? 'whole',
+        'price' => $item['price'],
+        'image_url' => normalizeImagePath($item['imageUrl'] ?? ''),
+        'description_en' => $item['description'] ?? '',
+        'default_weight' => 250
+    ];
 }
+$products = ksrMergeCategoryProducts(getSpiceProducts(), $fallbackSpicesNormalized, [
+    'nameField' => 'name',
+    'imageField' => 'image_url',
+    'updateMatchedPrice' => false,
+]);
 // Get cart count and total
 $cartCount = array_sum(array_column($_SESSION['cart'], 'qty'));
 $cartTotal = array_sum(array_map(fn($i) => $i['price'] * $i['qty'], $_SESSION['cart']));
@@ -794,6 +805,7 @@ if (empty($topPicks)) {
         }
     </style>
     <link rel="stylesheet" href="category-style.css">
+    <script src="gallery.js"></script>
     <link rel="stylesheet" href="../index.css">
     <link rel="stylesheet" href="../mobile-app.css?v=3.0" />
 </head>
@@ -913,7 +925,7 @@ if (empty($topPicks)) {
                             if (jsonStart !== -1) {
                                 data = JSON.parse(text.substring(jsonStart));
                             }
-                        } catch(e) {
+                        } catch (e) {
                             console.warn("Cart response parse warning:", text);
                         }
                         if (!data) {
@@ -992,7 +1004,7 @@ if (empty($topPicks)) {
                     return `
                 <div class="product-card">
                     <div class="product-image">
-                        <img src="${p.image_url}" alt="" loading="lazy" onerror="this.src='https://placehold.co/180x180?text=Spice'">
+                        ${window.ksrGalleryMediaHtml(p, {emoji:'🌶️', primary: p.image_url})}
                     </div>
                     <div class="product-name">${p.name}</div>
                     <div class="product-name-kn">${p.kn_name || ''}</div>

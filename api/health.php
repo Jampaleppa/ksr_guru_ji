@@ -15,9 +15,9 @@ try {
     $dbStatus = 'error: ' . $e->getMessage();
 }
 
-// Test cart recalculation for Fresh Bread Loaf (ID 7 @ 45.00)
+// Test cart recalculation for Fresh Bread Loaf (ID 7 @ 47.00)
 $testCart = [
-    ['id' => '7', 'name' => 'Fresh Bread Loaf', 'price' => 45.00, 'quantity' => 1]
+    ['id' => '7', 'name' => 'Fresh Bread Loaf', 'price' => 47.00, 'quantity' => 1]
 ];
 $pricingTest = ksrCalculateCartTotal($testCart);
 

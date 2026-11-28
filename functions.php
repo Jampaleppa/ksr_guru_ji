@@ -4,6 +4,7 @@
 // ============================================================
 
 require_once 'config.php';
+require_once __DIR__ . '/includes/category_image_helpers.php';
 
 if (!function_exists('getFallbackCategories')) {
     /**
@@ -31,7 +32,7 @@ if (!function_exists('getFallbackCategories')) {
             ['id' => '17', 'name' => 'Personal Care',            'slug' => 'personal-care',         'kn_name' => 'ವ್ಯಕ್ತಿಗತ ಆರೈಕೆ',           'icon' => 'fa-spa'],
             ['id' => '18', 'name' => 'Pet Supplies',             'slug' => 'pet-supplies',          'kn_name' => 'ಸಾಕುಪ್ರಾಣಿ ಸಾಮಾನು',         'icon' => 'fa-paw'],
             ['id' => '19', 'name' => 'Pickles & Sauces',         'slug' => 'pickles-sauces',        'kn_name' => 'ಉಪ್ಪಿನಕಾಯಿ ಮತ್ತು ಸಾಸ್',    'icon' => 'fa-jar'],
-            ['id' => '20', 'name' => 'Plastic Household Products','slug' => 'plastic-household',    'kn_name' => 'ಪ್ಲಾಸ್ಟಿಕ್ ಉತ್ಪನ್ನಗಳು',      'icon' => 'fa-box'],
+            ['id' => '20', 'name' => 'Plastic Household Products', 'slug' => 'plastic-household',    'kn_name' => 'ಪ್ಲಾಸ್ಟಿಕ್ ಉತ್ಪನ್ನಗಳು',      'icon' => 'fa-box'],
             ['id' => '21', 'name' => 'Pooja Items',              'slug' => 'pooja-items',           'kn_name' => 'ಪೂಜಾ ಸಾಮಗ್ರಿ',              'icon' => 'fa-om'],
             ['id' => '22', 'name' => 'Ready-to-Eat Foods',       'slug' => 'ready-to-eat',          'kn_name' => 'ತಕ್ಷಣ ತಿನ್ನಬಹುದಾದ ಆಹಾರ',   'icon' => 'fa-bowl-food'],
             ['id' => '23', 'name' => 'Seasonal Items',           'slug' => 'seasonal-items',        'kn_name' => 'ಋತುಮಾನದ ವಸ್ತುಗಳು',          'icon' => 'fa-snowflake'],
@@ -70,11 +71,11 @@ function getStoreFallbackProducts(string $category = '', string $search = ''): a
         ['id' => 4, 'name' => 'Surface Disinfectant Cleaner', 'kn_name' => 'ಸರ್ಫೇಸ್ ಕ್ಲೀನರ್', 'price' => 130.00, 'category_id' => '4', 'category_name' => 'Cleaning Supplies', 'icon' => 'fa-spray-can-sparkles', 'images' => 'images/Surface Cleaner 130.jpg', 'is_featured' => 0],
         ['id' => 5, 'name' => 'Disinfectant Liquid 1L', 'kn_name' => 'ಡಿಸೆಂಫೆಕ್ಟೆಂಟ್ ಲಿಕ್ವಿಡ್', 'price' => 170.00, 'category_id' => '4', 'category_name' => 'Cleaning Supplies', 'icon' => 'fa-shield-virus', 'images' => 'images/Disinfectant Liquid 170.jpg', 'is_featured' => 0],
         ['id' => 6, 'name' => 'White Phenyl 1L', 'kn_name' => 'ಫಿನಾಯಿಲ್', 'price' => 150.00, 'category_id' => '4', 'category_name' => 'Cleaning Supplies', 'icon' => 'fa-bucket', 'images' => 'images/Phenyl 210.jpg', 'is_featured' => 0],
-        ['id' => 7, 'name' => 'Fresh Bread Loaf', 'kn_name' => 'ತಾಜಾ ಬ್ರೆಡ್', 'price' => 45.00, 'category_id' => '2', 'category_name' => 'Bakery', 'icon' => 'fa-bread-slice', 'images' => 'cake.jpg', 'is_featured' => 0],
-        ['id' => 8, 'name' => 'Pure Sunflower Cooking Oil 1L', 'kn_name' => 'ಸೂರ್ಯಕಾಂತಿ ಎಣ್ಣೆ', 'price' => 135.00, 'category_id' => '6', 'category_name' => 'Cooking Oil', 'icon' => 'fa-droplet', 'images' => 'kitechen all product.jpg', 'is_featured' => 0],
-        ['id' => 9, 'name' => 'Royal Sona Masoori Rice 5kg', 'kn_name' => 'ಸೋನಾ ಮಸೂರಿ ಅಕ್ಕಿ', 'price' => 310.00, 'category_id' => '10', 'category_name' => 'Grains & Cereals', 'icon' => 'fa-wheat-awn', 'images' => 'kitechen all product.jpg', 'is_featured' => 0],
+        ['id' => 7, 'name' => 'Fresh Bread Loaf', 'kn_name' => 'ತಾಜಾ ಬ್ರೆಡ್', 'price' => 47.00, 'category_id' => '2', 'category_name' => 'Bakery', 'icon' => 'fa-bread-slice', 'images' => 'cake.jpg', 'is_featured' => 0],
+        ['id' => 8, 'name' => 'Pure Sunflower Cooking Oil 1L', 'kn_name' => 'ಸೂರ್ಯಕಾಂತಿ ಎಣ್ಣೆ', 'price' => 137.00, 'category_id' => '6', 'category_name' => 'Cooking Oil', 'icon' => 'fa-droplet', 'images' => 'kitechen all product.jpg', 'is_featured' => 0],
+        ['id' => 9, 'name' => 'Royal Sona Masoori Rice 5kg', 'kn_name' => 'ಸೋನಾ ಮಸೂರಿ ಅಕ್ಕಿ', 'price' => 312.00, 'category_id' => '10', 'category_name' => 'Grains & Cereals', 'icon' => 'fa-wheat-awn', 'images' => 'kitechen all product.jpg', 'is_featured' => 0],
         ['id' => 10, 'name' => 'Farm Fresh Premium Apples 1kg', 'kn_name' => 'ಸೇಬು ಹಣ್ಣುಗಳು', 'price' => 180.00, 'category_id' => '27', 'category_name' => 'Vegetables & Fruits', 'icon' => 'fa-apple-whole', 'images' => 'Banner.png', 'is_featured' => 0],
-        ['id' => 11, 'name' => 'Fresh Dairy Milk 1L', 'kn_name' => 'ತಾಜಾ ಹಾಲು', 'price' => 54.00, 'category_id' => '7', 'category_name' => 'Dairy', 'icon' => 'fa-cow', 'images' => 'kitechen all product.jpg', 'is_featured' => 0],
+        ['id' => 11, 'name' => 'Fresh Dairy Milk 1L', 'kn_name' => 'ತಾಜಾ ಹಾಲು', 'price' => 56.00, 'category_id' => '7', 'category_name' => 'Dairy', 'icon' => 'fa-cow', 'images' => 'kitechen all product.jpg', 'is_featured' => 0],
         ['id' => 12, 'name' => 'Premium Almonds Badam 250g', 'kn_name' => 'ಬಾದಾಮಿ', 'price' => 220.00, 'category_id' => '9', 'category_name' => 'Dry Fruits', 'icon' => 'fa-seedling', 'images' => 'kitechen all product.jpg', 'is_featured' => 0]
     ];
     if ($category !== '') {
@@ -122,7 +123,8 @@ function getCategories(): array
             $stmt = $pdo->query("SELECT id, name, kn_name, icon, emoji FROM categories ORDER BY sort_order ASC, name ASC");
             $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
             if (!empty($rows)) return $rows;
-        } catch (Throwable $e) {}
+        } catch (Throwable $e) {
+        }
     }
     return getFallbackCategories();
 }
@@ -146,7 +148,8 @@ function getCategoryById(string $id): ?array
                 $stmt->close();
                 if ($row) return $row;
             }
-        } catch (Throwable $e) {}
+        } catch (Throwable $e) {
+        }
     }
     if (function_exists('getDBConnection')) {
         try {
@@ -155,7 +158,8 @@ function getCategoryById(string $id): ?array
             $stmt->execute([$id]);
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
             if ($row) return $row;
-        } catch (Throwable $e) {}
+        } catch (Throwable $e) {
+        }
     }
     foreach (getFallbackCategories() as $c) {
         if ((string)$c['id'] === (string)$id) return $c;
@@ -187,7 +191,8 @@ function getMainCategories(): array
             $stmt = $pdo->query("SELECT id, name, kn, emoji, sub_ids FROM main_categories ORDER BY sort_order ASC, name ASC");
             $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
             if (!empty($rows)) return $rows;
-        } catch (Throwable $e) {}
+        } catch (Throwable $e) {
+        }
     }
     return getFallbackMainCategories();
 }
@@ -271,7 +276,8 @@ function getProducts(string $category = '', string $search = ''): array
             $stmt->execute($params);
             $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
             if (!empty($rows)) return $rows;
-        } catch (Throwable $e) {}
+        } catch (Throwable $e) {
+        }
     }
 
     return getStoreFallbackProducts($category, $search);
@@ -313,7 +319,8 @@ function getProductById(int $id): ?array
             $stmt->execute([$id]);
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
             if ($row) return $row;
-        } catch (Throwable $e) {}
+        } catch (Throwable $e) {
+        }
     }
     foreach (getStoreFallbackProducts() as $p) {
         if ((int)$p['id'] === (int)$id) return $p;
@@ -351,7 +358,8 @@ function getFeaturedProduct(): ?array
             $stmt = $pdo->query($sql);
             $row = $stmt ? $stmt->fetch(PDO::FETCH_ASSOC) : null;
             if ($row) return $row;
-        } catch (Throwable $e) {}
+        } catch (Throwable $e) {
+        }
     }
     $prods = getStoreFallbackProducts();
     return $prods[0] ?? null;
@@ -459,7 +467,8 @@ function getCategoryBySlug(string $slug): ?array
             $stmt->execute([$slug, $slug]);
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
             if ($row) return $row;
-        } catch (Throwable $e) {}
+        } catch (Throwable $e) {
+        }
     }
     foreach (getFallbackCategories() as $c) {
         if ((string)$c['id'] === (string)$slug || strtolower(str_replace(' ', '-', $c['name'])) === strtolower($slug)) {
@@ -607,8 +616,11 @@ if (!function_exists('normalizeImagePath')) {
 
         // Static files stored directly at the project root
         $rootAssets = [
-            'cake.jpg', 'banner.png', 'kitechen all product.jpg',
-            'company_logo.jpg', 'ksr guru ji.jpg'
+            'cake.jpg',
+            'banner.png',
+            'kitechen all product.jpg',
+            'company_logo.jpg',
+            'ksr guru ji.jpg'
         ];
         $base = basename($clean);
         if ($base === '' || $base === '.' || $base === '..') return '';

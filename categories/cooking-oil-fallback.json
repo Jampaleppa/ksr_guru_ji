@@ -2,53 +2,154 @@
     {
         "id": 1,
         "name": "Disano Extra Virgin Olive Oil",
-        "kn_name": "ಡಿಸಾನೊ ಎಕ್ಸ್ಟ್ರಾ ವರ್ಜಿನ್ ಆಲಿವ್ ಆಯಿಲ್",
-        "price": 279,
-        "category": "olive",
-        "variants": [
+        "nameKn": "ಡಿಸಾನೊ ಎಕ್ಸ್ಟ್ರಾ ವರ್ಜಿನ್ ಆಲಿವ್ ಆಯಿಲ್",
+        "category": "Olive Oil",
+        "description": "Premium extra virgin olive oil for cooking and dressings.",
+        "imageUrl": "../images/Disano Extra Virgin Olive Oil 250ml.jpg",
+        "weights": [
             {
                 "label": "250 ml",
-                "price": 279
+                "price": 281
             },
             {
                 "label": "500 ml",
-                "price": 549
+                "price": 551
             },
             {
                 "label": "1 L",
-                "price": 1049
+                "price": 1051
             },
             {
                 "label": "5 L",
-                "price": 4699
+                "price": 4701
             }
-        ],
-        "emoji": "🧴",
-        "description": "Premium extra virgin olive oil for cooking and dressings.",
-        "image": "/images/Disano Extra Virgin Olive Oil 250ml.jpg"
+        ]
     },
     {
         "id": 2,
         "name": "Figaro Olive Oil",
-        "kn_name": "ಫಿಗಾರೊ ಆಲಿವ್ ಆಯಿಲ್",
-        "price": 42,
-        "category": "olive",
-        "variants": [
+        "nameKn": "ಫಿಗಾರೊ ಆಲಿವ್ ಆಯಿಲ್",
+        "category": "Olive Oil",
+        "description": "Premium extra virgin olive oil for cooking and dressings.",
+        "imageUrl": "../images/Figaro Olive Oil.jpg",
+        "weights": [
             {
                 "label": "100 ml",
-                "price": 42
+                "price": 44
             },
             {
                 "label": "200 ml",
-                "price": 80
+                "price": 82
             },
             {
                 "label": "300 ml",
-                "price": 185
+                "price": 187
             },
             {
                 "label": "500 ml",
-                "price": 203
+                "price": 205
+            },
+            {
+                "label": "600 ml",
+                "price": 317
+            },
+            {
+                "label": "1 L",
+                "price": 397
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "name": "Borges Extra Virgin Olive Oil",
+        "nameKn": "ಬೋರ್ಗೆಸ್ ಎಕ್ಸ್ಟ್ರಾ ವರ್ಜಿನ್ ಆಲಿವ್ ಆಯಿಲ್",
+        "category": "Olive Oil",
+        "description": "Premium extra virgin olive oil for cooking and dressings.",
+        "imageUrl": "../images/Borges Extra Virgin Olive Oil 530.jpg",
+        "weights": [
+            {
+                "label": "100 ml",
+                "price": 46
+            },
+            {
+                "label": "200 ml",
+                "price": 87
+            },
+            {
+                "label": "300 ml",
+                "price": 192
+            },
+            {
+                "label": "500 ml",
+                "price": 382
+            },
+            {
+                "label": "600 ml",
+                "price": 502
+            },
+            {
+                "label": "1 L",
+                "price": 1052
+            }
+        ]
+    },
+    {
+        "id": 4,
+        "name": "Leonardo Olive Pomace Oil",
+        "nameKn": "ಲಿಯೊನಾರ್ಡೊ ಆಲಿವ್ ಪೊಮಾಸ್ ಆಯಿಲ್",
+        "category": "Olive Oil",
+        "description": "Premium extra virgin olive oil for cooking and dressings.",
+        "imageUrl": "../images/Leonardo Olive Pomace Oil 2400.jpg",
+        "weights": [
+            {
+                "label": "100 ml",
+                "price": 41
+            },
+            {
+                "label": "200 ml",
+                "price": 77
+            },
+            {
+                "label": "300 ml",
+                "price": 177
+            },
+            {
+                "label": "500 ml",
+                "price": 192
+            },
+            {
+                "label": "600 ml",
+                "price": 287
+            },
+            {
+                "label": "1 L",
+                "price": 367
+            }
+        ]
+    },
+    {
+        "id": 5,
+        "name": "Del Monte Extra Virgin Olive Oil",
+        "nameKn": "ಡೆಲ್ ಮಾಂಟೆ ಎಕ್ಸ್ಟ್ರಾ ವರ್ಜಿನ್ ಆಲಿವ್ ಆಯಿಲ್",
+        "category": "Olive Oil",
+        "description": "Premium extra virgin olive oil for cooking and dressings.",
+        "imageUrl": "../images/Del Monte Extra Virgin Olive Oil 650.jpg",
+        "weights": [
+            {
+                "label": "100 ml",
+                "price": 44
+            },
+            {
+                "label": "200 ml",
+                "price": 84
+            },
+            {
+                "label": "300 ml",
+                "price": 186
+            },
+            {
+                "label": "500 ml",
+                "price": 207
             },
             {
                 "label": "600 ml",
@@ -58,561 +159,31 @@
                 "label": "1 L",
                 "price": 395
             }
-        ],
-        "emoji": "🧴",
-        "description": "Premium extra virgin olive oil for cooking and dressings.",
-        "image": "/images/Figaro Olive Oil.jpg"
-    },
-    {
-        "id": 3,
-        "name": "Borges Extra Virgin Olive Oil",
-        "kn_name": "ಬೋರ್ಗೆಸ್ ಎಕ್ಸ್ಟ್ರಾ ವರ್ಜಿನ್ ಆಲಿವ್ ಆಯಿಲ್",
-        "price": 44,
-        "category": "olive",
-        "variants": [
-            {
-                "label": "100 ml",
-                "price": 44
-            },
-            {
-                "label": "200 ml",
-                "price": 85
-            },
-            {
-                "label": "300 ml",
-                "price": 190
-            },
-            {
-                "label": "500 ml",
-                "price": 380
-            },
-            {
-                "label": "600 ml",
-                "price": 500
-            },
-            {
-                "label": "1 L",
-                "price": 1050
-            }
-        ],
-        "emoji": "🧴",
-        "description": "Premium extra virgin olive oil for cooking and dressings.",
-        "image": "/images/Borges Extra Virgin Olive Oil 530.jpg"
-    },
-    {
-        "id": 4,
-        "name": "Leonardo Olive Pomace Oil",
-        "kn_name": "ಲಿಯೊನಾರ್ಡೊ ಆಲಿವ್ ಪೊಮಾಸ್ ಆಯಿಲ್",
-        "price": 39,
-        "category": "olive",
-        "variants": [
-            {
-                "label": "100 ml",
-                "price": 39
-            },
-            {
-                "label": "200 ml",
-                "price": 75
-            },
-            {
-                "label": "300 ml",
-                "price": 175
-            },
-            {
-                "label": "500 ml",
-                "price": 190
-            },
-            {
-                "label": "600 ml",
-                "price": 285
-            },
-            {
-                "label": "1 L",
-                "price": 365
-            }
-        ],
-        "emoji": "🧴",
-        "description": "Premium extra virgin olive oil for cooking and dressings.",
-        "image": "/images/Leonardo Olive Pomace Oil 2400.jpg"
-    },
-    {
-        "id": 5,
-        "name": "Del Monte Extra Virgin Olive Oil",
-        "kn_name": "ಡೆಲ್ ಮಾಂಟೆ ಎಕ್ಸ್ಟ್ರಾ ವರ್ಜಿನ್ ಆಲಿವ್ ಆಯಿಲ್",
-        "price": 42,
-        "category": "olive",
-        "variants": [
-            {
-                "label": "100 ml",
-                "price": 42
-            },
-            {
-                "label": "200 ml",
-                "price": 82
-            },
-            {
-                "label": "300 ml",
-                "price": 184
-            },
-            {
-                "label": "500 ml",
-                "price": 205
-            },
-            {
-                "label": "600 ml",
-                "price": 313
-            },
-            {
-                "label": "1 L",
-                "price": 393
-            }
-        ],
-        "emoji": "🧴",
-        "description": "Premium extra virgin olive oil for cooking and dressings.",
-        "image": "/images/Del Monte Extra Virgin Olive Oil 650.jpg"
+        ]
     },
     {
         "id": 6,
         "name": "Oleev Active Olive Oil",
-        "kn_name": "ಒಲೀವ್ ಆಕ್ಟಿವ್ ಆಲಿವ್ ಆಯಿಲ್",
-        "price": 37,
-        "category": "olive",
-        "variants": [
-            {
-                "label": "100 ml",
-                "price": 37
-            },
-            {
-                "label": "200 ml",
-                "price": 74
-            },
-            {
-                "label": "300 ml",
-                "price": 172
-            },
-            {
-                "label": "500 ml",
-                "price": 190
-            },
-            {
-                "label": "600 ml",
-                "price": 288
-            },
-            {
-                "label": "1 L",
-                "price": 363
-            }
-        ],
-        "emoji": "🧴",
+        "nameKn": "ಒಲೀವ್ ಆಕ್ಟಿವ್ ಆಲಿವ್ ಆಯಿಲ್",
+        "category": "Olive Oil",
         "description": "Premium extra virgin olive oil for cooking and dressings.",
-        "image": "/images/Oleev Active Olive Oil 350.jpg"
-    },
-    {
-        "id": 8,
-        "name": "Borges Classic Olive Oil",
-        "kn_name": "ಬೋರ್ಗೆಸ್ ಕ್ಲಾಸಿಕ್ ಆಲಿವ್ ಆಯಿಲ್",
-        "price": 44,
-        "category": "olive",
-        "variants": [
-            {
-                "label": "100 ml",
-                "price": 44
-            },
-            {
-                "label": "200 ml",
-                "price": 85
-            },
-            {
-                "label": "300 ml",
-                "price": 190
-            },
-            {
-                "label": "500 ml",
-                "price": 210
-            },
-            {
-                "label": "600 ml",
-                "price": 325
-            }
-        ],
-        "emoji": "🧴",
-        "description": "Premium extra virgin olive oil for cooking and dressings.",
-        "image": "/images/Borges Classic Olive Oil 300.jpg"
-    },
-    {
-        "id": 12,
-        "name": "Colavita Extra Virgin Olive Oil",
-        "kn_name": "ಕೊಲಾವಿಟಾ ಎಕ್ಸ್ಟ್ರಾ ವರ್ಜಿನ್ ಆಲಿವ್ ಆಯಿಲ್",
-        "price": 2300,
-        "category": "olive",
-        "variants": [
-            {
-                "label": "500 ml",
-                "price": 2300
-            }
-        ],
-        "emoji": "🧴",
-        "description": "Premium extra virgin olive oil for cooking and dressings.",
-        "image": "/images/Colavita Extra Virgin Olive Oil 2300.jpg"
-    },
-    {
-        "id": 28,
-        "name": "Parachute Coconut Oil",
-        "kn_name": "ಪ್ಯಾರಾಶೂಟ್ ಕೊಬ್ಬರಿ ಎಣ್ಣೆ",
-        "price": 51,
-        "category": "coconut",
-        "variants": [
-            {
-                "label": "100 ml",
-                "price": 51
-            },
-            {
-                "label": "200 ml",
-                "price": 99
-            },
-            {
-                "label": "300 ml",
-                "price": 142
-            },
-            {
-                "label": "500 ml",
-                "price": 200
-            },
-            {
-                "label": "600 ml",
-                "price": 269
-            },
-            {
-                "label": "1 L",
-                "price": 375
-            }
-        ],
-        "emoji": "🧴",
-        "description": "Pure coconut oil for cooking, hair and skin care.",
-        "image": "/images/Parachute Coconut Oil.jpg"
-    },
-    {
-        "id": 29,
-        "name": "KLF Nirmal Coconut Oil",
-        "kn_name": "ಕೆಎಲ್ಎಫ್ ನಿರ್ಮಲ್ ಕೊಬ್ಬರಿ ಎಣ್ಣೆ",
-        "price": 31,
-        "category": "coconut",
-        "variants": [
-            {
-                "label": "100 ml",
-                "price": 31
-            },
-            {
-                "label": "250 ml",
-                "price": 130
-            },
-            {
-                "label": "500 ml",
-                "price": 320
-            },
-            {
-                "label": "1 L",
-                "price": 522
-            }
-        ],
-        "emoji": "🧴",
-        "description": "Pure coconut oil for cooking, hair and skin care.",
-        "image": "/images/KLF Nirmal Coconut Oil.jpg"
-    },
-    {
-        "id": 30,
-        "name": "Coco Soul Virgin Coconut Oil",
-        "kn_name": "ಕೋಕೋ ಸೋಲ್ ವರ್ಜಿನ್ ಕೊಬ್ಬರಿ ಎಣ್ಣೆ",
-        "price": 253,
-        "category": "coconut",
-        "variants": [
-            {
-                "label": "250 ml",
-                "price": 253
-            },
-            {
-                "label": "500 ml",
-                "price": 460
-            },
-            {
-                "label": "1 L",
-                "price": 874
-            }
-        ],
-        "emoji": "🧴",
-        "description": "Pure coconut oil for cooking, hair and skin care.",
-        "image": "/images/Coco Soul Virgin Coconut Oil.jpg"
-    },
-    {
-        "id": 31,
-        "name": "Max Care Virgin Coconut Oil",
-        "kn_name": "ಮ್ಯಾಕ್ಸ್ ಕೇರ್ ವರ್ಜಿನ್ ಕೊಬ್ಬರಿ ಎಣ್ಣೆ",
-        "price": 46,
-        "category": "coconut",
-        "variants": [
-            {
-                "label": "100 ml",
-                "price": 46
-            },
-            {
-                "label": "200 ml",
-                "price": 90
-            },
-            {
-                "label": "300 ml",
-                "price": 135
-            },
-            {
-                "label": "500 ml",
-                "price": 210
-            },
-            {
-                "label": "600 ml",
-                "price": 250
-            },
-            {
-                "label": "1 L",
-                "price": 400
-            }
-        ],
-        "emoji": "🧴",
-        "description": "Pure coconut oil for cooking, hair and skin care.",
-        "image": "/images/Max Care Virgin Coconut Oil.jpg"
-    },
-    {
-        "id": 32,
-        "name": "Kerala Ayurveda Coconut Oil",
-        "kn_name": "ಕೇರಳ ಆಯುರ್ವೇದ ಕೊಬ್ಬರಿ ಎಣ್ಣೆ",
-        "price": 39,
-        "category": "coconut",
-        "variants": [
+        "imageUrl": "../images/Oleev Active Olive Oil 350.jpg",
+        "weights": [
             {
                 "label": "100 ml",
                 "price": 39
             },
             {
                 "label": "200 ml",
-                "price": 70
+                "price": 76
             },
             {
                 "label": "300 ml",
-                "price": 105
+                "price": 174
             },
             {
                 "label": "500 ml",
-                "price": 165
-            },
-            {
-                "label": "600 ml",
-                "price": 200
-            },
-            {
-                "label": "1 L",
-                "price": 350
-            }
-        ],
-        "emoji": "🧴",
-        "description": "Pure coconut oil for cooking, hair and skin care.",
-        "image": "/images/Kerala Ayurveda Coconut Oil.jpg"
-    },
-    {
-        "id": 33,
-        "name": "Dabur Anmol Coconut Oil",
-        "kn_name": "ಡಾಬರ್ ಅನ್ಮೋಲ್ ಕೊಬ್ಬರಿ ಎಣ್ಣೆ",
-        "price": 40,
-        "category": "coconut",
-        "variants": [
-            {
-                "label": "100 ml",
-                "price": 40
-            },
-            {
-                "label": "200 ml",
-                "price": 62
-            },
-            {
-                "label": "300 ml",
-                "price": 95
-            },
-            {
-                "label": "500 ml",
-                "price": 172
-            },
-            {
-                "label": "600 ml",
-                "price": 275
-            },
-            {
-                "label": "1 L",
-                "price": 520
-            }
-        ],
-        "emoji": "🧴",
-        "description": "Pure coconut oil for cooking, hair and skin care.",
-        "image": "/images/Dabur Anmol Coconut Oil.jpg"
-    },
-    {
-        "id": 34,
-        "name": "Patanjali Coconut Oil",
-        "kn_name": "ಪತಂಜಲಿ ಕೊಬ್ಬರಿ ಎಣ್ಣೆ",
-        "price": 47,
-        "category": "coconut",
-        "variants": [
-            {
-                "label": "100 ml",
-                "price": 47
-            },
-            {
-                "label": "200 ml",
-                "price": 102
-            },
-            {
-                "label": "300 ml",
-                "price": 176
-            },
-            {
-                "label": "500 ml",
-                "price": 278
-            },
-            {
-                "label": "600 ml",
-                "price": 300
-            },
-            {
-                "label": "1 L",
-                "price": 584
-            }
-        ],
-        "emoji": "🧴",
-        "description": "Pure coconut oil for cooking, hair and skin care.",
-        "image": "/images/Patanjali Coconut Oil.jpg"
-    },
-    {
-        "id": 35,
-        "name": "Marico Hair & Care Coconut Oil",
-        "kn_name": "ಮಾರಿಕೊ ಹೇರ್ & ಕೇರ್ ಕೊಬ್ಬರಿ ಎಣ್ಣೆ",
-        "price": 62,
-        "category": "coconut",
-        "variants": [
-            {
-                "label": "100 ml",
-                "price": 62
-            },
-            {
-                "label": "200 ml",
-                "price": 111
-            },
-            {
-                "label": "300 ml",
-                "price": 173
-            },
-            {
-                "label": "500 ml",
-                "price": 272
-            },
-            {
-                "label": "600 ml",
-                "price": 300
-            },
-            {
-                "label": "1 L",
-                "price": 449
-            }
-        ],
-        "emoji": "🧴",
-        "description": "Pure coconut oil for cooking, hair and skin care.",
-        "image": "/images/Marico Hair & Care Coconut Oil.jpg"
-    },
-    {
-        "id": 36,
-        "name": "Parachute Coconut Oil Jar",
-        "kn_name": "ಪ್ಯಾರಾಶೂಟ್ ಕೊಬ್ಬರಿ ಎಣ್ಣೆ ಜಾರ್",
-        "price": 58,
-        "category": "coconut",
-        "variants": [
-            {
-                "label": "100 ml",
-                "price": 58
-            },
-            {
-                "label": "200 ml",
-                "price": 75
-            },
-            {
-                "label": "300 ml",
-                "price": 175
-            },
-            {
-                "label": "500 ml",
-                "price": 262
-            },
-            {
-                "label": "1 L",
-                "price": 535
-            }
-        ],
-        "emoji": "🧴",
-        "description": "Pure coconut oil for cooking, hair and skin care.",
-        "image": "/images/Parachute Coconut Oil Jar.jpg"
-    },
-    {
-        "id": 37,
-        "name": "KLF Nirmal Coconut Oil Jar",
-        "kn_name": "ಕೆಎಲ್ಎಫ್ ನಿರ್ಮಲ್ ಕೊಬ್ಬರಿ ಎಣ್ಣೆ ಜಾರ್",
-        "price": 33,
-        "category": "coconut",
-        "variants": [
-            {
-                "label": "100 ml",
-                "price": 33
-            },
-            {
-                "label": "200 ml",
-                "price": 62
-            },
-            {
-                "label": "300 ml",
-                "price": 95
-            },
-            {
-                "label": "500 ml",
-                "price": 155
-            },
-            {
-                "label": "600 ml",
-                "price": 190
-            },
-            {
-                "label": "1 L",
-                "price": 320
-            }
-        ],
-        "emoji": "🧴",
-        "description": "Pure coconut oil for cooking, hair and skin care.",
-        "image": "/images/KLF Nirmal Coconut Oil Jar.jpg"
-    },
-    {
-        "id": 38,
-        "name": "Coco Soul Cold Pressed Coconut Oil",
-        "kn_name": "ಕೋಕೋ ಸೋಲ್ ಕೋಲ್ಡ್ ಪ್ರೆಸ್ಡ್ ಕೊಬ್ಬರಿ ಎಣ್ಣೆ",
-        "price": 55,
-        "category": "coconut",
-        "variants": [
-            {
-                "label": "100 ml",
-                "price": 55
-            },
-            {
-                "label": "200 ml",
-                "price": 105
-            },
-            {
-                "label": "300 ml",
-                "price": 155
-            },
-            {
-                "label": "500 ml",
-                "price": 240
+                "price": 192
             },
             {
                 "label": "600 ml",
@@ -620,815 +191,1039 @@
             },
             {
                 "label": "1 L",
-                "price": 465
+                "price": 365
             }
-        ],
-        "emoji": "🧴",
-        "description": "Pure coconut oil for cooking, hair and skin care.",
-        "image": "/images/Coco Soul Cold Pressed Coconut Oil.jpg"
+        ]
     },
     {
-        "id": 39,
-        "name": "Max Care Coconut Oil Jar",
-        "kn_name": "ಮ್ಯಾಕ್ಸ್ ಕೇರ್ ಕೊಬ್ಬರಿ ಎಣ್ಣೆ ಜಾರ್",
-        "price": 33,
-        "category": "coconut",
-        "variants": [
+        "id": 8,
+        "name": "Borges Classic Olive Oil",
+        "nameKn": "ಬೋರ್ಗೆಸ್ ಕ್ಲಾಸಿಕ್ ಆಲಿವ್ ಆಯಿಲ್",
+        "category": "Olive Oil",
+        "description": "Premium extra virgin olive oil for cooking and dressings.",
+        "imageUrl": "../images/Borges Classic Olive Oil 300.jpg",
+        "weights": [
             {
                 "label": "100 ml",
-                "price": 33
+                "price": 46
             },
             {
                 "label": "200 ml",
-                "price": 60
+                "price": 87
             },
             {
                 "label": "300 ml",
-                "price": 95
+                "price": 192
             },
             {
                 "label": "500 ml",
-                "price": 150
+                "price": 212
             },
             {
                 "label": "600 ml",
-                "price": 185
-            },
-            {
-                "label": "1 L",
-                "price": 310
+                "price": 327
             }
-        ],
-        "emoji": "🧴",
-        "description": "Pure coconut oil for cooking, hair and skin care.",
-        "image": "/images/Max Care Coconut Oil Jar.jpg"
+        ]
     },
     {
-        "id": 40,
-        "name": "Kerala Ayurveda Virgin Coconut Oil",
-        "kn_name": "ಕೇರಳ ಆಯುರ್ವೇದ ವರ್ಜಿನ್ ಕೊಬ್ಬರಿ ಎಣ್ಣೆ",
-        "price": 50,
-        "category": "coconut",
-        "variants": [
-            {
-                "label": "100 ml",
-                "price": 50
-            },
-            {
-                "label": "200 ml",
-                "price": 95
-            },
-            {
-                "label": "300 ml",
-                "price": 140
-            },
+        "id": 12,
+        "name": "Colavita Extra Virgin Olive Oil",
+        "nameKn": "ಕೊಲಾವಿಟಾ ಎಕ್ಸ್ಟ್ರಾ ವರ್ಜಿನ್ ಆಲಿವ್ ಆಯಿಲ್",
+        "category": "Olive Oil",
+        "description": "Premium extra virgin olive oil for cooking and dressings.",
+        "imageUrl": "../images/Colavita Extra Virgin Olive Oil 2300.jpg",
+        "weights": [
             {
                 "label": "500 ml",
-                "price": 215
-            },
-            {
-                "label": "600 ml",
-                "price": 260
-            },
-            {
-                "label": "1 L",
-                "price": 410
+                "price": 2302
             }
-        ],
-        "emoji": "🧴",
-        "description": "Pure coconut oil for cooking, hair and skin care.",
-        "image": "/images/Kerala Ayurveda Virgin Coconut Oil.jpg"
+        ]
     },
     {
-        "id": 41,
-        "name": "Dabur Coconut Oil Jar",
-        "kn_name": "ಡಾಬರ್ ಕೊಬ್ಬರಿ ಎಣ್ಣೆ ಜಾರ್",
-        "price": 33,
-        "category": "coconut",
-        "variants": [
-            {
-                "label": "100 ml",
-                "price": 33
-            },
-            {
-                "label": "200 ml",
-                "price": 62
-            },
-            {
-                "label": "300 ml",
-                "price": 95
-            },
-            {
-                "label": "500 ml",
-                "price": 155
-            },
-            {
-                "label": "600 ml",
-                "price": 190
-            },
-            {
-                "label": "1 L",
-                "price": 320
-            }
-        ],
-        "emoji": "🧴",
+        "id": 28,
+        "name": "Parachute Coconut Oil",
+        "nameKn": "ಪ್ಯಾರಾಶೂಟ್ ಕೊಬ್ಬರಿ ಎಣ್ಣೆ",
+        "category": "Coconut Oil",
         "description": "Pure coconut oil for cooking, hair and skin care.",
-        "image": "/images/Dabur Coconut Oil Jar.jpg"
-    },
-    {
-        "id": 42,
-        "name": "Patanjali Coconut Oil Jar",
-        "kn_name": "ಪತಂಜಲಿ ಕೊಬ್ಬರಿ ಎಣ್ಣೆ ಜಾರ್",
-        "price": 31,
-        "category": "coconut",
-        "variants": [
-            {
-                "label": "100 ml",
-                "price": 31
-            },
-            {
-                "label": "200 ml",
-                "price": 60
-            },
-            {
-                "label": "300 ml",
-                "price": 90
-            },
-            {
-                "label": "500 ml",
-                "price": 150
-            },
-            {
-                "label": "600 ml",
-                "price": 180
-            },
-            {
-                "label": "1 L",
-                "price": 310
-            }
-        ],
-        "emoji": "🧴",
-        "description": "Pure coconut oil for cooking, hair and skin care.",
-        "image": "/images/Patanjali Coconut Oil Jar.jpg"
-    },
-    {
-        "id": 43,
-        "name": "Indus Valley Virgin Coconut Oil",
-        "kn_name": "ಇಂಡಸ್ ವ್ಯಾಲಿ ವರ್ಜಿನ್ ಕೊಬ್ಬರಿ ಎಣ್ಣೆ",
-        "price": 53,
-        "category": "coconut",
-        "variants": [
+        "imageUrl": "../images/Parachute Coconut Oil.jpg",
+        "weights": [
             {
                 "label": "100 ml",
                 "price": 53
             },
             {
                 "label": "200 ml",
-                "price": 100
+                "price": 101
             },
             {
                 "label": "300 ml",
-                "price": 150
+                "price": 144
             },
             {
                 "label": "500 ml",
-                "price": 230
+                "price": 202
             },
             {
                 "label": "600 ml",
-                "price": 280
+                "price": 271
             },
             {
                 "label": "1 L",
-                "price": 435
+                "price": 377
             }
-        ],
-        "emoji": "🧴",
+        ]
+    },
+    {
+        "id": 29,
+        "name": "KLF Nirmal Coconut Oil",
+        "nameKn": "ಕೆಎಲ್ಎಫ್ ನಿರ್ಮಲ್ ಕೊಬ್ಬರಿ ಎಣ್ಣೆ",
+        "category": "Coconut Oil",
         "description": "Pure coconut oil for cooking, hair and skin care.",
-        "image": "/images/Indus Valley Virgin Coconut Oil.jpg"
+        "imageUrl": "../images/KLF Nirmal Coconut Oil.jpg",
+        "weights": [
+            {
+                "label": "100 ml",
+                "price": 33
+            },
+            {
+                "label": "250 ml",
+                "price": 132
+            },
+            {
+                "label": "500 ml",
+                "price": 322
+            },
+            {
+                "label": "1 L",
+                "price": 524
+            }
+        ]
+    },
+    {
+        "id": 30,
+        "name": "Coco Soul Virgin Coconut Oil",
+        "nameKn": "ಕೋಕೋ ಸೋಲ್ ವರ್ಜಿನ್ ಕೊಬ್ಬರಿ ಎಣ್ಣೆ",
+        "category": "Coconut Oil",
+        "description": "Pure coconut oil for cooking, hair and skin care.",
+        "imageUrl": "../images/Coco Soul Virgin Coconut Oil.jpg",
+        "weights": [
+            {
+                "label": "250 ml",
+                "price": 255
+            },
+            {
+                "label": "500 ml",
+                "price": 462
+            },
+            {
+                "label": "1 L",
+                "price": 876
+            }
+        ]
+    },
+    {
+        "id": 31,
+        "name": "Max Care Virgin Coconut Oil",
+        "nameKn": "ಮ್ಯಾಕ್ಸ್ ಕೇರ್ ವರ್ಜಿನ್ ಕೊಬ್ಬರಿ ಎಣ್ಣೆ",
+        "category": "Coconut Oil",
+        "description": "Pure coconut oil for cooking, hair and skin care.",
+        "imageUrl": "../images/Max Care Virgin Coconut Oil.jpg",
+        "weights": [
+            {
+                "label": "100 ml",
+                "price": 48
+            },
+            {
+                "label": "200 ml",
+                "price": 92
+            },
+            {
+                "label": "300 ml",
+                "price": 137
+            },
+            {
+                "label": "500 ml",
+                "price": 212
+            },
+            {
+                "label": "600 ml",
+                "price": 252
+            },
+            {
+                "label": "1 L",
+                "price": 402
+            }
+        ]
+    },
+    {
+        "id": 32,
+        "name": "Kerala Ayurveda Coconut Oil",
+        "nameKn": "ಕೇರಳ ಆಯುರ್ವೇದ ಕೊಬ್ಬರಿ ಎಣ್ಣೆ",
+        "category": "Coconut Oil",
+        "description": "Pure coconut oil for cooking, hair and skin care.",
+        "imageUrl": "../images/Kerala Ayurveda Coconut Oil.jpg",
+        "weights": [
+            {
+                "label": "100 ml",
+                "price": 41
+            },
+            {
+                "label": "200 ml",
+                "price": 72
+            },
+            {
+                "label": "300 ml",
+                "price": 107
+            },
+            {
+                "label": "500 ml",
+                "price": 167
+            },
+            {
+                "label": "600 ml",
+                "price": 202
+            },
+            {
+                "label": "1 L",
+                "price": 352
+            }
+        ]
+    },
+    {
+        "id": 33,
+        "name": "Dabur Anmol Coconut Oil",
+        "nameKn": "ಡಾಬರ್ ಅನ್ಮೋಲ್ ಕೊಬ್ಬರಿ ಎಣ್ಣೆ",
+        "category": "Coconut Oil",
+        "description": "Pure coconut oil for cooking, hair and skin care.",
+        "imageUrl": "../images/Dabur Anmol Coconut Oil.jpg",
+        "weights": [
+            {
+                "label": "100 ml",
+                "price": 42
+            },
+            {
+                "label": "200 ml",
+                "price": 64
+            },
+            {
+                "label": "300 ml",
+                "price": 97
+            },
+            {
+                "label": "500 ml",
+                "price": 174
+            },
+            {
+                "label": "600 ml",
+                "price": 277
+            },
+            {
+                "label": "1 L",
+                "price": 522
+            }
+        ]
+    },
+    {
+        "id": 34,
+        "name": "Patanjali Coconut Oil",
+        "nameKn": "ಪತಂಜಲಿ ಕೊಬ್ಬರಿ ಎಣ್ಣೆ",
+        "category": "Coconut Oil",
+        "description": "Pure coconut oil for cooking, hair and skin care.",
+        "imageUrl": "../images/Patanjali Coconut Oil.jpg",
+        "weights": [
+            {
+                "label": "100 ml",
+                "price": 49
+            },
+            {
+                "label": "200 ml",
+                "price": 104
+            },
+            {
+                "label": "300 ml",
+                "price": 178
+            },
+            {
+                "label": "500 ml",
+                "price": 280
+            },
+            {
+                "label": "600 ml",
+                "price": 302
+            },
+            {
+                "label": "1 L",
+                "price": 586
+            }
+        ]
+    },
+    {
+        "id": 35,
+        "name": "Marico Hair & Care Coconut Oil",
+        "nameKn": "ಮಾರಿಕೊ ಹೇರ್ & ಕೇರ್ ಕೊಬ್ಬರಿ ಎಣ್ಣೆ",
+        "category": "Coconut Oil",
+        "description": "Pure coconut oil for cooking, hair and skin care.",
+        "imageUrl": "../images/Marico Hair & Care Coconut Oil.jpg",
+        "weights": [
+            {
+                "label": "100 ml",
+                "price": 64
+            },
+            {
+                "label": "200 ml",
+                "price": 113
+            },
+            {
+                "label": "300 ml",
+                "price": 175
+            },
+            {
+                "label": "500 ml",
+                "price": 274
+            },
+            {
+                "label": "600 ml",
+                "price": 302
+            },
+            {
+                "label": "1 L",
+                "price": 451
+            }
+        ]
+    },
+    {
+        "id": 36,
+        "name": "Parachute Coconut Oil Jar",
+        "nameKn": "ಪ್ಯಾರಾಶೂಟ್ ಕೊಬ್ಬರಿ ಎಣ್ಣೆ ಜಾರ್",
+        "category": "Coconut Oil",
+        "description": "Pure coconut oil for cooking, hair and skin care.",
+        "imageUrl": "../images/Parachute Coconut Oil Jar.jpg",
+        "weights": [
+            {
+                "label": "100 ml",
+                "price": 60
+            },
+            {
+                "label": "200 ml",
+                "price": 77
+            },
+            {
+                "label": "300 ml",
+                "price": 177
+            },
+            {
+                "label": "500 ml",
+                "price": 264
+            },
+            {
+                "label": "1 L",
+                "price": 537
+            }
+        ]
+    },
+    {
+        "id": 37,
+        "name": "KLF Nirmal Coconut Oil Jar",
+        "nameKn": "ಕೆಎಲ್ಎಫ್ ನಿರ್ಮಲ್ ಕೊಬ್ಬರಿ ಎಣ್ಣೆ ಜಾರ್",
+        "category": "Coconut Oil",
+        "description": "Pure coconut oil for cooking, hair and skin care.",
+        "imageUrl": "../images/KLF Nirmal Coconut Oil Jar.jpg",
+        "weights": [
+            {
+                "label": "100 ml",
+                "price": 35
+            },
+            {
+                "label": "200 ml",
+                "price": 64
+            },
+            {
+                "label": "300 ml",
+                "price": 97
+            },
+            {
+                "label": "500 ml",
+                "price": 157
+            },
+            {
+                "label": "600 ml",
+                "price": 192
+            },
+            {
+                "label": "1 L",
+                "price": 322
+            }
+        ]
+    },
+    {
+        "id": 38,
+        "name": "Coco Soul Cold Pressed Coconut Oil",
+        "nameKn": "ಕೋಕೋ ಸೋಲ್ ಕೋಲ್ಡ್ ಪ್ರೆಸ್ಡ್ ಕೊಬ್ಬರಿ ಎಣ್ಣೆ",
+        "category": "Coconut Oil",
+        "description": "Pure coconut oil for cooking, hair and skin care.",
+        "imageUrl": "../images/Coco Soul Cold Pressed Coconut Oil.jpg",
+        "weights": [
+            {
+                "label": "100 ml",
+                "price": 57
+            },
+            {
+                "label": "200 ml",
+                "price": 107
+            },
+            {
+                "label": "300 ml",
+                "price": 157
+            },
+            {
+                "label": "500 ml",
+                "price": 242
+            },
+            {
+                "label": "600 ml",
+                "price": 292
+            },
+            {
+                "label": "1 L",
+                "price": 467
+            }
+        ]
+    },
+    {
+        "id": 39,
+        "name": "Max Care Coconut Oil Jar",
+        "nameKn": "ಮ್ಯಾಕ್ಸ್ ಕೇರ್ ಕೊಬ್ಬರಿ ಎಣ್ಣೆ ಜಾರ್",
+        "category": "Coconut Oil",
+        "description": "Pure coconut oil for cooking, hair and skin care.",
+        "imageUrl": "../images/Max Care Coconut Oil Jar.jpg",
+        "weights": [
+            {
+                "label": "100 ml",
+                "price": 35
+            },
+            {
+                "label": "200 ml",
+                "price": 62
+            },
+            {
+                "label": "300 ml",
+                "price": 97
+            },
+            {
+                "label": "500 ml",
+                "price": 152
+            },
+            {
+                "label": "600 ml",
+                "price": 187
+            },
+            {
+                "label": "1 L",
+                "price": 312
+            }
+        ]
+    },
+    {
+        "id": 40,
+        "name": "Kerala Ayurveda Virgin Coconut Oil",
+        "nameKn": "ಕೇರಳ ಆಯುರ್ವೇದ ವರ್ಜಿನ್ ಕೊಬ್ಬರಿ ಎಣ್ಣೆ",
+        "category": "Coconut Oil",
+        "description": "Pure coconut oil for cooking, hair and skin care.",
+        "imageUrl": "../images/Kerala Ayurveda Virgin Coconut Oil.jpg",
+        "weights": [
+            {
+                "label": "100 ml",
+                "price": 52
+            },
+            {
+                "label": "200 ml",
+                "price": 97
+            },
+            {
+                "label": "300 ml",
+                "price": 142
+            },
+            {
+                "label": "500 ml",
+                "price": 217
+            },
+            {
+                "label": "600 ml",
+                "price": 262
+            },
+            {
+                "label": "1 L",
+                "price": 412
+            }
+        ]
+    },
+    {
+        "id": 41,
+        "name": "Dabur Coconut Oil Jar",
+        "nameKn": "ಡಾಬರ್ ಕೊಬ್ಬರಿ ಎಣ್ಣೆ ಜಾರ್",
+        "category": "Coconut Oil",
+        "description": "Pure coconut oil for cooking, hair and skin care.",
+        "imageUrl": "../images/Dabur Coconut Oil Jar.jpg",
+        "weights": [
+            {
+                "label": "100 ml",
+                "price": 35
+            },
+            {
+                "label": "200 ml",
+                "price": 64
+            },
+            {
+                "label": "300 ml",
+                "price": 97
+            },
+            {
+                "label": "500 ml",
+                "price": 157
+            },
+            {
+                "label": "600 ml",
+                "price": 192
+            },
+            {
+                "label": "1 L",
+                "price": 322
+            }
+        ]
+    },
+    {
+        "id": 42,
+        "name": "Patanjali Coconut Oil Jar",
+        "nameKn": "ಪತಂಜಲಿ ಕೊಬ್ಬರಿ ಎಣ್ಣೆ ಜಾರ್",
+        "category": "Coconut Oil",
+        "description": "Pure coconut oil for cooking, hair and skin care.",
+        "imageUrl": "../images/Patanjali Coconut Oil Jar.jpg",
+        "weights": [
+            {
+                "label": "100 ml",
+                "price": 33
+            },
+            {
+                "label": "200 ml",
+                "price": 62
+            },
+            {
+                "label": "300 ml",
+                "price": 92
+            },
+            {
+                "label": "500 ml",
+                "price": 152
+            },
+            {
+                "label": "600 ml",
+                "price": 182
+            },
+            {
+                "label": "1 L",
+                "price": 312
+            }
+        ]
+    },
+    {
+        "id": 43,
+        "name": "Indus Valley Virgin Coconut Oil",
+        "nameKn": "ಇಂಡಸ್ ವ್ಯಾಲಿ ವರ್ಜಿನ್ ಕೊಬ್ಬರಿ ಎಣ್ಣೆ",
+        "category": "Coconut Oil",
+        "description": "Pure coconut oil for cooking, hair and skin care.",
+        "imageUrl": "../images/Indus Valley Virgin Coconut Oil.jpg",
+        "weights": [
+            {
+                "label": "100 ml",
+                "price": 55
+            },
+            {
+                "label": "200 ml",
+                "price": 102
+            },
+            {
+                "label": "300 ml",
+                "price": 152
+            },
+            {
+                "label": "500 ml",
+                "price": 232
+            },
+            {
+                "label": "600 ml",
+                "price": 282
+            },
+            {
+                "label": "1 L",
+                "price": 437
+            }
+        ]
     },
     {
         "id": 44,
         "name": "Ayurvedic Anti-Hair Fall Oil",
-        "kn_name": "ಆಯುರ್ವೇದಿಕ್ ಆಂಟಿ-ಹೇರ್ ಫಾಲ್ ಆಯಿಲ್",
-        "price": 51,
-        "category": "coconut",
-        "variants": [
+        "nameKn": "ಆಯುರ್ವೇದಿಕ್ ಆಂಟಿ-ಹೇರ್ ಫಾಲ್ ಆಯಿಲ್",
+        "category": "Coconut Oil",
+        "description": "Pure coconut oil for cooking, hair and skin care.",
+        "imageUrl": "../images/Ayurvedic Anti-Hair Fall Oil 220.jpg",
+        "weights": [
             {
                 "label": "100 ml",
-                "price": 51
+                "price": 53
             },
             {
                 "label": "200 ml",
-                "price": 99
+                "price": 101
             },
             {
                 "label": "300 ml",
-                "price": 142
+                "price": 144
             },
             {
                 "label": "500 ml",
-                "price": 200
+                "price": 202
             },
             {
                 "label": "600 ml",
-                "price": 269
+                "price": 271
             },
             {
                 "label": "1 L",
-                "price": 375
+                "price": 377
             }
-        ],
-        "emoji": "🧴",
-        "description": "Pure coconut oil for cooking, hair and skin care.",
-        "image": "/images/Ayurvedic Anti-Hair Fall Oil 220.jpg"
+        ]
     },
     {
         "id": 45,
         "name": "Ayurvedic Hair Oil",
-        "kn_name": "ಆಯುರ್ವೇದಿಕ್ ಹೇರ್ ಆಯಿಲ್",
-        "price": 51,
-        "category": "coconut",
-        "variants": [
+        "nameKn": "ಆಯುರ್ವೇದಿಕ್ ಹೇರ್ ಆಯಿಲ್",
+        "category": "Coconut Oil",
+        "description": "Pure coconut oil for cooking, hair and skin care.",
+        "imageUrl": "../images/Ayurvedic Hair Oil 190.jpg",
+        "weights": [
             {
                 "label": "100 ml",
-                "price": 51
+                "price": 53
             },
             {
                 "label": "200 ml",
-                "price": 99
+                "price": 101
             },
             {
                 "label": "300 ml",
-                "price": 142
+                "price": 144
             },
             {
                 "label": "500 ml",
-                "price": 200
+                "price": 202
             },
             {
                 "label": "600 ml",
-                "price": 269
+                "price": 271
             },
             {
                 "label": "1 L",
-                "price": 375
+                "price": 377
             }
-        ],
-        "emoji": "🧴",
-        "description": "Pure coconut oil for cooking, hair and skin care.",
-        "image": "/images/Ayurvedic Hair Oil 190.jpg"
+        ]
     },
     {
         "id": 46,
         "name": "Bajaj 100% Pure Castor Oil",
-        "kn_name": "ಬಜಾಜ್ 100% ಶುದ್ಧ ಕ್ಯಾಸ್ಟರ್ ಆಯಿಲ್",
-        "price": 51,
-        "category": "coconut",
-        "variants": [
+        "nameKn": "ಬಜಾಜ್ 100% ಶುದ್ಧ ಕ್ಯಾಸ್ಟರ್ ಆಯಿಲ್",
+        "category": "Coconut Oil",
+        "description": "Pure coconut oil for cooking, hair and skin care.",
+        "imageUrl": "../images/Bajaj 100% Pure Castor Oil 162-190.jpg",
+        "weights": [
             {
                 "label": "100 ml",
-                "price": 51
+                "price": 53
             },
             {
                 "label": "200 ml",
-                "price": 99
+                "price": 101
             },
             {
                 "label": "300 ml",
-                "price": 142
+                "price": 144
             },
             {
                 "label": "500 ml",
-                "price": 200
+                "price": 202
             },
             {
                 "label": "600 ml",
-                "price": 269
+                "price": 271
             },
             {
                 "label": "1 L",
-                "price": 375
+                "price": 377
             }
-        ],
-        "emoji": "🧴",
-        "description": "Pure coconut oil for cooking, hair and skin care.",
-        "image": "/images/Bajaj 100% Pure Castor Oil 162-190.jpg"
+        ]
     },
     {
         "id": 47,
         "name": "Bhringraj Hair Oil kama",
-        "kn_name": "ಭೃಂಗರಾಜ್ ಹೇರ್ ಆಯಿಲ್ ಕಾಮ",
-        "price": 51,
-        "category": "coconut",
-        "variants": [
+        "nameKn": "ಭೃಂಗರಾಜ್ ಹೇರ್ ಆಯಿಲ್ ಕಾಮ",
+        "category": "Coconut Oil",
+        "description": "Pure coconut oil for cooking, hair and skin care.",
+        "imageUrl": "../images/Bhringraj Hair Oil kama.jpg",
+        "weights": [
             {
                 "label": "100 ml",
-                "price": 51
+                "price": 53
             },
             {
                 "label": "200 ml",
-                "price": 99
+                "price": 101
             },
             {
                 "label": "300 ml",
-                "price": 142
+                "price": 144
             },
             {
                 "label": "500 ml",
-                "price": 200
+                "price": 202
             },
             {
                 "label": "600 ml",
-                "price": 269
+                "price": 271
             },
             {
                 "label": "1 L",
-                "price": 375
+                "price": 377
             }
-        ],
-        "emoji": "🧴",
-        "description": "Pure coconut oil for cooking, hair and skin care.",
-        "image": "/images/Bhringraj Hair Oil kama.jpg"
+        ]
     },
     {
         "id": 48,
         "name": "Brahmi Hair Oil",
-        "kn_name": "ಬ್ರಾಹ್ಮಿ ಹೇರ್ ಆಯಿಲ್",
-        "price": 240,
-        "category": "coconut",
-        "variants": [
+        "nameKn": "ಬ್ರಾಹ್ಮಿ ಹೇರ್ ಆಯಿಲ್",
+        "category": "Coconut Oil",
+        "description": "Pure coconut oil for cooking, hair and skin care.",
+        "imageUrl": "../images/Brahmi Hair Oil 200ml 232.jpg",
+        "weights": [
             {
                 "label": "200 ml",
-                "price": 240
+                "price": 242
             }
-        ],
-        "emoji": "🧴",
+        ]
+    },
+    {
+        "id": 49,
+        "name": "Brahmi Hair Oil",
+        "nameKn": "ಬ್ರಾಹ್ಮಿ ಹೇರ್ ಆಯಿಲ್",
+        "category": "Coconut Oil",
         "description": "Pure coconut oil for cooking, hair and skin care.",
-        "image": "/images/Brahmi Hair Oil 200ml 232.jpg"
+        "imageUrl": "../images/Brahmi Hair Oil 590.jpg",
+        "weights": [
+            {
+                "label": "500 ml",
+                "price": 602
+            }
+        ]
     },
     {
         "id": 50,
         "name": "Brillare Tea Tree Hair Oil",
-        "kn_name": "ಬ್ರಿಲ್ಲಾರೆ ಟೀ ಟ್ರೀ ಹೇರ್ ಆಯಿಲ್",
-        "price": 81,
-        "category": "coconut",
-        "variants": [
+        "nameKn": "ಬ್ರಿಲ್ಲಾರೆ ಟೀ ಟ್ರೀ ಹೇರ್ ಆಯಿಲ್",
+        "category": "Coconut Oil",
+        "description": "Pure coconut oil for cooking, hair and skin care.",
+        "imageUrl": "../images/Brillare Tea Tree Hair Oil 224-350.jpg",
+        "weights": [
             {
                 "label": "100 ml",
-                "price": 81
+                "price": 83
             },
             {
                 "label": "200 ml",
-                "price": 190
+                "price": 192
             },
             {
                 "label": "300 ml",
-                "price": 224
+                "price": 226
             },
             {
                 "label": "500 ml",
-                "price": 390
+                "price": 392
             },
             {
                 "label": "600 ml",
-                "price": 269
+                "price": 271
             },
             {
                 "label": "1 L",
-                "price": 375
+                "price": 377
             }
-        ],
-        "emoji": "🧴",
-        "description": "Pure coconut oil for cooking, hair and skin care.",
-        "image": "/images/Brillare Tea Tree Hair Oil 224-350.jpg"
+        ]
     },
     {
         "id": 51,
         "name": "Cooling Brahmi Amla Oil",
-        "kn_name": "ಕೂಲಿಂಗ್ ಬ್ರಾಹ್ಮಿ ಆಮ್ಲಾ ಆಯಿಲ್",
-        "price": 400,
-        "category": "coconut",
-        "variants": [
+        "nameKn": "ಕೂಲಿಂಗ್ ಬ್ರಾಹ್ಮಿ ಆಮ್ಲಾ ಆಯಿಲ್",
+        "category": "Coconut Oil",
+        "description": "Pure coconut oil for cooking, hair and skin care.",
+        "imageUrl": "../images/Cooling Brahmi Amla Oil 396.jpg",
+        "weights": [
             {
                 "label": "500 ml",
-                "price": 400
+                "price": 402
             }
-        ],
-        "emoji": "🧴",
-        "description": "Pure coconut oil for cooking, hair and skin care.",
-        "image": "/images/Cooling Brahmi Amla Oil 396.jpg"
+        ]
     },
     {
         "id": 52,
         "name": "Dabur Castor Oil",
-        "kn_name": "ಡಾಬರ್ ಕ್ಯಾಸ್ಟರ್ ಆಯಿಲ್",
-        "price": 40,
-        "category": "coconut",
-        "variants": [
+        "nameKn": "ಡಾಬರ್ ಕ್ಯಾಸ್ಟರ್ ಆಯಿಲ್",
+        "category": "Coconut Oil",
+        "description": "Pure coconut oil for cooking, hair and skin care.",
+        "imageUrl": "../images/Dabur Castor Oil 215-270.jpg",
+        "weights": [
             {
                 "label": "100 ml",
-                "price": 40
+                "price": 42
             },
             {
                 "label": "200 ml",
-                "price": 62
+                "price": 64
             },
             {
                 "label": "300 ml",
-                "price": 95
+                "price": 97
             },
             {
                 "label": "500 ml",
-                "price": 172
+                "price": 174
             },
             {
                 "label": "600 ml",
-                "price": 275
+                "price": 277
             },
             {
                 "label": "1 L",
-                "price": 520
+                "price": 522
             }
-        ],
-        "emoji": "🧴",
+        ]
+    },
+    {
+        "id": 53,
+        "name": "Dabur Castor Oil",
+        "nameKn": "ಡಾಬರ್ ಕ್ಯಾಸ್ಟರ್ ಆಯಿಲ್",
+        "category": "Coconut Oil",
         "description": "Pure coconut oil for cooking, hair and skin care.",
-        "image": "/images/Dabur Castor Oil 215-270.jpg"
+        "imageUrl": "../images/Dabur Castor Oil 240.jpg",
+        "weights": [
+            {
+                "label": "100 ml",
+                "price": 42
+            },
+            {
+                "label": "200 ml",
+                "price": 64
+            },
+            {
+                "label": "300 ml",
+                "price": 97
+            },
+            {
+                "label": "500 ml",
+                "price": 174
+            },
+            {
+                "label": "600 ml",
+                "price": 277
+            },
+            {
+                "label": "1 L",
+                "price": 522
+            }
+        ]
     },
     {
         "id": 54,
         "name": "dabur Cool King Thanda Tel Hair Oil",
-        "kn_name": "ಡಾಬರ್ ಕೂಲ್ ಕಿಂಗ್ ಥಂಡಾ ತೇಲ್ ಹೇರ್ ಆಯಿಲ್",
-        "price": 40,
-        "category": "other",
-        "variants": [
+        "nameKn": "ಡಾಬರ್ ಕೂಲ್ ಕಿಂಗ್ ಥಂಡಾ ತೇಲ್ ಹೇರ್ ಆಯಿಲ್",
+        "category": "Cooling Oil",
+        "description": "Pure coconut oil for cooking, hair and skin care.",
+        "imageUrl": "../images/dabur Cool King Thanda Tel Hair Oil 266-146.jpg",
+        "weights": [
             {
                 "label": "100 ml",
-                "price": 40
+                "price": 42
             },
             {
                 "label": "200 ml",
-                "price": 62
+                "price": 64
             },
             {
                 "label": "300 ml",
-                "price": 95
+                "price": 97
             },
             {
                 "label": "500 ml",
-                "price": 172
+                "price": 174
             },
             {
                 "label": "600 ml",
-                "price": 275
+                "price": 277
             },
             {
                 "label": "1 L",
-                "price": 520
+                "price": 522
             }
-        ],
-        "emoji": "🧴",
-        "description": "Pure coconut oil for cooking, hair and skin care.",
-        "image": "/images/dabur Cool King Thanda Tel Hair Oil 266-146.jpg"
+        ]
     },
     {
         "id": 55,
         "name": "Dabur Vatika Imported Garlic Enriched Hair Oil",
-        "kn_name": "ಡಾಬರ್ ವಾಟಿಕಾ ಇಂಪೋರ್ಟೆಡ್ ಗಾರ್ಲಿಕ್ ಎನ್ರಿಚ್ಡ್ ಹೇರ್ ಆಯಿಲ್",
-        "price": 40,
-        "category": "other",
-        "variants": [
+        "nameKn": "ಡಾಬರ್ ವಾಟಿಕಾ ಇಂಪೋರ್ಟೆಡ್ ಗಾರ್ಲಿಕ್ ಎನ್ರಿಚ್ಡ್ ಹೇರ್ ಆಯಿಲ್",
+        "category": "Cooling Oil",
+        "description": "Pure coconut oil for cooking, hair and skin care.",
+        "imageUrl": "../images/Dabur Vatika Imported Garlic Enriched Hair Oil 254.jpg",
+        "weights": [
             {
                 "label": "100 ml",
-                "price": 40
+                "price": 42
             },
             {
                 "label": "200 ml",
-                "price": 62
+                "price": 64
             },
             {
                 "label": "300 ml",
-                "price": 95
+                "price": 97
             },
             {
                 "label": "500 ml",
-                "price": 172
+                "price": 174
             },
             {
                 "label": "600 ml",
-                "price": 275
+                "price": 277
             },
             {
                 "label": "1 L",
-                "price": 520
+                "price": 522
             }
-        ],
-        "emoji": "🧴",
-        "description": "Pure coconut oil for cooking, hair and skin care.",
-        "image": "/images/Dabur Vatika Imported Garlic Enriched Hair Oil 254.jpg"
+        ]
     },
     {
         "id": 115,
         "name": "Dabur Amla Hair Oil",
-        "kn_name": "ಡಾಬರ್ ವಾಟಿಕಾ ಇಂಪೋರ್ಟೆಡ್ ಗಾರ್ಲಿಕ್ ಎನ್ರಿಚ್ಡ್ ಹೇರ್ ಆಯಿಲ್",
-        "price": 40,
-        "category": "other",
-        "variants": [
+        "nameKn": "ಡಾಬರ್ ವಾಟಿಕಾ ಇಂಪೋರ್ಟೆಡ್ ಗಾರ್ಲಿಕ್ ಎನ್ರಿಚ್ಡ್ ಹೇರ್ ಆಯಿಲ್",
+        "category": "Cooling Oil",
+        "description": "Pure coconut oil for cooking, hair and skin care.",
+        "imageUrl": "../images/Dabur Amla Hair Oil 102.jpg",
+        "weights": [
             {
                 "label": "100 ml",
-                "price": 40
+                "price": 42
             },
             {
                 "label": "200 ml",
-                "price": 62
+                "price": 64
             },
             {
                 "label": "300 ml",
-                "price": 95
+                "price": 97
             },
             {
                 "label": "500 ml",
-                "price": 172
+                "price": 174
             },
             {
                 "label": "600 ml",
-                "price": 275
+                "price": 277
             },
             {
                 "label": "1 L",
-                "price": 520
+                "price": 522
             }
-        ],
-        "emoji": "🧴",
-        "description": "Pure coconut oil for cooking, hair and skin care.",
-        "image": "/images/Dabur Amla Hair Oil 102.jpg"
+        ]
     },
     {
         "id": 56,
         "name": "DR. Rashel Onion Black Seed Hair Oil",
-        "kn_name": "ಡಾ. ರಾಶೆಲ್ ಈರುಳ್ಳಿ ಬ್ಲ್ಯಾಕ್ ಸೀಡ್ ಹೇರ್ ಆಯಿಲ್",
-        "price": 40,
-        "category": "other",
-        "variants": [
+        "nameKn": "ಡಾ. ರಾಶೆಲ್ ಈರುಳ್ಳಿ ಬ್ಲ್ಯಾಕ್ ಸೀಡ್ ಹೇರ್ ಆಯಿಲ್",
+        "category": "Cooling Oil",
+        "description": "Pure coconut oil for cooking, hair and skin care.",
+        "imageUrl": "../images/DR. Rashel Onion Black Seed Hair Oil 160.jpg",
+        "weights": [
             {
                 "label": "100 ml",
-                "price": 40
+                "price": 42
             },
             {
                 "label": "200 ml",
-                "price": 62
+                "price": 64
             },
             {
                 "label": "300 ml",
-                "price": 95
+                "price": 97
             },
             {
                 "label": "500 ml",
-                "price": 172
+                "price": 174
             },
             {
                 "label": "600 ml",
-                "price": 275
+                "price": 277
             },
             {
                 "label": "1 L",
-                "price": 520
+                "price": 522
             }
-        ],
-        "emoji": "🧴",
-        "description": "Pure coconut oil for cooking, hair and skin care.",
-        "image": "/images/DR. Rashel Onion Black Seed Hair Oil 160.jpg"
+        ]
     },
     {
         "id": 57,
         "name": "Emami Kesh King Ayurvedic Hair Oil",
-        "kn_name": "ಎಮಾಮಿ ಕೇಶ್ ಕಿಂಗ್ ಆಯುರ್ವೇದಿಕ್ ಹೇರ್ ಆಯಿಲ್",
-        "price": 19,
-        "category": "mustard",
-        "variants": [
+        "nameKn": "ಎಮಾಮಿ ಕೇಶ್ ಕಿಂಗ್ ಆಯುರ್ವೇದಿಕ್ ಹೇರ್ ಆಯಿಲ್",
+        "category": "Mustard Oil",
+        "description": "Kachi Ghani mustard oil, rich in flavor.",
+        "imageUrl": "../images/Emami Kesh King Ayurvedic Hair Oil 100 ml 170.jpg",
+        "weights": [
             {
                 "label": "100 ml",
-                "price": 19
+                "price": 21
             },
             {
                 "label": "200 ml",
-                "price": 32
+                "price": 34
             },
             {
                 "label": "300 ml",
-                "price": 48
+                "price": 50
             },
             {
                 "label": "500 ml",
-                "price": 80
+                "price": 82
             },
             {
                 "label": "600 ml",
-                "price": 95
+                "price": 97
             },
             {
                 "label": "1 L",
-                "price": 165
+                "price": 167
             }
-        ],
-        "emoji": "🧴",
-        "description": "Kachi Ghani mustard oil, rich in flavor.",
-        "image": "/images/Emami Kesh King Ayurvedic Hair Oil 100 ml 170.jpg"
+        ]
     },
     {
         "id": 58,
         "name": "Fortune Vegetable Oil",
-        "kn_name": "ಫಾರ್ಚೂನ್ ವೆಜಿಟೇಬಲ್ ಆಯಿಲ್",
-        "price": 16,
-        "category": "sunflower",
-        "variants": [
-            {
-                "label": "100 ml",
-                "price": 16
-            },
-            {
-                "label": "200 ml",
-                "price": 28
-            },
-            {
-                "label": "300 ml",
-                "price": 42
-            },
-            {
-                "label": "500 ml",
-                "price": 70
-            },
-            {
-                "label": "600 ml",
-                "price": 85
-            },
-            {
-                "label": "1 L",
-                "price": 145
-            }
-        ],
-        "emoji": "🧴",
+        "nameKn": "ಫಾರ್ಚೂನ್ ವೆಜಿಟೇಬಲ್ ಆಯಿಲ್",
+        "category": "Vegetable Oil",
         "description": "Refined vegetable oil for everyday cooking.",
-        "image": "/images/Fortune Vegetable Oil.jpg"
-    },
-    {
-        "id": 59,
-        "name": "Dhara Vegetable Oil",
-        "kn_name": "ಧಾರಾ ವೆಜಿಟೇಬಲ್ ಆಯಿಲ್",
-        "price": 15,
-        "category": "sunflower",
-        "variants": [
+        "imageUrl": "../images/Fortune Vegetable Oil.jpg",
+        "weights": [
             {
                 "label": "100 ml",
-                "price": 15
-            },
-            {
-                "label": "200 ml",
-                "price": 26
-            },
-            {
-                "label": "300 ml",
-                "price": 40
-            },
-            {
-                "label": "500 ml",
-                "price": 68
-            },
-            {
-                "label": "600 ml",
-                "price": 82
-            },
-            {
-                "label": "1 L",
-                "price": 140
-            }
-        ],
-        "emoji": "🧴",
-        "description": "Refined vegetable oil for everyday cooking.",
-        "image": "/images/Dhara Vegetable Oil.jpg"
-    },
-    {
-        "id": 60,
-        "name": "Ruchi Gold Vegetable Oil",
-        "kn_name": "ರುಚಿ ಗೋಲ್ಡ್ ವೆಜಿಟೇಬಲ್ ಆಯಿಲ್",
-        "price": 14,
-        "category": "sunflower",
-        "variants": [
-            {
-                "label": "100 ml",
-                "price": 14
-            },
-            {
-                "label": "200 ml",
-                "price": 25
-            },
-            {
-                "label": "300 ml",
-                "price": 38
-            },
-            {
-                "label": "500 ml",
-                "price": 65
-            },
-            {
-                "label": "600 ml",
-                "price": 78
-            },
-            {
-                "label": "1 L",
-                "price": 130
-            }
-        ],
-        "emoji": "🧴",
-        "description": "Refined vegetable oil for everyday cooking.",
-        "image": "/images/Ruchi Gold Vegetable Oil.jpg"
-    },
-    {
-        "id": 61,
-        "name": "Gemini Vegetable Oil",
-        "kn_name": "ಜೆಮಿನಿ ವೆಜಿಟೇಬಲ್ ಆಯಿಲ್",
-        "price": 15,
-        "category": "sunflower",
-        "variants": [
-            {
-                "label": "100 ml",
-                "price": 15
-            },
-            {
-                "label": "200 ml",
-                "price": 27
-            },
-            {
-                "label": "300 ml",
-                "price": 40
-            },
-            {
-                "label": "500 ml",
-                "price": 68
-            },
-            {
-                "label": "600 ml",
-                "price": 80
-            },
-            {
-                "label": "1 L",
-                "price": 135
-            }
-        ],
-        "emoji": "🧴",
-        "description": "Refined vegetable oil for everyday cooking.",
-        "image": "/images/Gemini Vegetable Oil.jpg"
-    },
-    {
-        "id": 62,
-        "name": "Sundrop Vegetable Oil",
-        "kn_name": "ಸನ್ಡ್ರಾಪ್ ವೆಜಿಟೇಬಲ್ ಆಯಿಲ್",
-        "price": 17,
-        "category": "sunflower",
-        "variants": [
-            {
-                "label": "100 ml",
-                "price": 17
+                "price": 18
             },
             {
                 "label": "200 ml",
                 "price": 30
-            },
-            {
-                "label": "300 ml",
-                "price": 45
-            },
-            {
-                "label": "500 ml",
-                "price": 75
-            },
-            {
-                "label": "600 ml",
-                "price": 90
-            },
-            {
-                "label": "1 L",
-                "price": 155
-            }
-        ],
-        "emoji": "🧴",
-        "description": "Refined vegetable oil for everyday cooking.",
-        "image": "/images/Sundrop Vegetable Oil.jpg"
-    },
-    {
-        "id": 63,
-        "name": "Nature Fresh Vegetable Oil",
-        "kn_name": "ನೇಚರ್ ಫ್ರೆಶ್ ವೆಜಿಟೇಬಲ್ ಆಯಿಲ್",
-        "price": 16,
-        "category": "sunflower",
-        "variants": [
-            {
-                "label": "100 ml",
-                "price": 16
-            },
-            {
-                "label": "200 ml",
-                "price": 29
             },
             {
                 "label": "300 ml",
@@ -1440,27 +1235,25 @@
             },
             {
                 "label": "600 ml",
-                "price": 88
+                "price": 87
             },
             {
                 "label": "1 L",
-                "price": 150
+                "price": 147
             }
-        ],
-        "emoji": "🧴",
-        "description": "Refined vegetable oil for everyday cooking.",
-        "image": "/images/Nature Fresh Vegetable Oil.jpg"
+        ]
     },
     {
-        "id": 64,
-        "name": "Gold Winner Vegetable Oil",
-        "kn_name": "ಗೋಲ್ಡ್ ವಿನ್ನರ್ ವೆಜಿಟೇಬಲ್ ಆಯಿಲ್",
-        "price": 15,
-        "category": "sunflower",
-        "variants": [
+        "id": 59,
+        "name": "Dhara Vegetable Oil",
+        "nameKn": "ಧಾರಾ ವೆಜಿಟೇಬಲ್ ಆಯಿಲ್",
+        "category": "Vegetable Oil",
+        "description": "Refined vegetable oil for everyday cooking.",
+        "imageUrl": "../images/Dhara Vegetable Oil.jpg",
+        "weights": [
             {
                 "label": "100 ml",
-                "price": 15
+                "price": 17
             },
             {
                 "label": "200 ml",
@@ -1476,27 +1269,59 @@
             },
             {
                 "label": "600 ml",
-                "price": 85
+                "price": 84
             },
             {
                 "label": "1 L",
-                "price": 143
+                "price": 142
             }
-        ],
-        "emoji": "🧴",
-        "description": "Refined vegetable oil for everyday cooking.",
-        "image": "/images/Gold Winner Vegetable Oil.jpg"
+        ]
     },
     {
-        "id": 65,
-        "name": "Freedom Vegetable Oil",
-        "kn_name": "ಫ್ರೀಡಮ್ ವೆಜಿಟೇಬಲ್ ಆಯಿಲ್",
-        "price": 16,
-        "category": "sunflower",
-        "variants": [
+        "id": 60,
+        "name": "Ruchi Gold Vegetable Oil",
+        "nameKn": "ರುಚಿ ಗೋಲ್ಡ್ ವೆಜಿಟೇಬಲ್ ಆಯಿಲ್",
+        "category": "Vegetable Oil",
+        "description": "Refined vegetable oil for everyday cooking.",
+        "imageUrl": "../images/Ruchi Gold Vegetable Oil.jpg",
+        "weights": [
             {
                 "label": "100 ml",
                 "price": 16
+            },
+            {
+                "label": "200 ml",
+                "price": 27
+            },
+            {
+                "label": "300 ml",
+                "price": 40
+            },
+            {
+                "label": "500 ml",
+                "price": 67
+            },
+            {
+                "label": "600 ml",
+                "price": 80
+            },
+            {
+                "label": "1 L",
+                "price": 132
+            }
+        ]
+    },
+    {
+        "id": 61,
+        "name": "Gemini Vegetable Oil",
+        "nameKn": "ಜೆಮಿನಿ ವೆಜಿಟೇಬಲ್ ಆಯಿಲ್",
+        "category": "Vegetable Oil",
+        "description": "Refined vegetable oil for everyday cooking.",
+        "imageUrl": "../images/Gemini Vegetable Oil.jpg",
+        "weights": [
+            {
+                "label": "100 ml",
+                "price": 17
             },
             {
                 "label": "200 ml",
@@ -1504,7 +1329,75 @@
             },
             {
                 "label": "300 ml",
-                "price": 43
+                "price": 42
+            },
+            {
+                "label": "500 ml",
+                "price": 70
+            },
+            {
+                "label": "600 ml",
+                "price": 82
+            },
+            {
+                "label": "1 L",
+                "price": 137
+            }
+        ]
+    },
+    {
+        "id": 62,
+        "name": "Sundrop Vegetable Oil",
+        "nameKn": "ಸನ್ಡ್ರಾಪ್ ವೆಜಿಟೇಬಲ್ ಆಯಿಲ್",
+        "category": "Vegetable Oil",
+        "description": "Refined vegetable oil for everyday cooking.",
+        "imageUrl": "../images/Sundrop Vegetable Oil.jpg",
+        "weights": [
+            {
+                "label": "100 ml",
+                "price": 19
+            },
+            {
+                "label": "200 ml",
+                "price": 32
+            },
+            {
+                "label": "300 ml",
+                "price": 47
+            },
+            {
+                "label": "500 ml",
+                "price": 77
+            },
+            {
+                "label": "600 ml",
+                "price": 92
+            },
+            {
+                "label": "1 L",
+                "price": 157
+            }
+        ]
+    },
+    {
+        "id": 63,
+        "name": "Nature Fresh Vegetable Oil",
+        "nameKn": "ನೇಚರ್ ಫ್ರೆಶ್ ವೆಜಿಟೇಬಲ್ ಆಯಿಲ್",
+        "category": "Vegetable Oil",
+        "description": "Refined vegetable oil for everyday cooking.",
+        "imageUrl": "../images/Nature Fresh Vegetable Oil.jpg",
+        "weights": [
+            {
+                "label": "100 ml",
+                "price": 18
+            },
+            {
+                "label": "200 ml",
+                "price": 31
+            },
+            {
+                "label": "300 ml",
+                "price": 46
             },
             {
                 "label": "500 ml",
@@ -1512,868 +1405,988 @@
             },
             {
                 "label": "600 ml",
-                "price": 86
-            },
-            {
-                "label": "1 L",
-                "price": 151
-            },
-            {
-                "label": "Litre (Bottle)",
-                "price": 179
-            }
-        ],
-        "emoji": "🧴",
-        "description": "Refined vegetable oil for everyday cooking.",
-        "image": "/images/Freedom Vegetable Oil.jpg"
-    },
-    {
-        "id": 66,
-        "name": "Fortune Kachi Ghani Mustard Oil",
-        "kn_name": "ಫಾರ್ಚೂನ್ ಕಚ್ಚಿ ಘಾನಿ ಸಾಸಿವೆ ಎಣ್ಣೆ",
-        "price": 40,
-        "category": "mustard",
-        "variants": [
-            {
-                "label": "200 ml",
-                "price": 40
-            },
-            {
-                "label": "500 ml",
-                "price": 92
-            },
-            {
-                "label": "1 L",
-                "price": 193
-            }
-        ],
-        "emoji": "🧴",
-        "description": "Kachi Ghani mustard oil, rich in flavor.",
-        "image": "/images/Fortune Kachi Ghani Mustard Oil.jpg"
-    },
-    {
-        "id": 67,
-        "name": "Fortunate Fenugreek Hair Oil",
-        "kn_name": "ಫಾರ್ಚುನೇಟ್ ಮೆಂತ್ಯ ಹೇರ್ ಆಯಿಲ್",
-        "price": 40,
-        "category": "mustard",
-        "variants": [
-            {
-                "label": "200 ml",
-                "price": 40
-            },
-            {
-                "label": "500 ml",
-                "price": 92
-            },
-            {
-                "label": "1 L",
-                "price": 193
-            }
-        ],
-        "emoji": "🧴",
-        "description": "Kachi Ghani mustard oil, rich in flavor.",
-        "image": "/images/Fortunate Fenugreek Hair Oil  130.jpg"
-    },
-    {
-        "id": 68,
-        "name": "Dhara Kachi Ghani Mustard Oil",
-        "kn_name": "ಧಾರಾ ಕಚ್ಚಿ ಘಾನಿ ಸಾಸಿವೆ ಎಣ್ಣೆ",
-        "price": 16,
-        "category": "mustard",
-        "variants": [
-            {
-                "label": "100 ml",
-                "price": 16
-            },
-            {
-                "label": "200 ml",
-                "price": 28
-            },
-            {
-                "label": "300 ml",
-                "price": 42
-            },
-            {
-                "label": "500 ml",
-                "price": 70
-            },
-            {
-                "label": "600 ml",
-                "price": 85
-            },
-            {
-                "label": "1 L",
-                "price": 140
-            }
-        ],
-        "emoji": "🧴",
-        "description": "Kachi Ghani mustard oil, rich in flavor.",
-        "image": "/images/Dhara Kachi Ghani Mustard Oil.jpg"
-    },
-    {
-        "id": 69,
-        "name": "Patanjali Mustard Oil",
-        "kn_name": "ಪತಂಜಲಿ ಸಾಸಿವೆ ಎಣ್ಣೆ",
-        "price": 20,
-        "category": "mustard",
-        "variants": [
-            {
-                "label": "100 ml",
-                "price": 20
-            },
-            {
-                "label": "200 ml",
-                "price": 36
-            },
-            {
-                "label": "300 ml",
-                "price": 55
-            },
-            {
-                "label": "500 ml",
                 "price": 90
             },
             {
-                "label": "600 ml",
-                "price": 110
-            },
-            {
                 "label": "1 L",
-                "price": 195
+                "price": 152
             }
-        ],
-        "emoji": "🧴",
-        "description": "Kachi Ghani mustard oil, rich in flavor.",
-        "image": "/images/Patanjali Mustard Oil.jpg"
+        ]
     },
     {
-        "id": 70,
-        "name": "Emami Healthy & Tasty Mustard Oil",
-        "kn_name": "ಎಮಾಮಿ ಹೆಲ್ತಿ & ಟೇಸ್ಟಿ ಸಾಸಿವೆ ಎಣ್ಣೆ",
-        "price": 19,
-        "category": "mustard",
-        "variants": [
+        "id": 64,
+        "name": "Gold Winner Vegetable Oil",
+        "nameKn": "ಗೋಲ್ಡ್ ವಿನ್ನರ್ ವೆಜಿಟೇಬಲ್ ಆಯಿಲ್",
+        "category": "Vegetable Oil",
+        "description": "Refined vegetable oil for everyday cooking.",
+        "imageUrl": "../images/Gold Winner Vegetable Oil.jpg",
+        "weights": [
             {
                 "label": "100 ml",
-                "price": 19
+                "price": 17
             },
             {
                 "label": "200 ml",
-                "price": 32
+                "price": 30
             },
             {
                 "label": "300 ml",
-                "price": 48
+                "price": 44
             },
             {
                 "label": "500 ml",
-                "price": 80
+                "price": 72
             },
             {
                 "label": "600 ml",
-                "price": 95
-            },
-            {
-                "label": "1 L",
-                "price": 165
-            }
-        ],
-        "emoji": "🧴",
-        "description": "Kachi Ghani mustard oil, rich in flavor.",
-        "image": "/images/Emami Healthy & Tasty Mustard Oil.jpg"
-    },
-    {
-        "id": 72,
-        "name": "Nature Fresh Mustard Oil",
-        "kn_name": "ನೇಚರ್ ಫ್ರೆಶ್ ಸಾಸಿವೆ ಎಣ್ಣೆ",
-        "price": 16,
-        "category": "mustard",
-        "variants": [
-            {
-                "label": "100 ml",
-                "price": 16
-            },
-            {
-                "label": "200 ml",
-                "price": 28
-            },
-            {
-                "label": "300 ml",
-                "price": 42
-            },
-            {
-                "label": "500 ml",
-                "price": 70
-            },
-            {
-                "label": "600 ml",
-                "price": 85
+                "price": 87
             },
             {
                 "label": "1 L",
                 "price": 145
             }
-        ],
-        "emoji": "🧴",
+        ]
+    },
+    {
+        "id": 65,
+        "name": "Freedom Vegetable Oil",
+        "nameKn": "ಫ್ರೀಡಮ್ ವೆಜಿಟೇಬಲ್ ಆಯಿಲ್",
+        "category": "Vegetable Oil",
+        "description": "Refined vegetable oil for everyday cooking.",
+        "imageUrl": "../images/Freedom Vegetable Oil.jpg",
+        "weights": [
+            {
+                "label": "100 ml",
+                "price": 18
+            },
+            {
+                "label": "200 ml",
+                "price": 31
+            },
+            {
+                "label": "300 ml",
+                "price": 45
+            },
+            {
+                "label": "500 ml",
+                "price": 76
+            },
+            {
+                "label": "600 ml",
+                "price": 88
+            },
+            {
+                "label": "1 L",
+                "price": 153
+            },
+            {
+                "label": "Litre (Bottle)",
+                "price": 181
+            }
+        ]
+    },
+    {
+        "id": 66,
+        "name": "Fortune Kachi Ghani Mustard Oil",
+        "nameKn": "ಫಾರ್ಚೂನ್ ಕಚ್ಚಿ ಘಾನಿ ಸಾಸಿವೆ ಎಣ್ಣೆ",
+        "category": "Mustard Oil",
         "description": "Kachi Ghani mustard oil, rich in flavor.",
-        "image": "/images/Nature Fresh Mustard Oil.jpg"
+        "imageUrl": "../images/Fortune Kachi Ghani Mustard Oil.jpg",
+        "weights": [
+            {
+                "label": "200 ml",
+                "price": 42
+            },
+            {
+                "label": "500 ml",
+                "price": 94
+            },
+            {
+                "label": "1 L",
+                "price": 195
+            }
+        ]
+    },
+    {
+        "id": 67,
+        "name": "Fortunate Fenugreek Hair Oil",
+        "nameKn": "ಫಾರ್ಚುನೇಟ್ ಮೆಂತ್ಯ ಹೇರ್ ಆಯಿಲ್",
+        "category": "Mustard Oil",
+        "description": "Kachi Ghani mustard oil, rich in flavor.",
+        "imageUrl": "../images/Fortunate Fenugreek Hair Oil  130.jpg",
+        "weights": [
+            {
+                "label": "200 ml",
+                "price": 42
+            },
+            {
+                "label": "500 ml",
+                "price": 94
+            },
+            {
+                "label": "1 L",
+                "price": 195
+            }
+        ]
+    },
+    {
+        "id": 68,
+        "name": "Dhara Kachi Ghani Mustard Oil",
+        "nameKn": "ಧಾರಾ ಕಚ್ಚಿ ಘಾನಿ ಸಾಸಿವೆ ಎಣ್ಣೆ",
+        "category": "Mustard Oil",
+        "description": "Kachi Ghani mustard oil, rich in flavor.",
+        "imageUrl": "../images/Dhara Kachi Ghani Mustard Oil.jpg",
+        "weights": [
+            {
+                "label": "100 ml",
+                "price": 18
+            },
+            {
+                "label": "200 ml",
+                "price": 30
+            },
+            {
+                "label": "300 ml",
+                "price": 44
+            },
+            {
+                "label": "500 ml",
+                "price": 72
+            },
+            {
+                "label": "600 ml",
+                "price": 87
+            },
+            {
+                "label": "1 L",
+                "price": 142
+            }
+        ]
+    },
+    {
+        "id": 69,
+        "name": "Patanjali Mustard Oil",
+        "nameKn": "ಪತಂಜಲಿ ಸಾಸಿವೆ ಎಣ್ಣೆ",
+        "category": "Mustard Oil",
+        "description": "Kachi Ghani mustard oil, rich in flavor.",
+        "imageUrl": "../images/Patanjali Mustard Oil.jpg",
+        "weights": [
+            {
+                "label": "100 ml",
+                "price": 22
+            },
+            {
+                "label": "200 ml",
+                "price": 38
+            },
+            {
+                "label": "300 ml",
+                "price": 57
+            },
+            {
+                "label": "500 ml",
+                "price": 92
+            },
+            {
+                "label": "600 ml",
+                "price": 112
+            },
+            {
+                "label": "1 L",
+                "price": 197
+            }
+        ]
+    },
+    {
+        "id": 70,
+        "name": "Emami Healthy & Tasty Mustard Oil",
+        "nameKn": "ಎಮಾಮಿ ಹೆಲ್ತಿ & ಟೇಸ್ಟಿ ಸಾಸಿವೆ ಎಣ್ಣೆ",
+        "category": "Mustard Oil",
+        "description": "Kachi Ghani mustard oil, rich in flavor.",
+        "imageUrl": "../images/Emami Healthy & Tasty Mustard Oil.jpg",
+        "weights": [
+            {
+                "label": "100 ml",
+                "price": 21
+            },
+            {
+                "label": "200 ml",
+                "price": 34
+            },
+            {
+                "label": "300 ml",
+                "price": 50
+            },
+            {
+                "label": "500 ml",
+                "price": 82
+            },
+            {
+                "label": "600 ml",
+                "price": 97
+            },
+            {
+                "label": "1 L",
+                "price": 167
+            }
+        ]
+    },
+    {
+        "id": 72,
+        "name": "Nature Fresh Mustard Oil",
+        "nameKn": "ನೇಚರ್ ಫ್ರೆಶ್ ಸಾಸಿವೆ ಎಣ್ಣೆ",
+        "category": "Mustard Oil",
+        "description": "Kachi Ghani mustard oil, rich in flavor.",
+        "imageUrl": "../images/Nature Fresh Mustard Oil.jpg",
+        "weights": [
+            {
+                "label": "100 ml",
+                "price": 18
+            },
+            {
+                "label": "200 ml",
+                "price": 30
+            },
+            {
+                "label": "300 ml",
+                "price": 44
+            },
+            {
+                "label": "500 ml",
+                "price": 72
+            },
+            {
+                "label": "600 ml",
+                "price": 87
+            },
+            {
+                "label": "1 L",
+                "price": 147
+            }
+        ]
     },
     {
         "id": 73,
         "name": "24 Mantra Organic Mustard Oil",
-        "kn_name": "24 ಮಂತ್ರ ಆರ್ಗಾನಿಕ್ ಸಾಸಿವೆ ಎಣ್ಣೆ",
-        "price": 25,
-        "category": "mustard",
-        "variants": [
+        "nameKn": "24 ಮಂತ್ರ ಆರ್ಗಾನಿಕ್ ಸಾಸಿವೆ ಎಣ್ಣೆ",
+        "category": "Mustard Oil",
+        "description": "Kachi Ghani mustard oil, rich in flavor.",
+        "imageUrl": "../images/24 Mantra Organic Mustard Oil.jpg",
+        "weights": [
+            {
+                "label": "100 ml",
+                "price": 27
+            },
+            {
+                "label": "200 ml",
+                "price": 47
+            },
+            {
+                "label": "300 ml",
+                "price": 67
+            },
+            {
+                "label": "500 ml",
+                "price": 112
+            },
+            {
+                "label": "600 ml",
+                "price": 132
+            },
+            {
+                "label": "1 L",
+                "price": 242
+            }
+        ]
+    },
+    {
+        "id": 75,
+        "name": "Haironic Hair Science Garlic Hair Oil",
+        "nameKn": "ಹೇರೋನಿಕ್ ಹೇರ್ ಸೈನ್ಸ್ ಗಾರ್ಲಿಕ್ ಹೇರ್ ಆಯಿಲ್",
+        "category": "Mustard Oil",
+        "description": "Kachi Ghani mustard oil, rich in flavor.",
+        "imageUrl": "../images/Haironic Hair Science Garlic Hair Oil 130-400.jpg",
+        "weights": [
+            {
+                "label": "100 ml",
+                "price": 21
+            },
+            {
+                "label": "200 ml",
+                "price": 34
+            },
+            {
+                "label": "300 ml",
+                "price": 50
+            },
+            {
+                "label": "500 ml",
+                "price": 82
+            },
+            {
+                "label": "600 ml",
+                "price": 97
+            },
+            {
+                "label": "1 L",
+                "price": 167
+            }
+        ]
+    },
+    {
+        "id": 76,
+        "name": "Hibiscus Hair Oil",
+        "nameKn": "ಹಿಬಿಸ್ಕಸ್ ಹೇರ್ ಆಯಿಲ್",
+        "category": "Mustard Oil",
+        "description": "Kachi Ghani mustard oil, rich in flavor.",
+        "imageUrl": "../images/Hibiscus Hair Oil 25-499.jpg",
+        "weights": [
+            {
+                "label": "100 ml",
+                "price": 21
+            },
+            {
+                "label": "200 ml",
+                "price": 34
+            },
+            {
+                "label": "300 ml",
+                "price": 50
+            },
+            {
+                "label": "500 ml",
+                "price": 82
+            },
+            {
+                "label": "600 ml",
+                "price": 97
+            },
+            {
+                "label": "1 L",
+                "price": 167
+            }
+        ]
+    },
+    {
+        "id": 77,
+        "name": "Keo Karpin Hair Oil",
+        "nameKn": "ಕೆಯೋ ಕಾರ್ಪಿನ್ ಹೇರ್ ಆಯಿಲ್",
+        "category": "Mustard Oil",
+        "description": "Kachi Ghani mustard oil, rich in flavor.",
+        "imageUrl": "../images/Keo Karpin Hair Oil 49-55.jpg",
+        "weights": [
+            {
+                "label": "100 ml",
+                "price": 21
+            },
+            {
+                "label": "200 ml",
+                "price": 34
+            },
+            {
+                "label": "300 ml",
+                "price": 50
+            },
+            {
+                "label": "500 ml",
+                "price": 82
+            },
+            {
+                "label": "600 ml",
+                "price": 97
+            },
+            {
+                "label": "1 L",
+                "price": 167
+            }
+        ]
+    },
+    {
+        "id": 78,
+        "name": "Kesh King Ayurvedic And Hair Oil",
+        "nameKn": "ಕೇಶ್ ಕಿಂಗ್ ಆಯುರ್ವೇದಿಕ್ ಆಂಡ್ ಹೇರ್ ಆಯಿಲ್",
+        "category": "Mustard Oil",
+        "description": "Kachi Ghani mustard oil, rich in flavor.",
+        "imageUrl": "../images/Kesh King Ayurvedic And Hair Oil 330.jpg",
+        "weights": [
+            {
+                "label": "100 ml",
+                "price": 21
+            },
+            {
+                "label": "200 ml",
+                "price": 34
+            },
+            {
+                "label": "300 ml",
+                "price": 50
+            },
+            {
+                "label": "500 ml",
+                "price": 82
+            },
+            {
+                "label": "600 ml",
+                "price": 97
+            },
+            {
+                "label": "1 L",
+                "price": 167
+            }
+        ]
+    },
+    {
+        "id": 79,
+        "name": "Kesh King Herbal Ayurvedic Hair Oil For Hair Growth",
+        "nameKn": "ಕೇಶ್ ಕಿಂಗ್ ಹರ್ಬಲ್ ಆಯುರ್ವೇದಿಕ್ ಹೇರ್ ಆಯಿಲ್ ಫಾರ್ ಹೇರ್ ಗ್ರೋತ್",
+        "category": "Mustard Oil",
+        "description": "Kachi Ghani mustard oil, rich in flavor.",
+        "imageUrl": "../images/Kesh King Herbal Ayurvedic Hair Oil For Hair Growth 100 Ml 200.jpg",
+        "weights": [
+            {
+                "label": "100 ml",
+                "price": 21
+            },
+            {
+                "label": "200 ml",
+                "price": 34
+            },
+            {
+                "label": "300 ml",
+                "price": 50
+            },
+            {
+                "label": "500 ml",
+                "price": 82
+            },
+            {
+                "label": "600 ml",
+                "price": 97
+            },
+            {
+                "label": "1 L",
+                "price": 167
+            }
+        ]
+    },
+    {
+        "id": 80,
+        "name": "Mamaearth Rosemary Hair Growth Oil",
+        "nameKn": "ಮಾಮಾಅರ್ಥ್ ರೋಸ್ಮೇರಿ ಹೇರ್ ಗ್ರೋತ್ ಆಯಿಲ್",
+        "category": "Mustard Oil",
+        "description": "Kachi Ghani mustard oil, rich in flavor.",
+        "imageUrl": "../images/Mamaearth Rosemary Hair Growth Oil 236.jpg",
+        "weights": [
+            {
+                "label": "100 ml",
+                "price": 21
+            },
+            {
+                "label": "200 ml",
+                "price": 34
+            },
+            {
+                "label": "300 ml",
+                "price": 50
+            },
+            {
+                "label": "500 ml",
+                "price": 82
+            },
+            {
+                "label": "600 ml",
+                "price": 97
+            },
+            {
+                "label": "1 L",
+                "price": 167
+            }
+        ]
+    },
+    {
+        "id": 81,
+        "name": "La Pink Methi Dana 8-in-1 Hair Oil",
+        "nameKn": "ಲಾ ಪಿಂಕ್ ಮೆಂತ್ಯ ದಾನಾ 8-ಇನ್-1 ಹೇರ್ ಆಯಿಲ್",
+        "category": "Mustard Oil",
+        "description": "Kachi Ghani mustard oil, rich in flavor.",
+        "imageUrl": "../images/La Pink Methi Dana 8-in-1 Hair Oil 315-450.jpg",
+        "weights": [
+            {
+                "label": "100 ml",
+                "price": 21
+            },
+            {
+                "label": "200 ml",
+                "price": 34
+            },
+            {
+                "label": "300 ml",
+                "price": 50
+            },
+            {
+                "label": "500 ml",
+                "price": 82
+            },
+            {
+                "label": "600 ml",
+                "price": 97
+            },
+            {
+                "label": "1 L",
+                "price": 167
+            }
+        ]
+    },
+    {
+        "id": 82,
+        "name": "Moroccanoil Pure Argan Oil",
+        "nameKn": "ಮೊರಾಕನಾಯಿಲ್ ಪ್ಯೂರ್ ಆರ್ಗನ್ ಆಯಿಲ್",
+        "category": "Mustard Oil",
+        "description": "Kachi Ghani mustard oil, rich in flavor.",
+        "imageUrl": "../images/Moroccanoil Pure Argan Oil 6660.jpg",
+        "weights": [
+            {
+                "label": "100 ml",
+                "price": 1902
+            },
+            {
+                "label": "200 ml",
+                "price": 4892
+            },
+            {
+                "label": "300 ml",
+                "price": 6668
+            }
+        ]
+    },
+    {
+        "id": 83,
+        "name": "Moroccanoil Treatment",
+        "nameKn": "ಮೊರಾಕನಾಯಿಲ್ ಟ್ರೀಟ್ಮೆಂಟ್",
+        "category": "Mustard Oil",
+        "description": "Kachi Ghani mustard oil, rich in flavor.",
+        "imageUrl": "../images/Moroccanoil Treatment 1650.jpg",
+        "weights": [
+            {
+                "label": "100 ml",
+                "price": 1902
+            },
+            {
+                "label": "200 ml",
+                "price": 4892
+            },
+            {
+                "label": "300 ml",
+                "price": 6668
+            }
+        ]
+    },
+    {
+        "id": 84,
+        "name": "Navratna Ayurvedic Cool Oil",
+        "nameKn": "ನವರತ್ನ ಆಯುರ್ವೇದಿಕ್ ಕೂಲ್ ಆಯಿಲ್",
+        "category": "Mustard Oil",
+        "description": "Kachi Ghani mustard oil, rich in flavor.",
+        "imageUrl": "../images/Navratna Ayurvedic Cool Oil 330.jpg",
+        "weights": [
+            {
+                "label": "100 ml",
+                "price": 1902
+            },
+            {
+                "label": "200 ml",
+                "price": 4892
+            },
+            {
+                "label": "300 ml",
+                "price": 6668
+            }
+        ]
+    },
+    {
+        "id": 85,
+        "name": "Olvedic Garlic Essential Oil Pure & Organic Therapeutic Grade Undiluted For Hair",
+        "nameKn": "ಒಲ್ವೆಡಿಕ್ ಗಾರ್ಲಿಕ್ ಎಸೆನ್ಷಿಯಲ್ ಆಯಿಲ್ ಪ್ಯೂರ್ & ಆರ್ಗಾನಿಕ್ ಥೆರಪ್ಯೂಟಿಕ್ ಗ್ರೇಡ್ ಅನ್ಡೈಲ್ಯೂಟೆಡ್ ಫಾರ್ ಹೇರ್",
+        "category": "Mustard Oil",
+        "description": "Kachi Ghani mustard oil, rich in flavor.",
+        "imageUrl": "../images/Olvedic Garlic Essential Oil Pure & Organic Therapeutic Grade Undiluted For Hair 100.jpg",
+        "weights": [
+            {
+                "label": "100 ml",
+                "price": 1902
+            },
+            {
+                "label": "200 ml",
+                "price": 4892
+            },
+            {
+                "label": "300 ml",
+                "price": 6668
+            }
+        ]
+    },
+    {
+        "id": 86,
+        "name": "Onion Hair Oil",
+        "nameKn": "ಈರುಳ್ಳಿ ಹೇರ್ ಆಯಿಲ್",
+        "category": "Mustard Oil",
+        "description": "Kachi Ghani mustard oil, rich in flavor.",
+        "imageUrl": "../images/Onion Hair Oil 200.jpg",
+        "weights": [
+            {
+                "label": "100 ml",
+                "price": 192
+            },
+            {
+                "label": "200 ml",
+                "price": 142
+            },
+            {
+                "label": "300 ml",
+                "price": 262
+            }
+        ]
+    },
+    {
+        "id": 87,
+        "name": "Onion Hair Oil",
+        "nameKn": "ಈರುಳ್ಳಿ ಹೇರ್ ಆಯಿಲ್",
+        "category": "Mustard Oil",
+        "description": "Kachi Ghani mustard oil, rich in flavor.",
+        "imageUrl": "../images/Onion Hair Oil 220.jpg",
+        "weights": [
+            {
+                "label": "100 ml",
+                "price": 192
+            },
+            {
+                "label": "200 ml",
+                "price": 4892
+            },
+            {
+                "label": "300 ml",
+                "price": 6668
+            }
+        ]
+    },
+    {
+        "id": 88,
+        "name": "Onion Hair Oil",
+        "nameKn": "ಈರುಳ್ಳಿ ಹೇರ್ ಆಯಿಲ್",
+        "category": "Mustard Oil",
+        "description": "Kachi Ghani mustard oil, rich in flavor.",
+        "imageUrl": "../images/Onion Hair Oil 300.jpg",
+        "weights": [
+            {
+                "label": "100 ml",
+                "price": 1902
+            },
+            {
+                "label": "200 ml",
+                "price": 4892
+            },
+            {
+                "label": "300 ml",
+                "price": 6668
+            }
+        ]
+    },
+    {
+        "id": 89,
+        "name": "Parachute Advansed Gold Vitamin E Coconut Hair Oil",
+        "nameKn": "ಪ್ಯಾರಾಶೂಟ್ ಅಡ್ವಾನ್ಸ್ಡ್ ಗೋಲ್ಡ್ ವಿಟಮಿನ್ ಇ ಕೊಬ್ಬರಿ ಹೇರ್ ಆಯಿಲ್",
+        "category": "Mustard Oil",
+        "description": "Kachi Ghani mustard oil, rich in flavor.",
+        "imageUrl": "../images/Parachute Advansed Gold Vitamin E Coconut Hair Oil 160.jpg",
+        "weights": [
+            {
+                "label": "100 ml",
+                "price": 192
+            },
+            {
+                "label": "200 ml",
+                "price": 142
+            },
+            {
+                "label": "300 ml",
+                "price": 262
+            }
+        ]
+    },
+    {
+        "id": 90,
+        "name": "WOW Skin Science Onion Black Seed Hair Oil",
+        "nameKn": "ವಾವ್ ಸ್ಕಿನ್ ಸೈನ್ಸ್ ಈರುಳ್ಳಿ ಬ್ಲ್ಯಾಕ್ ಸೀಡ್ ಹೇರ್ ಆಯಿಲ್",
+        "category": "Mustard Oil",
+        "description": "Kachi Ghani mustard oil, rich in flavor.",
+        "imageUrl": "../images/WOW Skin Science Onion Black Seed Hair Oil 300-400.jpg",
+        "weights": [
+            {
+                "label": "100 ml",
+                "price": 192
+            },
+            {
+                "label": "200 ml",
+                "price": 4892
+            },
+            {
+                "label": "300 ml",
+                "price": 6668
+            }
+        ]
+    },
+    {
+        "id": 91,
+        "name": "Vatika Multivitamin Garlic Hair Oil",
+        "nameKn": "ವಾಟಿಕಾ ಮಲ್ಟಿವಿಟಮಿನ್ ಗಾರ್ಲಿಕ್ ಹೇರ್ ಆಯಿಲ್",
+        "category": "Mustard Oil",
+        "description": "Kachi Ghani mustard oil, rich in flavor.",
+        "imageUrl": "../images/Vatika Multivitamin Garlic Hair Oil 330.jpg",
+        "weights": [
+            {
+                "label": "100 ml",
+                "price": 1902
+            },
+            {
+                "label": "200 ml",
+                "price": 4892
+            },
+            {
+                "label": "300 ml",
+                "price": 6668
+            }
+        ]
+    },
+    {
+        "id": 92,
+        "name": "TNW The Natural Wash Neem Oil",
+        "nameKn": "ಟಿಎನ್ಡಬ್ಲ್ಯೂ ದ ನ್ಯಾಚುರಲ್ ವಾಶ್ ನೀಮ್ ಆಯಿಲ್",
+        "category": "Mustard Oil",
+        "description": "Kachi Ghani mustard oil, rich in flavor.",
+        "imageUrl": "../images/TNW The Natural Wash Neem Oil 130-230.jpg",
+        "weights": [
+            {
+                "label": "100 ml",
+                "price": 192
+            },
+            {
+                "label": "200 ml",
+                "price": 4892
+            },
+            {
+                "label": "300 ml",
+                "price": 6668
+            }
+        ]
+    },
+    {
+        "id": 93,
+        "name": "Soulflower Olive Oil for Nourished Hair and Skin",
+        "nameKn": "ಸೋಲ್ಫ್ಲವರ್ ಆಲಿವ್ ಆಯಿಲ್ ಫಾರ್ ನೌರಿಶ್ಡ್ ಹೇರ್ ಅಂಡ್ ಸ್ಕಿನ್",
+        "category": "Mustard Oil",
+        "description": "Kachi Ghani mustard oil, rich in flavor.",
+        "imageUrl": "../images/Soulflower Olive Oil for Nourished Hair and Skin 227-245.jpg",
+        "weights": [
+            {
+                "label": "100 ml",
+                "price": 1902
+            },
+            {
+                "label": "200 ml",
+                "price": 4892
+            },
+            {
+                "label": "300 ml",
+                "price": 6668
+            }
+        ]
+    },
+    {
+        "id": 94,
+        "name": "Rey Naturals Cold Pressed Neem Oil",
+        "nameKn": "ರೇ ನ್ಯಾಚುರಲ್ಸ್ ಕೋಲ್ಡ್ ಪ್ರೆಸ್ಡ್ ನೀಮ್ ಆಯಿಲ್",
+        "category": "Mustard Oil",
+        "description": "Kachi Ghani mustard oil, rich in flavor.",
+        "imageUrl": "../images/Rey Naturals Cold Pressed Neem Oil 230-300.jpg",
+        "weights": [
+            {
+                "label": "100 ml",
+                "price": 192
+            },
+            {
+                "label": "200 ml",
+                "price": 142
+            },
+            {
+                "label": "300 ml",
+                "price": 262
+            }
+        ]
+    },
+    {
+        "id": 95,
+        "name": "Pilgrim Spanish Rosemary & Biotin Hair Growth Oil",
+        "nameKn": "ಪಿಲ್ಗ್ರಿಮ್ ಸ್ಪ್ಯಾನಿಶ್ ರೋಸ್ಮೇರಿ & ಬಯೋಟಿನ್ ಹೇರ್ ಗ್ರೋತ್ ಆಯಿಲ್",
+        "category": "Mustard Oil",
+        "description": "Kachi Ghani mustard oil, rich in flavor.",
+        "imageUrl": "../images/Pilgrim Spanish Rosemary & Biotin Hair Growth Oil 222-400.jpg",
+        "weights": [
+            {
+                "label": "100 ml",
+                "price": 192
+            },
+            {
+                "label": "200 ml",
+                "price": 4892
+            },
+            {
+                "label": "300 ml",
+                "price": 6668
+            }
+        ]
+    },
+    {
+        "id": 96,
+        "name": "Phillauri Onion Blackseed Herbal Hair Oil",
+        "nameKn": "ಫಿಲೌರಿ ಈರುಳ್ಳಿ ಬ್ಲ್ಯಾಕ್ಸೀಡ್ ಹರ್ಬಲ್ ಹೇರ್ ಆಯಿಲ್",
+        "category": "Mustard Oil",
+        "description": "Kachi Ghani mustard oil, rich in flavor.",
+        "imageUrl": "../images/Phillauri Onion Blackseed Herbal Hair Oil 180.jpg",
+        "weights": [
+            {
+                "label": "100 ml",
+                "price": 1902
+            },
+            {
+                "label": "200 ml",
+                "price": 4892
+            },
+            {
+                "label": "300 ml",
+                "price": 6668
+            }
+        ]
+    },
+    {
+        "id": 97,
+        "name": "Parachute Advansed Tea Tree Essential Oil",
+        "nameKn": "ಪ್ಯಾರಾಶೂಟ್ ಅಡ್ವಾನ್ಸ್ಡ್ ಟೀ ಟ್ರೀ ಎಸೆನ್ಷಿಯಲ್ ಆಯಿಲ್",
+        "category": "Mustard Oil",
+        "description": "Kachi Ghani mustard oil, rich in flavor.",
+        "imageUrl": "../images/Parachute Advansed Tea Tree Essential Oil 220-310.jpg",
+        "weights": [
+            {
+                "label": "100 ml",
+                "price": 192
+            },
+            {
+                "label": "200 ml",
+                "price": 4892
+            },
+            {
+                "label": "300 ml",
+                "price": 6668
+            }
+        ]
+    },
+    {
+        "id": 98,
+        "name": "Parachute Advansed Olive Enriched Coconut Hair Oil",
+        "nameKn": "ಪ್ಯಾರಾಶೂಟ್ ಅಡ್ವಾನ್ಸ್ಡ್ ಆಲಿವ್ ಎನ್ರಿಚ್ಡ್ ಕೊಬ್ಬರಿ ಹೇರ್ ಆಯಿಲ್",
+        "category": "Mustard Oil",
+        "description": "Kachi Ghani mustard oil, rich in flavor.",
+        "imageUrl": "../images/Parachute Advansed Olive Enriched Coconut Hair Oil 213-298.jpg",
+        "weights": [
+            {
+                "label": "100 ml",
+                "price": 1902
+            },
+            {
+                "label": "200 ml",
+                "price": 4892
+            },
+            {
+                "label": "300 ml",
+                "price": 6668
+            }
+        ]
+    },
+    {
+        "id": 99,
+        "name": "Max Care Virgin Coconut Oil",
+        "nameKn": "ಮ್ಯಾಕ್ಸ್ ಕೇರ್ ವರ್ಜಿನ್ ಕೊಬ್ಬರಿ ಎಣ್ಣೆ",
+        "category": "Coconut Oil",
+        "description": "Pure coconut oil for cooking, hair and skin care.",
+        "imageUrl": "../images/Max Care Virgin Coconut Oil 298-485.jpg",
+        "weights": [
+            {
+                "label": "100 ml",
+                "price": 48
+            },
+            {
+                "label": "200 ml",
+                "price": 92
+            },
+            {
+                "label": "300 ml",
+                "price": 137
+            },
+            {
+                "label": "500 ml",
+                "price": 212
+            },
+            {
+                "label": "600 ml",
+                "price": 252
+            },
+            {
+                "label": "1 L",
+                "price": 402
+            }
+        ]
+    },
+    {
+        "id": 100,
+        "name": "Saffola Gold Pro Healthy Lifestyle Oil",
+        "nameKn": "ಸ್ಯಾಫೋಲಾ ಗೋಲ್ಡ್ ಪ್ರೋ ಹೆಲ್ತಿ ಲೈಫ್ ಸ್ಟೈಲ್ ಆಯಿಲ್",
+        "category": "Specialty Oil",
+        "description": "High‑quality cooking oil for specific health benefits.",
+        "imageUrl": "../images/Saffola Gold Pro Healthy Lifestyle Oil.jpg",
+        "weights": [
             {
                 "label": "100 ml",
                 "price": 25
             },
             {
                 "label": "200 ml",
-                "price": 45
+                "price": 42
             },
             {
                 "label": "300 ml",
-                "price": 65
+                "price": 62
             },
             {
                 "label": "500 ml",
-                "price": 110
+                "price": 102
             },
             {
                 "label": "600 ml",
-                "price": 130
+                "price": 122
             },
             {
                 "label": "1 L",
-                "price": 240
+                "price": 212
             }
-        ],
-        "emoji": "🧴",
-        "description": "Kachi Ghani mustard oil, rich in flavor.",
-        "image": "/images/24 Mantra Organic Mustard Oil.jpg"
+        ]
     },
     {
-        "id": 75,
-        "name": "Haironic Hair Science Garlic Hair Oil",
-        "kn_name": "ಹೇರೋನಿಕ್ ಹೇರ್ ಸೈನ್ಸ್ ಗಾರ್ಲಿಕ್ ಹೇರ್ ಆಯಿಲ್",
-        "price": 19,
-        "category": "mustard",
-        "variants": [
-            {
-                "label": "100 ml",
-                "price": 19
-            },
-            {
-                "label": "200 ml",
-                "price": 32
-            },
-            {
-                "label": "300 ml",
-                "price": 48
-            },
-            {
-                "label": "500 ml",
-                "price": 80
-            },
-            {
-                "label": "600 ml",
-                "price": 95
-            },
-            {
-                "label": "1 L",
-                "price": 165
-            }
-        ],
-        "emoji": "🧴",
-        "description": "Kachi Ghani mustard oil, rich in flavor.",
-        "image": "/images/Haironic Hair Science Garlic Hair Oil 130-400.jpg"
-    },
-    {
-        "id": 76,
-        "name": "Hibiscus Hair Oil",
-        "kn_name": "ಹಿಬಿಸ್ಕಸ್ ಹೇರ್ ಆಯಿಲ್",
-        "price": 19,
-        "category": "mustard",
-        "variants": [
-            {
-                "label": "100 ml",
-                "price": 19
-            },
-            {
-                "label": "200 ml",
-                "price": 32
-            },
-            {
-                "label": "300 ml",
-                "price": 48
-            },
-            {
-                "label": "500 ml",
-                "price": 80
-            },
-            {
-                "label": "600 ml",
-                "price": 95
-            },
-            {
-                "label": "1 L",
-                "price": 165
-            }
-        ],
-        "emoji": "🧴",
-        "description": "Kachi Ghani mustard oil, rich in flavor.",
-        "image": "/images/Hibiscus Hair Oil 25-499.jpg"
-    },
-    {
-        "id": 77,
-        "name": "Keo Karpin Hair Oil",
-        "kn_name": "ಕೆಯೋ ಕಾರ್ಪಿನ್ ಹೇರ್ ಆಯಿಲ್",
-        "price": 19,
-        "category": "mustard",
-        "variants": [
-            {
-                "label": "100 ml",
-                "price": 19
-            },
-            {
-                "label": "200 ml",
-                "price": 32
-            },
-            {
-                "label": "300 ml",
-                "price": 48
-            },
-            {
-                "label": "500 ml",
-                "price": 80
-            },
-            {
-                "label": "600 ml",
-                "price": 95
-            },
-            {
-                "label": "1 L",
-                "price": 165
-            }
-        ],
-        "emoji": "🧴",
-        "description": "Kachi Ghani mustard oil, rich in flavor.",
-        "image": "/images/Keo Karpin Hair Oil 49-55.jpg"
-    },
-    {
-        "id": 78,
-        "name": "Kesh King Ayurvedic And Hair Oil",
-        "kn_name": "ಕೇಶ್ ಕಿಂಗ್ ಆಯುರ್ವೇದಿಕ್ ಆಂಡ್ ಹೇರ್ ಆಯಿಲ್",
-        "price": 19,
-        "category": "mustard",
-        "variants": [
-            {
-                "label": "100 ml",
-                "price": 19
-            },
-            {
-                "label": "200 ml",
-                "price": 32
-            },
-            {
-                "label": "300 ml",
-                "price": 48
-            },
-            {
-                "label": "500 ml",
-                "price": 80
-            },
-            {
-                "label": "600 ml",
-                "price": 95
-            },
-            {
-                "label": "1 L",
-                "price": 165
-            }
-        ],
-        "emoji": "🧴",
-        "description": "Kachi Ghani mustard oil, rich in flavor.",
-        "image": "/images/Kesh King Ayurvedic And Hair Oil 330.jpg"
-    },
-    {
-        "id": 79,
-        "name": "Kesh King Herbal Ayurvedic Hair Oil For Hair Growth",
-        "kn_name": "ಕೇಶ್ ಕಿಂಗ್ ಹರ್ಬಲ್ ಆಯುರ್ವೇದಿಕ್ ಹೇರ್ ಆಯಿಲ್ ಫಾರ್ ಹೇರ್ ಗ್ರೋತ್",
-        "price": 19,
-        "category": "mustard",
-        "variants": [
-            {
-                "label": "100 ml",
-                "price": 19
-            },
-            {
-                "label": "200 ml",
-                "price": 32
-            },
-            {
-                "label": "300 ml",
-                "price": 48
-            },
-            {
-                "label": "500 ml",
-                "price": 80
-            },
-            {
-                "label": "600 ml",
-                "price": 95
-            },
-            {
-                "label": "1 L",
-                "price": 165
-            }
-        ],
-        "emoji": "🧴",
-        "description": "Kachi Ghani mustard oil, rich in flavor.",
-        "image": "/images/Kesh King Herbal Ayurvedic Hair Oil For Hair Growth 100 Ml 200.jpg"
-    },
-    {
-        "id": 80,
-        "name": "Mamaearth Rosemary Hair Growth Oil",
-        "kn_name": "ಮಾಮಾಅರ್ಥ್ ರೋಸ್ಮೇರಿ ಹೇರ್ ಗ್ರೋತ್ ಆಯಿಲ್",
-        "price": 19,
-        "category": "mustard",
-        "variants": [
-            {
-                "label": "100 ml",
-                "price": 19
-            },
-            {
-                "label": "200 ml",
-                "price": 32
-            },
-            {
-                "label": "300 ml",
-                "price": 48
-            },
-            {
-                "label": "500 ml",
-                "price": 80
-            },
-            {
-                "label": "600 ml",
-                "price": 95
-            },
-            {
-                "label": "1 L",
-                "price": 165
-            }
-        ],
-        "emoji": "🧴",
-        "description": "Kachi Ghani mustard oil, rich in flavor.",
-        "image": "/images/Mamaearth Rosemary Hair Growth Oil 236.jpg"
-    },
-    {
-        "id": 81,
-        "name": "La Pink Methi Dana 8-in-1 Hair Oil",
-        "kn_name": "ಲಾ ಪಿಂಕ್ ಮೆಂತ್ಯ ದಾನಾ 8-ಇನ್-1 ಹೇರ್ ಆಯಿಲ್",
-        "price": 19,
-        "category": "mustard",
-        "variants": [
-            {
-                "label": "100 ml",
-                "price": 19
-            },
-            {
-                "label": "200 ml",
-                "price": 32
-            },
-            {
-                "label": "300 ml",
-                "price": 48
-            },
-            {
-                "label": "500 ml",
-                "price": 80
-            },
-            {
-                "label": "600 ml",
-                "price": 95
-            },
-            {
-                "label": "1 L",
-                "price": 165
-            }
-        ],
-        "emoji": "🧴",
-        "description": "Kachi Ghani mustard oil, rich in flavor.",
-        "image": "/images/La Pink Methi Dana 8-in-1 Hair Oil 315-450.jpg"
-    },
-    {
-        "id": 82,
-        "name": "Moroccanoil Pure Argan Oil",
-        "kn_name": "ಮೊರಾಕನಾಯಿಲ್ ಪ್ಯೂರ್ ಆರ್ಗನ್ ಆಯಿಲ್",
-        "price": 1900,
-        "category": "mustard",
-        "variants": [
-            {
-                "label": "100 ml",
-                "price": 1900
-            },
-            {
-                "label": "200 ml",
-                "price": 4890
-            },
-            {
-                "label": "300 ml",
-                "price": 6666
-            }
-        ],
-        "emoji": "🧴",
-        "description": "Kachi Ghani mustard oil, rich in flavor.",
-        "image": "/images/Moroccanoil Pure Argan Oil 6660.jpg"
-    },
-    {
-        "id": 83,
-        "name": "Moroccanoil Treatment",
-        "kn_name": "ಮೊರಾಕನಾಯಿಲ್ ಟ್ರೀಟ್ಮೆಂಟ್",
-        "price": 1900,
-        "category": "mustard",
-        "variants": [
-            {
-                "label": "100 ml",
-                "price": 1900
-            },
-            {
-                "label": "200 ml",
-                "price": 4890
-            },
-            {
-                "label": "300 ml",
-                "price": 6666
-            }
-        ],
-        "emoji": "🧴",
-        "description": "Kachi Ghani mustard oil, rich in flavor.",
-        "image": "/images/Moroccanoil Treatment 1650.jpg"
-    },
-    {
-        "id": 84,
-        "name": "Navratna Ayurvedic Cool Oil",
-        "kn_name": "ನವರತ್ನ ಆಯುರ್ವೇದಿಕ್ ಕೂಲ್ ಆಯಿಲ್",
-        "price": 1900,
-        "category": "mustard",
-        "variants": [
-            {
-                "label": "100 ml",
-                "price": 1900
-            },
-            {
-                "label": "200 ml",
-                "price": 4890
-            },
-            {
-                "label": "300 ml",
-                "price": 6666
-            }
-        ],
-        "emoji": "🧴",
-        "description": "Kachi Ghani mustard oil, rich in flavor.",
-        "image": "/images/Navratna Ayurvedic Cool Oil 330.jpg"
-    },
-    {
-        "id": 85,
-        "name": "Olvedic Garlic Essential Oil Pure & Organic Therapeutic Grade Undiluted For Hair",
-        "kn_name": "ಒಲ್ವೆಡಿಕ್ ಗಾರ್ಲಿಕ್ ಎಸೆನ್ಷಿಯಲ್ ಆಯಿಲ್ ಪ್ಯೂರ್ & ಆರ್ಗಾನಿಕ್ ಥೆರಪ್ಯೂಟಿಕ್ ಗ್ರೇಡ್ ಅನ್ಡೈಲ್ಯೂಟೆಡ್ ಫಾರ್ ಹೇರ್",
-        "price": 1900,
-        "category": "mustard",
-        "variants": [
-            {
-                "label": "100 ml",
-                "price": 1900
-            },
-            {
-                "label": "200 ml",
-                "price": 4890
-            },
-            {
-                "label": "300 ml",
-                "price": 6666
-            }
-        ],
-        "emoji": "🧴",
-        "description": "Kachi Ghani mustard oil, rich in flavor.",
-        "image": "/images/Olvedic Garlic Essential Oil Pure & Organic Therapeutic Grade Undiluted For Hair 100.jpg"
-    },
-    {
-        "id": 86,
-        "name": "Onion Hair Oil",
-        "kn_name": "ಈರುಳ್ಳಿ ಹೇರ್ ಆಯಿಲ್",
-        "price": 190,
-        "category": "mustard",
-        "variants": [
-            {
-                "label": "100 ml",
-                "price": 190
-            },
-            {
-                "label": "200 ml",
-                "price": 140
-            },
-            {
-                "label": "300 ml",
-                "price": 260
-            }
-        ],
-        "emoji": "🧴",
-        "description": "Kachi Ghani mustard oil, rich in flavor.",
-        "image": "/images/Onion Hair Oil 200.jpg"
-    },
-    {
-        "id": 89,
-        "name": "Parachute Advansed Gold Vitamin E Coconut Hair Oil",
-        "kn_name": "ಪ್ಯಾರಾಶೂಟ್ ಅಡ್ವಾನ್ಸ್ಡ್ ಗೋಲ್ಡ್ ವಿಟಮಿನ್ ಇ ಕೊಬ್ಬರಿ ಹೇರ್ ಆಯಿಲ್",
-        "price": 190,
-        "category": "mustard",
-        "variants": [
-            {
-                "label": "100 ml",
-                "price": 190
-            },
-            {
-                "label": "200 ml",
-                "price": 140
-            },
-            {
-                "label": "300 ml",
-                "price": 260
-            }
-        ],
-        "emoji": "🧴",
-        "description": "Kachi Ghani mustard oil, rich in flavor.",
-        "image": "/images/Parachute Advansed Gold Vitamin E Coconut Hair Oil 160.jpg"
-    },
-    {
-        "id": 90,
-        "name": "WOW Skin Science Onion Black Seed Hair Oil",
-        "kn_name": "ವಾವ್ ಸ್ಕಿನ್ ಸೈನ್ಸ್ ಈರುಳ್ಳಿ ಬ್ಲ್ಯಾಕ್ ಸೀಡ್ ಹೇರ್ ಆಯಿಲ್",
-        "price": 190,
-        "category": "mustard",
-        "variants": [
-            {
-                "label": "100 ml",
-                "price": 190
-            },
-            {
-                "label": "200 ml",
-                "price": 4890
-            },
-            {
-                "label": "300 ml",
-                "price": 6666
-            }
-        ],
-        "emoji": "🧴",
-        "description": "Kachi Ghani mustard oil, rich in flavor.",
-        "image": "/images/WOW Skin Science Onion Black Seed Hair Oil 300-400.jpg"
-    },
-    {
-        "id": 91,
-        "name": "Vatika Multivitamin Garlic Hair Oil",
-        "kn_name": "ವಾಟಿಕಾ ಮಲ್ಟಿವಿಟಮಿನ್ ಗಾರ್ಲಿಕ್ ಹೇರ್ ಆಯಿಲ್",
-        "price": 1900,
-        "category": "mustard",
-        "variants": [
-            {
-                "label": "100 ml",
-                "price": 1900
-            },
-            {
-                "label": "200 ml",
-                "price": 4890
-            },
-            {
-                "label": "300 ml",
-                "price": 6666
-            }
-        ],
-        "emoji": "🧴",
-        "description": "Kachi Ghani mustard oil, rich in flavor.",
-        "image": "/images/Vatika Multivitamin Garlic Hair Oil 330.jpg"
-    },
-    {
-        "id": 92,
-        "name": "TNW The Natural Wash Neem Oil",
-        "kn_name": "ಟಿಎನ್ಡಬ್ಲ್ಯೂ ದ ನ್ಯಾಚುರಲ್ ವಾಶ್ ನೀಮ್ ಆಯಿಲ್",
-        "price": 190,
-        "category": "mustard",
-        "variants": [
-            {
-                "label": "100 ml",
-                "price": 190
-            },
-            {
-                "label": "200 ml",
-                "price": 4890
-            },
-            {
-                "label": "300 ml",
-                "price": 6666
-            }
-        ],
-        "emoji": "🧴",
-        "description": "Kachi Ghani mustard oil, rich in flavor.",
-        "image": "/images/TNW The Natural Wash Neem Oil 130-230.jpg"
-    },
-    {
-        "id": 93,
-        "name": "Soulflower Olive Oil for Nourished Hair and Skin",
-        "kn_name": "ಸೋಲ್ಫ್ಲವರ್ ಆಲಿವ್ ಆಯಿಲ್ ಫಾರ್ ನೌರಿಶ್ಡ್ ಹೇರ್ ಅಂಡ್ ಸ್ಕಿನ್",
-        "price": 1900,
-        "category": "mustard",
-        "variants": [
-            {
-                "label": "100 ml",
-                "price": 1900
-            },
-            {
-                "label": "200 ml",
-                "price": 4890
-            },
-            {
-                "label": "300 ml",
-                "price": 6666
-            }
-        ],
-        "emoji": "🧴",
-        "description": "Kachi Ghani mustard oil, rich in flavor.",
-        "image": "/images/Soulflower Olive Oil for Nourished Hair and Skin 227-245.jpg"
-    },
-    {
-        "id": 94,
-        "name": "Rey Naturals Cold Pressed Neem Oil",
-        "kn_name": "ರೇ ನ್ಯಾಚುರಲ್ಸ್ ಕೋಲ್ಡ್ ಪ್ರೆಸ್ಡ್ ನೀಮ್ ಆಯಿಲ್",
-        "price": 190,
-        "category": "mustard",
-        "variants": [
-            {
-                "label": "100 ml",
-                "price": 190
-            },
-            {
-                "label": "200 ml",
-                "price": 140
-            },
-            {
-                "label": "300 ml",
-                "price": 260
-            }
-        ],
-        "emoji": "🧴",
-        "description": "Kachi Ghani mustard oil, rich in flavor.",
-        "image": "/images/Rey Naturals Cold Pressed Neem Oil 230-300.jpg"
-    },
-    {
-        "id": 95,
-        "name": "Pilgrim Spanish Rosemary & Biotin Hair Growth Oil",
-        "kn_name": "ಪಿಲ್ಗ್ರಿಮ್ ಸ್ಪ್ಯಾನಿಶ್ ರೋಸ್ಮೇರಿ & ಬಯೋಟಿನ್ ಹೇರ್ ಗ್ರೋತ್ ಆಯಿಲ್",
-        "price": 190,
-        "category": "mustard",
-        "variants": [
-            {
-                "label": "100 ml",
-                "price": 190
-            },
-            {
-                "label": "200 ml",
-                "price": 4890
-            },
-            {
-                "label": "300 ml",
-                "price": 6666
-            }
-        ],
-        "emoji": "🧴",
-        "description": "Kachi Ghani mustard oil, rich in flavor.",
-        "image": "/images/Pilgrim Spanish Rosemary & Biotin Hair Growth Oil 222-400.jpg"
-    },
-    {
-        "id": 96,
-        "name": "Phillauri Onion Blackseed Herbal Hair Oil",
-        "kn_name": "ಫಿಲೌರಿ ಈರುಳ್ಳಿ ಬ್ಲ್ಯಾಕ್ಸೀಡ್ ಹರ್ಬಲ್ ಹೇರ್ ಆಯಿಲ್",
-        "price": 1900,
-        "category": "mustard",
-        "variants": [
-            {
-                "label": "100 ml",
-                "price": 1900
-            },
-            {
-                "label": "200 ml",
-                "price": 4890
-            },
-            {
-                "label": "300 ml",
-                "price": 6666
-            }
-        ],
-        "emoji": "🧴",
-        "description": "Kachi Ghani mustard oil, rich in flavor.",
-        "image": "/images/Phillauri Onion Blackseed Herbal Hair Oil 180.jpg"
-    },
-    {
-        "id": 97,
-        "name": "Parachute Advansed Tea Tree Essential Oil",
-        "kn_name": "ಪ್ಯಾರಾಶೂಟ್ ಅಡ್ವಾನ್ಸ್ಡ್ ಟೀ ಟ್ರೀ ಎಸೆನ್ಷಿಯಲ್ ಆಯಿಲ್",
-        "price": 190,
-        "category": "mustard",
-        "variants": [
-            {
-                "label": "100 ml",
-                "price": 190
-            },
-            {
-                "label": "200 ml",
-                "price": 4890
-            },
-            {
-                "label": "300 ml",
-                "price": 6666
-            }
-        ],
-        "emoji": "🧴",
-        "description": "Kachi Ghani mustard oil, rich in flavor.",
-        "image": "/images/Parachute Advansed Tea Tree Essential Oil 220-310.jpg"
-    },
-    {
-        "id": 98,
-        "name": "Parachute Advansed Olive Enriched Coconut Hair Oil",
-        "kn_name": "ಪ್ಯಾರಾಶೂಟ್ ಅಡ್ವಾನ್ಸ್ಡ್ ಆಲಿವ್ ಎನ್ರಿಚ್ಡ್ ಕೊಬ್ಬರಿ ಹೇರ್ ಆಯಿಲ್",
-        "price": 1900,
-        "category": "mustard",
-        "variants": [
-            {
-                "label": "100 ml",
-                "price": 1900
-            },
-            {
-                "label": "200 ml",
-                "price": 4890
-            },
-            {
-                "label": "300 ml",
-                "price": 6666
-            }
-        ],
-        "emoji": "🧴",
-        "description": "Kachi Ghani mustard oil, rich in flavor.",
-        "image": "/images/Parachute Advansed Olive Enriched Coconut Hair Oil 213-298.jpg"
-    },
-    {
-        "id": 100,
-        "name": "Saffola Gold Pro Healthy Lifestyle Oil",
-        "kn_name": "ಸ್ಯಾಫೋಲಾ ಗೋಲ್ಡ್ ಪ್ರೋ ಹೆಲ್ತಿ ಲೈಫ್ ಸ್ಟೈಲ್ ಆಯಿಲ್",
-        "price": 23,
-        "category": "other",
-        "variants": [
+        "id": 101,
+        "name": "Sundrop Nutrilite Oil",
+        "nameKn": "ಸನ್ಡ್ರಾಪ್ ನ್ಯೂಟ್ರಿಲೈಟ್ ಆಯಿಲ್",
+        "category": "Specialty Oil",
+        "description": "High‑quality cooking oil for specific health benefits.",
+        "imageUrl": "../images/Sundrop Nutrilite Oil.jpg",
+        "weights": [
             {
                 "label": "100 ml",
                 "price": 23
@@ -2388,31 +2401,29 @@
             },
             {
                 "label": "500 ml",
-                "price": 100
+                "price": 97
             },
             {
                 "label": "600 ml",
-                "price": 120
+                "price": 117
             },
             {
                 "label": "1 L",
-                "price": 210
+                "price": 202
             }
-        ],
-        "emoji": "🧴",
-        "description": "High‑quality cooking oil for specific health benefits.",
-        "image": "/images/Saffola Gold Pro Healthy Lifestyle Oil.jpg"
+        ]
     },
     {
-        "id": 101,
-        "name": "Sundrop Nutrilite Oil",
-        "kn_name": "ಸನ್ಡ್ರಾಪ್ ನ್ಯೂಟ್ರಿಲೈಟ್ ಆಯಿಲ್",
-        "price": 21,
-        "category": "other",
-        "variants": [
+        "id": 102,
+        "name": "Fortune Xpert Total Balance Oil",
+        "nameKn": "ಫಾರ್ಚೂನ್ ಎಕ್ಸ್ಪರ್ಟ್ ಟೋಟಲ್ ಬ್ಯಾಲೆನ್ಸ್ ಆಯಿಲ್",
+        "category": "Specialty Oil",
+        "description": "High‑quality cooking oil for specific health benefits.",
+        "imageUrl": "../images/Fortune Xpert Total Balance Oil.jpg",
+        "weights": [
             {
                 "label": "100 ml",
-                "price": 21
+                "price": 22
             },
             {
                 "label": "200 ml",
@@ -2420,111 +2431,37 @@
             },
             {
                 "label": "300 ml",
-                "price": 58
+                "price": 57
             },
             {
                 "label": "500 ml",
-                "price": 95
+                "price": 94
             },
             {
                 "label": "600 ml",
-                "price": 115
+                "price": 112
             },
             {
                 "label": "1 L",
-                "price": 200
+                "price": 195
             }
-        ],
-        "emoji": "🧴",
-        "description": "High‑quality cooking oil for specific health benefits.",
-        "image": "/images/Sundrop Nutrilite Oil.jpg"
-    },
-    {
-        "id": 102,
-        "name": "Fortune Xpert Total Balance Oil",
-        "kn_name": "ಫಾರ್ಚೂನ್ ಎಕ್ಸ್ಪರ್ಟ್ ಟೋಟಲ್ ಬ್ಯಾಲೆನ್ಸ್ ಆಯಿಲ್",
-        "price": 20,
-        "category": "other",
-        "variants": [
-            {
-                "label": "100 ml",
-                "price": 20
-            },
-            {
-                "label": "200 ml",
-                "price": 36
-            },
-            {
-                "label": "300 ml",
-                "price": 55
-            },
-            {
-                "label": "500 ml",
-                "price": 92
-            },
-            {
-                "label": "600 ml",
-                "price": 110
-            },
-            {
-                "label": "1 L",
-                "price": 193
-            }
-        ],
-        "emoji": "🧴",
-        "description": "High‑quality cooking oil for specific health benefits.",
-        "image": "/images/Fortune Xpert Total Balance Oil.jpg"
+        ]
     },
     {
         "id": 103,
         "name": "Gemini Multi Source Oil",
-        "kn_name": "ಜೆಮಿನಿ ಮಲ್ಟಿ ಸೋರ್ಸ್ ಆಯಿಲ್",
-        "price": 19,
-        "category": "other",
-        "variants": [
-            {
-                "label": "100 ml",
-                "price": 19
-            },
-            {
-                "label": "200 ml",
-                "price": 34
-            },
-            {
-                "label": "300 ml",
-                "price": 52
-            },
-            {
-                "label": "500 ml",
-                "price": 88
-            },
-            {
-                "label": "600 ml",
-                "price": 105
-            },
-            {
-                "label": "1 L",
-                "price": 183
-            }
-        ],
-        "emoji": "🧴",
+        "nameKn": "ಜೆಮಿನಿ ಮಲ್ಟಿ ಸೋರ್ಸ್ ಆಯಿಲ್",
+        "category": "Specialty Oil",
         "description": "High‑quality cooking oil for specific health benefits.",
-        "image": "/images/Gemini Multi Source Oil.jpg"
-    },
-    {
-        "id": 104,
-        "name": "Nature Fresh Smart Balance Oil",
-        "kn_name": "ನೇಚರ್ ಫ್ರೆಶ್ ಸ್ಮಾರ್ಟ್ ಬ್ಯಾಲೆನ್ಸ್ ಆಯಿಲ್",
-        "price": 20,
-        "category": "other",
-        "variants": [
+        "imageUrl": "../images/Gemini Multi Source Oil.jpg",
+        "weights": [
             {
                 "label": "100 ml",
-                "price": 20
+                "price": 21
             },
             {
                 "label": "200 ml",
-                "price": 35
+                "price": 36
             },
             {
                 "label": "300 ml",
@@ -2536,267 +2473,398 @@
             },
             {
                 "label": "600 ml",
-                "price": 108
+                "price": 107
             },
             {
                 "label": "1 L",
-                "price": 188
+                "price": 185
             }
-        ],
-        "emoji": "🧴",
+        ]
+    },
+    {
+        "id": 104,
+        "name": "Nature Fresh Smart Balance Oil",
+        "nameKn": "ನೇಚರ್ ಫ್ರೆಶ್ ಸ್ಮಾರ್ಟ್ ಬ್ಯಾಲೆನ್ಸ್ ಆಯಿಲ್",
+        "category": "Specialty Oil",
         "description": "High‑quality cooking oil for specific health benefits.",
-        "image": "/images/Nature Fresh Smart Balance Oil.jpg"
+        "imageUrl": "../images/Nature Fresh Smart Balance Oil.jpg",
+        "weights": [
+            {
+                "label": "100 ml",
+                "price": 22
+            },
+            {
+                "label": "200 ml",
+                "price": 37
+            },
+            {
+                "label": "300 ml",
+                "price": 56
+            },
+            {
+                "label": "500 ml",
+                "price": 92
+            },
+            {
+                "label": "600 ml",
+                "price": 110
+            },
+            {
+                "label": "1 L",
+                "price": 190
+            }
+        ]
     },
     {
         "id": 105,
         "name": "Saffola Tasty Oil",
-        "kn_name": "ಸ್ಯಾಫೋಲಾ ಟೇಸ್ಟಿ ಆಯಿಲ್",
-        "price": 21,
-        "category": "other",
-        "variants": [
+        "nameKn": "ಸ್ಯಾಫೋಲಾ ಟೇಸ್ಟಿ ಆಯಿಲ್",
+        "category": "Specialty Oil",
+        "description": "High‑quality cooking oil for specific health benefits.",
+        "imageUrl": "../images/Saffola Tasty Oil.jpg",
+        "weights": [
+            {
+                "label": "100 ml",
+                "price": 23
+            },
+            {
+                "label": "200 ml",
+                "price": 40
+            },
+            {
+                "label": "300 ml",
+                "price": 60
+            },
+            {
+                "label": "500 ml",
+                "price": 97
+            },
+            {
+                "label": "600 ml",
+                "price": 117
+            },
+            {
+                "label": "1 L",
+                "price": 200
+            }
+        ]
+    },
+    {
+        "id": 106,
+        "name": "Sundrop Active Oil",
+        "nameKn": "ಸನ್ಡ್ರಾಪ್ ಆಕ್ಟಿವ್ ಆಯಿಲ್",
+        "category": "Specialty Oil",
+        "description": "High‑quality cooking oil for specific health benefits.",
+        "imageUrl": "../images/Sundrop Active Oil.jpg",
+        "weights": [
             {
                 "label": "100 ml",
                 "price": 21
             },
             {
                 "label": "200 ml",
-                "price": 38
+                "price": 36
             },
             {
                 "label": "300 ml",
-                "price": 58
+                "price": 54
             },
             {
                 "label": "500 ml",
-                "price": 95
+                "price": 90
             },
             {
                 "label": "600 ml",
-                "price": 115
+                "price": 107
             },
             {
                 "label": "1 L",
-                "price": 198
+                "price": 180
             }
-        ],
-        "emoji": "🧴",
-        "description": "High‑quality cooking oil for specific health benefits.",
-        "image": "/images/Saffola Tasty Oil.jpg"
-    },
-    {
-        "id": 106,
-        "name": "Sundrop Active Oil",
-        "kn_name": "ಸನ್ಡ್ರಾಪ್ ಆಕ್ಟಿವ್ ಆಯಿಲ್",
-        "price": 19,
-        "category": "other",
-        "variants": [
-            {
-                "label": "100 ml",
-                "price": 19
-            },
-            {
-                "label": "200 ml",
-                "price": 34
-            },
-            {
-                "label": "300 ml",
-                "price": 52
-            },
-            {
-                "label": "500 ml",
-                "price": 88
-            },
-            {
-                "label": "600 ml",
-                "price": 105
-            },
-            {
-                "label": "1 L",
-                "price": 178
-            }
-        ],
-        "emoji": "🧴",
-        "description": "High‑quality cooking oil for specific health benefits.",
-        "image": "/images/Sundrop Active Oil.jpg"
+        ]
     },
     {
         "id": 107,
         "name": "Fortune Blended Cooking Oil",
-        "kn_name": "ಫಾರ್ಚೂನ್ ಬ್ಲೆಂಡೆಡ್ ಕುಕಿಂಗ್ ಆಯಿಲ್",
-        "price": 18,
-        "category": "other",
-        "variants": [
+        "nameKn": "ಫಾರ್ಚೂನ್ ಬ್ಲೆಂಡೆಡ್ ಕುಕಿಂಗ್ ಆಯಿಲ್",
+        "category": "Specialty Oil",
+        "description": "High‑quality cooking oil for specific health benefits.",
+        "imageUrl": "../images/Fortune Blended Cooking Oil.jpg",
+        "weights": [
             {
                 "label": "100 ml",
-                "price": 18
+                "price": 20
             },
             {
                 "label": "200 ml",
-                "price": 30
+                "price": 32
             },
             {
                 "label": "300 ml",
-                "price": 48
+                "price": 50
             },
             {
                 "label": "500 ml",
-                "price": 80
+                "price": 82
             },
             {
                 "label": "600 ml",
-                "price": 95
+                "price": 97
             },
             {
                 "label": "1 L",
-                "price": 168
+                "price": 170
             }
-        ],
-        "emoji": "🧴",
-        "description": "High‑quality cooking oil for specific health benefits.",
-        "image": "/images/Fortune Blended Cooking Oil.jpg"
+        ]
     },
     {
         "id": 108,
         "name": "Dhara Balance Oil",
-        "kn_name": "ಧಾರಾ ಬ್ಯಾಲೆನ್ಸ್ ಆಯಿಲ್",
-        "price": 18,
-        "category": "other",
-        "variants": [
+        "nameKn": "ಧಾರಾ ಬ್ಯಾಲೆನ್ಸ್ ಆಯಿಲ್",
+        "category": "Specialty Oil",
+        "description": "High‑quality cooking oil for specific health benefits.",
+        "imageUrl": "../images/Dhara Balance Oil.jpg",
+        "weights": [
             {
                 "label": "100 ml",
-                "price": 18
+                "price": 20
             },
             {
                 "label": "200 ml",
-                "price": 30
+                "price": 32
             },
             {
                 "label": "300 ml",
-                "price": 48
+                "price": 50
             },
             {
                 "label": "500 ml",
-                "price": 80
+                "price": 82
             },
             {
                 "label": "600 ml",
-                "price": 95
+                "price": 97
             },
             {
                 "label": "1 L",
-                "price": 163
+                "price": 165
             }
-        ],
-        "emoji": "🧴",
-        "description": "High‑quality cooking oil for specific health benefits.",
-        "image": "/images/Dhara Balance Oil.jpg"
+        ]
     },
     {
         "id": 111,
         "name": "Anjali Groundnut Oil Tin",
-        "kn_name": "ಅಂಜಲಿ ಕಡಲೆಕಾಯಿ ಎಣ್ಣೆ ಟಿನ್",
-        "price": 30,
-        "category": "other",
-        "variants": [
+        "nameKn": "ಅಂಜಲಿ ಕಡಲೆಕಾಯಿ ಎಣ್ಣೆ ಟಿನ್",
+        "category": "Specialty Oil",
+        "description": "High‑quality cooking oil for specific health benefits.",
+        "imageUrl": "../images/Anjali Groundnut Oil Tin.jpg",
+        "weights": [
             {
                 "label": "100 ml",
-                "price": 30
+                "price": 32
             },
             {
                 "label": "200 ml",
-                "price": 55
+                "price": 57
             },
             {
                 "label": "300 ml",
-                "price": 85
+                "price": 87
             },
             {
                 "label": "500 ml",
-                "price": 150
+                "price": 152
             },
             {
                 "label": "600 ml",
-                "price": 180
+                "price": 182
             },
             {
                 "label": "1 L",
-                "price": 290
+                "price": 292
             }
-        ],
-        "emoji": "🧴",
-        "description": "High‑quality cooking oil for specific health benefits.",
-        "image": "/images/Anjali Groundnut Oil Tin.jpg"
+        ]
     },
     {
         "id": 112,
         "name": "Engine Brand Groundnut Oil Drum",
-        "kn_name": "ಎಂಜಿನ್ ಬ್ರಾಂಡ್ ಕಡಲೆಕಾಯಿ ಎಣ್ಣೆ ಡ್ರಮ್",
-        "price": 31,
-        "category": "other",
-        "variants": [
+        "nameKn": "ಎಂಜಿನ್ ಬ್ರಾಂಡ್ ಕಡಲೆಕಾಯಿ ಎಣ್ಣೆ ಡ್ರಮ್",
+        "category": "Specialty Oil",
+        "description": "High‑quality cooking oil for specific health benefits.",
+        "imageUrl": "../images/Engine Brand Groundnut Oil Drum.jpg",
+        "weights": [
             {
                 "label": "100 ml",
-                "price": 31
+                "price": 33
             },
             {
                 "label": "200 ml",
-                "price": 58
+                "price": 60
             },
             {
                 "label": "300 ml",
-                "price": 88
+                "price": 90
             },
             {
                 "label": "500 ml",
-                "price": 155
+                "price": 157
             },
             {
                 "label": "600 ml",
-                "price": 185
+                "price": 187
             },
             {
                 "label": "1 L",
-                "price": 300
+                "price": 302
             }
-        ],
-        "emoji": "🧴",
-        "description": "High‑quality cooking oil for specific health benefits.",
-        "image": "/images/Engine Brand Groundnut Oil Drum.jpg"
+        ]
     },
     {
         "id": 114,
         "name": "Organic Cold Pressed Sesame Oil",
-        "kn_name": "ಆರ್ಗಾನಿಕ್ ಕೋಲ್ಡ್ ಪ್ರೆಸ್ಡ್ ಎಳ್ಳು ಎಣ್ಣೆ",
-        "price": 48,
-        "category": "other",
-        "variants": [
+        "nameKn": "ಆರ್ಗಾನಿಕ್ ಕೋಲ್ಡ್ ಪ್ರೆಸ್ಡ್ ಎಳ್ಳು ಎಣ್ಣೆ",
+        "category": "Specialty Oil",
+        "description": "High‑quality cooking oil for specific health benefits.",
+        "imageUrl": "../images/Organic Cold Pressed Sesame Oil.jpg",
+        "weights": [
             {
                 "label": "100 ml",
-                "price": 48
+                "price": 50
             },
             {
                 "label": "200 ml",
-                "price": 85
+                "price": 87
             },
             {
                 "label": "300 ml",
-                "price": 130
+                "price": 132
             },
             {
                 "label": "500 ml",
-                "price": 220
+                "price": 222
             },
             {
                 "label": "600 ml",
-                "price": 260
+                "price": 262
             },
             {
                 "label": "1 L",
-                "price": 410
+                "price": 412
             }
-        ],
-        "emoji": "🧴",
-        "description": "High‑quality cooking oil for specific health benefits.",
-        "image": "/images/Organic Cold Pressed Sesame Oil.jpg"
+        ]
+    },
+    {
+        "id": 9600,
+        "name": "Amul Pure Ghee",
+        "nameKn": "ಅಮೂಲ್ ಶುದ್ಧ ತುಪ್ಪ",
+        "category": "Ghee",
+        "description": "Rich traditional pure cow ghee for aromatic cooking.",
+        "imageUrl": "../images/Amul Pure Ghee.jpg",
+        "weights": [
+            {
+                "label": "500 ml",
+                "price": 622
+            },
+            {
+                "label": "1 L",
+                "price": 1222
+            }
+        ]
+    },
+    {
+        "id": 9601,
+        "name": "Amul Pure Ghee 1L Pouch",
+        "nameKn": "ಅಮೂಲ್ ತುಪ್ಪ 1L ಪೌಚ್",
+        "category": "Ghee",
+        "description": "Refill pouch of Amul pure cow ghee.",
+        "imageUrl": "../images/Amul Pure Ghee 1 L Pouch 550-650.jpg",
+        "weights": [
+            {
+                "label": "1 L",
+                "price": 602
+            }
+        ]
+    },
+    {
+        "id": 9602,
+        "name": "Mother Dairy Cow Ghee",
+        "nameKn": "ಮದರ್ ಡೈರಿ ಹಸುವಿನ ತುಪ್ಪ",
+        "category": "Ghee",
+        "description": "Pure granulated cow ghee with natural aroma.",
+        "imageUrl": "../images/Mother Dairy Cow Ghee 600-750.jpg",
+        "weights": [
+            {
+                "label": "1 L",
+                "price": 677
+            }
+        ]
+    },
+    {
+        "id": 9603,
+        "name": "Nandini Pure Cow Ghee",
+        "nameKn": "ನಂದಿನಿ ಶುದ್ಧ ಹಸುವಿನ ತುಪ್ಪ",
+        "category": "Ghee",
+        "description": "Karnataka’s favourite Agmark pure cow ghee.",
+        "imageUrl": "../images/Nandini Pure Cow Ghee 700.jpg",
+        "weights": [
+            {
+                "label": "500 ml",
+                "price": 352
+            },
+            {
+                "label": "1 L",
+                "price": 702
+            }
+        ]
+    },
+    {
+        "id": 9604,
+        "name": "Sunflower Oil Refined",
+        "nameKn": "ಸೂರ್ಯಕಾಂತಿ ಅಡುಗೆ ಎಣ್ಣೆ",
+        "category": "Sunflower Oil",
+        "description": "Light refined sunflower cooking oil.",
+        "imageUrl": "../images/Sunflower oil.jpg",
+        "weights": [
+            {
+                "label": "1 L",
+                "price": 152
+            },
+            {
+                "label": "5 L",
+                "price": 742
+            }
+        ]
+    },
+    {
+        "id": 9605,
+        "name": "Pure Cow Ghee",
+        "nameKn": "ಶುದ್ಧ ಹಸುವಿನ ತುಪ್ಪ",
+        "category": "Ghee",
+        "description": "Pure clarified butter for cooking and sweets.",
+        "imageUrl": "../images/Ghee.jpg",
+        "weights": [
+            {
+                "label": "500 ml",
+                "price": 322
+            },
+            {
+                "label": "1 L",
+                "price": 632
+            }
+        ]
+    },
+    {
+        "id": 9606,
+        "name": "Amul Pure Cow Ghee Jar",
+        "nameKn": "ಅಮೂಲ್ ಹಸುವಿನ ತುಪ್ಪ ಜಾರ್",
+        "category": "Ghee",
+        "description": "Pure cow ghee in convenient glass/plastic jar.",
+        "imageUrl": "../images/Amul Pure  cow Ghee 620.jpg",
+        "weights": [
+            {
+                "label": "1 L",
+                "price": 622
+            }
+        ]
     }
 ]
