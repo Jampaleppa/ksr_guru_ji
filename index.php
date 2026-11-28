@@ -40,10 +40,11 @@ if (isset($_GET['ajax'])) {
             $search = $_GET['search'] ?? '';
             $raw_products = getProducts($cat, $search);
             foreach ($raw_products as &$rp) {
-                if (!empty($rp['images'])) {
-                    $rp['images'] = normalizeImagePath($rp['images']);
-                }
+                // DB column is 'image' (singular); expose as 'images' for JS compatibility
+                $rawImg = $rp['image'] ?? $rp['images'] ?? '';
+                $rp['images'] = !empty($rawImg) ? normalizeImagePath($rawImg) : '';
             }
+            unset($rp);
             echo json_encode($raw_products, JSON_UNESCAPED_UNICODE);
             exit;
 
@@ -304,7 +305,7 @@ $bestSellers = array_slice($products, 0, 8);
                     <a href="/categories/vegetables-fruits.php" class="nav-link"><i class="fas fa-carrot"></i> Vegetables & Fruits</a>
                     <!-- ★ Product & Medical Suggest Box -->
                     <a href="/WhatsApp/telehealth/medicine/tablet.php" class="nav-link"><i class="fas fa-medkit"></i> Medicines</a>
-                    <a href="/suggestion-box.php" class="nav-link"><i class="fas fa-lightbulb"></i> Suggestion Box</a>
+                    <a href="final-suggestion-box.php" class="nav-link"><i class="fas fa-lightbulb"></i> Suggestion Box</a>
                     <a href="/categories/parcels.php" class="nav-link"><i class="fas fa-box"></i> Parcel Delivery</a>
                     <a href="/WhatsApp/telehealth/index.php" class="nav-link" style="color: #059669; font-weight:700;"><i class="fas fa-stethoscope"></i> Doctor Assist</a>
                     <a href="/download-app.php" class="nav-link" style="color: var(--color-primary); font-weight:700;"><i class="fas fa-mobile-screen"></i> Download App</a>
@@ -469,7 +470,7 @@ $bestSellers = array_slice($products, 0, 8);
                 <h2 class="section-title">🔥 Best Sellers · ಉತ್ತಮ ಮಾರಾಟ</h2>
                 <div class="best-sellers-grid">
                     <?php foreach ($bestSellers as $p):
-                        $imgPath = !empty($p['images']) ? normalizeImagePath($p['images']) : '';
+                        $imgPath = !empty($p['image']) ? normalizeImagePath($p['image']) : '';
                     ?>
                         <div class="best-card fade-up" onclick="openQuickView('<?php echo htmlspecialchars(addslashes($p['name']), ENT_QUOTES, 'UTF-8'); ?>', '₹<?php echo number_format($p['price'], 2); ?>', '<?php echo htmlspecialchars($p['icon'] ?? 'fa-box', ENT_QUOTES, 'UTF-8'); ?>', '<?php echo htmlspecialchars($imgPath, ENT_QUOTES, 'UTF-8'); ?>', '<?php echo $p['id']; ?>')">
                             <button class="wishlist-btn" onclick="toggleWishlist(this, event)"><i class="far fa-heart"></i></button>
@@ -590,7 +591,7 @@ $bestSellers = array_slice($products, 0, 8);
             <?php
             $featured = getFeaturedProduct();
             if ($featured):
-                $featuredImg = !empty($featured['images']) ? normalizeImagePath($featured['images']) : '';
+                $featuredImg = !empty($featured['image']) ? normalizeImagePath($featured['image']) : '';
             ?>
                 <div class="product-main" id="aiMainProduct">
                     <div class="product-main-image">
@@ -622,7 +623,7 @@ $bestSellers = array_slice($products, 0, 8);
                 <?php
                 $recs = getRecommendations($featured['id'] ?? 0, 4);
                 foreach ($recs as $rec):
-                    $recImg = !empty($rec['images']) ? normalizeImagePath($rec['images']) : '';
+                    $recImg = !empty($rec['image']) ? normalizeImagePath($rec['image']) : '';
                 ?>
                     <div class="rec-card" data-id="<?php echo $rec['id']; ?>" onclick="openQuickView('<?php echo htmlspecialchars(addslashes($rec['name']), ENT_QUOTES, 'UTF-8'); ?>', '₹<?php echo number_format($rec['price'], 2); ?>', '<?php echo htmlspecialchars($rec['icon'] ?? 'fa-box', ENT_QUOTES, 'UTF-8'); ?>', '<?php echo htmlspecialchars($recImg, ENT_QUOTES, 'UTF-8'); ?>', '<?php echo $rec['id']; ?>')" style="cursor:pointer;">
                         <div class="rec-emoji">
@@ -805,7 +806,7 @@ $bestSellers = array_slice($products, 0, 8);
             <?php else: ?>
                 <?php foreach ($products as $p): ?>
                     <?php
-                    $imgPath = !empty($p['images']) ? normalizeImagePath($p['images']) : '';
+                    $imgPath = !empty($p['image']) ? normalizeImagePath($p['image']) : '';
                     ?>
                     <div class="product-card fade-up"
                         data-price="<?php echo (float)$p['price']; ?>"
@@ -1124,7 +1125,9 @@ $bestSellers = array_slice($products, 0, 8);
                 fetch('index.php?ajax=add_cart', {
                         method: 'POST',
                         body: formData,
-                        headers: { 'X-Requested-With': 'XMLHttpRequest' }
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest'
+                        }
                     })
                     .then(res => res.text())
                     .then(text => {
@@ -1236,7 +1239,9 @@ $bestSellers = array_slice($products, 0, 8);
                 fetch('index.php?ajax=update_cart', {
                         method: 'POST',
                         body: formData,
-                        headers: { 'X-Requested-With': 'XMLHttpRequest' }
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest'
+                        }
                     })
                     .then(res => res.text())
                     .then(text => {

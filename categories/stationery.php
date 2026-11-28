@@ -183,7 +183,46 @@ if (empty($productsData)) {
     ['id' => 133, 'nameEn' => 'Reynolds DFINE Ball Pen', 'category' => 'pens', 'price' => 350, 'imageUrl' => 'images\\Reynolds DFINE Ball Pen Set 350.jpg', 'nameKn' => 'ಕ್ಯಾಲಿಗ್ರಫಿ ಪೆನ್', 'description' => 'Nib set, includes ink'],
     ['id' => 134, 'nameEn' => 'Board Duster', 'category' => 'Duster', 'price' => 250, 'imageUrl' => 'images\\Board Duster.jpg', 'nameKn' => '', 'description' => 'Nib set, includes ink'],
     ['id' => 135, 'nameEn' => 'Board Duster', 'category' => 'Duster', 'price' => 280, 'imageUrl' => 'images\\Board Duster2.jpg', 'nameKn' => '', 'description' => 'Nib set, includes ink'],
-    ['id' => 136, 'nameEn' => 'Paint Brush Set', 'category' => 'art', 'price' => 280, 'imageUrl' => 'images\\Camel Champ Brush Set of 7 190.jpg', 'nameKn' => 'ಬಣ್ಣದ ಕುಂಚಗಳು', 'description' => '5 sizes, nylon bristles']
+    ['id' => 136, 'nameEn' => 'Paint Brush Set', 'category' => 'art', 'price' => 280, 'imageUrl' => 'images\\Camel Champ Brush Set of 7 190.jpg', 'nameKn' => 'ಬಣ್ಣದ ಕುಂಚಗಳು', 'description' => '5 sizes, nylon bristles'],
+    // ─── NEW B2B Items: Paper, Lamination, Ink, Band Paper ───────
+    ['id' => 8001, 'nameEn' => 'A4 Copier Paper (500 sheets)', 'category' => 'paper', 'price' => 260, 'imageUrl' => 'images\\Trident Spectra Spectra -75 Copier Paper, 5 cm x 22 cm x 34 cm 460.jpg', 'nameKn' => 'A4 ಕಾಪಿ ಪೇಪರ್', 'description' => 'Trident Spectra 75 GSM A4 copier paper, 500 sheets ream.', 'images' => ['images\\Trident Spectra Spectra -75 Copier Paper, 5 cm x 22 cm x 34 cm 460.jpg']],
+    ['id' => 8002, 'nameEn' => 'Chart Paper (Colour Pack)', 'category' => 'paper', 'price' => 60, 'imageUrl' => 'images\\Chart Paper.jpg', 'nameKn' => 'ಚಾರ್ಟ್ ಪೇಪರ್', 'description' => 'Bright coloured chart paper, 10 sheets assorted.', 'images' => ['images\\Chart Paper.jpg']],
+    ['id' => 8003, 'nameEn' => 'Carbon Paper', 'category' => 'paper', 'price' => 35, 'imageUrl' => 'images\\Carbon Paper.jpg', 'nameKn' => 'ಕಾರ್ಬನ್ ಪೇಪರ್', 'description' => 'Standard blue carbon paper for duplicate copies.', 'images' => ['images\\Carbon Paper.jpg']],
+    ['id' => 8004, 'nameEn' => 'Tracing Paper Roll', 'category' => 'paper', 'price' => 50, 'imageUrl' => 'images\\Tracing Paper.jpg', 'nameKn' => 'ಟ್ರೇಸಿಂಗ್ ಪೇಪರ್', 'description' => 'Translucent tracing paper for technical drawing.', 'images' => ['images\\Tracing Paper.jpg']],
+    ['id' => 8005, 'nameEn' => 'Silicone Parchment Paper', 'category' => 'paper', 'price' => 85, 'imageUrl' => 'images\\Silicone Parchment Paper.jpg', 'nameKn' => 'ಪಾರ್ಚ್‌ಮೆಂಟ್ ಪೇಪರ್', 'description' => 'Non-stick baking/cooking parchment paper roll.', 'images' => ['images\\Silicone Parchment Paper.jpg']],
+    // Lamination
+    ['id' => 8010, 'nameEn' => 'Lamination Pouch A4 (100 pcs)', 'category' => 'lamination', 'price' => 180, 'imageUrl' => 'images\\Silver Laminated Paper Plates 200.jpg', 'nameKn' => 'A4 ಲ್ಯಾಮಿನೇಷನ್ ಪೌಚ್', 'description' => 'A4 glossy lamination pouches 125 micron, 100 pcs.', 'images' => ['images\\Silver Laminated Paper Plates 200.jpg']],
+    ['id' => 8011, 'nameEn' => 'Silver Laminated Paper Plates', 'category' => 'lamination', 'price' => 200, 'imageUrl' => 'images\\Silver Laminated Paper Plates 200.jpg', 'nameKn' => 'ಸಿಲ್ವರ್ ಲ್ಯಾಮಿನೇಟೆಡ್ ಪ್ಲೇಟ್', 'description' => 'Premium silver laminated disposable paper plates.', 'images' => ['images\\Silver Laminated Paper Plates 200.jpg']],
+    // Ink / Stamps
+    ['id' => 8020, 'nameEn' => 'Rubber Stamp Ink – Camlin', 'category' => 'ink', 'price' => 30, 'imageUrl' => 'images\\Camlin Rubber Stamp Ink 30.jpg', 'nameKn' => 'ಕ್ಯಾಮ್ಲಿನ್ ಸ್ಟ್ಯಾಂಪ್ ಇಂಕ್', 'description' => 'Camlin stamp ink 30ml, blue/black, quick drying.', 'images' => ['images\\Camlin Rubber Stamp Ink 30.jpg', 'images\\Stamp Ink.jpg']],
+    ['id' => 8021, 'nameEn' => 'Stamp Pad Ink – Soni', 'category' => 'ink', 'price' => 182, 'imageUrl' => 'images\\Soni Officemate Stamp Pad Ink 182.jpg', 'nameKn' => 'ಸ್ಟ್ಯಾಂಪ್ ಪ್ಯಾಡ್ ಇಂಕ್', 'description' => 'Soni Officemate stamp pad ink 182ml, fast drying.', 'images' => ['images\\Soni Officemate Stamp Pad Ink 182.jpg', 'images\\Stamp Ink.jpg']],
+    ['id' => 8022, 'nameEn' => 'Stamp Pad (Blue)', 'category' => 'ink', 'price' => 40, 'imageUrl' => 'images\\Stamp Pad.jpg', 'nameKn' => 'ಸ್ಟ್ಯಾಂಪ್ ಪ್ಯಾಡ್', 'description' => 'Office stamp pad, pre-inked blue.', 'images' => ['images\\Stamp Pad.jpg', 'images\\Stamp Pad 1.jpg', 'images\\Stamp Pad2.jpg']],
+    ['id' => 8023, 'nameEn' => 'Stamp Ink Refill', 'category' => 'ink', 'price' => 25, 'imageUrl' => 'images\\Stamp Ink.jpg', 'nameKn' => 'ಸ್ಟ್ಯಾಂಪ್ ಇಂಕ್ ರಿಫಿಲ್', 'description' => 'General purpose stamp ink refill bottle.', 'images' => ['images\\Stamp Ink.jpg']],
+    // Band Paper / Disposables
+    ['id' => 8070, 'nameEn' => 'Disposable Paper Cups (Small 100ml)', 'category' => 'disposables', 'price' => 99, 'imageUrl' => 'images\\Disposable Paper Cups Small 99.jpg', 'nameKn' => 'ಡಿಸ್ಪೋಸೇಬಲ್ ಕಪ್ (ಸಣ್ಣ)', 'description' => 'Paper cups 100ml, pack of 100. Ideal for offices.', 'images' => ['images\\Disposable Paper Cups Small 99.jpg', 'images\\Zd Retail Pack Of 100 Paper Cups 100ml Disposable Paper 180.jpg', 'images\\Status Printed Disposable Paper Cup 150 ml (25 Pcs) 35.jpg']],
+    ['id' => 8071, 'nameEn' => 'Disposable Paper Cups (Medium)', 'category' => 'disposables', 'price' => 99, 'imageUrl' => 'images\\Disposable Paper Cups Medium 99.jpg', 'nameKn' => 'ಡಿಸ್ಪೋಸೇಬಲ್ ಕಪ್ (ಮಧ್ಯಮ)', 'description' => 'Paper cups 150ml, pack of 50.', 'images' => ['images\\Disposable Paper Cups Medium 99.jpg', 'images\\Disposable Paper Cups Large 750.jpg']],
+    ['id' => 8073, 'nameEn' => 'Disposable Paper Plates 7 inch', 'category' => 'disposables', 'price' => 70, 'imageUrl' => 'images\\Disposable Paper Plates  7 inch  Naturepac 70.jpg', 'nameKn' => 'ಪೇಪರ್ ಪ್ಲೇಟ್ 7 ಇಂಚ್', 'description' => 'Eco-friendly 7-inch plates, pack of 25.', 'images' => ['images\\Disposable Paper Plates  7 inch  Naturepac 70.jpg', 'images\\Status Super Thick White Round Disposable Paper Plates 60.jpg', 'images\\Square Paper Plates.jpg']],
+    ['id' => 8074, 'nameEn' => 'Tissue Paper Box', 'category' => 'disposables', 'price' => 60, 'imageUrl' => 'images\\Tulips Premium Facial Tissue Paper Box 600.jpg', 'nameKn' => 'ಟಿಶ್ಯೂ ಪೇಪರ್ ಬಾಕ್ಸ್', 'description' => 'Premium soft facial tissue, 200 pulls.', 'images' => ['images\\Tulips Premium Facial Tissue Paper Box 600.jpg', 'images\\Bella Paper Napkins 120.jpg', 'images\\Bella Paper Napkins 140.jpg']],
+    ['id' => 8075, 'nameEn' => 'Toilet Paper Roll', 'category' => 'disposables', 'price' => 38, 'imageUrl' => 'images\\Toilet paper.jpg', 'nameKn' => 'ಟಾಯ್ಲೆಟ್ ಪೇಪರ್', 'description' => 'Soft 2-ply toilet paper, 200 sheets.', 'images' => ['images\\Toilet paper.jpg', 'images\\SoftTouch Premium Toilet Paper.jpg']],
+    // Whiteboard Markers with multi-image
+    ['id' => 8034, 'nameEn' => 'Whiteboard Marker (Multi-colour)', 'category' => 'pens', 'price' => 35, 'imageUrl' => 'images\\Whiteboard Marker offices.png', 'nameKn' => 'ವ್ಹೈಟ್‌ಬೋರ್ಡ್ ಮಾರ್ಕರ್', 'description' => 'Dry-erase whiteboard marker, assorted colours.', 'images' => ['images\\Whiteboard Marker offices.png', 'images\\Whiteboard Marker.jpg']],
+    // Sketch pens with multi-image
+    ['id' => 8035, 'nameEn' => 'Sketch Pens – Camel/Camlin', 'category' => 'art', 'price' => 70, 'imageUrl' => 'images\\camel Sketch Pens 70.jpg', 'nameKn' => 'ಸ್ಕೆಚ್ ಪೆನ್', 'description' => 'Camel sketch pens 20 shades.', 'images' => ['images\\camel Sketch Pens 70.jpg', 'images\\camlin Sketch Pens 28.jpg', 'images\\Sketch Pens.jpg', 'images\\sketchColor Pen.jpg']],
+    // Colour Pencils with multi-image
+    ['id' => 8036, 'nameEn' => 'Colour Pencils – Apsara', 'category' => 'art', 'price' => 88, 'imageUrl' => 'images\\Apsara Colour Pencils 88.jpg', 'nameKn' => 'ಕಲರ್ ಪೆನ್ಸಿಲ್', 'description' => 'Apsara 24-shade colour pencils for students.', 'images' => ['images\\Apsara Colour Pencils 88.jpg', 'images\\Color Pencils.jpg', 'images\\Color Pencils dom.jpg']],
+    // Correction items
+    ['id' => 8037, 'nameEn' => 'Correction Pen', 'category' => 'office', 'price' => 30, 'imageUrl' => 'images\\Correction Pen.jpg', 'nameKn' => 'ಕರೆಕ್ಷನ್ ಪೆನ್', 'description' => 'Quick-dry correction pen for paper.', 'images' => ['images\\Correction Pen.jpg', 'images\\Correction Pen whitnet.jpg']],
+    ['id' => 8038, 'nameEn' => 'Correction Tape', 'category' => 'office', 'price' => 40, 'imageUrl' => 'images\\Correction Tape.jpg', 'nameKn' => 'ಕರೆಕ್ಷನ್ ಟೇಪ್', 'description' => 'Roll-on correction tape for clean fixes.', 'images' => ['images\\Correction Tape.jpg']],
+    // Stamp pads multi
+    ['id' => 8050, 'nameEn' => 'Stapler (Heavy Duty)', 'category' => 'office', 'price' => 120, 'imageUrl' => 'images\\Stapler.jpg', 'nameKn' => 'ಸ್ಟೇಪ್ಲರ್', 'description' => 'Standard office stapler fits 24/6 staple pins.', 'images' => ['images\\Stapler.jpg', 'images\\Stapler general.jpg']],
+    ['id' => 8051, 'nameEn' => 'Stapler Pins (1000 pcs)', 'category' => 'office', 'price' => 20, 'imageUrl' => 'images\\Stapler Pins.jpg', 'nameKn' => 'ಸ್ಟೇಪ್ಲರ್ ಪಿನ್ಸ್', 'description' => '24/6 staple pins, 1000 pcs.', 'images' => ['images\\Stapler Pins.jpg', 'images\\Stapler Pins 23_8.jpg']],
+    ['id' => 8052, 'nameEn' => 'Staple Remover', 'category' => 'office', 'price' => 25, 'imageUrl' => 'images\\Staple Remover.jpg', 'nameKn' => 'ಸ್ಟೇಪ್ಲ್ ರಿಮೂವರ್', 'description' => 'Metal staple remover, easy grip handle.', 'images' => ['images\\Staple Remover.jpg']],
+    ['id' => 8060, 'nameEn' => 'Desk Organizer (Office)', 'category' => 'office', 'price' => 250, 'imageUrl' => 'images\\Desk Organizer offices.jpg', 'nameKn' => 'ಡೆಸ್ಕ್ ಆರ್ಗನೈಜರ್', 'description' => 'Multi-compartment desk organizer for pens.', 'images' => ['images\\Desk Organizer offices.jpg']],
+    ['id' => 8062, 'nameEn' => 'Book Stand', 'category' => 'office', 'price' => 200, 'imageUrl' => 'images\\Book Stand.jpg', 'nameKn' => 'ಬುಕ್ ಸ್ಟ್ಯಾಂಡ್', 'description' => 'Adjustable metal book/tablet stand.', 'images' => ['images\\Book Stand.jpg']],
+    ['id' => 8063, 'nameEn' => 'Brown Envelope (Pack)', 'category' => 'office', 'price' => 15, 'imageUrl' => 'images\\Brown Envelope.jpg', 'nameKn' => 'ಬ್ರೌನ್ ಎನ್‌ವಲಪ್', 'description' => 'Brown kraft envelope A4 size, pack of 25.', 'images' => ['images\\Brown Envelope.jpg']],
+    ['id' => 8064, 'nameEn' => 'Cash Book / Account Ledger', 'category' => 'notebooks', 'price' => 75, 'imageUrl' => 'images\\Cash Book.jpg', 'nameKn' => 'ಕ್ಯಾಶ್ ಬುಕ್', 'description' => 'Ruled cash book for daily accounts.', 'images' => ['images\\Cash Book.jpg']],
+    ['id' => 8065, 'nameEn' => 'Attendance Register', 'category' => 'notebooks', 'price' => 85, 'imageUrl' => 'images\\Attendance Register.jpg', 'nameKn' => 'ಅಟೆಂಡೆನ್ಸ್ ರಿಜಿಸ್ಟರ್', 'description' => 'Office/school attendance register, 100 pages.', 'images' => ['images\\Attendance Register.jpg']],
+    ['id' => 8066, 'nameEn' => 'Spiral Notebook A5', 'category' => 'notebooks', 'price' => 60, 'imageUrl' => 'images\\Spiral Notebook.jpg', 'nameKn' => 'ಸ್ಪೈರಲ್ ನೋಟ್‌ಬುಕ್', 'description' => 'Spiral bound A5 notebook 200 pages ruled.', 'images' => ['images\\Spiral Notebook.jpg']],
   ];
   // Build productsData from static
   foreach ($staticProducts as $item) {
@@ -194,6 +233,7 @@ if (empty($productsData)) {
       'category' => $item['category'],
       'price' => $item['price'],
       'imageUrl' => $item['imageUrl'],
+      'images' => $item['images'] ?? [$item['imageUrl']],
       'description' => $item['description'],
       'weight' => ''
     ];
@@ -211,6 +251,7 @@ $topPickIds = [1, 5, 13, 24, 18, 15, 9, 28, 38, 44];
   <title>Stationery · Premium Supplies · ಸ್ಟೇಷನರಿ</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <script src="gallery.js"></script>
   <style>
     /* ===== SAME CSS AS STATIC VERSION ===== */
     * {
@@ -800,8 +841,19 @@ $topPickIds = [1, 5, 13, 24, 18, 15, 9, 28, 38, 44];
         productGrid.innerHTML = filtered.map(p => {
           const defaultQty = 1;
           const defaultPrice = (p.price * defaultQty).toFixed(2);
+          const imgs = (p.images && p.images.length) ? p.images : (p.imageUrl ? [p.imageUrl] : []);
+          const hasMulti = imgs.length > 1;
+          const mainImg = imgs[0] || '';
+          const thumbsHtml = hasMulti
+            ? `<div style="display:flex;gap:3px;padding:3px 0;overflow-x:auto;scrollbar-width:none;">` +
+              imgs.map((u, i) => `<img src="${u}" onclick="event.stopPropagation();switchStatImg_${p.id}(${i},'${u.replace(/'/g,"\\'")}',this)" style="width:30px;height:30px;object-fit:cover;border-radius:5px;border:2px solid ${i===0?'#b45f2b':'#ddd'};cursor:pointer;flex-shrink:0;" onerror="this.style.display='none'" loading="lazy">`).join('') +
+              `</div>`
+            : '';
           return `<div class="product-card" data-id="${p.id}">
-                <div class="product-image"><img src="${p.imageUrl}" alt="" loading="lazy" onerror="this.src='https://placehold.co/400x400?text=Stationery'"></div>
+                <div class="product-image" id="imgwrap-${p.id}" style="position:relative;">
+                  <img id="mainimg-${p.id}" src="${mainImg}" alt="${p.name}" loading="lazy" onerror="this.src='https://placehold.co/400x400?text=Stationery'">
+                  ${thumbsHtml}
+                </div>
                 <div class="product-name">${p.name}</div>
                 <div class="product-name-kn">${p.kn || 'ಸ್ಟೇಷನರಿ'}</div>
                 <div class="product-desc">${p.description}</div>
@@ -813,7 +865,9 @@ $topPickIds = [1, 5, 13, 24, 18, 15, 9, 28, 38, 44];
                     <div class="price"><small>₹${p.price} / piece</small></div>
                     <button class="add-btn" data-id="${p.id}" data-add><i class="fa-solid fa-cart-plus"></i></button>
                 </div>
-            </div>`;
+            </div>
+            <script>function switchStatImg_${p.id}(i,u,el){document.getElementById('mainimg-${p.id}').src=u;document.querySelectorAll('#imgwrap-${p.id} img[onclick]').forEach((t,j)=>{t.style.borderColor=j===i?'#b45f2b':'#ddd';});}<\/script>`;
+        }).join('');
         }).join('');
         // dynamic price update
         document.querySelectorAll('.weight-select').forEach(select => {
