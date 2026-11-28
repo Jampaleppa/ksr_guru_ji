@@ -239,25 +239,74 @@ assertTest(
     is_array($subJson) && ($subJson['success'] ?? false) === true
 );
 
-// 3.6 bank-transfer/instructions.php
-$res = runSubprocessPage('payment-methods/bank-transfer/instructions.php', ['user_id' => 888], ['pid' => $testPid, 'oid' => 888]);
+// 3.6 bank-transfer/instructions.php & submit_reference.php
+$btPidKey = 'idem_bt_' . time() . '_' . rand(100, 999);
+$btRes = $pm->createPayment(888, 888, 'bank_transfer', $btPidKey);
+$btPid = $btRes['payment_id'];
+
+$res = runSubprocessPage('payment-methods/bank-transfer/instructions.php', ['user_id' => 888], ['pid' => $btPid, 'oid' => 888]);
 assertTest(
     "payment-methods/bank-transfer/instructions.php renders bank details and transfer instructions",
     $res['code'] === 0 && str_contains($res['stdout'], 'Bank Transfer') && str_contains($res['stdout'], $orderNum)
 );
 
-// 3.7 cod/create_collection.php
+// 3.6b bank-transfer/submit_reference.php rejects unauthenticated requests
+$res = runSubprocessPage('payment-methods/bank-transfer/submit_reference.php', [], [], [], 'POST');
+$btUnauthJson = json_decode($res['stdout'], true);
+assertTest(
+    "payment-methods/bank-transfer/submit_reference.php rejects unauthenticated requests",
+    is_array($btUnauthJson) && ($btUnauthJson['success'] ?? true) === false
+);
+
+// 3.6c bank-transfer/submit_reference.php accepts valid bank ref and surfaces in ReconciliationManager
+$validBtRef = 'IMPS' . time() . rand(100, 999);
+$res = runSubprocessPage(
+    'payment-methods/bank-transfer/submit_reference.php',
+    ['user_id' => 888, 'ksr_csrf_token' => $testCsrf],
+    [],
+    ['csrf_token' => $testCsrf, 'payment_id' => $btPid, 'order_id' => 888, 'utr' => $validBtRef],
+    'POST'
+);
+$btSubJson = json_decode($res['stdout'], true);
+$pendingAll = $recon->getPendingPayments();
+$btInPending = count(array_filter($pendingAll, fn($r) => ($r['payment_id'] ?? '') === $btPid)) > 0;
+assertTest(
+    "payment-methods/bank-transfer/submit_reference.php accepts valid bank ref and queues for reconciliation",
+    is_array($btSubJson) && ($btSubJson['success'] ?? false) === true && $btInPending
+);
+
+// 3.6d Duplicate bank ref on a different order is rejected
+$btPid2Res = $pm->createPayment(889, 888, 'bank_transfer', 'idem_bt_dup_' . time() . '_' . rand(100, 999));
+$res = runSubprocessPage(
+    'payment-methods/bank-transfer/submit_reference.php',
+    ['user_id' => 888, 'ksr_csrf_token' => $testCsrf],
+    [],
+    ['csrf_token' => $testCsrf, 'payment_id' => $btPid2Res['payment_id'], 'order_id' => 889, 'utr' => $validBtRef],
+    'POST'
+);
+$btDupJson = json_decode($res['stdout'], true);
+assertTest(
+    "payment-methods/bank-transfer/submit_reference.php rejects duplicate bank reference across orders",
+    is_array($btDupJson) && ($btDupJson['success'] ?? true) === false
+);
+
+// 3.7 cod/create_collection.php (creates payment, cod_pending, AND cod_collections OTP row)
 $codPidKey = 'idem_cod_' . time();
 $codRes = $pm->createPayment(888, 888, 'cod', $codPidKey);
 $codPid = $codRes['payment_id'];
 
 $res = runSubprocessPage('payment-methods/cod/create_collection.php', ['user_id' => 888], ['pid' => $codPid, 'oid' => 888]);
+$codCollCheck = $pdo->prepare("SELECT delivery_otp FROM cod_collections WHERE payment_transaction_id = ? LIMIT 1");
+$codCollCheck->execute([(int)$codRes['db_id']]);
+$codOtpRow = (string)($codCollCheck->fetchColumn() ?: '');
+$codCollCheck->closeCursor();
 assertTest(
-    "payment-methods/cod/create_collection.php renders COD confirmation and sets cod_pending",
-    $res['code'] === 0 && str_contains($res['stdout'], 'Cash on Delivery Confirmed')
+    "payment-methods/cod/create_collection.php renders COD confirmation, sets cod_pending, and creates delivery OTP",
+    $res['code'] === 0 && str_contains($res['stdout'], 'Cash on Delivery Confirmed') && strlen($codOtpRow) === 4
 );
+$pdo->prepare("DELETE FROM cod_collections WHERE payment_transaction_id = ?")->execute([(int)$codRes['db_id']]);
 
-// 3.8 cod/confirm_collection.php
+// 3.8 cod/confirm_collection.php + ReceiptGenerator on cod_collected
 $res = runSubprocessPage(
     'payment-methods/cod/confirm_collection.php',
     ['user_id' => 999, 'role' => 'delivery_boy', 'ksr_csrf_token' => $testCsrf],
@@ -266,9 +315,10 @@ $res = runSubprocessPage(
     'POST'
 );
 $colJson = json_decode($res['stdout'], true);
+$codReceiptHtml = (new \KsrPay\ReceiptGenerator($pdo))->generateHtml($codPid, 888);
 assertTest(
-    "payment-methods/cod/confirm_collection.php confirms collection by delivery personnel",
-    is_array($colJson) && ($colJson['success'] ?? false) === true
+    "payment-methods/cod/confirm_collection.php confirms collection and enables ReceiptGenerator",
+    is_array($colJson) && ($colJson['success'] ?? false) === true && is_string($codReceiptHtml) && str_contains($codReceiptHtml, $codPid)
 );
 
 // ── 4. TESTING PAYMENT FOLDER CUSTOMER & CHECKOUT PAGES ──────────────────
@@ -499,9 +549,9 @@ unset($dispStatusStmt);
 assertTest(
     "admin/payments/disputes.php resolves dispute cleanly via POST",
     $resDispPost['code'] === 0
-    && str_contains($resDispPost['stdout'], 'Dispute updated.')
-    && ($dispRow['status'] ?? '') === 'resolved'
-    && !empty($dispRow['resolved_at'])
+        && str_contains($resDispPost['stdout'], 'Dispute updated.')
+        && ($dispRow['status'] ?? '') === 'resolved'
+        && !empty($dispRow['resolved_at'])
 );
 $pdo->prepare("DELETE FROM payment_disputes WHERE id = ?")->execute([$dispId]);
 
@@ -520,8 +570,8 @@ $failDbRow = $pm->getPayment($failPid);
 assertTest(
     "api/payment/mark-failed.php marks payment as failed with audit trail",
     is_array($failJson)
-    && ($failJson['success'] ?? false) === true
-    && ($failDbRow['status'] ?? '') === 'failed'
+        && ($failJson['success'] ?? false) === true
+        && ($failDbRow['status'] ?? '') === 'failed'
 );
 
 // 7.7 BankMatching::findCandidates portability & Admin dashboard/settlement/permissions pages
@@ -570,8 +620,8 @@ $bomRef = 'REF_BOM_' . time() . '_' . rand(100, 999);
 file_put_contents(
     $csvTmp,
     "\xEF\xBB\xBFTxn Date,Description,Ref No./Cheque No.,Debit,Credit,Balance\n" .
-    date('d/m/Y') . ",UPI CREDIT TEST,{$bomRef},,{$bomInr},5000.00\n" .
-    date('d/m/Y') . ",WITHDRAWAL SKIP,REF_DEB_" . time() . ",100.00,,4900.00\n"
+        date('d/m/Y') . ",UPI CREDIT TEST,{$bomRef},,{$bomInr},5000.00\n" .
+        date('d/m/Y') . ",WITHDRAWAL SKIP,REF_DEB_" . time() . ",100.00,,4900.00\n"
 );
 $imp = new \KsrPay\StatementImport($pdo);
 $impStats1 = $imp->importCsv($csvTmp, 999);
@@ -580,8 +630,8 @@ $impStats2 = $imp->importCsv($csvTmp, 999);
 assertTest(
     "StatementImport::importCsv handles BOM, skips debits, and deduplicates credits",
     $impStats1['imported'] === 1
-    && $impStats1['skipped_debits'] === 1
-    && $impStats2['duplicates'] === 1
+        && $impStats1['skipped_debits'] === 1
+        && $impStats2['duplicates'] === 1
 );
 $bomCrStmt = $pdo->prepare("SELECT id FROM payment_bank_credits WHERE bank_ref = ? LIMIT 1");
 $bomCrStmt->execute([$bomRef]);

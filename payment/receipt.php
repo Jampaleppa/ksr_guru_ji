@@ -25,8 +25,10 @@ $payment = $stmt->fetch(PDO::FETCH_ASSOC);
 if (!$payment) { header('Location: /'); exit; }
 
 $iStmt = $pdo->prepare(
-    "SELECT oi.quantity, oi.price, oi.total, p.name, p.unit
-     FROM order_items oi JOIN products p ON p.id = oi.product_id
+    "SELECT oi.quantity, oi.price, oi.total,
+            COALESCE(NULLIF(p.name, ''), oi.product_name, 'Item') AS name,
+            p.unit
+     FROM order_items oi LEFT JOIN products p ON p.id = oi.product_id
      WHERE oi.order_id = ? ORDER BY oi.id"
 );
 $iStmt->execute([(int)$payment['order_id']]);

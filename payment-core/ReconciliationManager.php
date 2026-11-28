@@ -85,7 +85,7 @@ class ReconciliationManager
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    /** Fetch UPI payments awaiting admin verification. */
+    /** Fetch UPI & Bank Transfer payments awaiting admin verification. */
     public function getPendingPayments(): array
     {
         $stmt = $this->pdo->prepare(
@@ -94,7 +94,7 @@ class ReconciliationManager
              LEFT JOIN orders o ON o.id = pt.order_id
              LEFT JOIN users  u ON u.id = pt.user_id
              WHERE pt.status IN ('upi_awaiting','upi_pending_verification')
-               AND pt.method = 'upi'
+               AND pt.method IN ('upi', 'bank_transfer')
              ORDER BY pt.created_at ASC"
         );
         $stmt->execute();

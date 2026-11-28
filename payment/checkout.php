@@ -36,7 +36,7 @@ if (in_array($order['payment_status'], ['paid', 'cod_collected', 'success'], tru
 
 // Load order items
 $iStmt = $pdo->prepare(
-    "SELECT oi.*, p.name AS product_name, p.image AS product_image
+    "SELECT oi.*, COALESCE(NULLIF(p.name, ''), oi.product_name, 'Product') AS product_name, p.image AS product_image
      FROM order_items oi
      LEFT JOIN products p ON p.id = oi.product_id
      WHERE oi.order_id = ?
@@ -46,12 +46,25 @@ $iStmt->execute([$orderId]);
 $items = $iStmt->fetchAll(PDO::FETCH_ASSOC);
 
 // Server-calculated amounts (paise) — never trust client
-$rawTotal         = $order['net_amount'] ?? $order['total'] ?? 0;
-$netAmountPaise   = is_numeric($rawTotal) && (float)$rawTotal > 0 && strpos((string)$rawTotal, '.') === false && (int)$rawTotal > 1000 ? (int)$rawTotal : AmountCalculator::toPaise((float)$rawTotal);
-$subtotalPaise    = (int)($order['subtotal']       ?? 0);
-$deliveryPaise    = (int)($order['delivery_charge'] ?? 0);
-$discountPaise    = (int)($order['discount']        ?? 0);
-$taxPaise         = (int)($order['tax']             ?? 0);
+$toPaiseSafe = static function (mixed $val): int {
+    $num = (float)($val ?? 0);
+    return $num > 0 ? AmountCalculator::toPaise($num) : 0;
+};
+$rawTotal         = (!empty($order['net_amount']) && (float)$order['net_amount'] > 0) ? $order['net_amount'] : ($order['total'] ?? 0);
+$netAmountPaise   = $toPaiseSafe($rawTotal);
+$subtotalPaise    = $toPaiseSafe($order['subtotal']        ?? 0);
+$deliveryPaise    = $toPaiseSafe($order['delivery_charge'] ?? 0);
+$discountPaise    = $toPaiseSafe($order['discount']        ?? 0);
+$taxPaise         = $toPaiseSafe($order['tax']             ?? 0);
+$displayAddress   = trim((string)($order['delivery_address'] ?? ''));
+if ($displayAddress === '') {
+    $displayAddress = implode(', ', array_filter([
+        trim((string)($order['address'] ?? '')),
+        trim((string)($order['city'] ?? '')),
+        trim((string)($order['state'] ?? '')),
+        trim((string)($order['pincode'] ?? '')),
+    ]));
+}
 
 // CSRF token for the proceed-to-pay form
 $csrfToken = SecurityManager::generateCSRFToken();
@@ -136,10 +149,10 @@ $csrfToken = SecurityManager::generateCSRFToken();
                     <label>Email</label>
                     <?= htmlspecialchars($order['customer_email'] ?? '—') ?>
                 </div>
-                <?php if (!empty($order['delivery_address'])): ?>
+                <?php if ($displayAddress !== ''): ?>
                 <div class="info-item" style="grid-column:1/-1">
                     <label>Delivery Address</label>
-                    <?= nl2br(htmlspecialchars($order['delivery_address'])) ?>
+                    <?= nl2br(htmlspecialchars($displayAddress)) ?>
                 </div>
                 <?php endif; ?>
                 <div class="info-item">
@@ -182,7 +195,12 @@ $csrfToken = SecurityManager::generateCSRFToken();
                         <td class="item-name"><?= htmlspecialchars($item['product_name'] ?? 'Product') ?></td>
                         <td class="item-qty"><?= (int)$item['quantity'] ?></td>
                         <td class="item-price">
-                            <?= AmountCalculator::formatINR((int)($item['price'] * (int)$item['quantity'])) ?>
+                            <?php
+                              $lineInr = (isset($item['total']) && (float)$item['total'] > 0)
+                                ? (float)$item['total']
+                                : ((float)($item['price'] ?? 0) * (int)($item['quantity'] ?? 1));
+                            ?>
+                            <?= AmountCalculator::formatINR(AmountCalculator::toPaise($lineInr)) ?>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -227,14 +245,10 @@ $csrfToken = SecurityManager::generateCSRFToken();
         </div>
     </div>
 
-    <!-- Proceed to Pay form -->
-    <form method="POST" action="/payment/create_payment.php">
-        <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrfToken) ?>">
-        <input type="hidden" name="order_id"   value="<?= $orderId ?>">
-        <button type="submit" class="proceed-btn">
-            🔒 Proceed to Pay <?= AmountCalculator::formatINR($netAmountPaise) ?>
-        </button>
-    </form>
+    <!-- Proceed to Method Selection -->
+    <a href="/payment/index.php?oid=<?= $orderId ?>" class="proceed-btn" style="text-decoration:none;">
+        🔒 Proceed to Pay <?= AmountCalculator::formatINR($netAmountPaise) ?>
+    </a>
 
     <div class="secure-note">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>

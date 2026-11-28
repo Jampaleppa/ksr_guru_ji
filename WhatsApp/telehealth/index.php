@@ -50,7 +50,7 @@ $featuredDoctors = array_slice($featuredDoctors, 0, 4);
     <link rel="stylesheet" href="/mobile-app.css?v=3.0" />
 </head>
 
-<body>
+<body><style>body{overflow-x:hidden}</style>
     <!-- KSR brand bar (shared) -->
     <link rel="stylesheet" href="partials/brandbar.css">
     <link rel="stylesheet" href="assist-style.css">

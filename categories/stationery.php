@@ -660,7 +660,7 @@ $topPickIds = [1, 5, 13, 24, 18, 15, 9, 28, 38, 44];
   </style>
   <link rel="stylesheet" href="category-style.css">
   <link rel="stylesheet" href="../index.css">
-    <link rel="stylesheet" href="../mobile-app.css?v=3.0" />
+  <link rel="stylesheet" href="../mobile-app.css?v=3.0" />
 </head>
 
 <body>
@@ -765,7 +765,7 @@ $topPickIds = [1, 5, 13, 24, 18, 15, 9, 28, 38, 44];
               if (jsonStart !== -1) {
                 data = JSON.parse(text.substring(jsonStart));
               }
-            } catch(e) {
+            } catch (e) {
               console.warn("Cart response parse warning:", text);
             }
             if (!data) {
@@ -844,11 +844,11 @@ $topPickIds = [1, 5, 13, 24, 18, 15, 9, 28, 38, 44];
           const imgs = (p.images && p.images.length) ? p.images : (p.imageUrl ? [p.imageUrl] : []);
           const hasMulti = imgs.length > 1;
           const mainImg = imgs[0] || '';
-          const thumbsHtml = hasMulti
-            ? `<div style="display:flex;gap:3px;padding:3px 0;overflow-x:auto;scrollbar-width:none;">` +
-              imgs.map((u, i) => `<img src="${u}" onclick="event.stopPropagation();switchStatImg_${p.id}(${i},'${u.replace(/'/g,"\\'")}',this)" style="width:30px;height:30px;object-fit:cover;border-radius:5px;border:2px solid ${i===0?'#b45f2b':'#ddd'};cursor:pointer;flex-shrink:0;" onerror="this.style.display='none'" loading="lazy">`).join('') +
-              `</div>`
-            : '';
+          const thumbsHtml = hasMulti ?
+            `<div style="display:flex;gap:3px;padding:3px 0;overflow-x:auto;scrollbar-width:none;">` +
+            imgs.map((u, i) => `<img src="${u}" onclick="event.stopPropagation();switchStatImg_${p.id}(${i},'${u.replace(/'/g,"\\'")}',this)" style="width:30px;height:30px;object-fit:cover;border-radius:5px;border:2px solid ${i===0?'#b45f2b':'#ddd'};cursor:pointer;flex-shrink:0;" onerror="this.style.display='none'" loading="lazy">`).join('') +
+            `</div>` :
+            '';
           return `<div class="product-card" data-id="${p.id}">
                 <div class="product-image" id="imgwrap-${p.id}" style="position:relative;">
                   <img id="mainimg-${p.id}" src="${mainImg}" alt="${p.name}" loading="lazy" onerror="this.src='https://placehold.co/400x400?text=Stationery'">
@@ -867,7 +867,6 @@ $topPickIds = [1, 5, 13, 24, 18, 15, 9, 28, 38, 44];
                 </div>
             </div>
             <script>function switchStatImg_${p.id}(i,u,el){document.getElementById('mainimg-${p.id}').src=u;document.querySelectorAll('#imgwrap-${p.id} img[onclick]').forEach((t,j)=>{t.style.borderColor=j===i?'#b45f2b':'#ddd';});}<\/script>`;
-        }).join('');
         }).join('');
         // dynamic price update
         document.querySelectorAll('.weight-select').forEach(select => {
@@ -1129,9 +1128,9 @@ $topPickIds = [1, 5, 13, 24, 18, 15, 9, 28, 38, 44];
   <?php include __DIR__ . '/../includes/user-footer.php'; ?>
   <script src="sorting.js"></script>
 
-    <!-- Mobile Bottom Navigation -->
-    <?php if (file_exists(__DIR__ . '/../mobile-bottom-nav.php')) require_once __DIR__ . '/../mobile-bottom-nav.php'; ?>
-    <script src="/assets/js/mobile-app.js?v=3.0" defer></script>
+  <!-- Mobile Bottom Navigation -->
+  <?php if (file_exists(__DIR__ . '/../mobile-bottom-nav.php')) require_once __DIR__ . '/../mobile-bottom-nav.php'; ?>
+  <script src="/assets/js/mobile-app.js?v=3.0" defer></script>
 </body>
 
 </html>

@@ -51,14 +51,15 @@ $utrMask = $utr ? (strlen($utr) > 8
   <div class="clock-circle"><i class="fas fa-clock"></i></div>
   <h2 style="color:#f9a825;">Verification in Progress</h2>
   <p style="color:#888;margin-bottom:1rem;">Order #<?= htmlspecialchars($payment['order_number']) ?></p>
-  <p style="font-size:1.1rem;">We're verifying your UPI payment of <strong><?= $amount ?></strong></p>
+  <p style="font-size:1.1rem;">We're verifying your <?= ($payment['method'] ?? '') === 'bank_transfer' ? 'Bank Transfer' : 'UPI' ?> payment of <strong><?= $amount ?></strong></p>
 
   <?php if ($utrMask): ?>
   <div class="info-box">
     <i class="fas fa-receipt"></i>
-    UTR submitted: <strong style="font-family:monospace"><?= htmlspecialchars($utrMask) ?></strong>
-    &nbsp;<a href="/payment-methods/upi/merchant_qr.php?pid=<?= urlencode($paymentId) ?>&oid=<?= (int)$payment['order_id'] ?>"
-             style="font-size:.82rem;color:#1a7f4b;">Change UTR</a>
+    Reference submitted: <strong style="font-family:monospace"><?= htmlspecialchars($utrMask) ?></strong>
+    <?php $editUrl = (($payment['method'] ?? '') === 'bank_transfer') ? '/payment-methods/bank-transfer/instructions.php' : '/payment-methods/upi/merchant_qr.php'; ?>
+    &nbsp;<a href="<?= $editUrl ?>?pid=<?= urlencode($paymentId) ?>&oid=<?= (int)$payment['order_id'] ?>"
+             style="font-size:.82rem;color:#1a7f4b;">Update Reference</a>
   </div>
   <?php endif; ?>
 

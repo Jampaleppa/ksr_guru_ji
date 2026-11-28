@@ -46,8 +46,10 @@ $statusColors = [
 <link rel="stylesheet" href="/assets/css/style.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
-.hist-card{max-width:800px;margin:2rem auto;padding:1.5rem;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,.08);background:#fff}
-table{width:100%;border-collapse:collapse}
+.hist-card{max-width:800px;margin:1.25rem auto;padding:1.4rem;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,.08);background:#fff}
+@media(max-width:560px){.hist-card{margin:.75rem;padding:1rem}}
+.table-wrap{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{width:100%;min-width:520px;border-collapse:collapse}
 th,td{padding:.6rem .8rem;text-align:left;border-bottom:1px solid #f0f0f0}
 th{background:#f9f9f9;font-weight:600;font-size:.88rem;color:#555}
 .badge{display:inline-block;padding:.2rem .6rem;border-radius:12px;font-size:.8rem;font-weight:600;color:#fff}
@@ -64,6 +66,7 @@ th{background:#f9f9f9;font-weight:600;font-size:.88rem;color:#555}
   <?php if (empty($payments)): ?>
     <p style="color:#aaa;text-align:center;padding:2rem;">No payments yet.</p>
   <?php else: ?>
+    <div class="table-wrap">
     <table>
       <thead><tr><th>Order</th><th>Date</th><th>Amount</th><th>Method</th><th>Status</th><th>Receipt</th></tr></thead>
       <tbody>
@@ -85,6 +88,7 @@ th{background:#f9f9f9;font-weight:600;font-size:.88rem;color:#555}
       <?php endforeach; ?>
       </tbody>
     </table>
+    </div>
 
     <?php if ($pages > 1): ?>
     <div class="pag">

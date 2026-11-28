@@ -37,19 +37,30 @@ if (!$payment) { header('Location: /'); exit; }
 
 // Order items
 $itemsStmt = $pdo->prepare(
-    "SELECT oi.quantity, oi.price, oi.total, p.name, p.unit
-     FROM order_items oi JOIN products p ON p.id = oi.product_id
+    "SELECT oi.quantity, oi.price, oi.total, COALESCE(NULLIF(p.name, ''), oi.product_name, 'Item') AS name, p.unit
+     FROM order_items oi LEFT JOIN products p ON p.id = oi.product_id
      WHERE oi.order_id = ? ORDER BY oi.id"
 );
 $itemsStmt->execute([$orderId]);
 $items = $itemsStmt->fetchAll(PDO::FETCH_ASSOC);
 
-$calc   = new AmountCalculator();
-$sec    = new SecurityManager();
-$csrf   = $sec->generateCSRFToken();
-$upi    = getUpiConfig($pdo);
-$amount = $calc->formatINR((int)$payment['amount_paise']);
+$calc        = new AmountCalculator();
+$sec         = new SecurityManager();
+$csrf        = $sec->generateCSRFToken();
+$upi         = getUpiConfig($pdo);
+$amount      = $calc->formatINR((int)$payment['amount_paise']);
 $amountPaise = (int)$payment['amount_paise'];
+$amountDec   = number_format($amountPaise / 100, 2, '.', '');
+$upiDeepLink = (!empty($upi['upi_id']) && !str_starts_with($upi['upi_id'], 'PLACEHOLDER'))
+    ? ('upi://pay?' . http_build_query([
+        'pa' => $upi['upi_id'],
+        'pn' => $upi['display_name'] ?? 'KSR GURU JI PAY',
+        'am' => $amountDec,
+        'cu' => 'INR',
+        'tr' => $paymentId,
+        'tn' => 'Order ' . ($payment['order_number'] ?? $orderId),
+    ]))
+    : '';
 
 $pageTitle = 'Pay via UPI — KSR GURU JI PAY';
 ?>
@@ -92,9 +103,21 @@ $pageTitle = 'Pay via UPI — KSR GURU JI PAY';
     <div class="upi-id-box" id="upiIdBox">
       <?= htmlspecialchars($upi['upi_id']) ?>
     </div>
-    <button onclick="copyUPI()" style="background:none;border:1px solid #1a7f4b;color:#1a7f4b;border-radius:6px;padding:.4rem .9rem;cursor:pointer;margin-bottom:1rem;">
-      <i class="fas fa-copy"></i> Copy UPI ID
-    </button>
+    <div style="display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:1rem;">
+      <button type="button" id="copyUpiBtn" onclick="copyUPI()" style="flex:1;min-width:140px;min-height:44px;background:none;border:2px solid #1a7f4b;color:#1a7f4b;border-radius:8px;padding:.45rem .9rem;cursor:pointer;font-weight:700;">
+        <i class="fas fa-copy"></i> Copy UPI ID
+      </button>
+      <?php if ($upiDeepLink !== ''): ?>
+      <a href="<?= htmlspecialchars($upiDeepLink) ?>" style="flex:1;min-width:160px;min-height:44px;background:#1a7f4b;color:#fff;border-radius:8px;padding:.5rem .9rem;text-decoration:none;font-weight:700;display:inline-flex;align-items:center;justify-content:center;gap:.45rem;">
+        <i class="fas fa-external-link-alt"></i> Open UPI App
+      </a>
+      <?php endif; ?>
+    </div>
+    <?php if (!empty($payment['customer_utr'])): ?>
+      <div class="alert-info" style="background:#e8f5e9;border-color:#1a7f4b;color:#14532d;">
+        <i class="fas fa-check-circle"></i> Currently submitted UTR: <strong style="font-family:monospace"><?= htmlspecialchars($payment['customer_utr']) ?></strong>
+      </div>
+    <?php endif; ?>
 
     <?php if (!empty($upi['qr_image_path']) && file_exists($_SERVER['DOCUMENT_ROOT'] . $upi['qr_image_path'])): ?>
     <div style="text-align:center;margin-bottom:1rem;">
@@ -150,9 +173,15 @@ $pageTitle = 'Pay via UPI — KSR GURU JI PAY';
 <script>
 function copyUPI() {
   const txt = document.getElementById('upiIdBox').innerText.trim();
-  navigator.clipboard.writeText(txt).then(() => {
-    alert('UPI ID copied: ' + txt);
-  });
+  const btn = document.getElementById('copyUpiBtn');
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(txt).then(() => {
+      if (btn) {
+        btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+        setTimeout(() => { btn.innerHTML = '<i class="fas fa-copy"></i> Copy UPI ID'; }, 1800);
+      }
+    }).catch(() => {});
+  }
 }
 
 document.getElementById('utrForm').addEventListener('submit', async function(e) {

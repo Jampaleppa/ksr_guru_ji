@@ -21,7 +21,7 @@ class ReceiptGenerator
   private const MERCHANT_NAME    = 'KSR GURU JI PAY';
   private const MERCHANT_EMAIL   = 'ksrguruji26@gmail.com';
   private const MERCHANT_PHONE   = '+91-8088584421';
-  private const MERCHANT_ADDRESS = 'KSR GURU JI, [Business Address]';
+  private const MERCHANT_ADDRESS = 'KSR GURU JI, Hubballi, Karnataka';
 
   public function __construct(private readonly \PDO $pdo) {}
 
@@ -47,7 +47,7 @@ class ReceiptGenerator
              JOIN orders o ON o.id = pt.order_id
              WHERE pt.payment_id = ?
                AND (pt.user_id = ? OR o.user_id = ?)
-               AND pt.status   = 'success'
+               AND pt.status   IN ('success', 'cod_collected')
              LIMIT 1"
     );
     $stmt->execute([$paymentId, $userId, $userId]);
@@ -58,8 +58,10 @@ class ReceiptGenerator
 
     // Load order items
     $items = $this->pdo->prepare(
-      "SELECT oi.quantity, oi.price, oi.total, oi.product_name
+      "SELECT oi.quantity, oi.price, oi.total,
+              COALESCE(NULLIF(oi.product_name, ''), p.name, 'Item') AS product_name
              FROM order_items oi
+             LEFT JOIN products p ON p.id = oi.product_id
              WHERE oi.order_id = ?
              ORDER BY oi.id"
     );

@@ -134,10 +134,10 @@ input:focus,select:focus,textarea:focus{border-color:#1a7f4b;outline:none}
     </form>
   <?php endif; ?>
 
-  <div style="margin-top:1.5rem;font-size:.85rem;color:#aaa;border-top:1px solid #f0f0f0;padding-top:1rem">
+  <div style="margin-top:1.5rem;font-size:.85rem;color:#666;border-top:1px solid #f0f0f0;padding-top:1rem">
     <i class="fas fa-clock"></i> Response within 24 business hours.<br>
     <i class="fab fa-whatsapp" style="color:#25d366;"></i>
-    WhatsApp: <a href="https://wa.me/919XXXXXXXXX" target="_blank">+91-9XXXXXXXXX</a>
+    WhatsApp: <a href="https://wa.me/918088584421" target="_blank" style="color:#1a7f4b;font-weight:600;">+91-8088584421</a>
   </div>
 </div>
 </body>

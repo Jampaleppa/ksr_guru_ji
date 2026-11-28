@@ -5,6 +5,7 @@ require_once __DIR__ . '/../../payment-core/bootstrap.php';
 
 use KsrPay\AuditLogger;
 use KsrPay\AmountCalculator;
+use KsrPay\CodManager;
 use KsrPay\PaymentStateMachine;
 
 if (session_status() === PHP_SESSION_NONE) { session_start(); }
@@ -16,7 +17,7 @@ $orderId   = (int)($_GET['oid'] ?? 0);
 if ($paymentId === '' || $orderId < 1) { header('Location: /'); exit; }
 
 $stmt = $pdo->prepare(
-    "SELECT pt.*, o.order_number, o.net_amount, o.address, o.city
+    "SELECT pt.*, o.order_number, o.net_amount, o.address, o.city, o.driver_id
      FROM payment_transactions pt JOIN orders o ON o.id = pt.order_id
      WHERE pt.payment_id = ? AND pt.order_id = ?
        AND (pt.user_id = ? OR o.user_id = ?) AND pt.method = 'cod'
@@ -33,6 +34,23 @@ if ($payment['status'] === 'initiated') {
         'actor_type' => 'system',
         'notes'      => 'COD order confirmed by customer',
     ]);
+}
+
+// Ensure a cod_collections row & 4-digit delivery OTP exist (idempotent)
+$deliveryOtp = '';
+try {
+    $cStmt = $pdo->prepare("SELECT delivery_otp FROM cod_collections WHERE payment_transaction_id = ? LIMIT 1");
+    $cStmt->execute([(int)$payment['id']]);
+    $deliveryOtp = (string)($cStmt->fetchColumn() ?: '');
+    if ($deliveryOtp === '') {
+        $codMgr   = new CodManager($pdo);
+        $driverId = !empty($payment['driver_id']) ? (int)$payment['driver_id'] : null;
+        $codMgr->createCollection((int)$payment['id'], $orderId, $driverId, (int)$payment['amount_paise']);
+        $cStmt->execute([(int)$payment['id']]);
+        $deliveryOtp = (string)($cStmt->fetchColumn() ?: '');
+    }
+} catch (\Throwable $e) {
+    error_log('COD collection init skipped: ' . $e->getMessage());
 }
 
 $calc   = new AmountCalculator();
@@ -72,6 +90,14 @@ $amount = $calc->formatINR((int)$payment['amount_paise']);
     Please keep <strong><?= $amount ?></strong> ready in cash when our delivery person arrives.
     Our team will confirm the order and delivery time via SMS.
   </div>
+
+  <?php if ($deliveryOtp !== ''): ?>
+  <div class="info-box" style="background:#f0f9ff;border-color:#bae6fd;text-align:center;">
+    <div style="font-size:.82rem;color:#0369a1;font-weight:700;margin-bottom:.25rem;">DELIVERY CONFIRMATION OTP</div>
+    <div style="font-family:monospace;font-size:1.5rem;font-weight:800;letter-spacing:.35em;color:#0c4a6e;"><?= htmlspecialchars($deliveryOtp) ?></div>
+    <div style="font-size:.78rem;color:#0369a1;margin-top:.25rem;">Share this OTP with the delivery partner when handing over cash</div>
+  </div>
+  <?php endif; ?>
 
   <p style="font-size:.82rem;color:#aaa;margin-top:1rem">
     Reference: <code><?= htmlspecialchars($paymentId) ?></code>

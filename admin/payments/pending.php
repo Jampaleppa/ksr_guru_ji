@@ -47,13 +47,14 @@ th{background:#f5f5f5;font-weight:600;color:#555}
   <?php else: ?>
   <table>
     <thead>
-      <tr><th>Payment ID</th><th>Order</th><th>Customer</th><th>Phone</th><th>Amount</th><th>UTR (Customer)</th><th>Submitted</th><th>Verify</th></tr>
+      <tr><th>Payment ID</th><th>Order</th><th>Method</th><th>Customer</th><th>Phone</th><th>Amount</th><th>UTR / Reference</th><th>Submitted</th><th>Verify</th></tr>
     </thead>
     <tbody>
     <?php foreach ($pending as $p): ?>
     <tr id="row-<?= htmlspecialchars($p['payment_id']) ?>">
       <td><small style="font-family:monospace"><?= htmlspecialchars(substr($p['payment_id'],0,20)) ?></small></td>
       <td>#<?= htmlspecialchars($p['order_number']) ?></td>
+      <td><span style="font-size:.78rem;font-weight:700;padding:.15rem .5rem;border-radius:6px;background:<?= ($p['method'] ?? '') === 'bank_transfer' ? '#e3f2fd;color:#1565c0' : '#e8f5e9;color:#1a7f4b' ?>"><?= htmlspecialchars(strtoupper(str_replace('_', ' ', (string)($p['method'] ?? 'upi')))) ?></span></td>
       <td><?= htmlspecialchars($p['customer_name'] ?? 'Guest') ?></td>
       <td><?= htmlspecialchars($p['phone'] ?? '—') ?></td>
       <td><?= $calc->formatINR((int)$p['amount_paise']) ?></td>
